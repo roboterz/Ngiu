@@ -42,13 +42,16 @@ android {
     }
 }
 
+//$rootProject values are stored in build.gradle ext{}
 dependencies {
 
     implementation "androidx.appcompat:appcompat:$rootProject.appCompatVersion"
     implementation "androidx.activity:activity-ktx:$rootProject.activityVersion"
 
-    // Dependencies for working with Architecture components
-    // You'll probably have to update the version numbers in build.gradle (Project)
+    // Navigation components
+    implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.navigationfragment"
+    implementation "androidx.navigation:navigation-ui-ktx:$rootProject.navigationUI"
+
 
     // Room components
     implementation "androidx.room:room-ktx:$rootProject.roomVersion"
