@@ -1,5 +1,6 @@
 package com.example.ngiu.data.entities
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.util.*
@@ -7,7 +8,9 @@ import java.util.*
 @Entity
 data class Transaction (
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "transId")
     val id: Int,
+    @ColumnInfo(name = "trans_type")
     val TypeID: Int,
     val CategoryID: Int,
     val PayerID: Int,
