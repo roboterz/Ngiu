@@ -5,7 +5,7 @@ import androidx.room.Relation
 import com.example.ngiu.data.entities.Account
 import com.example.ngiu.data.entities.Transaction
 
-data class AcctTransPayer (
+data class AcctTransRecipient (
     @Embedded val account: Account,
     @Relation(
         parentColumn = "account_id",

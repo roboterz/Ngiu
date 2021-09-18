@@ -13,5 +13,5 @@ import com.example.ngiu.data.entities.*
         Transaction::class, ], version = 1, exportSchema = false,)
 @TypeConverters(DateTypeConverter::class)
 abstract class AppDatabase : RoomDatabase(){
-    //TODO 
+    //TODO
 }
