@@ -10,7 +10,7 @@ import com.example.ngiu.data.entities.*
         Account::class, AccountType::class, Currency::class, Individual::class,
         MainCategories::class, Merchant::class, Period::class, Project::class,
         Reimburse::class, SubCategories::class, TransactionType::class,
-        Transaction::class, ], version = 1, exportSchema = false,)
+        Transaction::class], version = 1, exportSchema = false,)
 @TypeConverters(DateTypeConverter::class)
 abstract class AppDatabase : RoomDatabase(){
     //TODO
