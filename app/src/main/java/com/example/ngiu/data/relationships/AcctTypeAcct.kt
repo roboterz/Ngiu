@@ -9,7 +9,7 @@ data class AcctTypeAcct (
     @Embedded val accountType: AccountType,
     @Relation(
         parentColumn = "acct_type_id",
-        entityColumn = "acct_id"
+        entityColumn = "TypeID"
     )
     val account: List<Account>
 )
