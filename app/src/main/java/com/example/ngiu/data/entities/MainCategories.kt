@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 @Entity(
     foreignKeys = [ForeignKey(
         entity = TransactionType::class,
-        parentColumns = arrayOf("acct_type_id"),
+        parentColumns = arrayOf("trans_type_id"),
         childColumns = arrayOf("TypeID"),
         onDelete = ForeignKey.SET_NULL,
         onUpdate = ForeignKey.CASCADE
