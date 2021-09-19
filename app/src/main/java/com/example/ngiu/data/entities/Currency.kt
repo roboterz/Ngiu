@@ -5,10 +5,11 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class Merchant (
+data class Currency(
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "merchant_id")
+    @ColumnInfo(name = "currency_id")
     val id: Int,
-    @ColumnInfo(name = "merchant_name")
-    val Name: String
+    @ColumnInfo(name = "currency_name")
+    val Name: String,
+    val ExchangeRate: Double
 )
