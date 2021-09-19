@@ -8,6 +8,8 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.ngiu.databinding.ActivityMainBinding
+import android.app.AlertDialog
+import android.widget.Button
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,5 +33,28 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        //Add Button
+        val buttonAdd: Button = findViewById(R.id.btnAdd)
+        buttonAdd.setOnClickListener{
+            //do something
+        }
+
+        //Edit Button
+        val buttonEdit: Button = findViewById(R.id.btnEdit)
+        buttonEdit.setOnClickListener{
+            val dialogBuilder = AlertDialog.Builder(this)
+            dialogBuilder.setMessage("Crazy Kotlin!!!!!@#@#@#$!")
+
+            val alert = dialogBuilder.create()
+            alert.setTitle("DamDam")
+            alert.show()
+        }
+
+        //Delete Button
+        val buttonDel: Button = findViewById(R.id.btnDel)
+        buttonDel.setOnClickListener{
+            //do something
+        }
     }
 }
