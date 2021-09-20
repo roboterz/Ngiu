@@ -141,39 +141,6 @@ private const val SQL_CREATE_ENTRIES =
 private const val SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS "
 
 
-class DBManager2(context: Context){
-    private val db: SQLiteDatabase = context.openOrCreateDatabase("Ngiu",Context.MODE_PRIVATE,null)
-
-    init{
-        db.execSQL(SQL_CREATE_ENTRIES)
-    }
-
-    fun add(at: AccountType){
-        val query = "INSERT INTO AccountType (Name) VALUES ('${at.Name}')"
-        db.execSQL(query)
-    }
-
-    fun allAccountType(): List<AccountType>{
-        val ats = mutableListOf<AccountType>()
-        val cursor = db.rawQuery("SELECT * FROM AccountType",null)
-
-        if (cursor.moveToFirst()){
-            do{
-                val id = cursor.getString(cursor.getColumnIndex("ID"))
-                val name = cursor.getString(cursor.getColumnIndex("Name"))
-                val at = AccountType(id=0, Name="")
-                ats.add(at)
-            } while (cursor.moveToNext())
-        }
-        cursor.close()
-        return ats
-    }
-}
-
-
-
-
-
 
 
 class DBManager(var context: Context) : SQLiteOpenHelper(context, DATABASENAME, null,
