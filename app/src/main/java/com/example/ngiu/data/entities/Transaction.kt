@@ -1,5 +1,6 @@
 package com.example.ngiu.data.entities
 
+import android.app.Person
 import androidx.room.*
 import java.util.*
 
@@ -29,9 +30,9 @@ import java.util.*
         onDelete = ForeignKey.SET_NULL,
         onUpdate = ForeignKey.CASCADE
     ),ForeignKey(
-        entity = Individual::class,
-        parentColumns = ["indiv_id"],
-        childColumns = ["IndividualID"],
+        entity = Person::class,
+        parentColumns = ["person_id"],
+        childColumns = ["PersonID"],
         onDelete = ForeignKey.SET_NULL,
         onUpdate = ForeignKey.CASCADE
     ),ForeignKey(
@@ -67,7 +68,7 @@ data class Transaction (
     val Amount: Double,
     @TypeConverters(DateTypeConverter::class)
     val Date: Date,
-    val IndividualID: Int,
+    val PersonID: Int,
     val MerchantID: Int,
     val Memo: Char,
     val ProjectID: Int,
