@@ -9,10 +9,6 @@ import com.example.ngiu.data.entities.AccountType
 
 
 private const val DATABASENAME = "Ngiu"
-private const val TABLENAME = "Users"
-private const val COL_NAME = "name"
-private const val COL_AGE = "age"
-private const val COL_ID = "id"
 
 private const val SQL_CREATE_ENTRIES =
     """

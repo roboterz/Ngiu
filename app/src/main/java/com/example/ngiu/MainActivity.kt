@@ -49,12 +49,12 @@ class MainActivity : AppCompatActivity() {
         val buttonAdd: Button = findViewById(R.id.btnAdd)
         buttonAdd.setOnClickListener{
             //do something
-
-            var at: AccountType = AccountType(id=0,Name = "dddddd")
+            val txtName: EditText = findViewById(R.id.etxtName)
+            var at: AccountType = AccountType(id=0,Name = txtName.text.toString())
             db.insertData(at)
 
-            var txtname: TextView = findViewById(R.id.text_home)
-            txtname.text = "Done!"
+            var txtNotice: TextView = findViewById(R.id.text_home)
+            txtNotice.text = "Done!"
         }
 
         //Edit Button
