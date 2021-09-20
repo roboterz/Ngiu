@@ -6,60 +6,54 @@ import java.util.*
 @Entity(
     foreignKeys = [ForeignKey(
         entity = TransactionType::class,
-        parentColumns = arrayOf("trans_type_id"),
-        childColumns = arrayOf("TypeID"),
+        parentColumns = ["trans_type_id"],
+        childColumns = ["TypeID"],
         onDelete = ForeignKey.SET_NULL,
         onUpdate = ForeignKey.CASCADE
     ),ForeignKey(
         entity = MainCategories::class,
-        parentColumns = arrayOf("main_cat_id"),
-        childColumns = arrayOf("CategoryID"),
+        parentColumns = ["main_cat_id"],
+        childColumns = ["CategoryID"],
         onDelete = ForeignKey.SET_NULL,
         onUpdate = ForeignKey.CASCADE
     ),ForeignKey(
         entity = Account::class,
-        parentColumns = arrayOf("acct_id"),
-        childColumns = arrayOf("PayerID"),
+        parentColumns = ["acct_id"],
+        childColumns = ["PayerID"],
         onDelete = ForeignKey.SET_NULL,
         onUpdate = ForeignKey.CASCADE
     ),ForeignKey(
         entity = Account::class,
-        parentColumns = arrayOf("acct_id"),
-        childColumns = arrayOf("RecipientID"),
+        parentColumns = ["acct_id"],
+        childColumns = ["RecipientID"],
         onDelete = ForeignKey.SET_NULL,
         onUpdate = ForeignKey.CASCADE
     ),ForeignKey(
         entity = Individual::class,
-        parentColumns = arrayOf("indiv_id"),
-        childColumns = arrayOf("IndividualID"),
+        parentColumns = ["indiv_id"],
+        childColumns = ["IndividualID"],
         onDelete = ForeignKey.SET_NULL,
         onUpdate = ForeignKey.CASCADE
     ),ForeignKey(
         entity = Merchant::class,
-        parentColumns = arrayOf("merchant_id"),
-        childColumns = arrayOf("MerchantID"),
+        parentColumns = ["merchant_id"],
+        childColumns = ["MerchantID"],
         onDelete = ForeignKey.SET_NULL,
         onUpdate = ForeignKey.CASCADE
     ),ForeignKey(
         entity = Project::class,
-        parentColumns = arrayOf("project_id"),
+        parentColumns = ["project_id"],
         childColumns = arrayOf("ProjectID"),
         onDelete = ForeignKey.SET_NULL,
         onUpdate = ForeignKey.CASCADE
     ),ForeignKey(
-        entity = Reimburse::class,
-        parentColumns = arrayOf("reimburse_id"),
-        childColumns = arrayOf("ReimburseID"),
-        onDelete = ForeignKey.SET_NULL,
-        onUpdate = ForeignKey.CASCADE
-    ),ForeignKey(
         entity = Period::class,
-        parentColumns = arrayOf("period_id"),
-        childColumns = arrayOf("PeriodID"),
+        parentColumns = ["period_id"],
+        childColumns = ["PeriodID"],
         onDelete = ForeignKey.SET_NULL,
         onUpdate = ForeignKey.CASCADE
     )
-    ]
+    ], indices = [Index(value = ["trans_id"], unique = true)]
 )
 
 data class Transaction (
@@ -77,6 +71,6 @@ data class Transaction (
     val MerchantID: Int,
     val Memo: Char,
     val ProjectID: Int,
-    val ReimburseID: Int,
+    val ReimburseStatus: Boolean,
     val PeriodID: Int
 )
