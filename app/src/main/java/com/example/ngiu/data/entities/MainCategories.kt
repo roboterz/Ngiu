@@ -1,18 +1,15 @@
 package com.example.ngiu.data.entities
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
+import androidx.room.*
 
 @Entity(
     foreignKeys = [ForeignKey(
         entity = TransactionType::class,
-        parentColumns = arrayOf("trans_type_id"),
-        childColumns = arrayOf("TypeID"),
+        parentColumns = ["trans_type_id"],
+        childColumns = ["TypeID"],
         onDelete = ForeignKey.SET_NULL,
         onUpdate = ForeignKey.CASCADE
-    )]
+    )], indices = [Index(value = ["main_cat_id"], unique = true)]
 )
 
 data class MainCategories (

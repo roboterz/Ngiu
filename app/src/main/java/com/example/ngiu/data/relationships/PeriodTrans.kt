@@ -14,11 +14,20 @@ data class PeriodTrans (
     val transaction: List<Transaction>
 )
 
-data class TransPeriod (
+data class AcctPeriod (
     @Embedded val transaction: Transaction,
     @Relation(
-        parentColumn = "trans_id",
-        entityColumn = "TransactionID"
+        parentColumn = "acct_id",
+        entityColumn = "PayerID"
+    )
+    val period: List<Period>
+)
+
+data class AcctRecipient (
+    @Embedded val transaction: Transaction,
+    @Relation(
+        parentColumn = "acct_id",
+        entityColumn = "RecipientID"
     )
     val period: List<Period>
 )
