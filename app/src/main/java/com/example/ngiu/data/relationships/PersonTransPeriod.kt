@@ -6,20 +6,20 @@ import com.example.ngiu.data.entities.Individual
 import com.example.ngiu.data.entities.Period
 import com.example.ngiu.data.entities.Transaction
 
-data class IndivTrans (
+data class PersonTrans (
     @Embedded val individual: Individual,
     @Relation(
-        parentColumn = "indiv_id",
-        entityColumn = "IndividualID"
+        parentColumn = "person_id",
+        entityColumn = "PersonID"
     )
     val transaction: List<Transaction>
 )
 
-data class IndivPeriod (
+data class PersonPeriod (
     @Embedded val individual: Individual,
     @Relation(
-        parentColumn = "indiv_id",
-        entityColumn = "IndividualID",
+        parentColumn = "person_id",
+        entityColumn = "PersonID",
     )
     val transaction: List<Period>
 )

@@ -1,5 +1,6 @@
 package com.example.ngiu.data
 
+import android.app.Person
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.ngiu.data.entities.*
@@ -16,13 +17,13 @@ interface AccountDao {
     @Delete
     suspend fun deleteAccount(account: Account)
 
-    @Transaction
+ /*   @Transaction
     @Query("SELECT * FROM Account")
     fun getAccountRecipient(): Flow<List<AcctTransRecipient>>
 
     @Transaction
     @Query("SELECT * FROM Account")
-    fun getAccountPayer(): Flow<List<AcctTransPayer>>
+    fun getAccountPayer(): Flow<List<AcctTransPayer>>*/
 
     @Transaction
     @Query("SELECT * FROM AccountType")
@@ -43,20 +44,20 @@ interface CurrencyDao {
 
 // Individual/Person
 @Dao
-interface IndividualDao {
+interface PersonDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
-    suspend fun addIndividual(individual: Individual)
+    suspend fun addPerson(person: Person)
 
     @Delete
-    suspend fun deleteIndividual(individual: Individual)
+    suspend fun deletePerson(person: Person)
 
     @Transaction
-    @Query("SELECT * FROM Individual")
-    fun getIndividualTrans(): Flow<List<IndivTrans>>
+    @Query("SELECT * FROM Person")
+    fun getPersonTrans(): Flow<List<PersonTrans>>
 
     @Transaction
-    @Query("SELECT * FROM Individual")
-    fun getIndividualPeriod(): Flow<List<IndivPeriod>>
+    @Query("SELECT * FROM Person")
+    fun getPersonPeriod(): Flow<List<PersonPeriod>>
 }
 
 //Main Categories

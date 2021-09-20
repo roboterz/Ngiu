@@ -24,8 +24,8 @@ import java.util.*
         onUpdate = ForeignKey.CASCADE
     ), ForeignKey(
         entity = Individual::class,
-        parentColumns = ["indiv_id"],
-        childColumns = ["IndividualID"],
+        parentColumns = ["person_id"],
+        childColumns = ["PersonID"],
         onDelete = ForeignKey.SET_NULL,
         onUpdate = ForeignKey.CASCADE
     ), ForeignKey(
@@ -51,7 +51,7 @@ data class Period (
     val PayerID: Int,
     val RecipientID: Int,
     val Amount: Double,
-    val IndividualID: Int,
+    val PersonID: Int,
     val MerchantID: Int,
     val ProjectID: Int,
     val ReimburseStatus: Boolean,
