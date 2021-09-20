@@ -9,6 +9,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.ngiu.databinding.ActivityMainBinding
 import android.app.AlertDialog
+import android.content.ContentValues
 import android.content.Context
 import android.icu.text.AlphabeticIndex
 import android.widget.*
@@ -50,28 +51,22 @@ class MainActivity : AppCompatActivity() {
         buttonAdd.setOnClickListener{
             //do something
             val txtName: EditText = findViewById(R.id.etxtName)
-            var at: AccountType = AccountType(id=0,Name = txtName.text.toString())
+            var at = android.content.ContentValues()
+            at.put( "Name", txtName.text.toString())
             db.insertData(at)
 
-            var txtNotice: TextView = findViewById(R.id.text_home)
-            txtNotice.text = "Done!"
+            txtName.text.clear()
         }
 
         //Edit Button
         val buttonEdit: Button = findViewById(R.id.btnEdit)
         buttonEdit.setOnClickListener{
-            val dialogBuilder = AlertDialog.Builder(this)
-            dialogBuilder.setMessage("Crazy Kotlin!!!!!@#@#@#$!")
+            //val dialogBuilder = AlertDialog.Builder(this)
+            //dialogBuilder.setMessage("Crazy Kotlin!!!!!@#@#@#$!")
 
-            val alert = dialogBuilder.create()
-            alert.setTitle("DamDam")
-            alert.show()
-        }
-
-        //Delete Button
-        val buttonDel: Button = findViewById(R.id.btnDel)
-        buttonDel.setOnClickListener{
-            //do something
+            //val alert = dialogBuilder.create()
+            //alert.setTitle("DamDam")
+            //alert.show()
             val data = db.readData()
             var txt: EditText = findViewById(R.id.etxtMemo)
             txt.text = null
@@ -80,6 +75,13 @@ class MainActivity : AppCompatActivity() {
                     data[i].id.toString() + " " + data[i].Name + "\n"
                 )
             }
+        }
+
+        //Delete Button
+        val buttonDel: Button = findViewById(R.id.btnDel)
+        buttonDel.setOnClickListener{
+            //do something
+
         }
     }
 
