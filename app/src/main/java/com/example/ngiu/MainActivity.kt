@@ -9,11 +9,17 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.ngiu.databinding.ActivityMainBinding
 import android.app.AlertDialog
+import android.content.Context
 import android.icu.text.AlphabeticIndex
+import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.EditText
+import android.widget.ListView
 import com.example.ngiu.data.AppDatabase
+import com.example.ngiu.data.DBManager
 import com.example.ngiu.data.Record
 import com.example.ngiu.data.entities.Account
+import com.example.ngiu.data.entities.AccountType
 
 class MainActivity : AppCompatActivity() {
 
@@ -42,8 +48,13 @@ class MainActivity : AppCompatActivity() {
         val buttonAdd: Button = findViewById(R.id.btnAdd)
         buttonAdd.setOnClickListener{
             //do something
-            val db: Record = Record()
-            buttonAdd.text = db.name
+            val db: DBManager = DBManager(this.application)
+            val at: AccountType = AccountType(id=0,Name = "dddddd")
+            db.add(at)
+            val hh = db.allAccountType()
+
+            val txtname: EditText = findViewById(R.id.etxtName)
+            txtname.text = hh[0].Name
         }
 
         //Edit Button
@@ -63,4 +74,6 @@ class MainActivity : AppCompatActivity() {
             //do something
         }
     }
+
+
 }
