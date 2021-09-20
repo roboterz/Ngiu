@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="100dp"
         android:background="#06B8A7"
-        android:text="Edit"
+        android:text="Load"
         android:textColor="#4E342E"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -87,14 +87,14 @@
 
     <EditText
         android:id="@+id/etxtMemo"
-        android:layout_width="364dp"
-        android:layout_height="352dp"
+        android:layout_width="374dp"
+        android:layout_height="353dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
-        android:singleLine="false"
-        android:text="Memo"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
         app:layout_constraintTop_toBottomOf="@+id/etxtDate"
+        tools:ignore="SpeakableTextPresentCheck"
         tools:layout_editor_absoluteX="16dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
