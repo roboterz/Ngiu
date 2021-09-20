@@ -1,8 +1,18 @@
 package com.example.ngiu.data
 
+import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
+import android.database.sqlite.SQLiteOpenHelper
+import android.widget.Toast
 import com.example.ngiu.data.entities.AccountType
+
+
+private const val DATABASENAME = "Ngiu"
+private const val TABLENAME = "Users"
+private const val COL_NAME = "name"
+private const val COL_AGE = "age"
+private const val COL_ID = "id"
 
 private const val SQL_CREATE_ENTRIES =
     """
@@ -135,7 +145,7 @@ private const val SQL_CREATE_ENTRIES =
 private const val SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS "
 
 
-class DBManager(context: Context){
+class DBManager2(context: Context){
     private val db: SQLiteDatabase = context.openOrCreateDatabase("Ngiu",Context.MODE_PRIVATE,null)
 
     init{
@@ -155,11 +165,59 @@ class DBManager(context: Context){
             do{
                 val id = cursor.getString(cursor.getColumnIndex("ID"))
                 val name = cursor.getString(cursor.getColumnIndex("Name"))
-                val at = AccountType(id,name)
+                val at = AccountType(id=0, Name="")
                 ats.add(at)
             } while (cursor.moveToNext())
         }
         cursor.close()
         return ats
+    }
+}
+
+
+
+
+
+
+
+class DBManager(var context: Context) : SQLiteOpenHelper(context, DATABASENAME, null,
+    1) {
+
+    override fun onCreate(db: SQLiteDatabase?) {
+        val createTable = SQL_CREATE_ENTRIES
+        db?.execSQL(createTable)
+    }
+    override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
+        //onCreate(db);
+    }
+
+    fun insertData(at: AccountType) {
+        val database = this.writableDatabase
+        val contentValues = ContentValues()
+        contentValues.put("Name", at.Name)
+        val result = database.insert("AccountType", null, contentValues)
+        if (result == (0).toLong()) {
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+        }
+        else {
+            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun readData(): MutableList<AccountType> {
+        val list: MutableList<AccountType> = ArrayList()
+        val db = this.readableDatabase
+        val query = "Select * from AccountType"
+        val result = db.rawQuery(query, null)
+        if (result.moveToFirst()) {
+            do {
+                var at = AccountType(id=0,Name="")
+                at.id  = result.getString(result.getColumnIndex("ID")).toInt()
+                at.Name = result.getString(result.getColumnIndex("Name"))
+                list.add(at)
+            }
+            while (result.moveToNext())
+        }
+        return list
     }
 }

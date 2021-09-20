@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 data class AccountType (
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "acct_type_id")
-    val id: Int,
+    var id: Int,
     @ColumnInfo(name = "acct_type_name")
-    val Name: String
+    var Name: String
 )

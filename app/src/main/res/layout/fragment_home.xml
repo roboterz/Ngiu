@@ -87,11 +87,12 @@
 
     <EditText
         android:id="@+id/etxtMemo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="364dp"
+        android:layout_height="352dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:minHeight="48dp"
+        android:singleLine="false"
         android:text="Memo"
         app:layout_constraintTop_toBottomOf="@+id/etxtDate"
         tools:layout_editor_absoluteX="16dp" />

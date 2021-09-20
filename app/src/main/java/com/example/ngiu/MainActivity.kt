@@ -11,10 +11,7 @@ import com.example.ngiu.databinding.ActivityMainBinding
 import android.app.AlertDialog
 import android.content.Context
 import android.icu.text.AlphabeticIndex
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ListView
+import android.widget.*
 import com.example.ngiu.data.AppDatabase
 import com.example.ngiu.data.DBManager
 import com.example.ngiu.data.Record
@@ -44,17 +41,20 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
+        //Open Database
+        val context = this
+        var db: DBManager = DBManager(context)
+
         //Add Button
         val buttonAdd: Button = findViewById(R.id.btnAdd)
         buttonAdd.setOnClickListener{
             //do something
-            val db: DBManager = DBManager(this.application)
-            val at: AccountType = AccountType(id=0,Name = "dddddd")
-            db.add(at)
-            val hh = db.allAccountType()
 
-            val txtname: EditText = findViewById(R.id.etxtName)
-            txtname.text = hh[0].Name
+            var at: AccountType = AccountType(id=0,Name = "dddddd")
+            db.insertData(at)
+
+            var txtname: TextView = findViewById(R.id.text_home)
+            txtname.text = "Done!"
         }
 
         //Edit Button
@@ -72,6 +72,14 @@ class MainActivity : AppCompatActivity() {
         val buttonDel: Button = findViewById(R.id.btnDel)
         buttonDel.setOnClickListener{
             //do something
+            val data = db.readData()
+            var txt: EditText = findViewById(R.id.etxtMemo)
+            txt.text = null
+            for (i in 0 until data.size) {
+                txt.append(
+                    data[i].id.toString() + " " + data[i].Name + "\n"
+                )
+            }
         }
     }
 
