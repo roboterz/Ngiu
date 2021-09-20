@@ -101,75 +101,71 @@ private const val SQL_CREATE_ENTRIES =
     Memo           VARCHAR
     );
     CREATE TABLE [Transaction] (
-    ID          INTEGER  PRIMARY KEY AUTOINCREMENT
-    UNIQUE ON CONFLICT ROLLBACK,
-    TypeD       BIGINT   REFERENCES TransactionType (ID) ON DELETE SET NULL
-    ON UPDATE CASCADE
-    MATCH SIMPLE,
-    CategoryID  BIGINT   REFERENCES MainCategories (ID) ON DELETE SET NULL
-    ON UPDATE CASCADE
-    MATCH SIMPLE,
-    PayerID     BIGINT   REFERENCES Account ON DELETE SET NULL
-    ON UPDATE CASCADE
-    MATCH SIMPLE,
-    RecipientID BIGINT   REFERENCES Account ON DELETE SET NULL
-    ON UPDATE CASCADE
-    MATCH SIMPLE,
-    Amount      DECIMAL,
-    Date        DATETIME COLLATE BINARY,
-    PersonID    INTEGER  REFERENCES Individual (ID) ON DELETE SET NULL
-    ON UPDATE CASCADE
-    MATCH SIMPLE,
-    MerchantID  BIGINT   REFERENCES Merchant (ID) ON DELETE SET NULL
-    ON UPDATE CASCADE
-    MATCH SIMPLE,
-    ProjectID   BIGINT   REFERENCES Project (ID) ON DELETE SET NULL
-    ON UPDATE CASCADE
-    MATCH SIMPLE,
-    Reimburse   INT      DEFAULT (0),
-    PeriodID    BIGINT   REFERENCES Period (ID) ON DELETE SET NULL
-    ON UPDATE CASCADE
-    MATCH SIMPLE,
-    Memo        VARCHAR
+        ID          INTEGER  PRIMARY KEY AUTOINCREMENT
+                             UNIQUE ON CONFLICT ROLLBACK,
+        TypeID      BIGINT   REFERENCES TransactionType (ID) ON DELETE SET NULL
+                                                             ON UPDATE CASCADE
+                                                             MATCH SIMPLE,
+        CategoryID  BIGINT   REFERENCES MainCategories (ID) ON DELETE SET NULL
+                                                            ON UPDATE CASCADE
+                                                            MATCH SIMPLE,
+        PayerID     BIGINT   REFERENCES Account ON DELETE SET NULL
+                                                ON UPDATE CASCADE
+                                                MATCH SIMPLE,
+        RecipientID BIGINT   REFERENCES Account ON DELETE SET NULL
+                                                ON UPDATE CASCADE
+                                                MATCH SIMPLE,
+        Amount      DECIMAL,
+        Date        DATETIME COLLATE BINARY,
+        PersonID    INTEGER  REFERENCES Individual (ID) ON DELETE SET NULL
+                                                        ON UPDATE CASCADE
+                                                        MATCH SIMPLE,
+        MerchantID  BIGINT   REFERENCES Merchant (ID) ON DELETE SET NULL
+                                                      ON UPDATE CASCADE
+                                                      MATCH SIMPLE,
+        ProjectID   BIGINT   REFERENCES Project (ID) ON DELETE SET NULL
+                                                     ON UPDATE CASCADE
+                                                     MATCH SIMPLE,
+        Reimburse   INT      DEFAULT (0),
+        PeriodID    BIGINT   REFERENCES Period (ID) ON DELETE SET NULL
+                                                    ON UPDATE CASCADE
+                                                    MATCH SIMPLE,
+        Memo        VARCHAR
     );
     """
 
 
 private const val SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS "
 
-class DBHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
-    override fun onCreate(db: SQLiteDatabase) {
-        db.execSQL(SQL_CREATE_ENTRIES)
+
+
+class Record(
+    val id: Long?=null,
+    var name: String?=null,
+    var type: String?=null,
+    var category: String?=null,
+    var payer: String?=null,
+    var recipient: String?=null,
+    var amount: Double?=0.00,
+    var date: LocalDateTime?= LocalDateTime.now(),
+    var person: String?=null,
+    var merchant: String?=null,
+    var project: String?=null,
+    var reimburse: Int?=0,
+    var period: String?=null,
+    var memo: String?="",
+) {
+
+
+    init {
+        if (id==null) {
+            //load data
+        }else{
+            //query with id=xxx
+        }
+        this.name="xxx7"
     }
-    override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-        // This database is only a cache for online data, so its upgrade policy is
-        // to simply to discard the data and start over
-        db.execSQL(SQL_DELETE_ENTRIES)
-        onCreate(db)
-    }
-    override fun onDowngrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-        onUpgrade(db, oldVersion, newVersion)
-    }
-    companion object {
-        // If you change the database schema, you must increment the database version.
-        const val DATABASE_VERSION = 1
-        const val DATABASE_NAME = "Ngiu.db"
-    }
+
+
+
 }
-
-data class Record(
-    val id: Long,
-    val name: String,
-    val type: String,
-    val category: String,
-    val payer: String,
-    val recipient: String,
-    val amount: Double,
-    val date: LocalDateTime,
-    val person: String,
-    val merchant: String,
-    val memo: String,
-    val project: String
-
-    // join all tables and load the
-)

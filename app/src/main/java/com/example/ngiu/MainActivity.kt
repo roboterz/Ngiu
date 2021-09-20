@@ -9,7 +9,11 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.ngiu.databinding.ActivityMainBinding
 import android.app.AlertDialog
+import android.icu.text.AlphabeticIndex
 import android.widget.Button
+import com.example.ngiu.data.AppDatabase
+import com.example.ngiu.data.Record
+import com.example.ngiu.data.entities.Account
 
 class MainActivity : AppCompatActivity() {
 
@@ -38,6 +42,8 @@ class MainActivity : AppCompatActivity() {
         val buttonAdd: Button = findViewById(R.id.btnAdd)
         buttonAdd.setOnClickListener{
             //do something
+            val db: Record = Record()
+            buttonAdd.text = db.name
         }
 
         //Edit Button
