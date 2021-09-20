@@ -154,17 +154,25 @@ class DBManager(var context: Context) : SQLiteOpenHelper(context, DATABASENAME, 
         //onCreate(db);
     }
 
-    fun insertData(at: AccountType) {
-        val database = this.writableDatabase
-        val contentValues = ContentValues()
-        contentValues.put("Name", at.Name)
-        val result = database.insert("AccountType", null, contentValues)
-        if (result == (0).toLong()) {
-            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+    fun insertData(at: ContentValues) {
+        if (at.get("Name")!= "") {
+            val database = this.writableDatabase
+            //val contentValues = android.content.ContentValues()
+
+            //at.put("Name", at.Name)
+            val result = database.insert("AccountType", null, at)
+
+            if (result == (0).toLong()) {
+                android.widget.Toast.makeText(context, "Failed", android.widget.Toast.LENGTH_SHORT).show()
+            }
+            else {
+                android.widget.Toast.makeText(context, "Success", android.widget.Toast.LENGTH_SHORT).show()
+            }
         }
-        else {
-            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+        else{
+            android.widget.Toast.makeText(context, "Name cannot be blank!", android.widget.Toast.LENGTH_SHORT).show()
         }
+
     }
 
     fun readData(): MutableList<AccountType> {
