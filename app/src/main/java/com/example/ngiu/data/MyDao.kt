@@ -12,10 +12,10 @@ import androidx.room.Transaction
 @Dao
 interface AccountDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
-    suspend fun addAccount(account: Account)
+    fun addAccount(account: Account)
 
     @Delete
-    suspend fun deleteAccount(account: Account)
+    fun deleteAccount(account: Account)
 
     @Transaction
     @Query("SELECT * FROM Account")
@@ -40,15 +40,26 @@ interface AccountDao {
 
 }
 
+// Account Type
+@Dao
+interface AccountTypeDao{
+    @Insert(onConflict = OnConflictStrategy.ABORT)
+    fun addAccountType(accountType: AccountType)
+
+    @Transaction
+    @Query("SELECT * FROM AccountType")
+    fun getAccountType(): Flow<List<AccountType>>
+}
+
 // Currency
 @Dao
 interface CurrencyDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
-    suspend fun addAccount(currency: Currency)
+    fun addCurrency(currency: Currency)
 
     @Transaction
     @Query("SELECT * FROM Currency")
-    fun readAllData(): Flow<List<CurrencyAcct>>
+    fun getCurrency(): Flow<List<CurrencyAcct>>
 }
 
 // Individual/Person
@@ -73,10 +84,10 @@ interface PersonDao {
 @Dao
 interface MainCategoriesDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
-    suspend fun addMC(mainCategories: MainCategories)
+    fun addMC(mainCategories: MainCategories)
 
     @Delete
-    suspend fun deleteMC(mainCategories: MainCategories)
+    fun deleteMC(mainCategories: MainCategories)
 
     @Transaction
     @Query("SELECT * FROM MainCategories")
@@ -87,10 +98,10 @@ interface MainCategoriesDao {
 @Dao
 interface MerchantDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
-    suspend fun addMerchant(merchant: Merchant)
+    fun addMerchant(merchant: Merchant)
 
     @Delete
-    suspend fun deleteMerchant(merchant: Merchant)
+    fun deleteMerchant(merchant: Merchant)
 
     @Transaction
     @Query("SELECT * FROM Merchant")
@@ -101,10 +112,10 @@ interface MerchantDao {
 @Dao
 interface PeriodDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
-    suspend fun addPeriodTrans(period: Period)
+    fun addPeriodTrans(period: Period)
 
     @Delete
-    suspend fun deletePeriod(period: Period)
+    fun deletePeriod(period: Period)
 
     @Transaction
     @Query("SELECT * FROM Period")
@@ -115,10 +126,10 @@ interface PeriodDao {
 @Dao
 interface ProjectDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
-    suspend fun addProject(project: Project)
+    fun addProject(project: Project)
 
     @Delete
-    suspend fun deleteProject(project: Project)
+    fun deleteProject(project: Project)
 
     @Transaction
     @Query("SELECT * FROM Project")
@@ -129,10 +140,10 @@ interface ProjectDao {
 @Dao
 interface SubCategoriesDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
-    suspend fun addSubCat(subcategories: SubCategories)
+    fun addSubCat(subcategories: SubCategories)
 
     @Delete
-    suspend fun deleteSubCat(subcategories: SubCategories)
+    fun deleteSubCat(subcategories: SubCategories)
 
     @Transaction
     @Query("SELECT * FROM SubCategories")
@@ -143,24 +154,24 @@ interface SubCategoriesDao {
 @Dao
 interface TransDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
-    suspend fun addTransaction(trans: Trans)
+    fun addTransaction(trans: Trans)
 
     @Delete
-    suspend fun deleteTransaction(trans: Trans)
+    fun deleteTransaction(trans: Trans)
 
     @Transaction
     @Query("SELECT * FROM Trans")
-    fun readAllData(): Flow<List<Trans>>
+    fun getTrans(): Flow<List<Trans>>
 }
 
 // Transaction Type
 @Dao
 interface TransTypeDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
-    suspend fun addAccount(transactionType: TransactionType)
+    fun addTransType(transactionType: TransactionType)
 
     @Delete
-    suspend fun deleteTransType(transactionType: TransactionType)
+    fun deleteTransType(transactionType: TransactionType)
 
     @Transaction
     @Query("SELECT * FROM TransactionType")
