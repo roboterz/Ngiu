@@ -26,10 +26,6 @@ interface AccountDao {
     fun getAccountPayer(): Flow<List<AcctTransPayer>>
 
     @Transaction
-    @Query("SELECT * FROM AccountType")
-    fun getAccountType(): Flow<List<AcctTypeAcct>>
-
-    @Transaction
     @Query("SELECT * FROM Account")
     fun getAcctPeriodRecip(): Flow<List<AcctPeriodRecipient>>
 
