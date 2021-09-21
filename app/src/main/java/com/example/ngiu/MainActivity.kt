@@ -14,8 +14,8 @@ import android.content.Context
 import android.icu.text.AlphabeticIndex
 import android.widget.*
 import com.example.ngiu.data.AppDatabase
-import com.example.ngiu.data.DBManager
-import com.example.ngiu.data.Record
+/*import com.example.ngiu.data.DBManager
+import com.example.ngiu.data.Record*/
 import com.example.ngiu.data.entities.Account
 import com.example.ngiu.data.entities.AccountType
 
@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
         //Open Database
-        val context = this
+      /*  val context = this
         var db: DBManager = DBManager(context)
 
         //Add Button
@@ -56,9 +56,9 @@ class MainActivity : AppCompatActivity() {
             db.insertData(at)
 
             txtName.text.clear()
-        }
+        }*/
 
-        //Edit Button
+      /*  //Edit Button
         val buttonEdit: Button = findViewById(R.id.btnEdit)
         buttonEdit.setOnClickListener{
             //val dialogBuilder = AlertDialog.Builder(this)
@@ -75,7 +75,7 @@ class MainActivity : AppCompatActivity() {
                     data[i].id.toString() + " " + data[i].Name + "\n"
                 )
             }
-        }
+        }*/
 
         //Delete Button
         val buttonDel: Button = findViewById(R.id.btnDel)

@@ -15,7 +15,7 @@ private const val db = "ngiu"
         Account::class, AccountType::class, Currency::class, Person::class,
         MainCategories::class, Merchant::class, Period::class, Project::class,
         SubCategories::class, TransactionType::class,
-        Transaction::class, ], version = 1, exportSchema = false,)
+        Transaction::class, ], version = 1, exportSchema = false)
 @TypeConverters(DateTypeConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun Account(): AccountDao
@@ -26,29 +26,31 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun PeriodTrans(): PeriodTransDao
     abstract fun ProjectPeriod(): ProjectPeriodDao
     abstract fun SubCatPeriod(): SubCatPeriodDao
-    abstract fun Transaction(): TransactionDao
+    /*abstract fun Transaction(): TransactionDao*/
     abstract fun TransTypeTrans(): TransTypeTransDao
-
-    
 
 
     companion object {
+            // Singleton prevents multiple instances of database opening at the
+            // same time.
+            @Volatile
+            private var INSTANCE: AppDatabase? = null
 
-        // For Singleton instantiation
-        @Volatile private var instance: AppDatabase? = null
-
-        fun getInstance(context: Context): AppDatabase {
-            return instance ?: synchronized(this) {
-                instance
-                    ?: buildDatabase(context).also { instance = it }
+            fun getDatabase(context: Context): AppDatabase {
+                val tempInstance = INSTANCE
+                if (tempInstance != null) {
+                    return tempInstance
+                }
+                synchronized(this){
+                    val instance = Room.databaseBuilder(
+                        context.applicationContext,
+                        AppDatabase::class.java,
+                        "ngiu"
+                    ).build()
+                    INSTANCE = instance
+                    return instance
+                }
             }
         }
-
-        private fun buildDatabase(context: Context): AppDatabase {
-            return Room.databaseBuilder(context, AppDatabase::class.java, db)
-                .build()
-        }
-
-
     }
-}
+

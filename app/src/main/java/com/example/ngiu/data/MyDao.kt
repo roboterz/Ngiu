@@ -17,13 +17,13 @@ interface AccountDao {
     @Delete
     suspend fun deleteAccount(account: Account)
 
- /*   @Transaction
+    @Transaction
     @Query("SELECT * FROM Account")
     fun getAccountRecipient(): Flow<List<AcctTransRecipient>>
 
     @Transaction
     @Query("SELECT * FROM Account")
-    fun getAccountPayer(): Flow<List<AcctTransPayer>>*/
+    fun getAccountPayer(): Flow<List<AcctTransPayer>>
 
     @Transaction
     @Query("SELECT * FROM AccountType")
@@ -131,7 +131,7 @@ interface SubCatPeriodDao {
 }
 
 // Transaction
-@Dao
+/*@Dao
 interface TransactionDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun addTransaction(transaction: Transaction)
@@ -139,10 +139,10 @@ interface TransactionDao {
     @Delete
     suspend fun deleteTransaction(transaction: Transaction)
 
-    @Transaction
+   *//* @Transaction
     @Query("SELECT * FROM [Transaction]")
-    fun readAllData(): Flow<List<Transaction>>
-}
+    fun readAllData(): Flow<List<Transaction>>*//*
+}*/
 
 // Transaction Type
 @Dao
