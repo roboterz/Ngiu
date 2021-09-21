@@ -1,6 +1,6 @@
 package com.example.ngiu.data
 
-import android.app.Person
+
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.ngiu.data.entities.*

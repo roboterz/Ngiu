@@ -23,7 +23,7 @@ import java.util.*
         onDelete = ForeignKey.SET_NULL,
         onUpdate = ForeignKey.CASCADE
     ), ForeignKey(
-        entity = Individual::class,
+        entity = Person::class,
         parentColumns = ["person_id"],
         childColumns = ["PersonID"],
         onDelete = ForeignKey.SET_NULL,

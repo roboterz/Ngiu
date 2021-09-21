@@ -141,39 +141,6 @@ private const val SQL_CREATE_ENTRIES =
 private const val SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS "
 
 
-class DBManager2(context: Context){
-    private val db: SQLiteDatabase = context.openOrCreateDatabase("Ngiu",Context.MODE_PRIVATE,null)
-
-    init{
-        db.execSQL(SQL_CREATE_ENTRIES)
-    }
-
-    fun add(at: AccountType){
-        val query = "INSERT INTO AccountType (Name) VALUES ('${at.Name}')"
-        db.execSQL(query)
-    }
-
-    fun allAccountType(): List<AccountType>{
-        val ats = mutableListOf<AccountType>()
-        val cursor = db.rawQuery("SELECT * FROM AccountType",null)
-
-        if (cursor.moveToFirst()){
-            do{
-                val id = cursor.getString(cursor.getColumnIndex("ID"))
-                val name = cursor.getString(cursor.getColumnIndex("Name"))
-                val at = AccountType(id=0, Name="")
-                ats.add(at)
-            } while (cursor.moveToNext())
-        }
-        cursor.close()
-        return ats
-    }
-}
-
-
-
-
-
 
 
 class DBManager(var context: Context) : SQLiteOpenHelper(context, DATABASENAME, null,
@@ -187,17 +154,25 @@ class DBManager(var context: Context) : SQLiteOpenHelper(context, DATABASENAME, 
         //onCreate(db);
     }
 
-    fun insertData(at: AccountType) {
-        val database = this.writableDatabase
-        val contentValues = ContentValues()
-        contentValues.put("Name", at.Name)
-        val result = database.insert("AccountType", null, contentValues)
-        if (result == (0).toLong()) {
-            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+    fun insertData(at: ContentValues) {
+        if (at.get("Name")!= "") {
+            val database = this.writableDatabase
+            //val contentValues = android.content.ContentValues()
+
+            //at.put("Name", at.Name)
+            val result = database.insert("AccountType", null, at)
+
+            if (result == (0).toLong()) {
+                android.widget.Toast.makeText(context, "Failed", android.widget.Toast.LENGTH_SHORT).show()
+            }
+            else {
+                android.widget.Toast.makeText(context, "Success", android.widget.Toast.LENGTH_SHORT).show()
+            }
         }
-        else {
-            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+        else{
+            android.widget.Toast.makeText(context, "Name cannot be blank!", android.widget.Toast.LENGTH_SHORT).show()
         }
+
     }
 
     fun readData(): MutableList<AccountType> {

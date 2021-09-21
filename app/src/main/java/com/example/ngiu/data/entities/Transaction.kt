@@ -1,7 +1,8 @@
 package com.example.ngiu.data.entities
 
-import android.app.Person
+
 import androidx.room.*
+import java.time.LocalDateTime
 import java.util.*
 
 @Entity(
@@ -57,7 +58,7 @@ import java.util.*
     ], indices = [Index(value = ["trans_id"], unique = true)]
 )
 
-data class Transaction (
+data class Transaction(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "trans_id")
     val id: Int,
