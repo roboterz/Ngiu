@@ -5,7 +5,7 @@ import androidx.room.Relation
 import com.example.ngiu.data.entities.MainCategories
 import com.example.ngiu.data.entities.Period
 import com.example.ngiu.data.entities.TransactionType
-import com.example.ngiu.data.entities.Transaction
+import com.example.ngiu.data.entities.Trans
 
 data class TransTypeTrans (
     @Embedded val transactionType: TransactionType,
@@ -13,7 +13,7 @@ data class TransTypeTrans (
         parentColumn = "trans_type_id",
         entityColumn = "TypeID"
     )
-    val transaction: List<Transaction>
+    val trans: List<Trans>
 )
 
 data class TransTypeMC (

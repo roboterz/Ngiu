@@ -4,7 +4,6 @@ import androidx.room.Embedded
 import androidx.room.Relation
 import com.example.ngiu.data.entities.Period
 import com.example.ngiu.data.entities.Project
-import com.example.ngiu.data.entities.Transaction
 
 data class ProjectPeriod (
     @Embedded val project: Project,
@@ -12,5 +11,5 @@ data class ProjectPeriod (
         parentColumn = "project_id",
         entityColumn = "ProjectID"
     )
-    val transaction: List<Period>
+    val period: List<Period>
 )
