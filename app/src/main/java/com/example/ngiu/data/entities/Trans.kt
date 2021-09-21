@@ -68,12 +68,12 @@ data class Trans(
     val RecipientID: Int,
     val Amount: Double,
     @TypeConverters(DateTypeConverter::class)
-    val Date: Date?,
+    val Date: Date,
     val PersonID: Int,
     val MerchantID: Int,
     val Memo: String,
     val ProjectID: Int,
-    val ReimburseStatus: Boolean,
+    val ReimburseStatus: Int,
     val PeriodID: Int
 )/*{
     constructor( ): this(0,0,0,0,0,0.0,null,0,0,"",0,false,0)

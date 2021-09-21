@@ -19,7 +19,7 @@ interface AccountDao {
 
     @Transaction
     @Query("SELECT * FROM Account")
-    fun getAccountRecipient(): Flow<List<AcctTransRecipient>>
+    fun getAcctTransRecip(): Flow<List<AcctTransRecipient>>
 
     @Transaction
     @Query("SELECT * FROM Account")
@@ -28,6 +28,15 @@ interface AccountDao {
     @Transaction
     @Query("SELECT * FROM AccountType")
     fun getAccountType(): Flow<List<AcctTypeAcct>>
+
+    @Transaction
+    @Query("SELECT * FROM Account")
+    fun getAcctPeriodRecip(): Flow<List<AcctPeriodRecipient>>
+
+    @Transaction
+    @Query("SELECT * FROM Account")
+    fun getAcctPeriodPayer(): Flow<List<AcctPeriodPayer>>
+
 
 }
 
@@ -46,10 +55,10 @@ interface CurrencyDao {
 @Dao
 interface PersonDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
-    suspend fun addPerson(person: Person)
+    fun addPerson(person: Person):Long
 
     @Delete
-    suspend fun deletePerson(person: Person)
+    fun deletePerson(person: Person)
 
     @Transaction
     @Query("SELECT * FROM Person")
@@ -76,7 +85,7 @@ interface MainCategoriesDao {
 
 // Merchant
 @Dao
-interface MerchantPeriodDao {
+interface MerchantDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun addMerchant(merchant: Merchant)
 
@@ -90,7 +99,7 @@ interface MerchantPeriodDao {
 
 // Period
 @Dao
-interface PeriodTransDao {
+interface PeriodDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun addPeriodTrans(period: Period)
 
@@ -104,7 +113,7 @@ interface PeriodTransDao {
 
 // Project
 @Dao
-interface ProjectPeriodDao {
+interface ProjectDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun addProject(project: Project)
 
@@ -116,9 +125,9 @@ interface ProjectPeriodDao {
     fun getProjectPeriod(): Flow<List<ProjectPeriod>>
 }
 
-//Sub Cateogries
+// Sub_Categories
 @Dao
-interface SubCatPeriodDao {
+interface SubCategoriesDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun addSubCat(subcategories: SubCategories)
 
@@ -146,7 +155,7 @@ interface TransDao {
 
 // Transaction Type
 @Dao
-interface TransTypeTransDao {
+interface TransTypeDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun addAccount(transactionType: TransactionType)
 
