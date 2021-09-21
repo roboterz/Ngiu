@@ -48,7 +48,7 @@ interface AccountTypeDao{
 
     @Transaction
     @Query("SELECT * FROM AccountType")
-    fun getAccountType(): Flow<List<AccountType>>
+    fun getAccountType(): Flow<List<AcctTypeAcct>>
 }
 
 // Currency
