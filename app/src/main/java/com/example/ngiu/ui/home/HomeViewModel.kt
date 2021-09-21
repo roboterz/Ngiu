@@ -11,7 +11,7 @@ import com.example.ngiu.data.entities.Person
 
 class HomeViewModel : ViewModel() {
 
-    var recordId=0L
+    var recordId: Long = 0
     private val _text = MutableLiveData<String>().apply {
         value = "Record info:"
     }
@@ -24,7 +24,7 @@ class HomeViewModel : ViewModel() {
         strDate: Editable,
         strMemo: Editable
     ): Long {
-            val person = Person(0, strName.toString())
+            val person = Person(ID=0, Name=strName.toString())
         val appDatabase = AppDatabase.getDatabase(activity!!)
             recordId= appDatabase.Person().addPerson(person)
         return recordId

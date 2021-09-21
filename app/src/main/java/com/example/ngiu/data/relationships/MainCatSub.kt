@@ -8,7 +8,7 @@ import com.example.ngiu.data.entities.SubCategories
 data class MainCatSub (
     @Embedded val mainCategories: MainCategories,
     @Relation(
-        parentColumn = "main_cat_id",
+        parentColumn = "ID",
         entityColumn = "MainCategoryID"
     )
     val subCategories: List<SubCategories>

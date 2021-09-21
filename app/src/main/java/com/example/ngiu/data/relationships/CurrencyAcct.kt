@@ -8,7 +8,7 @@ import com.example.ngiu.data.entities.Currency
 data class CurrencyAcct (
     @Embedded val currency: Currency,
     @Relation(
-        parentColumn = "currency_id",
+        parentColumn = "ID",
         entityColumn = "BaseCurrency"
     )
     val account: List<Account>

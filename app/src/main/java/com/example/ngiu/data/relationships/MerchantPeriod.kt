@@ -8,7 +8,7 @@ import com.example.ngiu.data.entities.Period
 data class MerchantPeriod (
     @Embedded val merchant: Merchant,
     @Relation(
-        parentColumn = "merchant_id",
+        parentColumn = "ID",
         entityColumn = "MerchantID"
     )
     val period: List<Period>

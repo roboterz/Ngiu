@@ -5,11 +5,11 @@ import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
 
-@Entity(indices = [Index(value = ["trans_type_id"], unique = true)])
+@Entity(indices = [Index(value = ["ID"], unique = true)])
 data class TransactionType (
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "trans_type_id")
-    val id: Int,
-    @ColumnInfo(name = "trans_type_name")
+    //@ColumnInfo(name = "ID")
+    val ID: Long,
+    //@ColumnInfo(name = "Name")
     val Name: String
 )

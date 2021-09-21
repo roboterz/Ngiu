@@ -5,56 +5,56 @@ import java.util.*
 
 @Entity(
     foreignKeys = [ForeignKey(
-        entity = AccountType::class,
-        parentColumns = ["acct_type_id"],
-        childColumns = ["TypeID"],
+        entity = TransactionType::class,
+        parentColumns = ["ID"],
+        childColumns = ["TransTypeID"],
         onDelete = ForeignKey.SET_NULL,
         onUpdate = ForeignKey.CASCADE
     ), ForeignKey(
         entity = Project::class,
-        parentColumns = ["project_id"],
+        parentColumns = ["ID"],
         childColumns = ["ProjectID"],
         onDelete = ForeignKey.SET_NULL,
         onUpdate = ForeignKey.CASCADE
     ), ForeignKey(
         entity = Merchant::class,
-        parentColumns = ["merchant_id"],
+        parentColumns = ["ID"],
         childColumns = ["MerchantID"],
         onDelete = ForeignKey.SET_NULL,
         onUpdate = ForeignKey.CASCADE
     ), ForeignKey(
         entity = Person::class,
-        parentColumns = ["person_id"],
+        parentColumns = ["ID"],
         childColumns = ["PersonID"],
         onDelete = ForeignKey.SET_NULL,
         onUpdate = ForeignKey.CASCADE
     ), ForeignKey(
         entity = SubCategories::class,
-        parentColumns = ["sub_cat_id"],
-        childColumns = ["CategoryID"],
+        parentColumns = ["ID"],
+        childColumns = ["SubCategoryID"],
         onDelete = ForeignKey.SET_NULL,
         onUpdate = ForeignKey.CASCADE
-    )], indices = [Index(value = ["period_id"], unique = true)],
+    )], indices = [Index(value = ["ID"], unique = true)],
 )
 data class Period (
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "period_id")
-    val id: Int,
+    //@ColumnInfo(name = "ID")
+    val ID: Long,
     val RepeatInterval: Int,
     val Status: Boolean,
     @TypeConverters(DateTypeConverter::class)
     val StarDate: Date,
     @TypeConverters(DateTypeConverter::class)
     val EndDate: Date,
-    val TypeID: Int,
-    val CategoryID: Int,
-    val PayerID: Int,
-    val RecipientID: Int,
+    val TransTypeID: Long,
+    val SubCategoryID: Long,
+    val PayerID: Long,
+    val RecipientID: Long,
     val Amount: Double,
-    val PersonID: Int,
-    val MerchantID: Int,
-    val ProjectID: Int,
-    val ReimburseStatus: Boolean,
+    val PersonID: Long,
+    val MerchantID: Long,
+    val ProjectID: Long,
+    val ReimburseStatus: Int,
     val Memo: String
 
 
