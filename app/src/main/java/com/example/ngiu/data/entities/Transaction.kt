@@ -1,6 +1,7 @@
 package com.example.ngiu.data.entities
 
 
+
 import androidx.room.*
 import java.util.*
 
@@ -74,6 +75,6 @@ data class Transaction(
     val ProjectID: Int,
     val ReimburseStatus: Boolean,
     val PeriodID: Int
-) {
+)/*{
     constructor( ): this(0,0,0,0,0,0.0,null,0,0,"",0,false,0)
-}
+}*/
