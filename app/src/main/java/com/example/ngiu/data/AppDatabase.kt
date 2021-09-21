@@ -1,6 +1,5 @@
 package com.example.ngiu.data
 
-import android.app.Person
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
@@ -21,7 +20,7 @@ private const val db = "ngiu"
 abstract class AppDatabase : RoomDatabase() {
     abstract fun Account(): AccountDao
     abstract fun Currency(): CurrencyDao
-    abstract fun Individual(): PersonDao
+    abstract fun Person(): PersonDao
     abstract fun MainCategories(): MainCategoriesDao
     abstract fun MerchantPeriod(): MerchantPeriodDao
     abstract fun PeriodTrans(): PeriodTransDao
