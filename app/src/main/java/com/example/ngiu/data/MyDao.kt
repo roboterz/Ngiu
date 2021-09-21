@@ -17,13 +17,13 @@ interface AccountDao {
     @Delete
     suspend fun deleteAccount(account: Account)
 
- /*   @Transaction
+    @Transaction
     @Query("SELECT * FROM Account")
     fun getAccountRecipient(): Flow<List<AcctTransRecipient>>
 
     @Transaction
     @Query("SELECT * FROM Account")
-    fun getAccountPayer(): Flow<List<AcctTransPayer>>*/
+    fun getAccountPayer(): Flow<List<AcctTransPayer>>
 
     @Transaction
     @Query("SELECT * FROM AccountType")

@@ -8,7 +8,7 @@ import com.example.ngiu.data.entities.Transaction
 data class AcctTransRecipient (
     @Embedded val account: Account,
     @Relation(
-        parentColumn = "account_id",
+        parentColumn = "acct_id",
         entityColumn = "RecipientID"
     )
     val transaction: List<Transaction>
@@ -17,7 +17,7 @@ data class AcctTransRecipient (
 data class AcctTransPayer (
     @Embedded val account: Account,
     @Relation(
-        parentColumn = "account_id",
+        parentColumn = "acct_id",
         entityColumn = "PayerID"
     )
     val transaction: List<Transaction>

@@ -2,7 +2,6 @@ package com.example.ngiu.data.entities
 
 
 import androidx.room.*
-import java.time.LocalDateTime
 import java.util.*
 
 @Entity(
@@ -68,11 +67,13 @@ data class Transaction(
     val RecipientID: Int,
     val Amount: Double,
     @TypeConverters(DateTypeConverter::class)
-    val Date: Date,
+    val Date: Date?,
     val PersonID: Int,
     val MerchantID: Int,
-    val Memo: Char,
+    val Memo: String,
     val ProjectID: Int,
     val ReimburseStatus: Boolean,
     val PeriodID: Int
-)
+) {
+    constructor( ): this(0,0,0,0,0,0.0,null,0,0,"",0,false,0)
+}
