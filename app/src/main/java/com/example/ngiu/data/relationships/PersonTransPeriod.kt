@@ -4,7 +4,7 @@ import androidx.room.Embedded
 import androidx.room.Relation
 import com.example.ngiu.data.entities.Period
 import com.example.ngiu.data.entities.Person
-import com.example.ngiu.data.entities.Transaction
+import com.example.ngiu.data.entities.Trans
 
 
 data class PersonTrans (
@@ -13,7 +13,7 @@ data class PersonTrans (
         parentColumn = "person_id",
         entityColumn = "PersonID"
     )
-    val transaction: List<Transaction>
+    val trans: List<Trans>
 )
 
 data class PersonPeriod (
@@ -22,5 +22,5 @@ data class PersonPeriod (
         parentColumn = "person_id",
         entityColumn = "PersonID",
     )
-    val transaction: List<Period>
+    val period: List<Period>
 )

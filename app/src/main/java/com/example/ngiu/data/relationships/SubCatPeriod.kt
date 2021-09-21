@@ -5,7 +5,7 @@ import androidx.room.Relation
 import com.example.ngiu.data.entities.Period
 import com.example.ngiu.data.entities.Project
 import com.example.ngiu.data.entities.SubCategories
-import com.example.ngiu.data.entities.Transaction
+import com.example.ngiu.data.entities.Trans
 
 data class SubCatPeriod (
     @Embedded val subCategories: SubCategories,
@@ -13,5 +13,5 @@ data class SubCatPeriod (
         parentColumn = "sub_cat_id",
         entityColumn = "CategoryID"
     )
-    val transaction: List<Period>
+    val trans: List<Period>
 )

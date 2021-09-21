@@ -58,7 +58,7 @@ import java.util.*
     ], indices = [Index(value = ["trans_id"], unique = true)]
 )
 
-data class Transaction(
+data class Trans(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "trans_id")
     val id: Int,

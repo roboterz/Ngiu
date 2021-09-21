@@ -11,5 +11,5 @@ data class CurrencyAcct (
         parentColumn = "currency_id",
         entityColumn = "BaseCurrency"
     )
-    val transaction: List<Account>
+    val account: List<Account>
 )

@@ -131,18 +131,18 @@ interface SubCatPeriodDao {
 }
 
 // Transaction
-/*@Dao
-interface TransactionDao {
+@Dao
+interface TransDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
-    suspend fun addTransaction(transaction: Transaction)
+    suspend fun addTransaction(trans: Trans)
 
     @Delete
-    suspend fun deleteTransaction(transaction: Transaction)
+    suspend fun deleteTransaction(trans: Trans)
 
-   *//* @Transaction
-    @Query("SELECT * FROM [Transaction]")
-    fun readAllData(): Flow<List<Transaction>>*//*
-}*/
+    @Transaction
+    @Query("SELECT * FROM Trans")
+    fun readAllData(): Flow<List<Trans>>
+}
 
 // Transaction Type
 @Dao

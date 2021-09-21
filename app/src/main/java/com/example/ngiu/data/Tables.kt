@@ -10,6 +10,6 @@ data class Tables(
     val Person: String = "Person",
     val Project: String = "Project",
     val SubCategories: String = "SubCategories",
-    val Transaction: String = "Transaction",
+    val Trans: String = "Trans",
     val TransactionType: String = "TransactionType"
 )
