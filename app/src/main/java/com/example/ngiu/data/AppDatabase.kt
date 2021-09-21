@@ -19,6 +19,7 @@ private const val db = "ngiu"
 @TypeConverters(DateTypeConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun Account(): AccountDao
+    abstract fun AccountType(): AccountTypeDao
     abstract fun Currency(): CurrencyDao
     abstract fun Person(): PersonDao
     abstract fun MainCategories(): MainCategoriesDao
