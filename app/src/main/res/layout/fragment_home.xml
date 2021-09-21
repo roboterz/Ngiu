@@ -70,7 +70,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:minHeight="48dp"
-        android:text="Name"
+        android:hint="Name"
         app:layout_constraintTop_toBottomOf="@+id/text_home"
         tools:layout_editor_absoluteX="16dp" />
 
@@ -81,7 +81,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:minHeight="48dp"
-        android:text="Date"
+        android:hint="Date"
         app:layout_constraintTop_toBottomOf="@+id/etxtName"
         tools:layout_editor_absoluteX="16dp" />
 
