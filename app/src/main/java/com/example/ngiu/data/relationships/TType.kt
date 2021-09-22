@@ -10,8 +10,8 @@ import com.example.ngiu.data.entities.Trans
 data class TransTypeTrans (
     @Embedded val transactionType: TransactionType,
     @Relation(
-        parentColumn = "trans_type_id",
-        entityColumn = "TypeID"
+        parentColumn = "ID",
+        entityColumn = "TransTypeID"
     )
     val trans: List<Trans>
 )
@@ -19,8 +19,8 @@ data class TransTypeTrans (
 data class TransTypeMC (
     @Embedded val transactionType: TransactionType,
     @Relation(
-        parentColumn = "trans_type_id",
-        entityColumn = "TypeID"
+        parentColumn = "ID",
+        entityColumn = "TransTypeID"
     )
     val mainCategories: List<MainCategories>
 )
@@ -28,8 +28,8 @@ data class TransTypeMC (
 data class TransTypePeriod (
     @Embedded val transactionType: TransactionType,
     @Relation(
-        parentColumn = "trans_type_id",
-        entityColumn = "TypeID"
+        parentColumn = "ID",
+        entityColumn = "TransTypeID"
     )
     val period: List<Period>
 )

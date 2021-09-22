@@ -8,7 +8,7 @@ import com.example.ngiu.data.entities.Project
 data class ProjectPeriod (
     @Embedded val project: Project,
     @Relation(
-        parentColumn = "project_id",
+        parentColumn = "ID",
         entityColumn = "ProjectID"
     )
     val period: List<Period>

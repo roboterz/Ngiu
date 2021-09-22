@@ -13,6 +13,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.icu.text.AlphabeticIndex
 import android.widget.*
+import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.data.AppDatabase
 /*import com.example.ngiu.data.DBManager
 import com.example.ngiu.data.Record*/
@@ -82,6 +83,8 @@ class MainActivity : AppCompatActivity() {
         buttonDel.setOnClickListener{
             //do something
 
+            //RecyclerView
+            var recyclerView: RecyclerView = findViewById(R.id.rcView)
         }
     }
 

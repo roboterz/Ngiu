@@ -8,7 +8,7 @@ import com.example.ngiu.data.entities.Trans
 data class PeriodTrans (
     @Embedded val period: Period,
     @Relation(
-        parentColumn = "period_id",
+        parentColumn = "ID",
         entityColumn = "PeriodID"
     )
     val trans: List<Trans>
@@ -17,7 +17,7 @@ data class PeriodTrans (
 data class AcctPeriod (
     @Embedded val trans: Trans,
     @Relation(
-        parentColumn = "acct_id",
+        parentColumn = "ID",
         entityColumn = "PayerID"
     )
     val period: List<Period>
@@ -26,7 +26,7 @@ data class AcctPeriod (
 data class AcctRecipient (
     @Embedded val trans: Trans,
     @Relation(
-        parentColumn = "acct_id",
+        parentColumn = "ID",
         entityColumn = "RecipientID"
     )
     val period: List<Period>

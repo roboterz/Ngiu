@@ -53,7 +53,7 @@ class HomeFragment : Fragment() {
         binding.btnAdd.setOnClickListener {
             Log.e(
                 TAG,
-                "onViewCreated: " + "name: " + strName + " Date: " + strDate + " Memo: " + strMemo
+                "onViewCreated: " + "Name: " + strName + " Date: " + strDate + " Memo: " + strMemo
             )
 
             performAddingTask(strName, strDate, strMemo)

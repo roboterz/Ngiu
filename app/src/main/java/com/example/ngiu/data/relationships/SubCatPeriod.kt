@@ -10,8 +10,8 @@ import com.example.ngiu.data.entities.Trans
 data class SubCatPeriod (
     @Embedded val subCategories: SubCategories,
     @Relation(
-        parentColumn = "sub_cat_id",
-        entityColumn = "CategoryID"
+        parentColumn = "ID",
+        entityColumn = "SubCategoryID"
     )
     val trans: List<Period>
 )

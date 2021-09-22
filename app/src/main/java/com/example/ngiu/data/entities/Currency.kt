@@ -5,12 +5,12 @@ import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
 
-@Entity(indices = [Index(value = ["currency_id"], unique = true)])
+@Entity(indices = [Index(value = ["ID"], unique = true)])
 data class Currency(
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "currency_id")
-    val id: Int,
-    @ColumnInfo(name = "currency_name")
-    val Name: String,
-    val ExchangeRate: Double
+    @PrimaryKey()
+    //@ColumnInfo(name = "ID")
+    val ID: String="",
+    //@ColumnInfo(name = "Name")
+    val Name: String="",
+    val ExchangeRate: Double=0.00
 )

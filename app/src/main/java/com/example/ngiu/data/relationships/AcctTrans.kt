@@ -9,7 +9,7 @@ import com.example.ngiu.data.entities.Trans
 data class AcctTransRecipient (
     @Embedded val account: Account,
     @Relation(
-        parentColumn = "acct_id",
+        parentColumn = "ID",
         entityColumn = "RecipientID"
     )
     val trans: List<Trans>
@@ -18,7 +18,7 @@ data class AcctTransRecipient (
 data class AcctTransPayer (
     @Embedded val account: Account,
     @Relation(
-        parentColumn = "acct_id",
+        parentColumn = "ID",
         entityColumn = "PayerID"
     )
     val trans: List<Trans>
@@ -28,7 +28,7 @@ data class AcctTransPayer (
 data class AcctPeriodRecipient (
     @Embedded val account: Account,
     @Relation(
-        parentColumn = "acct_id",
+        parentColumn = "ID",
         entityColumn = "RecipientID"
     )
     val period: List<Period>
@@ -37,7 +37,7 @@ data class AcctPeriodRecipient (
 data class AcctPeriodPayer (
     @Embedded val account: Account,
     @Relation(
-        parentColumn = "acct_id",
+        parentColumn = "ID",
         entityColumn = "PayerID"
     )
     val period: List<Period>
