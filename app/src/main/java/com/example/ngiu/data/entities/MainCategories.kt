@@ -14,9 +14,9 @@ import androidx.room.*
 
 data class MainCategories (
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "ID")
-    val ID: Long,
-    val TransTypeID: Long,
-    @ColumnInfo(name = "Name")
-    val Name: String
+    //@ColumnInfo(name = "ID")
+    val ID: Long=0,
+    val TransTypeID: Long=0,
+    //@ColumnInfo(name = "Name")
+    val Name: String=""
 )

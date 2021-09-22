@@ -7,7 +7,7 @@ import androidx.room.*
         entity = MainCategories::class,
         parentColumns = ["ID"],
         childColumns = ["MainCategoryID"],
-        onDelete = ForeignKey.SET_NULL,
+        onDelete = ForeignKey.CASCADE,
         onUpdate = ForeignKey.CASCADE
     )], indices = [Index(value = ["ID"], unique = true)]
 )
@@ -15,8 +15,8 @@ import androidx.room.*
 data class SubCategories (
     @PrimaryKey(autoGenerate = true)
     //@ColumnInfo(name = "ID")
-    val ID: Long,
-    val MainCategoryID: Long,
+    val ID: Long=0,
+    val MainCategoryID: Long=0,
     //@ColumnInfo(name = "Name")
-    val Name: String
+    val Name: String=""
 )

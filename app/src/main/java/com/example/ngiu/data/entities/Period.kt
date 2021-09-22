@@ -39,23 +39,23 @@ import java.util.*
 data class Period (
     @PrimaryKey(autoGenerate = true)
     //@ColumnInfo(name = "ID")
-    val ID: Long,
-    val RepeatInterval: Int,
-    val Status: Boolean,
+    val ID: Long=0,
+    val RepeatInterval: Int=0,
+    val EndStatus: Int=0,
     @TypeConverters(DateTypeConverter::class)
     val StarDate: Date,
     @TypeConverters(DateTypeConverter::class)
     val EndDate: Date,
-    val TransTypeID: Long,
-    val SubCategoryID: Long,
-    val PayerID: Long,
-    val RecipientID: Long,
-    val Amount: Double,
-    val PersonID: Long,
-    val MerchantID: Long,
-    val ProjectID: Long,
-    val ReimburseStatus: Int,
-    val Memo: String
+    val TransTypeID: Long=0,
+    val SubCategoryID: Long=0,
+    val PayerID: Long=0,
+    val RecipientID: Long=0,
+    val Amount: Double=0.0,
+    val PersonID: Long=0,
+    val MerchantID: Long=0,
+    val ProjectID: Long=0,
+    val ReimburseStatus: Int=0,
+    val Memo: String=""
 
 
 

@@ -21,11 +21,11 @@ import androidx.room.*
 data class Account (
     @PrimaryKey(autoGenerate = true)
     //@ColumnInfo(name = "ID")
-    val ID: Long,
-    val AcctTypeID: Long,
+    val ID: Long=0,
+    val AcctTypeID: Long=0,
     //@ColumnInfo(name = "Name")
-    val Name: String,
-    val BaseCurrency: String
+    val Name: String="",
+    val BaseCurrency: String=""
 )
 
 
