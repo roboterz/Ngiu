@@ -78,10 +78,10 @@ class HomeFragment : Fragment() {
 
             activity?.runOnUiThread {
                 if (recordId > 0) {
-                    binding.etxtName.setText("")
-                    binding.etxtDate.setText("")
-                    binding.etxtMemo.setText("")
                     Toast.makeText(activity, "Record Saved", Toast.LENGTH_SHORT).show()
+                    strName.clear()
+                    strDate.clear()
+                    strMemo.clear()
                 }
             }
         }.start()
