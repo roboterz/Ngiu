@@ -26,10 +26,6 @@ interface AccountDao {
     fun getAccountPayer(): Flow<List<AcctTransPayer>>
 
     @Transaction
-    @Query("SELECT * FROM AccountType")
-    fun getAccountType(): Flow<List<AcctTypeAcct>>
-
-    @Transaction
     @Query("SELECT * FROM Account")
     fun getAcctPeriodRecip(): Flow<List<AcctPeriodRecipient>>
 
@@ -48,7 +44,7 @@ interface AccountTypeDao{
 
     @Transaction
     @Query("SELECT * FROM AccountType")
-    fun getAccountType(): Flow<List<AccountType>>
+    fun getAccountType(): Flow<List<AcctTypeAcct>>
 }
 
 // Currency
@@ -74,6 +70,10 @@ interface PersonDao {
     @Transaction
     @Query("SELECT * FROM Person")
     fun getPersonTrans(): Flow<List<PersonTrans>>
+
+    @Transaction
+    @Query("SELECT * FROM Person")
+    fun getAllPerson(): List<Person>
 
     @Transaction
     @Query("SELECT * FROM Person")
