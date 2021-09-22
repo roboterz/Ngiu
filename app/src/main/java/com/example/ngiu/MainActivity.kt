@@ -84,7 +84,7 @@ class MainActivity : AppCompatActivity() {
             //do something
 
             //RecyclerView
-            var recyclerView: RecyclerView = findViewById(R.id.rcView)
+//            var recyclerView: RecyclerView = findViewById(R.id.rcView)
         }
     }
 

@@ -73,6 +73,10 @@ interface PersonDao {
 
     @Transaction
     @Query("SELECT * FROM Person")
+    fun getAllPerson(): List<Person>
+
+    @Transaction
+    @Query("SELECT * FROM Person")
     fun getPersonPeriod(): Flow<List<PersonPeriod>>
 }
 

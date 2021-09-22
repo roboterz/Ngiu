@@ -24,9 +24,10 @@ class HomeViewModel : ViewModel() {
         strDate: Editable,
         strMemo: Editable
     ): Long {
+
             val person = Person(ID=0, Name=strName.toString())
         val appDatabase = AppDatabase.getDatabase(activity!!)
-            recordId= appDatabase.Person().addPerson(person)
+            recordId= appDatabase.person().addPerson(person)
         return recordId
     }
 
