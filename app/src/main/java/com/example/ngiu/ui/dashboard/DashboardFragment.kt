@@ -35,10 +35,10 @@ class DashboardFragment : Fragment() {
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textDashboard
-        dashboardViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
+        //val textView: TextView = binding.textDashboard
+        //dashboardViewModel.text.observe(viewLifecycleOwner, Observer {
+        //    textView.text = it
+        //})
         return root
     }
 
@@ -59,10 +59,14 @@ class DashboardFragment : Fragment() {
             val allRecord = dashboardViewModel.readData(activity) as List<Person>
             activity?.runOnUiThread {
                 // for(int i = 0; i < allRecord.size; i++) {
-                for(i in 0 until allRecord.size ) {
-                    personArr.add("Id: "+ allRecord.get(i).ID+" Name: "+allRecord.get(i).Name)
-                    val arrayAdapter = ArrayAdapter(view.context,android.R.layout.simple_list_item_1,personArr)
-                    binding.listView.adapter=arrayAdapter
+                for (i in 0 until allRecord.size) {
+                    personArr.add("Id: " + allRecord.get(i).ID + " Name: " + allRecord.get(i).Name)
+                    val arrayAdapter = ArrayAdapter(
+                        view.context,
+                        android.R.layout.simple_list_item_1,
+                        personArr
+                    )
+                    binding.listView.adapter = arrayAdapter
                 }
             }
         }.start()

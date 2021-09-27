@@ -61,20 +61,20 @@ import java.util.*
 data class Trans(
     @PrimaryKey(autoGenerate = true)
     //@ColumnInfo(name = "ID")
-    val ID: Long=0,
-    val TransTypeID: Long=0,
-    val SubCategoryID: Long=0,
-    val PayerID: Long=0,
-    val RecipientID: Long=0,
-    val Amount: Double=0.0,
+    val ID: Long = 0,
+    val TransTypeID: Long = 0,
+    val SubCategoryID: Long = 0,
+    val PayerID: Long = 0,
+    val RecipientID: Long = 0,
+    val Amount: Double = 0.0,
     @TypeConverters(DateTypeConverter::class)
     val Date: Date,
-    val PersonID: Long=0,
-    val MerchantID: Long=0,
-    val Memo: String="",
-    val ProjectID: Long=0,
-    val ReimburseStatus: Int=0,
-    val PeriodID: Long=0
+    val PersonID: Long = 0,
+    val MerchantID: Long = 0,
+    val Memo: String = "",
+    val ProjectID: Long = 0,
+    val ReimburseStatus: Int = 0,
+    val PeriodID: Long = 0
 )/*{
     constructor( ): this(0,0,0,0,0,0.0,null,0,0,"",0,false,0)
 }*/
