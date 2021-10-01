@@ -1,5 +1,7 @@
 package com.example.ngiu
 
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
@@ -8,19 +10,13 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.ngiu.databinding.ActivityMainBinding
-import android.app.AlertDialog
-import android.content.ContentValues
-import android.content.Context
-import android.icu.text.AlphabeticIndex
-import android.view.MenuItem
 import android.widget.*
-import androidx.recyclerview.widget.RecyclerView
-import com.example.ngiu.data.AppDatabase
 /*import com.example.ngiu.data.DBManager
 import com.example.ngiu.data.Record*/
-import com.example.ngiu.data.entities.Account
-import com.example.ngiu.data.entities.AccountType
 import android.widget.PopupMenu
+import androidx.core.content.ContentProviderCompat.requireContext
+import java.util.Calendar
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -81,23 +77,46 @@ class MainActivity : AppCompatActivity() {
         }*/
 
         //Delete Button
-        val buttonDel: TextView = findViewById(R.id.text_home)
+        val buttonDel: Button = findViewById(R.id.btnDel)
         buttonDel.setOnClickListener{
+            // Initialize a new DatePickerFragment
+            //val newFragment = DatePickerFragment()
+            // Show the date picker dialog
+            //newFragment.show(fragmentManager, "Date Picker")
+
+            //
+           val timepicker = DateTimePicker()
+            val rt: DateTimePicker.reTime = timepicker.PickTime(this)
+            Toast.makeText(this ,rt.Hour.toString() + ":" + rt.Minute.toString(), Toast.LENGTH_SHORT).show()
+        }
+
+        //textview popup menu
+        val txtview: TextView = findViewById(R.id.text_home)
+        txtview.setOnClickListener{
             //do something
 
-            val popupMenu: PopupMenu = PopupMenu(this,buttonDel)
+            val popupMenu: PopupMenu = PopupMenu(this,txtview)
             popupMenu.menuInflater.inflate(R.menu.popup_menu,popupMenu.menu)
 
+            //add menu
             for (i in 1 until 20) {
                 popupMenu.menu.add(i.toString())
             }
+
+            //set click listener
             popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener {    item ->
                 Toast.makeText(this, "You Clicked : " + item.title, Toast.LENGTH_SHORT).show()
                 true
             })
+
+            //show popup menu
             popupMenu.show()
         }
+
+
+
     }
+
 
 
 }
