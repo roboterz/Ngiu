@@ -12,6 +12,7 @@ import android.app.AlertDialog
 import android.content.ContentValues
 import android.content.Context
 import android.icu.text.AlphabeticIndex
+import android.view.MenuItem
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.data.AppDatabase
@@ -19,6 +20,7 @@ import com.example.ngiu.data.AppDatabase
 import com.example.ngiu.data.Record*/
 import com.example.ngiu.data.entities.Account
 import com.example.ngiu.data.entities.AccountType
+import android.widget.PopupMenu
 
 class MainActivity : AppCompatActivity() {
 
@@ -79,14 +81,25 @@ class MainActivity : AppCompatActivity() {
         }*/
 
         //Delete Button
-        val buttonDel: Button = findViewById(R.id.btnDel)
+        val buttonDel: TextView = findViewById(R.id.text_home)
         buttonDel.setOnClickListener{
             //do something
 
-            //RecyclerView
-//            var recyclerView: RecyclerView = findViewById(R.id.rcView)
+            val popupMenu: PopupMenu = PopupMenu(this,buttonDel)
+            popupMenu.menuInflater.inflate(R.menu.popup_menu,popupMenu.menu)
+
+            for (i in 1 until 20) {
+                popupMenu.menu.add(i.toString())
+            }
+            popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener {    item ->
+                Toast.makeText(this, "You Clicked : " + item.title, Toast.LENGTH_SHORT).show()
+                true
+            })
+            popupMenu.show()
         }
     }
 
 
 }
+
+
