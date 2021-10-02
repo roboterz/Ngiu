@@ -1,8 +1,9 @@
 package com.example.ngiu
 
-import android.app.DatePickerDialog
+
 import android.app.TimePickerDialog
 import android.os.Bundle
+import android.view.View
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -14,8 +15,8 @@ import android.widget.*
 /*import com.example.ngiu.data.DBManager
 import com.example.ngiu.data.Record*/
 import android.widget.PopupMenu
-import androidx.core.content.ContentProviderCompat.requireContext
-import java.util.Calendar
+import androidx.appcompat.app.AlertDialog
+import com.example.ngiu.functions.DateTimePicker
 
 
 class MainActivity : AppCompatActivity() {
@@ -94,6 +95,30 @@ class MainActivity : AppCompatActivity() {
         txtview.setOnClickListener{
             //do something
 
+            val array = arrayOf("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28")
+            //val array = arrayOf("1","2","3","4")
+
+            // Initialize a new instance of alert dialog builder object
+            val builder = AlertDialog.Builder(this)
+
+            builder.setTitle("Statement Day")
+
+
+            // Set items form alert dialog
+            builder.setItems(array,{_, which ->
+                // Get the dialog selected item
+                val selected = array[which]
+                Toast.makeText(this, "You Clicked : " + selected, Toast.LENGTH_SHORT).show()
+
+            })
+
+            // Create a new AlertDialog using builder object
+            // Finally, display the alert dialog
+            builder.create().show()
+
+
+
+            /*
             val popupMenu: PopupMenu = PopupMenu(this,txtview)
             popupMenu.menuInflater.inflate(R.menu.popup_menu,popupMenu.menu)
 
@@ -110,6 +135,8 @@ class MainActivity : AppCompatActivity() {
 
             //show popup menu
             popupMenu.show()
+
+             */
         }
 
 

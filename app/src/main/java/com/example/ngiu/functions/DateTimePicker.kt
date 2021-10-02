@@ -1,4 +1,4 @@
-package com.example.ngiu
+package com.example.ngiu.functions
 
 import android.annotation.SuppressLint
 import android.app.Activity
