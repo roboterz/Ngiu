@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.data.entities.Person
 import com.example.ngiu.databinding.FragmentDashboardBinding
-import com.example.ngiu.functions.RecyclerViewAdapter
+import com.example.ngiu.functions.AccountListAdapter
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import kotlinx.coroutines.flow.Flow
 
@@ -86,7 +86,7 @@ class DashboardFragment : Fragment() {
                 recyclerView.layoutManager = linearLayoutManager
 
                 // finally, data bind the recycler view with adapter
-                recyclerView.adapter = RecyclerViewAdapter(personArr)
+                recyclerView.adapter = AccountListAdapter(personArr)
             }
         }.start()
     }
