@@ -79,15 +79,14 @@ class MainActivity : AppCompatActivity() {
         //Delete Button
         val buttonDel: Button = findViewById(R.id.btnDel)
         buttonDel.setOnClickListener{
-            // Initialize a new DatePickerFragment
-            //val newFragment = DatePickerFragment()
-            // Show the date picker dialog
-            //newFragment.show(fragmentManager, "Date Picker")
 
-            //
-           val timepicker = DateTimePicker()
-            val rt: DateTimePicker.reTime = timepicker.PickTime(this)
-            Toast.makeText(this ,rt.Hour.toString() + ":" + rt.Minute.toString(), Toast.LENGTH_SHORT).show()
+
+            //time picker
+            DateTimePicker().PickTime(this,TimePickerDialog.OnTimeSetListener { _, hour, minute ->
+                //do something after time picked
+                Toast.makeText(this , hour.toString() + ":" +  minute.toString(), Toast.LENGTH_SHORT).show()
+            })
+
         }
 
         //textview popup menu
