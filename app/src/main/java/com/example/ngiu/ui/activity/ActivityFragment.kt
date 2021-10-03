@@ -43,7 +43,7 @@ class ActivityFragment : Fragment() {
 
         // add menu into toolbar
         //super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
+        //setHasOptionsMenu(true)
 
         return root
     }

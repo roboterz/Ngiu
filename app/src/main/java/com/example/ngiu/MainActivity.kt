@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
         //....
-
+        supportActionBar?.hide()
 
 
     }
