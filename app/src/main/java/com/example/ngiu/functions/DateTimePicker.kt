@@ -1,19 +1,14 @@
 package com.example.ngiu.functions
 
 import android.annotation.SuppressLint
-import android.app.Activity
-import android.widget.DatePicker
 
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
 import java.util.*
-import android.widget.TimePicker
 
 import android.app.TimePickerDialog
 import android.app.TimePickerDialog.OnTimeSetListener
 import android.content.Context
-import android.widget.Toast
-import com.google.android.material.dialog.InsetDialogOnTouchListener
 
 
 class DateTimePicker {
@@ -30,7 +25,7 @@ class DateTimePicker {
         DatePickerDialog(context,3, dialogOnTouchListener, startYear, startMonth, startDay).show()
     }
 
-    fun PickTime(context: Context, dialogOnTouchListener: OnTimeSetListener) {
+    fun PickTime(context: Context?, dialogOnTouchListener: OnTimeSetListener) {
         val startHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
         val startMinute = Calendar.getInstance().get(Calendar.MINUTE)
 

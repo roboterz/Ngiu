@@ -4,10 +4,10 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
 
-    <string name="nav_menu_1">Activity</string>
-    <string name="nav_menu_2">Account</string>
-    <string name="nav_menu_3">Calendar</string>
-    <string name="nav_menu_4">Setting</string>
+    <string name="nav_bottom_activity">Activity</string>
+    <string name="nav_bottom_account">Account</string>
+    <string name="nav_bottom_calendar">Calendar</string>
+    <string name="nav_bottom_setting">Setting</string>
 
     <string name="nav_title_setting">setting</string>
     <string name="nav_title_category_expense">Expense Categories</string>
