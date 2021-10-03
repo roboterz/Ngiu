@@ -2,8 +2,12 @@ package com.example.ngiu
 
 
 import android.app.TimePickerDialog
+import android.os.Build
 import android.os.Bundle
+import android.view.Display
 import android.view.View
+import android.view.Window
+import android.view.WindowManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -15,6 +19,7 @@ import android.widget.*
 /*import com.example.ngiu.data.DBManager
 import com.example.ngiu.data.Record*/
 import android.widget.PopupMenu
+import androidx.annotation.ContentView
 import androidx.appcompat.app.AlertDialog
 import com.example.ngiu.functions.DateTimePicker
 
@@ -44,8 +49,17 @@ class MainActivity : AppCompatActivity() {
 
         //....
 
+
+
     }
 
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+
+        if (hasFocus){
+
+        }
+    }
 
 
 }

@@ -1,24 +1,25 @@
 package com.example.ngiu.ui.activity
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import android.R
+import android.view.*
+import android.widget.Toast
+import androidx.appcompat.app.ActionBar
+import com.example.ngiu.R
 import com.example.ngiu.data.entities.Person
 import com.example.ngiu.databinding.FragmentActivityBinding
 import com.example.ngiu.functions.AccountListAdapter
 import kotlinx.android.synthetic.main.fragment_activity.*
 
+
 class ActivityFragment : Fragment() {
     private lateinit var activityViewModel: ActivityViewModel
     private var _binding: FragmentActivityBinding? = null
-    val personArr = ArrayList<Person>()
+    //val personArr = ArrayList<Person>()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -40,9 +41,30 @@ class ActivityFragment : Fragment() {
         //    textView.text = it
         //})
 
+        // add menu into toolbar
+        //super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+
         return root
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.title_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_settings -> {
+                // navigate to settings screen
+                true
+            }
+            R.id.action_done -> {
+                // save profile changes
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -58,23 +80,18 @@ class ActivityFragment : Fragment() {
     }
 
 
-    // arrayadapter for listview
-    //  Log.e("TAG", "readPerson: "+i+" "+allRecord.get(i) )
-    // TODO make UI for recycleview and switch to recyleview
+    // load data to RecyclerView
     private fun readPerson(view: View) {
+        // list of person
+        val personArr = ArrayList<Person>()
+
         Thread {
-            val allRecord = activityViewModel.readData(this.activity) as List<Person>
+            val allRecord = activityViewModel.readData(activity) as List<Person>
+
             this.activity?.runOnUiThread {
-                // for(int i = 0; i < allRecord.size; i++) {
+
                 for (i in 0 until allRecord.size) {
-                    //personArr.add("Id: " + allRecord.get(i).ID + " Name: " + allRecord.get(i).Name)
                     personArr.add(Person( allRecord.get(i).ID , allRecord.get(i).Name))
-                    val arrayAdapter = ArrayAdapter(
-                        view.context,
-                        R.layout.simple_list_item_1,
-                        personArr
-                    )
-                    //binding.listView.adapter = arrayAdapter
                 }
 
                 val linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
