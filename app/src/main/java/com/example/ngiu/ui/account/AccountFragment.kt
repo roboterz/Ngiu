@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.ngiu.data.entities.Person
+import com.example.ngiu.data.entities.Account
 import com.example.ngiu.databinding.FragmentAccountBinding
 import com.example.ngiu.functions.AccountListAdapter
 import kotlinx.android.synthetic.main.fragment_account.*
@@ -18,7 +18,7 @@ class AccountFragment : Fragment() {
 
     private lateinit var accountViewModel: AccountViewModel
     private var _binding: FragmentAccountBinding? = null
-    val personArr = ArrayList<Person>()
+    val accountArr = ArrayList<Account>()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -61,16 +61,18 @@ class AccountFragment : Fragment() {
     // TODO make UI for recycleview and switch to recyleview
     private fun readPerson(view: View) {
         Thread {
-            val allRecord = accountViewModel.readData(this.activity) as List<Person>
+            val allRecord = accountViewModel.readData(this.activity) as List<Account>
             this.activity?.runOnUiThread {
                 // for(int i = 0; i < allRecord.size; i++) {
                 for (i in 0 until allRecord.size) {
                     //personArr.add("Id: " + allRecord.get(i).ID + " Name: " + allRecord.get(i).Name)
-                    personArr.add(Person( allRecord.get(i).ID , allRecord.get(i).Name))
+                    //accountArr.add(Account( allRecord.get(i).ID , allRecord.get(i).Name)
+
+
                     val arrayAdapter = ArrayAdapter(
                         view.context,
                         android.R.layout.simple_list_item_1,
-                        personArr
+                        accountArr
                     )
                     //binding.listView.adapter = arrayAdapter
                 }
@@ -81,7 +83,7 @@ class AccountFragment : Fragment() {
                 recyclerView.layoutManager = linearLayoutManager
 
                 // finally, data bind the recycler view with adapter
-                recyclerView.adapter = AccountListAdapter(personArr)
+                recyclerView.adapter = AccountListAdapter(accountArr)
             }
         }.start()
     }

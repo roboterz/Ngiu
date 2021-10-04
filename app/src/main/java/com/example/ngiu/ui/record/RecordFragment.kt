@@ -42,7 +42,7 @@ class RecordFragment : Fragment() {
 
 
         // todo load record data
-        Toast.makeText(context,"open",Toast.LENGTH_SHORT).show()
+        //Toast.makeText(context,"open",Toast.LENGTH_SHORT).show()
 
 
         return root

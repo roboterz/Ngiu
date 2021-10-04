@@ -18,7 +18,7 @@ import androidx.room.*
     )], indices = [Index(value = ["ID"], unique = true)]
 )
 
-data class Account (
+data class Account(
     @PrimaryKey(autoGenerate = true)
     //@ColumnInfo(name = "ID")
     val ID: Long = 0,

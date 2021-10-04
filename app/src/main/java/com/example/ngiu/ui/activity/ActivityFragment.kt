@@ -1,24 +1,17 @@
 package com.example.ngiu.ui.activity
 
 import android.os.Bundle
-import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.view.*
-import android.widget.Toast
-import androidx.appcompat.app.ActionBar
-import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentManager
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import com.example.ngiu.MainActivity
 import com.example.ngiu.R
-import com.example.ngiu.data.entities.Person
 import com.example.ngiu.data.entities.Trans
 import com.example.ngiu.databinding.FragmentActivityBinding
-import com.example.ngiu.functions.AccountListAdapter
+import com.example.ngiu.functions.TransListAdapter
 import kotlinx.android.synthetic.main.fragment_activity.*
 
 
@@ -61,10 +54,13 @@ class ActivityFragment : Fragment() {
         toolbar_activity.setOnMenuItemClickListener{
             when (it.itemId) {
                 R.id.action_add -> {
-                    // navigate to add record screen
+
+                    // hide nav bottom bar
                     (activity as MainActivity).setNavBottomBarVisibility(View.GONE)
+
+                    // navigate to add record screen
                     view.findNavController().navigate(R.id.navigation_record)
-                    //(activity as MainActivity).openFragment(0)
+
                     true
                 }
 
@@ -76,9 +72,11 @@ class ActivityFragment : Fragment() {
         // floating Add transaction button
         val fab: View = view.findViewById(R.id.floatingAddTransactionButton)
         fab.setOnClickListener { view ->
-            // navigate to add record screen
-            //(activity as MainActivity).openFragment(R.layout.fragment_calendar)
+
+            // hide nav bottom bar
             (activity as MainActivity).setNavBottomBarVisibility(View.GONE)
+
+            // navigate to add record screen
             view.findNavController().navigate(R.id.navigation_record)
 
         }
@@ -100,15 +98,30 @@ class ActivityFragment : Fragment() {
     // load data to RecyclerView
     private fun readTransaction(view: View) {
         // list of Transaction
-        val TransArr = ArrayList<Trans>()
+        val transArr = ArrayList<Trans>()
 
         Thread {
-            val allRecord = activityViewModel.readData(activity) as List<Person>
+            val allRecord = activityViewModel.readData(activity) as List<Trans>
 
             this.activity?.runOnUiThread {
 
-                for (i in 0 until allRecord.size) {
-                    TransArr.add(Trans( allRecord.get(i).ID , allRecord.get(i).Name))
+                for (i in allRecord.indices) {
+                    transArr.add( Trans(
+                        allRecord[i].ID ,
+                        allRecord[i].TransTypeID,
+                        allRecord[i].SubCategoryID,
+                        allRecord[i].PayerID,
+                        allRecord[i].RecipientID,
+                        allRecord[i].Amount,
+                        allRecord[i].Date,
+                        allRecord[i].PersonID,
+                        allRecord[i].MerchantID,
+                        allRecord[i].Memo,
+                        allRecord[i].ProjectID,
+                        allRecord[i].ReimburseStatus,
+                        allRecord[i].PeriodID,
+                        )
+                    )
                 }
 
                 val linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
@@ -117,7 +130,7 @@ class ActivityFragment : Fragment() {
                 recyclerView.layoutManager = linearLayoutManager
 
                 // finally, data bind the recycler view with adapter
-                recyclerView.adapter = AccountListAdapter(TransArr)
+                recyclerView.adapter = TransListAdapter(transArr)
             }
         }.start()
     }

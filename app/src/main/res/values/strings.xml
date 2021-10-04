@@ -64,6 +64,7 @@
     <string name="option_current_month_income">Current Month Income</string>
     <string name="option_budget">Budget</string>
     <string name="option_Period">Period</string>
+    <string name="option_person">Myself</string>
     <string name="option_income">Income</string>
     <string name="option_expense">Expense</string>
     <string name="option_balance">Balance</string>
