@@ -9,6 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
+import androidx.fragment.app.FragmentManager
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.Person
 import com.example.ngiu.databinding.FragmentActivityBinding
@@ -30,48 +33,41 @@ class ActivityFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        activityViewModel =
-            ViewModelProvider(this).get(ActivityViewModel::class.java)
+            activityViewModel =
+                ViewModelProvider(this).get(ActivityViewModel::class.java)
 
-        _binding = FragmentActivityBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+            _binding = FragmentActivityBinding.inflate(inflater, container, false)
+            val root: View = binding.root
 
-        //val textView: TextView = binding.textActivity
-        //dashboardViewModel.text.observe(viewLifecycleOwner, Observer {
-        //    textView.text = it
-        //})
+            //super.onCreate(savedInstanceState)
+            //setHasOptionsMenu(true)
 
-        // add menu into toolbar
-        //super.onCreate(savedInstanceState)
-        //setHasOptionsMenu(true)
-
-        return root
+            return root
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.title_menu, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_settings -> {
-                // navigate to settings screen
-                true
-            }
-            R.id.action_done -> {
-                // save profile changes
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //call readPerson function on the bottom of this class
-        readPerson(view)
+        // load custom menu into toolbar
+        toolbar_activity.inflateMenu(R.menu.title_menu)
+        // choose items to show
+        toolbar_activity.menu.findItem(R.id.action_add).isVisible = true
 
+        toolbar_activity.setOnMenuItemClickListener{
+            when (it.itemId) {
+                R.id.action_add -> {
+                    // navigate to add record screen
+                    view.findNavController().navigate(R.id.navigation_record)
+                    true
+                }
+
+                else -> super.onOptionsItemSelected(it)
+            }
+        }
+
+        // call readPerson function on the bottom of this class
+        readPerson(view)
     }
 
     override fun onDestroyView() {

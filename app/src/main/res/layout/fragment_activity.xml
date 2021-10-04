@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/info_activity_layout"
         android:layout_width="match_parent"
-        android:layout_height="145dp"
+        android:layout_height="135dp"
         android:background="@color/blue_base"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -83,13 +83,12 @@
             app:layout_constraintEnd_toEndOf="parent" />
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar2"
+            android:id="@+id/toolbar_activity"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:background="?attr/colorPrimary"
             android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme"
-            app:menu="@menu/title_menu"/>
+            android:theme="?attr/actionBarTheme"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

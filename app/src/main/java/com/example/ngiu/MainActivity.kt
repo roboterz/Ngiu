@@ -22,6 +22,7 @@ import android.widget.PopupMenu
 import androidx.annotation.ContentView
 import androidx.appcompat.app.AlertDialog
 import com.example.ngiu.functions.DateTimePicker
+import kotlinx.android.synthetic.main.fragment_activity.*
 
 
 class MainActivity : AppCompatActivity() {

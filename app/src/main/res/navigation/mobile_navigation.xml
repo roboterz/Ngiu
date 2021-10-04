@@ -30,5 +30,8 @@
         android:label="@string/nav_bottom_setting"
         tools:layout="@layout/fragment_setting" />
 
-
+    <fragment
+        android:id="@+id/navigation_record"
+        android:name="com.example.ngiu.ui.record.RecordFragment"
+        tools:layout="@layout/fragment_record" />
 </navigation>
