@@ -74,7 +74,7 @@ class ActivityFragment : Fragment() {
             view.findNavController().navigate(R.id.navigation_record)
         }
 
-        
+
         // call readPerson function on the bottom of this class
         readPerson(view)
     }
