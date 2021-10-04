@@ -51,7 +51,6 @@ class MainActivity : AppCompatActivity() {
         //....
         supportActionBar?.hide()
 
-
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {

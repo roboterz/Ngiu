@@ -54,6 +54,7 @@ class ActivityFragment : Fragment() {
         // choose items to show
         toolbar_activity.menu.findItem(R.id.action_add).isVisible = true
 
+        // menu item clicked
         toolbar_activity.setOnMenuItemClickListener{
             when (it.itemId) {
                 R.id.action_add -> {
@@ -66,6 +67,14 @@ class ActivityFragment : Fragment() {
             }
         }
 
+        // floating Add transaction button
+        val fab: View = view.findViewById(R.id.floatingAddTransactionButton)
+        fab.setOnClickListener { view ->
+            // navigate to add record screen
+            view.findNavController().navigate(R.id.navigation_record)
+        }
+
+        
         // call readPerson function on the bottom of this class
         readPerson(view)
     }
