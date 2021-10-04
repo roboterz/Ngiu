@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/info_activity_layout"
         android:layout_width="match_parent"
-        android:layout_height="135dp"
+        android:layout_height="140dp"
         android:background="@color/blue_base"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -20,6 +20,7 @@
             android:layout_marginStart="10dp"
             android:text="@string/option_current_month_expense"
             android:textColor="@color/white"
+            android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@id/tvCurrentMonthExpenseBalance"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -28,10 +29,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="15dp"
             android:text="$226.22"
             android:textColor="@color/white"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/tvCurrentMonthIncome"
             app:layout_constraintStart_toStartOf="parent" />
@@ -44,6 +45,7 @@
             android:layout_marginBottom="15dp"
             android:text="@string/option_current_month_income"
             android:textColor="@color/white"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -56,6 +58,7 @@
             android:text="$3326.98"
             android:textColor="@color/white"
             android:textStyle="bold"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/tvCurrentMonthIncome" />
 
@@ -67,6 +70,7 @@
             android:layout_marginBottom="15dp"
             android:text="@string/option_budget"
             android:textColor="@color/white"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/tvBudgetBalance" />
 
@@ -79,6 +83,7 @@
             android:text="$588.89"
             android:textColor="@color/white"
             android:textStyle="bold"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
