@@ -16,6 +16,7 @@ import androidx.navigation.fragment.NavHostFragment
 import com.example.ngiu.MainActivity
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.Person
+import com.example.ngiu.data.entities.Trans
 import com.example.ngiu.databinding.FragmentActivityBinding
 import com.example.ngiu.functions.AccountListAdapter
 import kotlinx.android.synthetic.main.fragment_activity.*
@@ -85,7 +86,7 @@ class ActivityFragment : Fragment() {
 
 
         // call readPerson function on the bottom of this class
-        readPerson(view)
+        readTransaction(view)
         //Toast.makeText(context, "read", Toast.LENGTH_SHORT).show()
     }
 
@@ -97,9 +98,9 @@ class ActivityFragment : Fragment() {
 
 
     // load data to RecyclerView
-    private fun readPerson(view: View) {
-        // list of person
-        val personArr = ArrayList<Person>()
+    private fun readTransaction(view: View) {
+        // list of Transaction
+        val TransArr = ArrayList<Trans>()
 
         Thread {
             val allRecord = activityViewModel.readData(activity) as List<Person>
@@ -107,7 +108,7 @@ class ActivityFragment : Fragment() {
             this.activity?.runOnUiThread {
 
                 for (i in 0 until allRecord.size) {
-                    personArr.add(Person( allRecord.get(i).ID , allRecord.get(i).Name))
+                    TransArr.add(Trans( allRecord.get(i).ID , allRecord.get(i).Name))
                 }
 
                 val linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
@@ -116,7 +117,7 @@ class ActivityFragment : Fragment() {
                 recyclerView.layoutManager = linearLayoutManager
 
                 // finally, data bind the recycler view with adapter
-                recyclerView.adapter = AccountListAdapter(personArr)
+                recyclerView.adapter = AccountListAdapter(TransArr)
             }
         }.start()
     }

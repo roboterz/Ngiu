@@ -19,8 +19,8 @@ class ActivityViewModel : ViewModel() {
         activity: FragmentActivity?
     ):List<Person> {
         val appDatabase = AppDatabase.getDatabase(activity!!)
-        val personData= appDatabase.person().getAllPerson()
-        return personData
+        val TransData= appDatabase.Transaction().getAllTransaction()
+        return TransData
     }
 
 }

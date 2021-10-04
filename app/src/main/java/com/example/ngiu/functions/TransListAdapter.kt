@@ -5,13 +5,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.TypeConverters
 import com.example.ngiu.R
+import com.example.ngiu.data.entities.DateTypeConverter
 import com.example.ngiu.data.entities.Person
+import com.example.ngiu.data.entities.Trans
 import kotlinx.android.synthetic.main.transaction_cardview.view.*
+import java.util.*
 
 
-class TransactionAdapter(private val person: MutableList<Person>)
-    : RecyclerView.Adapter<TransactionAdapter.ViewHolder>() {
+class TransListAdapter(private val trans: MutableList<Trans>)
+    : RecyclerView.Adapter<TransListAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -28,9 +32,11 @@ class TransactionAdapter(private val person: MutableList<Person>)
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         // display the custom class
-        person[position].apply {
+        trans[position].apply {
             holder.ID.text = "$ID"
-            holder.Name.text = "$Name"
+            //holder.Name.text = "$Name"
+
+
             if (holder.ID.text.toString().toLong() > 10) {
                 holder.ID.setTextColor(-0xffff01)
             }
@@ -46,13 +52,12 @@ class TransactionAdapter(private val person: MutableList<Person>)
 
     override fun getItemCount(): Int {
         // the data set held by the adapter.
-        return person.size
+        return trans.size
     }
 
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val ID: TextView = itemView.tvTrans_day
-        val Name: TextView = itemView.tvTrans_week
     }
 
 
