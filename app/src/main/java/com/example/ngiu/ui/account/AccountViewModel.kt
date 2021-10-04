@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.ngiu.data.AppDatabase
+import com.example.ngiu.data.entities.Account
 import com.example.ngiu.data.entities.Person
 
 class AccountViewModel : ViewModel() {
@@ -17,10 +18,10 @@ class AccountViewModel : ViewModel() {
     // created getAllPerson
     fun readData(
         activity: FragmentActivity?
-    ):List<Person> {
+    ):List<Account> {
         val appDatabase = AppDatabase.getDatabase(activity!!)
-        val personData= appDatabase.person().getAllPerson()
-        return personData
+        val accountData= appDatabase.account().getAllAccount()
+        return accountData
     }
 
 }

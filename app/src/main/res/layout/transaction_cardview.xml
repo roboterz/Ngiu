@@ -41,6 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
+            android:layout_marginEnd="3dp"
             app:layout_constraintEnd_toStartOf="@id/tvTrans_daily_income_amount"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/option_income" />
@@ -60,7 +61,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
-            android:layout_marginEnd="5dp"
+            android:layout_marginEnd="3dp"
             app:layout_constraintEnd_toStartOf="@id/tvTrans_daily_expense_amount"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/option_expense" />
@@ -98,7 +99,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:background="border"
             app:layout_constraintStart_toEndOf="@id/tvTrans_time"
             app:layout_constraintTop_toTopOf="@id/tvTrans_time"
             tools:text="@string/option_Period" />
@@ -116,67 +116,83 @@
             android:id="@+id/tvTrans_account_pay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvName"
-            tools:text="time" />
+            app:layout_constraintStart_toStartOf="@id/tvTrans_time"
+            app:layout_constraintTop_toBottomOf="@id/tvTrans_time"
+            tools:text="Wallet" />
 
         <TextView
             android:id="@+id/tvTrans_account_receive"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvName"
             tools:text="time" />
+
+        <TextView
+            android:id="@+id/tvTrans_dot_before_person"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/tvTrans_account_pay"
+            app:layout_constraintTop_toBottomOf="@id/tvTrans_time"
+            tools:text=" • " />
 
         <TextView
             android:id="@+id/tvTrans_person"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvName"
-            tools:text="time" />
+            app:layout_constraintStart_toEndOf="@id/tvTrans_dot_before_person"
+            app:layout_constraintTop_toBottomOf="@id/tvTrans_time"
+            tools:text="@string/option_person" />
+
+        <TextView
+            android:id="@+id/tvTrans_dot_before_merchant"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/tvTrans_person"
+            app:layout_constraintTop_toBottomOf="@id/tvTrans_time"
+            tools:text=" • " />
 
         <TextView
             android:id="@+id/tvTrans_merchant"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvName"
-            tools:text="time" />
+            app:layout_constraintStart_toEndOf="@id/tvTrans_dot_before_merchant"
+            app:layout_constraintTop_toBottomOf="@id/tvTrans_time"
+            tools:text="@string/option_merchant" />
+
+        <TextView
+            android:id="@+id/tvTrans_dot_before_project"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/tvTrans_merchant"
+            app:layout_constraintTop_toBottomOf="@id/tvTrans_time"
+            tools:text=" • " />
 
         <TextView
             android:id="@+id/tvTrans_project"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvName"
-            tools:text="time" />
+            app:layout_constraintStart_toEndOf="@id/tvTrans_dot_before_project"
+            app:layout_constraintTop_toBottomOf="@id/tvTrans_time"
+            tools:text="@string/option_project" />
 
         <TextView
             android:id="@+id/tvTrans_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginEnd="10dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvName"
-            tools:text="time" />
+            app:layout_constraintTop_toTopOf="@id/tvTrans_time"
+            tools:text="$15.75" />
 
         <TextView
             android:id="@+id/tvTrans_month"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvName"
@@ -187,6 +203,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvName"
@@ -197,6 +214,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvName"
@@ -207,6 +225,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvName"
@@ -217,6 +236,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvName"
@@ -227,6 +247,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvName"
@@ -237,6 +258,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvName"
@@ -247,6 +269,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvName"
