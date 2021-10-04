@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -31,7 +32,7 @@ class ActivityFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
             activityViewModel =
                 ViewModelProvider(this).get(ActivityViewModel::class.java)
@@ -49,8 +50,8 @@ class ActivityFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // load custom menu into toolbar
-        toolbar_activity.inflateMenu(R.menu.title_menu)
+        // set up toolbar icon and click event
+
         // choose items to show
         toolbar_activity.menu.findItem(R.id.action_add).isVisible = true
 
@@ -67,6 +68,7 @@ class ActivityFragment : Fragment() {
             }
         }
 
+
         // floating Add transaction button
         val fab: View = view.findViewById(R.id.floatingAddTransactionButton)
         fab.setOnClickListener { view ->
@@ -75,8 +77,10 @@ class ActivityFragment : Fragment() {
         }
 
 
+
         // call readPerson function on the bottom of this class
         readPerson(view)
+        //Toast.makeText(context, "read", Toast.LENGTH_SHORT).show()
     }
 
     override fun onDestroyView() {

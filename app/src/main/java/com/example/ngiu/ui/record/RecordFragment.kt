@@ -6,10 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import com.example.ngiu.R
 import com.example.ngiu.databinding.FragmentRecordBinding
-import com.example.ngiu.databinding.FragmentSettingBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_activity.*
+import kotlinx.android.synthetic.main.fragment_record.*
 
 class RecordFragment : Fragment() {
 
@@ -32,8 +38,43 @@ class RecordFragment : Fragment() {
         val root: View = binding.root
 
 
+
+
         return root
     }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+
+        // todo load record data
+
+
+        // set up toolbar icon and click event
+
+        // choose items to show
+        toolbar_record.menu.findItem(R.id.action_done).isVisible = true
+
+        // menu item clicked
+        toolbar_record.setOnMenuItemClickListener{
+            when (it.itemId) {
+                R.id.action_done -> {
+
+                    // todo save record
+
+                    // navigate to activity screen
+                    view.findNavController().navigate(R.id.navigation_activity)
+                    true
+                }
+
+                else -> super.onOptionsItemSelected(it)
+            }
+        }
+
+
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
