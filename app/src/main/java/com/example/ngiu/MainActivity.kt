@@ -2,6 +2,8 @@ package com.example.ngiu
 
 
 import android.app.TimePickerDialog
+import android.content.ClipData
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.view.Display
@@ -21,7 +23,9 @@ import com.example.ngiu.data.Record*/
 import android.widget.PopupMenu
 import androidx.annotation.ContentView
 import androidx.appcompat.app.AlertDialog
+import androidx.navigation.fragment.FragmentNavigator
 import com.example.ngiu.functions.DateTimePicker
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_activity.*
 
 
@@ -51,16 +55,20 @@ class MainActivity : AppCompatActivity() {
         //....
         supportActionBar?.hide()
 
+
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
 
         if (hasFocus){
-
+            //nav_view.visibility=View.GONE
         }
     }
 
+    public fun setNavBottomBarVisibility(ID:Int){
+        nav_view.visibility = ID
+    }
 
 }
 

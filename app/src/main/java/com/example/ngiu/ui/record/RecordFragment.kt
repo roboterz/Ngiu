@@ -5,11 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.widget.ActionBarContextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
+import com.example.ngiu.MainActivity
 import com.example.ngiu.R
 import com.example.ngiu.databinding.FragmentRecordBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -38,6 +41,8 @@ class RecordFragment : Fragment() {
         val root: View = binding.root
 
 
+        // todo load record data
+        Toast.makeText(context,"open",Toast.LENGTH_SHORT).show()
 
 
         return root
@@ -48,7 +53,6 @@ class RecordFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        // todo load record data
 
 
         // set up toolbar icon and click event
@@ -64,6 +68,7 @@ class RecordFragment : Fragment() {
                     // todo save record
 
                     // navigate to activity screen
+                    (activity as MainActivity).setNavBottomBarVisibility(View.VISIBLE)
                     view.findNavController().navigate(R.id.navigation_activity)
                     true
                 }

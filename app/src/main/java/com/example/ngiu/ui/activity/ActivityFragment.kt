@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
+import com.example.ngiu.MainActivity
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.Person
 import com.example.ngiu.databinding.FragmentActivityBinding
@@ -50,8 +51,8 @@ class ActivityFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // set up toolbar icon and click event
 
+        // set up toolbar icon and click event
         // choose items to show
         toolbar_activity.menu.findItem(R.id.action_add).isVisible = true
 
@@ -60,7 +61,9 @@ class ActivityFragment : Fragment() {
             when (it.itemId) {
                 R.id.action_add -> {
                     // navigate to add record screen
+                    (activity as MainActivity).setNavBottomBarVisibility(View.GONE)
                     view.findNavController().navigate(R.id.navigation_record)
+                    //(activity as MainActivity).openFragment(0)
                     true
                 }
 
@@ -73,7 +76,10 @@ class ActivityFragment : Fragment() {
         val fab: View = view.findViewById(R.id.floatingAddTransactionButton)
         fab.setOnClickListener { view ->
             // navigate to add record screen
+            //(activity as MainActivity).openFragment(R.layout.fragment_calendar)
+            (activity as MainActivity).setNavBottomBarVisibility(View.GONE)
             view.findNavController().navigate(R.id.navigation_record)
+
         }
 
 
@@ -87,6 +93,7 @@ class ActivityFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
 
 
     // load data to RecyclerView
