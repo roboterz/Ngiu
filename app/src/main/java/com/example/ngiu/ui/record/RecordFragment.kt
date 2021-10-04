@@ -68,7 +68,6 @@ class RecordFragment : Fragment() {
                     // todo save record
 
                     // navigate to activity screen
-                    (activity as MainActivity).setNavBottomBarVisibility(View.VISIBLE)
                     view.findNavController().navigate(R.id.navigation_activity)
                     true
                 }
@@ -83,6 +82,7 @@ class RecordFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        (activity as MainActivity).setNavBottomBarVisibility(View.VISIBLE)
         _binding = null
     }
 }
