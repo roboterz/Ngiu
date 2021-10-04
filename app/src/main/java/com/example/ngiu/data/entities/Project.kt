@@ -9,7 +9,7 @@ import androidx.room.PrimaryKey
 data class Project (
     @PrimaryKey(autoGenerate = true)
     //@ColumnInfo(name = "ID")
-    val ID: Long=0,
+    val ID: Long = 0,
     //@ColumnInfo(name = "Name")
-    val Name: String=""
+    val Name: String = ""
 )

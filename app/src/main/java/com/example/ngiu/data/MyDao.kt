@@ -58,7 +58,7 @@ interface CurrencyDao {
     fun getCurrency(): Flow<List<CurrencyAcct>>
 }
 
-// Individual/Person
+// Person
 @Dao
 interface PersonDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
@@ -69,15 +69,12 @@ interface PersonDao {
 
     @Transaction
     @Query("SELECT * FROM Person")
-    fun getPersonTrans(): Flow<List<PersonTrans>>
+    fun getPersonTrans(): List<PersonTrans>
 
     @Transaction
     @Query("SELECT * FROM Person")
     fun getAllPerson(): List<Person>
 
-    @Transaction
-    @Query("SELECT * FROM Person")
-    fun getPersonPeriod(): Flow<List<PersonPeriod>>
 }
 
 //Main Categories
@@ -161,7 +158,8 @@ interface TransDao {
 
     @Transaction
     @Query("SELECT * FROM Trans")
-    fun getTrans(): Flow<List<Trans>>
+    fun getAllTrans(): List<Trans>
+
 }
 
 // Transaction Type
