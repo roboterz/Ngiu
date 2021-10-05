@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.ngiu.data.entities.Account
+import com.example.ngiu.data.entities.Person
 import com.example.ngiu.databinding.FragmentAccountBinding
 import com.example.ngiu.functions.AccountListAdapter
 import kotlinx.android.synthetic.main.fragment_account.*
@@ -18,7 +18,7 @@ class AccountFragment : Fragment() {
 
     private lateinit var accountViewModel: AccountViewModel
     private var _binding: FragmentAccountBinding? = null
-    val accountArr = ArrayList<Account>()
+
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -48,7 +48,7 @@ class AccountFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         //call readPerson function on the bottom of this class
-        //readPerson(view)
+        readPerson(view)
 
     }
 
@@ -60,20 +60,23 @@ class AccountFragment : Fragment() {
     //  Log.e("TAG", "readPerson: "+i+" "+allRecord.get(i) )
     // TODO make UI for recycleview and switch to recyleview
     private fun readPerson(view: View) {
+
+        val accountArr = ArrayList<Person>()
+
         Thread {
-            val allRecord = accountViewModel.readData(this.activity) as List<Account>
+            val allRecord = accountViewModel.readData(this.activity) as List<Person>
             this.activity?.runOnUiThread {
                 // for(int i = 0; i < allRecord.size; i++) {
-                for (i in 0 until allRecord.size) {
+                for (i in allRecord.indices) {
                     //personArr.add("Id: " + allRecord.get(i).ID + " Name: " + allRecord.get(i).Name)
-                    //accountArr.add(Account( allRecord.get(i).ID , allRecord.get(i).Name)
+                    accountArr.add(Person( allRecord[i].ID , allRecord[i].Name))
 
 
-                    val arrayAdapter = ArrayAdapter(
-                        view.context,
-                        android.R.layout.simple_list_item_1,
-                        accountArr
-                    )
+                    //val arrayAdapter = ArrayAdapter(
+                    //    view.context,
+                     //   android.R.layout.simple_list_item_1,
+                     //   accountArr
+                    //)
                     //binding.listView.adapter = arrayAdapter
                 }
 

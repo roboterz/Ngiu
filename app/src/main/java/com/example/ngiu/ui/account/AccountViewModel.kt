@@ -18,9 +18,9 @@ class AccountViewModel : ViewModel() {
     // created getAllPerson
     fun readData(
         activity: FragmentActivity?
-    ):List<Account> {
+    ):List<Person> {
         val appDatabase = AppDatabase.getDatabase(activity!!)
-        val accountData= appDatabase.account().getAllAccount()
+        val accountData= appDatabase.person().getAllPerson()
         return accountData
     }
 

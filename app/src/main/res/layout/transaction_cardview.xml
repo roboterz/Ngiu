@@ -2,15 +2,18 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/card_view"
+    android:id="@+id/trans_card_view"
     android:layout_width="match_parent"
-    android:layout_height="120dp"
-    android:layout_margin="1dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="0.5dp"
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="0dp"
     app:cardElevation="5dp"
     app:cardMaxElevation="7dp"
-    app:contentPadding="10dp">
+    app:contentPaddingTop="4dp"
+    app:contentPaddingLeft="10dp"
+    app:contentPaddingRight="5dp"
+    app:contentPaddingBottom="9dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -20,8 +23,8 @@
             android:id="@+id/tvTrans_day"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="3dp"
+            android:textColor="@color/color_time"
+            android:textSize="14dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="13" />
@@ -30,9 +33,10 @@
             android:id="@+id/tvTrans_week"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="3dp"
-            app:layout_constraintStart_toEndOf="@id/tvTrans_day"
+            android:layout_marginStart="30dp"
+            android:textColor="@color/color_time"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Monday" />
 
@@ -40,8 +44,9 @@
             android:id="@+id/tvTrans_daily_income"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
             android:layout_marginEnd="3dp"
+            android:textColor="@color/color_time"
+            android:textSize="12sp"
             app:layout_constraintEnd_toStartOf="@id/tvTrans_daily_income_amount"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/option_income" />
@@ -50,8 +55,9 @@
             android:id="@+id/tvTrans_daily_income_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
             android:layout_marginEnd="10dp"
+            android:textColor="@color/color_time"
+            android:textSize="12sp"
             app:layout_constraintEnd_toStartOf="@id/tvTrans_daily_expense"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="$0.00" />
@@ -60,8 +66,9 @@
             android:id="@+id/tvTrans_daily_expense"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
             android:layout_marginEnd="3dp"
+            android:textColor="@color/color_time"
+            android:textSize="12sp"
             app:layout_constraintEnd_toStartOf="@id/tvTrans_daily_expense_amount"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/option_expense" />
@@ -70,8 +77,9 @@
             android:id="@+id/tvTrans_daily_expense_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
             android:layout_marginEnd="10dp"
+            android:textColor="@color/color_time"
+            android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="$16.75" />
@@ -81,8 +89,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_marginStart="0dp"
-            app:layout_constraintStart_toStartOf="@id/tvTrans_week"
+            android:layout_marginStart="30dp"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvTrans_week"
             tools:text="Lunch" />
 
@@ -90,6 +101,8 @@
             android:id="@+id/tvTrans_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/color_time"
+            android:textSize="12sp"
             app:layout_constraintStart_toStartOf="@id/tvTrans_category"
             app:layout_constraintTop_toBottomOf="@id/tvTrans_category"
             tools:text="13:15" />
@@ -99,6 +112,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            android:textColor="@color/color_time"
+            android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@id/tvTrans_time"
             app:layout_constraintTop_toTopOf="@id/tvTrans_time"
             tools:text="@string/option_Period" />
@@ -108,6 +123,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            android:textColor="@color/color_time"
+            android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@id/tvTrans_period"
             app:layout_constraintTop_toTopOf="@id/tvTrans_period"
             tools:text="Fee" />
@@ -116,6 +133,8 @@
             android:id="@+id/tvTrans_account_pay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/color_time"
+            android:textSize="12sp"
             app:layout_constraintStart_toStartOf="@id/tvTrans_time"
             app:layout_constraintTop_toBottomOf="@id/tvTrans_time"
             tools:text="Wallet" />
@@ -134,6 +153,8 @@
             android:id="@+id/tvTrans_dot_before_person"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/color_time"
+            android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@id/tvTrans_account_pay"
             app:layout_constraintTop_toBottomOf="@id/tvTrans_time"
             tools:text=" • " />
@@ -142,6 +163,8 @@
             android:id="@+id/tvTrans_person"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/color_time"
+            android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@id/tvTrans_dot_before_person"
             app:layout_constraintTop_toBottomOf="@id/tvTrans_time"
             tools:text="@string/option_person" />
@@ -150,6 +173,8 @@
             android:id="@+id/tvTrans_dot_before_merchant"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/color_time"
+            android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@id/tvTrans_person"
             app:layout_constraintTop_toBottomOf="@id/tvTrans_time"
             tools:text=" • " />
@@ -158,6 +183,8 @@
             android:id="@+id/tvTrans_merchant"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/color_time"
+            android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@id/tvTrans_dot_before_merchant"
             app:layout_constraintTop_toBottomOf="@id/tvTrans_time"
             tools:text="@string/option_merchant" />
@@ -166,6 +193,8 @@
             android:id="@+id/tvTrans_dot_before_project"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/color_time"
+            android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@id/tvTrans_merchant"
             app:layout_constraintTop_toBottomOf="@id/tvTrans_time"
             tools:text=" • " />
@@ -174,6 +203,8 @@
             android:id="@+id/tvTrans_project"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/color_time"
+            android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@id/tvTrans_dot_before_project"
             app:layout_constraintTop_toBottomOf="@id/tvTrans_time"
             tools:text="@string/option_project" />
@@ -183,8 +214,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toBottomOf="@+id/tvTrans_time"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tvTrans_time"
             tools:text="$15.75" />
 
         <TextView

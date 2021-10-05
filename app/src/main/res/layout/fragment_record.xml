@@ -10,7 +10,7 @@
         android:id="@+id/record_layout"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:background="@color/blue_base"
+        android:background="@color/color_blue_base"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 

@@ -6,11 +6,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
-import com.example.ngiu.data.entities.Account
+import com.example.ngiu.data.entities.Person
 import kotlinx.android.synthetic.main.account_list_cardview.view.*
 
 
-class AccountListAdapter(private val person: ArrayList<Account>)
+class AccountListAdapter(private val person: ArrayList<Person>)
     : RecyclerView.Adapter<AccountListAdapter.ViewHolder>() {
 
 
@@ -30,7 +30,7 @@ class AccountListAdapter(private val person: ArrayList<Account>)
         // display the custom class
         person[position].apply {
             holder.ID.text = "$ID"
-            //holder.Name.text = "$Name"
+            holder.Name.text = "$Name"
             if (holder.ID.text.toString().toLong() > 10) {
                 holder.ID.setTextColor(-0xffff01)
             }

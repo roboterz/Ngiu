@@ -48,12 +48,6 @@ import java.util.*
         childColumns = arrayOf("ProjectID"),
         onDelete = ForeignKey.SET_NULL,
         onUpdate = ForeignKey.CASCADE
-    ),ForeignKey(
-        entity = Period::class,
-        parentColumns = ["ID"],
-        childColumns = ["PeriodID"],
-        onDelete = ForeignKey.SET_NULL,
-        onUpdate = ForeignKey.CASCADE
     )
     ], indices = [Index(value = ["ID"], unique = true)]
 )

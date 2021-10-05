@@ -1,11 +1,8 @@
 package com.example.ngiu.data
 
-import android.content.ContentValues
-import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import android.widget.Toast
-import com.example.ngiu.data.entities.AccountType
+import androidx.fragment.app.FragmentActivity
 
 
 private const val DATABASENAME = "Ngiu"
@@ -143,17 +140,24 @@ private const val SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS "
 
 
 
-class DBManager(var context: Context) : SQLiteOpenHelper(context, DATABASENAME, null,
-    1) {
+class DBManager(var context: FragmentActivity?) : SQLiteOpenHelper(context, DATABASENAME, null,
+    4) {
 
     override fun onCreate(db: SQLiteDatabase?) {
-        val createTable = SQL_CREATE_ENTRIES
-        db?.execSQL(createTable)
+        //db?.execSQL(SQL_CREATE_ENTRIES)
     }
+
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
         //onCreate(db);
     }
 
+    fun runSQL(strSQL: String){
+        val db = this.writableDatabase
+        db?.execSQL(strSQL)
+    }
+
+
+    /*
     fun insertData(at: ContentValues) {
         if (at.get("Name")!= "") {
             val database = this.writableDatabase
@@ -182,13 +186,17 @@ class DBManager(var context: Context) : SQLiteOpenHelper(context, DATABASENAME, 
         val result = db.rawQuery(query, null)
         if (result.moveToFirst()) {
             do {
-                var at = AccountType(id=0,Name="")
-                at.id  = result.getString(result.getColumnIndex("ID")).toInt()
-                at.Name = result.getString(result.getColumnIndex("Name"))
-                list.add(at)
+                //var at = AccountType(id=0,Name="")
+                //at.id  = result.getString(result.getColumnIndex("ID")).toInt()
+                //at.Name = result.getString(result.getColumnIndex("Name"))
+                //list.add(at)
             }
             while (result.moveToNext())
         }
         return list
     }
+
+     */
+
+
 }
