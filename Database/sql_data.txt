@@ -1,0 +1,246 @@
+
+INSERT INTO AccountType (ID, Name, Memo) VALUES (1, 'Cash', '');
+INSERT INTO AccountType (ID, Name, Memo) VALUES (2, 'Credit Card', '');
+INSERT INTO AccountType (ID, Name, Memo) VALUES (3, 'Debit Card/Checking/Saving', '');
+INSERT INTO AccountType (ID, Name, Memo) VALUES (4, 'Investment Account', 'Stock, Fund, Cryptocurrency');
+INSERT INTO AccountType (ID, Name, Memo) VALUES (5, 'Web Account', 'Alipay, Wechat, Paypal, QQ, Vemo...');
+INSERT INTO AccountType (ID, Name, Memo) VALUES (6, 'Stored Value Card', 'Shopping Card, MTA Card...');
+INSERT INTO AccountType (ID, Name, Memo) VALUES (7, 'Virtual Account', 'Points, Games Card...');
+INSERT INTO AccountType (ID, Name, Memo) VALUES (8, 'Permanent Assets', 'House...');
+INSERT INTO AccountType (ID, Name, Memo) VALUES (9, 'Receivable/Payable', '');
+
+
+-- Table: Account
+INSERT INTO Account (ID, AcctTypeID, Name, Balance, CountInNetAssets, Memo, BaseCurrency, CardNumber, StatementDay, CreditLimit, FixedPaymentDay, PaymentDay, Interval, Reminder, StatisticalMode) VALUES (1, 2, 'Chase Freedom', 0.0, 1, '', 'USD', '', 1, 5000.0, 0, 26, 26, 0, 0);
+INSERT INTO Account (ID, AcctTypeID, Name, Balance, CountInNetAssets, Memo, BaseCurrency, CardNumber, StatementDay, CreditLimit, FixedPaymentDay, PaymentDay, Interval, Reminder, StatisticalMode) VALUES (2, 1, 'Wallet', 0.0, 1, '', 'USD', '', 0, 0.0, 0, 0, 0, 0, 0);
+
+
+-- Table: Currency
+INSERT INTO Currency (ID, Name, ExchangeRate) VALUES ('USD', 'US Dollar', 1.0);
+
+
+-- Table: TransactionType
+INSERT INTO TransactionType (ID, Name) VALUES (1, 'Expense');
+INSERT INTO TransactionType (ID, Name) VALUES (2, 'Income');
+INSERT INTO TransactionType (ID, Name) VALUES (3, 'Transfer');
+INSERT INTO TransactionType (ID, Name) VALUES (4, 'Debit & Credit');
+
+
+-- Table: MainCategories
+INSERT INTO MainCategories (ID, TransTypeID, Name) VALUES (1, 1, 'Food');
+INSERT INTO MainCategories (ID, TransTypeID, Name) VALUES (2, 1, 'Shopping');
+INSERT INTO MainCategories (ID, TransTypeID, Name) VALUES (3, 1, 'Administrative');
+INSERT INTO MainCategories (ID, TransTypeID, Name) VALUES (4, 1, 'Business');
+INSERT INTO MainCategories (ID, TransTypeID, Name) VALUES (5, 1, 'Investing');
+INSERT INTO MainCategories (ID, TransTypeID, Name) VALUES (6, 1, 'Home');
+INSERT INTO MainCategories (ID, TransTypeID, Name) VALUES (7, 1, 'Education');
+INSERT INTO MainCategories (ID, TransTypeID, Name) VALUES (8, 1, 'Medical');
+INSERT INTO MainCategories (ID, TransTypeID, Name) VALUES (9, 1, 'Entertainment');
+INSERT INTO MainCategories (ID, TransTypeID, Name) VALUES (10, 1, 'Transportation');
+INSERT INTO MainCategories (ID, TransTypeID, Name) VALUES (11, 2, 'Income');
+
+
+-- Table: SubCategories
+INSERT INTO SubCategories (ID, MainCategoryID, Name) VALUES (1, 11, 'Pension');
+INSERT INTO SubCategories (ID, MainCategoryID, Name) VALUES (2, 11, 'Side Job');
+INSERT INTO SubCategories (ID, MainCategoryID, Name) VALUES (3, 11, 'Dividend');
+INSERT INTO SubCategories (ID, MainCategoryID, Name) VALUES (4, 11, 'Bonus');
+INSERT INTO SubCategories (ID, MainCategoryID, Name) VALUES (5, 11, 'Interest');
+INSERT INTO SubCategories (ID, MainCategoryID, Name) VALUES (6, 11, 'Tips');
+INSERT INTO SubCategories (ID, MainCategoryID, Name) VALUES (7, 11, 'Salary');
+INSERT INTO SubCategories (ID, MainCategoryID, Name) VALUES (8, 11, 'SSI');
+INSERT INTO SubCategories (ID, MainCategoryID, Name) VALUES (9, 11, 'Benefit');
+INSERT INTO SubCategories (ID, MainCategoryID, Name) VALUES (10, 11, 'Refund');
+INSERT INTO SubCategories (ID, MainCategoryID, Name) VALUES (12, 11, 'Cash back');
+INSERT INTO SubCategories (ID, MainCategoryID, Name) VALUES (13, 11, 'Receviable');
+INSERT INTO SubCategories (ID, MainCategoryID, Name) VALUES (14, 11, 'Stock');
+INSERT INTO SubCategories (ID, MainCategoryID, Name) VALUES (15, 11, 'Rental Income');
+INSERT INTO SubCategories (ID, MainCategoryID, Name) VALUES (16, 11, 'Bussiness');
+INSERT INTO SubCategories (ID, MainCategoryID, Name) VALUES (17, 11, 'Investment');
+INSERT INTO SubCategories (ID, MainCategoryID, Name) VALUES (18, 1, 'Grocery');
+INSERT INTO SubCategories (ID, MainCategoryID, Name) VALUES (19, 1, 'Drink');
+INSERT INTO SubCategories (ID, MainCategoryID, Name) VALUES (20, 1, 'KTV');
+INSERT INTO SubCategories (ID, MainCategoryID, Name) VALUES (21, 1, 'Midnight Dinner');
+INSERT INTO SubCategories (ID, MainCategoryID, Name) VALUES (22, 1, 'Dinner');
+INSERT INTO SubCategories (ID, MainCategoryID, Name) VALUES (23, 1, 'Lunch');
+INSERT INTO SubCategories (ID, MainCategoryID, Name) VALUES (24, 1, 'Breakfast');
+INSERT INTO SubCategories (ID, MainCategoryID, Name) VALUES (25, 10, 'MTA');
+INSERT INTO SubCategories (ID, MainCategoryID, Name) VALUES (26, 10, 'Car Services');
+
+
+-- Table: Project
+INSERT INTO Project (ID, Name) VALUES (1, 'Daily');
+
+-- Table: Person
+INSERT INTO Person (ID, Name) VALUES (1, 'Me');
+
+
+-- Table: Merchant
+INSERT INTO Merchant (ID, Name) VALUES (1, 'No Location');
+
+
+
+
+-- Table: Currency
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('XCD', 'East Caribbean Dollar', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('XAF', 'Communauté Financière Africaine (BEAC) CFA Franc BEAC', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('WST', 'Samoa Tala', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('VUV', 'Vanuatu Vatu', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('VND', 'Viet Nam Dong', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('UYU', 'Uruguay Peso', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('USD', 'United States Dollar', 1.0);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('UGX', 'Uganda Shilling', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('TZS', 'Tanzania Shilling', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('TWD', 'Taiwan New Dollar', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('TVD', 'Tuvalu Dollar', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('TTD', 'Trinidad and Tobago Dollar', '');
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('TRY', 'Turkey Lira', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('TOP', 'Tonga Pa''anga', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('TND', 'Tunisia Dinar', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('TMT', 'Turkmenistan Manat', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('TJS', 'Tajikistan Somoni', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('THB', 'Thailand Baht', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('SZL', 'eSwatini Lilangeni', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('SYP', 'Syria Pound', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('SVC', 'El Salvador Colon', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('STN', 'São Tomé and Príncipe Dobra', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('SRD', 'Suriname Dollar', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('SPL', 'Seborga Luigino', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('SOS', 'Somalia Shilling', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('SLL', 'Sierra Leone Leone', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('SHP', 'Saint Helena Pound', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('SGD', 'Singapore Dollar', 1.343028);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('SEK', 'Sweden Krona', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('SDG', 'Sudan Pound', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('SCR', 'Seychelles Rupee', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('SBD', 'Solomon Islands Dollar', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('SAR', 'Saudi Arabia Riyal', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('RWF', 'Rwanda Franc', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('RUB', 'Russia Ruble', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('RSD', 'Serbia Dinar', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('RON', 'Romania Leu', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('QAR', 'Qatar Riyal', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('PYG', 'Paraguay Guarani', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('PLN', 'Poland Zloty', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('PKR', 'Pakistan Rupee', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('PHP', 'Philippines Peso', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('PGK', 'Papua New Guinea Kina', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('PEN', 'Peru Sol', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('PAB', 'Panama Balboa', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('OMR', 'Oman Rial', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('NZD', 'New Zealand Dollar', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('NPR', 'Nepal Rupee', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('NOK', 'Norway Krone', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('NIO', 'Nicaragua Cordoba', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('NGN', 'Nigeria Naira', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('NAD', 'Namibia Dollar', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('MZN', 'Mozambique Metical', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('MYR', 'Malaysia Ringgit', 4.150127);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('MXN', 'Mexico Peso', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('MWK', 'Malawi Kwacha', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('MVR', 'Maldives (Maldive Islands) Rufiyaa', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('MUR', 'Mauritius Rupee', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('MRU', 'Mauritania Ouguiya', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('MOP', 'Macau Pataca', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('MNT', 'Mongolia Tughrik', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('MMK', 'Myanmar (Burma) Kyat', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('MKD', 'Macedonia Denar', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('MGA', 'Madagascar Ariary', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('MDL', 'Moldova Leu', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('MAD', 'Morocco Dirham', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('LYD', 'Libya Dinar', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('LSL', 'Lesotho Loti', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('LRD', 'Liberia Dollar', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('LKR', 'Sri Lanka Rupee', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('LBP', 'Lebanon Pound', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('LAK', 'Laos Kip', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('KZT', 'Kazakhstan Tenge', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('KYD', 'Cayman Islands Dollar', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('KWD', 'Kuwait Dinar', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('KRW', 'Korea (South) Won', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('KPW', 'Korea (North) Won', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('KMF', 'Comorian Franc', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('KGS', 'Kyrgyzstan Som', '');
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('KES', 'Kenya Shilling', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('JPY', 'Japan Yen', 110.067);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('JOD', 'Jordan Dinar', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('JMD', 'Jamaica Dollar', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('ISK', 'Iceland Krona', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('IQD', 'Iraq Dinar', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('INR', 'India Rupee', 73.608662);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('ILS', 'Israel Shekel', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('IDR', 'Indonesia Rupiah', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('HUF', 'Hungary Forint', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('HTG', 'Haiti Gourde', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('HRK', 'Croatia Kuna', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('HNL', 'Honduras Lempira', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('HKD', 'Hong Kong Dollar', 7.778821);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('GYD', 'Guyana Dollar', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('GTQ', 'Guatemala Quetzal', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('GNF', 'Guinea Franc', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('GMD', 'Gambia Dalasi', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('GIP', 'Gibraltar Pound', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('GHS', 'Ghana Cedi', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('GEL', 'Georgia Lari', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('GBP', 'United Kingdom Pound', 0.722257);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('FKP', 'Falkland Islands (Malvinas) Pound', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('FJD', 'Fiji Dollar', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('EUR', 'Euro Member Countries', 0.846369);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('ETB', 'Ethiopia Birr', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('EGP', 'Egypt Pound', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('DZD', 'Algeria Dinar', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('DOP', 'Dominican Republic Peso', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('DKK', 'Denmark Krone', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('DJF', 'Djibouti Franc', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('CZK', 'Czech Republic Koruna', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('CUP', 'Cuba Peso', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('CRC', 'Costa Rica Colon', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('COP', 'Colombia Peso', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('CNY', 'China Yuan Renminbi', 6.447487);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('CLP', 'Chile Peso', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('CHF', 'Switzerland Franc', 0.92174);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('CAD', 'Canada Dollar', 1.265122);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('BZD', 'Belize Dollar', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('BWP', 'Botswana Pula', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('BRL', 'Brazil Real', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('BOB', 'Bolivia Bolíviano', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('BND', 'Brunei Darussalam Dollar', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('BHD', 'Bahrain Dinar', 0.376);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('BGN', 'Bulgaria Lev', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('BDT', 'Bangladesh Taka', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('AUD', 'Australia Dollar', 1.362132);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('ARS', 'Argentina Peso', 98.179972);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('AOA', 'Angola Kwanza', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('AMD', 'Armenia Dram', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('ALL', 'Albania Lek', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('AFN', 'Afghanistan Afghani', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('AED', 'United Arab Emirates Dirham', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('UZS', 'Uzbekistan Som', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('AWG', 'Aruba Guilder', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('AZN', 'Azerbaijan Manat', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('BSD', 'Bahamas Dollar', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('BYN', 'Belarus Ruble', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('BBD', 'Barbados Dollar', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('CVE', 'Cape Verde Escudo', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('BIF', 'Burundi Franc', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('BAM', 'Bosnia and Herzegovina Convertible Mark', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('BTN', 'Bhutan Ngultrum', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('BMD', 'Bermuda Dollar', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('VEF', 'Venezuela Bolívar', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('KHR', 'Cambodia Riel', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('UAH', 'Ukraine Hryvnia', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('ANG', 'Netherlands Antilles Guilder', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('CDF', 'Congo/Kinshasa Franc', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('CUC', 'Cuba Convertible Peso', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('ERN', 'Eritrea Nakfa', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('GGP', 'Guernsey Pound', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('IMP', 'Isle of Man Pound', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('IRR', 'Iran Rial', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('JEP', 'Jersey Pound', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('XDR', 'International Monetary Fund (IMF) Special Drawing Rights', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('XOF', 'Communauté Financière Africaine (BCEAO) Franc', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('XPF', 'Comptoirs Français du Pacifique (CFP) Franc', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('YER', 'Yemen Rial', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('ZAR', 'South Africa Rand', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('ZMW', 'Zambia Kwacha', NULL);
+INSERT INTO Currency (Code, Name, ExchangeRate) VALUES ('ZWD', 'Zimbabwe Dollar', NULL);
