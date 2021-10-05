@@ -30,10 +30,12 @@ class SettingFragment : Fragment() {
         _binding = FragmentSettingBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textSetting
-        settingViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
+        //todo on click to the next screen
+        val textView: TextView = binding.tvExpense
+        textView.setOnClickListener {
+
+        }
+
         return root
     }
 
