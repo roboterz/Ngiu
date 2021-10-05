@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/card_view"
+    android:id="@+id/trans_card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="0.5dp"
@@ -10,7 +10,10 @@
     app:cardCornerRadius="0dp"
     app:cardElevation="5dp"
     app:cardMaxElevation="7dp"
-    app:contentPadding="8dp">
+    app:contentPaddingTop="4dp"
+    app:contentPaddingLeft="10dp"
+    app:contentPaddingRight="5dp"
+    app:contentPaddingBottom="9dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
