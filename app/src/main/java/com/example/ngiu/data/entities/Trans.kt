@@ -8,67 +8,67 @@ import java.util.*
 @Entity(
     foreignKeys = [ForeignKey(
         entity = TransactionType::class,
-        parentColumns = ["ID"],
-        childColumns = ["TransTypeID"],
+        parentColumns = ["TransactionType_ID"],
+        childColumns = ["TransactionType_ID"],
         onDelete = ForeignKey.SET_NULL,
         onUpdate = ForeignKey.CASCADE
     ),ForeignKey(
-        entity = SubCategories::class,
-        parentColumns = ["ID"],
-        childColumns = ["SubCategoryID"],
-        onDelete = ForeignKey.SET_NULL,
-        onUpdate = ForeignKey.CASCADE
-    ),ForeignKey(
-        entity = Account::class,
-        parentColumns = ["ID"],
-        childColumns = ["PayerID"],
+        entity = SubCategory::class,
+        parentColumns = ["SubCategory_ID"],
+        childColumns = ["SubCategory_ID"],
         onDelete = ForeignKey.SET_NULL,
         onUpdate = ForeignKey.CASCADE
     ),ForeignKey(
         entity = Account::class,
-        parentColumns = ["ID"],
-        childColumns = ["RecipientID"],
+        parentColumns = ["Account_ID"],
+        childColumns = ["Account_ID"],
+        onDelete = ForeignKey.SET_NULL,
+        onUpdate = ForeignKey.CASCADE
+    ),ForeignKey(
+        entity = Account::class,
+        parentColumns = ["Account_ID"],
+        childColumns = ["AccountRecipient_ID"],
         onDelete = ForeignKey.SET_NULL,
         onUpdate = ForeignKey.CASCADE
     ),ForeignKey(
         entity = Person::class,
-        parentColumns = ["ID"],
-        childColumns = ["PersonID"],
+        parentColumns = ["Person_ID"],
+        childColumns = ["Person_ID"],
         onDelete = ForeignKey.SET_NULL,
         onUpdate = ForeignKey.CASCADE
     ),ForeignKey(
         entity = Merchant::class,
-        parentColumns = ["ID"],
-        childColumns = ["MerchantID"],
+        parentColumns = ["Merchant_ID"],
+        childColumns = ["Merchant_ID"],
         onDelete = ForeignKey.SET_NULL,
         onUpdate = ForeignKey.CASCADE
     ),ForeignKey(
         entity = Project::class,
-        parentColumns = ["ID"],
-        childColumns = arrayOf("ProjectID"),
+        parentColumns = ["Project_ID"],
+        childColumns = arrayOf("Project_ID"),
         onDelete = ForeignKey.SET_NULL,
         onUpdate = ForeignKey.CASCADE
     )
-    ], indices = [Index(value = ["ID"], unique = true)]
+    ], indices = [Index(value = ["Transaction_ID"], unique = true)]
 )
 
 data class Trans(
     @PrimaryKey(autoGenerate = true)
     //@ColumnInfo(name = "ID")
-    val ID: Long = 0,
-    val TransTypeID: Long = 0,
-    val SubCategoryID: Long = 0,
-    val PayerID: Long = 0,
-    val RecipientID: Long = 0,
-    val Amount: Double = 0.0,
+    val Transaction_ID: Long = 0,
+    val TransactionType_ID: Long = 0,
+    val SubCategory_ID: Long = 0,
+    val Account_ID: Long = 0,
+    val AccountRecipient_ID: Long = 0,
+    val Transaction_Amount: Double = 0.0,
     @TypeConverters(DateTypeConverter::class)
-    val Date: Date,
-    val PersonID: Long = 0,
-    val MerchantID: Long = 0,
-    val Memo: String = "",
-    val ProjectID: Long = 0,
-    val ReimburseStatus: Int = 0,
-    val PeriodID: Long = 0
+    val Transaction_Date: Date,
+    val Person_ID: Long = 0,
+    val Merchant_ID: Long = 0,
+    val Transaction_Memo: String = "",
+    val Project_ID: Long = 0,
+    val Transaction_ReimburseStatus: Int = 0,
+    val Period_ID: Long = 0
 )/*{
     constructor( ): this(0,0,0,0,0,0.0,null,0,0,"",0,false,0)
 }*/

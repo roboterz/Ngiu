@@ -52,25 +52,25 @@ class TransListAdapter(private val trans: MutableList<Trans>)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         // display the custom class
         trans[position].apply {
-            holder.day.text = Date.date.toString()
-            holder.week.text =DateFormat.format("EEEE",Date)
+            holder.day.text = Transaction_Date.date.toString()
+            holder.week.text =DateFormat.format("EEEE",Transaction_Date)
             holder.income.text = "Income"
             holder.dailyIncome.text ="$0.00"
             holder.expense.text = "Expense"
             holder.dailyExpense.text ="$0.00"
-            holder.subCategory.text ="$SubCategoryID"
-            holder.time.text = DateFormat.format("HH:mm", Date)
-            holder.period.text = if (PeriodID == (0).toLong()) "" else "$PeriodID"
-            holder.memo.text ="$Memo"
-            holder.payer.text = when (PayerID.toInt()){
+            holder.subCategory.text ="$SubCategory_ID"
+            holder.time.text = DateFormat.format("HH:mm", Transaction_Date)
+            holder.period.text = if (Period_ID == (0).toLong()) "" else "$Period_ID"
+            holder.memo.text ="$Transaction_Memo"
+            holder.payer.text = when (Account_ID.toInt()){
                                     1 -> "Chase Freedom"
                                     2 -> "Walet"
                                     else -> ""
                                 }
-            holder.person.text = if (PersonID == (1).toLong()) "Myself" else "$PersonID"
-            holder.merchant.text = if (MerchantID == (1).toLong()) "" else "$MerchantID"
-            holder.project.text = if (ProjectID == (1).toLong()) "" else "$ProjectID"
-            holder.amount.text ="$$Amount"
+            holder.person.text = if (Person_ID == (1).toLong()) "Myself" else "$Person_ID"
+            holder.merchant.text = if (Merchant_ID == (1).toLong()) "" else "$Merchant_ID"
+            holder.project.text = if (Project_ID == (1).toLong()) "" else "$Project_ID"
+            holder.amount.text ="$$Transaction_Amount"
 
             if (holder.person.text !=""){
                 holder.beforePerson.text =" • "
@@ -83,7 +83,7 @@ class TransListAdapter(private val trans: MutableList<Trans>)
             }
 
             holder.amount.setTextColor(
-                when (TransTypeID.toInt()) {
+                when (TransactionType_ID.toInt()) {
                     1 -> Color.RED
                     2 -> Color.parseColor("#29C010")
                     else -> Color.BLACK

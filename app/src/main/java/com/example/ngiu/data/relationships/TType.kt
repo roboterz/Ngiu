@@ -2,16 +2,13 @@ package com.example.ngiu.data.relationships
 
 import androidx.room.Embedded
 import androidx.room.Relation
-import com.example.ngiu.data.entities.MainCategories
-import com.example.ngiu.data.entities.Period
-import com.example.ngiu.data.entities.TransactionType
-import com.example.ngiu.data.entities.Trans
+import com.example.ngiu.data.entities.*
 
 data class TransTypeTrans (
     @Embedded val transactionType: TransactionType,
     @Relation(
-        parentColumn = "ID",
-        entityColumn = "TransTypeID"
+        parentColumn = "TransactionType_ID",
+        entityColumn = "TransactionType_ID"
     )
     val trans: List<Trans>
 )
@@ -19,17 +16,17 @@ data class TransTypeTrans (
 data class TransTypeMC (
     @Embedded val transactionType: TransactionType,
     @Relation(
-        parentColumn = "ID",
-        entityColumn = "TransTypeID"
+        parentColumn = "TransactionType_ID",
+        entityColumn = "TransactionType_ID"
     )
-    val mainCategories: List<MainCategories>
+    val mainCategories: List<MainCategory>
 )
 
 data class TransTypePeriod (
     @Embedded val transactionType: TransactionType,
     @Relation(
-        parentColumn = "ID",
-        entityColumn = "TransTypeID"
+        parentColumn = "TransactionType_ID",
+        entityColumn = "Period_TransactionType_ID"
     )
     val period: List<Period>
 )

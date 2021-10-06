@@ -6,56 +6,68 @@ import java.util.*
 @Entity(
     foreignKeys = [ForeignKey(
         entity = TransactionType::class,
-        parentColumns = ["ID"],
-        childColumns = ["TransTypeID"],
+        parentColumns = ["TransactionType_ID"],
+        childColumns = ["Period_TransactionType_ID"],
         onDelete = ForeignKey.SET_NULL,
         onUpdate = ForeignKey.CASCADE
-    ), ForeignKey(
+    ),ForeignKey(
+        entity = Account::class,
+        parentColumns = ["Account_ID"],
+        childColumns = ["Period_Account_ID"],
+        onDelete = ForeignKey.SET_NULL,
+        onUpdate = ForeignKey.CASCADE
+    ),ForeignKey(
+        entity = Account::class,
+        parentColumns = ["Account_ID"],
+        childColumns = ["Period_AccountRecipient_ID"],
+        onDelete = ForeignKey.SET_NULL,
+        onUpdate = ForeignKey.CASCADE
+    ),ForeignKey(
         entity = Project::class,
-        parentColumns = ["ID"],
-        childColumns = ["ProjectID"],
+        parentColumns = ["Project_ID"],
+        childColumns = ["Period_Project_ID"],
         onDelete = ForeignKey.SET_NULL,
         onUpdate = ForeignKey.CASCADE
     ), ForeignKey(
         entity = Merchant::class,
-        parentColumns = ["ID"],
-        childColumns = ["MerchantID"],
+        parentColumns = ["Merchant_ID"],
+        childColumns = ["Period_Merchant_ID"],
         onDelete = ForeignKey.SET_NULL,
         onUpdate = ForeignKey.CASCADE
     ), ForeignKey(
         entity = Person::class,
-        parentColumns = ["ID"],
-        childColumns = ["PersonID"],
+        parentColumns = ["Person_ID"],
+        childColumns = ["Period_Person_ID"],
         onDelete = ForeignKey.SET_NULL,
         onUpdate = ForeignKey.CASCADE
     ), ForeignKey(
-        entity = SubCategories::class,
-        parentColumns = ["ID"],
-        childColumns = ["SubCategoryID"],
+        entity = SubCategory::class,
+        parentColumns = ["SubCategory_ID"],
+        childColumns = ["Period_SubCategory_ID"],
         onDelete = ForeignKey.SET_NULL,
         onUpdate = ForeignKey.CASCADE
-    )], indices = [Index(value = ["ID"], unique = true)],
+    )], indices = [Index(value = ["Period_ID"], unique = true)],
 )
 data class Period (
     @PrimaryKey(autoGenerate = true)
     //@ColumnInfo(name = "ID")
-    val ID: Long = 0,
-    val RepeatInterval: Int = 0,
-    val EndStatus: Int = 0,
+    val Period_ID: Long = 0,
+    val Period_RepeatInterval: Int = 0,
+    val Period_EndStatus: Int = 0,
     @TypeConverters(DateTypeConverter::class)
-    val StarDate: Date,
+    val Period_StarDate: Date,
     @TypeConverters(DateTypeConverter::class)
-    val EndDate: Date,
-    val TransTypeID: Long = 0,
-    val SubCategoryID: Long = 0,
-    val PayerID: Long = 0,
-    val RecipientID: Long = 0,
-    val Amount: Double=0.0,
-    val PersonID: Long = 0,
-    val MerchantID: Long = 0,
-    val ProjectID: Long = 0,
-    val ReimburseStatus: Int = 0,
-    val Memo: String = ""
+    val Period_EndDate: Date,
+    val Period_TransactionType_ID: Long = 0,
+    val Period_SubCategory_ID: Long = 0,
+    val Period_Account_ID: Long = 0,
+    val Period_AccountRecipient_ID: Long = 0,
+    val Period_Amount: Double=0.0,
+    val Period_Person_ID: Long = 0,
+    val Period_Merchant_ID: Long = 0,
+    val Period_Project_ID: Long = 0,
+    val Period_ReimburseStatus: Int = 0,
+    val Period_Memo: String = ""
 
 
 

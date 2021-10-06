@@ -10,8 +10,8 @@ import com.example.ngiu.data.entities.Trans
 data class PersonTrans (
     @Embedded val person: Person,
     @Relation(
-        parentColumn = "ID",
-        entityColumn = "PersonID"
+        parentColumn = "Person_ID",
+        entityColumn = "Person_ID"
     )
     val trans: List<Trans>
 )
@@ -19,8 +19,8 @@ data class PersonTrans (
 data class PersonPeriod (
     @Embedded val person: Person,
     @Relation(
-        parentColumn = "ID",
-        entityColumn = "PersonID",
+        parentColumn = "Person_ID",
+        entityColumn = "Period_Person_ID",
     )
     val period: List<Period>
 )

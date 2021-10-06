@@ -21,21 +21,21 @@ interface AccountDao {
     @Query("SELECT * FROM Account")
     fun getAllAccount(): List<Account>
 
-    @Transaction
-    @Query("SELECT * FROM Account")
-    fun getAcctTransRecip(): List<AcctTransRecipient>
+    //@Transaction
+    //@Query("SELECT * FROM Account")
+    //fun getAcctTransRecip(): List<AcctTransRecipient>
 
-    @Transaction
-    @Query("SELECT * FROM Account")
-    fun getAccountPayer(): List<AcctTransPayer>
+    //@Transaction
+    //@Query("SELECT * FROM Account")
+    //fun getAccountPayer(): List<AcctTransAcct>
 
-    @Transaction
-    @Query("SELECT * FROM Account")
-    fun getAcctPeriodRecip(): List<AcctPeriodRecipient>
+    //@Transaction
+    //@Query("SELECT * FROM Account")
+    //fun getAcctPeriodRecip(): List<AcctPeriodRecipient>
 
-    @Transaction
-    @Query("SELECT * FROM Account")
-    fun getAcctPeriodPayer(): List<AcctPeriodPayer>
+    //@Transaction
+    //@Query("SELECT * FROM Account")
+    //fun getAcctPeriodPayer(): List<AcctPeriodAcct>
 
 
 }
@@ -46,9 +46,12 @@ interface AccountTypeDao{
     @Insert(onConflict = OnConflictStrategy.ABORT)
     fun addAccountType(accountType: AccountType)
 
+    @Delete
+    fun deleteAccountType(accountType: AccountType)
+
     @Transaction
     @Query("SELECT * FROM AccountType")
-    fun getAccountType(): Flow<List<AcctTypeAcct>>
+    fun getAllAccountType(): List<AccountType>
 }
 
 // Currency
@@ -57,9 +60,13 @@ interface CurrencyDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
     fun addCurrency(currency: Currency)
 
+    //@Transaction
+    //@Query("SELECT * FROM Currency")
+    //fun getCurrency(): List<CurrencyAcct>
+
     @Transaction
     @Query("SELECT * FROM Currency")
-    fun getCurrency(): Flow<List<CurrencyAcct>>
+    fun getAllCurrency(): List<Currency>
 }
 
 // Person
@@ -71,9 +78,9 @@ interface PersonDao {
     @Delete
     fun deletePerson(person: Person)
 
-    @Transaction
-    @Query("SELECT * FROM Person")
-    fun getPersonTrans(): List<PersonTrans>
+    //@Transaction
+    //@Query("SELECT * FROM Person")
+    //un getPersonTrans(): List<PersonTrans>
 
     @Transaction
     @Query("SELECT * FROM Person")
@@ -83,16 +90,20 @@ interface PersonDao {
 
 //Main Categories
 @Dao
-interface MainCategoriesDao {
+interface MainCategoryDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
-    fun addMC(mainCategories: MainCategories)
+    fun addMC(mainCategory: MainCategory)
 
     @Delete
-    fun deleteMC(mainCategories: MainCategories)
+    fun deleteMC(mainCategory: MainCategory)
+
+    //@Transaction
+    //@Query("SELECT * FROM MainCategories")
+    //fun getMC(): Flow<List<MainCatSub>>
 
     @Transaction
-    @Query("SELECT * FROM MainCategories")
-    fun getMC(): Flow<List<MainCatSub>>
+    @Query("SELECT * FROM MainCategory")
+    fun getAllMainCategory(): List<MainCategory>
 }
 
 // Merchant
@@ -104,9 +115,13 @@ interface MerchantDao {
     @Delete
     fun deleteMerchant(merchant: Merchant)
 
+    //@Transaction
+    //@Query("SELECT * FROM Merchant")
+    //fun getMerchantPeriod(): Flow<List<MerchantPeriod>>
+
     @Transaction
     @Query("SELECT * FROM Merchant")
-    fun getMerchantPeriod(): Flow<List<MerchantPeriod>>
+    fun getAllMerchant(): List<Merchant>
 }
 
 // Period
@@ -118,9 +133,13 @@ interface PeriodDao {
     @Delete
     fun deletePeriod(period: Period)
 
+    //@Transaction
+    //@Query("SELECT * FROM Period")
+    //fun getPeriodTrans(): Flow<List<PeriodTrans>>
+
     @Transaction
     @Query("SELECT * FROM Period")
-    fun getPeriodTrans(): Flow<List<PeriodTrans>>
+    fun getAllPeriodTrans(): List<Period>
 }
 
 // Project
@@ -132,23 +151,31 @@ interface ProjectDao {
     @Delete
     fun deleteProject(project: Project)
 
+    //@Transaction
+    //@Query("SELECT * FROM Project")
+    //fun getProjectPeriod(): Flow<List<ProjectPeriod>>
+
     @Transaction
     @Query("SELECT * FROM Project")
-    fun getProjectPeriod(): Flow<List<ProjectPeriod>>
+    fun getAllProject(): List<Project>
 }
 
 // Sub_Categories
 @Dao
-interface SubCategoriesDao {
+interface SubCategoryDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
-    fun addSubCat(subcategories: SubCategories)
+    fun addSubCat(subcategory: SubCategory)
 
     @Delete
-    fun deleteSubCat(subcategories: SubCategories)
+    fun deleteSubCat(subcategory: SubCategory)
+
+    //@Transaction
+    //@Query("SELECT * FROM SubCategories")
+    //fun getSubCat(): List<SubCategories>
 
     @Transaction
-    @Query("SELECT * FROM SubCategories")
-    fun getSubCat(): Flow<List<SubCategories>>
+    @Query("SELECT * FROM SubCategory")
+    fun getAllSubCategory(): List<SubCategory>
 }
 
 // Transaction
@@ -177,15 +204,19 @@ interface TransTypeDao {
 
     @Transaction
     @Query("SELECT * FROM TransactionType")
-    fun getTransTypeTrans(): Flow<List<TransTypeTrans>>
+    fun getAllTransactionType(): List<TransactionType>
 
-    @Transaction
-    @Query("SELECT * FROM TransactionType")
-    fun getTransTypeMC(): Flow<List<TransTypeMC>>
+    //@Transaction
+    //@Query("SELECT * FROM TransactionType")
+    //fun getTransTypeTrans(): Flow<List<TransTypeTrans>>
 
-    @Transaction
-    @Query("SELECT * FROM TransactionType")
-    fun getTransTypePeriod(): Flow<List<TransTypePeriod>>
+    //@Transaction
+    //@Query("SELECT * FROM TransactionType")
+    //fun getTransTypeMC(): Flow<List<TransTypeMC>>
+
+    //@Transaction
+    //@Query("SELECT * FROM TransactionType")
+    //fun getTransTypePeriod(): Flow<List<TransTypePeriod>>
 }
 
 

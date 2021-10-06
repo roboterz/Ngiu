@@ -107,19 +107,19 @@ class ActivityFragment : Fragment() {
 
                 for (i in allRecord.indices) {
                     transArr.add( Trans(
-                        allRecord[i].ID ,
-                        allRecord[i].TransTypeID,
-                        allRecord[i].SubCategoryID,
-                        allRecord[i].PayerID,
-                        allRecord[i].RecipientID,
-                        allRecord[i].Amount,
-                        allRecord[i].Date,
-                        allRecord[i].PersonID,
-                        allRecord[i].MerchantID,
-                        allRecord[i].Memo,
-                        allRecord[i].ProjectID,
-                        allRecord[i].ReimburseStatus,
-                        allRecord[i].PeriodID,
+                        allRecord[i].Transaction_ID ,
+                        allRecord[i].TransactionType_ID,
+                        allRecord[i].SubCategory_ID,
+                        allRecord[i].Account_ID,
+                        allRecord[i].AccountRecipient_ID,
+                        allRecord[i].Transaction_Amount,
+                        allRecord[i].Transaction_Date,
+                        allRecord[i].Person_ID,
+                        allRecord[i].Merchant_ID,
+                        allRecord[i].Transaction_Memo,
+                        allRecord[i].Project_ID,
+                        allRecord[i].Transaction_ReimburseStatus,
+                        allRecord[i].Period_ID,
                         )
                     )
                 }
