@@ -2,16 +2,13 @@ package com.example.ngiu.data.relationships
 
 import androidx.room.Embedded
 import androidx.room.Relation
-import com.example.ngiu.data.entities.Period
-import com.example.ngiu.data.entities.Project
-import com.example.ngiu.data.entities.SubCategories
-import com.example.ngiu.data.entities.Trans
+import com.example.ngiu.data.entities.*
 
 data class SubCatPeriod (
-    @Embedded val subCategories: SubCategories,
+    @Embedded val subCategories: SubCategory,
     @Relation(
-        parentColumn = "ID",
-        entityColumn = "SubCategoryID"
+        parentColumn = "SubCategory_ID",
+        entityColumn = "Period_SubCategory_ID"
     )
     val trans: List<Period>
 )

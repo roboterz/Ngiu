@@ -5,11 +5,11 @@ import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
 
-@Entity(indices = [Index(value = ["ID"], unique = true)])
+@Entity(indices = [Index(value = ["Person_ID"], unique = true)])
 data class Person (
     @PrimaryKey(autoGenerate = true)
     //@ColumnInfo(name = "ID")
-    val ID: Long = 0,
+    val Person_ID: Long = 0,
     //@ColumnInfo(name = "name")
-    val Name: String = ""
+    val Person_Name: String = ""
 )

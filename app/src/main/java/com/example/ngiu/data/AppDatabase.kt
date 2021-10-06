@@ -13,8 +13,8 @@ private const val db = "ngiu"
 @Database(
     entities = [
         Account::class, AccountType::class, Currency::class, Person::class,
-        MainCategories::class, Merchant::class, Period::class, Project::class,
-        SubCategories::class, TransactionType::class,
+        MainCategory::class, Merchant::class, Period::class, Project::class,
+        SubCategory::class, TransactionType::class,
         Trans::class, ], version = 4, exportSchema = false)
 @TypeConverters(DateTypeConverter::class)
 abstract class AppDatabase : RoomDatabase() {
@@ -22,11 +22,11 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun accounttype(): AccountTypeDao
     abstract fun currency(): CurrencyDao
     abstract fun person(): PersonDao
-    abstract fun maincategories(): MainCategoriesDao
+    abstract fun mainCCtegory(): MainCategoryDao
     abstract fun merchant(): MerchantDao
     abstract fun period(): PeriodDao
     abstract fun project(): ProjectDao
-    abstract fun subcat(): SubCategoriesDao
+    abstract fun subcat(): SubCategoryDao
     abstract fun trans(): TransDao
     abstract fun transtype(): TransTypeDao
 

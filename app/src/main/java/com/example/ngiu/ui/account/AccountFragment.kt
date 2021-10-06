@@ -69,7 +69,7 @@ class AccountFragment : Fragment() {
                 // for(int i = 0; i < allRecord.size; i++) {
                 for (i in allRecord.indices) {
                     //personArr.add("Id: " + allRecord.get(i).ID + " Name: " + allRecord.get(i).Name)
-                    accountArr.add(Person( allRecord[i].ID , allRecord[i].Name))
+                    accountArr.add(Person( allRecord[i].Person_ID , allRecord[i].Person_Name))
 
 
                     //val arrayAdapter = ArrayAdapter(

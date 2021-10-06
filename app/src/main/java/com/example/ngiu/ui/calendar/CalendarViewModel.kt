@@ -24,7 +24,7 @@ class CalendarViewModel : ViewModel() {
         strMemo: Editable
     ): Long {
 
-            val person = Person(ID=0, Name=strName.toString())
+            val person = Person(Person_ID= 0, Person_Name= strName.toString())
         val appDatabase = AppDatabase.getDatabase(activity!!)
             recordId= appDatabase.person().addPerson(person)
         return recordId

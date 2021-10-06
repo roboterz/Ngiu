@@ -29,8 +29,8 @@ class AccountDetailAdapter(private val person: MutableList<Person>)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         // display the custom class
         person[position].apply {
-            holder.ID.text = "$ID"
-            holder.Name.text = "$Name"
+            //holder.ID.text = "$ID"
+            //holder.Name.text = "$Name"
             if (holder.ID.text.toString().toLong() > 10) {
                 holder.ID.setTextColor(-0xffff01)
             }

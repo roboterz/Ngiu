@@ -5,18 +5,18 @@ import androidx.room.*
 @Entity(
     foreignKeys = [ForeignKey(
         entity = TransactionType::class,
-        parentColumns = ["ID"],
-        childColumns = ["TransTypeID"],
+        parentColumns = ["TransactionType_ID"],
+        childColumns = ["TransactionType_ID"],
         onDelete = ForeignKey.SET_NULL,
         onUpdate = ForeignKey.CASCADE
-    )], indices = [Index(value = ["ID"], unique = true)]
+    )], indices = [Index(value = ["MainCategory_ID"], unique = true)]
 )
 
-data class MainCategories (
+data class MainCategory (
     @PrimaryKey(autoGenerate = true)
     //@ColumnInfo(name = "ID")
-    val ID: Long = 0,
-    val TransTypeID: Long = 0,
+    val MainCategory_ID: Long = 0,
+    val TransactionType_ID: Long = 0,
     //@ColumnInfo(name = "Name")
-    val Name: String = ""
+    val MainCategory_Name: String = ""
 )

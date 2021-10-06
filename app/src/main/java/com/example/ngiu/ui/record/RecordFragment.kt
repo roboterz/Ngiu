@@ -59,6 +59,7 @@ class RecordFragment : Fragment() {
 
         // choose items to show
         toolbar_record.menu.findItem(R.id.action_done).isVisible = true
+        //toolbar_record.title = "sadfdafdfa"
 
         // menu item clicked
         toolbar_record.setOnMenuItemClickListener{
