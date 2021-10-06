@@ -1,15 +1,9 @@
 package com.example.ngiu.ui.activity
 
-import android.widget.Toast
-import android.content.Context
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.ngiu.data.AppDatabase
-import com.example.ngiu.data.entities.Person
-import com.example.ngiu.data.entities.Trans
-import kotlinx.android.synthetic.main.transaction_cardview.*
+import com.example.ngiu.data.entities.list.TransactionDetail
 
 class ActivityViewModel : ViewModel() {
 
@@ -23,11 +17,10 @@ class ActivityViewModel : ViewModel() {
     // created getAllPerson
     fun readData(
         activity: FragmentActivity?
-    ):List<Trans> {
+    ): List<TransactionDetail> {
         val appDatabase = AppDatabase.getDatabase(activity!!)
-        val TransData= appDatabase.trans().getAllTrans()
 
-        return TransData
+        return appDatabase.trans().getAllTrans()
     }
 
 }

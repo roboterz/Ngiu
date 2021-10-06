@@ -1,12 +1,10 @@
 package com.example.ngiu.data
 
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.ngiu.data.entities.*
-import com.example.ngiu.data.relationships.*
-import kotlinx.coroutines.flow.Flow
 import androidx.room.Transaction
+import com.example.ngiu.data.entities.list.TransactionDetail
 
 // Account
 @Dao
@@ -188,8 +186,19 @@ interface TransDao {
     fun deleteTransaction(trans: Trans)
 
     @Transaction
-    @Query("SELECT * FROM Trans")
-    fun getAllTrans(): List<Trans>
+    @Query("""
+        SELECT Transaction_ID, TransactionType_Name, SubCategory_Name, Account_Name, Account_Name as AccountRecipient_Name, 
+                Transaction_Amount, Transaction_Date, Person_Name, Merchant_Name, Transaction_Memo, Project_Name, 
+                Transaction_ReimburseStatus, Period_ID  
+        FROM Trans, TransactionType, SubCategory, Account, Person, Merchant, Project
+        WHERE Trans.TransactionType_ID = TransactionType.TransactionType_ID 
+                AND Trans.SubCategory_ID = SubCategory.SubCategory_ID
+                AND Trans.Account_ID = Account.Account_ID
+                AND Trans.Person_ID = Person.Person_ID
+                AND Trans.Merchant_ID = Merchant.Merchant_ID
+                AND Trans.Project_ID = Project.Project_ID
+        """)
+    fun getAllTrans(): List<TransactionDetail>
 
 }
 

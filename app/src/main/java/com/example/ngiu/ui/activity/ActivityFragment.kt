@@ -9,7 +9,7 @@ import android.view.*
 import androidx.navigation.findNavController
 import com.example.ngiu.MainActivity
 import com.example.ngiu.R
-import com.example.ngiu.data.entities.Trans
+import com.example.ngiu.data.entities.list.TransactionDetail
 import com.example.ngiu.databinding.FragmentActivityBinding
 import com.example.ngiu.functions.TransListAdapter
 import kotlinx.android.synthetic.main.fragment_activity.*
@@ -71,13 +71,13 @@ class ActivityFragment : Fragment() {
 
         // floating Add transaction button
         val fab: View = view.findViewById(R.id.floatingAddTransactionButton)
-        fab.setOnClickListener { view ->
+        fab.setOnClickListener { it ->
 
             // hide nav bottom bar
             (activity as MainActivity).setNavBottomBarVisibility(View.GONE)
 
             // navigate to add record screen
-            view.findNavController().navigate(R.id.navigation_record)
+            it.findNavController().navigate(R.id.navigation_record)
 
         }
 
@@ -98,26 +98,26 @@ class ActivityFragment : Fragment() {
     // load data to RecyclerView
     private fun readTransaction(view: View) {
         // list of Transaction
-        val transArr = ArrayList<Trans>()
+        val transactionList = ArrayList<TransactionDetail>()
 
         Thread {
-            val allRecord = activityViewModel.readData(activity) as List<Trans>
+            val allRecord = activityViewModel.readData(activity) as List<TransactionDetail>
 
             this.activity?.runOnUiThread {
 
                 for (i in allRecord.indices) {
-                    transArr.add( Trans(
+                    transactionList.add( TransactionDetail(
                         allRecord[i].Transaction_ID ,
-                        allRecord[i].TransactionType_ID,
-                        allRecord[i].SubCategory_ID,
-                        allRecord[i].Account_ID,
-                        allRecord[i].AccountRecipient_ID,
+                        allRecord[i].TransactionType_Name,
+                        allRecord[i].SubCategory_Name,
+                        allRecord[i].Account_Name,
+                        allRecord[i].AccountRecipient_Name,
                         allRecord[i].Transaction_Amount,
                         allRecord[i].Transaction_Date,
-                        allRecord[i].Person_ID,
-                        allRecord[i].Merchant_ID,
+                        allRecord[i].Person_Name,
+                        allRecord[i].Merchant_Name,
                         allRecord[i].Transaction_Memo,
-                        allRecord[i].Project_ID,
+                        allRecord[i].Project_Name,
                         allRecord[i].Transaction_ReimburseStatus,
                         allRecord[i].Period_ID,
                         )
@@ -130,7 +130,7 @@ class ActivityFragment : Fragment() {
                 recyclerView.layoutManager = linearLayoutManager
 
                 // finally, data bind the recycler view with adapter
-                recyclerView.adapter = TransListAdapter(transArr)
+                recyclerView.adapter = TransListAdapter(transactionList)
             }
         }.start()
     }
