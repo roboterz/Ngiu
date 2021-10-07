@@ -3,10 +3,6 @@ package com.example.ngiu.data.entities
 import androidx.room.TypeConverter
 import java.util.*
 
-/*
-https://developer.android.com/training/data-storage/room/referencing-data#kotlin
-Room doesn't know how to persist date objects.
-*/
 
 class DateTypeConverter {
     @TypeConverter

@@ -4,22 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.account.AccountFragment">
+    android:background="@color/color_list_background"
+    android:scrollbarAlwaysDrawVerticalTrack="true"
+    tools:context=".ui.setting.SettingFragment">
+
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_activity"
+        android:id="@+id/toolbar_add_acct"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        app:menu="@menu/title_menu"
-        tools:ignore="MissingConstraints" />
-  <!--  <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />-->
+        app:layout_constraintTop_toTopOf="parent"
+        app:menu="@menu/title_menu"
+        app:navigationIcon="@drawable/ic_baseline_arrow_back_ios_new_24"
+        app:title="@string/nav_title_account_type"
+        tools:ignore="MissingConstraints" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_acct_type"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_add_acct"
+        tools:listitem="@layout/add_account_item"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

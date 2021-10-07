@@ -100,8 +100,7 @@
             android:background="?attr/colorPrimary"
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme"
-            app:menu="@menu/title_menu"
-            tools:ignore="MissingConstraints" />
+            app:menu="@menu/title_menu"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
