@@ -11,7 +11,6 @@ import com.example.ngiu.MainActivity
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.list.TransactionDetail
 import com.example.ngiu.databinding.FragmentActivityBinding
-import com.example.ngiu.functions.TransListAdapter
 import kotlinx.android.synthetic.main.fragment_activity.*
 
 

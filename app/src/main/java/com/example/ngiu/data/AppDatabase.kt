@@ -7,6 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.ngiu.data.entities.*
+import java.io.File
 
 private const val db = "ngiu"
 
@@ -45,8 +46,9 @@ abstract class AppDatabase : RoomDatabase() {
                     val instance = Room.databaseBuilder(
                         context.applicationContext,
                         AppDatabase::class.java,
-                        "ngiu"
-                    ).build()
+                        "ngiu.db"
+                    ).createFromAsset("databases/ngiu.db").build()
+
                     INSTANCE = instance
                     return instance
                 }

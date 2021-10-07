@@ -1,4 +1,4 @@
-package com.example.ngiu.functions
+package com.example.ngiu.ui.activity
 
 import android.annotation.SuppressLint
 import android.graphics.Color
@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.list.TransactionDetail
 import kotlinx.android.synthetic.main.transaction_cardview.view.*
-import java.util.*
 import kotlin.collections.ArrayList
 
 
@@ -35,7 +34,7 @@ class TransListAdapter(private val trans: ArrayList<TransactionDetail>)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         // display the custom class
         trans[position].apply {
-            holder.day.text = Transaction_Date.date.toString()
+            holder.day.text = DateFormat.format("dd", Transaction_Date)
             holder.week.text =DateFormat.format("EEEE",Transaction_Date)
             holder.income.text = "Income"
             holder.dailyIncome.text ="$0.00"
