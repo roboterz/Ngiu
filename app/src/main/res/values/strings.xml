@@ -9,7 +9,7 @@
     <string name="nav_bottom_calendar">Calendar</string>
     <string name="nav_bottom_setting">Setting</string>
 
-    <string name="nav_title_setting">setting</string>
+    <string name="nav_title_setting">Settings</string>
     <string name="nav_title_category_expense">Expense Categories</string>
     <string name="nav_title_category_income">Income Categories</string>
     <string name="nav_title_category_expense_main_add">Add Main Category of Expense</string>
@@ -155,5 +155,16 @@
     <string name="menu_save">Save</string>
     <string name="menu_chart">Chart</string>
     <string name="menu_save_next">Save &amp; Next</string>
+    <string name="setting_page">Setting Page</string>
+
+    <string name="account_type_cash">Cash</string>
+    <string name="account_type_credit">Credit Card</string>
+    <string name="account_type_debit">Debit Card/Checking/Saving</string>
+    <string name="account_type_invest">Investment Account</string>
+    <string name="account_type_web_acct">Web Account</string>
+    <string name="account_type_stored_value_card">Stored Value Card</string>
+    <string name="account_type_virtual_acct">Virtual Account</string>
+    <string name="account_type_permanent_assets">Permanent Assets</string>
+    <string name="account_type_receivable">Receivable/Payable</string>
 
 </resources>

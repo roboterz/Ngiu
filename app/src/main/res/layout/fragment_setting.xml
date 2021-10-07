@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/color_list_background"
@@ -16,7 +16,7 @@
 
         <TextView
             android:id="@+id/tv_setting"
-            android:text="Setting"
+            android:text="@string/nav_title_setting"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/colorPrimary"
@@ -27,15 +27,16 @@
 
         <TextView
             android:id="@+id/tv_categories"
-            android:text="Categories"
+            android:text="@string/setting_section_categories"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="15sp"
+            android:textStyle="bold"
             android:padding="8dp"/>
 
         <TextView
             android:id="@+id/tv_expense"
-            android:text="Expense"
+            android:text="@string/setting_Expense"
             android:padding="12dp"
             android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24"
             android:background="@color/white"
@@ -48,7 +49,7 @@
             />
         <TextView
             android:id="@+id/tv_income"
-            android:text="Income"
+            android:text="@string/setting_income"
             android:padding="12dp"
             android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24"
             android:background="@color/white"
@@ -58,7 +59,7 @@
             android:textColor="@color/color_option_text"/>
         <TextView
             android:id="@+id/tv_merchant"
-            android:text="Merchant"
+            android:text="@string/setting_merchant"
             android:padding="12dp"
             android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24"
             android:background="@color/white"
@@ -68,7 +69,7 @@
             android:textColor="@color/color_option_text"/>
         <TextView
             android:id="@+id/tv_person"
-            android:text="Person"
+            android:text="@string/setting_person"
             android:padding="12dp"
             android:background="@color/white"
             android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24"
@@ -78,7 +79,7 @@
             android:textColor="@color/color_option_text"/>
         <TextView
             android:id="@+id/tv_project"
-            android:text="Project"
+            android:text="@string/setting_project"
             android:padding="12dp"
             android:background="@color/white"
             android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24"
@@ -89,7 +90,7 @@
 
         <TextView
             android:id="@+id/tv_advanced"
-            android:text="Advanced"
+            android:text="@string/setting_section_advanced"
             android:padding="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -104,7 +105,7 @@
             android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/tv_basecurr"
-                android:text="Base Currency"
+                android:text="@string/setting_base_currency"
                 android:layout_weight="1"
                 android:padding="12dp"
                 android:background="@color/white"
@@ -130,7 +131,7 @@
 
         <TextView
             android:id="@+id/tv_language"
-            android:text="Language"
+            android:text="@string/setting_language"
             android:padding="12dp"
             android:background="@color/white"
             android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24"
@@ -147,7 +148,7 @@
             android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/tv_reimbstat"
-                android:text="Reimbursement include in Statistics"
+                android:text="@string/setting_reimburse"
                 android:layout_weight="1"
                 android:padding="12dp"
                 android:background="@color/white"
@@ -170,7 +171,7 @@
             android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/tv_alphabet"
-                android:text="Sort Alphabetically"
+                android:text="@string/setting_sort"
                 android:layout_weight="1"
                 android:padding="12dp"
                 android:background="@color/white"
@@ -190,23 +191,22 @@
 
         <TextView
             android:id="@+id/tv_about"
-            android:text="About"
+            android:text="@string/setting_about_app"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="15dp"
             android:padding="8dp"
             android:textColor="@color/color_option_text"/>
 
         <TextView
             android:id="@+id/tv_ngiu"
-            android:text="About Ngiu"
-            android:padding="12dp"
-            android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24"
-            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textColor="@color/color_option_text"/>
+            android:background="@color/white"
+            android:drawableRight="@drawable/ic_baseline_arrow_right_24"
+            android:padding="12dp"
+            android:text="@string/setting_about_app"
+            android:textColor="@color/color_option_text"
+            android:textStyle="bold" />
 
     </LinearLayout>
-</LinearLayout>
+</ScrollView>

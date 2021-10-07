@@ -5,6 +5,7 @@ import androidx.room.*
 import com.example.ngiu.data.entities.*
 import androidx.room.Transaction
 import com.example.ngiu.data.entities.list.TransactionDetail
+import io.reactivex.Maybe
 
 // Account
 @Dao
@@ -49,7 +50,7 @@ interface AccountTypeDao{
 
     @Transaction
     @Query("SELECT * FROM AccountType")
-    fun getAllAccountType(): List<AccountType>
+    fun getAllAccountType(): Maybe<List<AccountType>>
 }
 
 // Currency
