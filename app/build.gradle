@@ -50,6 +50,9 @@ android {
 //$rootProject values are stored in build.gradle ext{}
 dependencies {
 
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.19'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+
     implementation "androidx.appcompat:appcompat:$rootProject.appCompatVersion"
     implementation "androidx.activity:activity-ktx:$rootProject.activityVersion"
 
@@ -59,9 +62,11 @@ dependencies {
 
 
     // Room components
+    implementation "androidx.room:room-rxjava2:$rootProject.roomVersion"
     implementation "androidx.room:room-ktx:$rootProject.roomVersion"
     kapt "androidx.room:room-compiler:$rootProject.roomVersion"
     androidTestImplementation "androidx.room:room-testing:$rootProject.roomVersion"
+
 
     // Lifecycle components
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.lifecycleVersion"
