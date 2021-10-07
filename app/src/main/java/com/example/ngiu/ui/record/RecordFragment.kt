@@ -1,11 +1,13 @@
 package com.example.ngiu.ui.record
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import android.widget.Toolbar
 import androidx.appcompat.widget.ActionBarContextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -20,6 +22,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_activity.*
 import kotlinx.android.synthetic.main.fragment_record.*
 
+
+
+
 class RecordFragment : Fragment() {
 
     private lateinit var recordViewModel: RecordViewModel
@@ -32,7 +37,7 @@ class RecordFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         recordViewModel =
             ViewModelProvider(this).get(RecordViewModel::class.java)
@@ -61,6 +66,10 @@ class RecordFragment : Fragment() {
         toolbar_record.menu.findItem(R.id.action_done).isVisible = true
         //toolbar_record.title = "sadfdafdfa"
 
+        toolbar_record.setNavigationOnClickListener(View.OnClickListener {
+            findNavController().navigate(R.id.navigation_activity)
+        })
+
         // menu item clicked
         toolbar_record.setOnMenuItemClickListener{
             when (it.itemId) {
@@ -87,3 +96,4 @@ class RecordFragment : Fragment() {
         _binding = null
     }
 }
+
