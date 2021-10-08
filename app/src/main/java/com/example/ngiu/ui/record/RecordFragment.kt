@@ -1,11 +1,19 @@
 package com.example.ngiu.ui.record
 
+import android.app.Instrumentation
+import android.content.ComponentCallbacks
+import android.content.Context
 import android.os.Bundle
+import android.view.KeyEvent
+import android.view.KeyEvent.KEYCODE_BACK
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import android.widget.Toolbar
+import androidx.activity.ComponentActivity
+import androidx.activity.addCallback
 import androidx.appcompat.widget.ActionBarContextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -15,10 +23,14 @@ import androidx.navigation.ui.AppBarConfiguration
 import com.example.ngiu.MainActivity
 import com.example.ngiu.R
 import com.example.ngiu.databinding.FragmentRecordBinding
+import com.example.ngiu.functions.MyFunctions
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_activity.*
 import kotlinx.android.synthetic.main.fragment_record.*
+
+
+
 
 class RecordFragment : Fragment() {
 
@@ -32,7 +44,7 @@ class RecordFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         recordViewModel =
             ViewModelProvider(this).get(RecordViewModel::class.java)
@@ -45,8 +57,11 @@ class RecordFragment : Fragment() {
         //Toast.makeText(context,"open",Toast.LENGTH_SHORT).show()
 
 
+
         return root
     }
+
+
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -61,6 +76,14 @@ class RecordFragment : Fragment() {
         toolbar_record.menu.findItem(R.id.action_done).isVisible = true
         //toolbar_record.title = "sadfdafdfa"
 
+        // click the navigation Icon in the left side of toolbar
+        toolbar_record.setNavigationOnClickListener(View.OnClickListener {
+
+            // call back button event to switch to previous fragment
+            requireActivity().onBackPressed()
+
+        })
+
         // menu item clicked
         toolbar_record.setOnMenuItemClickListener{
             when (it.itemId) {
@@ -68,8 +91,9 @@ class RecordFragment : Fragment() {
 
                     // todo save record
 
-                    // navigate to activity screen
-                    view.findNavController().navigate(R.id.navigation_activity)
+                    // call back button event to switch to previous fragment
+                    requireActivity().onBackPressed()
+
                     true
                 }
 
@@ -87,3 +111,4 @@ class RecordFragment : Fragment() {
         _binding = null
     }
 }
+
