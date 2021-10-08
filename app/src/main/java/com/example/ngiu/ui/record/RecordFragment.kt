@@ -1,7 +1,10 @@
 package com.example.ngiu.ui.record
 
+import android.app.Instrumentation
 import android.content.Context
 import android.os.Bundle
+import android.view.KeyEvent
+import android.view.KeyEvent.KEYCODE_BACK
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +20,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import com.example.ngiu.MainActivity
 import com.example.ngiu.R
 import com.example.ngiu.databinding.FragmentRecordBinding
+import com.example.ngiu.functions.MyFunctions
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_activity.*
@@ -50,6 +54,7 @@ class RecordFragment : Fragment() {
         //Toast.makeText(context,"open",Toast.LENGTH_SHORT).show()
 
 
+
         return root
     }
 
@@ -66,8 +71,12 @@ class RecordFragment : Fragment() {
         toolbar_record.menu.findItem(R.id.action_done).isVisible = true
         //toolbar_record.title = "sadfdafdfa"
 
+        // click the navigation Icon in the left side of toolbar
         toolbar_record.setNavigationOnClickListener(View.OnClickListener {
-            findNavController().navigate(R.id.navigation_activity)
+
+            // switch to activity fragment
+            Instrumentation().sendKeyDownUpSync(KEYCODE_BACK)
+            //MyFunctions().switchToFragment(view, R.id.navigation_activity,true)
         })
 
         // menu item clicked
@@ -77,8 +86,10 @@ class RecordFragment : Fragment() {
 
                     // todo save record
 
-                    // navigate to activity screen
-                    view.findNavController().navigate(R.id.navigation_activity)
+                    // switch to activity fragment
+                    Instrumentation().sendKeyDownUpSync(KeyEvent.KEYCODE_BACK)
+                    //MyFunctions().switchToFragment(view, R.id.navigation_activity, true)
+
                     true
                 }
 

@@ -7,10 +7,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.view.*
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.ngiu.MainActivity
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.list.TransactionDetail
 import com.example.ngiu.databinding.FragmentActivityBinding
+import com.example.ngiu.functions.MyFunctions
 import kotlinx.android.synthetic.main.fragment_activity.*
 
 
@@ -57,8 +59,8 @@ class ActivityFragment : Fragment() {
                     // hide nav bottom bar
                     (activity as MainActivity).setNavBottomBarVisibility(View.GONE)
 
-                    // navigate to add record screen
-                    view.findNavController().navigate(R.id.navigation_record)
+                    // switch to record fragment
+                    MyFunctions().switchToFragment(view, R.id.navigation_record, false)
 
                     true
                 }
@@ -75,8 +77,8 @@ class ActivityFragment : Fragment() {
             // hide nav bottom bar
             (activity as MainActivity).setNavBottomBarVisibility(View.GONE)
 
-            // navigate to add record screen
-            it.findNavController().navigate(R.id.navigation_record)
+            // switch to record fragment
+            MyFunctions().switchToFragment(view, R.id.navigation_record,false)
 
         }
 

@@ -45,7 +45,7 @@
                 android:padding="10dp"
                 android:singleLine="true"
                 android:text="@string/record_section_income"
-                android:textColor="@color/white"
+                android:textColor="#455A64"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -67,7 +67,7 @@
                 android:padding="10dp"
                 android:singleLine="true"
                 android:text="@string/record_section_debit_credit"
-                android:textColor="@color/white"
+                android:textColor="#455A64"
                 android:textSize="18sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -84,5 +84,6 @@
             tools:ignore="MissingConstraints" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
