@@ -14,7 +14,7 @@
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        app:navigationIcon="@drawable/ic_baseline_arrow_back_ios_new_24"
+        app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
         app:menu="@menu/title_menu"
         tools:ignore="MissingConstraints" />
 

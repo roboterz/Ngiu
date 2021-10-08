@@ -60,7 +60,8 @@ class ActivityFragment : Fragment() {
                     (activity as MainActivity).setNavBottomBarVisibility(View.GONE)
 
                     // switch to record fragment
-                    MyFunctions().switchToFragment(view, R.id.navigation_record, false)
+                    findNavController().navigate(R.id.navigation_record)
+                    //MyFunctions().switchToFragment(view, R.id.navigation_record, true)
 
                     true
                 }
@@ -78,7 +79,8 @@ class ActivityFragment : Fragment() {
             (activity as MainActivity).setNavBottomBarVisibility(View.GONE)
 
             // switch to record fragment
-            MyFunctions().switchToFragment(view, R.id.navigation_record,false)
+            findNavController().navigate(R.id.navigation_record)
+            //MyFunctions().switchToFragment(view, R.id.navigation_record,true)
 
         }
 

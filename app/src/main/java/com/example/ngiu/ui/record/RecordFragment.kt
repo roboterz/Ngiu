@@ -1,6 +1,7 @@
 package com.example.ngiu.ui.record
 
 import android.app.Instrumentation
+import android.content.ComponentCallbacks
 import android.content.Context
 import android.os.Bundle
 import android.view.KeyEvent
@@ -11,6 +12,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import android.widget.Toolbar
+import androidx.activity.ComponentActivity
+import androidx.activity.addCallback
 import androidx.appcompat.widget.ActionBarContextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -59,6 +62,8 @@ class RecordFragment : Fragment() {
     }
 
 
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -74,9 +79,9 @@ class RecordFragment : Fragment() {
         // click the navigation Icon in the left side of toolbar
         toolbar_record.setNavigationOnClickListener(View.OnClickListener {
 
-            // switch to activity fragment
-            Instrumentation().sendKeyDownUpSync(KEYCODE_BACK)
-            //MyFunctions().switchToFragment(view, R.id.navigation_activity,true)
+            // call back button event to switch to previous fragment
+            requireActivity().onBackPressed()
+
         })
 
         // menu item clicked
@@ -86,9 +91,8 @@ class RecordFragment : Fragment() {
 
                     // todo save record
 
-                    // switch to activity fragment
-                    Instrumentation().sendKeyDownUpSync(KeyEvent.KEYCODE_BACK)
-                    //MyFunctions().switchToFragment(view, R.id.navigation_activity, true)
+                    // call back button event to switch to previous fragment
+                    requireActivity().onBackPressed()
 
                     true
                 }
