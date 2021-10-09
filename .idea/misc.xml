@@ -8,8 +8,10 @@
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/ic_baseline_add_box_24.xml" value="0.37864583333333335" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/ic_baseline_add_circle_24.xml" value="0.37864583333333335" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/ic_baseline_all_inbox_24.xml" value="0.37864583333333335" />
+        <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.37864583333333335" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/ic_baseline_arrow_back_ios_new_24.xml" value="0.37864583333333335" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/ic_baseline_arrow_drop_down_24.xml" value="0.37447916666666664" />
+        <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/ic_baseline_arrow_drop_up_24.xml" value="0.37864583333333335" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/ic_baseline_arrow_forward_ios_24.xml" value="0.21875" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/ic_baseline_arrow_left_24.xml" value="0.37447916666666664" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/ic_baseline_arrow_right_24.xml" value="0.37447916666666664" />
@@ -34,6 +36,7 @@
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/ic_baseline_keyboard_arrow_down_24.xml" value="0.21875" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/ic_baseline_keyboard_arrow_left_24.xml" value="0.37447916666666664" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/ic_baseline_keyboard_arrow_right_24.xml" value="0.37447916666666664" />
+        <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/ic_baseline_keyboard_backspace_24.xml" value="0.37864583333333335" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/ic_baseline_keyboard_double_arrow_left_24.xml" value="0.37447916666666664" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/ic_baseline_keyboard_double_arrow_right_24.xml" value="0.37447916666666664" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/ic_baseline_keyboard_return_24.xml" value="0.21875" />
@@ -79,7 +82,7 @@
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/fragment_dashboard.xml" value="0.25" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/fragment_home.xml" value="0.1693840579710145" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/fragment_notifications.xml" value="0.1037037037037037" />
-        <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/fragment_record.xml" value="0.31567028985507245" />
+        <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/fragment_record.xml" value="0.67" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/fragment_setting.xml" value="0.28940217391304346" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/manage_expense.xml" value="0.3351449275362319" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/transaction_cardview.xml" value="0.67" />
