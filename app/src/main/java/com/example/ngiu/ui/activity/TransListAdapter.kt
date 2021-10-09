@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.view.marginTop
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.list.TransactionDetail
@@ -44,21 +45,34 @@ class TransListAdapter(private val trans: ArrayList<TransactionDetail>)
             holder.time.text = DateFormat.format("HH:mm", Transaction_Date)
             //holder.period.text = ""
             holder.memo.text ="$Transaction_Memo"
-            holder.account.text = "$Account_Name"
-            holder.person.text = "$Person_Name"
-            holder.merchant.text = "$Merchant_Name"
-            holder.project.text = "$Project_Name"
             holder.amount.text ="$$Transaction_Amount"
 
-            if (holder.person.text !=""){
-                holder.beforePerson.text =" • "
+            if (TransactionType_Name == "Expense" || TransactionType_Name == "Income" ) {
+                holder.account.text = "$Account_Name"
+                holder.person.text = "$Person_Name"
+                holder.merchant.text = "$Merchant_Name"
+                holder.project.text = "$Project_Name"
+                if (holder.person.text !=""){
+                    holder.beforePerson.text =" • "
+                }
+                if (holder.merchant.text !=""){
+                    holder.beforeMerchant.text =" • "
+                }
+                if (holder.project.text !=""){
+                    holder.beforeProject.text =" • "
+                }
+            }else{
+                holder.account.visibility = View.GONE
+                holder.person.visibility = View.GONE
+                holder.merchant.visibility = View.GONE
+                holder.project.visibility = View.GONE
+                holder.beforeMerchant.visibility = View.GONE
+                holder.beforePerson.visibility = View.GONE
+                holder.beforeProject.visibility = View.GONE
             }
-            if (holder.merchant.text !=""){
-                holder.beforeMerchant.text =" • "
-            }
-            if (holder.project.text !=""){
-                holder.beforeProject.text =" • "
-            }
+
+
+
 
             if (TransactionType_Name == "Transfer"){
                 holder.accountReceiver.text =" ➡️ $AccountRecipient_Name"
