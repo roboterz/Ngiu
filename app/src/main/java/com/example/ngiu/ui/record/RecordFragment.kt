@@ -15,6 +15,7 @@ import android.widget.Toolbar
 import androidx.activity.ComponentActivity
 import androidx.activity.addCallback
 import androidx.appcompat.widget.ActionBarContextView
+import androidx.core.view.marginLeft
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -57,7 +58,6 @@ class RecordFragment : Fragment() {
         //Toast.makeText(context,"open",Toast.LENGTH_SHORT).show()
 
 
-
         return root
     }
 
@@ -66,7 +66,6 @@ class RecordFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
 
 
