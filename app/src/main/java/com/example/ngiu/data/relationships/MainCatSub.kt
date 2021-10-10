@@ -2,15 +2,14 @@ package com.example.ngiu.data.relationships
 
 import androidx.room.Embedded
 import androidx.room.Relation
-import com.example.ngiu.data.entities.Reimburse
-import com.example.ngiu.data.entities.SubCategories
-import com.example.ngiu.data.entities.Transaction
+import com.example.ngiu.data.entities.MainCategory
+import com.example.ngiu.data.entities.SubCategory
 
 data class MainCatSub (
-    @Embedded val mainCatSub: MainCatSub,
+    @Embedded val mainCategories: MainCategory,
     @Relation(
-        parentColumn = "main_cat_id",
-        entityColumn = "MainCategoryID"
+        parentColumn = "MainCategory_ID",
+        entityColumn = "MainCategory_ID"
     )
-    val subCategories: List<SubCategories>
+    val subCategories: List<SubCategory>
 )

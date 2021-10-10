@@ -1,0 +1,273 @@
+
+INSERT INTO AccountType (AccountType_ID, AccountType_Name, AccountType_Memo) VALUES (1, 'Cash', '');
+INSERT INTO AccountType (AccountType_ID, AccountType_Name, AccountType_Memo) VALUES (2, 'Credit Card', '');
+INSERT INTO AccountType (AccountType_ID, AccountType_Name, AccountType_Memo) VALUES (3, 'Debit Card/Checking/Saving', '');
+INSERT INTO AccountType (AccountType_ID, AccountType_Name, AccountType_Memo) VALUES (4, 'Investment Account', 'Stock, Fund, Cryptocurrency');
+INSERT INTO AccountType (AccountType_ID, AccountType_Name, AccountType_Memo) VALUES (5, 'Web Account', 'Alipay, Wechat, Paypal, QQ, Vemo...');
+INSERT INTO AccountType (AccountType_ID, AccountType_Name, AccountType_Memo) VALUES (6, 'Stored Value Card', 'Shopping Card, MTA Card...');
+INSERT INTO AccountType (AccountType_ID, AccountType_Name, AccountType_Memo) VALUES (7, 'Virtual Account', 'Points, Games Card...');
+INSERT INTO AccountType (AccountType_ID, AccountType_Name, AccountType_Memo) VALUES (8, 'Permanent Assets', 'House...');
+INSERT INTO AccountType (AccountType_ID, AccountType_Name, AccountType_Memo) VALUES (9, 'Receivable/Payable', '');
+
+
+-- Table: Account
+INSERT INTO Account (Account_ID, AccountType_ID, Account_Name, Account_Balance, Account_CountInNetAssets, Account_Memo, Currency_ID, Account_CardNumber, Account_StatementDay, Account_CreditLimit, Account_FixedPaymentDay, Account_PaymentDay, Account_Interval, Account_Reminder, Account_StatisticalMode) VALUES (1, 2, 'Chase Freedom', 0.0, 1, '', 'USD', '', 1, 5000.0, 0, 26, 26, 0, 0);
+INSERT INTO Account (Account_ID, AccountType_ID, Account_Name, Account_Balance, Account_CountInNetAssets, Account_Memo, Currency_ID, Account_CardNumber, Account_StatementDay, Account_CreditLimit, Account_FixedPaymentDay, Account_PaymentDay, Account_Interval, Account_Reminder, Account_StatisticalMode) VALUES (2, 1, 'Wallet', 0.0, 1, '', 'USD', '', 0, 0.0, 0, 0, 0, 0, 0);
+
+
+-- Table: Currency
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('USD', 'US Dollar', 1.0);
+
+
+-- Table: TransactionType
+INSERT INTO TransactionType (TransactionType_ID, TransactionType_Name) VALUES (1, 'Expense');
+INSERT INTO TransactionType (TransactionType_ID, TransactionType_Name) VALUES (2, 'Income');
+INSERT INTO TransactionType (TransactionType_ID, TransactionType_Name) VALUES (3, 'Transfer');
+INSERT INTO TransactionType (TransactionType_ID, TransactionType_Name) VALUES (4, 'Debit & Credit');
+
+
+-- Table: MainCategory
+INSERT INTO MainCategory (MainCategory_ID, TransactionType_ID, MainCategory_Name) VALUES (1, 1, 'Food');
+INSERT INTO MainCategory (MainCategory_ID, TransactionType_ID, MainCategory_Name) VALUES (2, 1, 'Shopping');
+INSERT INTO MainCategory (MainCategory_ID, TransactionType_ID, MainCategory_Name) VALUES (3, 1, 'Administrative');
+INSERT INTO MainCategory (MainCategory_ID, TransactionType_ID, MainCategory_Name) VALUES (4, 1, 'Business');
+INSERT INTO MainCategory (MainCategory_ID, TransactionType_ID, MainCategory_Name) VALUES (5, 1, 'Investing');
+INSERT INTO MainCategory (MainCategory_ID, TransactionType_ID, MainCategory_Name) VALUES (6, 1, 'Home');
+INSERT INTO MainCategory (MainCategory_ID, TransactionType_ID, MainCategory_Name) VALUES (7, 1, 'Education');
+INSERT INTO MainCategory (MainCategory_ID, TransactionType_ID, MainCategory_Name) VALUES (8, 1, 'Medical');
+INSERT INTO MainCategory (MainCategory_ID, TransactionType_ID, MainCategory_Name) VALUES (9, 1, 'Entertainment');
+INSERT INTO MainCategory (MainCategory_ID, TransactionType_ID, MainCategory_Name) VALUES (10, 1, 'Transportation');
+INSERT INTO MainCategory (MainCategory_ID, TransactionType_ID, MainCategory_Name) VALUES (11, 2, 'Income');
+
+
+-- Table: SubCategory
+INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name, SubCategory_Common) VALUES (1, 11, 'Pension', 0);
+INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name, SubCategory_Common) VALUES (2, 11, 'Side Job', 0);
+INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name, SubCategory_Common) VALUES (3, 11, 'Dividend', 0);
+INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name, SubCategory_Common) VALUES (4, 11, 'Bonus', 0);
+INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name, SubCategory_Common) VALUES (5, 11, 'Interest', 0);
+INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name, SubCategory_Common) VALUES (6, 11, 'Tips', 0);
+INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name, SubCategory_Common) VALUES (7, 11, 'Salary', 0);
+INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name, SubCategory_Common) VALUES (8, 11, 'SSI', 0);
+INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name, SubCategory_Common) VALUES (9, 11, 'Benefit', 0);
+INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name, SubCategory_Common) VALUES (10, 11, 'Refund', 0);
+INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name, SubCategory_Common) VALUES (12, 11, 'Cash back', 0);
+INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name, SubCategory_Common) VALUES (13, 11, 'Receviable', 0);
+INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name, SubCategory_Common) VALUES (14, 11, 'Stock', 0);
+INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name, SubCategory_Common) VALUES (15, 11, 'Rental Income', 0);
+INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name, SubCategory_Common) VALUES (16, 11, 'Bussiness', 0);
+INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name, SubCategory_Common) VALUES (17, 11, 'Investment', 0);
+INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name, SubCategory_Common) VALUES (18, 1, 'Grocery', 0);
+INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name, SubCategory_Common) VALUES (19, 1, 'Drink', 0);
+INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name, SubCategory_Common) VALUES (20, 1, 'KTV', 0);
+INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name, SubCategory_Common) VALUES (21, 1, 'Midnight Dinner', 0);
+INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name, SubCategory_Common) VALUES (22, 1, 'Dinner', 0);
+INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name, SubCategory_Common) VALUES (23, 1, 'Lunch', 0);
+INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name, SubCategory_Common) VALUES (24, 1, 'Breakfast', 0);
+INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name, SubCategory_Common) VALUES (25, 10, 'MTA', 0);
+INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name, SubCategory_Common) VALUES (26, 10, 'Car Services', 0);
+
+
+-- Table: Project
+INSERT INTO Project (Project_ID, Project_Name) VALUES (1, 'Daily');
+
+-- Table: Person
+INSERT INTO Person (Person_ID, Person_Name) VALUES (1, 'Me');
+
+
+-- Table: Merchant
+INSERT INTO Merchant (Merchant_ID, Merchant_Name) VALUES (1, 'No Location');
+
+
+
+
+-- Table: Trans
+INSERT INTO Trans (Transaction_ID, TransactionType_ID, SubCategory_ID, Account_ID, AccountRecipient_ID, Transaction_Amount, Transaction_Date, Person_ID, Merchant_ID, Transaction_Memo, Project_ID, Transaction_ReimburseStatus, Period_ID) VALUES (1, 1, 23, 2, 2, 15.75, '2021-10-07 00:08:27', 1, 1, '', 1, 0, 0);
+INSERT INTO Trans (Transaction_ID, TransactionType_ID, SubCategory_ID, Account_ID, AccountRecipient_ID, Transaction_Amount, Transaction_Date, Person_ID, Merchant_ID, Transaction_Memo, Project_ID, Transaction_ReimburseStatus, Period_ID) VALUES (2, 1, 25, 1, 1, 1.0, '09/13/2021 14:00', 1, 1, ' ', 1, 0, 0);
+INSERT INTO Trans (Transaction_ID, TransactionType_ID, SubCategory_ID, Account_ID, AccountRecipient_ID, Transaction_Amount, Transaction_Date, Person_ID, Merchant_ID, Transaction_Memo, Project_ID, Transaction_ReimburseStatus, Period_ID) VALUES (3, 3, 1, 2, 1, 270.0, '09/12/2021 09:15', 1, 1, ' ', 1, 0, 0);
+INSERT INTO Trans (Transaction_ID, TransactionType_ID, SubCategory_ID, Account_ID, AccountRecipient_ID, Transaction_Amount, Transaction_Date, Person_ID, Merchant_ID, Transaction_Memo, Project_ID, Transaction_ReimburseStatus, Period_ID) VALUES (4, 1, 18, 1, 1, 50.55, '09/10/2021 17:32', 1, 1, ' ', 1, 0, 0);
+INSERT INTO Trans (Transaction_ID, TransactionType_ID, SubCategory_ID, Account_ID, AccountRecipient_ID, Transaction_Amount, Transaction_Date, Person_ID, Merchant_ID, Transaction_Memo, Project_ID, Transaction_ReimburseStatus, Period_ID) VALUES (5, 2, 7, 2, 2, 450.98, '08/31/2021 12:01', 1, 1, ' ', 1, 0, 0);
+INSERT INTO Trans (Transaction_ID, TransactionType_ID, SubCategory_ID, Account_ID, AccountRecipient_ID, Transaction_Amount, Transaction_Date, Person_ID, Merchant_ID, Transaction_Memo, Project_ID, Transaction_ReimburseStatus, Period_ID) VALUES (6, 2, 1, 2, 1, 270.0, '09/12/2021 09:15', 1, 1, ' ', 1, 0, 0);
+INSERT INTO Trans (Transaction_ID, TransactionType_ID, SubCategory_ID, Account_ID, AccountRecipient_ID, Transaction_Amount, Transaction_Date, Person_ID, Merchant_ID, Transaction_Memo, Project_ID, Transaction_ReimburseStatus, Period_ID) VALUES (7, 1, 23, 2, 2, 15.75, '09/13/2021 13:15', 1, 1, '', 1, 0, 0);
+INSERT INTO Trans (Transaction_ID, TransactionType_ID, SubCategory_ID, Account_ID, AccountRecipient_ID, Transaction_Amount, Transaction_Date, Person_ID, Merchant_ID, Transaction_Memo, Project_ID, Transaction_ReimburseStatus, Period_ID) VALUES (8, 1, 25, 1, 1, 1.0, '09/13/2021 14:00', 1, 1, ' ', 1, 0, 0);
+INSERT INTO Trans (Transaction_ID, TransactionType_ID, SubCategory_ID, Account_ID, AccountRecipient_ID, Transaction_Amount, Transaction_Date, Person_ID, Merchant_ID, Transaction_Memo, Project_ID, Transaction_ReimburseStatus, Period_ID) VALUES (9, 1, 1, 2, 1, 270.0, '09/12/2021 09:15', 1, 1, ' ', 1, 0, 0);
+INSERT INTO Trans (Transaction_ID, TransactionType_ID, SubCategory_ID, Account_ID, AccountRecipient_ID, Transaction_Amount, Transaction_Date, Person_ID, Merchant_ID, Transaction_Memo, Project_ID, Transaction_ReimburseStatus, Period_ID) VALUES (10, 1, 18, 1, 1, 50.55, '09/10/2021 17:32', 1, 1, ' ', 1, 0, 0);
+INSERT INTO Trans (Transaction_ID, TransactionType_ID, SubCategory_ID, Account_ID, AccountRecipient_ID, Transaction_Amount, Transaction_Date, Person_ID, Merchant_ID, Transaction_Memo, Project_ID, Transaction_ReimburseStatus, Period_ID) VALUES (11, 2, 7, 2, 2, 450.98, '08/31/2021 12:01', 1, 1, ' ', 1, 0, 0);
+INSERT INTO Trans (Transaction_ID, TransactionType_ID, SubCategory_ID, Account_ID, AccountRecipient_ID, Transaction_Amount, Transaction_Date, Person_ID, Merchant_ID, Transaction_Memo, Project_ID, Transaction_ReimburseStatus, Period_ID) VALUES (12, 2, 7, 2, 2, 450.98, '2021/08/29 12:01', 1, 1, ' ', 1, 0, 0);
+
+
+--
+-- File generated with SQLiteStudio v3.3.3 on Wed Oct 6 22:55:17 2021
+--
+-- Text encoding used: System
+--
+PRAGMA foreign_keys = off;
+BEGIN TRANSACTION;
+
+
+-- Table: Currency
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('USD', 'United States Dollar', 1.0);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('XCD', 'East Caribbean Dollar', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('XAF', 'Communauté Financière Africaine (BEAC) CFA Franc BEAC', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('WST', 'Samoa Tala', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('VUV', 'Vanuatu Vatu', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('VND', 'Viet Nam Dong', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('UYU', 'Uruguay Peso', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('UGX', 'Uganda Shilling', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('TZS', 'Tanzania Shilling', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('TWD', 'Taiwan New Dollar', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('TVD', 'Tuvalu Dollar', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('TTD', 'Trinidad and Tobago Dollar', '');
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('TRY', 'Turkey Lira', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('TOP', 'Tonga Pa''anga', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('TND', 'Tunisia Dinar', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('TMT', 'Turkmenistan Manat', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('TJS', 'Tajikistan Somoni', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('THB', 'Thailand Baht', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('SZL', 'eSwatini Lilangeni', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('SYP', 'Syria Pound', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('SVC', 'El Salvador Colon', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('STN', 'São Tomé and Príncipe Dobra', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('SRD', 'Suriname Dollar', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('SPL', 'Seborga Luigino', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('SOS', 'Somalia Shilling', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('SLL', 'Sierra Leone Leone', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('SHP', 'Saint Helena Pound', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('SGD', 'Singapore Dollar', 1.343028);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('SEK', 'Sweden Krona', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('SDG', 'Sudan Pound', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('SCR', 'Seychelles Rupee', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('SBD', 'Solomon Islands Dollar', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('SAR', 'Saudi Arabia Riyal', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('RWF', 'Rwanda Franc', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('RUB', 'Russia Ruble', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('RSD', 'Serbia Dinar', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('RON', 'Romania Leu', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('QAR', 'Qatar Riyal', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('PYG', 'Paraguay Guarani', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('PLN', 'Poland Zloty', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('PKR', 'Pakistan Rupee', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('PHP', 'Philippines Peso', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('PGK', 'Papua New Guinea Kina', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('PEN', 'Peru Sol', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('PAB', 'Panama Balboa', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('OMR', 'Oman Rial', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('NZD', 'New Zealand Dollar', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('NPR', 'Nepal Rupee', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('NOK', 'Norway Krone', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('NIO', 'Nicaragua Cordoba', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('NGN', 'Nigeria Naira', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('NAD', 'Namibia Dollar', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('MZN', 'Mozambique Metical', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('MYR', 'Malaysia Ringgit', 4.150127);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('MXN', 'Mexico Peso', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('MWK', 'Malawi Kwacha', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('MVR', 'Maldives (Maldive Islands) Rufiyaa', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('MUR', 'Mauritius Rupee', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('MRU', 'Mauritania Ouguiya', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('MOP', 'Macau Pataca', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('MNT', 'Mongolia Tughrik', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('MMK', 'Myanmar (Burma) Kyat', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('MKD', 'Macedonia Denar', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('MGA', 'Madagascar Ariary', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('MDL', 'Moldova Leu', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('MAD', 'Morocco Dirham', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('LYD', 'Libya Dinar', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('LSL', 'Lesotho Loti', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('LRD', 'Liberia Dollar', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('LKR', 'Sri Lanka Rupee', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('LBP', 'Lebanon Pound', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('LAK', 'Laos Kip', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('KZT', 'Kazakhstan Tenge', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('KYD', 'Cayman Islands Dollar', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('KWD', 'Kuwait Dinar', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('KRW', 'Korea (South) Won', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('KPW', 'Korea (North) Won', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('KMF', 'Comorian Franc', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('KGS', 'Kyrgyzstan Som', '');
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('KES', 'Kenya Shilling', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('JPY', 'Japan Yen', 110.067);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('JOD', 'Jordan Dinar', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('JMD', 'Jamaica Dollar', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('ISK', 'Iceland Krona', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('IQD', 'Iraq Dinar', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('INR', 'India Rupee', 73.608662);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('ILS', 'Israel Shekel', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('IDR', 'Indonesia Rupiah', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('HUF', 'Hungary Forint', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('HTG', 'Haiti Gourde', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('HRK', 'Croatia Kuna', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('HNL', 'Honduras Lempira', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('HKD', 'Hong Kong Dollar', 7.778821);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('GYD', 'Guyana Dollar', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('GTQ', 'Guatemala Quetzal', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('GNF', 'Guinea Franc', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('GMD', 'Gambia Dalasi', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('GIP', 'Gibraltar Pound', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('GHS', 'Ghana Cedi', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('GEL', 'Georgia Lari', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('GBP', 'United Kingdom Pound', 0.722257);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('FKP', 'Falkland Islands (Malvinas) Pound', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('FJD', 'Fiji Dollar', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('EUR', 'Euro Member Countries', 0.846369);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('ETB', 'Ethiopia Birr', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('EGP', 'Egypt Pound', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('DZD', 'Algeria Dinar', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('DOP', 'Dominican Republic Peso', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('DKK', 'Denmark Krone', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('DJF', 'Djibouti Franc', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('CZK', 'Czech Republic Koruna', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('CUP', 'Cuba Peso', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('CRC', 'Costa Rica Colon', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('COP', 'Colombia Peso', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('CNY', 'China Yuan Renminbi', 6.447487);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('CLP', 'Chile Peso', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('CHF', 'Switzerland Franc', 0.92174);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('CAD', 'Canada Dollar', 1.265122);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('BZD', 'Belize Dollar', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('BWP', 'Botswana Pula', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('BRL', 'Brazil Real', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('BOB', 'Bolivia Bolíviano', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('BND', 'Brunei Darussalam Dollar', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('BHD', 'Bahrain Dinar', 0.376);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('BGN', 'Bulgaria Lev', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('BDT', 'Bangladesh Taka', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('AUD', 'Australia Dollar', 1.362132);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('ARS', 'Argentina Peso', 98.179972);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('AOA', 'Angola Kwanza', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('AMD', 'Armenia Dram', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('ALL', 'Albania Lek', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('AFN', 'Afghanistan Afghani', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('AED', 'United Arab Emirates Dirham', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('UZS', 'Uzbekistan Som', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('AWG', 'Aruba Guilder', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('AZN', 'Azerbaijan Manat', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('BSD', 'Bahamas Dollar', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('BYN', 'Belarus Ruble', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('BBD', 'Barbados Dollar', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('CVE', 'Cape Verde Escudo', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('BIF', 'Burundi Franc', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('BAM', 'Bosnia and Herzegovina Convertible Mark', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('BTN', 'Bhutan Ngultrum', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('BMD', 'Bermuda Dollar', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('VEF', 'Venezuela Bolívar', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('KHR', 'Cambodia Riel', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('UAH', 'Ukraine Hryvnia', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('ANG', 'Netherlands Antilles Guilder', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('CDF', 'Congo/Kinshasa Franc', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('CUC', 'Cuba Convertible Peso', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('ERN', 'Eritrea Nakfa', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('GGP', 'Guernsey Pound', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('IMP', 'Isle of Man Pound', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('IRR', 'Iran Rial', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('JEP', 'Jersey Pound', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('XDR', 'International Monetary Fund (IMF) Special Drawing Rights', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('XOF', 'Communauté Financière Africaine (BCEAO) Franc', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('XPF', 'Comptoirs Français du Pacifique (CFP) Franc', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('YER', 'Yemen Rial', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('ZAR', 'South Africa Rand', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('ZMW', 'Zambia Kwacha', 1);
+INSERT INTO Currency (Currency_ID, Currency_Name, Currency_ExchangeRate) VALUES ('ZWD', 'Zimbabwe Dollar', 1);
+
+COMMIT TRANSACTION;
+PRAGMA foreign_keys = on;

@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/trans_card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="0.5dp"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="0dp"
+    app:cardElevation="5dp"
+    app:cardMaxElevation="7dp"
+    app:contentPaddingTop="4dp"
+    app:contentPaddingLeft="10dp"
+    app:contentPaddingRight="5dp"
+    app:contentPaddingBottom="9dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvTrans_day"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textColor="@color/color_time"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="13" />
+
+        <TextView
+            android:id="@+id/tvTrans_week"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:singleLine="true"
+            android:textColor="@color/color_time"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Monday" />
+
+        <TextView
+            android:id="@+id/tvTrans_daily_income"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="3dp"
+            android:singleLine="true"
+            android:textColor="@color/color_time"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toStartOf="@id/tvTrans_daily_income_amount"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/option_income" />
+
+        <TextView
+            android:id="@+id/tvTrans_daily_income_amount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:singleLine="true"
+            android:textColor="@color/color_time"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toStartOf="@id/tvTrans_daily_expense"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="$0.00" />
+
+        <TextView
+            android:id="@+id/tvTrans_daily_expense"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="3dp"
+            android:singleLine="true"
+            android:textColor="@color/color_time"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toStartOf="@id/tvTrans_daily_expense_amount"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/option_expense" />
+
+        <TextView
+            android:id="@+id/tvTrans_daily_expense_amount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:singleLine="true"
+            android:textColor="@color/color_time"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="$16.75" />
+
+        <TextView
+            android:id="@+id/tvTrans_category"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="8dp"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTrans_week"
+            tools:text="Lunch" />
+
+        <TextView
+            android:id="@+id/tvTrans_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textColor="@color/color_time"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@id/tvTrans_category"
+            app:layout_constraintTop_toBottomOf="@id/tvTrans_category"
+            tools:text="13:15" />
+
+        <TextView
+            android:id="@+id/tvTrans_period"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:singleLine="true"
+            android:textColor="@color/color_time"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@id/tvTrans_time"
+            app:layout_constraintTop_toTopOf="@id/tvTrans_time"
+            tools:text="@string/option_Period" />
+
+        <TextView
+            android:id="@+id/tvTrans_memo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:singleLine="true"
+            android:textColor="@color/color_time"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@id/tvTrans_period"
+            app:layout_constraintTop_toTopOf="@id/tvTrans_period"
+            tools:text="Fee" />
+
+        <TextView
+            android:id="@+id/tvTrans_account_pay"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textColor="@color/color_time"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@id/tvTrans_time"
+            app:layout_constraintTop_toBottomOf="@id/tvTrans_time"
+            tools:text="Wallet" />
+
+        <TextView
+            android:id="@+id/tvTrans_account_receive"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:visibility="gone"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toEndOf="@id/tvTrans_category"
+            app:layout_constraintTop_toTopOf="@id/tvTrans_category"
+            tools:text=" ➡️ Chase Freedom" />
+
+        <TextView
+            android:id="@+id/tvTrans_dot_before_person"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textColor="@color/color_time"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@id/tvTrans_account_pay"
+            app:layout_constraintTop_toBottomOf="@id/tvTrans_time"
+            tools:text=" • " />
+
+        <TextView
+            android:id="@+id/tvTrans_person"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textColor="@color/color_time"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@id/tvTrans_dot_before_person"
+            app:layout_constraintTop_toBottomOf="@id/tvTrans_time"
+            tools:text="@string/option_person" />
+
+        <TextView
+            android:id="@+id/tvTrans_dot_before_merchant"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textColor="@color/color_time"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@id/tvTrans_person"
+            app:layout_constraintTop_toBottomOf="@id/tvTrans_time"
+            tools:text=" • " />
+
+        <TextView
+            android:id="@+id/tvTrans_merchant"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textColor="@color/color_time"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@id/tvTrans_dot_before_merchant"
+            app:layout_constraintTop_toBottomOf="@id/tvTrans_time"
+            tools:text="@string/option_merchant" />
+
+        <TextView
+            android:id="@+id/tvTrans_dot_before_project"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textColor="@color/color_time"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@id/tvTrans_merchant"
+            app:layout_constraintTop_toBottomOf="@id/tvTrans_time"
+            tools:text=" • " />
+
+        <TextView
+            android:id="@+id/tvTrans_project"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textColor="@color/color_time"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@id/tvTrans_dot_before_project"
+            app:layout_constraintTop_toBottomOf="@id/tvTrans_time"
+            tools:text="@string/option_project" />
+
+        <TextView
+            android:id="@+id/tvTrans_amount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toTopOf="@+id/tvTrans_time"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="$15.75" />
+
+        <TextView
+            android:id="@+id/tvTrans_month"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:singleLine="true"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvName"
+            tools:text="time" />
+
+        <TextView
+            android:id="@+id/tvTrans_year"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:singleLine="true"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvName"
+            tools:text="time" />
+
+        <TextView
+            android:id="@+id/tvTrans_month_income"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:singleLine="true"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvName"
+            tools:text="time" />
+
+        <TextView
+            android:id="@+id/tvTrans_month_income_amount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:singleLine="true"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvName"
+            tools:text="time" />
+
+        <TextView
+            android:id="@+id/tvTrans_month_expense"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:singleLine="true"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvName"
+            tools:text="time" />
+
+        <TextView
+            android:id="@+id/tvTrans_month_expense_amount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:singleLine="true"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvName"
+            tools:text="time" />
+
+        <TextView
+            android:id="@+id/tvTrans_month_balance"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:singleLine="true"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvName"
+            tools:text="time" />
+
+        <TextView
+            android:id="@+id/tvTrans_month_balance_amount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:singleLine="true"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvName"
+            tools:text="time"
+            tools:ignore="NotSibling" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

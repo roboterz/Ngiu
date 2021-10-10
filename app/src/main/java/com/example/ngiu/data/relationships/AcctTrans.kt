@@ -3,22 +3,42 @@ package com.example.ngiu.data.relationships
 import androidx.room.Embedded
 import androidx.room.Relation
 import com.example.ngiu.data.entities.Account
-import com.example.ngiu.data.entities.Transaction
+import com.example.ngiu.data.entities.Period
+import com.example.ngiu.data.entities.Trans
 
 data class AcctTransRecipient (
     @Embedded val account: Account,
     @Relation(
-        parentColumn = "account_id",
-        entityColumn = "RecipientID"
+        parentColumn = "Account_ID",
+        entityColumn = "AccountRecipient_ID"
     )
-    val transaction: List<Transaction>
+    val trans: List<Trans>
 )
 
-data class AcctTransPayer (
+data class AcctTransAcct (
     @Embedded val account: Account,
     @Relation(
-        parentColumn = "account_id",
-        entityColumn = "PayerID"
+        parentColumn = "Account_ID",
+        entityColumn = "Account_ID"
     )
-    val transaction: List<Transaction>
+    val trans: List<Trans>
+)
+
+
+data class AcctPeriodRecipient (
+    @Embedded val account: Account,
+    @Relation(
+        parentColumn = "Account_ID",
+        entityColumn = "Period_AccountRecipient_ID"
+    )
+    val period: List<Period>
+)
+
+data class AcctPeriodAcct (
+    @Embedded val account: Account,
+    @Relation(
+        parentColumn = "Account_ID",
+        entityColumn = "Period_Account_ID"
+    )
+    val period: List<Period>
 )

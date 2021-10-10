@@ -2,14 +2,15 @@ package com.example.ngiu.data.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 
-@Entity
+@Entity(indices = [Index(value = ["Currency_ID"], unique = true)])
 data class Currency(
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "currency_id")
-    val id: Int,
-    @ColumnInfo(name = "currency_name")
-    val Name: String,
-    val ExchangeRate: Double
+    @PrimaryKey()
+    //@ColumnInfo(name = "ID")
+    val Currency_ID: String = "",
+    //@ColumnInfo(name = "Name")
+    val Currency_Name: String = "",
+    val Currency_ExchangeRate: Double = 0.00
 )

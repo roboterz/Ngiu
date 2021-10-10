@@ -2,13 +2,14 @@ package com.example.ngiu.data.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 
-@Entity
+@Entity(indices = [Index(value = ["Project_ID"], unique = true)])
 data class Project (
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "project_id")
-    val id: Int,
-    @ColumnInfo(name = "project_name")
-    val Name: String
+    //@ColumnInfo(name = "ID")
+    val Project_ID: Long = 0,
+    //@ColumnInfo(name = "Name")
+    val Project_Name: String = ""
 )
