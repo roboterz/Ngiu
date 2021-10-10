@@ -19,7 +19,7 @@ class RecordViewModel : ViewModel() {
 
 
     fun chooseTransactionType(ttid: Int): OptionChoice{
-        val activeText = R.color.white
+        val activeText = R.color.app_title_text
         val activePointer = View.VISIBLE
 
         optionChoice = OptionChoice().clearPreset()
@@ -48,19 +48,19 @@ class RecordViewModel : ViewModel() {
 }
 
 class OptionChoice{
-    var expense:  Int = R.color.white
+    var expense:  Int = R.color.app_title_text
     var expensePointer: Int = View.VISIBLE
-    var income:  Int = R.color.color_inactive_text
+    var income:  Int = R.color.app_title_text_inactive
     var incomePointer:  Int = View.INVISIBLE
-    var transfer:  Int = R.color.color_inactive_text
+    var transfer:  Int = R.color.app_title_text_inactive
     var transferPointer:  Int = View.INVISIBLE
-    var debitCredit:  Int = R.color.color_inactive_text
+    var debitCredit:  Int = R.color.app_title_text_inactive
     var debitCreditPointer:  Int = View.INVISIBLE
 
     fun clearPreset(): OptionChoice{
         val optionChoice = OptionChoice()
 
-        optionChoice.expense = R.color.color_inactive_text
+        optionChoice.expense = R.color.app_title_text_inactive
         optionChoice.expensePointer = View.INVISIBLE
 
         return optionChoice
