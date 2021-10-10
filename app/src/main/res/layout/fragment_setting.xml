@@ -183,7 +183,8 @@
                 android:checked="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/app_section_background"/>
+                android:background="@color/app_section_background"
+                android:foregroundTint="@color/app_title_background"/>
 
 
         </LinearLayout>

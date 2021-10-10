@@ -96,13 +96,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginTop="8dp"
+            android:maxWidth="150dp"
             android:singleLine="true"
             android:textColor="@color/app_text"
             android:textSize="18sp"
             android:textStyle="normal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvTrans_week"
-            tools:text="Lunch" />
+            tools:text="djfkafjk;adljfoej" />
 
         <TextView
             android:id="@+id/tvTrans_time"
@@ -154,6 +155,7 @@
             android:id="@+id/tvTrans_account_receive"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
             android:singleLine="true"
             android:visibility="gone"
             android:textColor="@color/app_text"
@@ -161,6 +163,7 @@
             android:textStyle="normal"
             app:layout_constraintStart_toEndOf="@id/tvTrans_category"
             app:layout_constraintTop_toTopOf="@id/tvTrans_category"
+            app:layout_constraintEnd_toStartOf="@id/tvTrans_amount"
             tools:text=" ➡️ Chase Freedom" />
 
         <TextView

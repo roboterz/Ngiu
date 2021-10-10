@@ -41,13 +41,13 @@ class TransListAdapter(private val trans: ArrayList<TransactionDetail>)
             holder.dailyIncome.text ="$0.00"
             holder.expense.text = "Expense"
             holder.dailyExpense.text ="$0.00"
-            holder.subCategory.text =" $SubCategory_Name"
             holder.time.text = DateFormat.format("HH:mm", Transaction_Date)
             //holder.period.text = ""
             holder.memo.text ="$Transaction_Memo"
             holder.amount.text ="$$Transaction_Amount"
 
             if (TransactionType_Name == "Expense" || TransactionType_Name == "Income" ) {
+                holder.subCategory.text = "$SubCategory_Name"
                 holder.account.text = "$Account_Name"
                 holder.person.text = "$Person_Name"
                 holder.merchant.text = "$Merchant_Name"
@@ -75,6 +75,7 @@ class TransListAdapter(private val trans: ArrayList<TransactionDetail>)
 
 
             if (TransactionType_Name == "Transfer"){
+                holder.subCategory.text = "$Account_Name"
                 holder.accountReceiver.text =" ➡️ $AccountRecipient_Name"
                 holder.accountReceiver.visibility = View.VISIBLE
             } else {
