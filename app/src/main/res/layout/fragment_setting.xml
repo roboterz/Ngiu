@@ -10,7 +10,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/color_list_background"
         android:orientation="vertical">
 
@@ -38,55 +38,53 @@
             android:id="@+id/tv_expense"
             android:text="@string/setting_Expense"
             android:padding="12dp"
-            android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24"
             android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:textColor="@color/color_option_text"
             android:textSize="15sp"
-
-            />
+            app:drawableRightCompat="@drawable/ic_baseline_keyboard_arrow_right_24" />
         <TextView
             android:id="@+id/tv_income"
             android:text="@string/setting_income"
             android:padding="12dp"
-            android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24"
             android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:textColor="@color/color_option_text"/>
+            android:textColor="@color/color_option_text"
+            app:drawableRightCompat="@drawable/ic_baseline_keyboard_arrow_right_24" />
         <TextView
             android:id="@+id/tv_merchant"
             android:text="@string/setting_merchant"
             android:padding="12dp"
-            android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24"
             android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:textColor="@color/color_option_text"/>
+            android:textColor="@color/color_option_text"
+            app:drawableRightCompat="@drawable/ic_baseline_keyboard_arrow_right_24" />
         <TextView
             android:id="@+id/tv_person"
             android:text="@string/setting_person"
             android:padding="12dp"
             android:background="@color/white"
-            android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:textColor="@color/color_option_text"/>
+            android:textColor="@color/color_option_text"
+            app:drawableRightCompat="@drawable/ic_baseline_keyboard_arrow_right_24" />
         <TextView
             android:id="@+id/tv_project"
             android:text="@string/setting_project"
             android:padding="12dp"
             android:background="@color/white"
-            android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:textColor="@color/color_option_text"/>
+            android:textColor="@color/color_option_text"
+            app:drawableRightCompat="@drawable/ic_baseline_keyboard_arrow_right_24" />
 
         <TextView
             android:id="@+id/tv_advanced"
@@ -94,7 +92,7 @@
             android:padding="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:textColor="@color/color_option_text"/>
 
         <LinearLayout
@@ -121,11 +119,11 @@
                 android:padding="12dp"
                 android:background="@color/white"
                 android:gravity="right"
-                android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:textColor="@color/color_option_text"/>
+                android:textColor="@color/color_option_text"
+                app:drawableRightCompat="@drawable/ic_baseline_keyboard_arrow_right_24" />
 
         </LinearLayout>
 
@@ -134,11 +132,11 @@
             android:text="@string/setting_language"
             android:padding="12dp"
             android:background="@color/white"
-            android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:textColor="@color/color_option_text"/>
+            android:textColor="@color/color_option_text"
+            app:drawableRightCompat="@drawable/ic_baseline_keyboard_arrow_right_24" />
 
         <LinearLayout
             android:orientation="horizontal"
@@ -152,7 +150,7 @@
                 android:layout_weight="1"
                 android:padding="12dp"
                 android:background="@color/white"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:textColor="@color/color_option_text"/>
@@ -175,7 +173,7 @@
                 android:layout_weight="1"
                 android:padding="12dp"
                 android:background="@color/white"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:textColor="@color/color_option_text"/>
@@ -202,11 +200,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:drawableRight="@drawable/ic_baseline_arrow_right_24"
             android:padding="12dp"
             android:text="@string/setting_about_app"
             android:textColor="@color/color_option_text"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:drawableRightCompat="@drawable/ic_baseline_arrow_right_24" />
 
     </LinearLayout>
 </ScrollView>

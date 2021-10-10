@@ -21,18 +21,18 @@
 
         <TextView
             android:id="@+id/tvTrans_day"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:textColor="@color/color_time"
-            android:textSize="14dp"
+            android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="13" />
 
         <TextView
             android:id="@+id/tvTrans_week"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:singleLine="true"
@@ -44,7 +44,7 @@
 
         <TextView
             android:id="@+id/tvTrans_daily_income"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="3dp"
             android:singleLine="true"
@@ -56,7 +56,7 @@
 
         <TextView
             android:id="@+id/tvTrans_daily_income_amount"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:singleLine="true"
@@ -68,7 +68,7 @@
 
         <TextView
             android:id="@+id/tvTrans_daily_expense"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="3dp"
             android:singleLine="true"
@@ -80,7 +80,7 @@
 
         <TextView
             android:id="@+id/tvTrans_daily_expense_amount"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:singleLine="true"
@@ -92,7 +92,7 @@
 
         <TextView
             android:id="@+id/tvTrans_category"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginTop="8dp"
@@ -106,7 +106,7 @@
 
         <TextView
             android:id="@+id/tvTrans_time"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:textColor="@color/color_time"
@@ -117,7 +117,7 @@
 
         <TextView
             android:id="@+id/tvTrans_period"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:singleLine="true"
@@ -129,7 +129,7 @@
 
         <TextView
             android:id="@+id/tvTrans_memo"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:singleLine="true"
@@ -141,7 +141,7 @@
 
         <TextView
             android:id="@+id/tvTrans_account_pay"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:textColor="@color/color_time"
@@ -152,7 +152,7 @@
 
         <TextView
             android:id="@+id/tvTrans_account_receive"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:visibility="gone"
@@ -165,7 +165,7 @@
 
         <TextView
             android:id="@+id/tvTrans_dot_before_person"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:textColor="@color/color_time"
@@ -176,7 +176,7 @@
 
         <TextView
             android:id="@+id/tvTrans_person"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:textColor="@color/color_time"
@@ -187,7 +187,7 @@
 
         <TextView
             android:id="@+id/tvTrans_dot_before_merchant"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:textColor="@color/color_time"
@@ -198,7 +198,7 @@
 
         <TextView
             android:id="@+id/tvTrans_merchant"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:textColor="@color/color_time"
@@ -209,7 +209,7 @@
 
         <TextView
             android:id="@+id/tvTrans_dot_before_project"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:textColor="@color/color_time"
@@ -220,7 +220,7 @@
 
         <TextView
             android:id="@+id/tvTrans_project"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:textColor="@color/color_time"
@@ -231,7 +231,7 @@
 
         <TextView
             android:id="@+id/tvTrans_amount"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:singleLine="true"
@@ -244,7 +244,7 @@
 
         <TextView
             android:id="@+id/tvTrans_month"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:singleLine="true"
@@ -256,7 +256,7 @@
 
         <TextView
             android:id="@+id/tvTrans_year"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:singleLine="true"
@@ -268,7 +268,7 @@
 
         <TextView
             android:id="@+id/tvTrans_month_income"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:singleLine="true"
@@ -280,7 +280,7 @@
 
         <TextView
             android:id="@+id/tvTrans_month_income_amount"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:singleLine="true"
@@ -292,7 +292,7 @@
 
         <TextView
             android:id="@+id/tvTrans_month_expense"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:singleLine="true"
@@ -304,7 +304,7 @@
 
         <TextView
             android:id="@+id/tvTrans_month_expense_amount"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:singleLine="true"
@@ -316,7 +316,7 @@
 
         <TextView
             android:id="@+id/tvTrans_month_balance"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:singleLine="true"
@@ -328,7 +328,7 @@
 
         <TextView
             android:id="@+id/tvTrans_month_balance_amount"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:singleLine="true"
@@ -336,7 +336,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvName"
-            tools:text="time" />
+            tools:text="time"
+            tools:ignore="NotSibling" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

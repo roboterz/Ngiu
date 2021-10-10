@@ -15,7 +15,7 @@
 
         <TextView
             android:id="@+id/tvCurrentMonthExpense"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:singleLine="true"
@@ -27,7 +27,7 @@
 
         <TextView
             android:id="@+id/tvCurrentMonthExpenseBalance"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginBottom="15dp"
@@ -41,7 +41,7 @@
 
         <TextView
             android:id="@+id/tvCurrentMonthIncome"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginBottom="15dp"
@@ -54,7 +54,7 @@
 
         <TextView
             android:id="@+id/tvCurrentMonthIncomeBalance"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_marginBottom="15dp"
@@ -68,7 +68,7 @@
 
         <TextView
             android:id="@+id/tvBudget"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
             android:layout_marginBottom="15dp"
@@ -81,7 +81,7 @@
 
         <TextView
             android:id="@+id/tvBudgetBalance"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="15dp"
@@ -100,14 +100,15 @@
             android:background="?attr/colorPrimary"
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme"
-            app:menu="@menu/title_menu"/>
+            app:menu="@menu/title_menu"
+            tools:ignore="MissingConstraints" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginBottom="56dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constrainedHeight="true"
@@ -127,6 +128,7 @@
         app:backgroundTintMode="add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:tint="@android:color/white" />
+        app:tint="@android:color/white"
+        android:contentDescription="@string/menu_add" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
