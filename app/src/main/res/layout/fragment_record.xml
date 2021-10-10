@@ -130,7 +130,7 @@
                 android:id="@+id/tvSectionDebitCreditPointer"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="25dp"
                 android:layout_marginTop="-5dp"
                 app:drawableStartCompat="@drawable/ic_baseline_arrow_drop_up_24"
                 app:drawableTint="@color/white"
