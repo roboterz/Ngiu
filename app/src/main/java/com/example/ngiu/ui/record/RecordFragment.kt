@@ -57,18 +57,22 @@ class RecordFragment : Fragment() {
         // touch Expense textView, switch to Expense page
         tvSectionExpense.setOnClickListener {
             setStatus(recordViewModel.chooseTransactionType(1))
+            switchPage()
         }
         // touch Income textView, switch to Income page
         tvSectionIncome.setOnClickListener {
             setStatus(recordViewModel.chooseTransactionType(2))
+            switchPage()
         }
         // touch Transfer textView, switch to Transfer page
         tvSectionTransfer.setOnClickListener {
             setStatus(recordViewModel.chooseTransactionType(3))
+            switchPage()
         }
         // touch DebitCredit textView, switch to DebitCredit page
         tvSectionDebitCredit.setOnClickListener {
             setStatus(recordViewModel.chooseTransactionType(4))
+            switchPage()
         }
 
 
@@ -115,6 +119,10 @@ class RecordFragment : Fragment() {
         tvSectionTransferPointer.visibility = optionChoice.transferPointer
         tvSectionDebitCredit.setTextColor(ContextCompat.getColor(requireContext(),optionChoice.debitCredit))
         tvSectionDebitCreditPointer.visibility = optionChoice.debitCreditPointer
+    }
+
+    private fun switchPage(){
+
     }
 
 

@@ -25,7 +25,7 @@
      <LinearLayout
          android:orientation="vertical"
          android:layout_width="wrap_content"
-         android:background="@color/white"
+         android:background="@color/app_section_background"
          android:layout_weight="6"
          android:visibility="invisible"
          android:layout_height="wrap_content">
