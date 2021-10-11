@@ -14,5 +14,5 @@
     <color name="app_button_text">#29C010</color>
     <color name="app_option_text">#555555</color>
     <color name="app_section_background">#FFFFFF</color>
-
+    <color name="app_text_stroke">#C4C4C4</color>
 </resources>

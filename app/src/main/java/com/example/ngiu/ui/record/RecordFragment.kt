@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainer
 import androidx.lifecycle.ViewModelProvider
+import androidx.viewpager2.widget.ViewPager2
 import com.example.ngiu.MainActivity
 import com.example.ngiu.R
 import com.example.ngiu.databinding.FragmentRecordBinding
@@ -108,6 +109,13 @@ class RecordFragment : Fragment() {
         }
 
 
+        //
+        val viewPager2 = view.findViewById<ViewPager2>(R.id.vp_record_category)
+        val myAdapter = RecordCategoryAdapter()
+        myAdapter.setList(listOf(1,2,3,4,5,6,7,8,9))
+        viewPager2.adapter = myAdapter
+
+
     }
 
     private fun setStatus(optionChoice: OptionChoice){
@@ -133,6 +141,14 @@ class RecordFragment : Fragment() {
         _binding = null
     }
 
+    private val data: List<Int>
+        get() {
+            val list = ArrayList<Int>()
+            for (i in 0..3) {
+                list.add(i)
+            }
+            return list
+        }
 
 }
 
