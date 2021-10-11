@@ -5,6 +5,7 @@ import android.icu.number.Scale
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -16,9 +17,14 @@ import kotlin.math.ceil
 import kotlin.math.roundToInt
 
 
-class RecordCategoryAdapter : RecyclerView.Adapter<RecordCategoryAdapter.PagerViewHolder>() {
+class RecordCategoryAdapter(private val onClickListener: OnClickListener) : RecyclerView.Adapter<RecordCategoryAdapter.PagerViewHolder>( ) {
     private var mList: List<String> = ArrayList()
     private var currentOnFocus: Int = 1
+
+    // interface for passing the onClick event to fragment.
+    interface OnClickListener {
+        fun onItemClick(string: String)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PagerViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.record_category_item, parent, false)
@@ -141,42 +147,42 @@ class RecordCategoryAdapter : RecyclerView.Adapter<RecordCategoryAdapter.PagerVi
             1-> {
                 holder.tvCate1.setTextColor(holder.onFocusColor)
                 holder.tvCate1.setBackgroundResource(R.drawable.textview_border_active)
-                RecordViewModel().passCategoryText(holder.tvCate1.toString())
+                onClickListener.onItemClick(holder.tvCate1.text.toString())
             }
             2-> {
                 holder.tvCate2.setTextColor(holder.onFocusColor)
                 holder.tvCate2.setBackgroundResource(R.drawable.textview_border_active)
-                RecordViewModel().passCategoryText(holder.tvCate2.toString())
+                onClickListener.onItemClick(holder.tvCate2.text.toString())
             }
             3-> {
                 holder.tvCate3.setTextColor(holder.onFocusColor)
                 holder.tvCate3.setBackgroundResource(R.drawable.textview_border_active)
-                RecordViewModel().passCategoryText(holder.tvCate3.toString())
+                onClickListener.onItemClick(holder.tvCate3.text.toString())
             }
             4-> {
                 holder.tvCate4.setTextColor(holder.onFocusColor)
                 holder.tvCate4.setBackgroundResource(R.drawable.textview_border_active)
-                RecordViewModel().passCategoryText(holder.tvCate4.toString())
+                onClickListener.onItemClick(holder.tvCate4.text.toString())
             }
             5-> {
                 holder.tvCate5.setTextColor(holder.onFocusColor)
                 holder.tvCate5.setBackgroundResource(R.drawable.textview_border_active)
-                RecordViewModel().passCategoryText(holder.tvCate5.toString())
+                onClickListener.onItemClick(holder.tvCate5.text.toString())
             }
             6-> {
                 holder.tvCate6.setTextColor(holder.onFocusColor)
                 holder.tvCate6.setBackgroundResource(R.drawable.textview_border_active)
-                RecordViewModel().passCategoryText(holder.tvCate6.toString())
+                onClickListener.onItemClick(holder.tvCate6.text.toString())
             }
             7-> {
                 holder.tvCate7.setTextColor(holder.onFocusColor)
                 holder.tvCate7.setBackgroundResource(R.drawable.textview_border_active)
-                RecordViewModel().passCategoryText(holder.tvCate7.toString())
+                onClickListener.onItemClick(holder.tvCate7.text.toString())
             }
             8-> {
                 holder.tvCate8.setTextColor(holder.onFocusColor)
                 holder.tvCate8.setBackgroundResource(R.drawable.textview_border_active)
-                RecordViewModel().passCategoryText(holder.tvCate8.toString())
+                onClickListener.onItemClick(holder.tvCate8.text.toString())
             }
         }
         // set current pointer
@@ -190,6 +196,8 @@ class RecordCategoryAdapter : RecyclerView.Adapter<RecordCategoryAdapter.PagerVi
     override fun getItemCount(): Int {
         return  ceil(mList.size.toDouble()/8).toInt()
     }
+
+
     //	ViewHolder需要继承RecycleView.ViewHolder
     class PagerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvCate1: TextView = itemView.findViewById(R.id.tv_record_category_1)
