@@ -6,16 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.SubCategory
 import kotlinx.android.synthetic.main.record_category_item.view.*
 import org.w3c.dom.Text
+import kotlin.math.ceil
 import kotlin.math.roundToInt
 
 
 class RecordCategoryAdapter : RecyclerView.Adapter<RecordCategoryAdapter.PagerViewHolder>() {
     private var mList: List<String> = ArrayList()
+    private var currentOnFocus: Int = 1
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PagerViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.record_category_item, parent, false)
         return PagerViewHolder(itemView)
@@ -27,6 +31,8 @@ class RecordCategoryAdapter : RecyclerView.Adapter<RecordCategoryAdapter.PagerVi
 
         if (i < mList.size) {
             holder.tvCate1.text = mList[i]
+            holder.tvCate1.setTextColor(holder.onFocus)
+            currentOnFocus = 1
         }else{
             holder.tvCate1.visibility = View.INVISIBLE
         }
@@ -66,7 +72,62 @@ class RecordCategoryAdapter : RecyclerView.Adapter<RecordCategoryAdapter.PagerVi
             holder.tvCate8.visibility = View.INVISIBLE
         }
 
+        //
+        holder.tvCate1.setOnClickListener {
+            setOffFocus(holder, currentOnFocus)
+            holder.tvCate1.setTextColor(if (holder.tvCate1.currentTextColor == holder.onFocus) holder.offFocus else holder.onFocus)
+            currentOnFocus = 1
+        }
+        holder.tvCate2.setOnClickListener {
+            setOffFocus(holder, currentOnFocus)
+            holder.tvCate2.setTextColor(if (holder.tvCate2.currentTextColor == holder.onFocus) holder.offFocus else holder.onFocus)
+            currentOnFocus = 2
+        }
+        holder.tvCate3.setOnClickListener {
+            setOffFocus(holder, currentOnFocus)
+            holder.tvCate3.setTextColor(if (holder.tvCate3.currentTextColor == holder.onFocus) holder.offFocus else holder.onFocus)
+            currentOnFocus = 3
+        }
+        holder.tvCate4.setOnClickListener {
+            setOffFocus(holder, currentOnFocus)
+            holder.tvCate4.setTextColor(if (holder.tvCate4.currentTextColor == holder.onFocus) holder.offFocus else holder.onFocus)
+            currentOnFocus = 4
+        }
+        holder.tvCate5.setOnClickListener {
+            setOffFocus(holder, currentOnFocus)
+            holder.tvCate5.setTextColor(if (holder.tvCate5.currentTextColor == holder.onFocus) holder.offFocus else holder.onFocus)
+            currentOnFocus = 5
+        }
+        holder.tvCate6.setOnClickListener {
+            setOffFocus(holder, currentOnFocus)
+            holder.tvCate6.setTextColor(if (holder.tvCate6.currentTextColor == holder.onFocus) holder.offFocus else holder.onFocus)
+            currentOnFocus = 6
+        }
+        holder.tvCate7.setOnClickListener {
+            setOffFocus(holder, currentOnFocus)
+            holder.tvCate7.setTextColor(if (holder.tvCate7.currentTextColor == holder.onFocus) holder.offFocus else holder.onFocus)
+            currentOnFocus = 7
+        }
+        holder.tvCate8.setOnClickListener {
+            setOffFocus(holder, currentOnFocus)
+            holder.tvCate8.setTextColor(if (holder.tvCate8.currentTextColor == holder.onFocus) holder.offFocus else holder.onFocus)
+            currentOnFocus = 8
+        }
 
+
+    }
+
+    fun setOffFocus(holder: PagerViewHolder, currentPointer: Int){
+        when (currentPointer){
+            1-> holder.tvCate1.setTextColor(holder.offFocus)
+            2-> holder.tvCate2.setTextColor(holder.offFocus)
+            3-> holder.tvCate3.setTextColor(holder.offFocus)
+            4-> holder.tvCate4.setTextColor(holder.offFocus)
+            5-> holder.tvCate5.setTextColor(holder.offFocus)
+            6-> holder.tvCate6.setTextColor(holder.offFocus)
+            7-> holder.tvCate7.setTextColor(holder.offFocus)
+            8-> holder.tvCate8.setTextColor(holder.offFocus)
+        }
     }
 
     fun setList(list: List<String>) {
@@ -74,7 +135,7 @@ class RecordCategoryAdapter : RecyclerView.Adapter<RecordCategoryAdapter.PagerVi
     }
 
     override fun getItemCount(): Int {
-        return  Math.ceil(mList.size.toDouble()/8).toInt()
+        return  ceil(mList.size.toDouble()/8).toInt()
     }
     //	ViewHolder需要继承RecycleView.ViewHolder
     class PagerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -87,7 +148,10 @@ class RecordCategoryAdapter : RecyclerView.Adapter<RecordCategoryAdapter.PagerVi
         val tvCate7: TextView = itemView.findViewById(R.id.tv_record_category_7)
         val tvCate8: TextView = itemView.findViewById(R.id.tv_record_category_8)
 
-
+        val onFocus: Int = ContextCompat.getColor(itemView.context,R.color.app_expense_amount)
+        val offFocus: Int = ContextCompat.getColor(itemView.context,R.color.app_option_text)
 
     }
+
+
 }

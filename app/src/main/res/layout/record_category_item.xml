@@ -13,13 +13,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.4666" />
+            app:layout_constraintGuide_percent="0.48" />
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_record_category_2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.5333" />
+            app:layout_constraintGuide_percent="0.52" />
 
         <TextView
             android:id="@+id/tv_record_category_1"

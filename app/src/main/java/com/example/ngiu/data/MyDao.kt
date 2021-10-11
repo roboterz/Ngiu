@@ -173,20 +173,30 @@ interface SubCategoryDao {
     //fun getSubCat(): List<SubCategories>
 
     @Transaction
-    @Query("SELECT * FROM SubCategory")
+    @Query("""
+        SELECT *
+        FROM SubCategory
+        WHERE MainCategory_ID = 11
+            AND SubCategory_Common = 0
+    """)
     fun getIncomeCommonCategory(): List<SubCategory>
 
     @Transaction
     @Query("""
-        SELECT SubCategory_Name
+        SELECT *
         FROM SubCategory
         WHERE MainCategory_ID = 1
             AND SubCategory_Common = 0
     """)
-    fun getExpenseCommonCategory(): List<String>
+    fun getExpenseCommonCategory(): List<SubCategory>
 
     @Transaction
-    @Query("SELECT * FROM SubCategory")
+    @Query("""
+        SELECT *
+        FROM SubCategory
+        WHERE MainCategory_ID = 11
+            AND SubCategory_Common = 0
+    """)
     fun getTransferCommonCategory(): List<SubCategory>
 
     @Transaction
