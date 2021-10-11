@@ -178,12 +178,12 @@ interface SubCategoryDao {
 
     @Transaction
     @Query("""
-        SELECT *
+        SELECT SubCategory_Name
         FROM SubCategory
         WHERE MainCategory_ID = 1
             AND SubCategory_Common = 0
     """)
-    fun getExpenseCommonCategory(): List<SubCategory>
+    fun getExpenseCommonCategory(): List<String>
 
     @Transaction
     @Query("SELECT * FROM SubCategory")

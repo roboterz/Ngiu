@@ -112,7 +112,7 @@ class RecordFragment : Fragment() {
         //
         val viewPager2 = view.findViewById<ViewPager2>(R.id.vp_record_category)
         val myAdapter = RecordCategoryAdapter()
-        myAdapter.setList(listOf(1,2,3,4,5,6,7,8,9))
+        myAdapter.setList(listOf("Breakfast","Dinner","Car Services","movie","Toll","Snack","Clothes","Shoes","Lunch"))
         viewPager2.adapter = myAdapter
 
 
