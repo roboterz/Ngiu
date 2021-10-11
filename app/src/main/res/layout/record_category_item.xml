@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:padding="15dp">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_record_category_1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.4666" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_record_category_2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5333" />
+
+        <TextView
+            android:id="@+id/tv_record_category_1"
+            android:layout_width="80dp"
+            android:layout_height="25dp"
+            android:singleLine="true"
+            android:background="@drawable/textview_border"
+            android:gravity="center"
+            android:text="1"
+            android:textColor="@color/app_option_text"
+            android:textSize="12sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="MissingConstraints" />
+        <TextView
+            android:id="@+id/tv_record_category_2"
+            android:layout_width="80dp"
+            android:layout_height="25dp"
+            android:singleLine="true"
+            android:background="@drawable/textview_border"
+            android:gravity="center"
+            android:text="2"
+            android:textColor="@color/app_option_text"
+            android:textSize="12sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/guideline_record_category_1"
+            tools:ignore="MissingConstraints" />
+        <TextView
+            android:id="@+id/tv_record_category_3"
+            android:layout_width="80dp"
+            android:layout_height="25dp"
+            android:singleLine="true"
+            android:background="@drawable/textview_border"
+            android:gravity="center"
+            android:text="3"
+            android:textColor="@color/app_option_text"
+            android:textSize="12sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline_record_category_2"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/tv_record_category_4"
+            android:layout_width="80dp"
+            android:layout_height="25dp"
+            android:background="@drawable/textview_border"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="4"
+            android:textColor="@color/app_option_text"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/tv_record_category_5"
+            android:layout_width="80dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="15dp"
+            android:singleLine="true"
+            android:background="@drawable/textview_border"
+            android:gravity="center"
+            android:text="5"
+            android:textColor="@color/app_option_text"
+            android:textSize="12sp"
+            app:layout_constraintTop_toBottomOf="@id/tv_record_category_1"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="MissingConstraints" />
+        <TextView
+            android:id="@+id/tv_record_category_6"
+            android:layout_width="80dp"
+            android:layout_height="25dp"
+            android:singleLine="true"
+            android:background="@drawable/textview_border"
+            android:gravity="center"
+            android:text="6"
+            android:textColor="@color/app_option_text"
+            android:textSize="12sp"
+            app:layout_constraintTop_toTopOf="@id/tv_record_category_5"
+            app:layout_constraintEnd_toStartOf="@id/guideline_record_category_1"
+            tools:ignore="MissingConstraints" />
+        <TextView
+            android:id="@+id/tv_record_category_7"
+            android:layout_width="80dp"
+            android:layout_height="25dp"
+            android:singleLine="true"
+            android:background="@drawable/textview_border"
+            android:gravity="center"
+            android:text="7"
+            android:textColor="@color/app_option_text"
+            android:textSize="12sp"
+            app:layout_constraintTop_toTopOf="@id/tv_record_category_5"
+            app:layout_constraintStart_toEndOf="@id/guideline_record_category_2"
+            tools:ignore="MissingConstraints" />
+        <TextView
+            android:id="@+id/tv_record_category_8"
+            android:layout_width="80dp"
+            android:layout_height="25dp"
+            android:singleLine="true"
+            android:background="@drawable/textview_border"
+            android:gravity="center"
+            android:text="8"
+            android:textColor="@color/app_option_text"
+            android:textSize="12sp"
+            app:layout_constraintTop_toTopOf="@id/tv_record_category_5"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:ignore="MissingConstraints" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
