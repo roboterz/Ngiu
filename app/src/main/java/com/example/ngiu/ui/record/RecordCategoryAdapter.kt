@@ -31,8 +31,7 @@ class RecordCategoryAdapter : RecyclerView.Adapter<RecordCategoryAdapter.PagerVi
 
         if (i < mList.size) {
             holder.tvCate1.text = mList[i]
-            holder.tvCate1.setTextColor(holder.onFocus)
-            currentOnFocus = 1
+            setHighlightCategory(holder,0,1)
         }else{
             holder.tvCate1.visibility = View.INVISIBLE
         }
@@ -74,60 +73,114 @@ class RecordCategoryAdapter : RecyclerView.Adapter<RecordCategoryAdapter.PagerVi
 
         //
         holder.tvCate1.setOnClickListener {
-            setOffFocus(holder, currentOnFocus)
-            holder.tvCate1.setTextColor(if (holder.tvCate1.currentTextColor == holder.onFocus) holder.offFocus else holder.onFocus)
-            currentOnFocus = 1
+            setHighlightCategory(holder, currentOnFocus,1)
         }
         holder.tvCate2.setOnClickListener {
-            setOffFocus(holder, currentOnFocus)
-            holder.tvCate2.setTextColor(if (holder.tvCate2.currentTextColor == holder.onFocus) holder.offFocus else holder.onFocus)
-            currentOnFocus = 2
+            setHighlightCategory(holder, currentOnFocus,2)
         }
         holder.tvCate3.setOnClickListener {
-            setOffFocus(holder, currentOnFocus)
-            holder.tvCate3.setTextColor(if (holder.tvCate3.currentTextColor == holder.onFocus) holder.offFocus else holder.onFocus)
-            currentOnFocus = 3
+            setHighlightCategory(holder, currentOnFocus,3)
         }
         holder.tvCate4.setOnClickListener {
-            setOffFocus(holder, currentOnFocus)
-            holder.tvCate4.setTextColor(if (holder.tvCate4.currentTextColor == holder.onFocus) holder.offFocus else holder.onFocus)
-            currentOnFocus = 4
+            setHighlightCategory(holder, currentOnFocus,4)
         }
         holder.tvCate5.setOnClickListener {
-            setOffFocus(holder, currentOnFocus)
-            holder.tvCate5.setTextColor(if (holder.tvCate5.currentTextColor == holder.onFocus) holder.offFocus else holder.onFocus)
-            currentOnFocus = 5
+            setHighlightCategory(holder, currentOnFocus,5)
         }
         holder.tvCate6.setOnClickListener {
-            setOffFocus(holder, currentOnFocus)
-            holder.tvCate6.setTextColor(if (holder.tvCate6.currentTextColor == holder.onFocus) holder.offFocus else holder.onFocus)
-            currentOnFocus = 6
+            setHighlightCategory(holder, currentOnFocus,6)
         }
         holder.tvCate7.setOnClickListener {
-            setOffFocus(holder, currentOnFocus)
-            holder.tvCate7.setTextColor(if (holder.tvCate7.currentTextColor == holder.onFocus) holder.offFocus else holder.onFocus)
-            currentOnFocus = 7
+            setHighlightCategory(holder, currentOnFocus,7)
         }
         holder.tvCate8.setOnClickListener {
-            setOffFocus(holder, currentOnFocus)
-            holder.tvCate8.setTextColor(if (holder.tvCate8.currentTextColor == holder.onFocus) holder.offFocus else holder.onFocus)
-            currentOnFocus = 8
+            setHighlightCategory(holder, currentOnFocus, 8)
         }
 
 
     }
 
-    fun setOffFocus(holder: PagerViewHolder, currentPointer: Int){
+    private fun setHighlightCategory(holder: PagerViewHolder, currentPointer: Int, setPointer: Int){
+        // cancel current highlight button
         when (currentPointer){
-            1-> holder.tvCate1.setTextColor(holder.offFocus)
-            2-> holder.tvCate2.setTextColor(holder.offFocus)
-            3-> holder.tvCate3.setTextColor(holder.offFocus)
-            4-> holder.tvCate4.setTextColor(holder.offFocus)
-            5-> holder.tvCate5.setTextColor(holder.offFocus)
-            6-> holder.tvCate6.setTextColor(holder.offFocus)
-            7-> holder.tvCate7.setTextColor(holder.offFocus)
-            8-> holder.tvCate8.setTextColor(holder.offFocus)
+            1-> {
+                    holder.tvCate1.setTextColor(holder.offFocusColor)
+                    holder.tvCate1.setBackgroundResource(R.drawable.textview_border)
+                }
+            2-> {
+                    holder.tvCate2.setTextColor(holder.offFocusColor)
+                    holder.tvCate2.setBackgroundResource(R.drawable.textview_border)
+                }
+            3-> {
+                    holder.tvCate3.setTextColor(holder.offFocusColor)
+                    holder.tvCate3.setBackgroundResource(R.drawable.textview_border)
+                }
+            4-> {
+                    holder.tvCate4.setTextColor(holder.offFocusColor)
+                    holder.tvCate4.setBackgroundResource(R.drawable.textview_border)
+                }
+            5-> {
+                    holder.tvCate5.setTextColor(holder.offFocusColor)
+                    holder.tvCate5.setBackgroundResource(R.drawable.textview_border)
+                }
+            6-> {
+                    holder.tvCate6.setTextColor(holder.offFocusColor)
+                    holder.tvCate6.setBackgroundResource(R.drawable.textview_border)
+                }
+            7-> {
+                    holder.tvCate7.setTextColor(holder.offFocusColor)
+                    holder.tvCate7.setBackgroundResource(R.drawable.textview_border)
+                }
+            8-> {
+                    holder.tvCate8.setTextColor(holder.offFocusColor)
+                    holder.tvCate8.setBackgroundResource(R.drawable.textview_border)
+                }
         }
+        // set touched button with highlight
+        when (setPointer){
+            1-> {
+                holder.tvCate1.setTextColor(holder.onFocusColor)
+                holder.tvCate1.setBackgroundResource(R.drawable.textview_border_active)
+                RecordViewModel().passCategoryText(holder.tvCate1.toString())
+            }
+            2-> {
+                holder.tvCate2.setTextColor(holder.onFocusColor)
+                holder.tvCate2.setBackgroundResource(R.drawable.textview_border_active)
+                RecordViewModel().passCategoryText(holder.tvCate2.toString())
+            }
+            3-> {
+                holder.tvCate3.setTextColor(holder.onFocusColor)
+                holder.tvCate3.setBackgroundResource(R.drawable.textview_border_active)
+                RecordViewModel().passCategoryText(holder.tvCate3.toString())
+            }
+            4-> {
+                holder.tvCate4.setTextColor(holder.onFocusColor)
+                holder.tvCate4.setBackgroundResource(R.drawable.textview_border_active)
+                RecordViewModel().passCategoryText(holder.tvCate4.toString())
+            }
+            5-> {
+                holder.tvCate5.setTextColor(holder.onFocusColor)
+                holder.tvCate5.setBackgroundResource(R.drawable.textview_border_active)
+                RecordViewModel().passCategoryText(holder.tvCate5.toString())
+            }
+            6-> {
+                holder.tvCate6.setTextColor(holder.onFocusColor)
+                holder.tvCate6.setBackgroundResource(R.drawable.textview_border_active)
+                RecordViewModel().passCategoryText(holder.tvCate6.toString())
+            }
+            7-> {
+                holder.tvCate7.setTextColor(holder.onFocusColor)
+                holder.tvCate7.setBackgroundResource(R.drawable.textview_border_active)
+                RecordViewModel().passCategoryText(holder.tvCate7.toString())
+            }
+            8-> {
+                holder.tvCate8.setTextColor(holder.onFocusColor)
+                holder.tvCate8.setBackgroundResource(R.drawable.textview_border_active)
+                RecordViewModel().passCategoryText(holder.tvCate8.toString())
+            }
+        }
+        // set current pointer
+        currentOnFocus = setPointer
     }
 
     fun setList(list: List<String>) {
@@ -148,8 +201,8 @@ class RecordCategoryAdapter : RecyclerView.Adapter<RecordCategoryAdapter.PagerVi
         val tvCate7: TextView = itemView.findViewById(R.id.tv_record_category_7)
         val tvCate8: TextView = itemView.findViewById(R.id.tv_record_category_8)
 
-        val onFocus: Int = ContextCompat.getColor(itemView.context,R.color.app_expense_amount)
-        val offFocus: Int = ContextCompat.getColor(itemView.context,R.color.app_option_text)
+        val onFocusColor: Int = ContextCompat.getColor(itemView.context,R.color.app_button_text)
+        val offFocusColor: Int = ContextCompat.getColor(itemView.context,R.color.app_option_text)
 
     }
 

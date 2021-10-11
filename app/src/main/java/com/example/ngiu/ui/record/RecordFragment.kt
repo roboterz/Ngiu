@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -82,6 +83,7 @@ class RecordFragment : Fragment() {
         }
 
 
+
         // set up toolbar icon and click event
 
         // choose items to show
@@ -117,7 +119,12 @@ class RecordFragment : Fragment() {
 
     }
 
+    //
+    fun setCategoryText(string: String){
+        view?.findViewById<TextView>(R.id.tv_record_category)?.text = string
+    }
 
+    //
     private fun loadCommonCategory(view: View, tyID: Int) {
 
         val records = ArrayList<String>()

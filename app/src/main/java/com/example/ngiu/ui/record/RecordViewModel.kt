@@ -19,6 +19,7 @@ class RecordViewModel : ViewModel() {
 
     var optionChoice: OptionChoice = OptionChoice()
     var currentPointerID: Int = 1
+    var currentCategoryText: String = ""
 
 
     fun chooseTransactionType(tyID: Int): OptionChoice{
@@ -61,6 +62,11 @@ class RecordViewModel : ViewModel() {
             else -> ArrayList<SubCategory>()
         }
 
+    }
+
+    //
+    fun passCategoryText(string: String){
+        RecordFragment().setCategoryText(string)
     }
 }
 
