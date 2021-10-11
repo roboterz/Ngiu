@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentContainer
 import androidx.lifecycle.ViewModelProvider
+import androidx.viewpager2.widget.ViewPager2
 import com.example.ngiu.MainActivity
 import com.example.ngiu.R
 import com.example.ngiu.databinding.FragmentRecordBinding
@@ -53,26 +53,32 @@ class RecordFragment : Fragment() {
 
         // Keep current state when reloading
         setStatus(recordViewModel.optionChoice)
+        loadCommonCategory(view, recordViewModel.currentPointerID)
+
 
         // touch Expense textView, switch to Expense page
         tvSectionExpense.setOnClickListener {
             setStatus(recordViewModel.chooseTransactionType(1))
             switchPage()
+            loadCommonCategory(view, 1)
         }
         // touch Income textView, switch to Income page
         tvSectionIncome.setOnClickListener {
             setStatus(recordViewModel.chooseTransactionType(2))
             switchPage()
+            loadCommonCategory(view, 2)
         }
         // touch Transfer textView, switch to Transfer page
         tvSectionTransfer.setOnClickListener {
             setStatus(recordViewModel.chooseTransactionType(3))
             switchPage()
+            loadCommonCategory(view, 3)
         }
         // touch DebitCredit textView, switch to DebitCredit page
         tvSectionDebitCredit.setOnClickListener {
             setStatus(recordViewModel.chooseTransactionType(4))
             switchPage()
+            loadCommonCategory(view, 4)
         }
 
 
@@ -108,7 +114,33 @@ class RecordFragment : Fragment() {
         }
 
 
+
     }
+
+
+    private fun loadCommonCategory(view: View, tyID: Int) {
+
+        val records = ArrayList<String>()
+
+        Thread {
+
+            val commonCateList = recordViewModel.readCommonCategory(activity, tyID)
+
+            activity?.runOnUiThread {
+                for (i in commonCateList.indices) {
+                    records.add(commonCateList[i].SubCategory_Name)
+                }
+
+
+                val viewPagerRecord = view.findViewById<ViewPager2>(R.id.vp_record_category)
+                val recordCategoryAdapter = RecordCategoryAdapter()
+                recordCategoryAdapter.setList(records)
+                viewPagerRecord.adapter = recordCategoryAdapter
+            }
+        }.start()
+    }
+
+
 
     private fun setStatus(optionChoice: OptionChoice){
         tvSectionExpense.setTextColor(ContextCompat.getColor(requireContext(),optionChoice.expense))
@@ -133,6 +165,14 @@ class RecordFragment : Fragment() {
         _binding = null
     }
 
+    private val data: List<Int>
+        get() {
+            val list = ArrayList<Int>()
+            for (i in 0..3) {
+                list.add(i)
+            }
+            return list
+        }
 
 }
 

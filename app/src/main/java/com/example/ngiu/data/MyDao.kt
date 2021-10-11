@@ -173,6 +173,37 @@ interface SubCategoryDao {
     //fun getSubCat(): List<SubCategories>
 
     @Transaction
+    @Query("""
+        SELECT *
+        FROM SubCategory
+        WHERE MainCategory_ID = 11
+            AND SubCategory_Common = 0
+    """)
+    fun getIncomeCommonCategory(): List<SubCategory>
+
+    @Transaction
+    @Query("""
+        SELECT *
+        FROM SubCategory
+        WHERE MainCategory_ID = 1
+            AND SubCategory_Common = 0
+    """)
+    fun getExpenseCommonCategory(): List<SubCategory>
+
+    @Transaction
+    @Query("""
+        SELECT *
+        FROM SubCategory
+        WHERE MainCategory_ID = 11
+            AND SubCategory_Common = 0
+    """)
+    fun getTransferCommonCategory(): List<SubCategory>
+
+    @Transaction
+    @Query("SELECT * FROM SubCategory")
+    fun getDebitCreditCommonCategory(): List<SubCategory>
+
+    @Transaction
     @Query("SELECT * FROM SubCategory")
     fun getAllSubCategory(): List<SubCategory>
 }
@@ -188,13 +219,14 @@ interface TransDao {
 
     @Transaction
     @Query("""
-        SELECT Transaction_ID, TransactionType_Name, SubCategory_Name, Account_Name, Account_Name as AccountRecipient_Name, 
+        SELECT Transaction_ID, TransactionType_Name, SubCategory_Name, Account.Account_Name, AccountRecipient.Account_Name as AccountRecipient_Name, 
                 Transaction_Amount, Transaction_Date, Person_Name, Merchant_Name, Transaction_Memo, Project_Name, 
                 Transaction_ReimburseStatus, Period_ID  
-        FROM Trans, TransactionType, SubCategory, Account, Person, Merchant, Project
+        FROM Trans, TransactionType, SubCategory, Account, Account as AccountRecipient, Person, Merchant, Project
         WHERE Trans.TransactionType_ID = TransactionType.TransactionType_ID 
                 AND Trans.SubCategory_ID = SubCategory.SubCategory_ID
-                AND Trans.Account_ID = Account.Account_ID
+                And Trans.Account_ID = Account.Account_ID
+                AND Trans.AccountRecipient_ID = AccountRecipient.Account_ID
                 AND Trans.Person_ID = Person.Person_ID
                 AND Trans.Merchant_ID = Merchant.Merchant_ID
                 AND Trans.Project_ID = Project.Project_ID

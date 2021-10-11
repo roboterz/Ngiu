@@ -2,10 +2,13 @@ package com.example.ngiu.ui.record
 
 
 import android.view.View
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.ngiu.R
+import com.example.ngiu.data.AppDatabase
+import com.example.ngiu.data.entities.SubCategory
 
 class RecordViewModel : ViewModel() {
 
@@ -15,16 +18,16 @@ class RecordViewModel : ViewModel() {
     val text: LiveData<String> = _text
 
     var optionChoice: OptionChoice = OptionChoice()
+    var currentPointerID: Int = 1
 
 
-
-    fun chooseTransactionType(ttid: Int): OptionChoice{
+    fun chooseTransactionType(tyID: Int): OptionChoice{
         val activeText = R.color.app_title_text
         val activePointer = View.VISIBLE
 
         optionChoice = OptionChoice().clearPreset()
 
-        when (ttid) {
+        when (tyID) {
             1 -> {
                 optionChoice.expense = activeText
                 optionChoice.expensePointer = activePointer
@@ -44,6 +47,20 @@ class RecordViewModel : ViewModel() {
             }
         }
         return optionChoice
+    }
+
+
+    fun readCommonCategory(activity: FragmentActivity?, tyID: Int): List<SubCategory>{
+        currentPointerID = tyID
+
+        return when (tyID){
+            1 -> AppDatabase.getDatabase(activity!!).subcat().getExpenseCommonCategory()
+            2 -> AppDatabase.getDatabase(activity!!).subcat().getIncomeCommonCategory()
+            3 -> AppDatabase.getDatabase(activity!!).subcat().getTransferCommonCategory()
+            4 -> AppDatabase.getDatabase(activity!!).subcat().getDebitCreditCommonCategory()
+            else -> ArrayList<SubCategory>()
+        }
+
     }
 }
 

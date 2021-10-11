@@ -1,23 +1,32 @@
 package com.example.ngiu.ui.activity
 
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.app.ActivityManager
+import android.app.Application
+import android.content.ContentProvider
+import android.content.Context
 import android.graphics.Color
 import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat
 import androidx.core.view.marginTop
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.list.TransactionDetail
 import kotlinx.android.synthetic.main.transaction_cardview.view.*
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.withContext
 import kotlin.collections.ArrayList
 
 
 class TransListAdapter(private val trans: ArrayList<TransactionDetail>)
     : RecyclerView.Adapter<TransListAdapter.ViewHolder>() {
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         // inflate the custom view from xml layout file
@@ -41,13 +50,13 @@ class TransListAdapter(private val trans: ArrayList<TransactionDetail>)
             holder.dailyIncome.text ="$0.00"
             holder.expense.text = "Expense"
             holder.dailyExpense.text ="$0.00"
-            holder.subCategory.text =" $SubCategory_Name"
             holder.time.text = DateFormat.format("HH:mm", Transaction_Date)
             //holder.period.text = ""
             holder.memo.text ="$Transaction_Memo"
             holder.amount.text ="$$Transaction_Amount"
 
             if (TransactionType_Name == "Expense" || TransactionType_Name == "Income" ) {
+                holder.subCategory.text = "$SubCategory_Name"
                 holder.account.text = "$Account_Name"
                 holder.person.text = "$Person_Name"
                 holder.merchant.text = "$Merchant_Name"
@@ -75,6 +84,7 @@ class TransListAdapter(private val trans: ArrayList<TransactionDetail>)
 
 
             if (TransactionType_Name == "Transfer"){
+                holder.subCategory.text = "$Account_Name"
                 holder.accountReceiver.text =" ➡️ $AccountRecipient_Name"
                 holder.accountReceiver.visibility = View.VISIBLE
             } else {
@@ -88,9 +98,9 @@ class TransListAdapter(private val trans: ArrayList<TransactionDetail>)
 
             holder.amount.setTextColor(
                 when (TransactionType_Name) {
-                    "Expense" -> Color.RED
-                    "Income" -> Color.parseColor("#29C010")
-                    else -> Color.BLACK
+                    "Expense" -> holder.expenseColor
+                    "Income" -> holder.incomeColor
+                    else -> holder.amountColor
                 }
             )
 
@@ -125,6 +135,10 @@ class TransListAdapter(private val trans: ArrayList<TransactionDetail>)
         val beforePerson: TextView = itemView.tvTrans_dot_before_person
         val beforeMerchant: TextView = itemView.tvTrans_dot_before_merchant
         val beforeProject: TextView = itemView.tvTrans_dot_before_project
+
+        val expenseColor = ContextCompat.getColor(itemView.context, R.color.app_expense_amount)
+        val incomeColor = ContextCompat.getColor(itemView.context, R.color.app_income_amount)
+        val amountColor = ContextCompat.getColor(itemView.context, R.color.app_amount)
     }
 
 

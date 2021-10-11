@@ -6,7 +6,7 @@
         <item name="colorPrimaryVariant">@color/app_title_background_active</item>
         <item name="colorOnPrimary">@color/app_title_text</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/app_text</item>
+        <item name="colorSecondary">@color/app_title_background</item>
         <item name="colorSecondaryVariant">@color/app_option_text</item>
         <item name="colorOnSecondary">@color/app_sub_line_text</item>
         <!-- Status bar color. -->
