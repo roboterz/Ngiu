@@ -10,30 +10,30 @@
         android:id="@+id/info_activity_layout"
         android:layout_width="match_parent"
         android:layout_height="140dp"
-        android:background="@color/color_blue_base"
+        android:background="@color/app_title_background"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/tvCurrentMonthExpense"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:singleLine="true"
             android:text="@string/option_current_month_expense"
-            android:textColor="@color/white"
+            android:textColor="@color/app_title_text"
             android:textSize="14sp"
             app:layout_constraintBottom_toTopOf="@id/tvCurrentMonthExpenseBalance"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/tvCurrentMonthExpenseBalance"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginBottom="15dp"
             android:singleLine="true"
             android:text="$226.22"
-            android:textColor="@color/white"
+            android:textColor="@color/app_title_text"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/tvCurrentMonthIncome"
@@ -41,26 +41,26 @@
 
         <TextView
             android:id="@+id/tvCurrentMonthIncome"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginBottom="15dp"
             android:singleLine="true"
             android:text="@string/option_current_month_income"
-            android:textColor="@color/white"
+            android:textColor="@color/app_title_text"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/tvCurrentMonthIncomeBalance"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_marginBottom="15dp"
             android:singleLine="true"
             android:text="$3326.98"
-            android:textColor="@color/white"
+            android:textColor="@color/app_title_text"
             android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -68,26 +68,26 @@
 
         <TextView
             android:id="@+id/tvBudget"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
             android:layout_marginBottom="15dp"
             android:singleLine="true"
             android:text="@string/option_budget"
-            android:textColor="@color/white"
+            android:textColor="@color/app_title_text"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/tvBudgetBalance" />
 
         <TextView
             android:id="@+id/tvBudgetBalance"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="15dp"
             android:singleLine="true"
             android:text="$588.89"
-            android:textColor="@color/white"
+            android:textColor="@color/app_title_text"
             android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -100,14 +100,15 @@
             android:background="?attr/colorPrimary"
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme"
-            app:menu="@menu/title_menu"/>
+            app:menu="@menu/title_menu"
+            tools:ignore="MissingConstraints" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginBottom="56dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constrainedHeight="true"
@@ -123,10 +124,11 @@
         android:clickable="true"
         android:foregroundTintMode="add"
         android:src="@drawable/ic_baseline_add_24"
-        app:backgroundTint="@color/color_blue_base"
+        app:backgroundTint="@color/app_title_background"
         app:backgroundTintMode="add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:tint="@android:color/white" />
+        app:tint="@color/app_title_text"
+        android:contentDescription="@string/menu_add" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

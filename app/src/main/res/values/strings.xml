@@ -76,7 +76,7 @@
     <string name="option_pending_payment">Pending Payment</string>
     <string name="option_pending_receivable">Pending Receivable</string>
     <string name="option_memo">Memo</string>
-    <string name="option_budget_balance">Budget Balance</string>
+    <string name="option_budget_balance">Budget Balance:</string>
     <string name="option_common_category">Common Category</string>
     <string name="option_all">All</string>
     <string name="option_reimburse">Reimburse</string>

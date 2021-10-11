@@ -41,31 +41,31 @@ INSERT INTO MainCategory (MainCategory_ID, TransactionType_ID, MainCategory_Name
 
 
 -- Table: SubCategory
-INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name) VALUES (1, 11, 'Pension');
-INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name) VALUES (2, 11, 'Side Job');
-INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name) VALUES (3, 11, 'Dividend');
-INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name) VALUES (4, 11, 'Bonus');
-INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name) VALUES (5, 11, 'Interest');
-INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name) VALUES (6, 11, 'Tips');
-INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name) VALUES (7, 11, 'Salary');
-INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name) VALUES (8, 11, 'SSI');
-INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name) VALUES (9, 11, 'Benefit');
-INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name) VALUES (10, 11, 'Refund');
-INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name) VALUES (12, 11, 'Cash back');
-INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name) VALUES (13, 11, 'Receviable');
-INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name) VALUES (14, 11, 'Stock');
-INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name) VALUES (15, 11, 'Rental Income');
-INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name) VALUES (16, 11, 'Bussiness');
-INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name) VALUES (17, 11, 'Investment');
-INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name) VALUES (18, 1, 'Grocery');
-INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name) VALUES (19, 1, 'Drink');
-INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name) VALUES (20, 1, 'KTV');
-INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name) VALUES (21, 1, 'Midnight Dinner');
-INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name) VALUES (22, 1, 'Dinner');
-INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name) VALUES (23, 1, 'Lunch');
-INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name) VALUES (24, 1, 'Breakfast');
-INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name) VALUES (25, 10, 'MTA');
-INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name) VALUES (26, 10, 'Car Services');
+INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name, SubCategory_Common) VALUES (1, 11, 'Pension', 0);
+INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name, SubCategory_Common) VALUES (2, 11, 'Side Job', 0);
+INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name, SubCategory_Common) VALUES (3, 11, 'Dividend', 0);
+INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name, SubCategory_Common) VALUES (4, 11, 'Bonus', 0);
+INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name, SubCategory_Common) VALUES (5, 11, 'Interest', 0);
+INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name, SubCategory_Common) VALUES (6, 11, 'Tips', 0);
+INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name, SubCategory_Common) VALUES (7, 11, 'Salary', 0);
+INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name, SubCategory_Common) VALUES (8, 11, 'SSI', 0);
+INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name, SubCategory_Common) VALUES (9, 11, 'Benefit', 0);
+INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name, SubCategory_Common) VALUES (10, 11, 'Refund', 0);
+INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name, SubCategory_Common) VALUES (12, 11, 'Cash back', 0);
+INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name, SubCategory_Common) VALUES (13, 11, 'Receviable', 0);
+INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name, SubCategory_Common) VALUES (14, 11, 'Stock', 0);
+INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name, SubCategory_Common) VALUES (15, 11, 'Rental Income', 0);
+INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name, SubCategory_Common) VALUES (16, 11, 'Bussiness', 0);
+INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name, SubCategory_Common) VALUES (17, 11, 'Investment', 0);
+INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name, SubCategory_Common) VALUES (18, 1, 'Grocery', 0);
+INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name, SubCategory_Common) VALUES (19, 1, 'Drink', 0);
+INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name, SubCategory_Common) VALUES (20, 1, 'KTV', 0);
+INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name, SubCategory_Common) VALUES (21, 1, 'Midnight Dinner', 0);
+INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name, SubCategory_Common) VALUES (22, 1, 'Dinner', 0);
+INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name, SubCategory_Common) VALUES (23, 1, 'Lunch', 0);
+INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name, SubCategory_Common) VALUES (24, 1, 'Breakfast', 0);
+INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name, SubCategory_Common) VALUES (25, 10, 'MTA', 0);
+INSERT INTO SubCategory (SubCategory_ID, MainCategory_ID, SubCategory_Name, SubCategory_Common) VALUES (26, 10, 'Car Services', 0);
 
 
 -- Table: Project
@@ -82,20 +82,18 @@ INSERT INTO Merchant (Merchant_ID, Merchant_Name) VALUES (1, 'No Location');
 
 
 -- Table: Trans
-INSERT INTO Trans (Transaction_ID, TransactionType_ID, SubCategory_ID, Account_ID, AccountRecipient_ID, Transaction_Amount, Transaction_Date, Person_ID, Merchant_ID, Transaction_Memo, Project_ID, Transaction_ReimburseStatus, Period_ID) VALUES (1, 1, 23, 2, 2, 15.75, '09/13/2021 13:15', 1, 1, '', 1, 0, 0);
+INSERT INTO Trans (Transaction_ID, TransactionType_ID, SubCategory_ID, Account_ID, AccountRecipient_ID, Transaction_Amount, Transaction_Date, Person_ID, Merchant_ID, Transaction_Memo, Project_ID, Transaction_ReimburseStatus, Period_ID) VALUES (1, 1, 23, 2, 2, 15.75, '2021-10-07 00:08:27', 1, 1, '', 1, 0, 0);
 INSERT INTO Trans (Transaction_ID, TransactionType_ID, SubCategory_ID, Account_ID, AccountRecipient_ID, Transaction_Amount, Transaction_Date, Person_ID, Merchant_ID, Transaction_Memo, Project_ID, Transaction_ReimburseStatus, Period_ID) VALUES (2, 1, 25, 1, 1, 1.0, '09/13/2021 14:00', 1, 1, ' ', 1, 0, 0);
 INSERT INTO Trans (Transaction_ID, TransactionType_ID, SubCategory_ID, Account_ID, AccountRecipient_ID, Transaction_Amount, Transaction_Date, Person_ID, Merchant_ID, Transaction_Memo, Project_ID, Transaction_ReimburseStatus, Period_ID) VALUES (3, 3, 1, 2, 1, 270.0, '09/12/2021 09:15', 1, 1, ' ', 1, 0, 0);
 INSERT INTO Trans (Transaction_ID, TransactionType_ID, SubCategory_ID, Account_ID, AccountRecipient_ID, Transaction_Amount, Transaction_Date, Person_ID, Merchant_ID, Transaction_Memo, Project_ID, Transaction_ReimburseStatus, Period_ID) VALUES (4, 1, 18, 1, 1, 50.55, '09/10/2021 17:32', 1, 1, ' ', 1, 0, 0);
 INSERT INTO Trans (Transaction_ID, TransactionType_ID, SubCategory_ID, Account_ID, AccountRecipient_ID, Transaction_Amount, Transaction_Date, Person_ID, Merchant_ID, Transaction_Memo, Project_ID, Transaction_ReimburseStatus, Period_ID) VALUES (5, 2, 7, 2, 2, 450.98, '08/31/2021 12:01', 1, 1, ' ', 1, 0, 0);
-
-INSERT INTO Trans (Transaction_ID, TransactionType_ID, SubCategory_ID, Account_ID, AccountRecipient_ID, Transaction_Amount, Transaction_Date, Person_ID, Merchant_ID, Transaction_Memo, Project_ID, Transaction_ReimburseStatus, Period_ID) VALUES (6, 3, 1, 2, 1, 270.0, '09/12/2021 09:15', 1, 1, ' ', 1, 0, 0);
-
+INSERT INTO Trans (Transaction_ID, TransactionType_ID, SubCategory_ID, Account_ID, AccountRecipient_ID, Transaction_Amount, Transaction_Date, Person_ID, Merchant_ID, Transaction_Memo, Project_ID, Transaction_ReimburseStatus, Period_ID) VALUES (6, 2, 1, 2, 1, 270.0, '09/12/2021 09:15', 1, 1, ' ', 1, 0, 0);
 INSERT INTO Trans (Transaction_ID, TransactionType_ID, SubCategory_ID, Account_ID, AccountRecipient_ID, Transaction_Amount, Transaction_Date, Person_ID, Merchant_ID, Transaction_Memo, Project_ID, Transaction_ReimburseStatus, Period_ID) VALUES (7, 1, 23, 2, 2, 15.75, '09/13/2021 13:15', 1, 1, '', 1, 0, 0);
 INSERT INTO Trans (Transaction_ID, TransactionType_ID, SubCategory_ID, Account_ID, AccountRecipient_ID, Transaction_Amount, Transaction_Date, Person_ID, Merchant_ID, Transaction_Memo, Project_ID, Transaction_ReimburseStatus, Period_ID) VALUES (8, 1, 25, 1, 1, 1.0, '09/13/2021 14:00', 1, 1, ' ', 1, 0, 0);
-INSERT INTO Trans (Transaction_ID, TransactionType_ID, SubCategory_ID, Account_ID, AccountRecipient_ID, Transaction_Amount, Transaction_Date, Person_ID, Merchant_ID, Transaction_Memo, Project_ID, Transaction_ReimburseStatus, Period_ID) VALUES (9, 3, 1, 2, 1, 270.0, '09/12/2021 09:15', 1, 1, ' ', 1, 0, 0);
+INSERT INTO Trans (Transaction_ID, TransactionType_ID, SubCategory_ID, Account_ID, AccountRecipient_ID, Transaction_Amount, Transaction_Date, Person_ID, Merchant_ID, Transaction_Memo, Project_ID, Transaction_ReimburseStatus, Period_ID) VALUES (9, 1, 1, 2, 1, 270.0, '09/12/2021 09:15', 1, 1, ' ', 1, 0, 0);
 INSERT INTO Trans (Transaction_ID, TransactionType_ID, SubCategory_ID, Account_ID, AccountRecipient_ID, Transaction_Amount, Transaction_Date, Person_ID, Merchant_ID, Transaction_Memo, Project_ID, Transaction_ReimburseStatus, Period_ID) VALUES (10, 1, 18, 1, 1, 50.55, '09/10/2021 17:32', 1, 1, ' ', 1, 0, 0);
-INSERT INTO Trans (Transaction_ID, TransactionType_ID, SubCategory_ID, Account_ID, AccountRecipient_ID, Transaction_Amount, Transaction_Date, Person_ID, Merchant_ID, Transaction_Memo, Project_ID, Transaction_ReimburseStatus, Period_ID) VALUES (11, 2, 7, 2, 2, 450.98, '2021/08/29 12:01', 1, 1, ' ', 1, 0, 0);
-
+INSERT INTO Trans (Transaction_ID, TransactionType_ID, SubCategory_ID, Account_ID, AccountRecipient_ID, Transaction_Amount, Transaction_Date, Person_ID, Merchant_ID, Transaction_Memo, Project_ID, Transaction_ReimburseStatus, Period_ID) VALUES (11, 2, 7, 2, 2, 450.98, '08/31/2021 12:01', 1, 1, ' ', 1, 0, 0);
+INSERT INTO Trans (Transaction_ID, TransactionType_ID, SubCategory_ID, Account_ID, AccountRecipient_ID, Transaction_Amount, Transaction_Date, Person_ID, Merchant_ID, Transaction_Memo, Project_ID, Transaction_ReimburseStatus, Period_ID) VALUES (12, 2, 7, 2, 2, 450.98, '2021/08/29 12:01', 1, 1, ' ', 1, 0, 0);
 
 
 --

@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#66ccff</color>
-    <color name="purple_500">#3399ff</color>
-    <color name="purple_700">#0099ff</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="color_blue_base">#4CB9DB</color>
-    <color name="color_blue_select">#128CB2</color>
-    <color name="color_expense">#EC3B03</color>
-    <color name="color_income">#29C010</color>
-    <color name="color_red">#29C010</color>
-    <color name="color_amount">#FF000000</color>
-    <color name="color_time">#868686</color>
-    <color name="color_list_background">#EEEEEE</color>
-    <color name="color_option_text">#555555</color>
+    <color name="app_title_text">#FFFFFF</color>
+    <color name="app_title_text_inactive">#AAFFFFFF</color>
+    <color name="app_title_background">#4CB9DB</color>
+    <color name="app_title_background_active">#128CB2</color>
+    <color name="app_expense_amount">#EC3B03</color>
+    <color name="app_income_amount">#29C010</color>
+    <color name="app_amount">#FF000000</color>
+    <color name="app_label_text">#868686</color>
+    <color name="app_list_background">#EEEEEE</color>
+    <color name="app_sub_line_text">#868686</color>
+    <color name="app_text">#000000</color>
+    <color name="app_button_text">#29C010</color>
+    <color name="app_option_text">#555555</color>
+    <color name="app_section_background">#FFFFFF</color>
+
 </resources>

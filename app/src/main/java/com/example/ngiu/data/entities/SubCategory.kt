@@ -18,5 +18,6 @@ data class SubCategory (
     val SubCategory_ID: Long = 0,
     val MainCategory_ID: Long = 0,
     //@ColumnInfo(name = "Name")
-    val SubCategory_Name: String = ""
+    val SubCategory_Name: String = "",
+    val SubCategory_Common: Boolean = false
 )
