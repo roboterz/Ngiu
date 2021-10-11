@@ -1,14 +1,19 @@
 package com.example.ngiu.ui.record
 
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentContainer
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.viewpager2.widget.ViewPager2
 import com.example.ngiu.MainActivity
 import com.example.ngiu.R
 import com.example.ngiu.databinding.FragmentRecordBinding
@@ -53,27 +58,34 @@ class RecordFragment : Fragment() {
 
         // Keep current state when reloading
         setStatus(recordViewModel.optionChoice)
+        loadCommonCategory(view, recordViewModel.currentPointerID)
+
 
         // touch Expense textView, switch to Expense page
         tvSectionExpense.setOnClickListener {
             setStatus(recordViewModel.chooseTransactionType(1))
             switchPage()
+            loadCommonCategory(view, 1)
         }
         // touch Income textView, switch to Income page
         tvSectionIncome.setOnClickListener {
             setStatus(recordViewModel.chooseTransactionType(2))
             switchPage()
+            loadCommonCategory(view, 2)
         }
         // touch Transfer textView, switch to Transfer page
         tvSectionTransfer.setOnClickListener {
             setStatus(recordViewModel.chooseTransactionType(3))
             switchPage()
+            loadCommonCategory(view, 3)
         }
         // touch DebitCredit textView, switch to DebitCredit page
         tvSectionDebitCredit.setOnClickListener {
             setStatus(recordViewModel.chooseTransactionType(4))
             switchPage()
+            loadCommonCategory(view, 4)
         }
+
 
 
         // set up toolbar icon and click event
@@ -108,7 +120,49 @@ class RecordFragment : Fragment() {
         }
 
 
+        //
     }
+
+
+
+    //
+    private fun loadCommonCategory(view: View, tyID: Int) {
+
+        val records = ArrayList<String>()
+
+        Thread {
+
+            val commonCateList = recordViewModel.readCommonCategory(activity, tyID)
+
+            activity?.runOnUiThread {
+                for (i in commonCateList.indices) {
+                    records.add(commonCateList[i].SubCategory_Name)
+                }
+
+
+                val viewPagerRecord = view.findViewById<ViewPager2>(R.id.vp_record_category)
+                // pass the value to fragment from adapter when item clicked
+                val recordCategoryAdapter =
+                    this.context?.let {
+                        RecordCategoryAdapter(object : RecordCategoryAdapter.OnClickListener {
+
+                            // catch the item click event from adapter
+                            override fun onItemClick(string: String) {
+                                //Toast.makeText(context,"clicked "+string,Toast.LENGTH_SHORT).show()
+                                binding.tvRecordCategory.text = string
+
+                            }
+                        })
+                    }
+                // pass the date in to viewpager2 adapter
+                recordCategoryAdapter?.setList(records)
+                // load viewpager2 adapter
+                viewPagerRecord.adapter = recordCategoryAdapter
+            }
+        }.start()
+    }
+
+
 
     private fun setStatus(optionChoice: OptionChoice){
         tvSectionExpense.setTextColor(ContextCompat.getColor(requireContext(),optionChoice.expense))
@@ -133,6 +187,14 @@ class RecordFragment : Fragment() {
         _binding = null
     }
 
+    private val data: List<Int>
+        get() {
+            val list = ArrayList<Int>()
+            for (i in 0..3) {
+                list.add(i)
+            }
+            return list
+        }
 
 }
 
