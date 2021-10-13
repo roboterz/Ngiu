@@ -1,17 +1,12 @@
 package com.example.ngiu.ui.record
 
 
-import android.content.ContentValues.TAG
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.example.ngiu.MainActivity
@@ -20,9 +15,8 @@ import com.example.ngiu.databinding.FragmentRecordBinding
 import kotlinx.android.synthetic.main.fragment_record.*
 
 
+class RecordFragment() : Fragment() {
 
-
-class RecordFragment : Fragment() {
 
     private lateinit var recordViewModel: RecordViewModel
     private var _binding: FragmentRecordBinding? = null
@@ -30,6 +24,8 @@ class RecordFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+
+    private var current_rID: Long = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,6 +41,9 @@ class RecordFragment : Fragment() {
         // focus on Expense page when open up
         //setStatus( recordViewModel.chooseTransactionType(1) )
 
+        //
+
+
 
         // todo load record data
         //Toast.makeText(context,"open",Toast.LENGTH_SHORT).show()
@@ -53,12 +52,14 @@ class RecordFragment : Fragment() {
     }
 
 
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         // Keep current state when reloading
         setStatus(recordViewModel.optionChoice)
-        loadCommonCategory(view, recordViewModel.currentPointerID)
+        //loadCommonCategory(view, recordViewModel.currentPointerID)
 
 
         // touch Expense textView, switch to Expense page
@@ -94,6 +95,7 @@ class RecordFragment : Fragment() {
         toolbar_record.menu.findItem(R.id.action_done).isVisible = true
         //toolbar_record.title = "sadfdafdfa"
 
+        if (current_rID > 0) toolbar_record.menu.findItem(R.id.action_delete).isVisible = true
         // click the navigation Icon in the left side of toolbar
         toolbar_record.setNavigationOnClickListener(View.OnClickListener {
 
@@ -114,7 +116,11 @@ class RecordFragment : Fragment() {
 
                     true
                 }
+                R.id.action_delete -> {
+                    // todo delete record
 
+                    true
+                }
                 else -> super.onOptionsItemSelected(it)
             }
         }
@@ -122,6 +128,7 @@ class RecordFragment : Fragment() {
 
         //
     }
+
 
 
 
@@ -148,7 +155,7 @@ class RecordFragment : Fragment() {
 
                             // catch the item click event from adapter
                             override fun onItemClick(string: String) {
-                                //Toast.makeText(context,"clicked "+string,Toast.LENGTH_SHORT).show()
+                                // do something after clicked
                                 binding.tvRecordCategory.text = string
 
                             }
@@ -187,14 +194,7 @@ class RecordFragment : Fragment() {
         _binding = null
     }
 
-    private val data: List<Int>
-        get() {
-            val list = ArrayList<Int>()
-            for (i in 0..3) {
-                list.add(i)
-            }
-            return list
-        }
+
 
 }
 
