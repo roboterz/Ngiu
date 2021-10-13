@@ -6,11 +6,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.ngiu.databinding.AddAccountBinding
+import com.example.ngiu.databinding.FragmentAddAccountBinding
 
 class AddAccountFragment : Fragment() {
 
-    private var _binding: AddAccountBinding? = null
+    private var _binding: FragmentAddAccountBinding? = null
     private val binding get() = _binding!!
 
     private val addAccountAdapter = AddAccountAdapter()
@@ -24,7 +24,7 @@ class AddAccountFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return AddAccountBinding.inflate(inflater, container, false).run {
+        return FragmentAddAccountBinding.inflate(inflater, container, false).run {
             _binding = this
             root
         }
@@ -42,21 +42,6 @@ class AddAccountFragment : Fragment() {
             addAccountAdapter.submitList(it)
         }
 
-
-      // test to go back home with navtool
-/*    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            android.R.id.home-> {
-
-                *//*   // hide nav bottom bar
-                   (activity as MainActivity).setNavBottomBarVisibility(View.GONE)*//*
-
-                // navigate to add record screen
-                view?.findNavController()?.popBackStack()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }*/
     }
 
     override fun onResume() {

@@ -26,7 +26,6 @@ class AddAccountViewModel : ViewModel() {
         }
     }
 
-    //fixed threading issue by using rxjava
     private fun readData(context: Context) {
         val appDatabase = AppDatabase.getDatabase(context)
         appDatabase.accounttype().getAllAccountType()

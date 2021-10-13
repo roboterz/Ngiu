@@ -179,12 +179,12 @@
                 android:textColor="@color/app_option_text"/>
 
             <androidx.appcompat.widget.SwitchCompat
-                android:enabled="true"
-                android:checked="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/app_section_background"
-                android:foregroundTint="@color/app_title_background"/>
+              android:enabled="true"
+              android:checked="true"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:background="@color/app_section_background"
+              android:foregroundTint="@color/app_title_background"/>
 
 
         </LinearLayout>
