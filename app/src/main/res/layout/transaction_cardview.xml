@@ -16,6 +16,7 @@
     app:contentPaddingBottom="9dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_transaction_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 

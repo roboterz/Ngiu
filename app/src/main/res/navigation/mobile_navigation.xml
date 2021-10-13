@@ -21,7 +21,7 @@
         android:id="@+id/navigation_add_account"
         android:name="com.example.ngiu.ui.account.addaccounts.AddAccountFragment"
         android:label="@string/nav_bottom_account"
-        tools:layout="@layout/add_account" >
+        tools:layout="@layout/fragment_add_account" >
         <action
             android:id="@+id/action_navigation_add_account_self"
             app:destination="@id/navigation_add_account" />

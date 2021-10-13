@@ -214,8 +214,16 @@ interface TransDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
     fun addTransaction(trans: Trans)
 
+    @Update
+    fun updateTransaction(vararg trans: Trans)
+
     @Delete
     fun deleteTransaction(trans: Trans)
+
+    // get a record BY ID
+    @Transaction
+    @Query("SELECT * FROM Trans WHERE Transaction_ID = :rID")
+    fun getRecordByID(rID:Long):Trans
 
     @Transaction
     @Query("""

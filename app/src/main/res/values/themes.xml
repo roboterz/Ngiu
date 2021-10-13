@@ -15,5 +15,14 @@
         <item name="toolbarNavigationButtonStyle">@style/toolbarNavigationButtonStyle</item>
     </style>
 
+    <style name="Theme.Ngiu.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.Ngiu.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.Ngiu.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
 
 </resources>

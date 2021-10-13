@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_list_background">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarAddCashAccount"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/addCashLayout"
+        app:menu="@menu/title_menu"
+        app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
+        app:title="@string/nav_title_add_cash" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/addCashLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:padding="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbarAddCashAccount">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/cashAccountNameTextLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/option_title_account_name"
+            app:counterEnabled="true"
+            app:counterMaxLength="15"
+
+            app:endIconMode="clear_text"
+            app:helperText="Required*"
+            app:helperTextTextColor="@color/app_expense_amount"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/cashBalanceTextLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tetCashAccountName"
+                android:layout_width="match_parent"
+                android:background="@color/app_section_background"
+                android:layout_height="wrap_content"
+                android:maxLength="15">
+
+            </com.google.android.material.textfield.TextInputEditText>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/cashBalanceTextLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/option_title_balance"
+            app:counterEnabled="true"
+            app:counterMaxLength="15"
+            app:endIconMode="clear_text"
+            app:helperText="Required*"
+            app:helperTextTextColor="@color/app_expense_amount"
+            app:layout_constraintTop_toBottomOf="@+id/cashAccountNameTextLayout"
+            app:layout_constraintBottom_toTopOf="@+id/btnCashAddOtherCurrency"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tetCashBalance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/app_section_background"
+                android:digits="0123456789"
+                android:inputType="numberDecimal"
+                android:maxLength="15">
+            </com.google.android.material.textfield.TextInputEditText>
+        </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCashAddOtherCurrency"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/option_title_add_currency"
+                android:textAllCaps="true"
+                android:textColor="@color/app_option_text"
+                android:textSize="11sp"
+                app:backgroundTint="@color/app_section_background"
+                app:icon="@drawable/ic_baseline_add_circle_24"
+                app:iconGravity="textStart"
+                app:iconTint="@color/app_add_button_grey"
+                app:layout_constraintTop_toBottomOf="@+id/cashBalanceTextLayout"
+                app:layout_constraintBottom_toTopOf="@+id/addCashCountNetAssetsLayout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+            </com.google.android.material.button.MaterialButton>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+          android:id="@+id/addCashCountNetAssetsLayout"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:background="@color/app_section_background"
+          app:layout_constraintTop_toBottomOf="@+id/btnCashAddOtherCurrency"
+          app:layout_constraintBottom_toTopOf="@+id/cashMemoLayout"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintEnd_toEndOf="parent">
+
+
+        <TextView
+          android:id="@+id/tvCashCountNetAssets"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintEnd_toStartOf="@+id/scCashCountNetAssets"
+          android:text="@string/option_title_count_in_net_assets"
+          android:textColor="@color/app_option_text"
+          android:textSize="15sp"
+          android:padding="15dp"/>
+
+
+
+        <androidx.appcompat.widget.SwitchCompat
+          android:id="@+id/scCashCountNetAssets"
+          android:enabled="true"
+          android:checked="true"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:background="@color/app_section_background"
+          android:foregroundTint="@color/app_title_background"
+          app:layout_constraintStart_toEndOf="@+id/tvCashCountNetAssets"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintBottom_toBottomOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+          android:id="@+id/cashMemoLayout"
+          style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:hint="@string/option_memo"
+          app:counterEnabled="true"
+          app:counterMaxLength="100"
+          app:endIconMode="clear_text"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/addCashCountNetAssetsLayout">
+
+            <com.google.android.material.textfield.TextInputEditText
+              android:id="@+id/tetCashMemo"
+              android:layout_width="match_parent"
+              android:layout_height="100dp"
+              android:inputType="text"
+              android:background="@color/app_section_background"
+              android:maxLength="100"
+              android:lines="5"
+              android:maxLines="15">
+            </com.google.android.material.textfield.TextInputEditText>
+        </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/cashMemoLayout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="230dp">
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSaveCash"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/option_save"
+            android:textAllCaps="true"
+            android:textColor="@color/app_save_text"
+            android:textSize="11sp"
+            app:backgroundTint="@color/app_section_background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+        </com.google.android.material.button.MaterialButton>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

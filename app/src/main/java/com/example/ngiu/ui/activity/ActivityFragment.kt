@@ -6,17 +6,21 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.view.*
-import androidx.navigation.findNavController
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
 import com.example.ngiu.MainActivity
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.list.TransactionDetail
 import com.example.ngiu.databinding.FragmentActivityBinding
-import com.example.ngiu.functions.MyFunctions
+import com.example.ngiu.ui.record.RecordViewModel
 import kotlinx.android.synthetic.main.fragment_activity.*
 
 
 class ActivityFragment : Fragment() {
+    //
+
+
     private lateinit var activityViewModel: ActivityViewModel
     private var _binding: FragmentActivityBinding? = null
     //val personArr = ArrayList<Person>()
@@ -24,6 +28,12 @@ class ActivityFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+
+
+    // list of Transaction
+    private val transactionList = ArrayList<TransactionDetail>()
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,6 +48,7 @@ class ActivityFragment : Fragment() {
 
             //super.onCreate(savedInstanceState)
             //setHasOptionsMenu(true)
+
 
             return root
     }
@@ -78,6 +89,7 @@ class ActivityFragment : Fragment() {
             // hide nav bottom bar
             (activity as MainActivity).setNavBottomBarVisibility(View.GONE)
 
+            RecordViewModel().recordOpenOption = 0
             // switch to record fragment
             findNavController().navigate(R.id.navigation_record)
             //MyFunctions().switchToFragment(view, R.id.navigation_record,true)
@@ -100,12 +112,15 @@ class ActivityFragment : Fragment() {
 
     // load data to RecyclerView
     private fun readTransaction(view: View) {
-        // list of Transaction
-        val transactionList = ArrayList<TransactionDetail>()
 
         Thread {
+            // get data from SQLite Database
             val allRecord = activityViewModel.readData(activity) as List<TransactionDetail>
 
+            // clear list items
+            transactionList.clear()
+
+            // load data into recyclerView
             this.activity?.runOnUiThread {
 
                 for (i in allRecord.indices) {
@@ -122,7 +137,7 @@ class ActivityFragment : Fragment() {
                         allRecord[i].Transaction_Memo,
                         allRecord[i].Project_Name,
                         allRecord[i].Transaction_ReimburseStatus,
-                        allRecord[i].Period_ID,
+                        allRecord[i].Period_ID
                         )
                     )
                 }
@@ -133,7 +148,29 @@ class ActivityFragment : Fragment() {
                 recyclerView.layoutManager = linearLayoutManager
 
                 // finally, data bind the recycler view with adapter
-                recyclerView.adapter = TransListAdapter(transactionList)
+                recyclerView.adapter = this.context?.let {
+                    TransListAdapter(transactionList, object: TransListAdapter.OnClickListener {
+
+                        // catch the item click event from adapter
+                        override fun onItemClick(position: Int) {
+                            // do something after clicked\
+                            //val trans: Trans = activityViewModel.getRecordByID(activity,transactionList[position].Transaction_ID)
+
+
+                            // hide nav bottom bar
+                            (activity as MainActivity).setNavBottomBarVisibility(View.GONE)
+
+                            //parentFragmentManager.setFragmentResult("requestKey", bundleOf("bundleKey" to transactionList[position].Transaction_ID))
+                            setFragmentResult("requestKey", bundleOf("rID" to transactionList[position].Transaction_ID))
+                            // switch to record fragment
+                            findNavController().navigate(R.id.navigation_record)
+                            // load data for edit
+
+
+                        //activityViewModel.updateRecord(trans)
+                        }
+                    })
+                }
             }
         }.start()
     }

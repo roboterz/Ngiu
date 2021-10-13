@@ -37,7 +37,14 @@
     <string name="nav_title_project_add">Add Project</string>
     <string name="nav_title_project_edit">Edit Project</string>
     <string name="nav_title_currency">Base Currency</string>
-    <string name="nav_title_advanced">Advanced</string>
+    <string name="nav_title_add_cash">Add Cash</string>
+    <string name="nav_title_add_credit_card">Add Credit Card</string>
+    <string name="nav_title_add_debit_card">Add Debit Card/Checking/Saving</string>
+    <string name="nav_title_add_web_account">Add Web Account</string>
+    <string name="nav_title_add_permanent_assets">Add Permanent Assets</string>
+    <string name="nav_title_add_virtual_account">Add Virtual Account</string>
+
+
 
     <string name="setting_Expense">Expense</string>
     <string name="setting_income">Income</string>
@@ -119,18 +126,18 @@
     <string name="option_title_receive">Receive:</string>
     <string name="option_title_borrow">Borrow:</string>
     <string name="option_title_pay">Pay:</string>
-    <string name="option_title_account_name">Account Name:</string>
-    <string name="option_title_balance">Balance:</string>
+    <string name="option_title_account_name">Account Name</string>
+    <string name="option_title_balance">Balance</string>
     <string name="option_title_add_currency">Add other Currency</string>
     <string name="option_title_count_in_net_assets">Count in Net Assets</string>
     <string name="option_title_advanced">Advanced</string>
     <string name="option_title_statement_day">Statement Day:</string>
-    <string name="option_title_card_number">Card Number:</string>
+    <string name="option_title_card_number">Card Number</string>
     <string name="option_title_payment_day">Payment Day:</string>
-    <string name="option_title_credit_limit">Credit Limit:</string>
-    <string name="option_title_current_arrears">Current Arrears:</string>
+    <string name="option_title_credit_limit">Credit Limit</string>
+    <string name="option_title_current_arrears">Current Arrears</string>
     <string name="option_title_user_id">User ID:</string>
-    <string name="option_title_value">Value:</string>
+    <string name="option_title_value">Value</string>
     <string name="option_title_interval">Interval:</string>
     <string name="option_title_reminder">Reminder:</string>
     <string name="option_title_consumption_counted">Consumption in Statement Day is Counted in the Current Period</string>
@@ -157,6 +164,10 @@
     <string name="menu_save_next">Save &amp; Next</string>
     <string name="setting_page">Setting Page</string>
 
+    <string name="account_name_value">Wallet</string>
+    <string name="balance">Wallet</string>
+
+
     <string name="account_type_cash">Cash</string>
     <string name="account_type_credit">Credit Card</string>
     <string name="account_type_debit">Debit Card/Checking/Saving</string>
@@ -166,5 +177,14 @@
     <string name="account_type_virtual_acct">Virtual Account</string>
     <string name="account_type_permanent_assets">Permanent Assets</string>
     <string name="account_type_receivable">Receivable/Payable</string>
+    <string name="title_activity_record">Activity_Record</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
 </resources>

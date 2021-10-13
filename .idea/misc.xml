@@ -69,7 +69,6 @@
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/ic_launcher_background.xml" value="0.3828125" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.3828125" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/textview_border.xml" value="0.37864583333333335" />
-        <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/textview_border_active.xml" value="0.37864583333333335" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/account_detail_cardview.xml" value="0.28940217391304346" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/account_list_cardview.xml" value="0.20260416666666667" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/activity_main.xml" value="0.25" />
@@ -96,21 +95,33 @@
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.3828125" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.3828125" />
         <entry key="..\:/GitHub/Ngiu3/app/src/main/res/layout/activity_main.xml" value="0.1661600810536981" />
+        <entry key="..\:/Users/John/Documents/GitHub/Ngiu/app/src/main/res/drawable/ic_baseline_add_circle_24.xml" value="0.325" />
+        <entry key="..\:/Users/John/Documents/GitHub/Ngiu/app/src/main/res/drawable/textview_border.xml" value="0.4078125" />
         <entry key="..\:/Users/John/Documents/GitHub/Ngiu/app/src/main/res/layout/account_detail_cardview.xml" value="0.23055555555555557" />
         <entry key="..\:/Users/John/Documents/GitHub/Ngiu/app/src/main/res/layout/account_list_cardview.xml" value="0.23055555555555557" />
         <entry key="..\:/Users/John/Documents/GitHub/Ngiu/app/src/main/res/layout/activity_main.xml" value="0.16018518518518518" />
         <entry key="..\:/Users/John/Documents/GitHub/Ngiu/app/src/main/res/layout/add_account.xml" value="0.18055555555555555" />
         <entry key="..\:/Users/John/Documents/GitHub/Ngiu/app/src/main/res/layout/add_account_item.xml" value="0.18055555555555555" />
         <entry key="..\:/Users/John/Documents/GitHub/Ngiu/app/src/main/res/layout/fragment_account.xml" value="0.16018518518518518" />
-        <entry key="..\:/Users/John/Documents/GitHub/Ngiu/app/src/main/res/layout/fragment_activity.xml" value="0.16018518518518518" />
+        <entry key="..\:/Users/John/Documents/GitHub/Ngiu/app/src/main/res/layout/fragment_activity.xml" value="0.33" />
+        <entry key="..\:/Users/John/Documents/GitHub/Ngiu/app/src/main/res/layout/fragment_add_account.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/John/Documents/GitHub/Ngiu/app/src/main/res/layout/fragment_add_cash.xml" value="0.33" />
+        <entry key="..\:/Users/John/Documents/GitHub/Ngiu/app/src/main/res/layout/fragment_add_credit.xml" value="0.33" />
+        <entry key="..\:/Users/John/Documents/GitHub/Ngiu/app/src/main/res/layout/fragment_add_debit.xml" value="0.33" />
+        <entry key="..\:/Users/John/Documents/GitHub/Ngiu/app/src/main/res/layout/fragment_add_permanent_assets.xml" value="0.33" />
+        <entry key="..\:/Users/John/Documents/GitHub/Ngiu/app/src/main/res/layout/fragment_add_virtual_account.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/John/Documents/GitHub/Ngiu/app/src/main/res/layout/fragment_add_web_account.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/John/Documents/GitHub/Ngiu/app/src/main/res/layout/fragment_addcash.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/John/Documents/GitHub/Ngiu/app/src/main/res/layout/fragment_addcredit.xml" value="0.25729166666666664" />
-        <entry key="..\:/Users/John/Documents/GitHub/Ngiu/app/src/main/res/layout/fragment_calendar.xml" value="0.16018518518518518" />
+        <entry key="..\:/Users/John/Documents/GitHub/Ngiu/app/src/main/res/layout/fragment_calendar.xml" value="0.33" />
         <entry key="..\:/Users/John/Documents/GitHub/Ngiu/app/src/main/res/layout/fragment_dashboard.xml" value="0.36730072463768115" />
         <entry key="..\:/Users/John/Documents/GitHub/Ngiu/app/src/main/res/layout/fragment_home.xml" value="0.3233695652173913" />
-        <entry key="..\:/Users/John/Documents/GitHub/Ngiu/app/src/main/res/layout/fragment_record.xml" value="0.16018518518518518" />
-        <entry key="..\:/Users/John/Documents/GitHub/Ngiu/app/src/main/res/layout/fragment_setting.xml" value="0.16018518518518518" />
+        <entry key="..\:/Users/John/Documents/GitHub/Ngiu/app/src/main/res/layout/fragment_record.xml" value="0.5" />
+        <entry key="..\:/Users/John/Documents/GitHub/Ngiu/app/src/main/res/layout/fragment_setting.xml" value="0.33" />
         <entry key="..\:/Users/John/Documents/GitHub/Ngiu/app/src/main/res/layout/manage_expense.xml" value="0.16018518518518518" />
+        <entry key="..\:/Users/John/Documents/GitHub/Ngiu/app/src/main/res/layout/record_category_item.xml" value="0.38697916666666665" />
         <entry key="..\:/Users/John/Documents/GitHub/Ngiu/app/src/main/res/layout/tesitng.xml" value="0.36730072463768115" />
+        <entry key="..\:/Users/John/Documents/GitHub/Ngiu/app/src/main/res/layout/test.xml" value="0.30885416666666665" />
         <entry key="..\:/Users/John/Documents/GitHub/Ngiu/app/src/main/res/layout/transaction_cardview.xml" value="0.25729166666666664" />
         <entry key="..\:/Users/John/Documents/GitHub/Ngiu/app/src/main/res/menu/bottom_nav_menu.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/John/Documents/GitHub/Ngiu/app/src/main/res/menu/popup_menu.xml" value="0.3527777777777778" />

@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@color/app_list_background">
+
+
+    <androidx.appcompat.widget.Toolbar
+      android:id="@+id/toolbarAddWebAccount"
+      android:layout_width="match_parent"
+      android:layout_height="40dp"
+      android:background="?attr/colorPrimary"
+      android:minHeight="?attr/actionBarSize"
+      android:theme="?attr/actionBarTheme"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintBottom_toTopOf="@id/addWebAccountLayout"
+      app:menu="@menu/title_menu"
+      app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
+      app:title="@string/nav_title_add_web_account" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/addWebAccountLayout"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:padding="15dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/toolbarAddWebAccount">
+
+        <com.google.android.material.textfield.TextInputLayout
+          android:id="@+id/webAccountNameTextLayout"
+          style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:hint="@string/option_title_account_name"
+          app:counterEnabled="true"
+          app:counterMaxLength="15"
+          app:endIconMode="clear_text"
+          app:helperText="Required*"
+          app:helperTextTextColor="@color/app_expense_amount"
+          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintBottom_toTopOf="@+id/webAccountUserIDLayout"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+              android:id="@+id/tetWebAccountName"
+              android:layout_width="match_parent"
+              android:background="@color/app_section_background"
+              android:layout_height="wrap_content"
+              android:maxLength="15">
+
+            </com.google.android.material.textfield.TextInputEditText>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+          android:id="@+id/webAccountUserIDLayout"
+          style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:hint="@string/option_title_user_id"
+          app:counterEnabled="true"
+          app:counterMaxLength="16"
+          app:endIconMode="clear_text"
+          app:helperText="Required*"
+          app:helperTextTextColor="@color/app_expense_amount"
+          app:layout_constraintTop_toBottomOf="@+id/webAccountNameTextLayout"
+          app:layout_constraintBottom_toTopOf="@id/webBalanceTextLayout"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+              android:id="@+id/tetWebUserID"
+              android:layout_width="match_parent"
+              android:background="@color/app_section_background"
+              android:layout_height="wrap_content"
+              android:digits="0123456789"
+              android:inputType="numberDecimal"
+              android:maxLength="15">
+            </com.google.android.material.textfield.TextInputEditText>
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+        <com.google.android.material.textfield.TextInputLayout
+          android:id="@+id/webBalanceTextLayout"
+          style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:hint="@string/option_title_balance"
+          app:counterEnabled="true"
+          app:counterMaxLength="15"
+          app:endIconMode="clear_text"
+          app:helperText="Required*"
+          app:helperTextTextColor="@color/app_expense_amount"
+          app:layout_constraintTop_toBottomOf="@+id/webAccountUserIDLayout"
+          app:layout_constraintBottom_toTopOf="@+id/btnWebAddOtherCurrency"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+              android:id="@+id/tetDebitBalance"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/app_section_background"
+              android:digits="0123456789"
+              android:inputType="numberDecimal"
+              android:maxLength="15">
+            </com.google.android.material.textfield.TextInputEditText>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+          android:id="@+id/btnWebAddOtherCurrency"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:gravity="center"
+          android:text="@string/option_title_add_currency"
+          android:textAllCaps="true"
+          android:textColor="@color/app_option_text"
+          android:textSize="11sp"
+          app:backgroundTint="@color/app_section_background"
+          app:icon="@drawable/ic_baseline_add_circle_24"
+          app:iconGravity="textStart"
+          app:iconTint="@color/app_add_button_grey"
+          app:layout_constraintTop_toBottomOf="@+id/webBalanceTextLayout"
+          app:layout_constraintBottom_toTopOf="@+id/addWebCountNetAssetsLayout"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintEnd_toEndOf="parent">
+
+        </com.google.android.material.button.MaterialButton>
+        <androidx.constraintlayout.widget.ConstraintLayout
+          android:id="@+id/addWebCountNetAssetsLayout"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:background="@color/app_section_background"
+          app:layout_constraintTop_toBottomOf="@+id/btnWebAddOtherCurrency"
+          app:layout_constraintBottom_toTopOf="@+id/webMemoLayout"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintEnd_toEndOf="parent">
+
+
+            <TextView
+              android:id="@+id/tvWebCountNetAssets"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              app:layout_constraintTop_toTopOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintEnd_toStartOf="@+id/scWebCountNetAssets"
+              android:text="@string/option_title_count_in_net_assets"
+              android:textColor="@color/app_option_text"
+              android:textSize="15sp"
+              android:padding="15dp"/>
+
+
+
+            <androidx.appcompat.widget.SwitchCompat
+              android:id="@+id/scWebCountNetAssets"
+              android:enabled="true"
+              android:checked="true"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:background="@color/app_section_background"
+              android:foregroundTint="@color/app_title_background"
+              app:layout_constraintStart_toEndOf="@+id/tvWebCountNetAssets"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintTop_toTopOf="parent"
+              app:layout_constraintBottom_toBottomOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+          android:id="@+id/webMemoLayout"
+          style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:hint="@string/option_memo"
+          app:counterEnabled="true"
+          app:counterMaxLength="100"
+          app:endIconMode="clear_text"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/addWebCountNetAssetsLayout">
+
+            <com.google.android.material.textfield.TextInputEditText
+              android:id="@+id/tetCashMemo"
+              android:layout_width="match_parent"
+              android:layout_height="100dp"
+              android:inputType="text"
+              android:background="@color/app_section_background"
+              android:maxLength="100"
+              android:lines="5"
+              android:maxLines="15">
+            </com.google.android.material.textfield.TextInputEditText>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          app:layout_constraintTop_toBottomOf="@+id/webMemoLayout"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          android:layout_marginTop="130dp">
+            <com.google.android.material.button.MaterialButton
+              android:id="@+id/btnSaveWeb"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:gravity="center"
+              android:text="@string/option_save"
+              android:textAllCaps="true"
+              android:textColor="@color/app_save_text"
+              android:textSize="11sp"
+              app:backgroundTint="@color/app_section_background"
+              app:layout_constraintBottom_toBottomOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintEnd_toEndOf="parent">
+            </com.google.android.material.button.MaterialButton>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

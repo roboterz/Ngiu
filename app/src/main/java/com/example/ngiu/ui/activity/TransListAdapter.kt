@@ -13,20 +13,31 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.core.view.marginTop
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.list.TransactionDetail
+import com.example.ngiu.ui.record.RecordCategoryAdapter
 import kotlinx.android.synthetic.main.transaction_cardview.view.*
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.withContext
 import kotlin.collections.ArrayList
 
 
-class TransListAdapter(private val trans: ArrayList<TransactionDetail>)
+class TransListAdapter(
+    private val trans: ArrayList<TransactionDetail>,
+    private val onClickListener: OnClickListener
+    )
     : RecyclerView.Adapter<TransListAdapter.ViewHolder>() {
+
+    // interface for passing the onClick event to fragment.
+    interface OnClickListener {
+        fun onItemClick(position: Int)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         // inflate the custom view from xml layout file
@@ -40,7 +51,7 @@ class TransListAdapter(private val trans: ArrayList<TransactionDetail>)
     }
 
 
-    @SuppressLint("ResourceAsColor")
+    //@SuppressLint("ResourceAsColor")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         // display the custom class
         trans[position].apply {
@@ -104,6 +115,10 @@ class TransListAdapter(private val trans: ArrayList<TransactionDetail>)
                 }
             )
 
+            // pass the item click listener to fragment
+            holder.aItem.setOnClickListener {
+                onClickListener.onItemClick(position)
+            }
 
         }
     }
@@ -135,6 +150,7 @@ class TransListAdapter(private val trans: ArrayList<TransactionDetail>)
         val beforePerson: TextView = itemView.tvTrans_dot_before_person
         val beforeMerchant: TextView = itemView.tvTrans_dot_before_merchant
         val beforeProject: TextView = itemView.tvTrans_dot_before_project
+        val aItem: ConstraintLayout = itemView.layout_transaction_item
 
         val expenseColor = ContextCompat.getColor(itemView.context, R.color.app_expense_amount)
         val incomeColor = ContextCompat.getColor(itemView.context, R.color.app_income_amount)
