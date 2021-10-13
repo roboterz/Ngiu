@@ -1,12 +1,17 @@
 package com.example.ngiu.ui.record
 
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.example.ngiu.MainActivity
@@ -82,6 +87,7 @@ class RecordFragment : Fragment() {
         }
 
 
+
         // set up toolbar icon and click event
 
         // choose items to show
@@ -114,10 +120,12 @@ class RecordFragment : Fragment() {
         }
 
 
-
+        //
     }
 
 
+
+    //
     private fun loadCommonCategory(view: View, tyID: Int) {
 
         val records = ArrayList<String>()
@@ -133,8 +141,22 @@ class RecordFragment : Fragment() {
 
 
                 val viewPagerRecord = view.findViewById<ViewPager2>(R.id.vp_record_category)
-                val recordCategoryAdapter = RecordCategoryAdapter()
-                recordCategoryAdapter.setList(records)
+                // pass the value to fragment from adapter when item clicked
+                val recordCategoryAdapter =
+                    this.context?.let {
+                        RecordCategoryAdapter(object : RecordCategoryAdapter.OnClickListener {
+
+                            // catch the item click event from adapter
+                            override fun onItemClick(string: String) {
+                                //Toast.makeText(context,"clicked "+string,Toast.LENGTH_SHORT).show()
+                                binding.tvRecordCategory.text = string
+
+                            }
+                        })
+                    }
+                // pass the date in to viewpager2 adapter
+                recordCategoryAdapter?.setList(records)
+                // load viewpager2 adapter
                 viewPagerRecord.adapter = recordCategoryAdapter
             }
         }.start()

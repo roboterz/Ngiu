@@ -2,6 +2,7 @@ package com.example.ngiu.ui.record
 
 
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,6 +10,7 @@ import androidx.lifecycle.ViewModel
 import com.example.ngiu.R
 import com.example.ngiu.data.AppDatabase
 import com.example.ngiu.data.entities.SubCategory
+import kotlinx.coroutines.currentCoroutineContext
 
 class RecordViewModel : ViewModel() {
 
@@ -19,6 +21,7 @@ class RecordViewModel : ViewModel() {
 
     var optionChoice: OptionChoice = OptionChoice()
     var currentPointerID: Int = 1
+    var currentCategoryText: String = ""
 
 
     fun chooseTransactionType(tyID: Int): OptionChoice{
@@ -62,6 +65,9 @@ class RecordViewModel : ViewModel() {
         }
 
     }
+
+    //
+
 }
 
 class OptionChoice{
