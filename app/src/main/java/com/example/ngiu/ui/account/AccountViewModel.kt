@@ -9,12 +9,6 @@ import com.example.ngiu.data.entities.Account
 import com.example.ngiu.data.entities.Person
 
 class AccountViewModel : ViewModel() {
-
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is dashboard Fragment"
-    }
-    val text: LiveData<String> = _text
-
     // created getAllPerson
     fun readData(
         activity: FragmentActivity?
