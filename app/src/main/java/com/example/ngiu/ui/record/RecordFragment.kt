@@ -1,12 +1,15 @@
 package com.example.ngiu.ui.record
 
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.example.ngiu.MainActivity
@@ -15,7 +18,7 @@ import com.example.ngiu.databinding.FragmentRecordBinding
 import kotlinx.android.synthetic.main.fragment_record.*
 
 
-class RecordFragment() : Fragment() {
+class RecordFragment : Fragment() {
 
 
     private lateinit var recordViewModel: RecordViewModel
@@ -25,7 +28,23 @@ class RecordFragment() : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private var current_rID: Long = 0
+    private var currentRowID: Long = 0
+
+    //
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        // Pass value from other fragment
+        // --implementation "androidx.fragment:fragment-ktx:1.3.6"
+        setFragmentResultListener("requestKey") { _, bundle ->
+            // received the result
+            currentRowID = bundle.getLong("rID")
+
+            // Do something
+            if (currentRowID > 0) toolbar_record.menu.findItem(R.id.action_delete).isVisible = true
+            Toast.makeText(context,currentRowID.toString(),Toast.LENGTH_SHORT).show()
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -59,7 +78,7 @@ class RecordFragment() : Fragment() {
 
         // Keep current state when reloading
         setStatus(recordViewModel.optionChoice)
-        //loadCommonCategory(view, recordViewModel.currentPointerID)
+        loadCommonCategory(view, recordViewModel.currentPointerID)
 
 
         // touch Expense textView, switch to Expense page
@@ -95,7 +114,7 @@ class RecordFragment() : Fragment() {
         toolbar_record.menu.findItem(R.id.action_done).isVisible = true
         //toolbar_record.title = "sadfdafdfa"
 
-        if (current_rID > 0) toolbar_record.menu.findItem(R.id.action_delete).isVisible = true
+
         // click the navigation Icon in the left side of toolbar
         toolbar_record.setNavigationOnClickListener(View.OnClickListener {
 
@@ -148,6 +167,7 @@ class RecordFragment() : Fragment() {
 
 
                 val viewPagerRecord = view.findViewById<ViewPager2>(R.id.vp_record_category)
+
                 // pass the value to fragment from adapter when item clicked
                 val recordCategoryAdapter =
                     this.context?.let {
@@ -197,4 +217,6 @@ class RecordFragment() : Fragment() {
 
 
 }
+
+
 

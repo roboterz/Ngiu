@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.view.*
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
 import com.example.ngiu.MainActivity
 import com.example.ngiu.R
@@ -159,7 +161,7 @@ class ActivityFragment : Fragment() {
                             (activity as MainActivity).setNavBottomBarVisibility(View.GONE)
 
                             //parentFragmentManager.setFragmentResult("requestKey", bundleOf("bundleKey" to transactionList[position].Transaction_ID))
-
+                            setFragmentResult("requestKey", bundleOf("rID" to transactionList[position].Transaction_ID))
                             // switch to record fragment
                             findNavController().navigate(R.id.navigation_record)
                             // load data for edit

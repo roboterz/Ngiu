@@ -15,10 +15,13 @@ import kotlin.collections.ArrayList
 
 class RecordViewModel : ViewModel() {
 
+    /*
     private val _text = MutableLiveData<String>().apply {
         value = "This is notifications Fragment"
     }
     val text: LiveData<String> = _text
+
+     */
 
     var optionChoice: OptionChoice = OptionChoice()
     var currentPointerID: Int = 1
