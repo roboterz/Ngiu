@@ -2,7 +2,6 @@ package com.example.ngiu.ui.record
 
 
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,19 +9,26 @@ import androidx.lifecycle.ViewModel
 import com.example.ngiu.R
 import com.example.ngiu.data.AppDatabase
 import com.example.ngiu.data.entities.SubCategory
-import kotlinx.coroutines.currentCoroutineContext
+import com.example.ngiu.data.entities.Trans
+import java.util.*
+import kotlin.collections.ArrayList
 
 class RecordViewModel : ViewModel() {
 
+    /*
     private val _text = MutableLiveData<String>().apply {
         value = "This is notifications Fragment"
     }
     val text: LiveData<String> = _text
 
+     */
+
     var optionChoice: OptionChoice = OptionChoice()
     var currentPointerID: Int = 1
-    var currentCategoryText: String = ""
 
+    var recordOpenOption : Int = 0
+    var transRecord : Trans = Trans(0,0,0,0,0,0.0,
+    Date(),0,0,"",0,0,0)
 
     fun chooseTransactionType(tyID: Int): OptionChoice{
         val activeText = R.color.app_title_text
@@ -67,6 +73,8 @@ class RecordViewModel : ViewModel() {
     }
 
     //
+
+
 
 }
 

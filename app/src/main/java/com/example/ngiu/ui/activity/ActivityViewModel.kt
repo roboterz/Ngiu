@@ -3,6 +3,7 @@ package com.example.ngiu.ui.activity
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import com.example.ngiu.data.AppDatabase
+import com.example.ngiu.data.entities.Trans
 import com.example.ngiu.data.entities.list.TransactionDetail
 
 class ActivityViewModel : ViewModel() {
@@ -21,6 +22,14 @@ class ActivityViewModel : ViewModel() {
         val appDatabase = AppDatabase.getDatabase(activity!!)
 
         return appDatabase.trans().getAllTrans()
+    }
+
+    fun updateRecord(activity: FragmentActivity?, trans:Trans) {
+        return AppDatabase.getDatabase(activity!!).trans().updateTransaction(trans)
+    }
+
+    fun getRecordByID(activity: FragmentActivity?, rID: Long): Trans {
+        return AppDatabase.getDatabase(activity!!).trans().getRecordByID(rID)
     }
 
 }
