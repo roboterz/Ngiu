@@ -16,7 +16,7 @@ import com.example.ngiu.data.entities.Person
 import com.example.ngiu.databinding.FragmentAccountBinding
 import com.example.ngiu.functions.AccountListAdapter
 import kotlinx.android.synthetic.main.fragment_account.*
-import kotlinx.android.synthetic.main.fragment_account.toolbar_activity
+import kotlinx.android.synthetic.main.fragment_account.toolbar_account
 import kotlinx.android.synthetic.main.fragment_activity.*
 
 class AccountFragment : Fragment() {
@@ -57,10 +57,10 @@ class AccountFragment : Fragment() {
 
         // set up toolbar icon and click event
         // choose items to show
-        toolbar_activity.menu.findItem(R.id.action_add).isVisible = true
+        toolbar_account.menu.findItem(R.id.action_add).isVisible = true
 
         // menu item clicked
-        toolbar_activity.setOnMenuItemClickListener{
+        toolbar_account.setOnMenuItemClickListener{
             when (it.itemId) {
                 R.id.action_add -> {
 
