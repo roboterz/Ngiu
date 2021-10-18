@@ -1,5 +1,6 @@
 package com.example.ngiu.ui.record
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.icu.number.Scale
 import android.view.LayoutInflater
@@ -17,9 +18,15 @@ import kotlin.math.ceil
 import kotlin.math.roundToInt
 
 
-class RecordCategoryAdapter(private val onClickListener: OnClickListener) : RecyclerView.Adapter<RecordCategoryAdapter.PagerViewHolder>( ) {
-    private var mList: List<String> = ArrayList()
+class RecordCategoryAdapter(
+    private val onClickListener: OnClickListener)
+    : RecyclerView.Adapter<RecordCategoryAdapter.PagerViewHolder>( ) {
+
+    private var mList: List<String> = ArrayList<String>()
     private var currentOnFocus: Int = 1
+
+    private var btnHighLight: Boolean = true
+    private var strCurrentCategory: String = ""
 
     // interface for passing the onClick event to fragment.
     interface OnClickListener {
@@ -35,9 +42,15 @@ class RecordCategoryAdapter(private val onClickListener: OnClickListener) : Recy
         //holder.bindData(mList[position])
         val i = position * 8
 
+
         if (i < mList.size) {
             holder.tvCate1.text = mList[i]
-            setHighlightCategory(holder,0,1)
+
+            // don't set highlight if open on Edit mode
+            if (btnHighLight){
+                //setHighlightCategory(holder,1)
+            }
+
         }else{
             holder.tvCate1.visibility = View.INVISIBLE
         }
@@ -77,71 +90,68 @@ class RecordCategoryAdapter(private val onClickListener: OnClickListener) : Recy
             holder.tvCate8.visibility = View.INVISIBLE
         }
 
+        if (strCurrentCategory != ""){
+            for (idx in i..(i+7)){
+                if (strCurrentCategory == mList[idx]){
+                    setHighlightCategory(holder, idx-i+1)
+                }
+            }
+        }else{
+            setHighlightCategory(holder, 1)
+            strCurrentCategory = ""
+        }
+
+
         //
         holder.tvCate1.setOnClickListener {
-            setHighlightCategory(holder, currentOnFocus,1)
+            setHighlightCategory(holder, 1)
         }
         holder.tvCate2.setOnClickListener {
-            setHighlightCategory(holder, currentOnFocus,2)
+            setHighlightCategory(holder, 2)
         }
         holder.tvCate3.setOnClickListener {
-            setHighlightCategory(holder, currentOnFocus,3)
+            setHighlightCategory(holder, 3)
         }
         holder.tvCate4.setOnClickListener {
-            setHighlightCategory(holder, currentOnFocus,4)
+            setHighlightCategory(holder, 4)
         }
         holder.tvCate5.setOnClickListener {
-            setHighlightCategory(holder, currentOnFocus,5)
+            setHighlightCategory(holder, 5)
         }
         holder.tvCate6.setOnClickListener {
-            setHighlightCategory(holder, currentOnFocus,6)
+            setHighlightCategory(holder, 6)
         }
         holder.tvCate7.setOnClickListener {
-            setHighlightCategory(holder, currentOnFocus,7)
+            setHighlightCategory(holder, 7)
         }
         holder.tvCate8.setOnClickListener {
-            setHighlightCategory(holder, currentOnFocus, 8)
+            setHighlightCategory(holder, 8)
         }
+
+
 
 
     }
 
-    private fun setHighlightCategory(holder: PagerViewHolder, currentPointer: Int, setPointer: Int){
+    private fun setHighlightCategory(holder: PagerViewHolder, setPointer: Int){
         // cancel current highlight button
-        when (currentPointer){
-            1-> {
-                    holder.tvCate1.setTextColor(holder.offFocusColor)
-                    holder.tvCate1.setBackgroundResource(R.drawable.textview_border)
-                }
-            2-> {
-                    holder.tvCate2.setTextColor(holder.offFocusColor)
-                    holder.tvCate2.setBackgroundResource(R.drawable.textview_border)
-                }
-            3-> {
-                    holder.tvCate3.setTextColor(holder.offFocusColor)
-                    holder.tvCate3.setBackgroundResource(R.drawable.textview_border)
-                }
-            4-> {
-                    holder.tvCate4.setTextColor(holder.offFocusColor)
-                    holder.tvCate4.setBackgroundResource(R.drawable.textview_border)
-                }
-            5-> {
-                    holder.tvCate5.setTextColor(holder.offFocusColor)
-                    holder.tvCate5.setBackgroundResource(R.drawable.textview_border)
-                }
-            6-> {
-                    holder.tvCate6.setTextColor(holder.offFocusColor)
-                    holder.tvCate6.setBackgroundResource(R.drawable.textview_border)
-                }
-            7-> {
-                    holder.tvCate7.setTextColor(holder.offFocusColor)
-                    holder.tvCate7.setBackgroundResource(R.drawable.textview_border)
-                }
-            8-> {
-                    holder.tvCate8.setTextColor(holder.offFocusColor)
-                    holder.tvCate8.setBackgroundResource(R.drawable.textview_border)
-                }
-        }
+        holder.tvCate1.setTextColor(holder.offFocusColor)
+        holder.tvCate1.setBackgroundResource(R.drawable.textview_border)
+        holder.tvCate2.setTextColor(holder.offFocusColor)
+        holder.tvCate2.setBackgroundResource(R.drawable.textview_border)
+        holder.tvCate3.setTextColor(holder.offFocusColor)
+        holder.tvCate3.setBackgroundResource(R.drawable.textview_border)
+        holder.tvCate4.setTextColor(holder.offFocusColor)
+        holder.tvCate4.setBackgroundResource(R.drawable.textview_border)
+        holder.tvCate5.setTextColor(holder.offFocusColor)
+        holder.tvCate5.setBackgroundResource(R.drawable.textview_border)
+        holder.tvCate6.setTextColor(holder.offFocusColor)
+        holder.tvCate6.setBackgroundResource(R.drawable.textview_border)
+        holder.tvCate7.setTextColor(holder.offFocusColor)
+        holder.tvCate7.setBackgroundResource(R.drawable.textview_border)
+        holder.tvCate8.setTextColor(holder.offFocusColor)
+        holder.tvCate8.setBackgroundResource(R.drawable.textview_border)
+
         // set touched button with highlight
         when (setPointer){
             1-> {
@@ -189,8 +199,20 @@ class RecordCategoryAdapter(private val onClickListener: OnClickListener) : Recy
         currentOnFocus = setPointer
     }
 
-    fun setList(list: List<String>) {
+    @SuppressLint("NotifyDataSetChanged")
+    fun setList(list: List<String> ) {
         mList = list
+        notifyDataSetChanged()
+    }
+
+    fun setHighLight(btn : Boolean = true){
+        btnHighLight = btn      // open record ui on Edit mode. set btnHighLight as false. don't set highlight on first time.
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun setCategoryString(string: String){
+        strCurrentCategory = string
+        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int {
@@ -198,7 +220,7 @@ class RecordCategoryAdapter(private val onClickListener: OnClickListener) : Recy
     }
 
 
-    //	ViewHolder需要继承RecycleView.ViewHolder
+    //	ViewHolder base from RecycleView.ViewHolder
     class PagerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvCate1: TextView = itemView.findViewById(R.id.tv_record_category_1)
         val tvCate2: TextView = itemView.findViewById(R.id.tv_record_category_2)
@@ -214,5 +236,20 @@ class RecordCategoryAdapter(private val onClickListener: OnClickListener) : Recy
 
     }
 
+    // this two methods useful for avoiding duplicate item
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
+
+    //return the index which has same string
+    private fun findStringFromList(string: String): Int{
+        return mList.indexOfFirst { it == string }
+    }
 
 }
+
+

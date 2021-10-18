@@ -4,7 +4,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import com.example.ngiu.data.AppDatabase
 import com.example.ngiu.data.entities.Trans
-import com.example.ngiu.data.entities.list.TransactionDetail
+import com.example.ngiu.data.entities.returntype.TransactionDetail
 
 class ActivityViewModel : ViewModel() {
 
