@@ -325,7 +325,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@color/app_sub_line_text"
+        android:background="@color/app_list_background"
         app:layout_constraintBottom_toBottomOf="parent">
 
 
@@ -350,6 +350,9 @@
             android:gravity="center_vertical|center"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintWidth_percent="0.499"/>
+
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
