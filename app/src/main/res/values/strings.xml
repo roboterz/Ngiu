@@ -108,9 +108,9 @@
     <string name="option_interval">Interval</string>
 
     <string name="option_account_current_balance">Current Balance</string>
-    <string name="option_account_statement_date">Statement Date</string>
+    <string name="option_account_statement_date">Statement Date: </string>
     <string name="option_account_payment_due_date">Payment Due Date</string>
-    <string name="option_account_payment_date">Payment Date</string>
+    <string name="option_account_payment_date">Payment Date: </string>
     <string name="option_account_current_arrears">Current Arrears</string>
     <string name="option_account_available_credit_limit">Available Credit Limit</string>
     <string name="option_account_statement_not_generated">Statement Not Generated</string>

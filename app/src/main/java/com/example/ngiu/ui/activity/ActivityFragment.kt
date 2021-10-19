@@ -40,17 +40,16 @@ class ActivityFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-            activityViewModel =
-                ViewModelProvider(this).get(ActivityViewModel::class.java)
+        activityViewModel =
+            ViewModelProvider(this).get(ActivityViewModel::class.java)
 
-            _binding = FragmentActivityBinding.inflate(inflater, container, false)
-            val root: View = binding.root
+        _binding = FragmentActivityBinding.inflate(inflater, container, false)
 
-            //super.onCreate(savedInstanceState)
-            //setHasOptionsMenu(true)
+        //super.onCreate(savedInstanceState)
+        //setHasOptionsMenu(true)
 
 
-            return root
+        return binding.root
     }
 
 
@@ -110,10 +109,10 @@ class ActivityFragment : Fragment() {
             // get data from SQLite Database
             val allRecord = activityViewModel.readData(activity) as List<TransactionDetail>
 
-            //activity?.runOnUiThread {
+            activity?.runOnUiThread {
                 vpAdapter?.setList(allRecord)
                 recyclerView_activity.adapter = vpAdapter
-            //}
+            }
         }.start()
 
 

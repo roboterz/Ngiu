@@ -18,13 +18,80 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_account_info"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:background="@color/app_title_background"
-        android:paddingStart="5dp"
-        android:paddingEnd="5dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_account"/>
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:paddingTop="0dp"
+        android:paddingBottom="15dp"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_account">
+
+        <TextView
+            android:id="@+id/tv_account_net_assets"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/app_title_text"
+            android:textSize="14sp"
+            android:text="@string/option_net_assets"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_account_net_assets_value"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/app_title_text"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:text="$19563.56"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_account_net_assets" />
+
+        <TextView
+            android:id="@+id/tv_account_total_assets"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:textColor="@color/app_title_text"
+            android:textSize="14sp"
+            android:text="@string/option_total_assets"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_account_net_assets_value" />
+
+        <TextView
+            android:id="@+id/tv_account_total_assets_value"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:textColor="@color/app_title_text"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:text="$28367.18"
+            app:layout_constraintStart_toEndOf="@+id/tv_account_total_assets"
+            app:layout_constraintTop_toTopOf="@+id/tv_account_total_assets" />
+
+        <TextView
+            android:id="@+id/tv_account_total_liability"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="2dp"
+            android:textColor="@color/app_title_text"
+            android:textSize="14sp"
+            android:text="@string/option_total_liability"
+            app:layout_constraintEnd_toStartOf="@+id/tv_account_total_liability_value"
+            app:layout_constraintTop_toTopOf="@+id/tv_account_total_assets"  />
+
+        <TextView
+            android:id="@+id/tv_account_total_liability_value"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/app_title_text"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:text="$8803.62"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_account_total_assets"  />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -33,6 +100,10 @@
         app:layout_constraintTop_toBottomOf="@+id/layout_account_info"
         app:layout_constraintBottom_toBottomOf="parent">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview_account"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
     <!--  <androidx.recyclerview.widget.RecyclerView
           android:id="@+id/recyclerView"
