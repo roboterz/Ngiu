@@ -1,4 +1,4 @@
-package com.example.ngiu.data.entities.list
+package com.example.ngiu.data.entities.returntype
 
 import androidx.room.TypeConverters
 import com.example.ngiu.data.entities.DateTypeConverter

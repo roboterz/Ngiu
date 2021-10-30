@@ -4,7 +4,7 @@ package com.example.ngiu.data
 import androidx.room.*
 import com.example.ngiu.data.entities.*
 import androidx.room.Transaction
-import com.example.ngiu.data.entities.list.TransactionDetail
+import com.example.ngiu.data.entities.returntype.TransactionDetail
 import io.reactivex.Maybe
 
 // Account
@@ -19,6 +19,11 @@ interface AccountDao {
     @Transaction
     @Query("SELECT * FROM Account")
     fun getAllAccount(): List<Account>
+
+    // get a record BY ID
+    @Transaction
+    @Query("SELECT * FROM Account WHERE Account_ID = :rID")
+    fun getRecordByID(rID:Long): Account
 
     //@Transaction
     //@Query("SELECT * FROM Account")
@@ -48,6 +53,11 @@ interface AccountTypeDao{
     @Delete
     fun deleteAccountType(accountType: AccountType)
 
+    // get a record BY ID
+    @Transaction
+    @Query("SELECT * FROM AccountType WHERE AccountType_ID = :rID")
+    fun getRecordByID(rID:Long): AccountType
+
     @Transaction
     @Query("SELECT * FROM AccountType")
     fun getAllAccountType(): Maybe<List<AccountType>>
@@ -59,9 +69,10 @@ interface CurrencyDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
     fun addCurrency(currency: Currency)
 
-    //@Transaction
-    //@Query("SELECT * FROM Currency")
-    //fun getCurrency(): List<CurrencyAcct>
+    // get a record BY ID
+    @Transaction
+    @Query("SELECT * FROM Currency WHERE Currency_ID = :rID")
+    fun getRecordByID(rID:Long): Currency
 
     @Transaction
     @Query("SELECT * FROM Currency")
@@ -77,9 +88,10 @@ interface PersonDao {
     @Delete
     fun deletePerson(person: Person)
 
-    //@Transaction
-    //@Query("SELECT * FROM Person")
-    //un getPersonTrans(): List<PersonTrans>
+    // get a record BY ID
+    @Transaction
+    @Query("SELECT * FROM Person WHERE Person_ID = :rID")
+    fun getRecordByID(rID:Long): Person
 
     @Transaction
     @Query("SELECT * FROM Person")
@@ -96,9 +108,10 @@ interface MainCategoryDao {
     @Delete
     fun deleteMC(mainCategory: MainCategory)
 
-    //@Transaction
-    //@Query("SELECT * FROM MainCategories")
-    //fun getMC(): Flow<List<MainCatSub>>
+    // get a record BY ID
+    @Transaction
+    @Query("SELECT * FROM MainCategory WHERE MainCategory_ID = :rID")
+    fun getRecordByID(rID:Long): MainCategory
 
     @Transaction
     @Query("SELECT * FROM MainCategory")
@@ -114,9 +127,10 @@ interface MerchantDao {
     @Delete
     fun deleteMerchant(merchant: Merchant)
 
-    //@Transaction
-    //@Query("SELECT * FROM Merchant")
-    //fun getMerchantPeriod(): Flow<List<MerchantPeriod>>
+    // get a record BY ID
+    @Transaction
+    @Query("SELECT * FROM Merchant WHERE Merchant_ID = :rID")
+    fun getRecordByID(rID:Long): Merchant
 
     @Transaction
     @Query("SELECT * FROM Merchant")
@@ -150,9 +164,10 @@ interface ProjectDao {
     @Delete
     fun deleteProject(project: Project)
 
-    //@Transaction
-    //@Query("SELECT * FROM Project")
-    //fun getProjectPeriod(): Flow<List<ProjectPeriod>>
+    // get a record BY ID
+    @Transaction
+    @Query("SELECT * FROM Project WHERE Project_ID = :rID")
+    fun getRecordByID(rID:Long): Project
 
     @Transaction
     @Query("SELECT * FROM Project")
@@ -168,45 +183,67 @@ interface SubCategoryDao {
     @Delete
     fun deleteSubCat(subcategory: SubCategory)
 
-    //@Transaction
-    //@Query("SELECT * FROM SubCategories")
-    //fun getSubCat(): List<SubCategories>
+
+    // get a record BY ID
+    @Transaction
+    @Query("SELECT * FROM SubCategory WHERE SubCategory_ID = :rID")
+    fun getRecordByID(rID:Long): SubCategory
 
     @Transaction
     @Query("""
-        SELECT *
-        FROM SubCategory
-        WHERE MainCategory_ID = 11
-            AND SubCategory_Common = 0
-    """)
-    fun getIncomeCommonCategory(): List<SubCategory>
-
-    @Transaction
-    @Query("""
-        SELECT *
-        FROM SubCategory
-        WHERE MainCategory_ID = 1
-            AND SubCategory_Common = 0
+        SELECT SubCategory_ID, SubCategory.MainCategory_ID, SubCategory_Name, SubCategory_Common
+        FROM SubCategory, MainCategory, TransactionType
+        WHERE SubCategory.MainCategory_ID = MainCategory.MainCategory_ID
+            AND MainCategory.TransactionType_ID = TransactionType.TransactionType_ID
+            AND MainCategory.TransactionType_ID = 1
+            AND SubCategory_Common= 0
     """)
     fun getExpenseCommonCategory(): List<SubCategory>
 
+
     @Transaction
     @Query("""
-        SELECT *
-        FROM SubCategory
-        WHERE MainCategory_ID = 11
-            AND SubCategory_Common = 0
+        SELECT SubCategory_ID, SubCategory.MainCategory_ID, SubCategory_Name, SubCategory_Common
+        FROM SubCategory, MainCategory, TransactionType
+        WHERE SubCategory.MainCategory_ID = MainCategory.MainCategory_ID
+            AND MainCategory.TransactionType_ID = TransactionType.TransactionType_ID
+            AND MainCategory.TransactionType_ID = 2
+            AND SubCategory_Common= 0
+    """)
+    fun getIncomeCommonCategory(): List<SubCategory>
+
+
+    @Transaction
+    @Query("""
+        SELECT SubCategory_ID, SubCategory.MainCategory_ID, SubCategory_Name, SubCategory_Common
+        FROM SubCategory, MainCategory, TransactionType
+        WHERE SubCategory.MainCategory_ID = MainCategory.MainCategory_ID
+            AND MainCategory.TransactionType_ID = TransactionType.TransactionType_ID
+            AND MainCategory.TransactionType_ID = 3
+            AND SubCategory_Common= 0
     """)
     fun getTransferCommonCategory(): List<SubCategory>
 
+
     @Transaction
-    @Query("SELECT * FROM SubCategory")
+    @Query("""
+        SELECT SubCategory_ID, SubCategory.MainCategory_ID, SubCategory_Name, SubCategory_Common
+        FROM SubCategory, MainCategory, TransactionType
+        WHERE SubCategory.MainCategory_ID = MainCategory.MainCategory_ID
+            AND MainCategory.TransactionType_ID = TransactionType.TransactionType_ID
+            AND MainCategory.TransactionType_ID = 4
+            AND SubCategory_Common= 0
+    """)
     fun getDebitCreditCommonCategory(): List<SubCategory>
+
 
     @Transaction
     @Query("SELECT * FROM SubCategory")
     fun getAllSubCategory(): List<SubCategory>
+
 }
+
+
 
 // Transaction
 @Dao
@@ -238,6 +275,23 @@ interface TransDao {
                 AND Trans.Person_ID = Person.Person_ID
                 AND Trans.Merchant_ID = Merchant.Merchant_ID
                 AND Trans.Project_ID = Project.Project_ID
+                AND Transaction_ID = :rID
+        """)
+    fun getOneTransaction(rID: Long): TransactionDetail
+
+    @Transaction
+    @Query("""
+        SELECT Transaction_ID, TransactionType_Name, SubCategory_Name, Account.Account_Name, AccountRecipient.Account_Name as AccountRecipient_Name, 
+                Transaction_Amount, Transaction_Date, Person_Name, Merchant_Name, Transaction_Memo, Project_Name, 
+                Transaction_ReimburseStatus, Period_ID  
+        FROM Trans, TransactionType, SubCategory, Account, Account as AccountRecipient, Person, Merchant, Project
+        WHERE Trans.TransactionType_ID = TransactionType.TransactionType_ID 
+                AND Trans.SubCategory_ID = SubCategory.SubCategory_ID
+                And Trans.Account_ID = Account.Account_ID
+                AND Trans.AccountRecipient_ID = AccountRecipient.Account_ID
+                AND Trans.Person_ID = Person.Person_ID
+                AND Trans.Merchant_ID = Merchant.Merchant_ID
+                AND Trans.Project_ID = Project.Project_ID
         """)
     fun getAllTrans(): List<TransactionDetail>
 
@@ -251,6 +305,11 @@ interface TransTypeDao {
 
     @Delete
     fun deleteTransType(transactionType: TransactionType)
+
+    // get a record BY ID
+    @Transaction
+    @Query("SELECT * FROM TransactionType WHERE TransactionType_ID = :rID")
+    fun getRecordByID(rID:Long):TransactionType
 
     @Transaction
     @Query("SELECT * FROM TransactionType")

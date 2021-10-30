@@ -3,13 +3,13 @@ package com.example.ngiu.ui.record
 
 import android.view.View
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.ngiu.R
 import com.example.ngiu.data.AppDatabase
 import com.example.ngiu.data.entities.SubCategory
 import com.example.ngiu.data.entities.Trans
+import com.example.ngiu.data.entities.TransactionType
+import com.example.ngiu.data.entities.returntype.TransactionDetail
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -23,44 +23,24 @@ class RecordViewModel : ViewModel() {
 
      */
 
-    var optionChoice: OptionChoice = OptionChoice()
-    var currentPointerID: Int = 1
+    var currentTransactionType: CurrentTransactionType = CurrentTransactionType()
 
     var recordOpenOption : Int = 0
+
+    var currentRowID: Long = 0
+
     var transRecord : Trans = Trans(0,0,0,0,0,0.0,
     Date(),0,0,"",0,0,0)
 
-    fun chooseTransactionType(tyID: Int): OptionChoice{
-        val activeText = R.color.app_title_text
-        val activePointer = View.VISIBLE
+    fun setTransactionType(tyID: Int): CurrentTransactionType{
 
-        optionChoice = OptionChoice().clearPreset()
+        currentTransactionType = currentTransactionType.setID(tyID)
 
-        when (tyID) {
-            1 -> {
-                optionChoice.expense = activeText
-                optionChoice.expensePointer = activePointer
-            }
-            2 -> {
-                optionChoice.income = activeText
-                optionChoice.incomePointer = activePointer
-            }
-            3 -> {
-                optionChoice.transfer = activeText
-                optionChoice.transferPointer = activePointer
-            }
-
-            4 -> {
-                optionChoice.debitCredit = activeText
-                optionChoice.debitCreditPointer = activePointer
-            }
-        }
-        return optionChoice
+        return currentTransactionType
     }
 
 
     fun readCommonCategory(activity: FragmentActivity?, tyID: Int): List<SubCategory>{
-        currentPointerID = tyID
 
         return when (tyID){
             1 -> AppDatabase.getDatabase(activity!!).subcat().getExpenseCommonCategory()
@@ -75,25 +55,55 @@ class RecordViewModel : ViewModel() {
     //
 
 
+    fun getOneSubCategory(activity: FragmentActivity?, rID: Long): SubCategory{
+        return AppDatabase.getDatabase(activity!!).subcat().getRecordByID(rID)
+    }
+
+    fun getOneTrans(activity: FragmentActivity?, rID: Long): Trans{
+        return AppDatabase.getDatabase(activity!!).trans().getRecordByID(rID)
+    }
+
+    fun getOneTransactionDetail(activity: FragmentActivity?, rID: Long): TransactionDetail{
+        return AppDatabase.getDatabase(activity!!).trans().getOneTransaction(rID)
+    }
 
 }
 
-class OptionChoice{
-    var expense:  Int = R.color.app_title_text
-    var expensePointer: Int = View.VISIBLE
+class CurrentTransactionType{
+    var expense:  Int = R.color.app_title_text_inactive
+    var expensePointer: Int = View.INVISIBLE
     var income:  Int = R.color.app_title_text_inactive
     var incomePointer:  Int = View.INVISIBLE
     var transfer:  Int = R.color.app_title_text_inactive
     var transferPointer:  Int = View.INVISIBLE
     var debitCredit:  Int = R.color.app_title_text_inactive
     var debitCreditPointer:  Int = View.INVISIBLE
+    var currentTyID: Int = 1
 
-    fun clearPreset(): OptionChoice{
-        val optionChoice = OptionChoice()
+    fun setID(tyID: Int): CurrentTransactionType{
+        val cTT = CurrentTransactionType()
 
-        optionChoice.expense = R.color.app_title_text_inactive
-        optionChoice.expensePointer = View.INVISIBLE
+        when (tyID){
+            1 -> {
+                cTT.expense = R.color.app_title_text
+                cTT.expensePointer = View.VISIBLE
+            }
+            2 -> {
+                cTT.income = R.color.app_title_text
+                cTT.incomePointer = View.VISIBLE
+            }
+            3 -> {
+                cTT.transfer = R.color.app_title_text
+                cTT.transferPointer = View.VISIBLE
+            }
+            4 -> {
+                cTT.debitCredit = R.color.app_title_text
+                cTT.debitCreditPointer = View.VISIBLE
+            }
+        }
 
-        return optionChoice
+        cTT.currentTyID = tyID
+
+        return cTT
     }
 }

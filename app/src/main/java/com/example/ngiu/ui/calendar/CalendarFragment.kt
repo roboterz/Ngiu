@@ -1,19 +1,13 @@
 package com.example.ngiu.ui.calendar
 
 import android.os.Bundle
-import android.text.Editable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.ngiu.databinding.FragmentCalendarBinding
-import androidx.appcompat.app.AlertDialog
 import com.example.ngiu.functions.DateTimePicker
 import android.app.TimePickerDialog
 
@@ -24,7 +18,6 @@ class CalendarFragment : Fragment() {
 
     private lateinit var calendarViewModel: CalendarViewModel
     private var _binding: FragmentCalendarBinding? = null
-    private val TAG = "HomeFragment"
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -39,84 +32,28 @@ class CalendarFragment : Fragment() {
             ViewModelProvider(this).get(CalendarViewModel::class.java)
 
         _binding = FragmentCalendarBinding.inflate(inflater, container, false)
-        val root: View = binding.root
 
-        val textView: TextView = binding.textHome
-        calendarViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
-        return root
+
+        return binding.root
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
 
         //  get data fom edittext when user enter something
-        binding.btnAdd.setOnClickListener {
-            val strName = binding.etxtName.text
-            val strDate = binding.etxtDate.text
-            val strMemo = binding.etxtMemo.text
-            Log.e(
-                TAG,
-                "onViewCreated: " + "Name: " + strName + " Date: " + strDate + " Memo: " + strMemo
-            )
-
-            performAddingTask(strName, strDate, strMemo)
-        }
-
-
-        //Open Database
-        /*  val context = this
-          var db: DBManager = DBManager(context)
-
-          //Add Button
-          val buttonAdd: Button = findViewById(R.id.btnAdd)
-          buttonAdd.setOnClickListener{
-              //do something
-              val txtName: EditText = findViewById(R.id.etxtName)
-              var at = android.content.ContentValues()
-              at.put( "Name", txtName.text.toString())
-              db.insertData(at)
-
-              txtName.text.clear()
-          }*/
-
-        /*  //Edit Button
-          val buttonEdit: Button = findViewById(R.id.btnEdit)
-          buttonEdit.setOnClickListener{
-              //val dialogBuilder = AlertDialog.Builder(this)
-              //dialogBuilder.setMessage("Crazy Kotlin!!!!!@#@#@#$!")
-
-              //val alert = dialogBuilder.create()
-              //alert.setTitle("DamDam")
-              //alert.show()
-              val data = db.readData()
-              var txt: EditText = findViewById(R.id.etxtMemo)
-              txt.text = null
-              for (i in 0 until data.size) {
-                  txt.append(
-                      data[i].id.toString() + " " + data[i].Name + "\n"
-                  )
-              }
-          }*/
-
-
-        //Delete Button
-        val buttonDel: Button = binding.btnDel
-        buttonDel.setOnClickListener{
-
 
             //time picker
-            DateTimePicker().PickTime(context,TimePickerDialog.OnTimeSetListener { _, hour, minute ->
+            //DateTimePicker().PickTime(context,TimePickerDialog.OnTimeSetListener { _, hour, minute ->
                 //do something after time picked
-                Toast.makeText(context , hour.toString() + ":" +  minute.toString(), Toast.LENGTH_SHORT).show()
-            })
+                //Toast.makeText(context , hour.toString() + ":" +  minute.toString(), Toast.LENGTH_SHORT).show()
+            //})
 
-        }
+
 
         //textview popup menu
-        val txtview: TextView = binding.textHome
+        /*
 
         txtview.setOnClickListener{
             //do something
@@ -163,7 +100,9 @@ class CalendarFragment : Fragment() {
 
              */
 
-        }
+         */
+
+
 
 
 
@@ -175,23 +114,5 @@ class CalendarFragment : Fragment() {
         _binding = null
     }
 
-    // Thread is used to separate from the main thread of a component
-    private fun performAddingTask(
-        strName: Editable,
-        strDate: Editable,
-        strMemo: Editable
-    ) {
-        Thread {
-            recordId = calendarViewModel.insertData(activity, strName, strDate, strMemo)
 
-            activity?.runOnUiThread {
-                if (recordId > 0) {
-                    Toast.makeText(activity, "Record Saved", Toast.LENGTH_SHORT).show()
-                    strName.clear()
-                    strDate.clear()
-                    strMemo.clear()
-                }
-            }
-        }.start()
-    }
 }
