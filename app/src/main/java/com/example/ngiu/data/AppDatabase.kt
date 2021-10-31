@@ -47,7 +47,7 @@ abstract class AppDatabase : RoomDatabase() {
                         context.applicationContext,
                         AppDatabase::class.java,
                         "ngiu.db"
-                    ).createFromAsset("databases/ngiu.db").build()
+                    ).createFromAsset("databases/ngiu.db").allowMainThreadQueries().build()
 
                     INSTANCE = instance
                     return instance

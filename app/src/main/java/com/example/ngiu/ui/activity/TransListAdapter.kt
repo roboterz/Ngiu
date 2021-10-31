@@ -1,42 +1,31 @@
 package com.example.ngiu.ui.activity
 
 import android.annotation.SuppressLint
-import android.app.Activity
-import android.app.ActivityManager
-import android.app.Application
-import android.content.ContentProvider
-import android.content.Context
-import android.graphics.Color
 import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.ConstraintSet
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
-import androidx.core.view.marginTop
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
-import com.example.ngiu.data.entities.list.TransactionDetail
-import com.example.ngiu.ui.record.RecordCategoryAdapter
+import com.example.ngiu.data.entities.returntype.TransactionDetail
 import kotlinx.android.synthetic.main.transaction_cardview.view.*
-import kotlinx.coroutines.currentCoroutineContext
-import kotlinx.coroutines.withContext
 import kotlin.collections.ArrayList
 
 
 class TransListAdapter(
-    private val trans: ArrayList<TransactionDetail>,
     private val onClickListener: OnClickListener
     )
     : RecyclerView.Adapter<TransListAdapter.ViewHolder>() {
 
+    private var transDetail: List<TransactionDetail> = ArrayList()
+
+
     // interface for passing the onClick event to fragment.
     interface OnClickListener {
-        fun onItemClick(position: Int)
+        fun onItemClick(transID: Long)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -52,9 +41,10 @@ class TransListAdapter(
 
 
     //@SuppressLint("ResourceAsColor")
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         // display the custom class
-        trans[position].apply {
+        transDetail[position].apply {
             holder.day.text = DateFormat.format("dd", Transaction_Date)
             holder.week.text =DateFormat.format("EEEE",Transaction_Date)
             holder.income.text = "Income"
@@ -63,15 +53,15 @@ class TransListAdapter(
             holder.dailyExpense.text ="$0.00"
             holder.time.text = DateFormat.format("HH:mm", Transaction_Date)
             //holder.period.text = ""
-            holder.memo.text ="$Transaction_Memo"
+            holder.memo.text = Transaction_Memo
             holder.amount.text ="$$Transaction_Amount"
 
-            if (TransactionType_Name == "Expense" || TransactionType_Name == "Income" ) {
-                holder.subCategory.text = "$SubCategory_Name"
-                holder.account.text = "$Account_Name"
-                holder.person.text = "$Person_Name"
-                holder.merchant.text = "$Merchant_Name"
-                holder.project.text = "$Project_Name"
+            if (TransactionType_ID in 1..2) {
+                holder.subCategory.text = SubCategory_Name
+                holder.account.text = Account_Name
+                holder.person.text = Person_Name
+                holder.merchant.text = Merchant_Name
+                holder.project.text = Project_Name
                 if (holder.person.text !=""){
                     holder.beforePerson.text =" • "
                 }
@@ -94,8 +84,8 @@ class TransListAdapter(
 
 
 
-            if (TransactionType_Name == "Transfer"){
-                holder.subCategory.text = "$Account_Name"
+            if (TransactionType_ID.toInt() == 3 ){
+                holder.subCategory.text = Account_Name
                 holder.accountReceiver.text =" ➡️ $AccountRecipient_Name"
                 holder.accountReceiver.visibility = View.VISIBLE
             } else {
@@ -108,25 +98,32 @@ class TransListAdapter(
             }
 
             holder.amount.setTextColor(
-                when (TransactionType_Name) {
-                    "Expense" -> holder.expenseColor
-                    "Income" -> holder.incomeColor
+                when (TransactionType_ID.toInt()) {
+                    1 -> holder.expenseColor
+                    2 -> holder.incomeColor
                     else -> holder.amountColor
                 }
             )
 
             // pass the item click listener to fragment
             holder.aItem.setOnClickListener {
-                onClickListener.onItemClick(position)
+                onClickListener.onItemClick(Transaction_ID)
             }
 
         }
     }
 
 
+    @SuppressLint("NotifyDataSetChanged")
+    fun setList(list: List<TransactionDetail>){
+        transDetail = list
+        notifyDataSetChanged()
+    }
+
+
     override fun getItemCount(): Int {
         // the data set held by the adapter.
-        return trans.size
+        return transDetail.size
     }
 
 
@@ -155,6 +152,8 @@ class TransListAdapter(
         val expenseColor = ContextCompat.getColor(itemView.context, R.color.app_expense_amount)
         val incomeColor = ContextCompat.getColor(itemView.context, R.color.app_income_amount)
         val amountColor = ContextCompat.getColor(itemView.context, R.color.app_amount)
+
+
     }
 
 

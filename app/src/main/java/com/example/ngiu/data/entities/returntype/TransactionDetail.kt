@@ -1,4 +1,4 @@
-package com.example.ngiu.data.entities.list
+package com.example.ngiu.data.entities.returntype
 
 import androidx.room.TypeConverters
 import com.example.ngiu.data.entities.DateTypeConverter
@@ -6,7 +6,7 @@ import java.util.*
 
 data class TransactionDetail(
     val Transaction_ID: Long = 0,
-    val TransactionType_Name: String = "",
+    val TransactionType_ID: Long = 0,
     val SubCategory_Name: String = "",
     val Account_Name: String = "",
     val AccountRecipient_Name: String = "",
