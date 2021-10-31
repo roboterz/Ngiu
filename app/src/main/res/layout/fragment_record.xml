@@ -201,7 +201,7 @@
             android:ems="5"
             android:inputType="numberDecimal"
             android:maxLength="13"
-            android:text="32.00"
+            android:text="0.00"
             android:textAlignment="textEnd"
             android:textColor="@color/app_expense_amount"
             android:textSize="22dp"
@@ -261,20 +261,20 @@
         android:background="@color/app_section_background"
         app:layout_constraintTop_toBottomOf="@id/layout_record_category">
         <ImageView
-            android:id="@+id/textView2"
+            android:id="@+id/iv_record_swap"
             android:layout_width="0dp"
             android:layout_height="20dp"
             android:src="@drawable/ic_baseline_repeat_24"
             app:layout_constraintWidth_percent="1"/>
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/tv_record_account_pay"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Account"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintWidth_percent="0.43"/>
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/tv_record_account_receive"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Account"

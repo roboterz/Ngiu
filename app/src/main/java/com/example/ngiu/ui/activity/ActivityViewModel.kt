@@ -8,12 +8,15 @@ import com.example.ngiu.data.entities.returntype.TransactionDetail
 
 class ActivityViewModel : ViewModel() {
 
+
     /*
     private val _text = MutableLiveData<String>().apply {
         value = "This is dashboard Fragment"
     }
     val text: LiveData<String> = _text
     */
+
+    private var transactionDetail: List<TransactionDetail> = ArrayList()
 
     // created getAllPerson
     fun readData(
@@ -30,6 +33,14 @@ class ActivityViewModel : ViewModel() {
 
     fun getRecordByID(activity: FragmentActivity?, rID: Long): Trans {
         return AppDatabase.getDatabase(activity!!).trans().getRecordByID(rID)
+    }
+
+    fun loadDataToRam(activity: FragmentActivity?){
+        transactionDetail = AppDatabase.getDatabase(activity!!).trans().getAllTrans()
+    }
+
+    fun getData():List<TransactionDetail>{
+        return transactionDetail
     }
 
 }

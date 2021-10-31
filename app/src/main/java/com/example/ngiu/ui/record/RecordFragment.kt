@@ -2,34 +2,22 @@ package com.example.ngiu.ui.record
 
 
 import android.os.Bundle
-import android.os.Looper
-import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Adapter
-import android.widget.EditText
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.ViewPager2
 import com.example.ngiu.MainActivity
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.SubCategory
-import com.example.ngiu.data.entities.Trans
-import com.example.ngiu.data.entities.returntype.TransactionDetail
+import com.example.ngiu.data.entities.returntype.RecordSubCategory
 import com.example.ngiu.databinding.FragmentRecordBinding
-import kotlinx.android.synthetic.main.fragment_activity.*
 import kotlinx.android.synthetic.main.fragment_record.*
-import java.util.*
 import kotlin.collections.ArrayList
-import com.example.ngiu.functions.MyFunctions
 import com.example.ngiu.functions.addDecimalLimiter
-import java.time.Instant.now
+import kotlinx.android.synthetic.main.record_category_item.*
 
 
 class RecordFragment : Fragment() {
@@ -51,37 +39,20 @@ class RecordFragment : Fragment() {
         // Pass value from other fragment
         // --implementation "androidx.fragment:fragment-ktx:1.3.6"
         setFragmentResultListener("requestKey") { _, bundle ->
-
             receivedID = bundle.getLong("rID")
+
 
             if (receivedID > 0) {
                 // show delete menu
                 toolbar_record.menu.findItem(R.id.action_delete).isVisible = true
+
+                recordViewModel.loadTransactionDetail(activity, receivedID)
+
             }
+
+
         }
 
-
-        Thread {
-
-            activity?.runOnUiThread {
-
-                // pass the value to fragment from adapter when item clicked
-                vpAdapter =
-                    this.context?.let {
-                        RecordCategoryAdapter(object : RecordCategoryAdapter.OnClickListener {
-
-                            // catch the item click event from adapter
-                            override fun onItemClick(string: String) {
-                                // do something after clicked
-                                tv_record_category.text = string
-
-                            }
-                        })
-                    }
-                // load viewpager2 adapter
-                vp_record_category.adapter = vpAdapter
-            }
-        }.start()
 
 
     }
@@ -96,13 +67,37 @@ class RecordFragment : Fragment() {
             ViewModelProvider(this).get(RecordViewModel::class.java)
 
         _binding = FragmentRecordBinding.inflate(inflater, container, false)
-        val root: View = binding.root
 
-        //
+        // load Data to Ram
+        recordViewModel.loadDataToRam(activity)
+
+        Thread {
+            // load Data to Ram
+            //recordViewModel.loadDataToRam(activity)
+
+            activity?.runOnUiThread {
+                // pass the value to fragment from adapter when item clicked
+                vpAdapter =
+                    this.context?.let {
+                        RecordCategoryAdapter(object : RecordCategoryAdapter.OnClickListener {
+
+                            // catch the item click event from adapter
+                            override fun onItemClick(string: String) {
+                                // do something after clicked
+                                tv_record_category.text = string
+                            }
+                        })
+                    }
+                // load viewpager2 adapter
+                vp_record_category.adapter = vpAdapter
+            }
+        }.start()
+
+        //recordViewModel.loadDataToRam(activity)
 
 
 
-        return root
+        return binding.root
     }
 
 
@@ -170,14 +165,28 @@ class RecordFragment : Fragment() {
                 R.id.action_delete -> {
                     // todo delete record
 
+                    // call back button event to switch to previous fragment
+                    requireActivity().onBackPressed()
                     true
                 }
                 else -> super.onOptionsItemSelected(it)
             }
         }
 
+        /*
+        // common categories click event
+        tv_record_category_1.setOnClickListener {
+            // Reset Text View
+            resetTextView()
+            // highlight selected textview
+            tv_record_category_1.setTextColor(ContextCompat.getColor(requireContext(),R.color.app_button_text))
+            tv_record_category_1.setBackgroundResource(R.drawable.textview_border_active)
+            // pass the string to category textview
+            tv_record_category.text = tv_record_category_1.text
+        }
 
-        //
+         */
+
     }
 
 
@@ -186,72 +195,69 @@ class RecordFragment : Fragment() {
         super.onResume()
 
         if (receivedID > 0) {
-            getTransactionRecord(receivedID)
 
-            recordViewModel.currentRowID = receivedID
-            receivedID = 0
+            //recordViewModel.loadTransactionDetail(activity, receivedID)
+
+            // edit record
+            //load data to textview
+            tv_record_category.text = recordViewModel.transDetail.SubCategory_Name
+            tv_record_amount.setText( recordViewModel.transDetail.Transaction_Amount.toString())
+            tv_record_account_pay.text = recordViewModel.transDetail.Account_Name
+            tv_record_account_pay.text = recordViewModel.transDetail.AccountRecipient_Name
+            tv_record_memo.setText(recordViewModel.transDetail.Transaction_Memo)
+
+            setStatus( recordViewModel.setTransactionType(recordViewModel.transDetail.TransactionType_ID.toInt()) )
+            loadCommonCategory( recordViewModel.currentTransactionType.currentTyID,recordViewModel.transDetail.SubCategory_Name )
+
+            //receivedID = 0
         }else{
-            setStatus( recordViewModel.setTransactionType(1) )
+
+            // new record
+            setStatus( recordViewModel.currentTransactionType.setID(recordViewModel.currentTransactionType.currentTyID) )
             loadCommonCategory( recordViewModel.currentTransactionType.currentTyID )
         }
     }
 
 
-    //
-    private fun getTransactionRecord( rID: Long) {
-        var trans: Trans = Trans(
-            0, 0, 0, 0, 0, 0.0,
-            Date(), 0, 0, "", 0, 0, 0
-        )
-        var subCategory: SubCategory = SubCategory(0, 0, "", false)
 
-        var td = TransactionDetail(0,"","","","",0.00, Date(),"","","","",0)
-
-        Thread {
-            //Looper.prepare()
-            //trans = recordViewModel.getOneTrans(activity, rID)
-            //subCategory = recordViewModel.getOneSubCategory(activity, trans.SubCategory_ID)
-            td = recordViewModel.getOneTransactionDetail(activity, rID)
-
-
-            //setStatus(recordViewModel.setTransactionType(trans.TransactionType_ID.toInt()))
-
-            //activity?.runOnUiThread {
-                tv_record_category.text = td.SubCategory_Name
-                tv_record_amount.setText( td.Transaction_Amount.toString())
-
-                //}
-                //Looper.loop()
-
-
-
-            //}
-        }.start()
-
-        loadCommonCategory(
-            recordViewModel.currentTransactionType.currentTyID,
-            td.SubCategory_Name
-        )
+    override fun onDestroyView() {
+        super.onDestroyView()
+        (activity as MainActivity).setNavBottomBarVisibility(View.VISIBLE)
+        _binding = null
+        vpAdapter = null
     }
+
+
 
 
     //
     private fun loadCommonCategory( tyID: Int, categoryString: String = "") {
-
-        val records = ArrayList<String>()
-
         Thread {
-
-            val commonCateList = recordViewModel.readCommonCategory(activity, tyID)
-
             activity?.runOnUiThread {
-                for (i in commonCateList.indices) {
-                    records.add(commonCateList[i].SubCategory_Name)
+                /*
+                val cmCategory = ArrayList<RecordSubCategory>()
+
+                for (i in recordViewModel.subCategory.indices){
+                    if (recordViewModel.subCategory[i].TransactionType_ID.toInt() == tyID){
+                        cmCategory.add(recordViewModel.subCategory[i])
+                    }
                 }
 
-                vpAdapter?.setList(records)
-                vpAdapter?.setCategoryString(categoryString)
-                vpAdapter?.setCategoryString(categoryString)
+                 */
+                val cmCategory = when (tyID){
+                    1 -> recordViewModel.expenseCommonCategory
+                    2 -> recordViewModel.incomeCommonCategory
+                    3 -> recordViewModel.transferCommonCategory
+                    4 -> recordViewModel.debitCreditCommonCategory
+                    else -> ArrayList()
+                }
+
+                // vpAdapter?.setCategoryString(categoryString)
+
+                vpAdapter?.setList(cmCategory)
+                //vpAdapter?.setCategoryString(categoryString)
+
+                vp_record_category.adapter= vpAdapter
 
             }
         }.start()
@@ -275,19 +281,29 @@ class RecordFragment : Fragment() {
                 else -> ContextCompat.getColor( requireContext(), R.color.app_amount)
             }
         )
+        /*
+        for (i in recordViewModel.subCategory.indices){
+            if (recordViewModel.subCategory[i].TransactionType_ID.toInt() == ctt.currentTyID){
+                tv_record_category.text = recordViewModel.subCategory[i].SubCategory_Name
+                break
+            }
+        }
+
+         */
+
+        tv_record_category.text = when (ctt.currentTyID) {
+            1 -> recordViewModel.expenseCommonCategory[0].SubCategory_Name
+            2 -> recordViewModel.incomeCommonCategory[0].SubCategory_Name
+            3 -> recordViewModel.transferCommonCategory[0].SubCategory_Name
+            4 -> recordViewModel.debitCreditCommonCategory[0].SubCategory_Name
+            else -> ""
+        }
+
+
     }
 
     private fun switchPage(){
 
-    }
-
-
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        (activity as MainActivity).setNavBottomBarVisibility(View.VISIBLE)
-        _binding = null
-        //vpAdapter = null
     }
 
 

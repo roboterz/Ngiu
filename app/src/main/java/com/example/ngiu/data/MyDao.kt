@@ -4,6 +4,7 @@ package com.example.ngiu.data
 import androidx.room.*
 import com.example.ngiu.data.entities.*
 import androidx.room.Transaction
+import com.example.ngiu.data.entities.returntype.RecordSubCategory
 import com.example.ngiu.data.entities.returntype.TransactionDetail
 import io.reactivex.Maybe
 
@@ -189,6 +190,8 @@ interface SubCategoryDao {
     @Query("SELECT * FROM SubCategory WHERE SubCategory_ID = :rID")
     fun getRecordByID(rID:Long): SubCategory
 
+
+
     @Transaction
     @Query("""
         SELECT SubCategory_ID, SubCategory.MainCategory_ID, SubCategory_Name, SubCategory_Common
@@ -238,8 +241,13 @@ interface SubCategoryDao {
 
 
     @Transaction
-    @Query("SELECT * FROM SubCategory")
-    fun getAllSubCategory(): List<SubCategory>
+    @Query("""
+        SELECT SubCategory.SubCategory_ID, SubCategory.MainCategory_ID, TransactionType.TransactionType_ID, SubCategory.SubCategory_Name, SubCategory.SubCategory_Common
+        FROM SubCategory, MainCategory, TransactionType
+        WHERE SubCategory.MainCategory_ID = MainCategory.MainCategory_ID
+            AND MainCategory.TransactionType_ID = TransactionType.TransactionType_ID
+    """)
+    fun getAllSubCategory(): List<RecordSubCategory>
 
 }
 
@@ -264,7 +272,7 @@ interface TransDao {
 
     @Transaction
     @Query("""
-        SELECT Transaction_ID, TransactionType_Name, SubCategory_Name, Account.Account_Name, AccountRecipient.Account_Name as AccountRecipient_Name, 
+        SELECT Transaction_ID, Trans.TransactionType_ID, SubCategory_Name, Account.Account_Name, AccountRecipient.Account_Name as AccountRecipient_Name, 
                 Transaction_Amount, Transaction_Date, Person_Name, Merchant_Name, Transaction_Memo, Project_Name, 
                 Transaction_ReimburseStatus, Period_ID  
         FROM Trans, TransactionType, SubCategory, Account, Account as AccountRecipient, Person, Merchant, Project
@@ -281,7 +289,7 @@ interface TransDao {
 
     @Transaction
     @Query("""
-        SELECT Transaction_ID, TransactionType_Name, SubCategory_Name, Account.Account_Name, AccountRecipient.Account_Name as AccountRecipient_Name, 
+        SELECT Transaction_ID, Trans.TransactionType_ID, SubCategory_Name, Account.Account_Name, AccountRecipient.Account_Name as AccountRecipient_Name, 
                 Transaction_Amount, Transaction_Date, Person_Name, Merchant_Name, Transaction_Memo, Project_Name, 
                 Transaction_ReimburseStatus, Period_ID  
         FROM Trans, TransactionType, SubCategory, Account, Account as AccountRecipient, Person, Merchant, Project

@@ -4,11 +4,11 @@ package com.example.ngiu.ui.record
 import android.view.View
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
+import androidx.room.Room
 import com.example.ngiu.R
 import com.example.ngiu.data.AppDatabase
-import com.example.ngiu.data.entities.SubCategory
-import com.example.ngiu.data.entities.Trans
-import com.example.ngiu.data.entities.TransactionType
+import com.example.ngiu.data.entities.*
+import com.example.ngiu.data.entities.returntype.RecordSubCategory
 import com.example.ngiu.data.entities.returntype.TransactionDetail
 import java.util.*
 import kotlin.collections.ArrayList
@@ -29,13 +29,24 @@ class RecordViewModel : ViewModel() {
 
     var currentRowID: Long = 0
 
-    var transRecord : Trans = Trans(0,0,0,0,0,0.0,
+    var transRecord = Trans(0,0,0,0,0,0.0,
     Date(),0,0,"",0,0,0)
+    var transDetail = TransactionDetail(0,0,"","","",0.00, Date(),"","","","",0)
+
+
+    var expenseCommonCategory: List<SubCategory> = ArrayList<SubCategory>()
+    var incomeCommonCategory: List<SubCategory> = ArrayList<SubCategory>()
+    var transferCommonCategory: List<SubCategory> = ArrayList<SubCategory>()
+    var debitCreditCommonCategory: List<SubCategory> = ArrayList<SubCategory>()
+    var subCategory: List<RecordSubCategory> = ArrayList()
+    var person: List<Person> = ArrayList()
+    var merchant: List<Merchant> = ArrayList()
+    var account: List<Account> = ArrayList()
+    var project: List<Project> = ArrayList()
+
 
     fun setTransactionType(tyID: Int): CurrentTransactionType{
-
         currentTransactionType = currentTransactionType.setID(tyID)
-
         return currentTransactionType
     }
 
@@ -53,18 +64,27 @@ class RecordViewModel : ViewModel() {
     }
 
     //
+    fun loadDataToRam(activity: FragmentActivity?){
+        val database = AppDatabase.getDatabase(activity!!).subcat()
+        expenseCommonCategory = database.getExpenseCommonCategory()
+        incomeCommonCategory = database.getIncomeCommonCategory()
+        transferCommonCategory = database.getTransferCommonCategory()
+        debitCreditCommonCategory = database.getDebitCreditCommonCategory()
+        //subCategory = database.getAllSubCategory()
+
+    }
 
 
     fun getOneSubCategory(activity: FragmentActivity?, rID: Long): SubCategory{
         return AppDatabase.getDatabase(activity!!).subcat().getRecordByID(rID)
     }
 
-    fun getOneTrans(activity: FragmentActivity?, rID: Long): Trans{
-        return AppDatabase.getDatabase(activity!!).trans().getRecordByID(rID)
+    fun loadTransactionRecord(activity: FragmentActivity?, rID: Long){
+        transRecord = AppDatabase.getDatabase(activity!!).trans().getRecordByID(rID)
     }
 
-    fun getOneTransactionDetail(activity: FragmentActivity?, rID: Long): TransactionDetail{
-        return AppDatabase.getDatabase(activity!!).trans().getOneTransaction(rID)
+    fun loadTransactionDetail(activity: FragmentActivity?, rID: Long){
+        transDetail = AppDatabase. getDatabase(activity!!).trans().getOneTransaction(rID)
     }
 
 }

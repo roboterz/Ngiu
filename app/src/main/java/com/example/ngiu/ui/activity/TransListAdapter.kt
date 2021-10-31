@@ -25,7 +25,7 @@ class TransListAdapter(
 
     // interface for passing the onClick event to fragment.
     interface OnClickListener {
-        fun onItemClick(position: Int)
+        fun onItemClick(transID: Long)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -56,7 +56,7 @@ class TransListAdapter(
             holder.memo.text = Transaction_Memo
             holder.amount.text ="$$Transaction_Amount"
 
-            if (TransactionType_Name == "Expense" || TransactionType_Name == "Income" ) {
+            if (TransactionType_ID in 1..2) {
                 holder.subCategory.text = SubCategory_Name
                 holder.account.text = Account_Name
                 holder.person.text = Person_Name
@@ -84,7 +84,7 @@ class TransListAdapter(
 
 
 
-            if (TransactionType_Name == "Transfer"){
+            if (TransactionType_ID.toInt() == 3 ){
                 holder.subCategory.text = Account_Name
                 holder.accountReceiver.text =" ➡️ $AccountRecipient_Name"
                 holder.accountReceiver.visibility = View.VISIBLE
@@ -98,16 +98,16 @@ class TransListAdapter(
             }
 
             holder.amount.setTextColor(
-                when (TransactionType_Name) {
-                    "Expense" -> holder.expenseColor
-                    "Income" -> holder.incomeColor
+                when (TransactionType_ID.toInt()) {
+                    1 -> holder.expenseColor
+                    2 -> holder.incomeColor
                     else -> holder.amountColor
                 }
             )
 
             // pass the item click listener to fragment
             holder.aItem.setOnClickListener {
-                onClickListener.onItemClick(position)
+                onClickListener.onItemClick(Transaction_ID)
             }
 
         }

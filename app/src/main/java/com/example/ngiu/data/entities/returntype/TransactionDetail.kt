@@ -6,7 +6,7 @@ import java.util.*
 
 data class TransactionDetail(
     val Transaction_ID: Long = 0,
-    val TransactionType_Name: String = "",
+    val TransactionType_ID: Long = 0,
     val SubCategory_Name: String = "",
     val Account_Name: String = "",
     val AccountRecipient_Name: String = "",
