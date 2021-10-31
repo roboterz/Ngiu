@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/app_list_background"
     android:scrollbarAlwaysDrawVerticalTrack="true"
-    tools:context=".ui.setting.SettingFragment">
+    tools:context=".ui.account.addaccounts.AddAccountFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_add_acct"

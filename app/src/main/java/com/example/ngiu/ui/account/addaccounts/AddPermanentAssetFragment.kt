@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.ngiu.R
 
-class AddCreditFragment : Fragment() {
+
+class AddPermanentAssetFragment : Fragment() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -18,7 +20,7 @@ class AddCreditFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_credit, container, false)
+        return inflater.inflate(R.layout.fragment_add_permanent_asset, container, false)
     }
 
 

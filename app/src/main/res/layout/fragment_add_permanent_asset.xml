@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_list_background">
 
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarAddVirtualAccount"
+        android:id="@+id/toolbarAddPermanentAssets"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="?attr/colorPrimary"
@@ -16,21 +17,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/addVirtualAccountLayout"
+        app:layout_constraintBottom_toTopOf="@id/addPermaAssetsLayout"
         app:menu="@menu/title_menu"
         app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
-        app:title="@string/nav_title_add_virtual_account" />
+        app:title="@string/nav_title_add_permanent_assets" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/addVirtualAccountLayout"
+        android:id="@+id/addPermaAssetsLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:padding="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbarAddVirtualAccount">
+        app:layout_constraintTop_toBottomOf="@id/toolbarAddPermanentAssets">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/virtualAccountNameTextLayout"
+            android:id="@+id/permaAssetsAccountNameTextLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -41,12 +42,12 @@
             app:helperText="Required*"
             app:helperTextTextColor="@color/app_expense_amount"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/virtualAccountUserIDLayout"
+            app:layout_constraintBottom_toTopOf="@+id/permaAssetsBalanceTextLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tetVirtualAccountName"
+                android:id="@+id/tetCashAccountName"
                 android:layout_width="match_parent"
                 android:background="@color/app_section_background"
                 android:layout_height="wrap_content"
@@ -56,54 +57,24 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/virtualAccountUserIDLayout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/option_title_user_id"
-            app:counterEnabled="true"
-            app:counterMaxLength="16"
-            app:endIconMode="clear_text"
-            app:helperText="Required*"
-            app:helperTextTextColor="@color/app_expense_amount"
-            app:layout_constraintTop_toBottomOf="@+id/virtualAccountNameTextLayout"
-            app:layout_constraintBottom_toTopOf="@id/virtualBalanceTextLayout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tetVirtualUserID"
-                android:layout_width="match_parent"
-                android:background="@color/app_section_background"
-                android:layout_height="wrap_content"
-                android:digits="0123456789"
-                android:inputType="numberDecimal"
-                android:maxLength="15">
-            </com.google.android.material.textfield.TextInputEditText>
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/virtualBalanceTextLayout"
+            android:id="@+id/permaAssetsBalanceTextLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/option_title_balance"
+            android:hint="@string/option_title_value"
             app:counterEnabled="true"
             app:counterMaxLength="15"
             app:endIconMode="clear_text"
             app:helperText="Required*"
             app:helperTextTextColor="@color/app_expense_amount"
-            app:layout_constraintTop_toBottomOf="@+id/virtualAccountUserIDLayout"
-            app:layout_constraintBottom_toTopOf="@+id/btnVirtualAddOtherCurrency"
+            app:layout_constraintTop_toBottomOf="@+id/permaAssetsAccountNameTextLayout"
+            app:layout_constraintBottom_toTopOf="@+id/btnPermaAssetsAddOtherCurrency"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tetDebitBalance"
+                android:id="@+id/tetPermaAssetsBalance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/app_section_background"
@@ -114,7 +85,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnVirtualAddOtherCurrency"
+            android:id="@+id/btnPermaAssetsAddOtherCurrency"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -126,30 +97,31 @@
             app:icon="@drawable/ic_baseline_add_circle_24"
             app:iconGravity="textStart"
             app:iconTint="@color/app_add_button_grey"
-            app:layout_constraintTop_toBottomOf="@+id/virtualBalanceTextLayout"
-            app:layout_constraintBottom_toTopOf="@+id/addVirtualCountNetAssetsLayout"
+            app:layout_constraintTop_toBottomOf="@+id/permaAssetsBalanceTextLayout"
+            app:layout_constraintBottom_toTopOf="@+id/addCashCountNetAssetsLayout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
         </com.google.android.material.button.MaterialButton>
+
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/addVirtualCountNetAssetsLayout"
+            android:id="@+id/addCashCountNetAssetsLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/app_section_background"
-            app:layout_constraintTop_toBottomOf="@+id/btnVirtualAddOtherCurrency"
-            app:layout_constraintBottom_toTopOf="@+id/virtualMemoLayout"
+            app:layout_constraintTop_toBottomOf="@+id/btnPermaAssetsAddOtherCurrency"
+            app:layout_constraintBottom_toTopOf="@+id/permaAssetsMemoLayout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
 
             <TextView
-                android:id="@+id/tvVirtualCountNetAssets"
+                android:id="@+id/tvPermaAssetsCountNetAssets"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/scVirtualCountNetAssets"
+                app:layout_constraintEnd_toStartOf="@+id/scPermaAssetsCountNetAssets"
                 android:text="@string/option_title_count_in_net_assets"
                 android:textColor="@color/app_option_text"
                 android:textSize="15sp"
@@ -158,14 +130,14 @@
 
 
             <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/scVirtualCountNetAssets"
+                android:id="@+id/scPermaAssetsCountNetAssets"
                 android:enabled="true"
                 android:checked="true"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="@color/app_section_background"
                 android:foregroundTint="@color/app_title_background"
-                app:layout_constraintStart_toEndOf="@+id/tvVirtualCountNetAssets"
+                app:layout_constraintStart_toEndOf="@+id/tvPermaAssetsCountNetAssets"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
@@ -174,7 +146,7 @@
 
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/virtualMemoLayout"
+            android:id="@+id/permaAssetsMemoLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -184,10 +156,10 @@
             app:endIconMode="clear_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/addVirtualCountNetAssetsLayout">
+            app:layout_constraintTop_toBottomOf="@+id/addCashCountNetAssetsLayout">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tetCashMemo"
+                android:id="@+id/tetPermaAssetsMemo"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:inputType="text"
@@ -201,13 +173,13 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/virtualMemoLayout"
+            app:layout_constraintTop_toBottomOf="@+id/permaAssetsMemoLayout"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="130dp">
+            android:layout_marginTop="230dp">
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnSaveVirtual"
+                android:id="@+id/btnSavePermaAssets"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"

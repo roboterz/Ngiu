@@ -67,6 +67,7 @@ dependencies {
     implementation "androidx.room:room-rxjava2:$rootProject.roomVersion"
     implementation "androidx.room:room-ktx:$rootProject.roomVersion"
     implementation 'com.google.firebase:firebase-database-ktx:19.7.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     kapt "androidx.room:room-compiler:$rootProject.roomVersion"
     androidTestImplementation "androidx.room:room-testing:$rootProject.roomVersion"
 
