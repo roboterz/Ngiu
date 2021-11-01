@@ -62,13 +62,26 @@ data class Trans(
     val AccountRecipient_ID: Long = 0,
     val Transaction_Amount: Double = 0.0,
     @TypeConverters(DateTypeConverter::class)
-    val Transaction_Date: Date,
+    val Transaction_Date: Date = Date(),
     val Person_ID: Long = 0,
     val Merchant_ID: Long = 0,
     val Transaction_Memo: String = "",
     val Project_ID: Long = 0,
     val Transaction_ReimburseStatus: Int = 0,
     val Period_ID: Long = 0
-)/*{
-    constructor( ): this(0,0,0,0,0,0.0,null,0,0,"",0,false,0)
-}*/
+){
+    constructor( ): this(
+        0,
+        1L,
+        1L,
+        1L,
+        1L,
+        0.00,
+        Date(),
+        1L,
+        1L,
+        "",
+        1L,
+        0,
+        0)
+}

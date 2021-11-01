@@ -256,7 +256,7 @@ interface SubCategoryDao {
 // Transaction
 @Dao
 interface TransDao {
-    @Insert(onConflict = OnConflictStrategy.ABORT)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addTransaction(trans: Trans)
 
     @Update
