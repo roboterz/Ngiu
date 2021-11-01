@@ -8,6 +8,8 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.example.ngiu.R
 import com.example.ngiu.databinding.FragmentSettingBinding
 
 class SettingFragment : Fragment() {
@@ -35,6 +37,7 @@ class SettingFragment : Fragment() {
         textView.setOnClickListener {
 
         }
+     //   findNavController().navigate(R.id.action_navigation_add_account_to_blankFragment)
 
         return root
     }
