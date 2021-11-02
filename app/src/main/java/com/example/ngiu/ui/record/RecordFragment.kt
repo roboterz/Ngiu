@@ -11,13 +11,16 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.ViewModelProvider
 import com.example.ngiu.MainActivity
 import com.example.ngiu.R
+import com.example.ngiu.data.AppDatabase
 import com.example.ngiu.data.entities.SubCategory
+import com.example.ngiu.data.entities.Trans
 import com.example.ngiu.data.entities.returntype.RecordSubCategory
 import com.example.ngiu.databinding.FragmentRecordBinding
 import kotlinx.android.synthetic.main.fragment_record.*
 import kotlin.collections.ArrayList
 import com.example.ngiu.functions.addDecimalLimiter
 import kotlinx.android.synthetic.main.record_category_item.*
+import java.util.*
 
 
 class RecordFragment : Fragment() {
@@ -85,6 +88,7 @@ class RecordFragment : Fragment() {
                             override fun onItemClick(string: String) {
                                 // do something after clicked
                                 tv_record_category.text = string
+                                recordViewModel.setSubCategoryName(string)
                             }
                         })
                     }
@@ -156,7 +160,8 @@ class RecordFragment : Fragment() {
                 R.id.action_done -> {
 
                     // todo save record
-
+                    saveRecord(receivedID)
+                    //tv_record_category.text = recordViewModel.subCategory[recordViewModel.subCategory.indexOfFirst{it.SubCategory_Name== tv_record_category.text}].SubCategory_ID.toString()
                     // call back button event to switch to previous fragment
                     requireActivity().onBackPressed()
 
@@ -190,6 +195,7 @@ class RecordFragment : Fragment() {
     }
 
 
+
     // called when the fragment is visible and actively running.
     override fun onResume() {
         super.onResume()
@@ -200,13 +206,15 @@ class RecordFragment : Fragment() {
 
             // edit record
             //load data to textview
-            tv_record_category.text = recordViewModel.transDetail.SubCategory_Name
+            recordViewModel.setTransactionType(recordViewModel.transDetail.TransactionType_ID.toInt())
+            recordViewModel.setSubCategoryName(recordViewModel.transDetail.SubCategory_Name)
+            //tv_record_category.text = recordViewModel.transDetail.SubCategory_Name
             tv_record_amount.setText( recordViewModel.transDetail.Transaction_Amount.toString())
             tv_record_account_pay.text = recordViewModel.transDetail.Account_Name
             tv_record_account_pay.text = recordViewModel.transDetail.AccountRecipient_Name
             tv_record_memo.setText(recordViewModel.transDetail.Transaction_Memo)
 
-            setStatus( recordViewModel.setTransactionType(recordViewModel.transDetail.TransactionType_ID.toInt()) )
+            setStatus( recordViewModel.currentTransactionType )
             loadCommonCategory( recordViewModel.currentTransactionType.currentTyID,recordViewModel.transDetail.SubCategory_Name )
 
             //receivedID = 0
@@ -227,8 +235,29 @@ class RecordFragment : Fragment() {
         vpAdapter = null
     }
 
+    // save record
+    private fun saveRecord(transactionID: Long = 0) {
+        val trans = Trans(
+            Transaction_ID = transactionID,
+            TransactionType_ID = recordViewModel.currentTransactionType.currentTyID.toLong(),
+            SubCategory_ID = recordViewModel.subCategory[recordViewModel.subCategory.indexOfFirst{it.SubCategory_Name== tv_record_category.text}].SubCategory_ID,
+            Account_ID = 1L, /* recordViewModel.account[recordViewModel.account.indexOfFirst{it.Account_Name == tv_record_account_pay.text}].Account_ID,*/
+            AccountRecipient_ID = 1L, /*if (tv_record_account_receive.text != "") recordViewModel.account[recordViewModel.account.indexOfFirst{it.Account_Name == tv_record_account_receive.text}].Account_ID else 1L,*/
+            Transaction_Amount = tv_record_amount.text.toString().toDouble(),
+            Transaction_Date = Date(),
+            Transaction_Memo = tv_record_memo.text.toString(),
+            Merchant_ID = 1L,
+            Person_ID = 1L,
+            Project_ID = 1L
+        )
 
+        if (transactionID > 0) {
+            AppDatabase.getDatabase(requireContext()).trans().updateTransaction(trans)
+        }else{
+            AppDatabase.getDatabase(requireContext()).trans().addTransaction(trans)
+        }
 
+    }
 
     //
     private fun loadCommonCategory( tyID: Int, categoryString: String = "") {
@@ -290,7 +319,7 @@ class RecordFragment : Fragment() {
         }
 
          */
-
+        /*
         tv_record_category.text = when (ctt.currentTyID) {
             1 -> recordViewModel.expenseCommonCategory[0].SubCategory_Name
             2 -> recordViewModel.incomeCommonCategory[0].SubCategory_Name
@@ -299,6 +328,8 @@ class RecordFragment : Fragment() {
             else -> ""
         }
 
+         */
+        tv_record_category.text = recordViewModel.getSubCategoryName()
 
     }
 
