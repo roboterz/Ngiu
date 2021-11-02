@@ -237,7 +237,7 @@ class RecordFragment : Fragment() {
 
     // save record
     private fun saveRecord(transactionID: Long = 0) {
-        var trans = Trans(
+        val trans = Trans(
             Transaction_ID = transactionID,
             TransactionType_ID = recordViewModel.currentTransactionType.currentTyID.toLong(),
             SubCategory_ID = recordViewModel.subCategory[recordViewModel.subCategory.indexOfFirst{it.SubCategory_Name== tv_record_category.text}].SubCategory_ID,
