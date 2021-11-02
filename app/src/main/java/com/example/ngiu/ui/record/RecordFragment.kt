@@ -1,12 +1,15 @@
 package com.example.ngiu.ui.record
 
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.ViewModelProvider
 import com.example.ngiu.MainActivity
@@ -48,6 +51,8 @@ class RecordFragment : Fragment() {
             if (receivedID > 0) {
                 // show delete menu
                 toolbar_record.menu.findItem(R.id.action_delete).isVisible = true
+                // show delete button
+                tv_record_left_button.text = getText(R.string.menu_delete)
 
                 recordViewModel.loadTransactionDetail(activity, receivedID)
 
@@ -157,42 +162,48 @@ class RecordFragment : Fragment() {
         // menu item clicked
         toolbar_record.setOnMenuItemClickListener{
             when (it.itemId) {
+                // done menu
                 R.id.action_done -> {
-
-                    // todo save record
+                    // save record
                     saveRecord(receivedID)
-                    //tv_record_category.text = recordViewModel.subCategory[recordViewModel.subCategory.indexOfFirst{it.SubCategory_Name== tv_record_category.text}].SubCategory_ID.toString()
                     // call back button event to switch to previous fragment
                     requireActivity().onBackPressed()
 
                     true
                 }
+                // delete menu
                 R.id.action_delete -> {
-                    // todo delete record
-
+                    // delete record
+                    deleteRecord(activity, receivedID)
                     // call back button event to switch to previous fragment
-                    requireActivity().onBackPressed()
                     true
                 }
+
                 else -> super.onOptionsItemSelected(it)
             }
         }
 
-        /*
-        // common categories click event
-        tv_record_category_1.setOnClickListener {
-            // Reset Text View
-            resetTextView()
-            // highlight selected textview
-            tv_record_category_1.setTextColor(ContextCompat.getColor(requireContext(),R.color.app_button_text))
-            tv_record_category_1.setBackgroundResource(R.drawable.textview_border_active)
-            // pass the string to category textview
-            tv_record_category.text = tv_record_category_1.text
+        // Save Button
+        tv_record_right_button.setOnClickListener {
+            // save record
+            saveRecord(receivedID)
+            // exit
+            requireActivity().onBackPressed()
         }
 
-         */
+        // Save and Next Button | Delete Button
+        tv_record_left_button.setOnClickListener {
+            if (receivedID > 0){
+                // delete
+                deleteRecord(activity, receivedID)
+            }else{
+                // save and next
+                saveRecord()
+            }
+        }
 
     }
+
 
 
 
@@ -211,7 +222,7 @@ class RecordFragment : Fragment() {
             //tv_record_category.text = recordViewModel.transDetail.SubCategory_Name
             tv_record_amount.setText( recordViewModel.transDetail.Transaction_Amount.toString())
             tv_record_account_pay.text = recordViewModel.transDetail.Account_Name
-            tv_record_account_pay.text = recordViewModel.transDetail.AccountRecipient_Name
+            tv_record_account_receive.text = recordViewModel.transDetail.AccountRecipient_Name
             tv_record_memo.setText(recordViewModel.transDetail.Transaction_Memo)
 
             setStatus( recordViewModel.currentTransactionType )
@@ -221,6 +232,7 @@ class RecordFragment : Fragment() {
         }else{
 
             // new record
+            tv_record_account_pay.text = recordViewModel.account[0].Account_Name
             setStatus( recordViewModel.currentTransactionType.setID(recordViewModel.currentTransactionType.currentTyID) )
             loadCommonCategory( recordViewModel.currentTransactionType.currentTyID )
         }
@@ -258,6 +270,29 @@ class RecordFragment : Fragment() {
         }
 
     }
+
+    // delete record
+    private fun deleteRecord(activity: FragmentActivity?, transactionID: Long) {
+        val dialogBuilder = AlertDialog.Builder(activity)
+        dialogBuilder.setMessage(getText(R.string.msg_content_delete))
+            .setCancelable(true)
+            .setPositiveButton(getText(R.string.msg_button_confirm),DialogInterface.OnClickListener{ _,_->
+                // delete record
+                val trans = Trans(Transaction_ID = transactionID)
+                AppDatabase.getDatabase(requireContext()).trans().deleteTransaction(trans)
+                // exit
+                requireActivity().onBackPressed()
+            })
+            .setNegativeButton(getText(R.string.msg_button_cancel),DialogInterface.OnClickListener{ dialog, _ ->
+                // cancel
+                dialog.cancel()
+            })
+
+        val alert = dialogBuilder.create()
+        alert.setTitle(getText(R.string.msg_Title_prompt))
+        alert.show()
+    }
+
 
     //
     private fun loadCommonCategory( tyID: Int, categoryString: String = "") {
@@ -319,16 +354,22 @@ class RecordFragment : Fragment() {
         }
 
          */
-        /*
-        tv_record_category.text = when (ctt.currentTyID) {
-            1 -> recordViewModel.expenseCommonCategory[0].SubCategory_Name
-            2 -> recordViewModel.incomeCommonCategory[0].SubCategory_Name
-            3 -> recordViewModel.transferCommonCategory[0].SubCategory_Name
-            4 -> recordViewModel.debitCreditCommonCategory[0].SubCategory_Name
-            else -> ""
+
+        when (ctt.currentTyID) {
+            1,2 -> {
+                iv_record_swap.visibility = View.INVISIBLE
+                tv_record_account_receive.visibility = View.INVISIBLE
+                tv_record_common_category.visibility = View.VISIBLE
+                tv_record_all_category.visibility = View.VISIBLE
+            }
+            3,4 -> {
+                iv_record_swap.visibility = View.VISIBLE
+                tv_record_account_receive.visibility = View.VISIBLE
+                tv_record_common_category.visibility = View.GONE
+                tv_record_all_category.visibility = View.GONE
+            }
         }
 
-         */
         tv_record_category.text = recordViewModel.getSubCategoryName()
 
     }
