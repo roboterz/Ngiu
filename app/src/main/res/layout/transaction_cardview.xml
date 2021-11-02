@@ -51,6 +51,7 @@
             android:singleLine="true"
             android:textColor="@color/app_label_text"
             android:textSize="12sp"
+            android:visibility="gone"
             app:layout_constraintEnd_toStartOf="@id/tvTrans_daily_income_amount"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/option_income" />
@@ -63,6 +64,7 @@
             android:singleLine="true"
             android:textColor="@color/app_label_text"
             android:textSize="12sp"
+            android:visibility="gone"
             app:layout_constraintEnd_toStartOf="@id/tvTrans_daily_expense"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="$0.00" />
@@ -75,6 +77,7 @@
             android:singleLine="true"
             android:textColor="@color/app_label_text"
             android:textSize="12sp"
+            android:visibility="gone"
             app:layout_constraintEnd_toStartOf="@id/tvTrans_daily_expense_amount"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/option_expense" />
@@ -87,6 +90,7 @@
             android:singleLine="true"
             android:textColor="@color/app_label_text"
             android:textSize="12sp"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="$16.75" />

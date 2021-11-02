@@ -85,7 +85,8 @@
     <string name="option_budget_balance">Budget Balance:</string>
     <string name="option_common_category">Common Category</string>
     <string name="option_all">All ></string>
-    <string name="option_reimburse">Reimburse</string>
+    <string name="option_non_reimbursable">Non-Reimbursable</string>
+    <string name="option_reimbursable">Reimbursable</string>
     <string name="option_merchant">Merchant</string>
     <string name="option_project">Project</string>
     <string name="option_me">Me</string>
@@ -162,6 +163,13 @@
     <string name="menu_chart">Chart</string>
     <string name="menu_save_next">Save &amp; Next</string>
     <string name="setting_page">Setting Page</string>
+
+    <string name="msg_button_confirm">Confirm</string>
+    <string name="msg_button_ok">Ok</string>
+    <string name="msg_button_cancel">Cancel</string>
+    <string name="msg_Title_prompt">Prompt Information</string>
+    <string name="msg_content_delete">"Confirm to delete this transaction."</string>
+
 
     <string name="account_name_value">Wallet</string>
     <string name="balance">Wallet</string>

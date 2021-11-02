@@ -66,8 +66,9 @@ class RecordViewModel : ViewModel() {
 
     //
     fun loadDataToRam(activity: FragmentActivity?) {
-        val database = AppDatabase.getDatabase(activity!!).subcat()
-        subCategory = database.getAllSubCategory()
+        val database = AppDatabase.getDatabase(activity!!)
+        subCategory = database.subcat().getAllSubCategory()
+        account = database.account().getAllAccount()
         for (i in subCategory.indices) {
             when (subCategory[i].TransactionType_ID) {
                 1L -> expenseCommonCategory.add(
