@@ -269,7 +269,7 @@
             android:id="@+id/iv_record_swap"
             android:layout_width="0dp"
             android:layout_height="20dp"
-            android:src="@drawable/ic_baseline_repeat_24"
+            android:src="@drawable/ic_baseline_swap_horiz_24"
             app:layout_constraintWidth_percent="1"/>
         <TextView
             android:id="@+id/tv_record_account_pay"
@@ -346,8 +346,25 @@
             android:paddingEnd="5dp"
             android:paddingTop="3dp"
             android:paddingBottom="3dp"
-            android:text="11/01/2021 12:01"
+            android:text="11/01/2021"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_record_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:singleLine="true"
+            android:background="@drawable/textview_additional_border"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:text="12:01"
+            app:layout_constraintStart_toEndOf="@+id/tv_record_date"
             app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView

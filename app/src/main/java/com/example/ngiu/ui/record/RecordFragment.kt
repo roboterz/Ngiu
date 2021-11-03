@@ -1,28 +1,42 @@
 package com.example.ngiu.ui.record
 
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.content.DialogInterface
 import android.os.Bundle
+import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.ViewModelProvider
 import com.example.ngiu.MainActivity
 import com.example.ngiu.R
 import com.example.ngiu.data.AppDatabase
-import com.example.ngiu.data.entities.SubCategory
 import com.example.ngiu.data.entities.Trans
-import com.example.ngiu.data.entities.returntype.RecordSubCategory
 import com.example.ngiu.databinding.FragmentRecordBinding
+import com.example.ngiu.functions.DateTimePicker
 import kotlinx.android.synthetic.main.fragment_record.*
 import kotlin.collections.ArrayList
 import com.example.ngiu.functions.addDecimalLimiter
+import com.google.android.material.datepicker.MaterialDatePicker
+import kotlinx.android.synthetic.main.popup_title.*
+import kotlinx.android.synthetic.main.popup_title.view.*
 import kotlinx.android.synthetic.main.record_category_item.*
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 import java.util.*
 
 
@@ -112,6 +126,7 @@ class RecordFragment : Fragment() {
 
 
     // called when the onCreate() method of the view has completed.
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -168,14 +183,12 @@ class RecordFragment : Fragment() {
                     saveRecord(receivedID)
                     // call back button event to switch to previous fragment
                     requireActivity().onBackPressed()
-
                     true
                 }
                 // delete menu
                 R.id.action_delete -> {
                     // delete record
                     deleteRecord(activity, receivedID)
-                    // call back button event to switch to previous fragment
                     true
                 }
 
@@ -202,6 +215,67 @@ class RecordFragment : Fragment() {
             }
         }
 
+        // date
+        tv_record_date.setOnClickListener {
+            // date picker
+            val date = LocalDate.parse(tv_record_date.text.toString(), DateTimeFormatter.ofPattern("MM/dd/yyyy"))
+
+            DateTimePicker(
+                date.year,
+                date.monthValue-1,
+                date.dayOfMonth
+            ).pickDate(view.context, DatePickerDialog.OnDateSetListener{ _, year, month, day ->
+                val mth = month + 1
+                val m = if (mth < 10) "0$mth" else "$mth"
+                val d = if (day < 10) "0$day" else "$day"
+                tv_record_date.text = "$m/$d/$year"
+            })
+
+        }
+
+        // time
+        tv_record_time.setOnClickListener {
+            // time picker
+            val time = LocalTime.parse(tv_record_time.text.toString(), DateTimeFormatter.ofPattern("HH:mm"))
+
+            DateTimePicker(
+                startHour = time.hour,
+                startMinute = time.minute
+            ).pickTime(context, TimePickerDialog.OnTimeSetListener { _, hour, minute ->
+                val h = if (hour < 10) "0$hour" else "$hour"
+                val m = if (minute < 10) "0$minute" else "$minute"
+                tv_record_time.text  = "$h:$m"
+            })
+        }
+
+        //
+        tv_record_reimburse.setOnClickListener {
+            val array = arrayOf("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28")
+            //val array = arrayOf("1","2","3","4")
+
+            // Initialize a new instance of alert dialog builder object
+            val builder = AlertDialog.Builder(requireContext())
+
+            // set Title Style
+            val titleView = layoutInflater.inflate(R.layout.popup_title,null)
+            // set Title Text
+            titleView.tv_popup_title_text.text = getText(R.string.option_statement_day)
+
+            builder.setCustomTitle(titleView)
+
+            // Set items form alert dialog
+            builder.setItems(array) { _, which ->
+                // Get the dialog selected item
+                val selected = array[which]
+                Toast.makeText(context, "You Clicked : " + selected, Toast.LENGTH_SHORT).show()
+            }
+
+            // Create a new AlertDialog using builder object
+            // Finally, display the alert dialog
+            builder.create().show()
+        }
+
+
     }
 
 
@@ -220,10 +294,13 @@ class RecordFragment : Fragment() {
             recordViewModel.setTransactionType(recordViewModel.transDetail.TransactionType_ID.toInt())
             recordViewModel.setSubCategoryName(recordViewModel.transDetail.SubCategory_Name)
             //tv_record_category.text = recordViewModel.transDetail.SubCategory_Name
+            tv_record_date.text = DateFormat.format("MM/dd/yyy", recordViewModel.transDetail.Transaction_Date)
+            tv_record_time.text = DateFormat.format("HH:mm", recordViewModel.transDetail.Transaction_Date)
             tv_record_amount.setText( recordViewModel.transDetail.Transaction_Amount.toString())
             tv_record_account_pay.text = recordViewModel.transDetail.Account_Name
             tv_record_account_receive.text = recordViewModel.transDetail.AccountRecipient_Name
             tv_record_memo.setText(recordViewModel.transDetail.Transaction_Memo)
+            //todo merchant, person, project, period, reimburse
 
             setStatus( recordViewModel.currentTransactionType )
             loadCommonCategory( recordViewModel.currentTransactionType.currentTyID,recordViewModel.transDetail.SubCategory_Name )
@@ -232,7 +309,11 @@ class RecordFragment : Fragment() {
         }else{
 
             // new record
+            tv_record_date.text = DateFormat.format("MM/dd/yyy", Date())
+            tv_record_time.text = DateFormat.format("HH:mm", Date())
             tv_record_account_pay.text = recordViewModel.account[0].Account_Name
+            //todo merchant, person, project, period, reimburse
+
             setStatus( recordViewModel.currentTransactionType.setID(recordViewModel.currentTransactionType.currentTyID) )
             loadCommonCategory( recordViewModel.currentTransactionType.currentTyID )
         }
@@ -247,8 +328,13 @@ class RecordFragment : Fragment() {
         vpAdapter = null
     }
 
+    //------------------------------------------Privete Functions--------------------------------------------------
+
     // save record
     private fun saveRecord(transactionID: Long = 0) {
+
+        val strDate = tv_record_date.text.toString() + " " + tv_record_time.text.toString()
+
         val trans = Trans(
             Transaction_ID = transactionID,
             TransactionType_ID = recordViewModel.currentTransactionType.currentTyID.toLong(),
@@ -256,7 +342,7 @@ class RecordFragment : Fragment() {
             Account_ID = 1L, /* recordViewModel.account[recordViewModel.account.indexOfFirst{it.Account_Name == tv_record_account_pay.text}].Account_ID,*/
             AccountRecipient_ID = 1L, /*if (tv_record_account_receive.text != "") recordViewModel.account[recordViewModel.account.indexOfFirst{it.Account_Name == tv_record_account_receive.text}].Account_ID else 1L,*/
             Transaction_Amount = tv_record_amount.text.toString().toDouble(),
-            Transaction_Date = Date(),
+            Transaction_Date = Date(strDate),
             Transaction_Memo = tv_record_memo.text.toString(),
             Merchant_ID = 1L,
             Person_ID = 1L,
@@ -273,7 +359,9 @@ class RecordFragment : Fragment() {
 
     // delete record
     private fun deleteRecord(activity: FragmentActivity?, transactionID: Long) {
+
         val dialogBuilder = AlertDialog.Builder(activity)
+
         dialogBuilder.setMessage(getText(R.string.msg_content_delete))
             .setCancelable(true)
             .setPositiveButton(getText(R.string.msg_button_confirm),DialogInterface.OnClickListener{ _,_->
@@ -288,8 +376,14 @@ class RecordFragment : Fragment() {
                 dialog.cancel()
             })
 
+        // set Title Style
+        val titleView = layoutInflater.inflate(R.layout.popup_title,null)
+        // set Title Text
+        titleView.tv_popup_title_text.text = getText(R.string.msg_Title_prompt)
+
         val alert = dialogBuilder.create()
-        alert.setTitle(getText(R.string.msg_Title_prompt))
+        //alert.setIcon(R.drawable.ic_baseline_delete_forever_24)
+        alert.setCustomTitle(titleView)
         alert.show()
     }
 

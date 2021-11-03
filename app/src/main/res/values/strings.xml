@@ -167,7 +167,7 @@
     <string name="msg_button_confirm">Confirm</string>
     <string name="msg_button_ok">Ok</string>
     <string name="msg_button_cancel">Cancel</string>
-    <string name="msg_Title_prompt">Prompt Information</string>
+    <string name="msg_Title_prompt">Prompt</string>
     <string name="msg_content_delete">"Confirm to delete this transaction."</string>
 
 
