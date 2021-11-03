@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.TypedArrayUtils.getText
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.returntype.TransactionDetail
@@ -45,13 +46,14 @@ class TransListAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         // display the custom class
         transDetail[position].apply {
-            holder.day.text = DateFormat.format("dd", Transaction_Date)
+            holder.monthDay.text = DateFormat.format("MM-dd", Transaction_Date)
             holder.week.text =DateFormat.format("EEEE",Transaction_Date)
-            holder.income.text = "Income"
-            holder.dailyIncome.text ="$0.00"
-            holder.expense.text = "Expense"
-            holder.dailyExpense.text ="$0.00"
+            //holder.income.text = "Income"
+            //holder.dailyIncome.text ="$0.00"
+            //holder.expense.text = "Expense"
+            //holder.dailyExpense.text ="$0.00"
             holder.time.text = DateFormat.format("HH:mm", Transaction_Date)
+            holder.year.text = DateFormat.format("yyyy", Transaction_Date)
             //holder.period.text = ""
             holder.memo.text = Transaction_Memo
             holder.amount.text ="$$Transaction_Amount"
@@ -93,8 +95,8 @@ class TransListAdapter(
             }
 
             if (Period_ID.toInt() != 0) {
-                holder.period.text="Period"
-                //holder.period.visibility = View.VISIBLE
+                //holder.period.text="Period"
+                holder.period.visibility = View.VISIBLE
             }
 
             holder.amount.setTextColor(
@@ -128,12 +130,13 @@ class TransListAdapter(
 
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val day: TextView = itemView.tvTrans_day
+        val monthDay: TextView = itemView.tvTrans_month_day
         val week: TextView = itemView.tvTrans_week
-        val expense: TextView = itemView.tvTrans_daily_expense
-        val income: TextView = itemView.tvTrans_daily_income
-        val dailyExpense: TextView = itemView.tvTrans_daily_expense_amount
-        val dailyIncome: TextView = itemView.tvTrans_daily_income_amount
+        //val expense: TextView = itemView.tvTrans_daily_expense
+        //val income: TextView = itemView.tvTrans_daily_income
+        //val dailyExpense: TextView = itemView.tvTrans_daily_expense_amount
+        //val dailyIncome: TextView = itemView.tvTrans_daily_income_amount
+        val year: TextView = itemView.tvTrans_year
         val subCategory: TextView = itemView.tvTrans_category
         val time: TextView = itemView.tvTrans_time
         val account: TextView = itemView.tvTrans_account_pay

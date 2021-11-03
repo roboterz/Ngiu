@@ -19,6 +19,8 @@ class MyFunctions {
     }
 
 
+
+
 }
 
 
@@ -85,3 +87,4 @@ fun EditText.decimalLimiter(string: String, MAX_DECIMAL: Int): String {
     }
     return rFinal
 }
+
