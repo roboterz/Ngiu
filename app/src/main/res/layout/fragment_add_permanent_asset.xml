@@ -33,7 +33,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/permaAssetsAccountNameTextLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/option_title_account_name"
             app:counterEnabled="true"
@@ -47,7 +47,7 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tetCashAccountName"
+                android:id="@+id/tetPermaAssetsAccountName"
                 android:layout_width="match_parent"
                 android:background="@color/app_section_background"
                 android:layout_height="wrap_content"
@@ -63,8 +63,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/option_title_value"
-            app:counterEnabled="true"
-            app:counterMaxLength="15"
             app:endIconMode="clear_text"
             app:helperText="Required*"
             app:helperTextTextColor="@color/app_expense_amount"
@@ -74,13 +72,13 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tetPermaAssetsBalance"
+                android:id="@+id/tetPermaAssetsValue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/app_section_background"
-                android:digits="0123456789"
+                android:digits="0123456789."
                 android:inputType="numberDecimal"
-                android:maxLength="15">
+                >
             </com.google.android.material.textfield.TextInputEditText>
         </com.google.android.material.textfield.TextInputLayout>
 

@@ -32,7 +32,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/debitAccountNameTextLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/option_title_account_name"
             app:counterEnabled="true"
@@ -60,11 +60,11 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/debitCardNumberTextLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/option_title_card_number"
             app:counterEnabled="true"
-            app:counterMaxLength="16"
+            app:counterMaxLength="15"
             app:endIconMode="clear_text"
             app:helperText="Required*"
             app:helperTextTextColor="@color/app_expense_amount"
@@ -92,8 +92,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/option_title_balance"
-            app:counterEnabled="true"
-            app:counterMaxLength="15"
             app:endIconMode="clear_text"
             app:helperText="Required*"
             app:helperTextTextColor="@color/app_expense_amount"
@@ -107,9 +105,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/app_section_background"
-                android:digits="0123456789"
-                android:inputType="numberDecimal"
-                android:maxLength="15">
+                android:digits="0123456789."
+                android:inputType="numberDecimal">
             </com.google.android.material.textfield.TextInputEditText>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -134,7 +131,7 @@
         </com.google.android.material.button.MaterialButton>
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/addDebitCountNetAssetsLayout"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@color/app_section_background"
             app:layout_constraintTop_toBottomOf="@+id/btnDebitAddOtherCurrency"
@@ -149,7 +146,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/scCashCountNetAssets"
+                app:layout_constraintEnd_toStartOf="@+id/scDebitCountNetAssets"
                 android:text="@string/option_title_count_in_net_assets"
                 android:textColor="@color/app_option_text"
                 android:textSize="15sp"
@@ -158,7 +155,7 @@
 
 
             <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/scCashCountNetAssets"
+                android:id="@+id/scDebitCountNetAssets"
                 android:enabled="true"
                 android:checked="true"
                 android:layout_width="0dp"
@@ -176,7 +173,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/debitMemoLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/option_memo"
             app:counterEnabled="true"
@@ -199,7 +196,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/debitMemoLayout"
             app:layout_constraintBottom_toBottomOf="parent"
