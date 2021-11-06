@@ -19,7 +19,7 @@ class AddAccountFragment : Fragment() {
     private var _binding: FragmentAddAccountBinding? = null
     private val binding get() = _binding!!
 
-  lateinit var addAccountAdapter : AddAccountAdapter
+    lateinit var addAccountAdapter : AddAccountAdapter
 
     private val viewModel: AddAccountViewModel by lazy {
         ViewModelProvider(this).get(AddAccountViewModel::class.java)
@@ -50,18 +50,11 @@ class AddAccountFragment : Fragment() {
             addAccountAdapter.submitList(it)
         }
 
-
-
-
         toolbar_add_acct.menu.findItem(R.id.action_add).isVisible = true
-
         // menu item clicked
         toolbar_add_acct.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
-
-
-
     }
 
     override fun onResume() {

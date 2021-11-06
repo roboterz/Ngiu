@@ -15,11 +15,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.setFragmentResultListener
+import androidx.core.os.bundleOf
+import androidx.fragment.app.*
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.ngiu.MainActivity
 import com.example.ngiu.R
 import com.example.ngiu.data.AppDatabase
@@ -258,6 +257,15 @@ class RecordFragment : Fragment() {
 
         }
 
+        tv_record_all_category.setOnClickListener{
+            // hide nav bottom bar
+            (activity as MainActivity).setNavBottomBarVisibility(View.GONE)
+
+            //parentFragmentManager.setFragmentResult("requestKey", bundleOf("bundleKey" to transactionList[position].Transaction_ID))
+            //if (transID >0) setFragmentResult("requestKey", bundleOf("rID" to transID))
+            // switch to record fragment
+            findNavController().navigate(R.id.navigation_category_manage)
+        }
 
     }
 
@@ -268,11 +276,30 @@ class RecordFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        if (receivedID > 0) {
+        // load data to UI textview
+        loadUIData(receivedID)
+    }
 
-            //recordViewModel.loadTransactionDetail(activity, receivedID)
+
+
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        (activity as MainActivity).setNavBottomBarVisibility(View.VISIBLE)
+        _binding = null
+        vpAdapter = null
+    }
+
+
+
+
+    //------------------------------------------Privete Functions--------------------------------------------------
+
+    private fun loadUIData(transactionID: Long){
+        if (transactionID > 0) {
 
             // edit record
+
             //load data to textview
             recordViewModel.setTransactionType(recordViewModel.transDetail.TransactionType_ID.toInt())
             recordViewModel.setSubCategoryName(recordViewModel.transDetail.SubCategory_Name)
@@ -300,17 +327,6 @@ class RecordFragment : Fragment() {
             loadCommonCategory( recordViewModel.currentTransactionType.currentTyID )
         }
     }
-
-
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        (activity as MainActivity).setNavBottomBarVisibility(View.VISIBLE)
-        _binding = null
-        vpAdapter = null
-    }
-
-    //------------------------------------------Privete Functions--------------------------------------------------
 
     // save record
     private fun saveRecord(transactionID: Long = 0) : Int{

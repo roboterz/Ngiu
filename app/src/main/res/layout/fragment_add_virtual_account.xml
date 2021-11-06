@@ -32,7 +32,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/virtualAccountNameTextLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/option_title_account_name"
             app:counterEnabled="true"
@@ -60,11 +60,9 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/virtualAccountUserIDLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/option_title_user_id"
-            app:counterEnabled="true"
-            app:counterMaxLength="16"
             app:endIconMode="clear_text"
             app:helperText="Required*"
             app:helperTextTextColor="@color/app_expense_amount"
@@ -78,9 +76,7 @@
                 android:layout_width="match_parent"
                 android:background="@color/app_section_background"
                 android:layout_height="wrap_content"
-                android:digits="0123456789"
-                android:inputType="numberDecimal"
-                android:maxLength="15">
+                android:maxLength="40">
             </com.google.android.material.textfield.TextInputEditText>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -92,8 +88,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/option_title_balance"
-            app:counterEnabled="true"
-            app:counterMaxLength="15"
             app:endIconMode="clear_text"
             app:helperText="Required*"
             app:helperTextTextColor="@color/app_expense_amount"
@@ -103,13 +97,13 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tetDebitBalance"
+                android:id="@+id/tetVirtualBalance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/app_section_background"
-                android:digits="0123456789"
+                android:digits="0123456789."
                 android:inputType="numberDecimal"
-                android:maxLength="15">
+                >
             </com.google.android.material.textfield.TextInputEditText>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -134,7 +128,7 @@
         </com.google.android.material.button.MaterialButton>
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/addVirtualCountNetAssetsLayout"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@color/app_section_background"
             app:layout_constraintTop_toBottomOf="@+id/btnVirtualAddOtherCurrency"
@@ -176,7 +170,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/virtualMemoLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/option_memo"
             app:counterEnabled="true"
@@ -187,7 +181,7 @@
             app:layout_constraintTop_toBottomOf="@+id/addVirtualCountNetAssetsLayout">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tetCashMemo"
+                android:id="@+id/tetVirtualMemo"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:inputType="text"
@@ -199,7 +193,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/virtualMemoLayout"
             app:layout_constraintBottom_toBottomOf="parent"
