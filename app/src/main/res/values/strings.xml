@@ -168,7 +168,9 @@
     <string name="msg_button_ok">Ok</string>
     <string name="msg_button_cancel">Cancel</string>
     <string name="msg_Title_prompt">Prompt</string>
-    <string name="msg_content_delete">"Confirm to delete this transaction."</string>
+    <string name="msg_content_delete">Confirm to delete this transaction.</string>
+    <string name="msg_cannot_save_with_zero_amount">Cannot save with zero amount.</string>
+    <string name="msg_saved">Saved.</string>
 
 
     <string name="account_name_value">Wallet</string>

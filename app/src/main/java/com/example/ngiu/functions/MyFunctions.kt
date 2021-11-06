@@ -1,12 +1,17 @@
 package com.example.ngiu.functions
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import com.example.ngiu.R
+import kotlinx.android.synthetic.main.popup_title.view.*
+
 
 class MyFunctions {
 
@@ -17,8 +22,6 @@ class MyFunctions {
         // switch to fragment
         view.findNavController().navigate(resID)
     }
-
-
 
 
 }

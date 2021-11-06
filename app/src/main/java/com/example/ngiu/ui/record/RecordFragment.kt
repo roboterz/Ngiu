@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
 import android.text.format.DateFormat
@@ -29,6 +30,7 @@ import kotlinx.android.synthetic.main.fragment_record.*
 import kotlin.collections.ArrayList
 import com.example.ngiu.functions.addDecimalLimiter
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.popup_title.*
 import kotlinx.android.synthetic.main.popup_title.view.*
 import kotlinx.android.synthetic.main.record_category_item.*
@@ -135,25 +137,21 @@ class RecordFragment : Fragment() {
         // touch Expense textView, switch to Expense page
         tvSectionExpense.setOnClickListener {
             setStatus(recordViewModel.setTransactionType(1))
-            switchPage()
             loadCommonCategory(1)
         }
         // touch Income textView, switch to Income page
         tvSectionIncome.setOnClickListener {
             setStatus(recordViewModel.setTransactionType(2))
-            switchPage()
             loadCommonCategory(2)
         }
         // touch Transfer textView, switch to Transfer page
         tvSectionTransfer.setOnClickListener {
             setStatus(recordViewModel.setTransactionType(3))
-            switchPage()
             loadCommonCategory(3)
         }
         // touch DebitCredit textView, switch to DebitCredit page
         tvSectionDebitCredit.setOnClickListener {
             setStatus(recordViewModel.setTransactionType(4))
-            switchPage()
             loadCommonCategory( 4)
         }
 
@@ -180,9 +178,10 @@ class RecordFragment : Fragment() {
                 // done menu
                 R.id.action_done -> {
                     // save record
-                    saveRecord(receivedID)
-                    // call back button event to switch to previous fragment
-                    requireActivity().onBackPressed()
+                    if (saveRecord(receivedID) == 0) {
+                        // call back button event to switch to previous fragment
+                        requireActivity().onBackPressed()
+                    }
                     true
                 }
                 // delete menu
@@ -198,10 +197,10 @@ class RecordFragment : Fragment() {
 
         // Save Button
         tv_record_right_button.setOnClickListener {
-            // save record
-            saveRecord(receivedID)
-            // exit
-            requireActivity().onBackPressed()
+            if (saveRecord(receivedID) == 0) {
+                // exit
+                requireActivity().onBackPressed()
+            }
         }
 
         // Save and Next Button | Delete Button
@@ -212,6 +211,7 @@ class RecordFragment : Fragment() {
             }else{
                 // save and next
                 saveRecord()
+                tv_record_amount.setText("0.00")
             }
         }
 
@@ -250,29 +250,12 @@ class RecordFragment : Fragment() {
 
         //
         tv_record_reimburse.setOnClickListener {
-            val array = arrayOf("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28")
-            //val array = arrayOf("1","2","3","4")
+            //val ls = listOf<String>("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28")
+             val array = arrayOf("1","2","3","4")
+            //val array = ls.toTypedArray()
 
-            // Initialize a new instance of alert dialog builder object
-            val builder = AlertDialog.Builder(requireContext())
+            popupWindow(requireContext(), getText(R.string.option_statement_day).toString(), array)
 
-            // set Title Style
-            val titleView = layoutInflater.inflate(R.layout.popup_title,null)
-            // set Title Text
-            titleView.tv_popup_title_text.text = getText(R.string.option_statement_day)
-
-            builder.setCustomTitle(titleView)
-
-            // Set items form alert dialog
-            builder.setItems(array) { _, which ->
-                // Get the dialog selected item
-                val selected = array[which]
-                Toast.makeText(context, "You Clicked : " + selected, Toast.LENGTH_SHORT).show()
-            }
-
-            // Create a new AlertDialog using builder object
-            // Finally, display the alert dialog
-            builder.create().show()
         }
 
 
@@ -305,7 +288,6 @@ class RecordFragment : Fragment() {
             setStatus( recordViewModel.currentTransactionType )
             loadCommonCategory( recordViewModel.currentTransactionType.currentTyID,recordViewModel.transDetail.SubCategory_Name )
 
-            //receivedID = 0
         }else{
 
             // new record
@@ -331,30 +313,42 @@ class RecordFragment : Fragment() {
     //------------------------------------------Privete Functions--------------------------------------------------
 
     // save record
-    private fun saveRecord(transactionID: Long = 0) {
+    private fun saveRecord(transactionID: Long = 0) : Int{
 
-        val strDate = tv_record_date.text.toString() + " " + tv_record_time.text.toString()
+        if (tv_record_amount.text.toString().toDouble() == 0.0) {
+            //Toast.makeText(context,getText(R.string.msg_cannot_save_with_zero_amount),Toast.LENGTH_SHORT).show()
+            Snackbar.make(requireView(), getText(R.string.msg_cannot_save_with_zero_amount), Snackbar.LENGTH_SHORT).show()
+            return 1
 
-        val trans = Trans(
-            Transaction_ID = transactionID,
-            TransactionType_ID = recordViewModel.currentTransactionType.currentTyID.toLong(),
-            SubCategory_ID = recordViewModel.subCategory[recordViewModel.subCategory.indexOfFirst{it.SubCategory_Name== tv_record_category.text}].SubCategory_ID,
-            Account_ID = 1L, /* recordViewModel.account[recordViewModel.account.indexOfFirst{it.Account_Name == tv_record_account_pay.text}].Account_ID,*/
-            AccountRecipient_ID = 1L, /*if (tv_record_account_receive.text != "") recordViewModel.account[recordViewModel.account.indexOfFirst{it.Account_Name == tv_record_account_receive.text}].Account_ID else 1L,*/
-            Transaction_Amount = tv_record_amount.text.toString().toDouble(),
-            Transaction_Date = Date(strDate),
-            Transaction_Memo = tv_record_memo.text.toString(),
-            Merchant_ID = 1L,
-            Person_ID = 1L,
-            Project_ID = 1L
-        )
+        }else {
+            // get date time
+            val strDate = tv_record_date.text.toString() + " " + tv_record_time.text.toString()
+            // get trans data
+            // todo get data from sub table
+            val trans = Trans(
+                Transaction_ID = transactionID,
+                TransactionType_ID = recordViewModel.currentTransactionType.currentTyID.toLong(),
+                SubCategory_ID = recordViewModel.subCategory[recordViewModel.subCategory.indexOfFirst { it.SubCategory_Name == tv_record_category.text }].SubCategory_ID,
+                Account_ID = 1L, /* recordViewModel.account[recordViewModel.account.indexOfFirst{it.Account_Name == tv_record_account_pay.text}].Account_ID,*/
+                AccountRecipient_ID = 1L, /*if (tv_record_account_receive.text != "") recordViewModel.account[recordViewModel.account.indexOfFirst{it.Account_Name == tv_record_account_receive.text}].Account_ID else 1L,*/
+                Transaction_Amount = tv_record_amount.text.toString().toDouble(),
+                Transaction_Date = Date(strDate),
+                Transaction_Memo = tv_record_memo.text.toString(),
+                Merchant_ID = 1L,
+                Person_ID = 1L,
+                Project_ID = 1L
+            )
+            // save
+            if (transactionID > 0) {
+                AppDatabase.getDatabase(requireContext()).trans().updateTransaction(trans)
+            } else {
+                AppDatabase.getDatabase(requireContext()).trans().addTransaction(trans)
+            }
 
-        if (transactionID > 0) {
-            AppDatabase.getDatabase(requireContext()).trans().updateTransaction(trans)
-        }else{
-            AppDatabase.getDatabase(requireContext()).trans().addTransaction(trans)
+            //Toast.makeText(context,getText(R.string.msg_saved),Toast.LENGTH_SHORT).show()
+            Snackbar.make(requireView(), getText(R.string.msg_saved), Snackbar.LENGTH_SHORT).show()
+            return 0
         }
-
     }
 
     // delete record
@@ -411,7 +405,6 @@ class RecordFragment : Fragment() {
                 }
 
                 // vpAdapter?.setCategoryString(categoryString)
-
                 vpAdapter?.setList(cmCategory)
                 //vpAdapter?.setCategoryString(categoryString)
 
@@ -468,10 +461,32 @@ class RecordFragment : Fragment() {
 
     }
 
-    private fun switchPage(){
+    fun popupWindow(context: Context, titleText: String, arrayItem: Array<String>): Int{
 
+        var clickItem: Int = 0
+        // Initialize a new instance of alert dialog builder object
+        val builder = AlertDialog.Builder(context)
+
+        // set Title Style
+        val titleView = layoutInflater.inflate(R.layout.popup_title,null)
+        // set Title Text
+        titleView.tv_popup_title_text.text = titleText
+
+        builder.setCustomTitle(titleView)
+
+        // Set items form alert dialog
+        builder.setItems(arrayItem) { _, which ->
+            // Get the dialog selected item
+            //val selected = arrayItem[which]
+            //Toast.makeText(context, "You Clicked : " + selected, Toast.LENGTH_SHORT).show()
+            clickItem = which
+        }.create().show()
+
+        // Create a new AlertDialog using builder object
+        // Finally, display the alert dialog
+        //builder.create().show()
+        return clickItem
     }
-
 
 
 }
