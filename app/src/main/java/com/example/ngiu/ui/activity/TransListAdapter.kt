@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.TypedArrayUtils.getText
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.returntype.TransactionDetail

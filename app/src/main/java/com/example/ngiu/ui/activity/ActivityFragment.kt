@@ -76,7 +76,7 @@ class ActivityFragment : Fragment() {
 
         // floating Add transaction button
         val fab: View = view.findViewById(R.id.floatingAddTransactionButton)
-        fab.setOnClickListener { it ->
+        fab.setOnClickListener {
             // switch to record fragment
             navigateToRecordFragment()
         }

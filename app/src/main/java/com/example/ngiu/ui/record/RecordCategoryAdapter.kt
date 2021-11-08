@@ -9,7 +9,6 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.SubCategory
-import com.example.ngiu.data.entities.returntype.RecordSubCategory
 import kotlin.math.ceil
 
 
@@ -230,8 +229,8 @@ class RecordCategoryAdapter(
         val tvCate7: TextView = itemView.findViewById(R.id.tv_record_category_7)
         val tvCate8: TextView = itemView.findViewById(R.id.tv_record_category_8)
 
-        val onFocusColor: Int = ContextCompat.getColor(itemView.context,R.color.app_button_text)
-        val offFocusColor: Int = ContextCompat.getColor(itemView.context,R.color.app_option_text)
+        //val onFocusColor: Int = ContextCompat.getColor(itemView.context,R.color.app_button_text)
+        //val offFocusColor: Int = ContextCompat.getColor(itemView.context,R.color.app_option_text)
 
     }
 
