@@ -9,12 +9,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.ViewModelProvider
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.Account
 import com.example.ngiu.data.entities.Currency
 import com.example.ngiu.databinding.FragmentAddCashBinding
 import com.example.ngiu.functions.addDecimalLimiter
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.fragment_record.*
 import kotlinx.android.synthetic.main.popup_title.view.*
@@ -26,6 +28,7 @@ class AddCashFragment : Fragment() {
     private var _binding: FragmentAddCashBinding? = null
     private val binding get() = _binding!!
     var currency = "USD"
+
 
     private val viewModel: AddCashViewModel by lazy {
         ViewModelProvider(this).get(AddCashViewModel::class.java)
@@ -60,19 +63,7 @@ class AddCashFragment : Fragment() {
 
     private fun initListeners() {
         binding.btnSaveCash.setOnClickListener {
-            val accountName = binding.tetCashAccountName.text.toString()
-            val balance = binding.tetCashBalance.text.toString()
-            val countInNetAsset: Boolean = binding.scCashCountNetAssets.isChecked
-            val memo = binding.tetCashMemo.text.toString()
-            val accountTypeID = 1L
-
-            val cashAccount = Account(
-                Account_Name =  accountName, Account_Balance =  balance.toDouble(),
-                Account_CountInNetAssets =  countInNetAsset, Account_Memo = memo, AccountType_ID = accountTypeID, Currency_ID = currency)
-
-            GlobalScope.launch{
-                viewModel.insertCash(requireActivity(), cashAccount)
-            }
+            submitForm()
         }
 
         binding.btnCashAddOtherCurrency.setOnClickListener {
@@ -100,17 +91,85 @@ class AddCashFragment : Fragment() {
 
             // Set items form alert dialog
             builder.setItems(cs) { _, which ->
-                // Get the dialog selected item
-                val selected = array[which]
                 currency = arrayList.get(which)
-                Toast.makeText(context, "You Clicked: " + selected, Toast.LENGTH_SHORT).show()
+                binding.cashBalanceTextLayout.setSuffixText(currency)
+
             }
 
             // Create a new AlertDialog using builder object
             // Finally, display the alert dialog
             builder.create().show()
         }
+    }
 
+    private fun insertData() {
+            val accountName = binding.tetCashAccountName.text.toString()
+            val countInNetAsset: Boolean = binding.scCashCountNetAssets.isChecked
+            val memo = binding.tetCashMemo.text.toString()
+            val accountTypeID = 1L
+            var balance = binding.tetCashBalance.text.toString()
+
+            if (balance.isEmpty()) {
+                balance = "0.0"
+            }
+            val cashAccount = Account(
+                Account_Name =  accountName, Account_Balance =  balance.toDouble(),
+                Account_CountInNetAssets =  countInNetAsset, Account_Memo = memo, AccountType_ID = accountTypeID, Currency_ID = currency)
+
+            GlobalScope.launch{
+                viewModel.insertCash(requireActivity(), cashAccount)
+            }
+
+    }
+
+    private fun submitForm() {
+        binding.cashAccountNameTextLayout.helperText = validAccountName()
+        binding.cashBalanceTextLayout.helperText = validBalance()
+
+        val validAccountName = binding.cashAccountNameTextLayout.helperText == null
+        val validBalance = binding.cashBalanceTextLayout.helperText == null
+
+        if (validAccountName && validBalance ) {
+            insertData()
+            requireActivity().onBackPressed()
+        }
+        else
+            invalidForm()
+    }
+
+    private fun invalidForm() {
+        var message = ""
+        if(binding.cashAccountNameTextLayout.helperText != null) {
+            message += "\nAccountName: " + binding.cashAccountNameTextLayout.helperText
+        }
+        if(binding.cashBalanceTextLayout.helperText != null) {
+            message += "\n\nBalance: " + binding.cashBalanceTextLayout.helperText
+        }
+
+        AlertDialog.Builder(context)
+            .setTitle("Invalid Form")
+            .setMessage(message)
+            .setPositiveButton("Okay"){ _,_ ->
+                // do nothing
+            }
+            .show()
+    }
+
+
+    private fun validAccountName(): String? {
+        val accountNameText = binding.tetCashAccountName.text.toString()
+        if(accountNameText.length < 3) {
+            return "Minimum of 3 Characters required."
+        }
+       return null
+    }
+
+    private fun validBalance(): String? {
+        val accountBalanceText = binding.tetCashBalance.text.toString()
+        if(accountBalanceText.length < 0) {
+            return "Invalid Balance Entry."
+        }
+        return null
     }
 
 

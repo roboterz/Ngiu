@@ -57,22 +57,7 @@ class AddVirtualAccountFragment : Fragment() {
 
     private fun initListeners() {
         binding.btnSaveVirtual.setOnClickListener {
-            val accountName = binding.tetVirtualAccountName.text.toString()
-            val userID = binding.tetVirtualUserID.text.toString()
-            val balance = binding.tetVirtualBalance.text.toString()
-            val countInNetAsset: Boolean = binding.scVirtualCountNetAssets.isChecked
-            val memo = binding.tetVirtualMemo.text.toString()
-            val accountTypeID = 7L
-            val virtualAccount = Account(
-                Account_Name = accountName, Account_CardNumber = userID, Account_Balance = balance.toDouble()
-                ,Account_CountInNetAssets = countInNetAsset, Account_Memo = memo,
-                AccountType_ID = accountTypeID, Currency_ID = currency
-            )
-            GlobalScope.launch {
-                viewModel.insertVirtualAccount(requireActivity(), virtualAccount)
-            }
-
-
+            submitForm()
         }
 
         binding.btnVirtualAddOtherCurrency.setOnClickListener {
@@ -100,16 +85,86 @@ class AddVirtualAccountFragment : Fragment() {
 
             // Set items form alert dialog
             builder.setItems(cs) { _, which ->
-                // Get the dialog selected item
-                val selected = array[which]
                 currency = arrayList.get(which)
-                Toast.makeText(context, "You Clicked: " + selected, Toast.LENGTH_SHORT).show()
+                binding.virtualBalanceTextLayout.setSuffixText(currency)
+
             }
 
             // Create a new AlertDialog using builder object
             // Finally, display the alert dialog
             builder.create().show()
         }
+    }
+
+    private fun insertData() {
+        val accountName = binding.tetVirtualAccountName.text.toString()
+        val userID = binding.tetVirtualUserID.text.toString()
+        val countInNetAsset: Boolean = binding.scVirtualCountNetAssets.isChecked
+        val memo = binding.tetVirtualMemo.text.toString()
+        val accountTypeID = 7L
+        var balance = binding.tetVirtualBalance.text.toString()
+
+        if (balance.isEmpty()) {
+            balance = "0.0"
+        }
+        val cashAccount = Account(
+            Account_Name =  accountName, Account_CardNumber = userID ,Account_Balance =  balance.toDouble(),
+            Account_CountInNetAssets =  countInNetAsset, Account_Memo = memo, AccountType_ID = accountTypeID, Currency_ID = currency)
+
+        GlobalScope.launch{
+            viewModel.insertVirtualAccount(requireActivity(), cashAccount)
+        }
+
+    }
+
+    private fun submitForm() {
+        binding.virtualAccountNameTextLayout.helperText = validAccountName()
+        binding.virtualBalanceTextLayout.helperText = validBalance()
+
+        val validAccountName = binding.virtualAccountNameTextLayout.helperText == null
+        val validBalance = binding.virtualBalanceTextLayout.helperText == null
+
+        if (validAccountName && validBalance ) {
+            insertData()
+            requireActivity().onBackPressed()
+        }
+        else
+            invalidForm()
+    }
+
+    private fun invalidForm() {
+        var message = ""
+        if(binding.virtualAccountNameTextLayout.helperText != null) {
+            message += "\nAccountName: " + binding.virtualAccountNameTextLayout.helperText
+        }
+        if(binding.virtualBalanceTextLayout.helperText != null) {
+            message += "\n\nBalance: " + binding.virtualBalanceTextLayout.helperText
+        }
+
+        AlertDialog.Builder(context)
+            .setTitle("Invalid Form")
+            .setMessage(message)
+            .setPositiveButton("Okay"){ _,_ ->
+                // do nothing
+            }
+            .show()
+    }
+
+
+    private fun validAccountName(): String? {
+        val accountNameText = binding.tetVirtualAccountName.text.toString()
+        if(accountNameText.length < 3) {
+            return "Minimum of 3 Characters required."
+        }
+        return null
+    }
+
+    private fun validBalance(): String? {
+        val accountBalanceText = binding.tetVirtualBalance.text.toString()
+        if(accountBalanceText.length < 0) {
+            return "Invalid Balance Entry."
+        }
+        return null
     }
 
 

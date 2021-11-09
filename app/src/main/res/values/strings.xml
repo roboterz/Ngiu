@@ -136,7 +136,7 @@
     <string name="option_title_payment_day">Payment Day:</string>
     <string name="option_title_credit_limit">Credit Limit</string>
     <string name="option_title_current_arrears">Current Arrears</string>
-    <string name="option_title_user_id">User ID:</string>
+    <string name="option_title_user_id">User ID</string>
     <string name="option_title_value">Value</string>
     <string name="option_title_interval">Interval:</string>
     <string name="option_title_reminder">Reminder:</string>
@@ -175,9 +175,10 @@
 
     <string name="account_name_value">Wallet</string>
     <string name="balance">Wallet</string>
+    <string name="account_balance_suffix">USD</string>
+    <string name="payment_day">25th</string>
+    <string name="statement_day">1st</string>
 
-
-    <string name="account_type_cash">Cash</string>
     <string name="account_type_credit">Credit Card</string>
     <string name="account_type_debit">Debit Card/Checking/Saving</string>
     <string name="account_type_invest">Investment Account</string>

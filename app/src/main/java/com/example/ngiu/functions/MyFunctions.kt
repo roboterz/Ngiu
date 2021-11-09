@@ -153,3 +153,16 @@ fun TextInputEditText.decimalLimiter(string: String, MAX_DECIMAL: Int): String {
     }
     return rFinal
 }
+
+
+fun getDayOfMonthSuffix(n: Int): String {
+    if (n in 11..13) {
+        return "th"
+    }
+    when (n % 10) {
+        1 -> return "st"
+        2 -> return "nd"
+        3 -> return "rd"
+        else -> return "th"
+    }
+}

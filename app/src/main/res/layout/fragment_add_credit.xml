@@ -68,7 +68,6 @@
                 app:counterEnabled="true"
                 app:counterMaxLength="16"
                 app:endIconMode="clear_text"
-                app:helperText="Required*"
                 app:helperTextTextColor="@color/app_expense_amount"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -111,16 +110,18 @@
 
                 <TextView
                     android:id="@+id/tvCreditStateDayValue"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:layout_marginEnd="200dp"
+                    android:layout_marginRight="90dp"
+                    android:text="@string/statement_day"
                     android:padding="5dp"
                     android:textColor="@color/app_option_text"
                     android:textSize="15sp"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/tvCreditStateDay"
                     app:layout_constraintTop_toTopOf="parent"
-                    tool:text="1st" />
+                     />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -150,16 +151,18 @@
 
                 <TextView
                     android:id="@+id/tvCreditPaymentDayValue"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:layout_marginEnd="200dp"
                     android:padding="5dp"
+                    android:layout_marginRight="90dp"
+                    android:text="@string/payment_day"
                     android:textColor="@color/app_option_text"
                     android:textSize="15sp"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tool:text="20th" />
+                    />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -170,12 +173,14 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/option_title_credit_limit"
                 app:endIconMode="clear_text"
+                app:suffixText="@string/account_balance_suffix"
+                app:suffixTextColor="@color/app_text"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/addCreditPaymentDayLayout">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tetCashBalance"
+                    android:id="@+id/tetCreditLimit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/app_section_background"
@@ -211,12 +216,14 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/option_title_current_arrears"
                 app:endIconMode="clear_text"
+                app:suffixText="@string/account_balance_suffix"
+                app:suffixTextColor="@color/app_text"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btnCreditAddOtherCurrency">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tetCreditLimit"
+                    android:id="@+id/tetCreditArrears"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/app_section_background"
@@ -321,7 +328,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/addCreditAdvanced">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tetCashMemo"
+                    android:id="@+id/tetCreditMemo"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:inputType="text"
