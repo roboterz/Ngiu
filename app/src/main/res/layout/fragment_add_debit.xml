@@ -64,7 +64,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/option_title_card_number"
             app:counterEnabled="true"
-            app:counterMaxLength="15"
+            app:counterMaxLength="16"
             app:endIconMode="clear_text"
             app:helperText="Required*"
             app:helperTextTextColor="@color/app_expense_amount"
@@ -80,7 +80,7 @@
                 android:layout_height="wrap_content"
                 android:digits="0123456789"
                 android:inputType="numberDecimal"
-                android:maxLength="15">
+                android:maxLength="16">
             </com.google.android.material.textfield.TextInputEditText>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -93,8 +93,8 @@
             android:layout_height="wrap_content"
             android:hint="@string/option_title_balance"
             app:endIconMode="clear_text"
-            app:helperText="Required*"
-            app:helperTextTextColor="@color/app_expense_amount"
+            app:suffixText="@string/account_balance_suffix"
+            app:suffixTextColor="@color/app_text"
             app:layout_constraintTop_toBottomOf="@+id/debitCardNumberTextLayout"
             app:layout_constraintBottom_toTopOf="@+id/btnDebitAddOtherCurrency"
             app:layout_constraintEnd_toEndOf="parent"

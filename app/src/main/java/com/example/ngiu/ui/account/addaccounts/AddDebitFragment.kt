@@ -58,44 +58,26 @@ class AddDebitFragment : Fragment() {
 
     private fun initListeners() {
         binding.btnSaveDebit.setOnClickListener {
-            val accountName = binding.tetDebitAccountName.text.toString()
-            val cardNumber = binding.tetDebitCardNumber.text.toString()
-            val balance = binding.tetDebitBalance.text.toString()
-            val countInNetAsset: Boolean = binding.scDebitCountNetAssets.isChecked
-            val memo = binding.tetDebitMemo.text.toString()
-            val accountTypeID = 2L
-
-            val debitAccount = Account(
-                Account_Name = accountName, Account_CardNumber = cardNumber,
-                Account_Balance = balance.toDouble(), Account_CountInNetAssets = countInNetAsset,
-                Account_Memo = memo, AccountType_ID = accountTypeID, Currency_ID = currency
-            )
-            GlobalScope.launch {
-                viewModel.insertDebit(requireActivity(), debitAccount)
-            }
-
-
+            submitForm()
         }
 
         binding.btnDebitAddOtherCurrency.setOnClickListener {
 
-            val array: List<Currency> = viewModel.getCurrency(requireActivity())
+            val array : List<Currency> = viewModel.getCurrency(requireActivity())
 
             val arrayList: ArrayList<String> = ArrayList()
 
-            for (item in array) {
+            for (item in array){
                 arrayList.add(item.Currency_ID)
             }
 
-            val cs: Array<CharSequence> =
-                arrayList.toArray(arrayOfNulls<CharSequence>(arrayList.size))
-
+            val cs: Array<CharSequence> = arrayList.toArray(arrayOfNulls<CharSequence>(arrayList.size))
 
             // Initialize a new instance of alert dialog builder object
             val builder = AlertDialog.Builder(requireContext())
 
             // set Title Style
-            val titleView = layoutInflater.inflate(R.layout.popup_title, null)
+            val titleView = layoutInflater.inflate(R.layout.popup_title,null)
             // set Title Text
             titleView.tv_popup_title_text.text = getText(R.string.option_title_add_currency)
 
@@ -103,16 +85,85 @@ class AddDebitFragment : Fragment() {
 
             // Set items form alert dialog
             builder.setItems(cs) { _, which ->
-                // Get the dialog selected item
-                val selected = array[which]
                 currency = arrayList.get(which)
-                Toast.makeText(context, "You Clicked: " + selected, Toast.LENGTH_SHORT).show()
+                binding.debitBalanceTextLayout.setSuffixText(currency)
+
             }
 
             // Create a new AlertDialog using builder object
             // Finally, display the alert dialog
             builder.create().show()
         }
+    }
 
+    private fun insertData() {
+        val accountName = binding.tetDebitAccountName.text.toString()
+        val countInNetAsset: Boolean = binding.scDebitCountNetAssets.isChecked
+        val memo = binding.tetDebitMemo.text.toString()
+        val accountTypeID = 3L
+        var balance = binding.tetDebitBalance.text.toString()
+        val cardNumber = binding.tetDebitCardNumber.text.toString()
+
+        if (balance.isEmpty()) {
+            balance = "0.0"
+        }
+        val cashAccount = Account(
+            Account_Name =  accountName, Account_Balance =  balance.toDouble(), Account_CardNumber = cardNumber,
+            Account_CountInNetAssets =  countInNetAsset, Account_Memo = memo, AccountType_ID = accountTypeID, Currency_ID = currency)
+
+        GlobalScope.launch{
+            viewModel.insertDebit(requireActivity(), cashAccount)
+        }
+
+    }
+
+    private fun submitForm() {
+        binding.debitAccountNameTextLayout.helperText = validAccountName()
+        binding.debitCardNumberTextLayout.helperText = validCardNumber()
+
+        val validAccountName = binding.debitAccountNameTextLayout.helperText == null
+        val validCardNumber = binding.debitCardNumberTextLayout.helperText == null
+
+        if (validAccountName && validCardNumber ) {
+            insertData()
+            requireActivity().onBackPressed()
+        }
+        else
+            invalidForm()
+    }
+
+    private fun invalidForm() {
+        var message = ""
+        if(binding.debitAccountNameTextLayout.helperText != null) {
+            message += "\nAccountName: " + binding.debitAccountNameTextLayout.helperText
+        }
+        if(binding.debitCardNumberTextLayout.helperText != null) {
+            message += "\n\nCardNumber: " + binding.debitCardNumberTextLayout.helperText
+        }
+
+        AlertDialog.Builder(context)
+            .setTitle("Invalid Form")
+            .setMessage(message)
+            .setPositiveButton("Okay"){ _,_ ->
+                // do nothing
+            }
+            .show()
+    }
+
+
+    private fun validAccountName(): String? {
+        val accountNameText = binding.tetDebitAccountName.text.toString()
+        if(accountNameText.length < 3) {
+            return "Minimum of 3 Characters required."
+        }
+        return null
+    }
+
+    private fun validCardNumber(): String? {
+        val accountDebitText = binding.tetDebitCardNumber.text.toString()
+        if(accountDebitText.length < 16) {
+            return "Invalid Card Number Entry."
+        }
+        return null
     }
 }
