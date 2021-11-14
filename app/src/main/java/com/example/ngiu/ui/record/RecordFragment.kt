@@ -28,6 +28,7 @@ import com.example.ngiu.functions.DateTimePicker
 import kotlinx.android.synthetic.main.fragment_record.*
 import kotlin.collections.ArrayList
 import com.example.ngiu.functions.addDecimalLimiter
+import com.example.ngiu.ui.keyboard.Keyboard
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.popup_title.*
@@ -131,7 +132,7 @@ class RecordFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        tv_record_amount.addDecimalLimiter()
+        //tv_record_amount.addDecimalLimiter()
 
         // touch Expense textView, switch to Expense page
         tvSectionExpense.setOnClickListener {
@@ -247,7 +248,7 @@ class RecordFragment : Fragment() {
             })
         }
 
-        //
+        // reimbure
         tv_record_reimburse.setOnClickListener {
             //val ls = listOf<String>("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28")
              val array = arrayOf("1","2","3","4")
@@ -256,15 +257,28 @@ class RecordFragment : Fragment() {
             popupWindow(requireContext(), getText(R.string.option_statement_day).toString(), array)
 
         }
-
+        // all category
         tv_record_all_category.setOnClickListener{
             // hide nav bottom bar
-            (activity as MainActivity).setNavBottomBarVisibility(View.GONE)
+            //(activity as MainActivity).setNavBottomBarVisibility(View.GONE)
 
             //parentFragmentManager.setFragmentResult("requestKey", bundleOf("bundleKey" to transactionList[position].Transaction_ID))
             //if (transID >0) setFragmentResult("requestKey", bundleOf("rID" to transID))
-            // switch to record fragment
+            // switch to category manage fragment
             findNavController().navigate(R.id.navigation_category_manage)
+        }
+        // category
+        tv_record_category.setOnClickListener {
+            // hide nav bottom bar
+            //(activity as MainActivity).setNavBottomBarVisibility(View.GONE)
+
+            // switch to category manage fragment
+            findNavController().navigate(R.id.navigation_category_manage)
+        }
+        // amount
+        tv_record_amount.setOnClickListener {
+            Keyboard(view).initKeys(tv_record_amount)
+            Keyboard(view).show()
         }
 
     }
@@ -295,6 +309,7 @@ class RecordFragment : Fragment() {
 
     //------------------------------------------Privete Functions--------------------------------------------------
 
+    @SuppressLint("SetTextI18n")
     private fun loadUIData(transactionID: Long){
         if (transactionID > 0) {
 
@@ -306,7 +321,13 @@ class RecordFragment : Fragment() {
             //tv_record_category.text = recordViewModel.transDetail.SubCategory_Name
             tv_record_date.text = DateFormat.format("MM/dd/yyy", recordViewModel.transDetail.Transaction_Date)
             tv_record_time.text = DateFormat.format("HH:mm", recordViewModel.transDetail.Transaction_Date)
-            tv_record_amount.setText( recordViewModel.transDetail.Transaction_Amount.toString())
+
+            when(recordViewModel.transDetail.Transaction_Amount.toString().length - recordViewModel.transDetail.Transaction_Amount.toString().lastIndexOf('.')){
+                2 -> tv_record_amount.text = recordViewModel.transDetail.Transaction_Amount.toString() + "0"
+                3 -> tv_record_amount.text = recordViewModel.transDetail.Transaction_Amount.toString()
+                else -> tv_record_amount.text = recordViewModel.transDetail.Transaction_Amount.toString() + ".00"
+            }
+            //tv_record_amount.text = recordViewModel.transDetail.Transaction_Amount.toString()
             tv_record_account_pay.text = recordViewModel.transDetail.Account_Name
             tv_record_account_receive.text = recordViewModel.transDetail.AccountRecipient_Name
             tv_record_memo.setText(recordViewModel.transDetail.Transaction_Memo)
@@ -331,9 +352,10 @@ class RecordFragment : Fragment() {
     // save record
     private fun saveRecord(transactionID: Long = 0) : Int{
 
+        // If amount is 0, do not save
         if (tv_record_amount.text.toString().toDouble() == 0.0) {
-            //Toast.makeText(context,getText(R.string.msg_cannot_save_with_zero_amount),Toast.LENGTH_SHORT).show()
-            Snackbar.make(requireView(), getText(R.string.msg_cannot_save_with_zero_amount), Snackbar.LENGTH_SHORT).show()
+            Toast.makeText(context,getText(R.string.msg_cannot_save_with_zero_amount),Toast.LENGTH_SHORT).show()
+            //Snackbar.make(requireView(), getText(R.string.msg_cannot_save_with_zero_amount), Snackbar.LENGTH_SHORT).show()
             return 1
 
         }else {
@@ -361,8 +383,8 @@ class RecordFragment : Fragment() {
                 AppDatabase.getDatabase(requireContext()).trans().addTransaction(trans)
             }
 
-            //Toast.makeText(context,getText(R.string.msg_saved),Toast.LENGTH_SHORT).show()
-            Snackbar.make(requireView(), getText(R.string.msg_saved), Snackbar.LENGTH_SHORT).show()
+            Toast.makeText(context,getText(R.string.msg_saved),Toast.LENGTH_SHORT).show()
+            //Snackbar.make(requireView(), getText(R.string.msg_saved), Snackbar.LENGTH_SHORT).show()
             return 0
         }
     }

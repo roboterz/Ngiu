@@ -55,7 +55,13 @@ class TransListAdapter(
             holder.year.text = DateFormat.format("yyyy", Transaction_Date)
             //holder.period.text = ""
             holder.memo.text = Transaction_Memo
-            holder.amount.text ="$$Transaction_Amount"
+
+            when("$Transaction_Amount".length - "$Transaction_Amount".lastIndexOf('.')){
+                2 -> holder.amount.text ="$$Transaction_Amount" + "0"
+                3 ->holder.amount.text ="$$Transaction_Amount"
+                else ->holder.amount.text ="$$Transaction_Amount.00"
+            }
+            //holder.amount.text ="$$Transaction_Amount"
 
             if (TransactionType_ID in 1..2) {
                 holder.subCategory.text = SubCategory_Name

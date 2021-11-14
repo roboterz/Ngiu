@@ -16,6 +16,8 @@
     <color name="app_section_background">#FFFFFF</color>
     <color name="app_text_stroke">#C4C4C4</color>
     <color name="app_add_button_grey">#4CB9DB</color>
-    <color name="app_save_text">#EC3B03</color>
+    <color name="keyboard_background">#C4C4C4</color>
+    <color name="keyboard_font">#555555</color>
+    <color name="keyboard_frame">#888888</color>
 
 </resources>

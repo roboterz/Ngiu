@@ -196,19 +196,16 @@
             app:layout_constraintTop_toTopOf="@id/tv_record_budget" />
 
 
-        <EditText
+        <TextView
             android:id="@+id/tv_record_amount"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@null"
-            android:ems="5"
             android:inputType="numberDecimal"
             android:maxLength="13"
             android:text="0.00"
             android:textAlignment="textEnd"
             android:textColor="@color/app_expense_amount"
             android:textSize="22dp"
-            app:boxStrokeWidth="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/imgTransactionIcon"
             app:layout_constraintWidth_percent="0.40"/>
@@ -347,6 +344,7 @@
             android:paddingTop="3dp"
             android:paddingBottom="3dp"
             android:text="11/01/2021"
+            android:textColor="@color/app_sub_line_text"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
@@ -364,6 +362,7 @@
             android:paddingTop="3dp"
             android:paddingBottom="3dp"
             android:text="12:01"
+            android:textColor="@color/app_sub_line_text"
             app:layout_constraintStart_toEndOf="@+id/tv_record_date"
             app:layout_constraintTop_toTopOf="parent"/>
 
@@ -381,6 +380,7 @@
             android:background="@drawable/textview_additional_border"
             android:gravity="center"
             android:text="@string/option_non_reimbursable"
+            android:textColor="@color/app_sub_line_text"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_record_date" />
 
@@ -399,6 +399,7 @@
             android:singleLine="true"
             android:text="@string/option_me"
             android:textSize="12sp"
+            android:textColor="@color/app_sub_line_text"
             app:layout_constraintStart_toEndOf="@id/tv_record_reimburse"
             app:layout_constraintTop_toTopOf="@id/tv_record_reimburse" />
 
@@ -418,6 +419,7 @@
             android:text="@string/option_merchant"
             android:textSize="12sp"
             android:visibility="visible"
+            android:textColor="@color/app_sub_line_text"
             app:layout_constraintStart_toEndOf="@id/tv_record_person"
             app:layout_constraintTop_toTopOf="@id/tv_record_reimburse" />
 
@@ -437,6 +439,7 @@
             android:background="@drawable/textview_additional_border"
             android:gravity="center"
             android:text="@string/option_project"
+            android:textColor="@color/app_sub_line_text"
             app:layout_constraintStart_toEndOf="@id/tv_record_merchant"
             app:layout_constraintTop_toTopOf="@id/tv_record_reimburse"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -445,7 +448,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@color/app_list_background"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toTopOf="@+id/layout_Keyboard">
 
 
         <TextView
@@ -474,5 +477,5 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
+    <include layout="@layout/keyboard" />
 </androidx.constraintlayout.widget.ConstraintLayout>
