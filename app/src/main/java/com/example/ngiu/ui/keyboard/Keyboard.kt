@@ -77,17 +77,7 @@ class Keyboard(view: View){
                 echoView.text = "0"
             }
         }
-        keyboardPanel.setOnClickListener {
-            if (echoView.length() > 0){
 
-                echoView.text = "0"
-            }
-            //val recyclerViewState: Parcelable =
-
-            //keyboardPanel.visibility = View.GONE
-            //binding.homeRecyclerview.isClickable = true
-
-        }
         keyEnter.setOnClickListener {
             when (dot){
                 0 -> echoView.text = echoView.text.toString() + ".00"
