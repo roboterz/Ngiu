@@ -448,7 +448,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@color/app_list_background"
-        app:layout_constraintBottom_toTopOf="@+id/layout_Keyboard">
+        app:layout_constraintBottom_toBottomOf="parent">
 
 
         <TextView
