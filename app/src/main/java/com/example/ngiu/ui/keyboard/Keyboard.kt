@@ -21,12 +21,13 @@ class Keyboard(view: View){
     private val keyClear: TextView = view.findViewById<TextView>(R.id.tv_price_clear)
     private val keyboardPanel: ConstraintLayout = view.findViewById<ConstraintLayout>(R.id.layout_Keyboard)
     private val keys: ConstraintLayout = view.findViewById<ConstraintLayout>(R.id.price_input_keys)
-    private var dot: Int = 3
+    private var dot: Int = 3  // the places of Decimal point
 
     @SuppressLint("SetTextI18n")
     fun initKeys(echoView: TextView) {
 
         keys.forEach{
+            // Press feedback
             it.setOnTouchListener { view, motionEvent ->
                 when (motionEvent.actionMasked){
                     MotionEvent.ACTION_DOWN -> {it.setBackgroundColor(ContextCompat.getColor(view.context, R.color.keyboard_frame))}
@@ -35,6 +36,7 @@ class Keyboard(view: View){
                 false
             }
 
+            // number button
             when (it.tag){
                 "1","2","3","4","5","6","7","8","9","0" -> {
                     it.setOnClickListener{ _ ->
@@ -51,11 +53,8 @@ class Keyboard(view: View){
             }
         }
 
-
+        // decimal point
         keyDot.setOnClickListener {
-            //if (!echoView.text.contains(keyDot.text.toString())) {
-            //    echoView.append(keyDot.text)
-            //}
             if (dot == 0){
                 echoView.append(keyDot.text)
                 dot++
