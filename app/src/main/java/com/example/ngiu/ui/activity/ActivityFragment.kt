@@ -76,7 +76,7 @@ class ActivityFragment : Fragment() {
 
         // floating Add transaction button
         val fab: View = view.findViewById(R.id.floatingAddTransactionButton)
-        fab.setOnClickListener { it ->
+        fab.setOnClickListener {
             // switch to record fragment
             navigateToRecordFragment()
         }
@@ -91,10 +91,8 @@ class ActivityFragment : Fragment() {
 
         Thread {
             activity?.runOnUiThread {
-                val linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
-
-                // specify the layout manager for recycler view
-                recyclerView_activity.layoutManager = linearLayoutManager
+                recyclerView_activity.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
+                //vpAdapter?.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
 
                 vpAdapter?.setList(activityViewModel.getData())
                 recyclerView_activity.adapter = vpAdapter
@@ -113,8 +111,10 @@ class ActivityFragment : Fragment() {
 
     // init Adapter
     private fun initAdapter() {
+        
         Thread {
             this.activity?.runOnUiThread {
+
                 vpAdapter = this.context?.let {
                     TransListAdapter(object: TransListAdapter.OnClickListener {
                         // catch the item click event from adapter

@@ -11,13 +11,16 @@ import android.app.TimePickerDialog.OnTimeSetListener
 import android.content.Context
 
 
-class DateTimePicker {
+class DateTimePicker(
+    private val startYear: Int = Calendar.getInstance().get(Calendar.YEAR),
+    private val startMonth: Int = Calendar.getInstance().get(Calendar.MONTH),
+    private val startDay: Int = Calendar.getInstance().get(Calendar.DAY_OF_MONTH),
+    private val startHour: Int = Calendar.getInstance().get(Calendar.HOUR_OF_DAY),
+    private val startMinute: Int = Calendar.getInstance().get(Calendar.MINUTE)
+) {
 
     @SuppressLint("ResourceType")
-    fun PickDate(context: Context, dialogOnTouchListener: OnDateSetListener){
-        val startYear = Calendar.getInstance().get(Calendar.YEAR)
-        val startMonth = Calendar.getInstance().get(Calendar.MONTH)
-        val startDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+    fun pickDate(context: Context, dialogOnTouchListener: OnDateSetListener){
 
         //DatePickerDialog(context,3, DatePickerDialog.OnDateSetListener { _, year, month, day ->
         //}, startYear, startMonth, startDay).show()
@@ -25,9 +28,7 @@ class DateTimePicker {
         DatePickerDialog(context,3, dialogOnTouchListener, startYear, startMonth, startDay).show()
     }
 
-    fun PickTime(context: Context?, dialogOnTouchListener: OnTimeSetListener) {
-        val startHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
-        val startMinute = Calendar.getInstance().get(Calendar.MINUTE)
+    fun pickTime(context: Context?, dialogOnTouchListener: OnTimeSetListener) {
 
         //TimePickerDialog(context, 3, TimePickerDialog.OnTimeSetListener { _, hour, minute ->
         // }, startHour, startMinute, false).show()

@@ -30,7 +30,7 @@ class SettingFragment : Fragment() {
             ViewModelProvider(this).get(SettingViewModel::class.java)
 
         _binding = FragmentSettingBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+
 
         //todo on click to the next screen
         val textView: TextView = binding.tvExpense
@@ -39,11 +39,11 @@ class SettingFragment : Fragment() {
         }
      //   findNavController().navigate(R.id.action_navigation_add_account_to_blankFragment)
 
-        return root
+        return binding.root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
+    override fun onDestroy() {
+        super.onDestroy()
         _binding = null
     }
 }

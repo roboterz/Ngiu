@@ -18,18 +18,6 @@ class ActivityViewModel : ViewModel() {
 
     private var transactionDetail: List<TransactionDetail> = ArrayList()
 
-    // created getAllPerson
-    fun readData(
-        activity: FragmentActivity?
-    ): List<TransactionDetail> {
-        val appDatabase = AppDatabase.getDatabase(activity!!)
-
-        return appDatabase.trans().getAllTrans()
-    }
-
-    fun updateRecord(activity: FragmentActivity?, trans:Trans) {
-        return AppDatabase.getDatabase(activity!!).trans().updateTransaction(trans)
-    }
 
     fun getRecordByID(activity: FragmentActivity?, rID: Long): Trans {
         return AppDatabase.getDatabase(activity!!).trans().getRecordByID(rID)

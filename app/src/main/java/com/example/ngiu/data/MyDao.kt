@@ -300,6 +300,7 @@ interface TransDao {
                 AND Trans.Person_ID = Person.Person_ID
                 AND Trans.Merchant_ID = Merchant.Merchant_ID
                 AND Trans.Project_ID = Project.Project_ID
+        ORDER BY Transaction_Date DESC
         """)
     fun getAllTrans(): List<TransactionDetail>
 

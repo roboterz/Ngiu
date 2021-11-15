@@ -51,7 +51,7 @@ class TransactionAdapter(private val person: MutableList<Person>)
 
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val ID: TextView = itemView.tvTrans_day
+        val ID: TextView = itemView.tvTrans_month_day
         val Name: TextView = itemView.tvTrans_week
     }
 

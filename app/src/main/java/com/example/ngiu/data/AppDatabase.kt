@@ -9,7 +9,8 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.ngiu.data.entities.*
 import java.io.File
 
-private const val db = "ngiu"
+private const val DB_NAME = "ngiu.db"
+private const val DB_PATH = "databases/ngiu.db"
 
 @Database(
     entities = [
@@ -46,8 +47,8 @@ abstract class AppDatabase : RoomDatabase() {
                     val instance = Room.databaseBuilder(
                         context.applicationContext,
                         AppDatabase::class.java,
-                        "ngiu.db"
-                    ).createFromAsset("databases/ngiu.db").allowMainThreadQueries().build()
+                        DB_NAME
+                    ).createFromAsset(DB_PATH).allowMainThreadQueries().build()
 
                     INSTANCE = instance
                     return instance
