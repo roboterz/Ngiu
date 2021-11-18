@@ -318,7 +318,7 @@
             android:textColor="@color/app_option_text"
             android:textSize="14sp"
             app:boxStrokeWidth="0dp"
-            />
+            tools:ignore="MissingConstraints" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -456,7 +456,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@color/app_list_background"
+        android:background="@color/app_section_background"
         app:layout_constraintBottom_toBottomOf="parent">
 
 
@@ -466,25 +466,41 @@
             android:layout_height="match_parent"
             android:text="@string/menu_save"
             android:textColor="@color/app_button_text"
-            android:background="@color/app_section_background"
             android:gravity="center_vertical|center"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintWidth_percent="0.499"/>
+
+        <TextView
+            android:id="@+id/tv_record_between_button"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="@string/menu_save_next"
+            android:background="@color/app_list_background"
+            android:gravity="center_vertical|center"
+            app:layout_constraintStart_toEndOf="@+id/tv_record_left_button"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHeight_percent="0.6"
+            app:layout_constraintWidth_percent="0.002"/>
 
         <TextView
             android:id="@+id/tv_record_left_button"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:gravity="center_vertical|center"
             android:text="@string/menu_save_next"
             android:textColor="@color/app_option_text"
-            android:background="@color/app_section_background"
-            android:gravity="center_vertical|center"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintWidth_percent="0.499"/>
-
+            app:layout_constraintWidth_percent="0.499"
+            tools:layout_editor_absoluteY="0dp" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <include layout="@layout/keyboard" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
