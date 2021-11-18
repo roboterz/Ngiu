@@ -5,17 +5,16 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
-import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
 import android.text.format.DateFormat
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.core.os.bundleOf
+import androidx.core.view.forEach
 import androidx.fragment.app.*
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -25,21 +24,15 @@ import com.example.ngiu.data.AppDatabase
 import com.example.ngiu.data.entities.Trans
 import com.example.ngiu.databinding.FragmentRecordBinding
 import com.example.ngiu.functions.DateTimePicker
+import com.example.ngiu.functions.SelectItem
 import kotlinx.android.synthetic.main.fragment_record.*
 import kotlin.collections.ArrayList
-import com.example.ngiu.functions.addDecimalLimiter
 import com.example.ngiu.functions.popupWindow
 import com.example.ngiu.ui.keyboard.Keyboard
-import com.google.android.material.datepicker.MaterialDatePicker
-import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.popup_title.*
 import kotlinx.android.synthetic.main.popup_title.view.*
-import kotlinx.android.synthetic.main.record_category_item.*
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
-import java.time.format.FormatStyle
 import java.util.*
 
 
@@ -129,7 +122,7 @@ class RecordFragment : Fragment() {
 
 
     // called when the onCreate() method of the view has completed.
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -259,8 +252,12 @@ class RecordFragment : Fragment() {
             for (person in recordViewModel.person){
                 tList.add(person.Person_Name)
             }
-            val returnID = popupWindow(requireContext(),getText(R.string.setting_person).toString(),  tList.toTypedArray())
-            if (returnID >= 0)  tv_record_person.text = tList[returnID]
+            popupWindow(requireContext(),getText(R.string.setting_merchant).toString(),  tList.toTypedArray(),
+                object : SelectItem {
+                    override fun clicked(idx: Int) {
+                        tv_record_person.text = tList[idx]
+                    }
+                })
         }
         // Merchat
         tv_record_merchant.setOnClickListener {
@@ -268,8 +265,12 @@ class RecordFragment : Fragment() {
             for (merchant in recordViewModel.merchant){
                 tList.add(merchant.Merchant_Name)
             }
-            val returnID = popupWindow(requireContext(),getText(R.string.setting_merchant).toString(),  tList.toTypedArray())
-            if (returnID >= 0)  tv_record_merchant.text = tList[returnID]
+            popupWindow(requireContext(),getText(R.string.setting_merchant).toString(),  tList.toTypedArray(),
+                object : SelectItem {
+                    override fun clicked(idx: Int) {
+                        tv_record_merchant.text = tList[idx]
+                    }
+                })
         }
         // Project
         tv_record_project.setOnClickListener {
@@ -277,10 +278,26 @@ class RecordFragment : Fragment() {
             for (project in recordViewModel.project){
                 tList.add(project.Project_Name)
             }
-            val returnID = popupWindow(requireContext(),getText(R.string.setting_project).toString(),  tList.toTypedArray())
-            if (returnID >= 0)  tv_record_project.text = tList[returnID]
+            popupWindow(requireContext(),getText(R.string.setting_merchant).toString(),  tList.toTypedArray(),
+                object : SelectItem {
+                    override fun clicked(idx: Int) {
+                        tv_record_project.text = tList[idx]
+                    }
+                })
         }
 
+        // touch feedback
+        layout_record_other_info.forEach {
+            if (it.tag == "other_info"){
+                it.setOnTouchListener { _, motionEvent ->
+                    when (motionEvent.actionMasked){
+                        MotionEvent.ACTION_DOWN -> it.setBackgroundResource(R.drawable.textview_border_press)
+                        MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> it.setBackgroundResource(R.drawable.textview_additional_border)
+                    }
+                    false
+                }
+            }
+        }
 
         // all category
         tv_record_all_category.setOnClickListener{

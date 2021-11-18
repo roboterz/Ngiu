@@ -124,13 +124,12 @@ class RecordCategoryAdapter(
             setHighlightCategory(holder, position,8)
         }
 
-
+        // touch feedback
         holder.tvItems.forEach {
             it.setOnTouchListener { _, motionEvent ->
                 when (motionEvent.actionMasked){
                     MotionEvent.ACTION_DOWN -> it.setBackgroundResource(R.drawable.textview_border_press)
-                    //MotionEvent.ACTION_UP ->it.setBackgroundResource(R.drawable.textview_border)
-                    else -> it.setBackgroundResource(R.drawable.textview_border)
+                    MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> it.setBackgroundResource(R.drawable.textview_border)
                 }
                 false
             }
