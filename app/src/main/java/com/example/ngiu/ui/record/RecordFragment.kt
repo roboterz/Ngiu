@@ -28,6 +28,7 @@ import com.example.ngiu.functions.DateTimePicker
 import kotlinx.android.synthetic.main.fragment_record.*
 import kotlin.collections.ArrayList
 import com.example.ngiu.functions.addDecimalLimiter
+import com.example.ngiu.functions.popupWindow
 import com.example.ngiu.ui.keyboard.Keyboard
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
@@ -250,13 +251,37 @@ class RecordFragment : Fragment() {
 
         // reimbure
         tv_record_reimburse.setOnClickListener {
-            //val ls = listOf<String>("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28")
-             val array = arrayOf("1","2","3","4")
-            //val array = ls.toTypedArray()
-
-            popupWindow(requireContext(), getText(R.string.option_statement_day).toString(), array)
 
         }
+        // person
+        tv_record_person.setOnClickListener {
+            val tList: MutableList<String> = ArrayList<String>()
+            for (person in recordViewModel.person){
+                tList.add(person.Person_Name)
+            }
+            val returnID = popupWindow(requireContext(),getText(R.string.setting_person).toString(),  tList.toTypedArray())
+            if (returnID >= 0)  tv_record_person.text = tList[returnID]
+        }
+        // Merchat
+        tv_record_merchant.setOnClickListener {
+            val tList: MutableList<String> = ArrayList<String>()
+            for (merchant in recordViewModel.merchant){
+                tList.add(merchant.Merchant_Name)
+            }
+            val returnID = popupWindow(requireContext(),getText(R.string.setting_merchant).toString(),  tList.toTypedArray())
+            if (returnID >= 0)  tv_record_merchant.text = tList[returnID]
+        }
+        // Project
+        tv_record_project.setOnClickListener {
+            val tList: MutableList<String> = ArrayList<String>()
+            for (project in recordViewModel.project){
+                tList.add(project.Project_Name)
+            }
+            val returnID = popupWindow(requireContext(),getText(R.string.setting_project).toString(),  tList.toTypedArray())
+            if (returnID >= 0)  tv_record_project.text = tList[returnID]
+        }
+
+
         // all category
         tv_record_all_category.setOnClickListener{
             // hide nav bottom bar
@@ -279,6 +304,12 @@ class RecordFragment : Fragment() {
         tv_record_amount.setOnClickListener {
             Keyboard(view).initKeys(tv_record_amount)
             Keyboard(view).show()
+        }
+        // swap
+        iv_record_swap.setOnClickListener {
+            val strName = tv_record_account_pay.text
+            tv_record_account_pay.text = tv_record_account_receive.text
+            tv_record_account_receive.text = strName
         }
 
     }
@@ -322,10 +353,10 @@ class RecordFragment : Fragment() {
             tv_record_date.text = DateFormat.format("MM/dd/yyy", recordViewModel.transDetail.Transaction_Date)
             tv_record_time.text = DateFormat.format("HH:mm", recordViewModel.transDetail.Transaction_Date)
 
-            when(recordViewModel.transDetail.Transaction_Amount.toString().length - recordViewModel.transDetail.Transaction_Amount.toString().lastIndexOf('.')){
-                2 -> tv_record_amount.text = recordViewModel.transDetail.Transaction_Amount.toString() + "0"
-                3 -> tv_record_amount.text = recordViewModel.transDetail.Transaction_Amount.toString()
-                else -> tv_record_amount.text = recordViewModel.transDetail.Transaction_Amount.toString() + ".00"
+            if (recordViewModel.transDetail.Transaction_Amount.toString().contains('.') && recordViewModel.transDetail.Transaction_Amount.toString().last() =='0'){
+                tv_record_amount.text = recordViewModel.transDetail.Transaction_Amount.toString() + "0"
+            }else{
+                tv_record_amount.text = recordViewModel.transDetail.Transaction_Amount.toString()
             }
             //tv_record_amount.text = recordViewModel.transDetail.Transaction_Amount.toString()
             tv_record_account_pay.text = recordViewModel.transDetail.Account_Name
@@ -499,32 +530,7 @@ class RecordFragment : Fragment() {
 
     }
 
-    fun popupWindow(context: Context, titleText: String, arrayItem: Array<String>): Int{
 
-        var clickItem: Int = 0
-        // Initialize a new instance of alert dialog builder object
-        val builder = AlertDialog.Builder(context)
-
-        // set Title Style
-        val titleView = layoutInflater.inflate(R.layout.popup_title,null)
-        // set Title Text
-        titleView.tv_popup_title_text.text = titleText
-
-        builder.setCustomTitle(titleView)
-
-        // Set items form alert dialog
-        builder.setItems(arrayItem) { _, which ->
-            // Get the dialog selected item
-            //val selected = arrayItem[which]
-            //Toast.makeText(context, "You Clicked : " + selected, Toast.LENGTH_SHORT).show()
-            clickItem = which
-        }.create().show()
-
-        // Create a new AlertDialog using builder object
-        // Finally, display the alert dialog
-        //builder.create().show()
-        return clickItem
-    }
 
 
 }

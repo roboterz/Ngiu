@@ -8,6 +8,7 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
 import android.view.LayoutInflater
+import android.widget.Toast
 import androidx.core.content.res.ComplexColorCompat.inflate
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -177,7 +178,7 @@ fun getDayOfMonthSuffix(n: Int): String {
 
 fun popupWindow(context: Context, titleText: String, arrayItem: Array<String>): Int{
 
-    var clickItem: Int = 0
+    var clickItem: Int = -1
     // Initialize a new instance of alert dialog builder object
     val builder = AlertDialog.Builder(context)
 
@@ -192,7 +193,7 @@ fun popupWindow(context: Context, titleText: String, arrayItem: Array<String>): 
     builder.setItems(arrayItem) { _, which ->
         // Get the dialog selected item
         //val selected = arrayItem[which]
-        //Toast.makeText(context, "You Clicked : " + selected, Toast.LENGTH_SHORT).show()
+        //Toast.makeText(context, "You Clicked : " + which, Toast.LENGTH_SHORT).show()
         clickItem = which
     }.create().show()
 
