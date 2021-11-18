@@ -192,7 +192,6 @@ fun popupWindow(context: Context, titleText: String, arrayItem: Array<String>): 
     // Set items form alert dialog
     builder.setItems(arrayItem) { _, which ->
         // Get the dialog selected item
-        //val selected = arrayItem[which]
         //Toast.makeText(context, "You Clicked : " + which, Toast.LENGTH_SHORT).show()
         clickItem = which
     }.create().show()
@@ -200,7 +199,10 @@ fun popupWindow(context: Context, titleText: String, arrayItem: Array<String>): 
     // Create a new AlertDialog using builder object
     // Finally, display the alert dialog
     //builder.create().show()
+
+    // return the index of array. return -1 if didn't select anything
     return clickItem
+
 }
 
 
