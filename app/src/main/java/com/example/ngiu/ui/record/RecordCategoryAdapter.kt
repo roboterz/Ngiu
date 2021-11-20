@@ -2,10 +2,13 @@ package com.example.ngiu.ui.record
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.view.forEach
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.SubCategory
@@ -33,6 +36,7 @@ class RecordCategoryAdapter(
         return PagerViewHolder(itemView)
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onBindViewHolder(holder: PagerViewHolder, position: Int) {
 
         //holder.bindData(mList[position])
@@ -119,6 +123,19 @@ class RecordCategoryAdapter(
         holder.tvCate8.setOnClickListener {
             setHighlightCategory(holder, position,8)
         }
+
+        // touch feedback
+        holder.tvItems.forEach {
+            it.setOnTouchListener { _, motionEvent ->
+                when (motionEvent.actionMasked){
+                    MotionEvent.ACTION_DOWN -> it.setBackgroundResource(R.drawable.textview_border_press)
+                    MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> it.setBackgroundResource(R.drawable.textview_border)
+                }
+                false
+            }
+
+        }
+
 
 
 
@@ -228,9 +245,10 @@ class RecordCategoryAdapter(
         val tvCate6: TextView = itemView.findViewById(R.id.tv_record_category_6)
         val tvCate7: TextView = itemView.findViewById(R.id.tv_record_category_7)
         val tvCate8: TextView = itemView.findViewById(R.id.tv_record_category_8)
+        val tvItems: ConstraintLayout = itemView.findViewById(R.id.tv_record_category_items)
 
-        //val onFocusColor: Int = ContextCompat.getColor(itemView.context,R.color.app_button_text)
-        //val offFocusColor: Int = ContextCompat.getColor(itemView.context,R.color.app_option_text)
+        //val onFocusColor: Int = ContextCompat.getColor(itemView.context,R.color.app_section_background)
+        //val offFocusColor: Int = R.drawable.textview_border
 
     }
 

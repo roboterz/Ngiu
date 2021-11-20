@@ -7,9 +7,15 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
+import android.view.LayoutInflater
+import android.widget.Toast
+import androidx.core.content.res.ComplexColorCompat.inflate
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import com.example.ngiu.R
+import com.example.ngiu.databinding.AccountDetailCardviewBinding.inflate
 import com.google.android.material.textfield.TextInputEditText
+import kotlinx.android.synthetic.main.popup_title.view.*
 
 
 class MyFunctions {
@@ -23,7 +29,10 @@ class MyFunctions {
     }
 
 
+
 }
+
+
 
 
 // limit decimal
@@ -166,3 +175,38 @@ fun getDayOfMonthSuffix(n: Int): String {
         else -> return "th"
     }
 }
+
+
+// popupWindow call back function
+interface SelectItem {
+    fun clicked(idx: Int)
+}
+
+fun popupWindow(context: Context, titleText: String, arrayItem: Array<String>, selectItem: SelectItem){
+
+    // Initialize a new instance of alert dialog builder object
+    val builder = AlertDialog.Builder(context)
+
+    // set Title Style
+    val titleView = View.inflate(context, R.layout.popup_title, null)
+    // set Title Text
+    titleView.tv_popup_title_text.text = titleText
+
+    builder.setCustomTitle(titleView)
+
+    // Set items form alert dialog
+    builder.setItems(arrayItem) { _, which ->
+        // Get the dialog selected item
+        selectItem.clicked(which)
+    }.create().show()
+
+    // Create a new AlertDialog using builder object
+    // Finally, display the alert dialog
+    //builder.create().show()
+
+}
+
+
+
+
+

@@ -31,7 +31,7 @@ class RecordViewModel : ViewModel() {
     var currentRowID: Long = 0
 
     var transRecord = Trans()
-    var transDetail = TransactionDetail(0, 0, "", "", "", 0.00, Date(), "", "", "", "", 0)
+    var transDetail = TransactionDetail()
 
     var subCategoryName = ArrayList<String>()
 
@@ -109,6 +109,10 @@ class RecordViewModel : ViewModel() {
         subCategoryName.add(incomeCommonCategory[0].SubCategory_Name)
         subCategoryName.add(transferCommonCategory[0].SubCategory_Name)
         subCategoryName.add(debitCreditCommonCategory[0].SubCategory_Name)
+
+        person = database.person().getAllPerson()
+        merchant = database.merchant().getAllMerchant()
+        project = database.project().getAllProject()
     }
 
     fun getOneSubCategory(activity: FragmentActivity?, rID: Long): SubCategory {

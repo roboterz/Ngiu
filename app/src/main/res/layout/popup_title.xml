@@ -14,7 +14,8 @@
         android:layout_alignParentTop="true"
         android:background="@color/app_title_background"
         android:gravity="center_vertical|center_horizontal"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints">
 
         <TextView
             android:id="@+id/tv_popup_title_text"
