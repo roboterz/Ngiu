@@ -1,6 +1,7 @@
 package com.example.ngiu.ui.record
 
 
+import android.animation.Animator
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.DatePickerDialog
@@ -13,11 +14,15 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.core.content.ContextCompat
+import androidx.core.content.contentValuesOf
 import androidx.core.view.forEach
 import androidx.fragment.app.*
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.transition.Fade
+import androidx.transition.TransitionManager
 import com.example.ngiu.MainActivity
 import com.example.ngiu.R
 import com.example.ngiu.data.AppDatabase
@@ -50,7 +55,8 @@ class RecordFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        // hide bottom bar
+        (activity as MainActivity).setNavBottomBarVisibility(View.GONE)
 
         // Pass value from other fragment
         // --implementation "androidx.fragment:fragment-ktx:1.3.6"
@@ -242,10 +248,14 @@ class RecordFragment : Fragment() {
             })
         }
 
-        // reimbure
+        // reimburse
         tv_record_reimburse.setOnClickListener {
-
+            // change text
+            tv_record_reimburse.text = recordViewModel.setReimbursable(it.context)
+            // change icon
+            setReimburseIcon(recordViewModel.transDetail.Transaction_ReimburseStatus)
         }
+
         // person
         tv_record_person.setOnClickListener {
             val tList: MutableList<String> = ArrayList<String>()
@@ -259,6 +269,7 @@ class RecordFragment : Fragment() {
                     }
                 })
         }
+
         // Merchat
         tv_record_merchant.setOnClickListener {
             val tList: MutableList<String> = ArrayList<String>()
@@ -272,6 +283,7 @@ class RecordFragment : Fragment() {
                     }
                 })
         }
+
         // Project
         tv_record_project.setOnClickListener {
             val tList: MutableList<String> = ArrayList<String>()
@@ -306,9 +318,11 @@ class RecordFragment : Fragment() {
 
             //parentFragmentManager.setFragmentResult("requestKey", bundleOf("bundleKey" to transactionList[position].Transaction_ID))
             //if (transID >0) setFragmentResult("requestKey", bundleOf("rID" to transID))
+
             // switch to category manage fragment
             findNavController().navigate(R.id.navigation_category_manage)
         }
+
         // category
         tv_record_category.setOnClickListener {
             // hide nav bottom bar
@@ -317,20 +331,46 @@ class RecordFragment : Fragment() {
             // switch to category manage fragment
             findNavController().navigate(R.id.navigation_category_manage)
         }
+
         // amount
         tv_record_amount.setOnClickListener {
             Keyboard(view).initKeys(tv_record_amount)
             Keyboard(view).show()
         }
+
         // swap
         iv_record_swap.setOnClickListener {
-            val strName = tv_record_account_pay.text
-            tv_record_account_pay.text = tv_record_account_receive.text
-            tv_record_account_receive.text = strName
+            tv_record_account_receive.text = tv_record_account_pay.text.apply { tv_record_account_pay.text = tv_record_account_receive.text }
         }
 
-    }
+        // account pay
+        tv_record_account_pay.setOnClickListener {
+            val tList: MutableList<String> = ArrayList<String>()
+            for (account in recordViewModel.account){
+                tList.add(account.Account_Name)
+            }
+            popupWindow(requireContext(),getText(R.string.setting_merchant).toString(),  tList.toTypedArray(),
+                object : SelectItem {
+                    override fun clicked(idx: Int) {
+                        tv_record_account_pay.text = tList[idx]
+                    }
+                })
+        }
 
+        // account receive
+        tv_record_account_receive.setOnClickListener {
+            val tList: MutableList<String> = ArrayList<String>()
+            for (account in recordViewModel.account){
+                tList.add(account.Account_Name)
+            }
+            popupWindow(requireContext(),getText(R.string.setting_merchant).toString(),  tList.toTypedArray(),
+                object : SelectItem {
+                    override fun clicked(idx: Int) {
+                        tv_record_account_receive.text = tList[idx]
+                    }
+                })
+        }
+    }
 
 
 
@@ -379,7 +419,12 @@ class RecordFragment : Fragment() {
             tv_record_account_pay.text = recordViewModel.transDetail.Account_Name
             tv_record_account_receive.text = recordViewModel.transDetail.AccountRecipient_Name
             tv_record_memo.setText(recordViewModel.transDetail.Transaction_Memo)
-            //todo merchant, person, project, period, reimburse
+            tv_record_person.text = recordViewModel.transDetail.Person_Name
+            tv_record_merchant.text = recordViewModel.transDetail.Merchant_Name
+            tv_record_project.text = recordViewModel.transDetail.Project_Name
+            tv_record_reimburse.text = recordViewModel.getReimbursable(requireContext(), recordViewModel.transDetail.Transaction_ReimburseStatus)
+            setReimburseIcon(recordViewModel.transDetail.Transaction_ReimburseStatus)
+            //todo period,
 
             setStatus( recordViewModel.currentTransactionType )
             loadCommonCategory( recordViewModel.currentTransactionType.currentTyID,recordViewModel.transDetail.SubCategory_Name )
@@ -390,7 +435,12 @@ class RecordFragment : Fragment() {
             tv_record_date.text = DateFormat.format("MM/dd/yyy", Date())
             tv_record_time.text = DateFormat.format("HH:mm", Date())
             tv_record_account_pay.text = recordViewModel.account[0].Account_Name
-            //todo merchant, person, project, period, reimburse
+            tv_record_account_receive.text = recordViewModel.account[1].Account_Name
+            tv_record_person.text = recordViewModel.person[0].Person_Name
+            tv_record_merchant.text = recordViewModel.merchant[0].Merchant_Name
+            tv_record_project.text = recordViewModel.project[0].Project_Name
+            tv_record_reimburse.text = recordViewModel.getReimbursable(requireContext(), 0)
+            //todo  period
 
             setStatus( recordViewModel.currentTransactionType.setID(recordViewModel.currentTransactionType.currentTyID) )
             loadCommonCategory( recordViewModel.currentTransactionType.currentTyID )
@@ -415,14 +465,15 @@ class RecordFragment : Fragment() {
                 Transaction_ID = transactionID,
                 TransactionType_ID = recordViewModel.currentTransactionType.currentTyID.toLong(),
                 SubCategory_ID = recordViewModel.subCategory[recordViewModel.subCategory.indexOfFirst { it.SubCategory_Name == tv_record_category.text }].SubCategory_ID,
-                Account_ID = 1L, /* recordViewModel.account[recordViewModel.account.indexOfFirst{it.Account_Name == tv_record_account_pay.text}].Account_ID,*/
-                AccountRecipient_ID = 1L, /*if (tv_record_account_receive.text != "") recordViewModel.account[recordViewModel.account.indexOfFirst{it.Account_Name == tv_record_account_receive.text}].Account_ID else 1L,*/
+                Account_ID = recordViewModel.account[recordViewModel.account.indexOfFirst{it.Account_Name == tv_record_account_pay.text}].Account_ID,
+                AccountRecipient_ID = if (tv_record_account_receive.text !="") recordViewModel.account[recordViewModel.account.indexOfFirst{it.Account_Name == tv_record_account_receive.text}].Account_ID else 1L,
                 Transaction_Amount = tv_record_amount.text.toString().toDouble(),
                 Transaction_Date = Date(strDate),
                 Transaction_Memo = tv_record_memo.text.toString(),
-                Merchant_ID = 1L,
-                Person_ID = 1L,
-                Project_ID = 1L
+                Merchant_ID = recordViewModel.merchant[recordViewModel.merchant.indexOfFirst { it.Merchant_Name == tv_record_merchant.text.toString() }].Merchant_ID,
+                Person_ID = recordViewModel.person[recordViewModel.person.indexOfFirst { it.Person_Name == tv_record_person.text.toString() }].Person_ID,
+                Project_ID = 1L, //recordViewModel.transDetail.Period_ID,
+                Transaction_ReimburseStatus = recordViewModel.transDetail.Transaction_ReimburseStatus
             )
             // save
             if (transactionID > 0) {
@@ -501,6 +552,19 @@ class RecordFragment : Fragment() {
     }
 
 
+    private fun setReimburseIcon(transactionReimbursestatus: Int) {
+        when(transactionReimbursestatus){
+            0 -> {
+                tv_record_reimburse.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_baseline_check_box_outline_blank_24,0,0,0)
+            }
+            1 -> {
+                tv_record_reimburse.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_baseline_indeterminate_check_box_24,0,0,0)
+            }
+            2 -> {
+                tv_record_reimburse.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_baseline_check_box_24,0,0,0)
+            }
+        }
+    }
 
     private fun setStatus(ctt: CurrentTransactionType){
         tvSectionExpense.setTextColor(ContextCompat.getColor(requireContext(),ctt.expense))
@@ -546,8 +610,6 @@ class RecordFragment : Fragment() {
         tv_record_category.text = recordViewModel.getSubCategoryName()
 
     }
-
-
 
 
 }

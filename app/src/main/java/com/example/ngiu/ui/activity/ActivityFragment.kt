@@ -132,7 +132,7 @@ class ActivityFragment : Fragment() {
 
     private fun navigateToRecordFragment(transID: Long = 0){
         // hide nav bottom bar
-        (activity as MainActivity).setNavBottomBarVisibility(View.GONE)
+        //(activity as MainActivity).setNavBottomBarVisibility(View.GONE)
 
         //parentFragmentManager.setFragmentResult("requestKey", bundleOf("bundleKey" to transactionList[position].Transaction_ID))
         if (transID >0) setFragmentResult("requestKey", bundleOf("rID" to transID))

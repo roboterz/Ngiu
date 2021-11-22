@@ -2,20 +2,26 @@ package com.example.ngiu.functions
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.content.ContentResolver
 import android.content.Context
+import android.content.res.Resources
+import android.provider.Settings.Global.getString
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
 import android.view.LayoutInflater
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ComplexColorCompat.inflate
+import androidx.core.content.res.TypedArrayUtils.getText
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.ngiu.R
 import com.example.ngiu.databinding.AccountDetailCardviewBinding.inflate
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.popup_title.view.*
+import kotlin.coroutines.coroutineContext
 
 
 class MyFunctions {
@@ -175,6 +181,8 @@ fun getDayOfMonthSuffix(n: Int): String {
         else -> return "th"
     }
 }
+
+
 
 
 // popupWindow call back function

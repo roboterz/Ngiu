@@ -1,6 +1,8 @@
 package com.example.ngiu.ui.record
 
 
+import android.content.Context
+import android.content.res.Resources
 import android.view.View
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
@@ -132,6 +134,25 @@ class RecordViewModel : ViewModel() {
     }
     fun setSubCategoryName(string: String){
         subCategoryName[currentTransactionType.currentTyID -1] = string
+    }
+
+    // get reimburse status
+    fun getReimbursable(context: Context, int: Int):String{
+        val array: Array<String> = context.resources.getStringArray(R.array.data_reimburse_array)
+        return array[int]
+    }
+    fun setReimbursable(context: Context):String{
+        val array: Array<String> = context.resources.getStringArray(R.array.data_reimburse_array)
+        when(transDetail.Transaction_ReimburseStatus){
+            0,1 -> {
+                transDetail.Transaction_ReimburseStatus++
+                return array[transDetail.Transaction_ReimburseStatus]
+            }
+            else -> {
+                transDetail.Transaction_ReimburseStatus = 0
+                return array[0]
+            }
+        }
     }
 
 }
