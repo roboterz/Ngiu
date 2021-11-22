@@ -17,7 +17,7 @@ data class TransactionDetail(
     val Merchant_Name: String,
     val Transaction_Memo: String,
     val Project_Name: String,
-    val Transaction_ReimburseStatus: Int,
+    var Transaction_ReimburseStatus: Int,
     val Period_ID: Long
 ){
     constructor() : this(
