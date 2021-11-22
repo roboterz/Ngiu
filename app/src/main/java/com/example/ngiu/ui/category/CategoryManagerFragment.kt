@@ -40,7 +40,7 @@ class CategoryManagerFragment: Fragment() {
 
         _binding = FragmentCategoryManageBinding.inflate(inflater, container, false)
 
-        
+
 
         return binding.root
     }
@@ -50,6 +50,7 @@ class CategoryManagerFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
+        //(activity as MainActivity).setNavBottomBarVisibility(View.GONE)
 
         // click the navigation Icon in the left side of toolbar
         toolbar_record.setNavigationOnClickListener(View.OnClickListener {

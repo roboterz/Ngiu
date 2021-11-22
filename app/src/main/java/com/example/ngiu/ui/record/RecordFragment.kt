@@ -387,7 +387,7 @@ class RecordFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        (activity as MainActivity).setNavBottomBarVisibility(View.VISIBLE)
+        //(activity as MainActivity).setNavBottomBarVisibility(View.VISIBLE)
         _binding = null
         vpAdapter = null
     }
