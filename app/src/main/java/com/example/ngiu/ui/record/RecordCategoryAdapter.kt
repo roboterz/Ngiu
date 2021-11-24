@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.core.view.forEach
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
@@ -32,7 +31,7 @@ class RecordCategoryAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PagerViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.record_category_item, parent, false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.cardview_record_category_item, parent, false)
         return PagerViewHolder(itemView)
     }
 

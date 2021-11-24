@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.ngiu.MainActivity
 import com.example.ngiu.R
 import com.example.ngiu.databinding.FragmentActivityBinding
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_activity.*
 
 
@@ -32,6 +33,7 @@ class ActivityFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
         initAdapter()
     }
 
@@ -40,11 +42,12 @@ class ActivityFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         activityViewModel =
             ViewModelProvider(this).get(ActivityViewModel::class.java)
 
         _binding = FragmentActivityBinding.inflate(inflater, container, false)
+
 
         // load data to ram
         Thread {
@@ -88,6 +91,9 @@ class ActivityFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+
+        // Show bottom bar
+        (activity as MainActivity).setNavBottomBarVisibility(View.VISIBLE)
 
         Thread {
             activity?.runOnUiThread {

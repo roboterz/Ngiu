@@ -11,7 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.returntype.TransactionDetail
-import kotlinx.android.synthetic.main.transaction_cardview.view.*
+import kotlinx.android.synthetic.main.cardview_transaction.view.*
 import kotlin.collections.ArrayList
 
 
@@ -31,7 +31,7 @@ class TransListAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         // inflate the custom view from xml layout file
         val view: View = LayoutInflater.from(parent.context)
-            .inflate(R.layout.transaction_cardview,parent,false)
+            .inflate(R.layout.cardview_transaction,parent,false)
 
 
         // return the view holder
