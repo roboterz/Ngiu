@@ -42,7 +42,7 @@ class ActivityFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         activityViewModel =
             ViewModelProvider(this).get(ActivityViewModel::class.java)
 

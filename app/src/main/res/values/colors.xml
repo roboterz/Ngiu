@@ -21,5 +21,7 @@
     <color name="keyboard_frame">#888888</color>
     <color name="app_button_background_press">#DDDDDD</color>
     <color name="app_record_icon">#808080</color>
+    <color name="app_star">#E3AB0A</color>
+    <color name="app_select_item">#704CB9DB</color>
 
 </resources>

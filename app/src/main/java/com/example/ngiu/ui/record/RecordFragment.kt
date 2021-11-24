@@ -86,7 +86,7 @@ class RecordFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         recordViewModel =
             ViewModelProvider(this).get(RecordViewModel::class.java)
 
@@ -166,10 +166,8 @@ class RecordFragment : Fragment() {
 
         // click the navigation Icon in the left side of toolbar
         toolbar_record.setNavigationOnClickListener(View.OnClickListener {
-
             // call back button event to switch to previous fragment
             requireActivity().onBackPressed()
-
         })
 
         // menu item clicked
@@ -538,7 +536,7 @@ class RecordFragment : Fragment() {
                     2 -> recordViewModel.incomeCommonCategory
                     3 -> recordViewModel.transferCommonCategory
                     4 -> recordViewModel.debitCreditCommonCategory
-                    else -> ArrayList()
+                    else -> emptyList()
                 }
 
                 // vpAdapter?.setCategoryString(categoryString)

@@ -37,11 +37,11 @@ class RecordViewModel : ViewModel() {
 
     var subCategoryName = ArrayList<String>()
 
-    var expenseCommonCategory = ArrayList<SubCategory>()
-    var incomeCommonCategory = ArrayList<SubCategory>()
-    var transferCommonCategory = ArrayList<SubCategory>()
-    var debitCreditCommonCategory = ArrayList<SubCategory>()
-    var subCategory: List<RecordSubCategory> = ArrayList()
+    var expenseCommonCategory: List<SubCategory> = ArrayList()
+    var incomeCommonCategory: List<SubCategory> = ArrayList()
+    var transferCommonCategory: List<SubCategory> = ArrayList()
+    var debitCreditCommonCategory: List<SubCategory> = ArrayList()
+    var subCategory: List<SubCategory> = ArrayList()
     var person: List<Person> = ArrayList()
     var merchant: List<Merchant> = ArrayList()
     var account: List<Account> = ArrayList()
@@ -54,59 +54,16 @@ class RecordViewModel : ViewModel() {
     }
 
 
-    fun readCommonCategory(activity: FragmentActivity?, tyID: Int): List<SubCategory> {
-
-        return when (tyID) {
-            1 -> AppDatabase.getDatabase(activity!!).subcat().getExpenseCommonCategory()
-            2 -> AppDatabase.getDatabase(activity!!).subcat().getIncomeCommonCategory()
-            3 -> AppDatabase.getDatabase(activity!!).subcat().getTransferCommonCategory()
-            4 -> AppDatabase.getDatabase(activity!!).subcat().getDebitCreditCommonCategory()
-            else -> ArrayList<SubCategory>()
-        }
-
-    }
-
     //
     fun loadDataToRam(activity: FragmentActivity?) {
         val database = AppDatabase.getDatabase(activity!!)
-        subCategory = database.subcat().getAllSubCategory()
+        //subCategory = database.subcat().getAllSubCategory()
         account = database.account().getAllAccount()
-        for (i in subCategory.indices) {
-            when (subCategory[i].TransactionType_ID) {
-                1L -> expenseCommonCategory.add(
-                    SubCategory(
-                        subCategory[i].SubCategory_ID,
-                        subCategory[i].MainCategory_ID,
-                        subCategory[i].SubCategory_Name,
-                        subCategory[i].SubCategory_Common
-                    )
-                )
-                2L -> incomeCommonCategory.add(
-                    SubCategory(
-                        subCategory[i].SubCategory_ID,
-                        subCategory[i].MainCategory_ID,
-                        subCategory[i].SubCategory_Name,
-                        subCategory[i].SubCategory_Common
-                    )
-                )
-                3L -> transferCommonCategory.add(
-                    SubCategory(
-                        subCategory[i].SubCategory_ID,
-                        subCategory[i].MainCategory_ID,
-                        subCategory[i].SubCategory_Name,
-                        subCategory[i].SubCategory_Common
-                    )
-                )
-                4L -> debitCreditCommonCategory.add(
-                    SubCategory(
-                        subCategory[i].SubCategory_ID,
-                        subCategory[i].MainCategory_ID,
-                        subCategory[i].SubCategory_Name,
-                        subCategory[i].SubCategory_Common
-                    )
-                )
-            }
-        }
+        expenseCommonCategory = database.subcat().getCommonCategoryByTransactionType(1L)
+        incomeCommonCategory = database.subcat().getCommonCategoryByTransactionType(2L)
+        transferCommonCategory = database.subcat().getCommonCategoryByTransactionType(3L)
+        debitCreditCommonCategory = database.subcat().getCommonCategoryByTransactionType(4L)
+
         subCategoryName.add(expenseCommonCategory[0].SubCategory_Name)
         subCategoryName.add(incomeCommonCategory[0].SubCategory_Name)
         subCategoryName.add(transferCommonCategory[0].SubCategory_Name)
@@ -117,9 +74,9 @@ class RecordViewModel : ViewModel() {
         project = database.project().getAllProject()
     }
 
-    fun getOneSubCategory(activity: FragmentActivity?, rID: Long): SubCategory {
-        return AppDatabase.getDatabase(activity!!).subcat().getRecordByID(rID)
-    }
+    //fun getOneSubCategory(activity: FragmentActivity?, rID: Long): SubCategory {
+    //    return AppDatabase.getDatabase(activity!!).subcat().getRecordByID(rID)
+    //}
 
     fun loadTransactionRecord(activity: FragmentActivity?, rID: Long) {
         transRecord = AppDatabase.getDatabase(activity!!).trans().getRecordByID(rID)
