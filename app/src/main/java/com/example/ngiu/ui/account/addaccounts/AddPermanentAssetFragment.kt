@@ -6,44 +6,45 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.Account
 import com.example.ngiu.data.entities.Currency
-import com.example.ngiu.databinding.FragmentAddDebitBinding
 import com.example.ngiu.databinding.FragmentAddPermanentAssetBinding
 import com.example.ngiu.functions.addDecimalLimiter
 import com.google.android.material.textfield.TextInputEditText
+import kotlinx.android.synthetic.main.fragment_add_permanent_asset.*
 import kotlinx.android.synthetic.main.popup_title.view.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 
 class AddPermanentAssetFragment : Fragment() {
 
     private var _binding: FragmentAddPermanentAssetBinding? = null
     private val binding get() = _binding!!
+    private lateinit var addPermanentAssetViewModel: AddPermanentAssetViewModel
     var currency = "USD"
 
-    private val viewModel: AddPermanentAssetViewModel by lazy {
-        ViewModelProvider(this).get(AddPermanentAssetViewModel::class.java)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return FragmentAddPermanentAssetBinding.inflate(inflater, container, false).run {
-            _binding = this
-            root
-        }
+    ): View {
+        addPermanentAssetViewModel = ViewModelProvider(this).get(AddPermanentAssetViewModel::class.java)
+        _binding = FragmentAddPermanentAssetBinding.inflate(inflater, container, false)
+
+
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initListeners()
         getView()?.findViewById<TextInputEditText?>(R.id.tetPermaAssetsValue)?.addDecimalLimiter()
+
+        toolbarAddPermanentAssets.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
 
@@ -60,7 +61,7 @@ class AddPermanentAssetFragment : Fragment() {
 
         binding.btnPermaAssetsAddOtherCurrency.setOnClickListener {
 
-            val array : List<Currency> = viewModel.getCurrency(requireActivity())
+            val array : List<Currency> = addPermanentAssetViewModel.getCurrency(requireActivity())
 
             val arrayList: ArrayList<String> = ArrayList()
 
@@ -84,7 +85,7 @@ class AddPermanentAssetFragment : Fragment() {
             // Set items form alert dialog
             builder.setItems(cs) { _, which ->
                 currency = arrayList.get(which)
-                binding.permaAssetsBalanceTextLayout.setSuffixText(currency)
+                binding.permaAssetsBalanceTextLayout.suffixText = currency
 
             }
 
@@ -108,9 +109,9 @@ class AddPermanentAssetFragment : Fragment() {
             Account_Name =  accountName, Account_Balance =  value.toDouble(),
             Account_CountInNetAssets =  countInNetAsset, Account_Memo = memo, AccountType_ID = accountTypeID, Currency_ID = currency)
 
-        GlobalScope.launch{
-            viewModel.insertPermanentAssetAccount(requireActivity(), cashAccount)
-        }
+
+        addPermanentAssetViewModel.insertPermanentAssetAccount(requireActivity(), cashAccount)
+
 
     }
 

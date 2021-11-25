@@ -2,53 +2,52 @@ package com.example.ngiu.ui.account.addaccounts
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.Account
 import com.example.ngiu.data.entities.Currency
 import com.example.ngiu.databinding.FragmentAddCashBinding
 import com.example.ngiu.functions.addDecimalLimiter
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
-import kotlinx.android.synthetic.main.fragment_record.*
+import kotlinx.android.synthetic.main.fragment_add_cash.*
 import kotlinx.android.synthetic.main.popup_title.view.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+
 
 
 class AddCashFragment : Fragment() {
     private var _binding: FragmentAddCashBinding? = null
     private val binding get() = _binding!!
+    private lateinit var addCashViewModel: AddCashViewModel
+
     var currency = "USD"
 
 
-    private val viewModel: AddCashViewModel by lazy {
-        ViewModelProvider(this).get(AddCashViewModel::class.java)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return FragmentAddCashBinding.inflate(inflater, container, false).run {
-            _binding = this
-            root
-        }
+    ): View {
+        addCashViewModel = ViewModelProvider(this).get(AddCashViewModel::class.java)
+        _binding = FragmentAddCashBinding.inflate(inflater, container, false)
 
+
+
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initListeners()
         getView()?.findViewById<TextInputEditText?>(R.id.tetCashBalance)?.addDecimalLimiter()
+
+        toolbarAddCashAccount.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
 
     }
 
@@ -68,7 +67,7 @@ class AddCashFragment : Fragment() {
 
         binding.btnCashAddOtherCurrency.setOnClickListener {
 
-            val array : List<Currency> = viewModel.getCurrency(requireActivity())
+            val array : List<Currency> = addCashViewModel.getCurrency(requireActivity())
 
             val arrayList: ArrayList<String> = ArrayList()
 
@@ -91,8 +90,8 @@ class AddCashFragment : Fragment() {
 
             // Set items form alert dialog
             builder.setItems(cs) { _, which ->
-                currency = arrayList.get(which)
-                binding.cashBalanceTextLayout.setSuffixText(currency)
+                currency = arrayList[which]
+                binding.cashBalanceTextLayout.suffixText = currency
 
             }
 
@@ -116,9 +115,9 @@ class AddCashFragment : Fragment() {
                 Account_Name =  accountName, Account_Balance =  balance.toDouble(),
                 Account_CountInNetAssets =  countInNetAsset, Account_Memo = memo, AccountType_ID = accountTypeID, Currency_ID = currency)
 
-            GlobalScope.launch{
-                viewModel.insertCash(requireActivity(), cashAccount)
-            }
+
+            addCashViewModel.insertCash(requireActivity(), cashAccount)
+
 
     }
 
