@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.Account
 import com.example.ngiu.data.entities.Currency
@@ -14,36 +15,43 @@ import com.example.ngiu.databinding.FragmentAddCreditBinding
 import com.example.ngiu.functions.addDecimalLimiter
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.popup_title.view.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import com.example.ngiu.functions.getDayOfMonthSuffix
+import kotlinx.android.synthetic.main.fragment_add_credit.*
 
 class AddCreditFragment : Fragment() {
     private var _binding: FragmentAddCreditBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var addCreditViewModel: AddCreditViewModel
     var currency = "USD"
     var statementDay = "1"
     var paymentDay = "26"
 
-    private val viewModel: AddCreditViewModel by lazy {
-        ViewModelProvider(this).get(AddCreditViewModel::class.java)
-    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return FragmentAddCreditBinding.inflate(inflater, container, false).run {
-            _binding = this
-            root
+    ): View {
+        addCreditViewModel = ViewModelProvider(this).get(AddCreditViewModel::class.java)
+        _binding = FragmentAddCreditBinding.inflate(inflater, container, false)
+
+
+        return binding.root
+
+
         }
 
-    }
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initListeners()
         getView()?.findViewById<TextInputEditText?>(R.id.tetCreditLimit)?.addDecimalLimiter()
 
+        toolbarAddCreditAccount.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
     override fun onResume() {
@@ -115,7 +123,7 @@ class AddCreditFragment : Fragment() {
 
         binding.btnCreditAddOtherCurrency.setOnClickListener {
 
-            val array : List<Currency> = viewModel.getCurrency(requireActivity())
+            val array : List<Currency> = addCreditViewModel.getCurrency(requireActivity())
 
             val arrayList: ArrayList<String> = ArrayList()
 
@@ -150,7 +158,7 @@ class AddCreditFragment : Fragment() {
 
         binding.btnCreditAddOtherArrears.setOnClickListener {
 
-            val array : List<Currency> = viewModel.getCurrency(requireActivity())
+            val array : List<Currency> = addCreditViewModel.getCurrency(requireActivity())
 
             val arrayList: ArrayList<String> = ArrayList()
 
@@ -173,8 +181,8 @@ class AddCreditFragment : Fragment() {
             // Set items form alert dialog
             builder.setItems(cs) { _, which ->
                 currency = arrayList.get(which)
-                binding.creditCurrentArrearsLayout.setSuffixText(currency)
-                binding.creditLimitLayout.setSuffixText(currency)
+                binding.creditCurrentArrearsLayout.suffixText = currency
+                binding.creditLimitLayout.suffixText = currency
 
             }
 
@@ -206,9 +214,9 @@ class AddCreditFragment : Fragment() {
             AccountType_ID = accountTypeID, Currency_ID = currency, Account_StatementDay = statementDay.toInt(),
             Account_PaymentDay = paymentDay.toInt())
 
-        GlobalScope.launch{
-            viewModel.insertCredit(requireActivity(), creditAccount)
-        }
+
+        addCreditViewModel.insertCredit(requireActivity(), creditAccount)
+
 
     }
 

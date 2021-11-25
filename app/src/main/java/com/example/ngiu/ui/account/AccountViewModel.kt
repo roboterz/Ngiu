@@ -9,13 +9,6 @@ import com.example.ngiu.data.entities.Account
 import com.example.ngiu.data.entities.Person
 
 class AccountViewModel : ViewModel() {
-    // created getAllPerson
-    fun readData(
-        activity: FragmentActivity?
-    ):List<Person> {
-        val appDatabase = AppDatabase.getDatabase(activity!!)
-        val accountData= appDatabase.person().getAllPerson()
-        return accountData
-    }
+
 
 }
