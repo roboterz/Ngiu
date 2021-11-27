@@ -33,27 +33,20 @@ class AccountFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         accountViewModel =
             ViewModelProvider(this).get(AccountViewModel::class.java)
 
         _binding = FragmentAccountBinding.inflate(inflater, container, false)
-        val root: View = binding.root
 
-        //val textView: TextView = binding.textDashboard
-        //dashboardViewModel.text.observe(viewLifecycleOwner, Observer {
-        //    textView.text = it
-        //})
 
-        return root
+      return binding.root
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-     /*   //call readPerson function on the bottom of this class
-        readPerson(view)*/
 
         // set up toolbar icon and click event
         // choose items to show
@@ -63,13 +56,10 @@ class AccountFragment : Fragment() {
         toolbar_account.setOnMenuItemClickListener{
             when (it.itemId) {
                 R.id.action_add -> {
-
                     // hide nav bottom bar
                     (activity as MainActivity).setNavBottomBarVisibility(View.GONE)
-
                     // navigate to add record screen
                     view.findNavController().navigate(R.id.navigation_add_account)
-
                     true
                 }
 
@@ -79,40 +69,17 @@ class AccountFragment : Fragment() {
 
     }
 
-    override fun onDestroyView() {
+    override fun onResume() {
+        super.onResume()
+
+        // Show bottom bar
+        (activity as MainActivity).setNavBottomBarVisibility(View.VISIBLE)
+    }
+
+        override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
-  /*  private fun readPerson(view: View) {
 
-        val accountArr = ArrayList<Person>()
-
-        Thread {
-            val allRecord = accountViewModel.readData(this.activity) as List<Person>
-            this.activity?.runOnUiThread {
-                // for(int i = 0; i < allRecord.size; i++) {
-                for (i in allRecord.indices) {
-                    //personArr.add("Id: " + allRecord.get(i).ID + " Name: " + allRecord.get(i).Name)
-                    accountArr.add(Person( allRecord[i].Person_ID , allRecord[i].Person_Name))
-
-
-                    //val arrayAdapter = ArrayAdapter(
-                    //    view.context,
-                     //   android.R.layout.simple_list_item_1,
-                     //   accountArr
-                    //)
-                    //binding.listView.adapter = arrayAdapter
-                }
-
-                val linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
-
-           *//*     // specify the layout manager for recycler view
-                recyclerView.layoutManager = linearLayoutManager
-
-                // finally, data bind the recycler view with adapter
-                recyclerView.adapter = AccountListAdapter(accountArr)*//*
-            }
-        }.start()
-    }*/
 }

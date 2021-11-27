@@ -9,7 +9,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.MainActivity
 import com.example.ngiu.R
+import com.example.ngiu.databinding.FragmentAccountBinding
 import com.example.ngiu.databinding.FragmentAddAccountBinding
+import com.example.ngiu.ui.account.AccountViewModel
 import kotlinx.android.synthetic.main.fragment_activity.*
 import kotlinx.android.synthetic.main.fragment_activity.toolbar_activity
 import kotlinx.android.synthetic.main.fragment_add_account.*
@@ -19,21 +21,20 @@ class AddAccountFragment : Fragment() {
     private var _binding: FragmentAddAccountBinding? = null
     private val binding get() = _binding!!
 
-    lateinit var addAccountAdapter : AddAccountAdapter
+    private lateinit var addAccountAdapter : AddAccountAdapter
 
-    private val viewModel: AddAccountViewModel by lazy {
-        ViewModelProvider(this).get(AddAccountViewModel::class.java)
-    }
+    private lateinit var addAccountViewModel: AddAccountViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return FragmentAddAccountBinding.inflate(inflater, container, false).run {
-            _binding = this
-            root
-        }
+    ): View {
+        addAccountViewModel = ViewModelProvider(this).get(AddAccountViewModel::class.java)
+
+        _binding = FragmentAddAccountBinding.inflate(inflater, container, false)
+
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -46,7 +47,7 @@ class AddAccountFragment : Fragment() {
             adapter = addAccountAdapter
         }
 
-        viewModel.state.observe(viewLifecycleOwner) {
+        addAccountViewModel.state.observe(viewLifecycleOwner) {
             addAccountAdapter.submitList(it)
         }
 
@@ -59,7 +60,7 @@ class AddAccountFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.onAction(AddAccountViewModel.Action.Load(requireContext()))
+        addAccountViewModel.onAction(AddAccountViewModel.Action.Load(requireContext()))
     }
 
 

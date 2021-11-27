@@ -6,44 +6,46 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.Account
 import com.example.ngiu.data.entities.Currency
-import com.example.ngiu.databinding.FragmentAddDebitBinding
-import com.example.ngiu.databinding.FragmentAddPermanentAssetBinding
 import com.example.ngiu.databinding.FragmentAddVirtualAccountBinding
 import com.example.ngiu.functions.addDecimalLimiter
 import com.google.android.material.textfield.TextInputEditText
+import kotlinx.android.synthetic.main.fragment_add_virtual_account.*
 import kotlinx.android.synthetic.main.popup_title.view.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+
 
 
 class AddVirtualAccountFragment : Fragment() {
 
     private var _binding: FragmentAddVirtualAccountBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var addVirtualAccountViewModel: AddVirtualAccountViewModel
     var currency = "USD"
-    private val viewModel: AddVirtualAccountViewModel by lazy {
-        ViewModelProvider(this).get(AddVirtualAccountViewModel::class.java)
-    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return FragmentAddVirtualAccountBinding.inflate(inflater, container, false).run {
-            _binding = this
-            root
-        }
+    ): View {
+        addVirtualAccountViewModel = ViewModelProvider(this).get(AddVirtualAccountViewModel::class.java)
+        _binding = FragmentAddVirtualAccountBinding.inflate(inflater, container, false)
+
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initListeners()
         getView()?.findViewById<TextInputEditText?>(R.id.tetVirtualBalance)?.addDecimalLimiter()
+
+        toolbarAddVirtualAccount.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
     override fun onResume() {
@@ -62,7 +64,7 @@ class AddVirtualAccountFragment : Fragment() {
 
         binding.btnVirtualAddOtherCurrency.setOnClickListener {
 
-            val array : List<Currency> = viewModel.getCurrency(requireActivity())
+            val array : List<Currency> = addVirtualAccountViewModel.getCurrency(requireActivity())
 
             val arrayList: ArrayList<String> = ArrayList()
 
@@ -85,8 +87,8 @@ class AddVirtualAccountFragment : Fragment() {
 
             // Set items form alert dialog
             builder.setItems(cs) { _, which ->
-                currency = arrayList.get(which)
-                binding.virtualBalanceTextLayout.setSuffixText(currency)
+                currency = arrayList[which]
+                binding.virtualBalanceTextLayout.suffixText = currency
 
             }
 
@@ -111,9 +113,9 @@ class AddVirtualAccountFragment : Fragment() {
             Account_Name =  accountName, Account_CardNumber = userID ,Account_Balance =  balance.toDouble(),
             Account_CountInNetAssets =  countInNetAsset, Account_Memo = memo, AccountType_ID = accountTypeID, Currency_ID = currency)
 
-        GlobalScope.launch{
-            viewModel.insertVirtualAccount(requireActivity(), cashAccount)
-        }
+
+        addVirtualAccountViewModel.insertVirtualAccount(requireActivity(), cashAccount)
+
 
     }
 
