@@ -43,7 +43,7 @@ class MainCategoryAdapter(
 
     //@SuppressLint("ResourceAsColor")
     @SuppressLint("SetTextI18n")
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, @SuppressLint("RecyclerView") position: Int) {
         // display the custom class
         mainCategory[position].apply {
 

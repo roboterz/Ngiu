@@ -141,7 +141,7 @@ class ActivityFragment : Fragment() {
         //(activity as MainActivity).setNavBottomBarVisibility(View.GONE)
 
         //parentFragmentManager.setFragmentResult("requestKey", bundleOf("bundleKey" to transactionList[position].Transaction_ID))
-        if (transID >0) setFragmentResult("requestKey", bundleOf("rID" to transID))
+        if (transID >0) setFragmentResult("record_edit_mode", bundleOf("rID" to transID))
         // switch to record fragment
         findNavController().navigate(R.id.navigation_record)
     }

@@ -4,7 +4,6 @@ package com.example.ngiu.data
 import androidx.room.*
 import com.example.ngiu.data.entities.*
 import androidx.room.Transaction
-import com.example.ngiu.data.entities.returntype.RecordSubCategory
 import com.example.ngiu.data.entities.returntype.TransactionDetail
 import io.reactivex.Maybe
 
@@ -86,6 +85,9 @@ interface PersonDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
     fun addPerson(person: Person):Long
 
+    @Update
+    fun updatePerson(vararg person: Person)
+
     @Delete
     fun deletePerson(person: Person)
 
@@ -108,6 +110,9 @@ interface MerchantDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
     fun addMerchant(merchant: Merchant)
 
+    @Update
+    fun updateMerchant(vararg merchant: Merchant)
+
     @Delete
     fun deleteMerchant(merchant: Merchant)
 
@@ -127,6 +132,9 @@ interface PeriodDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
     fun addPeriodTrans(period: Period)
 
+    @Update
+    fun updatePeriod(vararg period: Period)
+
     @Delete
     fun deletePeriod(period: Period)
 
@@ -145,6 +153,9 @@ interface ProjectDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
     fun addProject(project: Project)
 
+    @Update
+    fun updateProject(vararg project: Project)
+
     @Delete
     fun deleteProject(project: Project)
 
@@ -162,19 +173,22 @@ interface ProjectDao {
 @Dao
 interface MainCategoryDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
-    fun addMC(mainCategory: MainCategory)
+    fun addMainCategory(mainCategory: MainCategory)
+
+    @Update
+    fun updateMainCategory(vararg mainCategory: MainCategory)
 
     @Delete
-    fun deleteMC(mainCategory: MainCategory)
+    fun deleteMainCategory(mainCategory: MainCategory)
 
     // get a record BY ID
     @Transaction
     @Query("SELECT * FROM MainCategory WHERE MainCategory_ID = :rID")
-    fun getRecordByID(rID:Long): MainCategory
+    fun getMainCategoryByID(rID:Long): MainCategory
 
     @Transaction
     @Query("SELECT * FROM MainCategory WHERE TransactionType_ID = :tID")
-    fun getMainCategoryByTransactionType(tID: Long): List<MainCategory>
+    fun getMainCategoryByTransactionType(tID: Long): MutableList<MainCategory>
 
     @Transaction
     @Query("SELECT * FROM MainCategory")
@@ -184,17 +198,20 @@ interface MainCategoryDao {
 // Sub_Categories
 @Dao
 interface SubCategoryDao {
-    @Insert(onConflict = OnConflictStrategy.ABORT)
-    fun addSubCat(subcategory: SubCategory)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun addSubCategory(subcategory: SubCategory)
+
+    @Update
+    fun updateSubCategory(vararg subCategory: SubCategory)
 
     @Delete
-    fun deleteSubCat(subcategory: SubCategory)
+    fun deleteSubCategory(subcategory: SubCategory)
 
 
     // get a record BY ID
     @Transaction
     @Query("SELECT * FROM SubCategory WHERE SubCategory_ID = :rID")
-    fun getRecordByID(rID:Long): SubCategory
+    fun getSubCategoryByID(rID:Long): SubCategory
 
 
 
@@ -205,9 +222,20 @@ interface SubCategoryDao {
         WHERE SubCategory.MainCategory_ID = MainCategory.MainCategory_ID
             AND MainCategory.TransactionType_ID = TransactionType.TransactionType_ID
             AND MainCategory.TransactionType_ID = :tID
-            AND SubCategory_Common= 0
+            AND SubCategory_Common= 1
     """)
     fun getCommonCategoryByTransactionType(tID: Long): List<SubCategory>
+
+    @Transaction
+    @Query("""
+        SELECT SubCategory_ID, SubCategory.MainCategory_ID, SubCategory_Name, SubCategory_Common
+        FROM SubCategory, MainCategory, TransactionType
+        WHERE SubCategory.MainCategory_ID = MainCategory.MainCategory_ID
+            AND MainCategory.TransactionType_ID = TransactionType.TransactionType_ID
+            AND MainCategory.TransactionType_ID = :tID
+        LIMIT 1
+    """)
+    fun getSubCategoryByTransactionType(tID: Long): SubCategory
 
     @Transaction
     @Query("""

@@ -33,13 +33,22 @@ class SettingFragment : Fragment() {
 
 
         //todo on click to the next screen
-        val textView: TextView = binding.tvExpense
+        val textView: TextView = binding.tvSettingExpense
         textView.setOnClickListener {
 
         }
      //   findNavController().navigate(R.id.action_navigation_add_account_to_blankFragment)
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.tvSettingExpense.setOnClickListener {
+            // switch to category manage fragment
+            findNavController().navigate(R.id.navigation_category_manage)
+        }
     }
 
     override fun onDestroy() {

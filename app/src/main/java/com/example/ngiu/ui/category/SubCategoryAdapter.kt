@@ -28,8 +28,9 @@ class SubCategoryAdapter(
 
     // interface for passing the onClick event to fragment.
     interface OnClickListener {
-        fun onItemClick(transID: Long)
-        fun onStarClick(transID: Long)
+        fun onItemClick(rID: Long, subCategoryName: String)
+        fun onItemLongClick(rID: Long)
+        fun onStarClick(rID: Long, commonValue: Boolean)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -49,11 +50,20 @@ class SubCategoryAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         // display the custom class
         subCategory[position].apply {
+            // load data
             holder.subCategoryName.text = SubCategory_Name
+
+            if (SubCategory_Common) holder.star.setImageDrawable(holder.drawableStar)
+            else holder.star.setImageDrawable(holder.drawableStarBorder)
+
 
 
             holder.subCategoryName.setOnClickListener {
-                onClickListener.onItemClick(SubCategory_ID)
+                onClickListener.onItemClick(SubCategory_ID, SubCategory_Name)
+            }
+            holder.subCategoryName.setOnLongClickListener {
+                onClickListener.onItemLongClick(SubCategory_ID)
+                true
             }
 
             holder.star.setOnClickListener {
@@ -65,6 +75,7 @@ class SubCategoryAdapter(
                     SubCategory_Common = true
                     holder.star.setImageDrawable(holder.drawableStar)
                 }
+                onClickListener.onStarClick(SubCategory_ID, SubCategory_Common)
             }
 
         }
