@@ -17,7 +17,9 @@ import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.core.content.ContextCompat
 import androidx.core.content.contentValuesOf
+import androidx.core.os.bundleOf
 import androidx.core.view.forEach
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.*
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -48,6 +50,7 @@ class RecordFragment : Fragment() {
     private var _binding: FragmentRecordBinding? = null
     private var vpAdapter: RecordCategoryAdapter? = null
     private var receivedID: Long = 0
+    private var receivedString: String = ""
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -60,7 +63,7 @@ class RecordFragment : Fragment() {
 
         // Pass value from other fragment
         // --implementation "androidx.fragment:fragment-ktx:1.3.6"
-        setFragmentResultListener("requestKey") { _, bundle ->
+        setFragmentResultListener("record_edit_mode") { _, bundle ->
             receivedID = bundle.getLong("rID")
 
 
@@ -71,10 +74,12 @@ class RecordFragment : Fragment() {
                 tv_record_left_button.text = getText(R.string.menu_delete)
 
                 recordViewModel.loadTransactionDetail(activity, receivedID)
-
             }
+        }
 
-
+        // get string from category manage
+        setFragmentResultListener("selected_category") { _, bundle ->
+            receivedString = bundle.getString("subCategory_Name").toString()
         }
 
 
@@ -161,7 +166,7 @@ class RecordFragment : Fragment() {
 
         // choose items to show
         toolbar_record.menu.findItem(R.id.action_done).isVisible = true
-        //toolbar_record.title = "sadfdafdfa"
+
 
 
         // click the navigation Icon in the left side of toolbar
@@ -268,7 +273,7 @@ class RecordFragment : Fragment() {
                 })
         }
 
-        // Merchat
+        // Merchant
         tv_record_merchant.setOnClickListener {
             val tList: MutableList<String> = ArrayList<String>()
             for (merchant in recordViewModel.merchant){
@@ -314,17 +319,23 @@ class RecordFragment : Fragment() {
             // hide nav bottom bar
             //(activity as MainActivity).setNavBottomBarVisibility(View.GONE)
 
-            //parentFragmentManager.setFragmentResult("requestKey", bundleOf("bundleKey" to transactionList[position].Transaction_ID))
-            //if (transID >0) setFragmentResult("requestKey", bundleOf("rID" to transID))
+            //
+            setFragmentResult("category_choose_mode", bundleOf("subCategory_Name" to tv_record_category.text.toString()))
 
             // switch to category manage fragment
             findNavController().navigate(R.id.navigation_category_manage)
+        }
+
+        tv_record_category.doAfterTextChanged {
+            receivedString = ""
         }
 
         // category
         tv_record_category.setOnClickListener {
             // hide nav bottom bar
             //(activity as MainActivity).setNavBottomBarVisibility(View.GONE)
+            //
+            setFragmentResult("category_choose_mode", bundleOf("subCategory_Name" to tv_record_category.text.toString()))
 
             // switch to category manage fragment
             findNavController().navigate(R.id.navigation_category_manage)
@@ -378,6 +389,8 @@ class RecordFragment : Fragment() {
 
         // load data to UI textview
         loadUIData(receivedID)
+
+
     }
 
 
@@ -393,7 +406,7 @@ class RecordFragment : Fragment() {
 
 
 
-    //------------------------------------------Privete Functions--------------------------------------------------
+    //------------------------------------------Private Functions--------------------------------------------------
 
     @SuppressLint("SetTextI18n")
     private fun loadUIData(transactionID: Long){
@@ -462,7 +475,7 @@ class RecordFragment : Fragment() {
             val trans = Trans(
                 Transaction_ID = transactionID,
                 TransactionType_ID = recordViewModel.currentTransactionType.currentTyID.toLong(),
-                SubCategory_ID = recordViewModel.subCategory[recordViewModel.subCategory.indexOfFirst { it.SubCategory_Name == tv_record_category.text }].SubCategory_ID,
+                SubCategory_ID = recordViewModel.subCategory[recordViewModel.subCategory.indexOfFirst { it.SubCategory_Name == tv_record_category.text.toString() }].SubCategory_ID,
                 Account_ID = recordViewModel.account[recordViewModel.account.indexOfFirst{it.Account_Name == tv_record_account_pay.text}].Account_ID,
                 AccountRecipient_ID = if (tv_record_account_receive.text !="") recordViewModel.account[recordViewModel.account.indexOfFirst{it.Account_Name == tv_record_account_receive.text}].Account_ID else 1L,
                 Transaction_Amount = tv_record_amount.text.toString().toDouble(),
@@ -491,7 +504,7 @@ class RecordFragment : Fragment() {
 
         val dialogBuilder = AlertDialog.Builder(activity)
 
-        dialogBuilder.setMessage(getText(R.string.msg_content_delete))
+        dialogBuilder.setMessage(getText(R.string.msg_content_transaction_delete))
             .setCancelable(true)
             .setPositiveButton(getText(R.string.msg_button_confirm),DialogInterface.OnClickListener{ _,_->
                 // delete record
@@ -521,16 +534,7 @@ class RecordFragment : Fragment() {
     private fun loadCommonCategory( tyID: Int, categoryString: String = "") {
         Thread {
             activity?.runOnUiThread {
-                /*
-                val cmCategory = ArrayList<RecordSubCategory>()
 
-                for (i in recordViewModel.subCategory.indices){
-                    if (recordViewModel.subCategory[i].TransactionType_ID.toInt() == tyID){
-                        cmCategory.add(recordViewModel.subCategory[i])
-                    }
-                }
-
-                 */
                 val cmCategory = when (tyID){
                     1 -> recordViewModel.expenseCommonCategory
                     2 -> recordViewModel.incomeCommonCategory
@@ -605,7 +609,11 @@ class RecordFragment : Fragment() {
             }
         }
 
-        tv_record_category.text = recordViewModel.getSubCategoryName()
+
+        if (receivedString.isNotEmpty()){
+            tv_record_category.text = receivedString
+        }
+        else tv_record_category.text = recordViewModel.getSubCategoryName()
 
     }
 

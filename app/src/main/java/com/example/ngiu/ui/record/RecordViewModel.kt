@@ -57,21 +57,29 @@ class RecordViewModel : ViewModel() {
     //
     fun loadDataToRam(activity: FragmentActivity?) {
         val database = AppDatabase.getDatabase(activity!!)
-        //subCategory = database.subcat().getAllSubCategory()
+        subCategory = database.subcat().getAllSubCategory()
         account = database.account().getAllAccount()
         expenseCommonCategory = database.subcat().getCommonCategoryByTransactionType(1L)
         incomeCommonCategory = database.subcat().getCommonCategoryByTransactionType(2L)
         transferCommonCategory = database.subcat().getCommonCategoryByTransactionType(3L)
         debitCreditCommonCategory = database.subcat().getCommonCategoryByTransactionType(4L)
 
-        subCategoryName.add(expenseCommonCategory[0].SubCategory_Name)
-        subCategoryName.add(incomeCommonCategory[0].SubCategory_Name)
-        subCategoryName.add(transferCommonCategory[0].SubCategory_Name)
-        subCategoryName.add(debitCreditCommonCategory[0].SubCategory_Name)
-
         person = database.person().getAllPerson()
         merchant = database.merchant().getAllMerchant()
         project = database.project().getAllProject()
+
+        // default sub category name
+
+        val expenseCategory = database.subcat().getSubCategoryByTransactionType(1L)
+        val incomeCategory = database.subcat().getSubCategoryByTransactionType(2L)
+        val transferCategory = database.subcat().getSubCategoryByTransactionType(3L)
+        val debitCreditCategory = database.subcat().getSubCategoryByTransactionType(4L)
+
+        subCategoryName.add(expenseCategory.SubCategory_Name)
+        subCategoryName.add(incomeCategory.SubCategory_Name)
+        subCategoryName.add(transferCategory.SubCategory_Name)
+        subCategoryName.add(debitCreditCategory.SubCategory_Name)
+
     }
 
     //fun getOneSubCategory(activity: FragmentActivity?, rID: Long): SubCategory {

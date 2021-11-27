@@ -11,6 +11,8 @@ data class AccountType (
     //@ColumnInfo(name = "ID")
     val AccountType_ID: Long = 0,
     //@ColumnInfo(name = "Acct_Type_Name")
+    @ColumnInfo(defaultValue = "")
     val AccountType_Name: String = "",
+    @ColumnInfo(defaultValue = "")
     val AccountType_Memo: String = ""
 )

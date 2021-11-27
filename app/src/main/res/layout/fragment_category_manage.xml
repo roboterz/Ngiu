@@ -49,13 +49,15 @@
              tools:ignore="MissingConstraints" />
 
          <TextView
-             android:layout_width="0dp"
+             android:id="@+id/tv_main_category_add"
+             android:layout_width="match_parent"
              android:layout_height="wrap_content"
-             android:layout_marginTop="5dp"
-             android:paddingStart="10dp"
-             android:paddingHorizontal="15dp"
-             android:text="+ Add"
+             android:layout_marginTop="10dp"
+             android:padding="10dp"
+             android:text="@string/menu_add_cate"
              android:textSize="18sp"
+             android:background="?android:attr/selectableItemBackground"
+             android:clickable="true"
              app:layout_constraintTop_toBottomOf="@id/recyclerview_category_main"
              tools:ignore="MissingConstraints" />
      </androidx.constraintlayout.widget.ConstraintLayout>
@@ -76,14 +78,19 @@
              tools:ignore="MissingConstraints" />
 
          <TextView
-             android:text="+ Add"
-             android:layout_width="0dp"
+             android:id="@+id/tv_sub_category_add"
+             android:layout_width="match_parent"
              android:layout_height="wrap_content"
-             android:layout_marginTop="5dp"
+             android:layout_marginTop="8dp"
+             android:background="?android:attr/selectableItemBackground"
+             android:clickable="true"
              android:padding="10dp"
+             android:visibility="gone"
+             android:text="@string/menu_add_cate"
              android:textSize="16sp"
              app:layout_constraintTop_toBottomOf="@id/recyclerview_category_sub"
-             tools:ignore="MissingConstraints" />
+             tools:ignore="MissingConstraints"
+             tools:layout_editor_absoluteX="0dp" />
      </androidx.constraintlayout.widget.ConstraintLayout>
 
 

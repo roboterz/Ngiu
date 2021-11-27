@@ -26,7 +26,7 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/tv_categories"
+            android:id="@+id/tv_setting_categories"
             android:text="@string/setting_section_categories"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -35,7 +35,7 @@
             android:padding="8dp"/>
 
         <TextView
-            android:id="@+id/tv_expense"
+            android:id="@+id/tv_setting_expense"
             android:text="@string/setting_Expense"
             android:padding="12dp"
             android:background="@color/app_section_background"
@@ -46,7 +46,7 @@
             android:textSize="15sp"
             app:drawableRightCompat="@drawable/ic_baseline_keyboard_arrow_right_24" />
         <TextView
-            android:id="@+id/tv_income"
+            android:id="@+id/tv_setting_income"
             android:text="@string/setting_income"
             android:padding="12dp"
             android:background="@color/app_section_background"
@@ -56,7 +56,7 @@
             android:textColor="@color/app_option_text"
             app:drawableRightCompat="@drawable/ic_baseline_keyboard_arrow_right_24" />
         <TextView
-            android:id="@+id/tv_merchant"
+            android:id="@+id/tv_setting_merchant"
             android:text="@string/setting_merchant"
             android:padding="12dp"
             android:background="@color/app_section_background"
@@ -66,7 +66,7 @@
             android:textColor="@color/app_option_text"
             app:drawableRightCompat="@drawable/ic_baseline_keyboard_arrow_right_24" />
         <TextView
-            android:id="@+id/tv_person"
+            android:id="@+id/tv_setting_person"
             android:text="@string/setting_person"
             android:padding="12dp"
             android:background="@color/app_section_background"
@@ -76,7 +76,7 @@
             android:textColor="@color/app_option_text"
             app:drawableRightCompat="@drawable/ic_baseline_keyboard_arrow_right_24" />
         <TextView
-            android:id="@+id/tv_project"
+            android:id="@+id/tv_setting_project"
             android:text="@string/setting_project"
             android:padding="12dp"
             android:background="@color/app_section_background"
@@ -87,7 +87,7 @@
             app:drawableRightCompat="@drawable/ic_baseline_keyboard_arrow_right_24" />
 
         <TextView
-            android:id="@+id/tv_advanced"
+            android:id="@+id/tv_setting_advanced"
             android:text="@string/setting_section_advanced"
             android:padding="8dp"
             android:layout_width="match_parent"
@@ -102,7 +102,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
-                android:id="@+id/tv_basecurr"
+                android:id="@+id/tv_setting_basecurr"
                 android:text="@string/setting_base_currency"
                 android:layout_weight="1"
                 android:padding="12dp"
@@ -113,7 +113,7 @@
                 android:textColor="@color/app_option_text"/>
 
             <TextView
-                android:id="@+id/tv_currency"
+                android:id="@+id/tv_setting_currency"
                 android:layout_weight="1"
                 android:text="US Dollar(USD)"
                 android:padding="12dp"
@@ -128,7 +128,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/tv_language"
+            android:id="@+id/tv_setting_language"
             android:text="@string/setting_language"
             android:padding="12dp"
             android:background="@color/app_section_background"
@@ -145,7 +145,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
-                android:id="@+id/tv_reimbstat"
+                android:id="@+id/tv_setting_reimbstat"
                 android:text="@string/setting_reimburse"
                 android:layout_weight="1"
                 android:padding="12dp"
@@ -168,7 +168,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
-                android:id="@+id/tv_alphabet"
+                android:id="@+id/tv_setting_alphabet"
                 android:text="@string/setting_sort"
                 android:layout_weight="1"
                 android:padding="12dp"
@@ -190,7 +190,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/tv_about"
+            android:id="@+id/tv_setting_about"
             android:text="@string/setting_about_app"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -198,7 +198,7 @@
             android:textColor="@color/app_option_text"/>
 
         <TextView
-            android:id="@+id/tv_ngiu"
+            android:id="@+id/tv_setting_ngiu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/app_section_background"

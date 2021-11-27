@@ -9,8 +9,8 @@ import androidx.room.PrimaryKey
 data class Currency(
     @PrimaryKey()
     //@ColumnInfo(name = "ID")
-    val Currency_ID: String = "",
+    val Currency_ID: String,
     //@ColumnInfo(name = "Name")
-    val Currency_Name: String = "",
-    val Currency_ExchangeRate: Double = 0.00
+    val Currency_Name: String,
+    val Currency_ExchangeRate: Double
 )
