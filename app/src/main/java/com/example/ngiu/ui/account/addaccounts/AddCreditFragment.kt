@@ -11,15 +11,15 @@ import androidx.navigation.fragment.findNavController
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.Account
 import com.example.ngiu.data.entities.Currency
-import com.example.ngiu.databinding.FragmentAddCreditBinding
+import com.example.ngiu.databinding.FragmentAccountAddCreditBinding
 import com.example.ngiu.functions.addDecimalLimiter
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.popup_title.view.*
 import com.example.ngiu.functions.getDayOfMonthSuffix
-import kotlinx.android.synthetic.main.fragment_add_credit.*
+import kotlinx.android.synthetic.main.fragment_account_add_credit.*
 
 class AddCreditFragment : Fragment() {
-    private var _binding: FragmentAddCreditBinding? = null
+    private var _binding: FragmentAccountAddCreditBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var addCreditViewModel: AddCreditViewModel
@@ -34,7 +34,7 @@ class AddCreditFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         addCreditViewModel = ViewModelProvider(this).get(AddCreditViewModel::class.java)
-        _binding = FragmentAddCreditBinding.inflate(inflater, container, false)
+        _binding = FragmentAccountAddCreditBinding.inflate(inflater, container, false)
 
 
         return binding.root
@@ -222,16 +222,17 @@ class AddCreditFragment : Fragment() {
 
     private fun submitForm() {
         binding.creditAccountNameTextLayout.helperText = validAccountName()
-        binding.creditCurrentArrearsLayout.helperText = validBalance()
+        binding.creditCardNumberTextLayout.helperText = validCard()
 
 
         val validAccountName = binding.creditAccountNameTextLayout.helperText == null
-        val validBalance = binding.creditCurrentArrearsLayout.helperText == null
+        val validCard = binding.creditCardNumberTextLayout.helperText == null
 
 
-        if (validAccountName && validBalance ) {
+        if (validAccountName && validCard ) {
             insertData()
-            requireActivity().onBackPressed()
+            findNavController().navigate(R.id.navigation_account)
+
         }
         else
             invalidForm()
@@ -242,8 +243,8 @@ class AddCreditFragment : Fragment() {
         if(binding.creditAccountNameTextLayout.helperText != null) {
             message += "\nAccountName: " + binding.creditAccountNameTextLayout.helperText
         }
-        if(binding.creditCurrentArrearsLayout.helperText != null) {
-            message += "\n\nBalance: " + binding.creditCurrentArrearsLayout.helperText
+        if(binding.creditCardNumberTextLayout.helperText != null) {
+            message += "\n\nCredit Card: " + binding.creditCardNumberTextLayout.helperText
         }
 
 
@@ -265,10 +266,10 @@ class AddCreditFragment : Fragment() {
         return null
     }
 
-    private fun validBalance(): String? {
-        val currentArrears = binding.tetCreditArrears.text.toString()
-        if(currentArrears.length < 0) {
-            return "Invalid Balance Entry."
+    private fun validCard(): String? {
+        val cardNumber = binding.tetCreditCardNumber.text.toString()
+        if(cardNumber.length < 4) {
+            return "Enter at least four digits credit Card number."
         }
         return null
     }

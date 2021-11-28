@@ -1,10 +1,10 @@
 package com.example.ngiu.ui.account
 
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -12,12 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.MainActivity
 import com.example.ngiu.R
-import com.example.ngiu.data.entities.Person
 import com.example.ngiu.databinding.FragmentAccountBinding
-import com.example.ngiu.functions.AccountListAdapter
-import kotlinx.android.synthetic.main.fragment_account.*
 import kotlinx.android.synthetic.main.fragment_account.toolbar_account
-import kotlinx.android.synthetic.main.fragment_activity.*
+
+
 
 class AccountFragment : Fragment() {
 
@@ -28,6 +26,10 @@ class AccountFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+    private var rvAccount: RecyclerView? = null
+    private var adapter = AccountSectionAdapter()
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,14 +40,23 @@ class AccountFragment : Fragment() {
             ViewModelProvider(this).get(AccountViewModel::class.java)
 
         _binding = FragmentAccountBinding.inflate(inflater, container, false)
+        rvAccount = binding.root.findViewById(R.id.rvAccount)
 
-
-      return binding.root
+        return binding.root
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+
+        accountViewModel.getAccountSectionUiModal(requireContext())
+        rvAccount?.layoutManager = LinearLayoutManager(context)
+        rvAccount?.adapter = adapter
+        accountViewModel.accountSections.observe(viewLifecycleOwner){
+            adapter.addItems(it)
+        }
 
 
         // set up toolbar icon and click event
@@ -76,7 +87,7 @@ class AccountFragment : Fragment() {
         (activity as MainActivity).setNavBottomBarVisibility(View.VISIBLE)
     }
 
-        override fun onDestroyView() {
+    override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }

@@ -11,6 +11,7 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
 import android.view.LayoutInflater
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ComplexColorCompat.inflate
@@ -21,6 +22,7 @@ import com.example.ngiu.R
 import com.example.ngiu.databinding.AccountDetailCardviewBinding.inflate
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.popup_title.view.*
+import java.util.*
 import kotlin.coroutines.coroutineContext
 
 
@@ -213,6 +215,38 @@ fun popupWindow(context: Context, titleText: String, arrayItem: Array<String>, s
     //builder.create().show()
 
 }
+
+
+fun toStatementDate(day: Int): String{
+    val date = Date()
+    val calendar = Calendar.getInstance()
+    calendar.time = date
+    if(calendar.get(Calendar.DAY_OF_MONTH)>day)
+        calendar.add(Calendar.MONTH, 1)
+    return "${calendar.get(Calendar.MONTH)+1}-$day"
+}
+
+fun toDayLeft(day: Int): String{
+    val date = Date()
+    val calendar = Calendar.getInstance()
+    calendar.time = date
+    val today = calendar.get(Calendar.DAY_OF_MONTH)
+    val dayOfYear = calendar.get(Calendar.DAY_OF_YEAR)
+    calendar.set(Calendar.DAY_OF_MONTH, day)
+    if(today>day){
+        calendar.add(Calendar.MONTH, 1)
+    }
+    return "${calendar.get(Calendar.DAY_OF_YEAR) - dayOfYear}"
+}
+
+
+fun changeColor(textView: TextView, amount: Double){
+    val context = textView.context
+    val color  = if(amount<0) R.color.app_expense_amount else R.color.app_income_amount
+    textView.setTextColor(ContextCompat.getColor(context, color))
+    textView.text = "%.2f".format(amount)
+}
+
 
 
 

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_view_transaction"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/app_section_background"
+    app:cardCornerRadius="0dp"
+    app:cardElevation="1dp"
+    app:cardMaxElevation="7dp"
+    android:layout_margin="4dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:background="@color/app_section_background">
+        <ImageView
+            android:id="@+id/ivCreditCardSymbol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_credit_card_24"
+            android:layout_marginLeft="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvCreditAccountName"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="8dp"
+            android:textColor="@color/app_text"
+            app:layout_constraintBottom_toBottomOf="@id/ivCreditCardSymbol"
+            app:layout_constraintStart_toEndOf="@+id/ivCreditCardSymbol"
+            app:layout_constraintTop_toTopOf="@id/ivCreditCardSymbol"
+            tools:text="Account Name" />
+
+
+        <TextView
+            android:id="@+id/tvCardNumber"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="8dp"
+            app:layout_constraintBottom_toBottomOf="@id/ivCreditCardSymbol"
+            app:layout_constraintStart_toEndOf="@+id/tvCreditAccountName"
+            app:layout_constraintTop_toTopOf="@id/ivCreditCardSymbol"
+            tools:text="2569" />
+
+        <TextView
+            android:id="@+id/tvCreditAccountBalance"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            app:layout_constraintHorizontal_bias="0.568"
+            app:layout_constraintStart_toStartOf="@+id/tvCreditAccountName"
+            app:layout_constraintTop_toBottomOf="@+id/tvCreditAccountName"
+            tools:text="-159.68" />
+
+        <TextView
+            android:id="@+id/tvNumberOfDays"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvCreditAccountBalance"
+            app:layout_constraintEnd_toStartOf="@+id/tvDaysLeft"
+            app:layout_constraintTop_toTopOf="@+id/tvCreditAccountBalance"
+            tools:text="10" />
+
+        <TextView
+            android:id="@+id/tvDaysLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/option_days_left"
+            app:layout_constraintBottom_toBottomOf="@+id/tvCreditAccountBalance"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvCreditAccountBalance" />
+
+        <TextView
+            android:id="@+id/tvCurrentBalance"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/option_account_current_balance"
+            app:layout_constraintStart_toStartOf="@+id/tvCreditAccountName"
+            app:layout_constraintTop_toBottomOf="@+id/tvCreditAccountBalance"
+            tools:text="Current Balance" />
+
+
+        <TextView
+            android:id="@+id/tvCreditPaymentDay"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="8dp"
+            android:text="@string/option_account_payment_due_date"
+            app:layout_constraintBottom_toBottomOf="@+id/tvCurrentBalance"
+            app:layout_constraintEnd_toStartOf="@+id/tvStatementOrPaymentDate"
+            app:layout_constraintTop_toTopOf="@+id/tvCurrentBalance"
+            />
+
+        <TextView
+            android:id="@+id/tvCreditStatementDay"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="8dp"
+            android:visibility="gone"
+            android:text="@string/option_account_statement_date"
+            app:layout_constraintBottom_toBottomOf="@+id/tvCurrentBalance"
+            app:layout_constraintEnd_toStartOf="@+id/tvStatementOrPaymentDate"
+            app:layout_constraintTop_toTopOf="@+id/tvCurrentBalance"
+            tools:text="Payment Due Date" />
+
+        <TextView
+            android:id="@+id/tvStatementOrPaymentDate"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+
+            app:layout_constraintBottom_toBottomOf="@+id/tvCurrentBalance"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvCurrentBalance"
+            tools:text="09-28" />
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

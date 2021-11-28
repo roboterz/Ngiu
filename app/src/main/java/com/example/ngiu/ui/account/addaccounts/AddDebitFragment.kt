@@ -11,16 +11,16 @@ import androidx.navigation.fragment.findNavController
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.Account
 import com.example.ngiu.data.entities.Currency
-import com.example.ngiu.databinding.FragmentAddDebitBinding
+import com.example.ngiu.databinding.FragmentAccountAddDebitBinding
 import com.example.ngiu.functions.addDecimalLimiter
 import com.google.android.material.textfield.TextInputEditText
-import kotlinx.android.synthetic.main.fragment_add_debit.*
+import kotlinx.android.synthetic.main.fragment_account_add_debit.*
 import kotlinx.android.synthetic.main.popup_title.view.*
 
 
 
 class AddDebitFragment : Fragment() {
-    private var _binding: FragmentAddDebitBinding? = null
+    private var _binding: FragmentAccountAddDebitBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var addDebitViewModel: AddDebitViewModel
@@ -33,7 +33,7 @@ class AddDebitFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         addDebitViewModel = ViewModelProvider(this).get(AddDebitViewModel::class.java)
-        _binding = FragmentAddDebitBinding.inflate(inflater, container, false)
+        _binding = FragmentAccountAddDebitBinding.inflate(inflater, container, false)
 
 
         return binding.root
@@ -130,7 +130,8 @@ class AddDebitFragment : Fragment() {
 
         if (validAccountName && validCardNumber ) {
             insertData()
-            requireActivity().onBackPressed()
+            findNavController().navigate(R.id.navigation_account)
+
         }
         else
             invalidForm()

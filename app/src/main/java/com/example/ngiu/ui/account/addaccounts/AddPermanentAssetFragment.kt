@@ -11,16 +11,16 @@ import androidx.navigation.fragment.findNavController
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.Account
 import com.example.ngiu.data.entities.Currency
-import com.example.ngiu.databinding.FragmentAddPermanentAssetBinding
+import com.example.ngiu.databinding.FragmentAccountAddPermanentAssetBinding
 import com.example.ngiu.functions.addDecimalLimiter
 import com.google.android.material.textfield.TextInputEditText
-import kotlinx.android.synthetic.main.fragment_add_permanent_asset.*
+import kotlinx.android.synthetic.main.fragment_account_add_permanent_asset.*
 import kotlinx.android.synthetic.main.popup_title.view.*
 
 
 class AddPermanentAssetFragment : Fragment() {
 
-    private var _binding: FragmentAddPermanentAssetBinding? = null
+    private var _binding: FragmentAccountAddPermanentAssetBinding? = null
     private val binding get() = _binding!!
     private lateinit var addPermanentAssetViewModel: AddPermanentAssetViewModel
     var currency = "USD"
@@ -31,7 +31,7 @@ class AddPermanentAssetFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         addPermanentAssetViewModel = ViewModelProvider(this).get(AddPermanentAssetViewModel::class.java)
-        _binding = FragmentAddPermanentAssetBinding.inflate(inflater, container, false)
+        _binding = FragmentAccountAddPermanentAssetBinding.inflate(inflater, container, false)
 
 
         return binding.root
@@ -124,7 +124,8 @@ class AddPermanentAssetFragment : Fragment() {
 
         if (validAccountName && validBalance ) {
             insertData()
-            requireActivity().onBackPressed()
+            findNavController().navigate(R.id.navigation_account)
+
         }
         else
             invalidForm()

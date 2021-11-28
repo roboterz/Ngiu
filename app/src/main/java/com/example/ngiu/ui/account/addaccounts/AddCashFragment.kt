@@ -11,16 +11,16 @@ import androidx.navigation.fragment.findNavController
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.Account
 import com.example.ngiu.data.entities.Currency
-import com.example.ngiu.databinding.FragmentAddCashBinding
+import com.example.ngiu.databinding.FragmentAccountAddCashBinding
 import com.example.ngiu.functions.addDecimalLimiter
 import com.google.android.material.textfield.TextInputEditText
-import kotlinx.android.synthetic.main.fragment_add_cash.*
+import kotlinx.android.synthetic.main.fragment_account_add_cash.*
 import kotlinx.android.synthetic.main.popup_title.view.*
 
 
 
 class AddCashFragment : Fragment() {
-    private var _binding: FragmentAddCashBinding? = null
+    private var _binding: FragmentAccountAddCashBinding? = null
     private val binding get() = _binding!!
     private lateinit var addCashViewModel: AddCashViewModel
 
@@ -33,7 +33,7 @@ class AddCashFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         addCashViewModel = ViewModelProvider(this).get(AddCashViewModel::class.java)
-        _binding = FragmentAddCashBinding.inflate(inflater, container, false)
+        _binding = FragmentAccountAddCashBinding.inflate(inflater, container, false)
 
 
 
@@ -130,7 +130,7 @@ class AddCashFragment : Fragment() {
 
         if (validAccountName && validBalance ) {
             insertData()
-            requireActivity().onBackPressed()
+            findNavController().navigate(R.id.navigation_account)
         }
         else
             invalidForm()

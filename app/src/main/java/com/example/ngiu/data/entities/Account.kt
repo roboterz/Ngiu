@@ -31,7 +31,7 @@ data class Account(
 
     // balance | current arrears | value
     @ColumnInfo(defaultValue = "0.00")
-    val Account_Balance: Double = 0.00,
+    var Account_Balance: Double = 0.00,
 
     @ColumnInfo(defaultValue = "true")
     val Account_CountInNetAssets: Boolean = true,
