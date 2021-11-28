@@ -1,21 +1,16 @@
 package com.example.ngiu.ui.category
 
 import android.app.AlertDialog
-import android.content.Context
 import android.content.DialogInterface
+import android.database.sqlite.SQLiteException
 import android.os.Bundle
-import android.text.InputFilter
-import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.ViewModelProvider
@@ -26,10 +21,8 @@ import com.example.ngiu.R
 import com.example.ngiu.data.AppDatabase
 import com.example.ngiu.data.entities.MainCategory
 import com.example.ngiu.data.entities.SubCategory
-import com.example.ngiu.data.entities.Trans
 import com.example.ngiu.databinding.FragmentCategoryManageBinding
 import kotlinx.android.synthetic.main.fragment_category_manage.*
-import kotlinx.android.synthetic.main.fragment_record.*
 import kotlinx.android.synthetic.main.fragment_record.toolbar_record
 import kotlinx.android.synthetic.main.popup_title.view.*
 
@@ -44,7 +37,7 @@ class CategoryManagerFragment: Fragment() {
     private var mainCategoryAdapter: MainCategoryAdapter? = null
     private var subCategoryAdapter: SubCategoryAdapter? = null
 
-    private var receivedString: String = ""
+    private var receiveID: Long = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,12 +45,14 @@ class CategoryManagerFragment: Fragment() {
         // hide bottom bar
         (activity as MainActivity).setNavBottomBarVisibility(View.GONE)
 
+        /*
         // do something before backPressed
         activity?.onBackPressedDispatcher?.addCallback(this, object: OnBackPressedCallback(true){
             override fun handleOnBackPressed() {
                 
                 //if (shouldInterceptBackPress()){
                     setFragmentResult("selected_category", bundleOf("subCategory_Name" to receivedString))
+                    setFragmentResult("selected_transaction_type", bundleOf("transaction_type" to categoryManagerViewModel.currentTransactionType))
                 //}else {
                     isEnabled = false
                     activity?.onBackPressed()
@@ -65,14 +60,19 @@ class CategoryManagerFragment: Fragment() {
             }
         })
 
-        // Pass value from other fragment
-        // --implementation "androidx.fragment:fragment-ktx:1.3.6"
-        setFragmentResultListener("category_choose_mode") { _, bundle ->
-            receivedString = bundle.getString("subCategory_Name").toString()
+         */
 
-            // show edit menu
-            if (receivedString.isNotEmpty()) toolbar_record.menu.findItem(R.id.action_edit).isVisible = false
+        // receive data from other fragment
+        setFragmentResultListener("category_transaction_type") { _, bundle ->
+
+            receiveID = bundle.getLong("transaction_type")
+
+            categoryManagerViewModel.currentTransactionType = receiveID
+            categoryManagerViewModel.loadMainCategory(requireContext(), receiveID)
+
+            if ( receiveID > 0) toolbar_record.menu.findItem(R.id.action_edit).isVisible = false
         }
+
 
 
         // Main Category Adapter
@@ -105,9 +105,9 @@ class CategoryManagerFragment: Fragment() {
                         override fun onItemClick(rID: Long, subCategoryName: String) {
 
                             // select mode
-                            if (receivedString.isNotEmpty()){
+                            if (receiveID > 0){
                                 // pass the string back to record fragment
-                                receivedString = subCategoryName
+                                setFragmentResult("selected_category", bundleOf("subCategory_Name" to subCategoryName))
                                 // exit
                                 requireActivity().onBackPressed()
 
@@ -120,7 +120,7 @@ class CategoryManagerFragment: Fragment() {
 
                         // long click: delete
                         override fun onItemLongClick(rID: Long) {
-                            if (receivedString.isEmpty()) {
+                            if (receiveID > 0) {
                                 // delete sub category
                                 deleteCategory(1, rID)
                             }
@@ -158,7 +158,7 @@ class CategoryManagerFragment: Fragment() {
 
 
         // load data
-        categoryManagerViewModel.loadDataToRam(requireContext(),1L)
+        categoryManagerViewModel.loadMainCategory(requireContext(),1L)
 
 
         return binding.root
@@ -176,7 +176,6 @@ class CategoryManagerFragment: Fragment() {
         // click the navigation Icon in the left side of toolbar
         toolbar_record.setNavigationOnClickListener(View.OnClickListener {
 
-            //setFragmentResult("selected_category", bundleOf("subCategory_Name" to receivedString))
             // call back button event to switch to previous fragment
             requireActivity().onBackPressed()
         })
@@ -233,6 +232,9 @@ class CategoryManagerFragment: Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+
+        //setFragmentResult("selected_category", bundleOf("subCategory_Name" to sendString))
+
         //(activity as MainActivity).setNavBottomBarVisibility(View.VISIBLE)
         _binding = null
     }
@@ -265,6 +267,9 @@ class CategoryManagerFragment: Fragment() {
         val editText = EditText(activity)
         val titleView = View.inflate(context, R.layout.popup_title, null)
 
+        editText.isSingleLine = true
+        //editText.imeOptions = EditorInfo.IME_ACTION_DONE
+
         when (type) {
             1, 3 -> {
                 editText.setText(string)
@@ -276,12 +281,9 @@ class CategoryManagerFragment: Fragment() {
         }
 
 
-        //alert.setMessage("Enter Your Message")
-
-
         alert.setView(editText)
             .setCustomTitle(titleView)
-            .setPositiveButton(getString(R.string.msg_button_confirm),
+            .setPositiveButton(R.string.msg_button_confirm,
                 DialogInterface.OnClickListener { dialog, whichButton -> //What ever you want to do with the value
 
                     when (type){
@@ -290,6 +292,8 @@ class CategoryManagerFragment: Fragment() {
                             mainCate.MainCategory_Name = editText.text.toString()
                             mainCate.TransactionType_ID = categoryManagerViewModel.mainCategory[0].TransactionType_ID
                             AppDatabase.getDatabase(requireContext()).mainCategory().addMainCategory(mainCate)
+                            // refresh
+                            refreshMainCategory()
                         }
                         1 -> {
                             val mainCate = categoryManagerViewModel.mainCategory[
@@ -297,25 +301,29 @@ class CategoryManagerFragment: Fragment() {
                             mainCate.TransactionType_ID = categoryManagerViewModel.mainCategory[0].TransactionType_ID
                             mainCate.MainCategory_Name = editText.text.toString()
                             AppDatabase.getDatabase(requireContext()).mainCategory().updateMainCategory(mainCate)
+                            // refresh
+                            refreshMainCategory()
                         }
                         2 -> {
                             val subCate = SubCategory()
                             subCate.MainCategory_ID = categoryManagerViewModel.currentActiveMainCategory
                             subCate.SubCategory_Name = editText.text.toString()
                             AppDatabase.getDatabase(requireContext()).subcat().addSubCategory(subCate)
+                            // refresh
+                            refreshSubCategory()
                         }
                         3 -> {
                             val subCate = categoryManagerViewModel.subCategory[
                                     categoryManagerViewModel.subCategory.indexOfFirst { it.SubCategory_ID == rID }]
                             subCate.SubCategory_Name = editText.text.toString()
                             AppDatabase.getDatabase(requireContext()).subcat().updateSubCategory(subCate)
+                            // refresh
+                            refreshSubCategory()
                         }
                     }
 
-                    // refresh
-                    refreshSubCategory()
                 })
-            .setNegativeButton(getString(R.string.msg_button_cancel),
+            .setNegativeButton(R.string.msg_button_cancel,
                 DialogInterface.OnClickListener { dialog, whichButton ->
                     // do nothing
                 })
@@ -335,11 +343,26 @@ class CategoryManagerFragment: Fragment() {
             .setPositiveButton(getText(R.string.msg_button_confirm),DialogInterface.OnClickListener{ _,_->
                 // delete record
                 when (type){
-                    0 -> AppDatabase.getDatabase(requireContext()).mainCategory().deleteMainCategory(MainCategory(rID))
-                    1 -> AppDatabase.getDatabase(requireContext()).subcat().deleteSubCategory(SubCategory(rID))
+                    0 -> {
+                        try {
+                            AppDatabase.getDatabase(requireContext()).mainCategory()
+                                .deleteMainCategory(MainCategory(rID))
+                        } catch (e: SQLiteException) {
+                            Toast.makeText(context, getString(R.string.msg_category_delete_error), Toast.LENGTH_SHORT).show()
+                        }
+                        refreshMainCategory()
+                    }
+                    1 -> {
+                        try {
+                            AppDatabase.getDatabase(requireContext()).subcat().deleteSubCategory(SubCategory(rID))
+                        } catch (e: SQLiteException) {
+                            Toast.makeText(context, getString(R.string.msg_category_delete_error), Toast.LENGTH_SHORT).show()
+                        }
+                        // refresh
+                        refreshSubCategory()
+                    }
                 }
-                // refresh
-                refreshSubCategory()
+
             })
             .setNegativeButton(getText(R.string.msg_button_cancel),DialogInterface.OnClickListener{ dialog, _ ->
                 // cancel
@@ -357,13 +380,20 @@ class CategoryManagerFragment: Fragment() {
         alert.show()
     }
 
-    // refresh
+    // refresh subCategory
     private fun refreshSubCategory(){
         subCategoryAdapter?.setList(
             categoryManagerViewModel.getSubCategory(
                 requireContext(),
                 categoryManagerViewModel.currentActiveMainCategory
             )
+        )
+    }
+    // refresh MainCategory
+    private fun refreshMainCategory(){
+        categoryManagerViewModel.loadMainCategory(requireContext(), categoryManagerViewModel.currentTransactionType)
+        mainCategoryAdapter?.setList(
+            categoryManagerViewModel.mainCategory
         )
     }
 }

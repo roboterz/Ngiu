@@ -172,7 +172,7 @@ interface ProjectDao {
 //Main Categories
 @Dao
 interface MainCategoryDao {
-    @Insert(onConflict = OnConflictStrategy.ABORT)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addMainCategory(mainCategory: MainCategory)
 
     @Update
@@ -233,9 +233,9 @@ interface SubCategoryDao {
         WHERE SubCategory.MainCategory_ID = MainCategory.MainCategory_ID
             AND MainCategory.TransactionType_ID = TransactionType.TransactionType_ID
             AND MainCategory.TransactionType_ID = :tID
-        LIMIT 1
+        LIMIT 2
     """)
-    fun getSubCategoryByTransactionType(tID: Long): SubCategory
+    fun getSubCategoryByTransactionType(tID: Long): List<SubCategory>
 
     @Transaction
     @Query("""

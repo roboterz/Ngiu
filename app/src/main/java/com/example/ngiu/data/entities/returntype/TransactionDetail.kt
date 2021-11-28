@@ -5,20 +5,20 @@ import com.example.ngiu.data.entities.DateTypeConverter
 import java.util.*
 
 data class TransactionDetail(
-    val Transaction_ID: Long,
-    val TransactionType_ID: Long,
-    val SubCategory_Name: String,
-    val Account_Name: String,
-    val AccountRecipient_Name: String,
-    val Transaction_Amount: Double,
+    var Transaction_ID: Long,
+    var TransactionType_ID: Long,
+    var SubCategory_Name: String,
+    var Account_Name: String,
+    var AccountRecipient_Name: String,
+    var Transaction_Amount: Double,
     @TypeConverters(DateTypeConverter::class)
-    val Transaction_Date: Date,
-    val Person_Name: String,
-    val Merchant_Name: String,
-    val Transaction_Memo: String,
-    val Project_Name: String,
+    var Transaction_Date: Date,
+    var Person_Name: String,
+    var Merchant_Name: String,
+    var Transaction_Memo: String,
+    var Project_Name: String,
     var Transaction_ReimburseStatus: Int,
-    val Period_ID: Long
+    var Period_ID: Long
 ){
     constructor() : this(
         0,

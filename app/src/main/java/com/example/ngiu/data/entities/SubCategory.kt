@@ -14,7 +14,7 @@ import androidx.room.*
 
 data class SubCategory (
     @PrimaryKey(autoGenerate = true)
-    val SubCategory_ID: Long = 0,
+    var SubCategory_ID: Long = 0,
     @ColumnInfo(defaultValue = "1")
     var MainCategory_ID: Long = 1,
     @ColumnInfo(defaultValue = "")

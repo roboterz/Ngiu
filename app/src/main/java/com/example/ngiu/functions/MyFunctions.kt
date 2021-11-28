@@ -20,6 +20,7 @@ import androidx.navigation.findNavController
 import com.example.ngiu.R
 import com.example.ngiu.databinding.AccountDetailCardviewBinding.inflate
 import com.google.android.material.textfield.TextInputEditText
+import kotlinx.android.synthetic.main.fragment_record.*
 import kotlinx.android.synthetic.main.popup_title.view.*
 import kotlin.coroutines.coroutineContext
 
@@ -182,6 +183,20 @@ fun getDayOfMonthSuffix(n: Int): String {
     }
 }
 
+
+// return amount as string with 2 decimal
+fun doubleToStringWithTwoDecimal(amount: Double): String{
+    var str = amount.toString()
+    //if (str.contains('.') && str.last() =='0'){
+    //    str += "0"
+    //}
+    when(str.length - str.lastIndexOf('.')){
+        2 -> str += "0"
+        3 -> {}
+        else ->str += ".00"
+    }
+    return str
+}
 
 
 

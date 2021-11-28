@@ -177,6 +177,7 @@
     <string name="msg_saved">Saved.</string>
     <string name="msg_new_category">New Category</string>
     <string name="msg_edit_category">Edit Category</string>
+    <string name="msg_category_delete_error">This category cannot be deleted because it is being referenced by other records.</string>
 
 
     <string name="account_name_value">Wallet</string>

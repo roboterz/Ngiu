@@ -1,18 +1,12 @@
 package com.example.ngiu.ui.category
 
 import android.content.Context
-import android.widget.Toast
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import com.example.ngiu.R
 import com.example.ngiu.data.AppDatabase
 import com.example.ngiu.data.entities.MainCategory
 import com.example.ngiu.data.entities.SubCategory
-import com.example.ngiu.data.entities.returntype.RecordSubCategory
-import com.example.ngiu.data.entities.returntype.TransactionDetail
-import com.example.ngiu.ui.activity.ActivityFragment
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.emptyFlow
+
 
 class CategoryManagerViewModel: ViewModel() {
 
@@ -24,13 +18,13 @@ class CategoryManagerViewModel: ViewModel() {
     var currentTransactionType: Long = 0L
 
 
-    fun loadDataToRam(context: Context ,categoryType: Long){
+    fun loadMainCategory(context: Context ,transactionType: Long){
 
         //commonCategory = AppDatabase.getDatabase(context).subcat().getCommonCategoryByTransactionType(categoryType)
 
-        mainCategory = AppDatabase.getDatabase(context).mainCategory().getMainCategoryByTransactionType(categoryType)
+        mainCategory = AppDatabase.getDatabase(context).mainCategory().getMainCategoryByTransactionType(transactionType)
 
-        mainCategory.add(0, MainCategory(0L, mainCategory[0].TransactionType_ID, context.getString(R.string.option_category_common)))
+        mainCategory.add(0, MainCategory(0L, transactionType, context.getString(R.string.option_category_common)))
 
         //subCategory = AppDatabase.getDatabase(context).subcat().getAllSubCategory()
     }
@@ -46,6 +40,11 @@ class CategoryManagerViewModel: ViewModel() {
 
         return subCategory
     }
+
+    fun addMainCategory(mCategory: MainCategory) {
+        mainCategory.add(mCategory)
+    }
+
 
 
 }
