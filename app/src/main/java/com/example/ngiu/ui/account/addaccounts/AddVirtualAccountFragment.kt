@@ -11,17 +11,17 @@ import androidx.navigation.fragment.findNavController
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.Account
 import com.example.ngiu.data.entities.Currency
-import com.example.ngiu.databinding.FragmentAddVirtualAccountBinding
+import com.example.ngiu.databinding.FragmentAccountAddVirtualAccountBinding
 import com.example.ngiu.functions.addDecimalLimiter
 import com.google.android.material.textfield.TextInputEditText
-import kotlinx.android.synthetic.main.fragment_add_virtual_account.*
+import kotlinx.android.synthetic.main.fragment_account_add_virtual_account.*
 import kotlinx.android.synthetic.main.popup_title.view.*
 
 
 
 class AddVirtualAccountFragment : Fragment() {
 
-    private var _binding: FragmentAddVirtualAccountBinding? = null
+    private var _binding: FragmentAccountAddVirtualAccountBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var addVirtualAccountViewModel: AddVirtualAccountViewModel
@@ -33,7 +33,7 @@ class AddVirtualAccountFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         addVirtualAccountViewModel = ViewModelProvider(this).get(AddVirtualAccountViewModel::class.java)
-        _binding = FragmentAddVirtualAccountBinding.inflate(inflater, container, false)
+        _binding = FragmentAccountAddVirtualAccountBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -128,7 +128,8 @@ class AddVirtualAccountFragment : Fragment() {
 
         if (validAccountName && validBalance ) {
             insertData()
-            requireActivity().onBackPressed()
+            findNavController().navigate(R.id.navigation_account)
+
         }
         else
             invalidForm()

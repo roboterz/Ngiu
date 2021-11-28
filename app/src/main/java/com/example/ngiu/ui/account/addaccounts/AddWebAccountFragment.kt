@@ -11,16 +11,16 @@ import androidx.navigation.fragment.findNavController
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.Account
 import com.example.ngiu.data.entities.Currency
-import com.example.ngiu.databinding.FragmentAddWebAccountBinding
+import com.example.ngiu.databinding.FragmentAccountAddWebAccountBinding
 import com.example.ngiu.functions.addDecimalLimiter
 import com.google.android.material.textfield.TextInputEditText
-import kotlinx.android.synthetic.main.fragment_add_web_account.*
+import kotlinx.android.synthetic.main.fragment_account_add_web_account.*
 import kotlinx.android.synthetic.main.popup_title.view.*
 
 
 
 class AddWebAccountFragment : Fragment() {
-    private var _binding: FragmentAddWebAccountBinding? = null
+    private var _binding: FragmentAccountAddWebAccountBinding? = null
     private val binding get() = _binding!!
     private lateinit var addWebAccountViewModel: AddWebAccountViewModel
     var currency = "USD"
@@ -32,7 +32,7 @@ class AddWebAccountFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         addWebAccountViewModel = ViewModelProvider(this).get(AddWebAccountViewModel::class.java)
-        _binding = FragmentAddWebAccountBinding.inflate(inflater, container, false)
+        _binding = FragmentAccountAddWebAccountBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -126,7 +126,8 @@ class AddWebAccountFragment : Fragment() {
 
         if (validAccountName && validBalance ) {
             insertData()
-            requireActivity().onBackPressed()
+            findNavController().navigate(R.id.navigation_account)
+
         }
         else
             invalidForm()

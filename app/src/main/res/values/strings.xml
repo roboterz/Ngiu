@@ -64,7 +64,7 @@
     <string name="record_section_income">Income</string>
     <string name="record_section_transfer">Transfer</string>
     <string name="record_section_debit_credit">Debit &amp; Credit</string>
-
+    <string name="option_days_left">Days Left</string>
     <string name="option_Interest">Interest</string>
     <string name="option_current_month_expense">Current Month Expense</string>
     <string name="option_current_month_income">Current Month Income</string>

@@ -7,18 +7,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.ngiu.MainActivity
 import com.example.ngiu.R
-import com.example.ngiu.databinding.FragmentAccountBinding
-import com.example.ngiu.databinding.FragmentAddAccountBinding
-import com.example.ngiu.ui.account.AccountViewModel
+import com.example.ngiu.databinding.FragmentAccountAddAccountBinding
 import kotlinx.android.synthetic.main.fragment_activity.*
-import kotlinx.android.synthetic.main.fragment_activity.toolbar_activity
-import kotlinx.android.synthetic.main.fragment_add_account.*
+import kotlinx.android.synthetic.main.fragment_account_add_account.*
 
 class AddAccountFragment : Fragment() {
 
-    private var _binding: FragmentAddAccountBinding? = null
+    private var _binding: FragmentAccountAddAccountBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var addAccountAdapter : AddAccountAdapter
@@ -32,7 +28,7 @@ class AddAccountFragment : Fragment() {
     ): View {
         addAccountViewModel = ViewModelProvider(this).get(AddAccountViewModel::class.java)
 
-        _binding = FragmentAddAccountBinding.inflate(inflater, container, false)
+        _binding = FragmentAccountAddAccountBinding.inflate(inflater, container, false)
 
         return binding.root
     }

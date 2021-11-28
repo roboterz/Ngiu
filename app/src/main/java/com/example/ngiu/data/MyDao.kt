@@ -61,6 +61,10 @@ interface AccountTypeDao{
     @Transaction
     @Query("SELECT * FROM AccountType")
     fun getAllAccountType(): Maybe<List<AccountType>>
+
+    @Transaction
+    @Query("SELECT * FROM AccountType")
+    fun getAllAccountTypes(): List<AccountType>
 }
 
 // Currency
@@ -283,6 +287,10 @@ interface TransDao {
     fun getRecordByID(rID:Long):Trans
 
     @Transaction
+    @Query("SELECT * FROM Trans WHERE Account_ID = :rID")
+    fun getRecordsByAcctID(rID:Long): List<Trans>
+
+    @Transaction
     @Query("""
         SELECT Transaction_ID, Trans.TransactionType_ID, SubCategory_Name, Account.Account_Name, AccountRecipient.Account_Name as AccountRecipient_Name, 
                 Transaction_Amount, Transaction_Date, Person_Name, Merchant_Name, Transaction_Memo, Project_Name, 
@@ -315,6 +323,16 @@ interface TransDao {
         ORDER BY Transaction_Date DESC
         """)
     fun getAllTrans(): List<TransactionDetail>
+
+
+    @Transaction
+    @Query("SELECT SUM(Transaction_Amount) as Transaction_Amount FROM Trans WHERE Account_ID = :rID")
+    fun getTotalSumA(rID: Long): Double
+
+    @Transaction
+    @Query("SELECT SUM(Transaction_Amount) as Transaction_Amount FROM Trans WHERE AccountRecipient_ID = :rID AND TransactionType_ID IN (3,4)")
+    fun getTotalSumB(rID: Long): Double
+
 
 }
 
