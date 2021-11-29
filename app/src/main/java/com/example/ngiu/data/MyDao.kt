@@ -228,7 +228,7 @@ interface SubCategoryDao {
             AND MainCategory.TransactionType_ID = :tID
             AND SubCategory_Common= 1
     """)
-    fun getCommonCategoryByTransactionType(tID: Long): List<SubCategory>
+    fun getCommonCategoryByTransactionType(tID: Long): MutableList<SubCategory>
 
     @Transaction
     @Query("""
@@ -247,7 +247,7 @@ interface SubCategoryDao {
         FROM SubCategory
         WHERE MainCategory_ID = :rID
     """)
-    fun getSubCategoryByMainCategoryID(rID: Long): List<SubCategory>
+    fun getSubCategoryByMainCategoryID(rID: Long): MutableList<SubCategory>
 
     /*
     @Transaction

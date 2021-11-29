@@ -28,7 +28,7 @@ class SubCategoryAdapter(
 
     // interface for passing the onClick event to fragment.
     interface OnClickListener {
-        fun onItemClick(rID: Long, subCategoryName: String)
+        fun onItemClick(rID: Long, subCategoryName: String, addNew: Boolean = false)
         fun onItemLongClick(rID: Long)
         fun onStarClick(rID: Long, commonValue: Boolean)
     }
@@ -53,29 +53,45 @@ class SubCategoryAdapter(
             // load data
             holder.subCategoryName.text = SubCategory_Name
 
-            if (SubCategory_Common) holder.star.setImageDrawable(holder.drawableStar)
-            else holder.star.setImageDrawable(holder.drawableStarBorder)
-
-
-
-            holder.subCategoryName.setOnClickListener {
-                onClickListener.onItemClick(SubCategory_ID, SubCategory_Name)
-            }
-            holder.subCategoryName.setOnLongClickListener {
-                onClickListener.onItemLongClick(SubCategory_ID)
-                true
-            }
-
-            holder.star.setOnClickListener {
-                if (SubCategory_Common) {
-                    SubCategory_Common = false
-                    holder.star.setImageDrawable(holder.drawableStarBorder)
+            if (position == subCategory.size - 1 && SubCategory_ID == 0L){
+                // add
+                holder.subCategoryName.setTextColor(holder.addButtonTextColor)
+                holder.star.visibility = View.GONE
+                holder.subCategoryName.setOnClickListener {
+                    onClickListener.onItemClick(SubCategory_ID, SubCategory_Name, true)
                 }
-                else{
-                    SubCategory_Common = true
-                    holder.star.setImageDrawable(holder.drawableStar)
+
+            }else{
+                // set color
+                holder.subCategoryName.setTextColor(holder.itemTextColor)
+                holder.star.visibility = View.VISIBLE
+
+                // set star icon
+                if (SubCategory_Common) holder.star.setImageDrawable(holder.drawableStar)
+                else holder.star.setImageDrawable(holder.drawableStarBorder)
+
+                // click item
+                holder.subCategoryName.setOnClickListener {
+                    onClickListener.onItemClick(SubCategory_ID, SubCategory_Name)
                 }
-                onClickListener.onStarClick(SubCategory_ID, SubCategory_Common)
+                // long click item
+                holder.subCategoryName.setOnLongClickListener {
+                    onClickListener.onItemLongClick(SubCategory_ID)
+                    true
+                }
+
+                // click star
+                holder.star.setOnClickListener {
+                    if (SubCategory_Common) {
+                        SubCategory_Common = false
+                        holder.star.setImageDrawable(holder.drawableStarBorder)
+                    }
+                    else{
+                        SubCategory_Common = true
+                        holder.star.setImageDrawable(holder.drawableStar)
+                    }
+                    onClickListener.onStarClick(SubCategory_ID, SubCategory_Common)
+                }
             }
 
         }
@@ -101,6 +117,9 @@ class SubCategoryAdapter(
 
         val drawableStar = ContextCompat.getDrawable(itemView.context, R.drawable.ic_baseline_star_24)
         val drawableStarBorder = ContextCompat.getDrawable(itemView.context, R.drawable.ic_baseline_star_border_24)
+
+        val addButtonTextColor = ContextCompat.getColor(itemView.context, R.color.app_sub_line_text)
+        val itemTextColor = ContextCompat.getColor(itemView.context, R.color.app_amount)
 
 
     }

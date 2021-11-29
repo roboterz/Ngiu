@@ -23,7 +23,6 @@ import com.example.ngiu.data.entities.MainCategory
 import com.example.ngiu.data.entities.SubCategory
 import com.example.ngiu.databinding.FragmentCategoryManageBinding
 import kotlinx.android.synthetic.main.fragment_category_manage.*
-import kotlinx.android.synthetic.main.fragment_record.toolbar_record
 import kotlinx.android.synthetic.main.popup_title.view.*
 
 class CategoryManagerFragment: Fragment() {
@@ -38,6 +37,7 @@ class CategoryManagerFragment: Fragment() {
     private var subCategoryAdapter: SubCategoryAdapter? = null
 
     private var receiveID: Long = 0L
+    private var editMode: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,14 +63,20 @@ class CategoryManagerFragment: Fragment() {
          */
 
         // receive data from other fragment
-        setFragmentResultListener("category_transaction_type") { _, bundle ->
+        setFragmentResultListener("category_manage_mode") { _, bundle ->
+            editMode = bundle.getBoolean("edit_mode")
+            // show edit icon
+            if (editMode) toolbar_category.menu.findItem(R.id.action_edit).isVisible = true
+        }
+
+        // receive data from other fragment
+        setFragmentResultListener("category_manage_type") { _, bundle ->
 
             receiveID = bundle.getLong("transaction_type")
 
             categoryManagerViewModel.currentTransactionType = receiveID
             categoryManagerViewModel.loadMainCategory(requireContext(), receiveID)
 
-            if ( receiveID > 0) toolbar_record.menu.findItem(R.id.action_edit).isVisible = false
         }
 
 
@@ -84,8 +90,17 @@ class CategoryManagerFragment: Fragment() {
                 mainCategoryAdapter = this.context?.let {
                     MainCategoryAdapter(object: MainCategoryAdapter.OnClickListener {
                         // catch the item click event from adapter
-                        override fun onItemClick(rID: Long) {
-                            showSubCategoryItems(rID)
+                        override fun onItemClick(rID: Long, addNew: Boolean) {
+                            if (addNew) {
+                                manageCategory(0)
+                            }else {
+                                showSubCategoryItems(rID)
+                            }
+                        }
+
+                        override fun onItemLongClick(rID: Long, mainCategoryName: String, nextRowID: Long) {
+                            // edit/delete
+                            if (editMode) manageCategory(1,rID,mainCategoryName, nextRowID)
                         }
                     })
                 }
@@ -102,25 +117,31 @@ class CategoryManagerFragment: Fragment() {
                 subCategoryAdapter = this.context?.let {
                     SubCategoryAdapter(object: SubCategoryAdapter.OnClickListener {
                         // catch the item click event from adapter
-                        override fun onItemClick(rID: Long, subCategoryName: String) {
-
-                            // select mode
-                            if (receiveID > 0){
-                                // pass the string back to record fragment
-                                setFragmentResult("selected_category", bundleOf("subCategory_Name" to subCategoryName))
-                                // exit
-                                requireActivity().onBackPressed()
-
-                            // edit mode
+                        override fun onItemClick(rID: Long, subCategoryName: String, addNew: Boolean) {
+                            if (addNew){
+                                manageCategory(2)
                             }else {
-                                // edit sub category
-                                manageCategory(3, rID, subCategoryName)
+                                // edit mode
+                                if (editMode) {
+                                    // edit sub category
+                                    manageCategory(3, rID, subCategoryName)
+
+                                    // select mode
+                                } else {
+                                    // pass the string back to record fragment
+                                    setFragmentResult(
+                                        "category_manage",
+                                        bundleOf("subCategory_Name" to subCategoryName)
+                                    )
+                                    // exit
+                                    requireActivity().onBackPressed()
+                                }
                             }
                         }
 
                         // long click: delete
                         override fun onItemLongClick(rID: Long) {
-                            if (receiveID > 0) {
+                            if (editMode) {
                                 // delete sub category
                                 deleteCategory(1, rID)
                             }
@@ -171,24 +192,28 @@ class CategoryManagerFragment: Fragment() {
 
         //---------------------------tool bar--------------------------------
         // choose items to show
-        toolbar_record.menu.findItem(R.id.action_edit).isVisible = true
+        //toolbar_category.menu.findItem(R.id.action_edit).isVisible = true
 
         // click the navigation Icon in the left side of toolbar
-        toolbar_record.setNavigationOnClickListener(View.OnClickListener {
+        toolbar_category.setNavigationOnClickListener(View.OnClickListener {
 
             // call back button event to switch to previous fragment
             requireActivity().onBackPressed()
         })
 
         // menu item clicked
-        toolbar_record.setOnMenuItemClickListener{
+        toolbar_category.setOnMenuItemClickListener{
             when (it.itemId) {
                 // done menu
+                R.id.action_edit -> {
+                    // turn on edit mode
+                    //mainCategoryAdapter?.setEditMode(true)
+                    //recyclerview_category_main.adapter = mainCategoryAdapter
+                    true
+                }
                 R.id.action_done -> {
-                    // save record
-                    //setFragmentResult("selected_category", bundleOf("subCategory_Name" to subCategoryName))
-                    // call back button event to switch to previous fragment
-                    requireActivity().onBackPressed()
+                    // quite edit mode
+
                     true
                 }
 
@@ -198,15 +223,6 @@ class CategoryManagerFragment: Fragment() {
         //---------------------------tool bar--------------------------------
 
 
-        // subCategory add button
-        tv_sub_category_add.setOnClickListener {
-            manageCategory(2)
-        }
-
-        // mainCategory add button
-        tv_main_category_add.setOnClickListener {
-            manageCategory(0)
-        }
 
     }
 
@@ -228,6 +244,17 @@ class CategoryManagerFragment: Fragment() {
                 subCategoryAdapter?.setList(categoryManagerViewModel.getSubCategory(requireContext(),categoryManagerViewModel.currentActiveMainCategory))
             }
         }.start()
+
+
+        // show title
+        when (receiveID){
+            1L -> {
+                toolbar_category.setTitle(if (editMode) R.string.nav_title_category_expense_manage else R.string.nav_title_category_expense)
+            }
+            2L -> {
+                toolbar_category.setTitle(if (editMode) R.string.nav_title_category_income_manage else R.string.nav_title_category_income)
+            }
+        }
     }
 
     override fun onDestroyView() {
@@ -245,15 +272,16 @@ class CategoryManagerFragment: Fragment() {
 
     private fun showSubCategoryItems(rID: Long) {
 
-        // main category item click
-        mainCategoryAdapter?.setList(categoryManagerViewModel.mainCategory)
-        recyclerview_category_main.adapter = mainCategoryAdapter
-        // show sub category
-        subCategoryAdapter?.setList(categoryManagerViewModel.getSubCategory(requireContext(),rID))
+        if (categoryManagerViewModel.currentActiveMainCategory != rID){
+            // main category item click
+            //mainCategoryAdapter?.setList(categoryManagerViewModel.mainCategory)
+            recyclerview_category_main.adapter = mainCategoryAdapter
+            // show sub category
+            subCategoryAdapter?.setList(categoryManagerViewModel.getSubCategory(requireContext(),rID))
 
-        categoryManagerViewModel.currentActiveMainCategory = rID
+            categoryManagerViewModel.currentActiveMainCategory = rID
 
-        tv_sub_category_add.visibility = if (rID == 0L) View.GONE else View.VISIBLE
+        }
     }
 
 
@@ -262,7 +290,7 @@ class CategoryManagerFragment: Fragment() {
     // 1: edit main category
     // 2: add sub category
     // 3: edit sub category
-    private fun manageCategory(type: Int, rID: Long = 0L, string: String ="") {
+    private fun manageCategory(type: Int, rID: Long = 0L, string: String = "", nextRowID: Long = 0) {
         val alert = AlertDialog.Builder(context)
         val editText = EditText(activity)
         val titleView = View.inflate(context, R.layout.popup_title, null)
@@ -325,16 +353,24 @@ class CategoryManagerFragment: Fragment() {
                 })
             .setNegativeButton(R.string.msg_button_cancel,
                 DialogInterface.OnClickListener { dialog, whichButton ->
-                    // do nothing
+                    dialog.cancel()
                 })
-            .show()
+
+            // main category edit mode with delete button
+            if (type == 1) {
+                alert.setNeutralButton("Delete",DialogInterface.OnClickListener{ dialog, whichButton ->
+                    deleteCategory(0, rID, nextRowID)
+                })
+            }
+
+            alert.show()
     }
 
 
     // delete category---------------------
     // 0: mainCategory
     // 1: subCategory
-    private fun deleteCategory(type: Int, rID: Long) {
+    private fun deleteCategory(type: Int, rID: Long, nextRowID: Long = 0) {
 
         val dialogBuilder = AlertDialog.Builder(activity)
 
@@ -347,10 +383,16 @@ class CategoryManagerFragment: Fragment() {
                         try {
                             AppDatabase.getDatabase(requireContext()).mainCategory()
                                 .deleteMainCategory(MainCategory(rID))
+
+                            mainCategoryAdapter?.setArrowAfterDelete()
+                            // refresh
+                            refreshMainCategory()
+                            // show subcategory
+                            if (rID != nextRowID) showSubCategoryItems(nextRowID)
+
                         } catch (e: SQLiteException) {
                             Toast.makeText(context, getString(R.string.msg_category_delete_error), Toast.LENGTH_SHORT).show()
                         }
-                        refreshMainCategory()
                     }
                     1 -> {
                         try {
@@ -395,5 +437,6 @@ class CategoryManagerFragment: Fragment() {
         mainCategoryAdapter?.setList(
             categoryManagerViewModel.mainCategory
         )
+        //recyclerview_category_main.adapter = mainCategoryAdapter
     }
 }

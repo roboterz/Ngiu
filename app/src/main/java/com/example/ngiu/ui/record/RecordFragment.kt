@@ -74,7 +74,7 @@ class RecordFragment : Fragment() {
         }
 
         // get string from category manage
-        setFragmentResultListener("selected_category") { _, bundle ->
+        setFragmentResultListener("category_manage") { _, bundle ->
             receivedString = bundle.getString("subCategory_Name").toString()
             recordViewModel.transDetail.SubCategory_Name = receivedString
         }
@@ -137,23 +137,23 @@ class RecordFragment : Fragment() {
 
         // touch Expense textView, switch to Expense page
         tvSectionExpense.setOnClickListener {
-            setStatus(recordViewModel.setTransactionType(1))
-            loadCommonCategory(1)
+            setStatus(recordViewModel.setTransactionType(1L))
+            loadCommonCategory(1L)
         }
         // touch Income textView, switch to Income page
         tvSectionIncome.setOnClickListener {
-            setStatus(recordViewModel.setTransactionType(2))
-            loadCommonCategory(2)
+            setStatus(recordViewModel.setTransactionType(2L))
+            loadCommonCategory(2L)
         }
         // touch Transfer textView, switch to Transfer page
         tvSectionTransfer.setOnClickListener {
-            setStatus(recordViewModel.setTransactionType(3))
-            loadCommonCategory(3)
+            setStatus(recordViewModel.setTransactionType(3L))
+            loadCommonCategory(3L)
         }
         // touch DebitCredit textView, switch to DebitCredit page
         tvSectionDebitCredit.setOnClickListener {
-            setStatus(recordViewModel.setTransactionType(4))
-            loadCommonCategory( 4)
+            setStatus(recordViewModel.setTransactionType(4L))
+            loadCommonCategory( 4L)
         }
 
 
@@ -385,6 +385,11 @@ class RecordFragment : Fragment() {
         tv_record_account_receive.doAfterTextChanged{
             recordViewModel.transDetail.AccountRecipient_Name = tv_record_account_receive.text.toString()
         }
+
+        // memo
+        tv_record_memo.doAfterTextChanged {
+            recordViewModel.transDetail.Transaction_Memo = tv_record_memo.text.toString()
+        }
     }
 
 
@@ -416,49 +421,50 @@ class RecordFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun loadUIData(transactionID: Long){
+        recordViewModel.setTransactionType(recordViewModel.transDetail.TransactionType_ID)
+
         if (transactionID > 0 || receivedString.isNotEmpty()) {
-
             // edit record
-
             //load data to textview
-            recordViewModel.setTransactionType(recordViewModel.transDetail.TransactionType_ID)
             recordViewModel.setSubCategoryName(recordViewModel.transDetail.SubCategory_Name)
-            //tv_record_category.text = recordViewModel.transDetail.SubCategory_Name
-            tv_record_date.text = DateFormat.format("MM/dd/yyy", recordViewModel.transDetail.Transaction_Date)
-            tv_record_time.text = DateFormat.format("HH:mm", recordViewModel.transDetail.Transaction_Date)
-
-            tv_record_amount.text = doubleToStringWithTwoDecimal(recordViewModel.transDetail.Transaction_Amount)
-            tv_record_account_pay.text = recordViewModel.transDetail.Account_Name
-            tv_record_account_receive.text = recordViewModel.transDetail.AccountRecipient_Name
-            tv_record_memo.setText(recordViewModel.transDetail.Transaction_Memo)
-            tv_record_person.text = recordViewModel.transDetail.Person_Name
-            tv_record_merchant.text = recordViewModel.transDetail.Merchant_Name
-            tv_record_project.text = recordViewModel.transDetail.Project_Name
-            tv_record_reimburse.text = recordViewModel.getReimbursable(requireContext(), recordViewModel.transDetail.Transaction_ReimburseStatus)
-            setReimburseIcon(recordViewModel.transDetail.Transaction_ReimburseStatus)
-            //todo period,
-
-            setStatus( recordViewModel.currentTransactionType )
-            loadCommonCategory( recordViewModel.transDetail.TransactionType_ID,recordViewModel.transDetail.SubCategory_Name )
-
-
 
         }else{
-
             // new record
-            tv_record_date.text = DateFormat.format("MM/dd/yyy", Date())
-            tv_record_time.text = DateFormat.format("HH:mm", Date())
-            tv_record_account_pay.text = recordViewModel.account[0].Account_Name
-            tv_record_account_receive.text = recordViewModel.account[1].Account_Name
-            tv_record_person.text = recordViewModel.person[0].Person_Name
-            tv_record_merchant.text = recordViewModel.merchant[0].Merchant_Name
-            tv_record_project.text = recordViewModel.project[0].Project_Name
-            tv_record_reimburse.text = recordViewModel.getReimbursable(requireContext(), 0)
-            //todo  period
-
-            setStatus( recordViewModel.currentTransactionType.setID(1L) )
-            loadCommonCategory( 1L )
+            if (recordViewModel.transDetail.Account_Name.isEmpty()) {
+                recordViewModel.transDetail.Account_Name =  recordViewModel.account[0].Account_Name
+            }
+            if (recordViewModel.transDetail.AccountRecipient_Name.isEmpty()) {
+                recordViewModel.transDetail.AccountRecipient_Name = recordViewModel.account[1].Account_Name
+            }
+            if (recordViewModel.transDetail.Person_Name.isEmpty()) {
+                recordViewModel.transDetail.Person_Name = recordViewModel.person[0].Person_Name
+            }
+            if (recordViewModel.transDetail.Merchant_Name.isEmpty()) {
+                recordViewModel.transDetail.Merchant_Name = recordViewModel.merchant[0].Merchant_Name
+            }
+            if (recordViewModel.transDetail.Project_Name.isEmpty()) {
+                recordViewModel.transDetail.Project_Name = recordViewModel.project[0].Project_Name
+            }
         }
+
+
+        tv_record_date.text = DateFormat.format("MM/dd/yyy", recordViewModel.transDetail.Transaction_Date)
+        tv_record_time.text = DateFormat.format("HH:mm", recordViewModel.transDetail.Transaction_Date)
+        tv_record_amount.text = doubleToStringWithTwoDecimal(recordViewModel.transDetail.Transaction_Amount)
+        tv_record_account_pay.text = recordViewModel.transDetail.Account_Name
+        tv_record_account_receive.text = recordViewModel.transDetail.AccountRecipient_Name
+        tv_record_memo.setText(recordViewModel.transDetail.Transaction_Memo)
+        tv_record_person.text = recordViewModel.transDetail.Person_Name
+        tv_record_merchant.text = recordViewModel.transDetail.Merchant_Name
+        tv_record_project.text = recordViewModel.transDetail.Project_Name
+
+        setReimburseIcon(recordViewModel.transDetail.Transaction_ReimburseStatus)
+        tv_record_reimburse.text = recordViewModel.getReimbursable(requireContext(), recordViewModel.transDetail.Transaction_ReimburseStatus)
+        //todo period,
+
+        setStatus( recordViewModel.currentTransactionType )
+        loadCommonCategory( recordViewModel.transDetail.TransactionType_ID,recordViewModel.transDetail.SubCategory_Name )
+
     }
 
     // save record
@@ -543,6 +549,7 @@ class RecordFragment : Fragment() {
                     else -> emptyList()
                 }
 
+                Toast.makeText(context,cmCategory.size.toString(), Toast.LENGTH_SHORT).show()
                 // vpAdapter?.setCategoryString(categoryString)
                 vpAdapter?.setList(cmCategory)
                 //vpAdapter?.setCategoryString(categoryString)
@@ -618,8 +625,8 @@ class RecordFragment : Fragment() {
         // hide nav bottom bar
         //(activity as MainActivity).setNavBottomBarVisibility(View.GONE)
 
-        //
-        setFragmentResult("category_transaction_type", bundleOf("transaction_type" to recordViewModel.transDetail.TransactionType_ID))
+        setFragmentResult("category_manage_mode", bundleOf("edit_mode" to false))
+        setFragmentResult("category_manage_type", bundleOf("transaction_type" to recordViewModel.transDetail.TransactionType_ID))
 
         // switch to category manage fragment
         findNavController().navigate(R.id.navigation_category_manage)

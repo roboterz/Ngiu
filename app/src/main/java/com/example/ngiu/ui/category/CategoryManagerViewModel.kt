@@ -10,7 +10,7 @@ import com.example.ngiu.data.entities.SubCategory
 
 class CategoryManagerViewModel: ViewModel() {
 
-    var subCategory: List<SubCategory> = ArrayList()
+    var subCategory: MutableList<SubCategory> = ArrayList()
 
     var mainCategory: MutableList<MainCategory> = ArrayList()
     //private var commonCategory: List<SubCategory> = ArrayList()
@@ -24,12 +24,22 @@ class CategoryManagerViewModel: ViewModel() {
 
         mainCategory = AppDatabase.getDatabase(context).mainCategory().getMainCategoryByTransactionType(transactionType)
 
-        mainCategory.add(0, MainCategory(0L, transactionType, context.getString(R.string.option_category_common)))
 
-        //subCategory = AppDatabase.getDatabase(context).subcat().getAllSubCategory()
+        if (transactionType == 1L){
+            // add Common section
+            mainCategory[0].MainCategory_ID = 0L
+            mainCategory[0].MainCategory_Name = context.getString(R.string.option_category_common)
+            // add "+Add" item
+            mainCategory.add(MainCategory(0L,0L, context.getString(R.string.menu_add_cate)))
+        }else{
+            // add Common section
+            mainCategory.add(0, MainCategory(0L, transactionType, context.getString(R.string.option_category_common)))
+        }
+
+
     }
 
-    fun getSubCategory(context: Context ,mainCategoryID: Long): List<SubCategory>{
+    fun getSubCategory(context: Context ,mainCategoryID: Long): MutableList<SubCategory>{
 
         subCategory = if (mainCategoryID == 0L){
                         // common category
@@ -38,6 +48,15 @@ class CategoryManagerViewModel: ViewModel() {
                         AppDatabase.getDatabase(context).subcat().getSubCategoryByMainCategoryID(mainCategoryID)
                     }
 
+
+        // add "+Add" item
+        if (mainCategoryID > 0L) {
+            subCategory.add(
+                SubCategory(0L, mainCategoryID, context.getString(R.string.menu_add_cate), false)
+            )
+
+            if (mainCategory[0].TransactionType_ID == 2L) subCategory.removeAt(0)
+        }
         return subCategory
     }
 

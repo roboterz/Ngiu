@@ -24,7 +24,8 @@ class RecordViewModel : ViewModel() {
 
     var currentTransactionType: CurrentTransactionType = CurrentTransactionType()
 
-    var transDetail = TransactionDetail()
+    // temp save changed data
+    var transDetail = TransactionDetail(TransactionType_ID = 1L)
 
     var subCategoryName = ArrayList<String>()
 
@@ -74,7 +75,7 @@ class RecordViewModel : ViewModel() {
         subCategoryName.add(transferCategory[0].SubCategory_Name)
         subCategoryName.add(debitCreditCategory[0].SubCategory_Name)
 
-        transDetail.TransactionType_ID = 1L
+        //transDetail.TransactionType_ID = 1L
     }
 
     //fun getOneSubCategory(activity: FragmentActivity?, rID: Long): SubCategory {
@@ -100,34 +101,18 @@ class RecordViewModel : ViewModel() {
     }
     fun setReimbursable(context: Context):String{
         val array: Array<String> = context.resources.getStringArray(R.array.data_reimburse_array)
-        when(transDetail.Transaction_ReimburseStatus){
+        return when(transDetail.Transaction_ReimburseStatus){
             0,1 -> {
                 transDetail.Transaction_ReimburseStatus++
-                return array[transDetail.Transaction_ReimburseStatus]
+                array[transDetail.Transaction_ReimburseStatus]
             }
             else -> {
                 transDetail.Transaction_ReimburseStatus = 0
-                return array[0]
+                array[0]
             }
         }
     }
 
-    fun saveTempData(transactionDetail: TransactionDetail){
-        //category
-        //account
-        //date
-        //time
-        //reimbursable
-        //person
-        //merchant
-        //project
-        transDetail = transactionDetail
-    }
-
-    fun recoverTempData(): TransactionDetail{
-
-        return transDetail
-    }
 
 }
 
