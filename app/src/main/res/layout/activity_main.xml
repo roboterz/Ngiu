@@ -12,7 +12,7 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="56dp"
         android:background="@color/app_title_background"
         app:itemIconTint="@color/app_title_text"
         app:itemTextColor="@color/app_title_text"

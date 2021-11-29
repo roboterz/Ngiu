@@ -1,17 +1,15 @@
 package com.example.ngiu.ui.record
 
 
+import android.content.Context
 import android.view.View
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
-import androidx.room.Room
 import com.example.ngiu.R
 import com.example.ngiu.data.AppDatabase
 import com.example.ngiu.data.entities.*
-import com.example.ngiu.data.entities.returntype.RecordSubCategory
 import com.example.ngiu.data.entities.returntype.TransactionDetail
-import java.util.*
-import java.util.Collections.copy
+
 import kotlin.collections.ArrayList
 
 class RecordViewModel : ViewModel() {
@@ -26,109 +24,95 @@ class RecordViewModel : ViewModel() {
 
     var currentTransactionType: CurrentTransactionType = CurrentTransactionType()
 
-    var recordOpenOption: Int = 0
-
-    var currentRowID: Long = 0
-
-    var transRecord = Trans()
-    var transDetail = TransactionDetail(0, 0, "", "", "", 0.00, Date(), "", "", "", "", 0)
+    // temp save changed data
+    var transDetail = TransactionDetail(TransactionType_ID = 1L)
 
     var subCategoryName = ArrayList<String>()
 
-    var expenseCommonCategory = ArrayList<SubCategory>()
-    var incomeCommonCategory = ArrayList<SubCategory>()
-    var transferCommonCategory = ArrayList<SubCategory>()
-    var debitCreditCommonCategory = ArrayList<SubCategory>()
-    var subCategory: List<RecordSubCategory> = ArrayList()
+    var expenseCommonCategory: List<SubCategory> = ArrayList()
+    var incomeCommonCategory: List<SubCategory> = ArrayList()
+    var transferCommonCategory: List<SubCategory> = ArrayList()
+    var debitCreditCommonCategory: List<SubCategory> = ArrayList()
+    var subCategory: List<SubCategory> = ArrayList()
     var person: List<Person> = ArrayList()
     var merchant: List<Merchant> = ArrayList()
     var account: List<Account> = ArrayList()
     var project: List<Project> = ArrayList()
 
 
-    fun setTransactionType(tyID: Int): CurrentTransactionType {
+
+    fun setTransactionType(tyID: Long): CurrentTransactionType {
         currentTransactionType = currentTransactionType.setID(tyID)
+        transDetail.TransactionType_ID = tyID
         return currentTransactionType
     }
 
-
-    fun readCommonCategory(activity: FragmentActivity?, tyID: Int): List<SubCategory> {
-
-        return when (tyID) {
-            1 -> AppDatabase.getDatabase(activity!!).subcat().getExpenseCommonCategory()
-            2 -> AppDatabase.getDatabase(activity!!).subcat().getIncomeCommonCategory()
-            3 -> AppDatabase.getDatabase(activity!!).subcat().getTransferCommonCategory()
-            4 -> AppDatabase.getDatabase(activity!!).subcat().getDebitCreditCommonCategory()
-            else -> ArrayList<SubCategory>()
-        }
-
-    }
 
     //
     fun loadDataToRam(activity: FragmentActivity?) {
         val database = AppDatabase.getDatabase(activity!!)
         subCategory = database.subcat().getAllSubCategory()
         account = database.account().getAllAccount()
-        for (i in subCategory.indices) {
-            when (subCategory[i].TransactionType_ID) {
-                1L -> expenseCommonCategory.add(
-                    SubCategory(
-                        subCategory[i].SubCategory_ID,
-                        subCategory[i].MainCategory_ID,
-                        subCategory[i].SubCategory_Name,
-                        subCategory[i].SubCategory_Common
-                    )
-                )
-                2L -> incomeCommonCategory.add(
-                    SubCategory(
-                        subCategory[i].SubCategory_ID,
-                        subCategory[i].MainCategory_ID,
-                        subCategory[i].SubCategory_Name,
-                        subCategory[i].SubCategory_Common
-                    )
-                )
-                3L -> transferCommonCategory.add(
-                    SubCategory(
-                        subCategory[i].SubCategory_ID,
-                        subCategory[i].MainCategory_ID,
-                        subCategory[i].SubCategory_Name,
-                        subCategory[i].SubCategory_Common
-                    )
-                )
-                4L -> debitCreditCommonCategory.add(
-                    SubCategory(
-                        subCategory[i].SubCategory_ID,
-                        subCategory[i].MainCategory_ID,
-                        subCategory[i].SubCategory_Name,
-                        subCategory[i].SubCategory_Common
-                    )
-                )
-            }
-        }
-        subCategoryName.add(expenseCommonCategory[0].SubCategory_Name)
-        subCategoryName.add(incomeCommonCategory[0].SubCategory_Name)
-        subCategoryName.add(transferCommonCategory[0].SubCategory_Name)
-        subCategoryName.add(debitCreditCommonCategory[0].SubCategory_Name)
+        expenseCommonCategory = database.subcat().getCommonCategoryByTransactionType(1L)
+        incomeCommonCategory = database.subcat().getCommonCategoryByTransactionType(2L)
+        transferCommonCategory = database.subcat().getCommonCategoryByTransactionType(3L)
+        debitCreditCommonCategory = database.subcat().getCommonCategoryByTransactionType(4L)
+
+        person = database.person().getAllPerson()
+        merchant = database.merchant().getAllMerchant()
+        project = database.project().getAllProject()
+
+        // default sub category name
+
+        val expenseCategory = database.subcat().getSubCategoryByTransactionType(1L)
+        val incomeCategory = database.subcat().getSubCategoryByTransactionType(2L)
+        val transferCategory = database.subcat().getSubCategoryByTransactionType(3L)
+        val debitCreditCategory = database.subcat().getSubCategoryByTransactionType(4L)
+
+
+        subCategoryName.add(if (expenseCategory.size > 1) expenseCategory[1].SubCategory_Name else expenseCategory[0].SubCategory_Name)
+        subCategoryName.add(if (incomeCategory.size > 1) incomeCategory[1].SubCategory_Name else incomeCategory[0].SubCategory_Name)
+        subCategoryName.add(transferCategory[0].SubCategory_Name)
+        subCategoryName.add(debitCreditCategory[0].SubCategory_Name)
+
+        //transDetail.TransactionType_ID = 1L
     }
 
-    fun getOneSubCategory(activity: FragmentActivity?, rID: Long): SubCategory {
-        return AppDatabase.getDatabase(activity!!).subcat().getRecordByID(rID)
-    }
+    //fun getOneSubCategory(activity: FragmentActivity?, rID: Long): SubCategory {
+    //    return AppDatabase.getDatabase(activity!!).subcat().getRecordByID(rID)
+    //}
 
-    fun loadTransactionRecord(activity: FragmentActivity?, rID: Long) {
-        transRecord = AppDatabase.getDatabase(activity!!).trans().getRecordByID(rID)
-    }
 
     fun loadTransactionDetail(activity: FragmentActivity?, rID: Long) {
         transDetail = AppDatabase.getDatabase(activity!!).trans().getOneTransaction(rID)
     }
 
     fun getSubCategoryName(): String{
-        return subCategoryName[currentTransactionType.currentTyID -1]
+        return subCategoryName[transDetail.TransactionType_ID.toInt() -1]
     }
     fun setSubCategoryName(string: String){
-        subCategoryName[currentTransactionType.currentTyID -1] = string
+        subCategoryName[transDetail.TransactionType_ID.toInt() -1] = string
     }
+
+    // get reimburse status
+    fun getReimbursable(context: Context, int: Int):String{
+        val array: Array<String> = context.resources.getStringArray(R.array.data_reimburse_array)
+        return array[int]
+    }
+    fun setReimbursable(context: Context):String{
+        val array: Array<String> = context.resources.getStringArray(R.array.data_reimburse_array)
+        return when(transDetail.Transaction_ReimburseStatus){
+            0,1 -> {
+                transDetail.Transaction_ReimburseStatus++
+                array[transDetail.Transaction_ReimburseStatus]
+            }
+            else -> {
+                transDetail.Transaction_ReimburseStatus = 0
+                array[0]
+            }
+        }
+    }
+
 
 }
 
@@ -143,31 +127,28 @@ class CurrentTransactionType {
     var transferPointer: Int = View.INVISIBLE
     var debitCredit: Int = R.color.app_title_text_inactive
     var debitCreditPointer: Int = View.INVISIBLE
-    var currentTyID: Int = 1
 
-    fun setID(tyID: Int): CurrentTransactionType {
+    fun setID(tyID: Long): CurrentTransactionType {
         val cTT = CurrentTransactionType()
 
         when (tyID) {
-            1 -> {
+            1L -> {
                 cTT.expense = R.color.app_title_text
                 cTT.expensePointer = View.VISIBLE
             }
-            2 -> {
+            2L -> {
                 cTT.income = R.color.app_title_text
                 cTT.incomePointer = View.VISIBLE
             }
-            3 -> {
+            3L -> {
                 cTT.transfer = R.color.app_title_text
                 cTT.transferPointer = View.VISIBLE
             }
-            4 -> {
+            4L -> {
                 cTT.debitCredit = R.color.app_title_text
                 cTT.debitCreditPointer = View.VISIBLE
             }
         }
-
-        cTT.currentTyID = tyID
 
         return cTT
     }

@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.Person
-import kotlinx.android.synthetic.main.transaction_cardview.view.*
+import kotlinx.android.synthetic.main.cardview_transaction.view.*
 
 
 class TransactionAdapter(private val person: MutableList<Person>)
@@ -17,7 +17,7 @@ class TransactionAdapter(private val person: MutableList<Person>)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         // inflate the custom view from xml layout file
         val view: View = LayoutInflater.from(parent.context)
-            .inflate(R.layout.transaction_cardview,parent,false)
+            .inflate(R.layout.cardview_transaction,parent,false)
 
 
         // return the view holder
@@ -30,7 +30,7 @@ class TransactionAdapter(private val person: MutableList<Person>)
         // display the custom class
         person[position].apply {
             holder.ID.text = "$Person_ID"
-            holder.Name.text = "$Person_Name"
+            holder.Name.text = Person_Name
             if (holder.ID.text.toString().toLong() > 10) {
                 holder.ID.setTextColor(-0xffff01)
             }

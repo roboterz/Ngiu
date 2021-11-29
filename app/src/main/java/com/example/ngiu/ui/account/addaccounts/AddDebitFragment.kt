@@ -6,43 +6,47 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.Account
 import com.example.ngiu.data.entities.Currency
-import com.example.ngiu.databinding.FragmentAddCashBinding
-import com.example.ngiu.databinding.FragmentAddDebitBinding
+import com.example.ngiu.databinding.FragmentAccountAddDebitBinding
 import com.example.ngiu.functions.addDecimalLimiter
 import com.google.android.material.textfield.TextInputEditText
+import kotlinx.android.synthetic.main.fragment_account_add_debit.*
 import kotlinx.android.synthetic.main.popup_title.view.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+
 
 
 class AddDebitFragment : Fragment() {
-    private var _binding: FragmentAddDebitBinding? = null
+    private var _binding: FragmentAccountAddDebitBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var addDebitViewModel: AddDebitViewModel
     var currency = "USD"
 
-    private val viewModel: AddDebitViewModel by lazy {
-        ViewModelProvider(this).get(AddDebitViewModel::class.java)
-    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return FragmentAddDebitBinding.inflate(inflater, container, false).run {
-            _binding = this
-            root
-        }
+    ): View {
+        addDebitViewModel = ViewModelProvider(this).get(AddDebitViewModel::class.java)
+        _binding = FragmentAccountAddDebitBinding.inflate(inflater, container, false)
+
+
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initListeners()
         getView()?.findViewById<TextInputEditText?>(R.id.tetDebitBalance)?.addDecimalLimiter()
+
+        toolbarAddDebitAccount.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
     override fun onResume() {
@@ -63,7 +67,7 @@ class AddDebitFragment : Fragment() {
 
         binding.btnDebitAddOtherCurrency.setOnClickListener {
 
-            val array : List<Currency> = viewModel.getCurrency(requireActivity())
+            val array : List<Currency> = addDebitViewModel.getCurrency(requireActivity())
 
             val arrayList: ArrayList<String> = ArrayList()
 
@@ -85,8 +89,8 @@ class AddDebitFragment : Fragment() {
 
             // Set items form alert dialog
             builder.setItems(cs) { _, which ->
-                currency = arrayList.get(which)
-                binding.debitBalanceTextLayout.setSuffixText(currency)
+                currency = arrayList[which]
+                binding.debitBalanceTextLayout.suffixText = currency
 
             }
 
@@ -111,9 +115,9 @@ class AddDebitFragment : Fragment() {
             Account_Name =  accountName, Account_Balance =  balance.toDouble(), Account_CardNumber = cardNumber,
             Account_CountInNetAssets =  countInNetAsset, Account_Memo = memo, AccountType_ID = accountTypeID, Currency_ID = currency)
 
-        GlobalScope.launch{
-            viewModel.insertDebit(requireActivity(), cashAccount)
-        }
+
+        addDebitViewModel.insertDebit(requireActivity(), cashAccount)
+
 
     }
 
@@ -126,7 +130,8 @@ class AddDebitFragment : Fragment() {
 
         if (validAccountName && validCardNumber ) {
             insertData()
-            requireActivity().onBackPressed()
+            findNavController().navigate(R.id.navigation_account)
+
         }
         else
             invalidForm()

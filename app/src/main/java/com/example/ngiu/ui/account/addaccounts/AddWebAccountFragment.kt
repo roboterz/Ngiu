@@ -6,43 +6,45 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.Account
 import com.example.ngiu.data.entities.Currency
-import com.example.ngiu.databinding.FragmentAddVirtualAccountBinding
-import com.example.ngiu.databinding.FragmentAddWebAccountBinding
+import com.example.ngiu.databinding.FragmentAccountAddWebAccountBinding
 import com.example.ngiu.functions.addDecimalLimiter
 import com.google.android.material.textfield.TextInputEditText
+import kotlinx.android.synthetic.main.fragment_account_add_web_account.*
 import kotlinx.android.synthetic.main.popup_title.view.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+
 
 
 class AddWebAccountFragment : Fragment() {
-    private var _binding: FragmentAddWebAccountBinding? = null
+    private var _binding: FragmentAccountAddWebAccountBinding? = null
     private val binding get() = _binding!!
+    private lateinit var addWebAccountViewModel: AddWebAccountViewModel
     var currency = "USD"
 
-    private val viewModel: AddWebAccountViewModel by lazy {
-        ViewModelProvider(this).get(AddWebAccountViewModel::class.java)
-    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return FragmentAddWebAccountBinding.inflate(inflater, container, false).run {
-            _binding = this
-            root
-        }
+    ): View {
+        addWebAccountViewModel = ViewModelProvider(this).get(AddWebAccountViewModel::class.java)
+        _binding = FragmentAccountAddWebAccountBinding.inflate(inflater, container, false)
+
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initListeners()
         getView()?.findViewById<TextInputEditText?>(R.id.tetWebBalance)?.addDecimalLimiter()
+
+        toolbarAddWebAccount.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
     override fun onResume() {
@@ -61,7 +63,7 @@ class AddWebAccountFragment : Fragment() {
 
         binding.btnWebAddOtherCurrency.setOnClickListener {
 
-            val array : List<Currency> = viewModel.getCurrency(requireActivity())
+            val array : List<Currency> = addWebAccountViewModel.getCurrency(requireActivity())
 
             val arrayList: ArrayList<String> = ArrayList()
 
@@ -83,8 +85,8 @@ class AddWebAccountFragment : Fragment() {
 
             // Set items form alert dialog
             builder.setItems(cs) { _, which ->
-                currency = arrayList.get(which)
-                binding.webBalanceTextLayout.setSuffixText(currency)
+                currency = arrayList[which]
+                binding.webBalanceTextLayout.suffixText = currency
 
             }
 
@@ -109,9 +111,9 @@ class AddWebAccountFragment : Fragment() {
             Account_Name =  accountName, Account_CardNumber = userID ,Account_Balance =  balance.toDouble(),
             Account_CountInNetAssets =  countInNetAsset, Account_Memo = memo, AccountType_ID = accountTypeID, Currency_ID = currency)
 
-        GlobalScope.launch{
-            viewModel.insertWebAccount(requireActivity(), cashAccount)
-        }
+
+        addWebAccountViewModel.insertWebAccount(requireActivity(), cashAccount)
+
 
     }
 
@@ -124,7 +126,8 @@ class AddWebAccountFragment : Fragment() {
 
         if (validAccountName && validBalance ) {
             insertData()
-            requireActivity().onBackPressed()
+            findNavController().navigate(R.id.navigation_account)
+
         }
         else
             invalidForm()

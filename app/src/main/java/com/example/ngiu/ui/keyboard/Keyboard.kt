@@ -10,10 +10,11 @@ import androidx.core.view.forEach
 import androidx.core.view.iterator
 import com.example.ngiu.R
 import kotlinx.android.synthetic.main.keyboard.view.*
+import java.util.stream.IntStream.range
 
 @SuppressLint("ClickableViewAccessibility")
 class Keyboard(view: View){
-    private val key0: TextView = view.findViewById<TextView>(R.id.tv_price_0)
+    //private val key0: TextView = view.findViewById<TextView>(R.id.tv_price_0)
     private val keyBack: TextView = view.findViewById<TextView>(R.id.tv_price_back)
     private val keyDot: TextView = view.findViewById<TextView>(R.id.tv_price_dot)
     private val keyEnter: TextView = view.findViewById<TextView>(R.id.tv_price_enter)
@@ -25,6 +26,22 @@ class Keyboard(view: View){
 
     @SuppressLint("SetTextI18n")
     fun initKeys(echoView: TextView) {
+        dot = echoView.text.length - echoView.text.lastIndexOf('.')
+        if (dot >0) {
+            if (echoView.text.last() == '0') {
+                echoView.text = echoView.text.dropLast(1)
+                dot--
+            }
+            if (echoView.text.last() == '0') {
+                echoView.text = echoView.text.dropLast(1)
+                dot--
+            }
+            if (echoView.text.last() == '.') {
+                echoView.text = echoView.text.dropLast(1)
+                dot--
+            }
+        }
+
 
         keys.forEach{
             // Press feedback

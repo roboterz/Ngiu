@@ -21,7 +21,7 @@
         android:id="@+id/navigation_add_account"
         android:name="com.example.ngiu.ui.account.addaccounts.AddAccountFragment"
         android:label="@string/nav_bottom_account"
-        tools:layout="@layout/fragment_add_account" >
+        tools:layout="@layout/fragment_account_add_account" >
         <action
             android:id="@+id/action_navigation_add_account_self"
             app:destination="@id/navigation_add_account" />
@@ -62,10 +62,12 @@
         android:id="@+id/navigation_record"
         android:name="com.example.ngiu.ui.record.RecordFragment"
         tools:layout="@layout/fragment_record" />
+
     <fragment
         android:id="@+id/navigation_category_manage"
         android:name="com.example.ngiu.ui.category.CategoryManagerFragment"
         tools:layout="@layout/fragment_category_manage" />
+
     <fragment
         android:id="@+id/add_cash"
         android:name="com.example.ngiu.ui.record.RecordFragment"

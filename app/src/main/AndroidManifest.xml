@@ -11,6 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Ngiu">
 
+
         <activity
             android:name=".MainActivity"
             android:exported="true"

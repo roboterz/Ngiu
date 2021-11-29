@@ -1,18 +1,15 @@
 package com.example.ngiu.ui.account.addaccounts
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
-import com.example.ngiu.databinding.AddAccountItemBinding
+import com.example.ngiu.databinding.AccountAddAccountItemBinding
 import com.example.ngiu.ui.account.model.AccountTypeUIModel
 
 
@@ -20,7 +17,7 @@ class AddAccountAdapter(val context: Context) :
     ListAdapter<AccountTypeUIModel, AddAccountAdapter.AddAccountViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddAccountViewHolder {
-        return AddAccountItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return AccountAddAccountItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             .run {
                 val holder = AddAccountViewHolder(this);
 
@@ -49,7 +46,7 @@ class AddAccountAdapter(val context: Context) :
         holder.bind(getItem(position))
     }
 
-    inner class AddAccountViewHolder(private val binding: AddAccountItemBinding) :
+    inner class AddAccountViewHolder(private val binding: AccountAddAccountItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         // Display memo if account type has memo
         fun bind(uiModel: AccountTypeUIModel) {

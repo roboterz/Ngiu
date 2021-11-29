@@ -9,8 +9,10 @@ import androidx.room.PrimaryKey
 data class AccountType (
     @PrimaryKey(autoGenerate = true)
     //@ColumnInfo(name = "ID")
-    val AccountType_ID: Long = 0,
+    var AccountType_ID: Long = 0,
     //@ColumnInfo(name = "Acct_Type_Name")
-    val AccountType_Name: String = "",
-    val AccountType_Memo: String = ""
+    @ColumnInfo(defaultValue = "")
+    var AccountType_Name: String = "",
+    @ColumnInfo(defaultValue = "")
+    var AccountType_Memo: String = ""
 )

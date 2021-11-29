@@ -9,7 +9,7 @@ import androidx.room.PrimaryKey
 data class Merchant (
     @PrimaryKey(autoGenerate = true)
     //@ColumnInfo(name = "ID")
-    val Merchant_ID: Long = 0,
+    var Merchant_ID: Long,
     //@ColumnInfo(name = "Name")
-    val Merchant_Name: String = ""
+    var Merchant_Name: String
 )

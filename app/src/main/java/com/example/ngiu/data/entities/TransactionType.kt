@@ -9,7 +9,7 @@ import androidx.room.PrimaryKey
 data class TransactionType (
     @PrimaryKey(autoGenerate = true)
     //@ColumnInfo(name = "ID")
-    val TransactionType_ID: Long = 0,
+    var TransactionType_ID: Long,
     //@ColumnInfo(name = "Name")
-    val TransactionType_Name: String = ""
+    var TransactionType_Name: String
 )

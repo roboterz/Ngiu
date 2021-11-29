@@ -7,43 +7,51 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.Account
 import com.example.ngiu.data.entities.Currency
-import com.example.ngiu.databinding.FragmentAddCreditBinding
+import com.example.ngiu.databinding.FragmentAccountAddCreditBinding
 import com.example.ngiu.functions.addDecimalLimiter
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.popup_title.view.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import com.example.ngiu.functions.getDayOfMonthSuffix
+import kotlinx.android.synthetic.main.fragment_account_add_credit.*
 
 class AddCreditFragment : Fragment() {
-    private var _binding: FragmentAddCreditBinding? = null
+    private var _binding: FragmentAccountAddCreditBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var addCreditViewModel: AddCreditViewModel
     var currency = "USD"
     var statementDay = "1"
     var paymentDay = "26"
 
-    private val viewModel: AddCreditViewModel by lazy {
-        ViewModelProvider(this).get(AddCreditViewModel::class.java)
-    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return FragmentAddCreditBinding.inflate(inflater, container, false).run {
-            _binding = this
-            root
+    ): View {
+        addCreditViewModel = ViewModelProvider(this).get(AddCreditViewModel::class.java)
+        _binding = FragmentAccountAddCreditBinding.inflate(inflater, container, false)
+
+
+        return binding.root
+
+
         }
 
-    }
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initListeners()
         getView()?.findViewById<TextInputEditText?>(R.id.tetCreditLimit)?.addDecimalLimiter()
 
+        toolbarAddCreditAccount.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
     override fun onResume() {
@@ -115,7 +123,7 @@ class AddCreditFragment : Fragment() {
 
         binding.btnCreditAddOtherCurrency.setOnClickListener {
 
-            val array : List<Currency> = viewModel.getCurrency(requireActivity())
+            val array : List<Currency> = addCreditViewModel.getCurrency(requireActivity())
 
             val arrayList: ArrayList<String> = ArrayList()
 
@@ -150,7 +158,7 @@ class AddCreditFragment : Fragment() {
 
         binding.btnCreditAddOtherArrears.setOnClickListener {
 
-            val array : List<Currency> = viewModel.getCurrency(requireActivity())
+            val array : List<Currency> = addCreditViewModel.getCurrency(requireActivity())
 
             val arrayList: ArrayList<String> = ArrayList()
 
@@ -173,8 +181,8 @@ class AddCreditFragment : Fragment() {
             // Set items form alert dialog
             builder.setItems(cs) { _, which ->
                 currency = arrayList.get(which)
-                binding.creditCurrentArrearsLayout.setSuffixText(currency)
-                binding.creditLimitLayout.setSuffixText(currency)
+                binding.creditCurrentArrearsLayout.suffixText = currency
+                binding.creditLimitLayout.suffixText = currency
 
             }
 
@@ -206,24 +214,25 @@ class AddCreditFragment : Fragment() {
             AccountType_ID = accountTypeID, Currency_ID = currency, Account_StatementDay = statementDay.toInt(),
             Account_PaymentDay = paymentDay.toInt())
 
-        GlobalScope.launch{
-            viewModel.insertCredit(requireActivity(), creditAccount)
-        }
+
+        addCreditViewModel.insertCredit(requireActivity(), creditAccount)
+
 
     }
 
     private fun submitForm() {
         binding.creditAccountNameTextLayout.helperText = validAccountName()
-        binding.creditCurrentArrearsLayout.helperText = validBalance()
+        binding.creditCardNumberTextLayout.helperText = validCard()
 
 
         val validAccountName = binding.creditAccountNameTextLayout.helperText == null
-        val validBalance = binding.creditCurrentArrearsLayout.helperText == null
+        val validCard = binding.creditCardNumberTextLayout.helperText == null
 
 
-        if (validAccountName && validBalance ) {
+        if (validAccountName && validCard ) {
             insertData()
-            requireActivity().onBackPressed()
+            findNavController().navigate(R.id.navigation_account)
+
         }
         else
             invalidForm()
@@ -234,8 +243,8 @@ class AddCreditFragment : Fragment() {
         if(binding.creditAccountNameTextLayout.helperText != null) {
             message += "\nAccountName: " + binding.creditAccountNameTextLayout.helperText
         }
-        if(binding.creditCurrentArrearsLayout.helperText != null) {
-            message += "\n\nBalance: " + binding.creditCurrentArrearsLayout.helperText
+        if(binding.creditCardNumberTextLayout.helperText != null) {
+            message += "\n\nCredit Card: " + binding.creditCardNumberTextLayout.helperText
         }
 
 
@@ -257,10 +266,10 @@ class AddCreditFragment : Fragment() {
         return null
     }
 
-    private fun validBalance(): String? {
-        val currentArrears = binding.tetCreditArrears.text.toString()
-        if(currentArrears.length < 0) {
-            return "Invalid Balance Entry."
+    private fun validCard(): String? {
+        val cardNumber = binding.tetCreditCardNumber.text.toString()
+        if(cardNumber.length < 4) {
+            return "Enter at least four digits credit Card number."
         }
         return null
     }

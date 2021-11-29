@@ -11,7 +11,8 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.returntype.TransactionDetail
-import kotlinx.android.synthetic.main.transaction_cardview.view.*
+import com.example.ngiu.functions.doubleToStringWithTwoDecimal
+import kotlinx.android.synthetic.main.cardview_transaction.view.*
 import kotlin.collections.ArrayList
 
 
@@ -31,7 +32,7 @@ class TransListAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         // inflate the custom view from xml layout file
         val view: View = LayoutInflater.from(parent.context)
-            .inflate(R.layout.transaction_cardview,parent,false)
+            .inflate(R.layout.cardview_transaction,parent,false)
 
 
         // return the view holder
@@ -56,12 +57,8 @@ class TransListAdapter(
             //holder.period.text = ""
             holder.memo.text = Transaction_Memo
 
-            when("$Transaction_Amount".length - "$Transaction_Amount".lastIndexOf('.')){
-                2 -> holder.amount.text ="$$Transaction_Amount" + "0"
-                3 ->holder.amount.text ="$$Transaction_Amount"
-                else ->holder.amount.text ="$$Transaction_Amount.00"
-            }
-            //holder.amount.text ="$$Transaction_Amount"
+
+            holder.amount.text ="$" + doubleToStringWithTwoDecimal(Transaction_Amount)
 
             if (TransactionType_ID in 1..2) {
                 holder.subCategory.text = SubCategory_Name
