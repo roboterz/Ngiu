@@ -27,14 +27,15 @@ import com.example.ngiu.data.entities.Trans
 import com.example.ngiu.databinding.FragmentRecordBinding
 import com.example.ngiu.functions.DateTimePicker
 import com.example.ngiu.functions.SelectItem
-import com.example.ngiu.functions.doubleToStringWithTwoDecimal
 import kotlinx.android.synthetic.main.fragment_record.*
 import kotlin.collections.ArrayList
 import com.example.ngiu.functions.popupWindow
 import com.example.ngiu.ui.keyboard.Keyboard
 import kotlinx.android.synthetic.main.popup_title.view.*
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.LocalTime
+import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
 
@@ -210,25 +211,23 @@ class RecordFragment : Fragment() {
             }else{
                 // save and next
                 saveRecord()
-                tv_record_amount.setText("0.00")
+                tv_record_amount.text = "0.00"
             }
         }
 
         // date
         tv_record_date.setOnClickListener {
             // date picker
-            val date = LocalDate.parse(tv_record_date.text.toString(), DateTimeFormatter.ofPattern("MM/dd/yyyy"))
+            val date = LocalDate.parse(tv_record_date.text.toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd"))
 
             DateTimePicker(
                 date.year,
                 date.monthValue-1,
                 date.dayOfMonth
             ).pickDate(view.context, DatePickerDialog.OnDateSetListener{ _, year, month, day ->
-                val mth = month + 1
-                val m = if (mth < 10) "0$mth" else "$mth"
-                val d = if (day < 10) "0$day" else "$day"
-                tv_record_date.text = "$m/$d/$year"
-                recordViewModel.transDetail.Transaction_Date = Date(tv_record_date.text.toString() + " " + tv_record_time.text.toString())
+                tv_record_date.text =LocalDate.of(year,month+1, day).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+
+                recordViewModel.transDetail.Transaction_Date = LocalDateTime.parse(tv_record_date.text.toString() + " " + tv_record_time.text.toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
             })
 
         }
@@ -236,16 +235,15 @@ class RecordFragment : Fragment() {
         // time
         tv_record_time.setOnClickListener {
             // time picker
-            val time = LocalTime.parse(tv_record_time.text.toString(), DateTimeFormatter.ofPattern("HH:mm"))
+            val time = LocalTime.parse(tv_record_time.text.toString(), DateTimeFormatter.ofPattern("HH:mm:ss"))
 
             DateTimePicker(
                 startHour = time.hour,
                 startMinute = time.minute
             ).pickTime(context, TimePickerDialog.OnTimeSetListener { _, hour, minute ->
-                val h = if (hour < 10) "0$hour" else "$hour"
-                val m = if (minute < 10) "0$minute" else "$minute"
-                tv_record_time.text  = "$h:$m"
-                recordViewModel.transDetail.Transaction_Date = Date(tv_record_date.text.toString() + " " + tv_record_time.text.toString())
+                val s = Calendar.getInstance().get(Calendar.SECOND)
+                tv_record_time.text  = LocalTime.of(hour,minute,s).toString()
+                recordViewModel.transDetail.Transaction_Date = LocalDateTime.parse(tv_record_date.text.toString() + " " + tv_record_time.text.toString(),DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
             })
         }
 
@@ -448,9 +446,14 @@ class RecordFragment : Fragment() {
         }
 
 
-        tv_record_date.text = DateFormat.format("MM/dd/yyy", recordViewModel.transDetail.Transaction_Date)
-        tv_record_time.text = DateFormat.format("HH:mm", recordViewModel.transDetail.Transaction_Date)
-        tv_record_amount.text = doubleToStringWithTwoDecimal(recordViewModel.transDetail.Transaction_Amount)
+        tv_record_date.text = if (recordViewModel.transDetail.Transaction_Date != null)
+                                    recordViewModel.transDetail.Transaction_Date?.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+                             else DateFormat.format("yyyy-MM-dd", Date())
+
+        tv_record_time.text = if (recordViewModel.transDetail.Transaction_Date != null)
+                                    recordViewModel.transDetail.Transaction_Date?.format(DateTimeFormatter.ofPattern("HH:mm:ss"))
+                                else DateFormat.format("HH:mm:ss", Date())
+        tv_record_amount.text = "%.2f".format(recordViewModel.transDetail.Transaction_Amount)
         tv_record_account_pay.text = recordViewModel.transDetail.Account_Name
         tv_record_account_receive.text = recordViewModel.transDetail.AccountRecipient_Name
         tv_record_memo.setText(recordViewModel.transDetail.Transaction_Memo)
@@ -549,7 +552,6 @@ class RecordFragment : Fragment() {
                     else -> emptyList()
                 }
 
-                Toast.makeText(context,cmCategory.size.toString(), Toast.LENGTH_SHORT).show()
                 // vpAdapter?.setCategoryString(categoryString)
                 vpAdapter?.setList(cmCategory)
                 //vpAdapter?.setCategoryString(categoryString)
@@ -575,6 +577,7 @@ class RecordFragment : Fragment() {
         }
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     private fun setStatus(ctt: CurrentTransactionType){
         tvSectionExpense.setTextColor(ContextCompat.getColor(requireContext(),ctt.expense))
         tvSectionExpensePointer.visibility = ctt.expensePointer
@@ -608,8 +611,18 @@ class RecordFragment : Fragment() {
                 tv_record_common_category.visibility = View.VISIBLE
                 tv_record_all_category.visibility = View.VISIBLE
             }
-            3L,4L -> {
+            3L -> {
                 iv_record_swap.visibility = View.VISIBLE
+                iv_record_swap.isClickable = true
+                iv_record_swap.setImageDrawable(requireContext().getDrawable(R.drawable.ic_baseline_swap_horiz_24))
+                tv_record_account_receive.visibility = View.VISIBLE
+                tv_record_common_category.visibility = View.GONE
+                tv_record_all_category.visibility = View.GONE
+            }
+            4L -> {
+                iv_record_swap.visibility = View.VISIBLE
+                iv_record_swap.isClickable = false
+                iv_record_swap.setImageDrawable(requireContext().getDrawable(R.drawable.ic_baseline_keyboard_arrow_right_24))
                 tv_record_account_receive.visibility = View.VISIBLE
                 tv_record_common_category.visibility = View.GONE
                 tv_record_all_category.visibility = View.GONE

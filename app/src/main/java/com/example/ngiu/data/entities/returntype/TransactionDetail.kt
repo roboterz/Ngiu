@@ -2,6 +2,8 @@ package com.example.ngiu.data.entities.returntype
 
 import androidx.room.TypeConverters
 import com.example.ngiu.data.entities.DateTypeConverter
+import java.time.LocalDateTime
+import java.time.OffsetDateTime
 import java.util.*
 
 data class TransactionDetail(
@@ -12,7 +14,7 @@ data class TransactionDetail(
     var AccountRecipient_Name: String = "",
     var Transaction_Amount: Double = 0.00,
     @TypeConverters(DateTypeConverter::class)
-    var Transaction_Date: Date = Date(),
+    var Transaction_Date: LocalDateTime = LocalDateTime.now(),
     var Person_Name: String = "",
     var Merchant_Name: String = "",
     var Transaction_Memo: String = "",

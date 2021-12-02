@@ -4,8 +4,11 @@ package com.example.ngiu.data
 import androidx.room.*
 import com.example.ngiu.data.entities.*
 import androidx.room.Transaction
+import com.example.ngiu.data.entities.Currency
 import com.example.ngiu.data.entities.returntype.TransactionDetail
 import io.reactivex.Maybe
+import java.time.LocalDate
+import java.time.LocalDateTime
 
 // Account
 @Dao
@@ -324,6 +327,25 @@ interface TransDao {
         """)
     fun getAllTrans(): List<TransactionDetail>
 
+    @Transaction
+    @Query("""
+        SELECT SUM(Transaction_Amount)
+        FROM Trans
+        WHERE TransactionType_ID = 1
+            AND Transaction_Date Between :fromDate AND :toDate
+        """)
+    fun getMonthExpense(fromDate: String, toDate: String): Double
+
+    @Transaction
+    @Query("""
+        SELECT SUM(Transaction_Amount)
+        FROM Trans
+        WHERE TransactionType_ID = 2
+            AND Transaction_Date Between :fromDate AND :toDate
+        """)
+    fun getMonthIncome(fromDate: String, toDate: String): Double
+
+    //@Query("SELECT *, :date AS passed_date, coalesce(date(date),'ouch') AS cnv_date, coalesce(date(:date),'ouch') AS cnv_passed_date FROM user WHERE date(date / 1000,'unixepoch') = date(:date / 1000,'unixepoch');")
 
     @Transaction
     @Query("SELECT SUM(Transaction_Amount) as Transaction_Amount FROM Trans WHERE Account_ID = :rID")

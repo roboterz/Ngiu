@@ -1,6 +1,8 @@
 package com.example.ngiu.data.entities
 
 import androidx.room.*
+import java.time.LocalDateTime
+import java.time.OffsetDateTime
 import java.util.*
 
 @Entity(
@@ -57,9 +59,9 @@ data class Period (
     @ColumnInfo(defaultValue = "0")
     var Period_EndStatus: Int = 0,
     @TypeConverters(DateTypeConverter::class)
-    var Period_StarDate: Date = Date(),
+    var Period_StarDate: LocalDateTime = LocalDateTime.now(),
     @TypeConverters(DateTypeConverter::class)
-    var Period_EndDate: Date = Date(),
+    var Period_EndDate: LocalDateTime = LocalDateTime.now(),
     @ColumnInfo(defaultValue = "1")
     var Period_TransactionType_ID: Long = 1L,
     @ColumnInfo(defaultValue = "1")

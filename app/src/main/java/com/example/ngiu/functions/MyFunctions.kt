@@ -186,20 +186,6 @@ fun getDayOfMonthSuffix(n: Int): String {
 }
 
 
-// return amount as string with 2 decimal
-fun doubleToStringWithTwoDecimal(amount: Double): String{
-    var str = amount.toString()
-    //if (str.contains('.') && str.last() =='0'){
-    //    str += "0"
-    //}
-    when(str.length - str.lastIndexOf('.')){
-        2 -> str += "0"
-        3 -> {}
-        else ->str += ".00"
-    }
-    return str
-}
-
 
 
 // popupWindow call back function

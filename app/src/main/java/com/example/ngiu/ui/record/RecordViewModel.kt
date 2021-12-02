@@ -113,6 +113,15 @@ class RecordViewModel : ViewModel() {
         }
     }
 
+    // get account name list
+    fun getAccountList(): List<String>{
+        val tList: MutableList<String> = ArrayList<String>()
+        for (account in account){
+            tList.add(account.Account_Name)
+        }
+        return tList
+    }
+
 
 }
 

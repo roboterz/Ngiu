@@ -3,6 +3,8 @@ package com.example.ngiu.data.entities
 
 
 import androidx.room.*
+import java.time.LocalDateTime
+import java.time.OffsetDateTime
 import java.util.*
 
 @Entity(
@@ -66,7 +68,7 @@ data class Trans(
     @ColumnInfo(defaultValue = "0.00")
     var Transaction_Amount: Double = 0.00,
     @TypeConverters(DateTypeConverter::class)
-    var Transaction_Date: Date = Date(),
+    var Transaction_Date: LocalDateTime = LocalDateTime.now(),
     @ColumnInfo(defaultValue = "1")
     var Person_ID: Long = 1L,
     @ColumnInfo(defaultValue = "1")

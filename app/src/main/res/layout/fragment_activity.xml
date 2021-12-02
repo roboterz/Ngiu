@@ -28,9 +28,9 @@
 
         <TextView
             android:id="@+id/tvCurrentMonthExpenseBalance"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
+            android:layout_marginHorizontal="15dp"
             android:layout_marginBottom="15dp"
             android:singleLine="true"
             android:text="$226.22"
@@ -55,9 +55,9 @@
 
         <TextView
             android:id="@+id/tvCurrentMonthIncomeBalance"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
+            android:layout_marginHorizontal="5dp"
             android:layout_marginBottom="15dp"
             android:singleLine="true"
             android:text="$3326.98"
@@ -65,7 +65,7 @@
             android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/tvCurrentMonthIncome" />
+            app:layout_constraintStart_toEndOf="@id/tvCurrentMonthIncome"/>
 
         <TextView
             android:id="@+id/tvBudget"
@@ -82,7 +82,7 @@
 
         <TextView
             android:id="@+id/tvBudgetBalance"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="15dp"
@@ -111,6 +111,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="56dp"
+        android:descendantFocusability="blocksDescendants"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constrainedHeight="true"
         app:layout_constraintTop_toBottomOf="@id/info_activity_layout" />
