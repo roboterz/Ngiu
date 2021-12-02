@@ -28,7 +28,8 @@
             android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:textColor="@color/app_amount"
-            app:layout_constraintWidth_percent="0.9"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/img_sub_category_star"
             tools:ignore="MissingConstraints,RtlHardcoded" />
 
         <ImageView

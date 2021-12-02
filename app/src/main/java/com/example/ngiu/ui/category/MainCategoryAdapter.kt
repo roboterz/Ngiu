@@ -23,10 +23,12 @@ class MainCategoryAdapter(
 
     private var mainCategory: List<MainCategory> = ArrayList()
     private var currentArrow: Int = 0
+    //private var editMode: Boolean =false
 
     // interface for passing the onClick event to fragment.
     interface OnClickListener {
-        fun onItemClick(rID: Long)
+        fun onItemClick(rID: Long, addNew: Boolean = false)
+        fun onItemLongClick(rID: Long, mainCategoryName: String, nextRowID: Long)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -49,16 +51,39 @@ class MainCategoryAdapter(
 
             holder.mainCategoryName.text = MainCategory_Name
 
-            // selected item status
-            if (position == currentArrow){
-                holder.arrow.visibility = View.VISIBLE
-                holder.itemBackground.setBackgroundColor(holder.activeItem)
-            }
+            if (position == mainCategory.size - 1 && TransactionType_ID == 0L){
+                // add
+                holder.mainCategoryName.setTextColor(holder.addButtonTextColor)
+                holder.mainCategoryName.setOnClickListener {
+                    onClickListener.onItemClick(MainCategory_ID,true)
+                }
 
-            // click event
-            holder.mainCategoryName.setOnClickListener {
-                currentArrow = position
-                onClickListener.onItemClick(MainCategory_ID)
+            }else{
+                /*
+                if (editMode){
+                    holder.mainCategoryName.setCompoundDrawables(null,null, holder.iconDelete,null)
+                }
+
+                 */
+                holder.mainCategoryName.setTextColor(holder.itemTextColor)
+
+                // selected item status
+                if (position == currentArrow){
+                    holder.arrow.visibility = View.VISIBLE
+                    holder.itemBackground.setBackgroundColor(holder.activeItem)
+                }
+                // click event
+                holder.mainCategoryName.setOnClickListener {
+                    currentArrow = position
+                    onClickListener.onItemClick(MainCategory_ID)
+                }
+                // long click event
+                holder.mainCategoryName.setOnLongClickListener {
+                    if (position>0){
+                        onClickListener.onItemLongClick(MainCategory_ID, MainCategory_Name, mainCategory[position-1].MainCategory_ID)
+                    }
+                    true
+                }
             }
 
 
@@ -71,6 +96,17 @@ class MainCategoryAdapter(
         mainCategory = list
         notifyDataSetChanged()
     }
+
+    fun setArrowAfterDelete(){
+        if (currentArrow > 0) currentArrow--
+    }
+
+    /*
+    fun setEditMode(boolean: Boolean){
+        editMode = boolean
+    }
+
+     */
 
 
     override fun getItemCount(): Int {
@@ -86,9 +122,9 @@ class MainCategoryAdapter(
 
 
         val activeItem = ContextCompat.getColor(itemView.context, R.color.app_select_item)
-        //val incomeColor = ContextCompat.getColor(itemView.context, R.color.app_income_amount)
-        //val amountColor = ContextCompat.getColor(itemView.context, R.color.app_amount)
-
+        val addButtonTextColor = ContextCompat.getColor(itemView.context, R.color.app_sub_line_text)
+        val itemTextColor = ContextCompat.getColor(itemView.context, R.color.app_amount)
+        val iconDelete = ContextCompat.getDrawable(itemView.context, R.drawable.ic_baseline_delete_forever_24)
 
     }
 

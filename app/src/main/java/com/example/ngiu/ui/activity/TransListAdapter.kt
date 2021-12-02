@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.returntype.TransactionDetail
 import kotlinx.android.synthetic.main.cardview_transaction.view.*
+import java.time.format.DateTimeFormatter
 import kotlin.collections.ArrayList
 
 
@@ -22,6 +23,7 @@ class TransListAdapter(
 
     private var transDetail: List<TransactionDetail> = ArrayList()
 
+    private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm")
 
     // interface for passing the onClick event to fragment.
     interface OnClickListener {
@@ -45,25 +47,22 @@ class TransListAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         // display the custom class
         transDetail[position].apply {
-            holder.monthDay.text = DateFormat.format("MM-dd", Transaction_Date)
-            holder.week.text =DateFormat.format("EEEE",Transaction_Date)
+            holder.monthDay.text = Transaction_Date?.format(DateTimeFormatter.ofPattern("MM/dd"))
+            holder.week.text =Transaction_Date?.format(DateTimeFormatter.ofPattern("EEEE"))
             //holder.income.text = "Income"
             //holder.dailyIncome.text ="$0.00"
             //holder.expense.text = "Expense"
             //holder.dailyExpense.text ="$0.00"
-            holder.time.text = DateFormat.format("HH:mm", Transaction_Date)
-            holder.year.text = DateFormat.format("yyyy", Transaction_Date)
+            holder.time.text = Transaction_Date?.format(DateTimeFormatter.ofPattern("HH:mm"))
+            holder.year.text = Transaction_Date?.format(DateTimeFormatter.ofPattern("yyyy"))
             //holder.period.text = ""
             holder.memo.text = Transaction_Memo
 
-            when("$Transaction_Amount".length - "$Transaction_Amount".lastIndexOf('.')){
-                2 -> holder.amount.text ="$$Transaction_Amount" + "0"
-                3 ->holder.amount.text ="$$Transaction_Amount"
-                else ->holder.amount.text ="$$Transaction_Amount.00"
-            }
-            //holder.amount.text ="$$Transaction_Amount"
 
-            if (TransactionType_ID in 1..2) {
+            holder.amount.text ="$" + "%.2f".format(Transaction_Amount)
+
+            // TransactionType 1, 2
+            if (TransactionType_ID in 1L..2L) {
                 holder.subCategory.text = SubCategory_Name
                 holder.account.text = Account_Name
                 holder.person.text = Person_Name
@@ -90,8 +89,8 @@ class TransListAdapter(
 
 
 
-
-            if (TransactionType_ID.toInt() == 3 ){
+            // Transaction Type 3, 4
+            if (TransactionType_ID in 3L..4L ){
                 holder.subCategory.text = Account_Name
                 holder.accountReceiver.text =" ➡️ $AccountRecipient_Name"
                 holder.accountReceiver.visibility = View.VISIBLE
@@ -99,7 +98,7 @@ class TransListAdapter(
                 holder.accountReceiver.text = ""
             }
 
-            if (Period_ID.toInt() != 0) {
+            if (Period_ID != 0L) {
                 //holder.period.text="Period"
                 holder.period.visibility = View.VISIBLE
             }
