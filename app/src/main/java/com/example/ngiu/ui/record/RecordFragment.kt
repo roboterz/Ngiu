@@ -353,8 +353,14 @@ class RecordFragment : Fragment() {
         // account pay
         tv_record_account_pay.setOnClickListener {
             val tList: MutableList<String> = ArrayList<String>()
-            for (account in recordViewModel.account){
-                tList.add(account.Account_Name)
+            if (recordViewModel.account.size > 0) {
+                for (account in recordViewModel.account) {
+                    if (recordViewModel.transDetail.TransactionType_ID == 3L)
+                        if (account.Account_Name != tv_record_account_receive.text.toString())
+                            tList.add(account.Account_Name)
+                }
+            }else{
+                createNewAccount(recordViewModel.transDetail.TransactionType_ID)
             }
             popupWindow(requireContext(),getText(R.string.setting_merchant).toString(),  tList.toTypedArray(),
                 object : SelectItem {
@@ -370,9 +376,16 @@ class RecordFragment : Fragment() {
         // account receive
         tv_record_account_receive.setOnClickListener {
             val tList: MutableList<String> = ArrayList<String>()
-            for (account in recordViewModel.account){
-                tList.add(account.Account_Name)
+            if (recordViewModel.account.size > 0) {
+                for (account in recordViewModel.account) {
+                    if (recordViewModel.transDetail.TransactionType_ID == 3L)
+                        if (account.Account_Name != tv_record_account_pay.text.toString())
+                            tList.add(account.Account_Name)
+                }
+            }else{
+                createNewAccount(recordViewModel.transDetail.TransactionType_ID, recordViewModel.transDetail.SubCategory_Name, false)
             }
+
             popupWindow(requireContext(),getText(R.string.setting_merchant).toString(),  tList.toTypedArray(),
                 object : SelectItem {
                     override fun clicked(idx: Int) {
@@ -390,6 +403,13 @@ class RecordFragment : Fragment() {
         }
     }
 
+    private fun createNewAccount(transactiontypeId: Long, subcategoryName: String, payable: Boolean) {
+        if (transactiontypeId == 4L){
+
+        }else{
+
+        }
+    }
 
 
     // called when the fragment is visible and actively running.
@@ -484,9 +504,9 @@ class RecordFragment : Fragment() {
             val trans = Trans(
                 Transaction_ID = transactionID,
                 TransactionType_ID = recordViewModel.transDetail.TransactionType_ID,
-                SubCategory_ID = recordViewModel.subCategory[recordViewModel.subCategory.indexOfFirst { it.SubCategory_Name == tv_record_category.text.toString() }].SubCategory_ID,
-                Account_ID = if (tv_record_account_pay.text.isNotEmpty()) recordViewModel.account[recordViewModel.account.indexOfFirst{it.Account_Name == tv_record_account_pay.text.toString()}].Account_ID else 1L,
-                AccountRecipient_ID = if (tv_record_account_receive.text.isNotEmpty()) recordViewModel.account[recordViewModel.account.indexOfFirst{it.Account_Name == tv_record_account_receive.text.toString()}].Account_ID else 1L,
+                SubCategory_ID = recordViewModel.getSubCategoryID(tv_record_category.text.toString()),
+                Account_ID = recordViewModel.getAccountID(tv_record_account_pay.text.toString()),
+                AccountRecipient_ID = recordViewModel.getAccountID(tv_record_account_receive.text.toString()),
                 Transaction_Amount = tv_record_amount.text.toString().toDouble(),
                 Transaction_Date = recordViewModel.transDetail.Transaction_Date,
                 Transaction_Memo = tv_record_memo.text.toString(),
