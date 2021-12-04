@@ -126,12 +126,11 @@ class AddDebitFragment : Fragment() {
 
     private fun submitForm() {
         binding.debitAccountNameTextLayout.helperText = validAccountName()
-        binding.debitCardNumberTextLayout.helperText = validCardNumber()
 
         val validAccountName = binding.debitAccountNameTextLayout.helperText == null
-        val validCardNumber = binding.debitCardNumberTextLayout.helperText == null
 
-        if (validAccountName && validCardNumber ) {
+
+        if (validAccountName ) {
             insertData()
             findNavController().navigate(R.id.navigation_account)
 
@@ -145,9 +144,7 @@ class AddDebitFragment : Fragment() {
         if(binding.debitAccountNameTextLayout.helperText != null) {
             message += "\nAccountName: " + binding.debitAccountNameTextLayout.helperText
         }
-        if(binding.debitCardNumberTextLayout.helperText != null) {
-            message += "\n\nCardNumber: " + binding.debitCardNumberTextLayout.helperText
-        }
+
 
         AlertDialog.Builder(context)
             .setTitle("Invalid Form")
@@ -167,11 +164,5 @@ class AddDebitFragment : Fragment() {
         return null
     }
 
-    private fun validCardNumber(): String? {
-        val accountDebitText = binding.tetDebitCardNumber.text.toString()
-        if(accountDebitText.length < 4) {
-            return "Invalid Card Number Entry."
-        }
-        return null
-    }
+
 }
