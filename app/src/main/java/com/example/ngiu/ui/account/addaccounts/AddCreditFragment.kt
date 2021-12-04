@@ -210,7 +210,7 @@ class AddCreditFragment : Fragment() {
         }
         val creditAccount = Account(
             Account_Name =  accountName, Account_CardNumber = cardNumber, Account_CreditLimit = creditLimit.toDouble(),
-            Account_Balance =  currentArrears.toDouble(), Account_CountInNetAssets =  countInNetAsset, Account_Memo = memo,
+            Account_Balance =  currentArrears.toDouble() * -1, Account_CountInNetAssets =  countInNetAsset, Account_Memo = memo,
             AccountType_ID = accountTypeID, Currency_ID = currency, Account_StatementDay = statementDay.toInt(),
             Account_PaymentDay = paymentDay.toInt())
 

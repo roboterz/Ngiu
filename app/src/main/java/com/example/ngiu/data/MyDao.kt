@@ -28,6 +28,8 @@ interface AccountDao {
     @Query("SELECT * FROM Account WHERE Account_ID = :rID")
     fun getRecordByID(rID:Long): Account
 
+
+
     //@Transaction
     //@Query("SELECT * FROM Account")
     //fun getAcctTransRecip(): List<AcctTransRecipient>
@@ -354,6 +356,27 @@ interface TransDao {
     @Transaction
     @Query("SELECT SUM(Transaction_Amount) as Transaction_Amount FROM Trans WHERE AccountRecipient_ID = :rID AND TransactionType_ID IN (3,4)")
     fun getTotalSumB(rID: Long): Double
+
+    // 0 for false, 1 for true: so countnetassets if true
+    @Transaction
+    @Query("SELECT SUM(Account_Balance)  FROM Account WHERE Account_CountInNetAssets = 1 ")
+    fun getSumAccount(): Double
+
+
+    @Transaction
+    @Query("SELECT SUM(Transaction_Amount) FROM Trans WHERE TransactionType_ID = :rID")
+    fun getTransactionSums(rID: Long): Double
+
+    @Transaction
+    @Query("""
+            SELECT SUM(Transaction_Amount) FROM Trans trans 
+            INNER JOIN ACCOUNT acct ON trans.AccountRecipient_ID = acct.Account_ID 
+            WHERE trans.TransactionType_ID = 4 AND acct.AccountType_ID != 9 -  
+            (SELECT SUM(trans.Transaction_Amount) FROM Trans trans  
+            INNER JOIN Account acct  ON trans.Account_ID = acct.Account_ID 
+            WHERE trans.TransactionType_ID = 4 AND acct.AccountType_ID != 9)
+            """)
+    fun getSumTotalAsset(): Double
 
 
 }

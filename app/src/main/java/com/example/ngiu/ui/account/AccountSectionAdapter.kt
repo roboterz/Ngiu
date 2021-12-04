@@ -60,6 +60,7 @@ class AccountSectionAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         var rvAccounts: RecyclerView = itemView.rvAccounts
         var topheader: View = itemView.includeHeader
 
+        // function to fold child base off the header
         fun foldItems(expand: Boolean){
             if (expand) {
                 rvAccounts.visibility = View.VISIBLE

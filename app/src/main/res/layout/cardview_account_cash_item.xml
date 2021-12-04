@@ -34,13 +34,28 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="8dp"
             android:textColor="@color/app_text"
+            android:text="@string/option_lend"
             app:layout_constraintBottom_toBottomOf="@id/ivCashCardSymbol"
             app:layout_constraintStart_toEndOf="@+id/ivCashCardSymbol"
             app:layout_constraintTop_toTopOf="@id/ivCashCardSymbol"
             tools:text="Account Type" />
 
         <TextView
-            android:id="@+id/tvLoB"
+            android:id="@+id/tvLend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Borrow"
+            android:background="@color/app_label_text"
+            android:layout_marginRight="15dp"
+            android:padding="5dp"
+            android:visibility="gone"
+            android:text="@string/option_borrow"
+            app:layout_constraintTop_toTopOf="@id/ivCashCardSymbol"
+            app:layout_constraintBottom_toBottomOf="@id/ivCashCardSymbol"
+            app:layout_constraintEnd_toStartOf="@+id/tvAccountCashBalance"/>
+
+        <TextView
+            android:id="@+id/tvBorrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="Borrow"

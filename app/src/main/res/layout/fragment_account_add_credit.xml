@@ -183,7 +183,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/app_section_background"
-                    android:digits="0123456789"
+                    android:digits=".0123456789"
                     android:inputType="numberDecimal">
 
                 </com.google.android.material.textfield.TextInputEditText>
@@ -226,7 +226,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/app_section_background"
-                    android:digits="0123456789"
+                    android:digits=".0123456789"
                     android:inputType="numberDecimal"
                     android:maxLength="15">
 

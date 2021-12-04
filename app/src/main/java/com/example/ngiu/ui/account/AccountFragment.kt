@@ -1,13 +1,16 @@
 package com.example.ngiu.ui.account
 
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.MainActivity
@@ -46,15 +49,29 @@ class AccountFragment : Fragment() {
     }
 
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
 
 
-        accountViewModel.getAccountSectionUiModal(requireContext())
+        accountViewModel.getAccountSectionUiModel(requireContext())
         rvAccount?.layoutManager = LinearLayoutManager(context)
         rvAccount?.adapter = adapter
+
+        val netAssets = accountViewModel.getNetAssets(requireContext())
+        val totalAsset = accountViewModel.getTotalAssets(requireContext())
+        val totalLiability = accountViewModel.getTotalLiability()
+
+        binding.tvAccountTotalAssetsValue.text = "%.2f".format(totalAsset)
+        binding.tvAccountNetAssetsValue.text = "%.2f".format(netAssets)
+
         accountViewModel.accountSections.observe(viewLifecycleOwner){
+            binding.tvAccountTotalLiabilityValue.text = "%.2f".format(totalLiability)
+            // if there is nothing to display go to the add account
+            if(it.isEmpty()){
+                findNavController().navigate(R.id.navigation_add_account)
+            }
             adapter.addItems(it)
         }
 
