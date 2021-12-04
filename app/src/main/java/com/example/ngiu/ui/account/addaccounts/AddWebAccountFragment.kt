@@ -122,7 +122,7 @@ class AddWebAccountFragment : Fragment() {
 
     private fun submitForm() {
         binding.webAccountNameTextLayout.helperText = validAccountName()
-        binding.webBalanceTextLayout.helperText = validBalance()
+
 
         val validAccountName = binding.webAccountNameTextLayout.helperText == null
         val validBalance = binding.webBalanceTextLayout.helperText == null
@@ -163,11 +163,5 @@ class AddWebAccountFragment : Fragment() {
         return null
     }
 
-    private fun validBalance(): String? {
-        val accountBalanceText = binding.tetWebBalance.text.toString()
-        if(accountBalanceText.length < 0) {
-            return "Invalid Balance Entry."
-        }
-        return null
-    }
+
 }

@@ -79,7 +79,7 @@
                     android:background="@color/app_section_background"
                     android:digits="0123456789"
                     android:inputType="numberDecimal"
-                    android:maxLength="15">
+                    android:maxLength="16">
 
                 </com.google.android.material.textfield.TextInputEditText>
             </com.google.android.material.textfield.TextInputLayout>
