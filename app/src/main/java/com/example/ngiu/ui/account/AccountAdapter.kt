@@ -14,72 +14,91 @@ import com.example.ngiu.functions.toDayLeft
 import com.example.ngiu.functions.toStatementDate
 import kotlinx.android.synthetic.main.cardview_account_cash_item.view.*
 import kotlinx.android.synthetic.main.cardview_account_credit_card_item.view.*
+import org.w3c.dom.Text
 
 
 class AccountAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val accounts = ArrayList<Account>()
 
+
     private val VIEW_TYPE_CASH: Int = 0
     private val VIEW_TYPE_CREDIT: Int = 1
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        if (viewType == VIEW_TYPE_CASH) {
+         if(viewType == VIEW_TYPE_CREDIT) {
             val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.cardview_account_cash_item, parent, false);
-            return CashViewHolder(view)
+                .inflate(R.layout.cardview_account_credit_card_item, parent, false);
+            return CreditViewHolder(view)
         }
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.cardview_account_credit_card_item, parent, false);
-        return CreditViewHolder(view)
+            .inflate(R.layout.cardview_account_cash_item, parent, false)
+        return CashViewHolder(view)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = accounts[position]
-        if (holder is CashViewHolder) {
+        if(holder is CashViewHolder) {
             val viewHolder: CashViewHolder = holder
             viewHolder.accountTypeTitle.text = item.Account_Name
             changeColor(viewHolder.accountCashBalance, item.Account_Balance)
 
 
-        } else
-            if (holder is CreditViewHolder) {
-                val viewHolder: CreditViewHolder = holder;
-                viewHolder.creditAccountName.text = item.Account_Name
+        /* condition for recievable/payable
+            if(item.AccountType_ID == 9L){
+
+            }*/
+
+        } else if(holder is CreditViewHolder) {
+            val viewHolder: CreditViewHolder = holder;
+            viewHolder.creditAccountName.text = item.Account_Name
+            viewHolder.currentCreditBalance.text = "%.2f".format(item.Account_Balance)
+            if(item.Account_CardNumber.length > 4){
                 viewHolder.cardNumber.text = item.Account_CardNumber.substring(item.Account_CardNumber.length-4,item.Account_CardNumber.length)
-                viewHolder.currentCreditBalance.text = "%.2f".format(item.Account_Balance)
-                //viewHolder.currentCreditBalance.setTextColor(Color.RED)
-                //changeColor(viewHolder.currentCreditBalance, item.Account_Balance)
-
-
-                if(item.Account_Balance == 0.0){
+            } else {
+                viewHolder.cardNumber.text = item.Account_CardNumber
+            }
+            changeColor(viewHolder.currentCreditBalance, item.Account_Balance)
+            // credit card
+            if(item.AccountType_ID == 2L){
+                if(item.Account_Balance >= 0.0){
                     viewHolder.numberOfDays.text = toDayLeft(item.Account_StatementDay)
                     viewHolder.date.text = toStatementDate(item.Account_StatementDay)
                     viewHolder.creditStatementDay.visibility = View.VISIBLE
-                    viewHolder.creditPaymentDay.visibility = View.GONE
-                }
-                else{
+                } else {
                     viewHolder.numberOfDays.text = toDayLeft(item.Account_PaymentDay)
                     viewHolder.date.text = toStatementDate(item.Account_PaymentDay)
-                    viewHolder.creditStatementDay.visibility = View.GONE
-                    viewHolder.creditPaymentDay.visibility = View.VISIBLE
+                    viewHolder.creditPaymentDay.visibility = View.GONE
                 }
+            // debit card
+            } else if(item.AccountType_ID == 3L) {
+                viewHolder.numberOfDays.visibility = View.GONE
+                viewHolder.date.visibility = View.GONE
+                viewHolder.numberOfDays.visibility = View.GONE
+                viewHolder.daysLeft.visibility = View.GONE
             }
+        }
     }
+
+
 
 
     override fun getItemViewType(position: Int): Int {
         val item: Account = accounts[position]
-        if (item.AccountType_ID == 1L) {
-            return VIEW_TYPE_CASH
+        return if (item.AccountType_ID == 1L || item.AccountType_ID == 9L) {
+            VIEW_TYPE_CASH
+        } else if(item.AccountType_ID == 2L || item.AccountType_ID == 3L) {
+            VIEW_TYPE_CREDIT
+        } else {
+            VIEW_TYPE_CASH
         }
-        return VIEW_TYPE_CREDIT
     }
 
     override fun getItemCount(): Int {
         return accounts.size
     }
 
-
+    // clear data to add new as data is changed
     @SuppressLint("NotifyDataSetChanged")
     fun addItems(data: List<Account>){
         accounts.clear()
@@ -87,14 +106,16 @@ class AccountAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         notifyDataSetChanged()
     }
 
-    //cash viewholder
+    // cash/everything viewholder
     inner class CashViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val accountTypeTitle: TextView = itemView.tvCashAccountName
         val accountCashBalance: TextView = itemView.tvAccountCashBalance
+        val lend: TextView = itemView.tvLend
+        val borrow: TextView = itemView.tvBorrow
 
     }
 
-    //credit viewholder
+    // credit viewholder
     inner class CreditViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val creditAccountName: TextView = itemView.tvCreditAccountName
         val cardNumber: TextView = itemView.tvCardNumber
@@ -103,6 +124,8 @@ class AccountAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val date: TextView = itemView.tvStatementOrPaymentDate
         val creditPaymentDay: TextView = itemView.tvCreditPaymentDay
         val creditStatementDay: TextView = itemView.tvCreditStatementDay
+        val daysLeft: TextView = itemView.tvDaysLeft
+
     }
 
 }

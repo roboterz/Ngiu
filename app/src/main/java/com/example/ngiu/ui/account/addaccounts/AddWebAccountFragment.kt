@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.example.ngiu.MainActivity
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.Account
 import com.example.ngiu.data.entities.Currency
@@ -45,6 +46,8 @@ class AddWebAccountFragment : Fragment() {
         toolbarAddWebAccount.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
+
+        (activity as MainActivity).setNavBottomBarVisibility(View.GONE)
     }
 
     override fun onResume() {
@@ -119,7 +122,7 @@ class AddWebAccountFragment : Fragment() {
 
     private fun submitForm() {
         binding.webAccountNameTextLayout.helperText = validAccountName()
-        binding.webBalanceTextLayout.helperText = validBalance()
+
 
         val validAccountName = binding.webAccountNameTextLayout.helperText == null
         val validBalance = binding.webBalanceTextLayout.helperText == null
@@ -160,11 +163,5 @@ class AddWebAccountFragment : Fragment() {
         return null
     }
 
-    private fun validBalance(): String? {
-        val accountBalanceText = binding.tetWebBalance.text.toString()
-        if(accountBalanceText.length < 0) {
-            return "Invalid Balance Entry."
-        }
-        return null
-    }
+
 }

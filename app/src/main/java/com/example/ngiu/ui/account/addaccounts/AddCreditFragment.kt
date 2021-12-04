@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.example.ngiu.MainActivity
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.Account
 import com.example.ngiu.data.entities.Currency
@@ -52,6 +53,7 @@ class AddCreditFragment : Fragment() {
         toolbarAddCreditAccount.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
+        (activity as MainActivity).setNavBottomBarVisibility(View.GONE)
     }
 
     override fun onResume() {
@@ -210,7 +212,7 @@ class AddCreditFragment : Fragment() {
         }
         val creditAccount = Account(
             Account_Name =  accountName, Account_CardNumber = cardNumber, Account_CreditLimit = creditLimit.toDouble(),
-            Account_Balance =  currentArrears.toDouble(), Account_CountInNetAssets =  countInNetAsset, Account_Memo = memo,
+            Account_Balance =  currentArrears.toDouble() * -1, Account_CountInNetAssets =  countInNetAsset, Account_Memo = memo,
             AccountType_ID = accountTypeID, Currency_ID = currency, Account_StatementDay = statementDay.toInt(),
             Account_PaymentDay = paymentDay.toInt())
 
@@ -222,14 +224,14 @@ class AddCreditFragment : Fragment() {
 
     private fun submitForm() {
         binding.creditAccountNameTextLayout.helperText = validAccountName()
-        binding.creditCardNumberTextLayout.helperText = validCard()
+
 
 
         val validAccountName = binding.creditAccountNameTextLayout.helperText == null
-        val validCard = binding.creditCardNumberTextLayout.helperText == null
 
 
-        if (validAccountName && validCard ) {
+
+        if (validAccountName ) {
             insertData()
             findNavController().navigate(R.id.navigation_account)
 
@@ -266,13 +268,6 @@ class AddCreditFragment : Fragment() {
         return null
     }
 
-    private fun validCard(): String? {
-        val cardNumber = binding.tetCreditCardNumber.text.toString()
-        if(cardNumber.length < 4) {
-            return "Enter at least four digits credit Card number."
-        }
-        return null
-    }
 
 
 

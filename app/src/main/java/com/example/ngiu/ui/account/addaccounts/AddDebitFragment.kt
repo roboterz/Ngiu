@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.example.ngiu.MainActivity
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.Account
 import com.example.ngiu.data.entities.Currency
@@ -47,6 +48,8 @@ class AddDebitFragment : Fragment() {
         toolbarAddDebitAccount.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
+
+        (activity as MainActivity).setNavBottomBarVisibility(View.GONE)
     }
 
     override fun onResume() {
@@ -123,12 +126,11 @@ class AddDebitFragment : Fragment() {
 
     private fun submitForm() {
         binding.debitAccountNameTextLayout.helperText = validAccountName()
-        binding.debitCardNumberTextLayout.helperText = validCardNumber()
 
         val validAccountName = binding.debitAccountNameTextLayout.helperText == null
-        val validCardNumber = binding.debitCardNumberTextLayout.helperText == null
 
-        if (validAccountName && validCardNumber ) {
+
+        if (validAccountName ) {
             insertData()
             findNavController().navigate(R.id.navigation_account)
 
@@ -142,9 +144,7 @@ class AddDebitFragment : Fragment() {
         if(binding.debitAccountNameTextLayout.helperText != null) {
             message += "\nAccountName: " + binding.debitAccountNameTextLayout.helperText
         }
-        if(binding.debitCardNumberTextLayout.helperText != null) {
-            message += "\n\nCardNumber: " + binding.debitCardNumberTextLayout.helperText
-        }
+
 
         AlertDialog.Builder(context)
             .setTitle("Invalid Form")
@@ -164,11 +164,5 @@ class AddDebitFragment : Fragment() {
         return null
     }
 
-    private fun validCardNumber(): String? {
-        val accountDebitText = binding.tetDebitCardNumber.text.toString()
-        if(accountDebitText.length < 16) {
-            return "Invalid Card Number Entry."
-        }
-        return null
-    }
+
 }
