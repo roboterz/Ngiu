@@ -9,6 +9,7 @@ import com.example.ngiu.R
 import com.example.ngiu.data.AppDatabase
 import com.example.ngiu.data.entities.*
 import com.example.ngiu.data.entities.returntype.TransactionDetail
+import kotlinx.android.synthetic.main.fragment_record.*
 
 import kotlin.collections.ArrayList
 
@@ -122,6 +123,14 @@ class RecordViewModel : ViewModel() {
         return tList
     }
 
+    fun getSubCategoryID(string: String): Long{
+        return subCategory[subCategory.indexOfFirst { it.SubCategory_Name == string }].SubCategory_ID
+    }
+    fun getAccountID(string: String): Long{
+        return if (string.isNotEmpty())
+            account[account.indexOfFirst{it.Account_Name == string}].Account_ID
+        else 1L
+    }
 
 }
 
