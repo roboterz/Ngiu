@@ -166,7 +166,7 @@ class AddDebitFragment : Fragment() {
 
     private fun validCardNumber(): String? {
         val accountDebitText = binding.tetDebitCardNumber.text.toString()
-        if(accountDebitText.length < 16) {
+        if(accountDebitText.length < 4) {
             return "Invalid Card Number Entry."
         }
         return null

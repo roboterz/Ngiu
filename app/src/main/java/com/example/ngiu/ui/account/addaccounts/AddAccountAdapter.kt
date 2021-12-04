@@ -34,7 +34,7 @@ class AddAccountAdapter(val context: Context) :
                         6 -> holder.itemView.findNavController().navigate(R.id.addVirtualAccountFragment)
                         7 -> holder.itemView.findNavController().navigate(R.id.addPermanentAssetFragment)
                         //8-> supposed to be receivable/payable
-                        8 -> holder.itemView.findNavController().navigate(R.id.addVirtualAccountFragment)
+                        8 -> holder.itemView.findNavController().navigate(R.id.addPermanentAssetFragment)
                     }
                 }
 
