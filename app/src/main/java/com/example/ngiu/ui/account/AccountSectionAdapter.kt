@@ -2,11 +2,13 @@ package com.example.ngiu.ui.account
 
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
@@ -26,7 +28,7 @@ class AccountSectionAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = accountItems[position]
-        val viewHolder = holder as AccountSectionViewHolder;
+        val viewHolder = holder as AccountSectionViewHolder
         viewHolder.accountHeaderType.text = item.title
         viewHolder.accountHeaderBalance.text = item.balance
         viewHolder.foldItems(item.isExpanded)
@@ -39,6 +41,9 @@ class AccountSectionAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         viewHolder.rvAccounts.layoutManager = LinearLayoutManager(context)
         viewHolder.rvAccounts.adapter = adapter
         adapter.addItems(item.list)
+
+
+
     }
 
     override fun getItemCount(): Int {

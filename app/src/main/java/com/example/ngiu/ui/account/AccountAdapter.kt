@@ -2,10 +2,12 @@ package com.example.ngiu.ui.account
 
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.Account
@@ -55,8 +57,10 @@ class AccountAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             viewHolder.currentCreditBalance.text = "%.2f".format(item.Account_Balance)
             if(item.Account_CardNumber.length > 4){
                 viewHolder.cardNumber.text = item.Account_CardNumber.substring(item.Account_CardNumber.length-4,item.Account_CardNumber.length)
+                viewHolder.cardNumber.visibility = View.VISIBLE
             } else {
                 viewHolder.cardNumber.text = item.Account_CardNumber
+                viewHolder.cardNumber.visibility = View.VISIBLE
             }
             changeColor(viewHolder.currentCreditBalance, item.Account_Balance)
             // credit card
@@ -76,6 +80,20 @@ class AccountAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 viewHolder.date.visibility = View.GONE
                 viewHolder.numberOfDays.visibility = View.GONE
                 viewHolder.daysLeft.visibility = View.GONE
+            }
+        }
+
+        holder.itemView.setOnClickListener {
+            when (item.AccountType_ID) {
+                2L -> {
+                    holder.itemView.findNavController().navigate(R.id.accountCreditRecords)
+                }
+                9L -> {
+                    holder.itemView.findNavController().navigate(R.id.accountRecordsPR)
+                }
+                else -> {
+                    holder.itemView.findNavController().navigate(R.id.accountRecords)
+                }
             }
         }
     }

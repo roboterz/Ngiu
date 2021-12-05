@@ -96,5 +96,21 @@
         android:id="@+id/addWebAccountFragment"
         android:name="com.example.ngiu.ui.account.addaccounts.AddWebAccountFragment"
         android:label="AddWebAccountFragment" />
+    <fragment
+        android:id="@+id/accountCreditRecords"
+        android:name="com.example.ngiu.ui.account.AccountCreditRecords"
+        android:label="fragment_account_credit_records"
+        tools:layout="@layout/fragment_account_credit_records" />
+    <fragment
+        android:id="@+id/accountRecords"
+        android:name="com.example.ngiu.ui.account.AccountRecords"
+        android:label="fragment_account_records"
+        tools:layout="@layout/fragment_account_records" />
+    <fragment
+        android:id="@+id/accountRecordsPR"
+        android:name="com.example.ngiu.ui.account.AccountRecordsPR"
+        android:label="fragment_account_records_p_r"
+        tools:layout="@layout/fragment_account_records_p_r" />
+
 
 </navigation>

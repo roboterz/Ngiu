@@ -118,22 +118,16 @@ class AddDebitFragment : Fragment() {
             Account_Name =  accountName, Account_Balance =  balance.toDouble(), Account_CardNumber = cardNumber,
             Account_CountInNetAssets =  countInNetAsset, Account_Memo = memo, AccountType_ID = accountTypeID, Currency_ID = currency)
 
-
         addDebitViewModel.insertDebit(requireActivity(), cashAccount)
-
-
     }
 
     private fun submitForm() {
         binding.debitAccountNameTextLayout.helperText = validAccountName()
-
         val validAccountName = binding.debitAccountNameTextLayout.helperText == null
-
 
         if (validAccountName ) {
             insertData()
             findNavController().navigate(R.id.navigation_account)
-
         }
         else
             invalidForm()
