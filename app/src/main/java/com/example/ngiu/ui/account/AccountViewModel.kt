@@ -18,7 +18,7 @@ class AccountViewModel : ViewModel() {
         val liability = getTotalLiability()
         val totalAssets = getTotalAssets(context)
 
-        return totalAssets + liability
+        return totalAssets - liability
     }
 
     // if account has negative balance, sum the value for liability
