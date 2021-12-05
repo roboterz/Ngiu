@@ -378,12 +378,21 @@ interface TransDao {
             """)
     fun getSumOfAmountForPayableReceivable(): Double
 
+    /*
     @Transaction
     @Query("""
-            SELECT sum(Transaction_Amount) + sum (Account_Balance)
-            FROM Trans, Account
+            SELECT (SELECT sum(Account_Balance) FROM Account WHERE Account_CountInNetAssets = 1) 
+                + (SELECT sum(Transaction_Amount) FROM Trans WHERE TransactionType_ID = 2) 
+                - (SELECT sum(Transaction_Amount) FROM Trans WHERE TransactionType_ID = 1)
+                + (SELECT sum(Transaction_Amount) 
+                    FROM Trans
+                    INNER JOIN ACCOUNT ON Trans.AccountRecipient_ID = Account.Account_ID 
+                    WHERE Trans.TransactionType_ID = 4 
+                        AND Account.AccountType_ID <> 9 )
             """)
     fun getLiability(): Double
+    
+     */
 
 
 }
