@@ -360,12 +360,12 @@ interface TransDao {
     // 0 for false, 1 for true: so countnetassets if true
     @Transaction
     @Query("SELECT SUM(Account_Balance)  FROM Account WHERE Account_CountInNetAssets = 1 ")
-    fun getSumAccount(): Double
+    fun getSumOfAccountBalance(): Double
 
 
     @Transaction
     @Query("SELECT SUM(Transaction_Amount) FROM Trans WHERE TransactionType_ID = :rID")
-    fun getTransactionSums(rID: Long): Double
+    fun getSumOfAmountByTransactionType(rID: Long): Double
 
     @Transaction
     @Query("""
@@ -376,7 +376,14 @@ interface TransDao {
             INNER JOIN Account acct  ON trans.Account_ID = acct.Account_ID 
             WHERE trans.TransactionType_ID = 4 AND acct.AccountType_ID != 9)
             """)
-    fun getSumTotalAsset(): Double
+    fun getSumOfAmountForPayableReceivable(): Double
+
+    @Transaction
+    @Query("""
+            SELECT sum(Transaction_Amount) + sum (Account_Balance)
+            FROM Trans, Account
+            """)
+    fun getLiability(): Double
 
 
 }
