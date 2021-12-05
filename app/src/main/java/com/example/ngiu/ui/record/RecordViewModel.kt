@@ -124,12 +124,36 @@ class RecordViewModel : ViewModel() {
     }
 
     fun getSubCategoryID(string: String): Long{
-        return subCategory[subCategory.indexOfFirst { it.SubCategory_Name == string }].SubCategory_ID
+        val idx = subCategory.indexOfFirst { it.SubCategory_Name == string }
+        return if (idx >= 0) subCategory[idx].SubCategory_ID
+            else idx.toLong()
     }
+
     fun getAccountID(string: String): Long{
-        return if (string.isNotEmpty())
-            account[account.indexOfFirst{it.Account_Name == string}].Account_ID
-        else 1L
+        val idx = account.indexOfFirst{it.Account_Name == string}
+        return if (idx >= 0) account[idx].Account_ID
+            else idx.toLong()
+    }
+
+    fun getListOfAccountName(exceptName:String, payAccount: Boolean): Array<String>{
+        val nameList: ArrayList<String> = ArrayList()
+
+        for (at in account) {
+            // Normal Account
+            if (at.AccountType_ID != 9L) {
+                if ((transDetail.TransactionType_ID != 3L) || (at.Account_Name != exceptName))
+                    nameList.add(at.Account_Name)
+            // Payable|Receivable Account
+            }else if (transDetail.TransactionType_ID == 4L) {
+                when (getSubCategoryID(transDetail.SubCategory_Name)) {
+                    // borrow in | received
+                    7L, 10L -> if (payAccount) nameList.add(at.Account_Name)
+                    // lend out | repayment
+                    8L, 9L -> if (!payAccount) nameList.add(at.Account_Name)
+                }
+            }
+        }
+        return nameList.toTypedArray()
     }
 
 }
