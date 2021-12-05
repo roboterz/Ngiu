@@ -18,7 +18,7 @@ class AccountViewModel : ViewModel() {
         val liability = getTotalLiability()
         val totalAssets = getTotalAssets(context)
 
-        return totalAssets - liability
+        return totalAssets + liability
     }
 
     // if account has negative balance, sum the value for liability
@@ -40,11 +40,23 @@ class AccountViewModel : ViewModel() {
     // getTransactionSums(1) = Expense
     // getTransactionSums(2) = Income
     fun getTotalAssets(context: Context): Double {
+        /*
         val appDatabase = AppDatabase.getDatabase(context)
 
         return appDatabase.trans().getSumOfAccountBalance() + appDatabase.trans()
             .getSumOfAmountByTransactionType(2) - appDatabase.trans().getSumOfAmountByTransactionType(1) + appDatabase.trans()
             .getSumOfAmountForPayableReceivable()
+         */
+
+        var sum = 0.0
+        accountSections.value?.forEach { it ->
+            sum += it.list.filter {
+                it.Account_Balance > 0
+            }.sumOf { it.Account_Balance }
+        }
+
+        return sum
+
     }
 
 
