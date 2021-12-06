@@ -1,5 +1,6 @@
 package com.example.ngiu.ui.account.model
 
+
 import com.example.ngiu.data.entities.Account
 
 

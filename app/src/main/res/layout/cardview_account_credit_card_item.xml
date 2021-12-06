@@ -42,6 +42,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="8dp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/ivCreditCardSymbol"
             app:layout_constraintStart_toEndOf="@+id/tvCreditAccountName"
             app:layout_constraintTop_toTopOf="@id/ivCreditCardSymbol"

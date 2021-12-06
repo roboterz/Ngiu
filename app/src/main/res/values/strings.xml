@@ -199,16 +199,9 @@
     <string name="account_balance_suffix">USD</string>
     <string name="payment_day">25th</string>
     <string name="statement_day">1st</string>
-
-    <string name="account_type_credit">Credit Card</string>
-    <string name="account_type_debit">Debit Card/Checking/Saving</string>
-    <string name="account_type_invest">Investment Account</string>
-    <string name="account_type_web_acct">Web Account</string>
-    <string name="account_type_stored_value_card">Stored Value Card</string>
-    <string name="account_type_virtual_acct">Virtual Account</string>
-    <string name="account_type_permanent_assets">Permanent Assets</string>
-    <string name="account_type_receivable">Receivable/Payable</string>
-    <string name="title_activity_record">Activity_Record</string>
+    <string name="Inflow">Inflow</string>
+    <string name="Outflow">Outflow</string>
+    <string name="whoOwesMe">He/she owes me</string>
 
 
 
@@ -223,7 +216,8 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
-
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

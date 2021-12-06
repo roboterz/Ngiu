@@ -9,17 +9,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
 import com.example.ngiu.databinding.FragmentAccountAddAccountBinding
-import kotlinx.android.synthetic.main.fragment_activity.*
+import com.example.ngiu.databinding.FragmentAccountBinding
 import kotlinx.android.synthetic.main.fragment_account_add_account.*
 
 class AddAccountFragment : Fragment() {
 
+    private lateinit var addAccountViewModel: AddAccountViewModel
+
     private var _binding: FragmentAccountAddAccountBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var addAccountAdapter : AddAccountAdapter
+    private var rvAddAccount: RecyclerView? = null
+    private var adapter = AddAccountAdapter()
 
-    private lateinit var addAccountViewModel: AddAccountViewModel
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,22 +33,21 @@ class AddAccountFragment : Fragment() {
 
         _binding = FragmentAccountAddAccountBinding.inflate(inflater, container, false)
 
+        rvAddAccount = binding.root.findViewById(R.id.rv_acct_type)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        addAccountAdapter = AddAccountAdapter(requireActivity())
+        addAccountViewModel.getAccountType(requireContext())
+        rvAddAccount?.layoutManager = LinearLayoutManager(context)
+        rvAddAccount?.adapter = adapter
 
-        binding.rvAcctType.apply {
-            layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-            adapter = addAccountAdapter
+        addAccountViewModel.accountType.observe(viewLifecycleOwner){
+            adapter.addItems(it)
         }
 
-        addAccountViewModel.state.observe(viewLifecycleOwner) {
-            addAccountAdapter.submitList(it)
-        }
 
         toolbar_add_acct.menu.findItem(R.id.action_add).isVisible = true
         // menu item clicked
@@ -56,14 +58,14 @@ class AddAccountFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        addAccountViewModel.onAction(AddAccountViewModel.Action.Load(requireContext()))
+
     }
 
 
 
     override fun onDestroy() {
         super.onDestroy()
-        binding.rvAcctType.adapter = null
+
         _binding = null
     }
 

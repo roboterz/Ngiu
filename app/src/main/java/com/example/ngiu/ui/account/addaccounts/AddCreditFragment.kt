@@ -225,11 +225,7 @@ class AddCreditFragment : Fragment() {
     private fun submitForm() {
         binding.creditAccountNameTextLayout.helperText = validAccountName()
 
-
-
         val validAccountName = binding.creditAccountNameTextLayout.helperText == null
-
-
 
         if (validAccountName ) {
             insertData()
