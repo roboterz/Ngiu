@@ -135,7 +135,7 @@ class RecordViewModel : ViewModel() {
             else idx.toLong()
     }
 
-    fun getListOfAccountName(exceptName:String, payAccount: Boolean): Array<String>{
+    fun getListOfAccountName(exceptName:String, payAccount: Boolean): Array<String> {
         val nameList: ArrayList<String> = ArrayList()
 
         for (at in account) {
@@ -143,8 +143,8 @@ class RecordViewModel : ViewModel() {
             if (at.AccountType_ID != 9L) {
                 if ((transDetail.TransactionType_ID != 3L) || (at.Account_Name != exceptName))
                     nameList.add(at.Account_Name)
-            // Payable|Receivable Account
-            }else if (transDetail.TransactionType_ID == 4L) {
+                // Payable|Receivable Account
+            } else if (transDetail.TransactionType_ID == 4L) {
                 when (getSubCategoryID(transDetail.SubCategory_Name)) {
                     // borrow in | received
                     7L, 10L -> if (payAccount) nameList.add(at.Account_Name)
@@ -154,8 +154,8 @@ class RecordViewModel : ViewModel() {
             }
         }
         return nameList.toTypedArray()
-    }
 
+    }
 }
 
 

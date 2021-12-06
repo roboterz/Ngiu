@@ -290,6 +290,7 @@ class CategoryManagerFragment: Fragment() {
     // 1: edit main category
     // 2: add sub category
     // 3: edit sub category
+    // todo name must be unique
     private fun manageCategory(type: Int, rID: Long = 0L, string: String = "", nextRowID: Long = 0) {
         val alert = AlertDialog.Builder(context)
         val editText = EditText(activity)
@@ -358,7 +359,7 @@ class CategoryManagerFragment: Fragment() {
 
             // main category edit mode with delete button
             if (type == 1) {
-                alert.setNeutralButton("Delete",DialogInterface.OnClickListener{ dialog, whichButton ->
+                alert.setNeutralButton(R.string.msg_button_delete,DialogInterface.OnClickListener{ dialog, whichButton ->
                     deleteCategory(0, rID, nextRowID)
                 })
             }

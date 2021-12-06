@@ -97,6 +97,10 @@
         android:name="com.example.ngiu.ui.account.addaccounts.AddWebAccountFragment"
         android:label="AddWebAccountFragment" />
     <fragment
+        android:id="@+id/navigation_mpp_manage"
+        android:name="com.example.ngiu.ui.setting.mppmanage.MPPManagerFragment"
+        tools:layout="@layout/fragment_merchant_person_project_manage" />
+
         android:id="@+id/accountCreditRecords"
         android:name="com.example.ngiu.ui.account.AccountCreditRecords"
         android:label="fragment_account_credit_records"
@@ -111,6 +115,7 @@
         android:name="com.example.ngiu.ui.account.AccountRecordsPR"
         android:label="fragment_account_records_p_r"
         tools:layout="@layout/fragment_account_records_p_r" />
+
 
 
 </navigation>

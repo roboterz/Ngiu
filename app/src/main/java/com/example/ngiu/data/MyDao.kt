@@ -13,7 +13,7 @@ import java.time.LocalDateTime
 // Account
 @Dao
 interface AccountDao {
-    @Insert(onConflict = OnConflictStrategy.ABORT)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addAccount(account: Account)
 
     @Delete
@@ -52,7 +52,7 @@ interface AccountDao {
 // Account Type
 @Dao
 interface AccountTypeDao{
-    @Insert(onConflict = OnConflictStrategy.ABORT)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addAccountType(accountType: AccountType)
 
     @Delete
@@ -75,7 +75,7 @@ interface AccountTypeDao{
 // Currency
 @Dao
 interface CurrencyDao {
-    @Insert(onConflict = OnConflictStrategy.ABORT)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addCurrency(currency: Currency)
 
     // get a record BY ID
@@ -91,7 +91,7 @@ interface CurrencyDao {
 // Person
 @Dao
 interface PersonDao {
-    @Insert(onConflict = OnConflictStrategy.ABORT)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addPerson(person: Person):Long
 
     @Update
@@ -116,7 +116,7 @@ interface PersonDao {
 // Merchant
 @Dao
 interface MerchantDao {
-    @Insert(onConflict = OnConflictStrategy.ABORT)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addMerchant(merchant: Merchant)
 
     @Update
@@ -138,7 +138,7 @@ interface MerchantDao {
 // Period
 @Dao
 interface PeriodDao {
-    @Insert(onConflict = OnConflictStrategy.ABORT)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addPeriodTrans(period: Period)
 
     @Update
@@ -159,7 +159,7 @@ interface PeriodDao {
 // Project
 @Dao
 interface ProjectDao {
-    @Insert(onConflict = OnConflictStrategy.ABORT)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addProject(project: Project)
 
     @Update
@@ -360,12 +360,12 @@ interface TransDao {
     // 0 for false, 1 for true: so countnetassets if true
     @Transaction
     @Query("SELECT SUM(Account_Balance)  FROM Account WHERE Account_CountInNetAssets = 1 ")
-    fun getSumAccount(): Double
+    fun getSumOfAccountBalance(): Double
 
 
     @Transaction
     @Query("SELECT SUM(Transaction_Amount) FROM Trans WHERE TransactionType_ID = :rID")
-    fun getTransactionSums(rID: Long): Double
+    fun getSumOfAmountByTransactionType(rID: Long): Double
 
     @Transaction
     @Query("""
@@ -376,7 +376,23 @@ interface TransDao {
             INNER JOIN Account acct  ON trans.Account_ID = acct.Account_ID 
             WHERE trans.TransactionType_ID = 4 AND acct.AccountType_ID != 9)
             """)
-    fun getSumTotalAsset(): Double
+    fun getSumOfAmountForPayableReceivable(): Double
+
+    /*
+    @Transaction
+    @Query("""
+            SELECT (SELECT sum(Account_Balance) FROM Account WHERE Account_CountInNetAssets = 1) 
+                + (SELECT sum(Transaction_Amount) FROM Trans WHERE TransactionType_ID = 2) 
+                - (SELECT sum(Transaction_Amount) FROM Trans WHERE TransactionType_ID = 1)
+                + (SELECT sum(Transaction_Amount) 
+                    FROM Trans
+                    INNER JOIN ACCOUNT ON Trans.AccountRecipient_ID = Account.Account_ID 
+                    WHERE Trans.TransactionType_ID = 4 
+                        AND Account.AccountType_ID <> 9 )
+            """)
+    fun getLiability(): Double
+
+     */
 
 
 }
@@ -384,20 +400,20 @@ interface TransDao {
 // Transaction Type
 @Dao
 interface TransTypeDao {
-    @Insert(onConflict = OnConflictStrategy.ABORT)
-    fun addTransType(transactionType: TransactionType)
+    //@Insert(onConflict = OnConflictStrategy.REPLACE)
+    //fun addTransType(transactionType: TransactionType)
 
-    @Delete
-    fun deleteTransType(transactionType: TransactionType)
+    //@Delete
+    //fun deleteTransType(transactionType: TransactionType)
 
     // get a record BY ID
-    @Transaction
-    @Query("SELECT * FROM TransactionType WHERE TransactionType_ID = :rID")
-    fun getRecordByID(rID:Long):TransactionType
+    //@Transaction
+    //@Query("SELECT * FROM TransactionType WHERE TransactionType_ID = :rID")
+    //fun getRecordByID(rID:Long):TransactionType
 
-    @Transaction
-    @Query("SELECT * FROM TransactionType")
-    fun getAllTransactionType(): List<TransactionType>
+    //@Transaction
+    //@Query("SELECT * FROM TransactionType")
+    //fun getAllTransactionType(): List<TransactionType>
 
     //@Transaction
     //@Query("SELECT * FROM TransactionType")

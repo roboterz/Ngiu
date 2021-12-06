@@ -63,6 +63,30 @@ class SettingFragment : Fragment() {
             // switch to category manage fragment
             findNavController().navigate(R.id.navigation_category_manage)
         }
+
+        // Merchant
+        binding.tvSettingMerchant.setOnClickListener {
+
+            setFragmentResult("mpp_type", bundleOf("type_ID" to 0))
+            // switch to category manage fragment
+            findNavController().navigate(R.id.navigation_mpp_manage)
+        }
+
+        // Person
+        binding.tvSettingPerson.setOnClickListener {
+
+            setFragmentResult("mpp_type", bundleOf("type_ID" to 1))
+            // switch to category manage fragment
+            findNavController().navigate(R.id.navigation_mpp_manage)
+        }
+
+        // Project
+        binding.tvSettingProject.setOnClickListener {
+
+            setFragmentResult("mpp_type", bundleOf("type_ID" to 2))
+            // switch to category manage fragment
+            findNavController().navigate(R.id.navigation_mpp_manage)
+        }
     }
 
 
