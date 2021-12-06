@@ -30,6 +30,79 @@ interface AccountDao {
 
 
 
+
+  /*  @Transaction
+    @Query("""
+        SELECT SUM(Transaction_Amount) FROM Trans trans
+        INNER JOIN Account acct ON trans.Account_ID = acct.Account_ID
+        WHERE trans.TransactionType_ID = 2 AND trans.Account_ID = :rID
+        + (SELECT SUM(Transaction_Amount) FROM Trans trans
+            INNER JOIN Account acct ON trans.AccountRecipient_ID = acct.Account_ID
+            WHERE trans.TransactionType_ID in (3,4) AND trans.AccountRecipient_ID = :rID)
+         """)
+    fun getInflow(rID: Long): Double*/
+/*
+    inflow = sum( amount  if transaction_type =2)
+    + sum(amount if transaction_type = 3,4 and account_receipient = this acount)
+*/
+/*    @Transaction
+    @Query("""
+         SELECT SUM(Transaction_Amount) FROM Trans trans
+        INNER JOIN Account acct ON trans.Account_ID = acct.Account_ID
+        WHERE trans.TransactionType_ID = 2 AND trans.Account_ID = :rID
+        """)
+    fun getInflow(rID: Long): Double*/
+
+
+      @Transaction
+      @Query("""
+          SELECT SUM(Transaction_Amount) FROM Trans trans
+        INNER JOIN Account acct ON trans.Account_ID = acct.Account_ID
+        WHERE trans.TransactionType_ID = 2 AND trans.Account_ID = :rID 
+
+      """)
+   fun getInflowA(rID:Long): Double
+
+
+    @Transaction
+    @Query("""
+        SELECT SUM(Transaction_Amount) FROM Trans trans
+        INNER JOIN Account acct ON trans.AccountRecipient_ID = acct.Account_ID
+        WHERE trans.TransactionType_ID in (3,4) AND trans.AccountRecipient_ID = :rID
+      """)
+    fun getInflowB(rID:Long): Double
+
+    @Transaction
+    @Query("""
+         SELECT SUM(Transaction_Amount) FROM Trans trans
+        INNER JOIN Account acct ON trans.Account_ID = acct.Account_ID
+        WHERE trans.TransactionType_ID = 1 AND trans.Account_ID = :rID
+
+      """)
+    fun getOutflowA(rID:Long): Double
+
+    @Transaction
+    @Query("""
+      SELECT SUM(Transaction_Amount) FROM Trans trans
+        INNER JOIN Account acct on trans.Account_ID = acct.Account_ID
+        WHERE trans.TransactionType_ID IN (3,4) AND trans.Account_ID = :rID
+      """)
+    fun getOutflowB(rID:Long): Double
+
+
+
+
+  /*  @Transaction
+    @Query("""
+        SELECT SUM(Transaction_Amount) FROM Trans trans
+        INNER JOIN Account acct ON trans.Account_ID = acct.Account_ID
+        WHERE trans.TransactionType_ID = 1 AND trans.Account_ID = :rID
+        + (SELECT SUM(Transaction_Amount) FROM Trans trans
+        INNER JOIN Account acct on trans.AccountRecipient_ID = acct.Account_ID
+        WHERE trans.TransactionType_ID IN (3,4) AND trans.AccountRecipient_ID = :rID)
+        """)
+    fun getOutflow(rID: Long): Double
+*/
     //@Transaction
     //@Query("SELECT * FROM Account")
     //fun getAcctTransRecip(): List<AcctTransRecipient>
@@ -393,6 +466,14 @@ interface TransDao {
     fun getLiability(): Double
 
      */
+
+    @Transaction
+    @Query("""
+        SELECT * FROM Trans trans
+        INNER JOIN Account acct on trans.Account_ID = acct.Account_ID
+        WHERE trans.Account_ID = :rID
+        """)
+    fun getTransRecordAccount(rID:Long): List<Trans>
 
 
 }

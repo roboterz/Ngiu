@@ -34,7 +34,6 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="8dp"
             android:textColor="@color/app_text"
-            android:text="@string/option_lend"
             app:layout_constraintBottom_toBottomOf="@id/ivCashCardSymbol"
             app:layout_constraintStart_toEndOf="@+id/ivCashCardSymbol"
             app:layout_constraintTop_toTopOf="@id/ivCashCardSymbol"

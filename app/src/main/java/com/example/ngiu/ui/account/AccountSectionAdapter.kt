@@ -41,9 +41,6 @@ class AccountSectionAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         viewHolder.rvAccounts.layoutManager = LinearLayoutManager(context)
         viewHolder.rvAccounts.adapter = adapter
         adapter.addItems(item.list)
-
-
-
     }
 
     override fun getItemCount(): Int {

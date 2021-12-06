@@ -14,3 +14,11 @@ data class AccountSectionUiModel(
     var isExpanded: Boolean,
     val list: List<Account>
 )
+
+
+data class AccountTransRecordModel(
+    val name: String,
+    val trans_amount: String,
+    val balance: String,
+    val date: String
+)
