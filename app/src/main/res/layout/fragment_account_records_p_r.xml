@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.account.AccountRecordsPR">
+    tools:context=".ui.account.AccountRecordsPayRecFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_account_pay_rec_details"
@@ -183,7 +183,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvAccountNormalDetails"
+        android:id="@+id/rvAccountPRDetails"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"

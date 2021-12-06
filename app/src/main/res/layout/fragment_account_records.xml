@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.account.AccountRecords">
+    tools:context=".ui.account.AccountRecordsFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_account_normal_details"
@@ -36,6 +36,7 @@
             android:layout_marginLeft="20dp" />
 
         <TextView
+            android:id="@+id/tvAccountRecordName"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:textSize="15sp"
@@ -45,6 +46,7 @@
             tools:text="Wallet" />
 
         <TextView
+            android:id="@+id/tvAccountRecordBalance"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:textSize="15sp"

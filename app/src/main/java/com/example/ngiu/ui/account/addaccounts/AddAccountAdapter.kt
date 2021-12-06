@@ -39,7 +39,7 @@ class AddAccountAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
 
         holder.itemView.setOnClickListener {
-            when (holder.adapterPosition) {
+            when (holder.absoluteAdapterPosition) {
                 0 -> holder.itemView.findNavController().navigate(R.id.addCashFragment)
                 1 -> holder.itemView.findNavController().navigate(R.id.addCreditFragment)
                 2 -> holder.itemView.findNavController().navigate(R.id.addDebitFragment)
