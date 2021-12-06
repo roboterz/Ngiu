@@ -43,6 +43,7 @@ class ActivityViewModel : ViewModel() {
         val toDate = lDate.plusMonths(1).format(formatter)
 
         monthExpense = AppDatabase.getDatabase(context).trans().getMonthExpense(fromDate, toDate)
+        //budget =
         monthIncome = AppDatabase.getDatabase(context).trans().getMonthIncome(fromDate, toDate)
         transactionDetail = AppDatabase.getDatabase(context).trans().getAllTrans()
     }
