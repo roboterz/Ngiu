@@ -170,6 +170,7 @@
     <string name="msg_button_confirm">Confirm</string>
     <string name="msg_button_ok">Ok</string>
     <string name="msg_button_cancel">Cancel</string>
+    <string name="msg_button_delete">Delete</string>
     <string name="msg_Title_prompt">Prompt</string>
     <string name="msg_content_transaction_delete">Confirm to delete this transaction.</string>
     <string name="msg_content_category_delete">Confirm to delete this category.</string>
@@ -180,6 +181,17 @@
     <string name="msg_new_category">New Category</string>
     <string name="msg_edit_category">Edit Category</string>
     <string name="msg_category_delete_error">This category cannot be deleted because it is being referenced by other records.</string>
+    <string name="msg_new_merchant">New Category</string>
+    <string name="msg_edit_merchant">Edit Category</string>
+    <string name="msg_new_person">New Category</string>
+    <string name="msg_edit_person">Edit Category</string>
+    <string name="msg_new_name">New Name</string>
+    <string name="msg_edit_name">Edit Name</string>
+    <string name="msg_content_name_delete">Confirm to delete this name.</string>
+    <string name="msg_name_delete_error">This name cannot be deleted because it is being referenced by other records.</string>
+    <string name="msg_name_add_error">This name cannot be add cause some unknown reason.</string>
+    <string name="msg_name_edit_error">This name cannot be edit cause some unknown reason.</string>
+
 
 
     <string name="account_name_value">Wallet</string>
