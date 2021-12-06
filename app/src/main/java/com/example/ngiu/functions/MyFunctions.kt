@@ -25,6 +25,7 @@ import kotlinx.android.synthetic.main.fragment_record.*
 import kotlinx.android.synthetic.main.popup_title.view.*
 import java.util.*
 import kotlin.coroutines.coroutineContext
+import kotlin.math.abs
 
 
 class MyFunctions {
@@ -186,20 +187,6 @@ fun getDayOfMonthSuffix(n: Int): String {
 }
 
 
-// return amount as string with 2 decimal
-fun doubleToStringWithTwoDecimal(amount: Double): String{
-    var str = amount.toString()
-    //if (str.contains('.') && str.last() =='0'){
-    //    str += "0"
-    //}
-    when(str.length - str.lastIndexOf('.')){
-        2 -> str += "0"
-        3 -> {}
-        else ->str += ".00"
-    }
-    return str
-}
-
 
 
 // popupWindow call back function
@@ -247,10 +234,20 @@ fun toDayLeft(day: Int): String{
     calendar.time = date
     val today = calendar.get(Calendar.DAY_OF_MONTH)
     val dayOfYear = calendar.get(Calendar.DAY_OF_YEAR)
+
+//    val month = calendar.get(Calendar.MONTH)
     calendar.set(Calendar.DAY_OF_MONTH, day)
     if(today>day){
         calendar.add(Calendar.MONTH, 1)
     }
+
+    if(calendar.get(Calendar.DAY_OF_YEAR)<dayOfYear){
+        val cal = Calendar.getInstance()
+        cal.time = date
+        val days = (31 - cal.get(Calendar.DAY_OF_MONTH)) + calendar.get(Calendar.DAY_OF_YEAR)
+        return "$days"
+    }
+
     return "${calendar.get(Calendar.DAY_OF_YEAR) - dayOfYear}"
 }
 

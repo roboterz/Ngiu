@@ -2,6 +2,7 @@ package com.example.ngiu.data.entities.returntype
 
 import androidx.room.TypeConverters
 import com.example.ngiu.data.entities.DateTypeConverter
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 data class RecordDetail(
@@ -16,7 +17,7 @@ data class RecordDetail(
     var AccountRecipient_Name: String = "",
     var Transaction_Amount: Double = 0.0,
     @TypeConverters(DateTypeConverter::class)
-    var Transaction_Date: Date,
+    var Transaction_Date: DateTimeFormatter? = null,
     var Person_Name: String = "",
     var Merchant_Name: String = "",
     var Transaction_Memo: String = "",

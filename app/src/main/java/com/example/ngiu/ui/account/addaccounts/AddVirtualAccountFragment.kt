@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.example.ngiu.MainActivity
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.Account
 import com.example.ngiu.data.entities.Currency
@@ -46,6 +47,8 @@ class AddVirtualAccountFragment : Fragment() {
         toolbarAddVirtualAccount.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
+
+        (activity as MainActivity).setNavBottomBarVisibility(View.GONE)
     }
 
     override fun onResume() {
@@ -121,12 +124,12 @@ class AddVirtualAccountFragment : Fragment() {
 
     private fun submitForm() {
         binding.virtualAccountNameTextLayout.helperText = validAccountName()
-        binding.virtualBalanceTextLayout.helperText = validBalance()
+
 
         val validAccountName = binding.virtualAccountNameTextLayout.helperText == null
-        val validBalance = binding.virtualBalanceTextLayout.helperText == null
 
-        if (validAccountName && validBalance ) {
+
+        if (validAccountName ) {
             insertData()
             findNavController().navigate(R.id.navigation_account)
 
@@ -140,9 +143,7 @@ class AddVirtualAccountFragment : Fragment() {
         if(binding.virtualAccountNameTextLayout.helperText != null) {
             message += "\nAccountName: " + binding.virtualAccountNameTextLayout.helperText
         }
-        if(binding.virtualBalanceTextLayout.helperText != null) {
-            message += "\n\nBalance: " + binding.virtualBalanceTextLayout.helperText
-        }
+
 
         AlertDialog.Builder(context)
             .setTitle("Invalid Form")
@@ -162,13 +163,7 @@ class AddVirtualAccountFragment : Fragment() {
         return null
     }
 
-    private fun validBalance(): String? {
-        val accountBalanceText = binding.tetVirtualBalance.text.toString()
-        if(accountBalanceText.length < 0) {
-            return "Invalid Balance Entry."
-        }
-        return null
-    }
+
 
 
 }

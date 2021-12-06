@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.example.ngiu.MainActivity
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.Account
 import com.example.ngiu.data.entities.Currency
@@ -45,6 +46,8 @@ class AddPermanentAssetFragment : Fragment() {
         toolbarAddPermanentAssets.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
+
+        (activity as MainActivity).setNavBottomBarVisibility(View.GONE)
     }
 
 
@@ -117,12 +120,12 @@ class AddPermanentAssetFragment : Fragment() {
 
     private fun submitForm() {
         binding.permaAssetsAccountNameTextLayout.helperText = validAccountName()
-        binding.permaAssetsBalanceTextLayout.helperText = validBalance()
+
 
         val validAccountName = binding.permaAssetsAccountNameTextLayout.helperText == null
-        val validBalance = binding.permaAssetsBalanceTextLayout.helperText == null
 
-        if (validAccountName && validBalance ) {
+
+        if (validAccountName  ) {
             insertData()
             findNavController().navigate(R.id.navigation_account)
 
@@ -135,9 +138,6 @@ class AddPermanentAssetFragment : Fragment() {
         var message = ""
         if(binding.permaAssetsAccountNameTextLayout.helperText != null) {
             message += "\nAccountName: " + binding.permaAssetsAccountNameTextLayout.helperText
-        }
-        if(binding.permaAssetsBalanceTextLayout.helperText != null) {
-            message += "\n\nBalance: " + binding.permaAssetsBalanceTextLayout.helperText
         }
 
         AlertDialog.Builder(context)
@@ -158,13 +158,7 @@ class AddPermanentAssetFragment : Fragment() {
         return null
     }
 
-    private fun validBalance(): String? {
-        val accountBalanceText = binding.tetPermaAssetsValue.text.toString()
-        if(accountBalanceText.length < 0) {
-            return "Invalid Value Entry."
-        }
-        return null
-    }
+
 
 
 }

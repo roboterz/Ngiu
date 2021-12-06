@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.example.ngiu.MainActivity
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.Account
 import com.example.ngiu.data.entities.Currency
@@ -48,6 +49,8 @@ class AddCashFragment : Fragment() {
         toolbarAddCashAccount.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
+
+        (activity as MainActivity).setNavBottomBarVisibility(View.GONE)
 
     }
 
@@ -123,12 +126,11 @@ class AddCashFragment : Fragment() {
 
     private fun submitForm() {
         binding.cashAccountNameTextLayout.helperText = validAccountName()
-        binding.cashBalanceTextLayout.helperText = validBalance()
 
         val validAccountName = binding.cashAccountNameTextLayout.helperText == null
-        val validBalance = binding.cashBalanceTextLayout.helperText == null
 
-        if (validAccountName && validBalance ) {
+
+        if (validAccountName  ) {
             insertData()
             findNavController().navigate(R.id.navigation_account)
         }
@@ -140,9 +142,6 @@ class AddCashFragment : Fragment() {
         var message = ""
         if(binding.cashAccountNameTextLayout.helperText != null) {
             message += "\nAccountName: " + binding.cashAccountNameTextLayout.helperText
-        }
-        if(binding.cashBalanceTextLayout.helperText != null) {
-            message += "\n\nBalance: " + binding.cashBalanceTextLayout.helperText
         }
 
         AlertDialog.Builder(context)
@@ -163,13 +162,6 @@ class AddCashFragment : Fragment() {
        return null
     }
 
-    private fun validBalance(): String? {
-        val accountBalanceText = binding.tetCashBalance.text.toString()
-        if(accountBalanceText.length < 0) {
-            return "Invalid Balance Entry."
-        }
-        return null
-    }
 
 
 

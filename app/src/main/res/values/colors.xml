@@ -23,5 +23,6 @@
     <color name="app_record_icon">#808080</color>
     <color name="app_star">#E3AB0A</color>
     <color name="app_select_item">#704CB9DB</color>
+    <color name="app_icon_light">#AAAAAA</color>
 
 </resources>

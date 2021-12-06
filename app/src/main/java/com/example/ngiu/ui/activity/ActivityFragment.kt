@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.view.*
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
@@ -14,6 +15,7 @@ import com.example.ngiu.R
 import com.example.ngiu.databinding.FragmentActivityBinding
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_activity.*
+import java.util.*
 
 
 class ActivityFragment : Fragment() {
@@ -34,7 +36,7 @@ class ActivityFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
 
-        initAdapter()
+
     }
 
 
@@ -51,8 +53,10 @@ class ActivityFragment : Fragment() {
 
         // load data to ram
         Thread {
-            activityViewModel.loadDataToRam(activity)
+            activityViewModel.loadDataToRam(requireContext())
         }.start()
+
+        initAdapter()
 
         return binding.root
     }
@@ -95,16 +99,21 @@ class ActivityFragment : Fragment() {
         // Show bottom bar
         (activity as MainActivity).setNavBottomBarVisibility(View.VISIBLE)
 
+        // load transaction list
         Thread {
             activity?.runOnUiThread {
-                recyclerView_activity.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
                 //vpAdapter?.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
 
-                vpAdapter?.setList(activityViewModel.getData())
-                recyclerView_activity.adapter = vpAdapter
+                vpAdapter?.setList(activityViewModel.transactionDetail)
+                //recyclerView_activity.adapter = vpAdapter
             }
         }.start()
 
+        // show the info at title
+        tvCurrentMonthExpenseBalance.text = "$" + "%.2f".format(activityViewModel.monthExpense)
+        tvCurrentMonthIncomeBalance.text = "$" + "%.2f".format(activityViewModel.monthIncome)
+        tvBudgetBalance.text = "$" + "%.2f".format(activityViewModel.budget)
+        
     }
 
 
@@ -121,6 +130,7 @@ class ActivityFragment : Fragment() {
         Thread {
             this.activity?.runOnUiThread {
 
+                recyclerView_activity.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
                 vpAdapter = this.context?.let {
                     TransListAdapter(object: TransListAdapter.OnClickListener {
                         // catch the item click event from adapter
@@ -130,7 +140,7 @@ class ActivityFragment : Fragment() {
                         }
                     })
                 }
-                //recyclerView_activity.adapter = vpAdapter
+                recyclerView_activity.adapter = vpAdapter
             }
         }.start()
     }

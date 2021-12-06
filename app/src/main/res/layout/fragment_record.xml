@@ -278,11 +278,14 @@
             android:id="@+id/iv_record_swap"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:src="@drawable/ic_baseline_swap_horiz_24"
+            android:src="@drawable/ic_baseline_keyboard_arrow_right_24"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
             app:layout_constraintBottom_toBottomOf="@+id/tv_record_account_pay"
             app:layout_constraintTop_toTopOf="@+id/tv_record_account_pay"
-            app:layout_constraintWidth_percent="1"
-            app:tint="@color/app_label_text"
+            app:layout_constraintStart_toEndOf="@id/tv_record_account_pay"
+            app:layout_constraintEnd_toStartOf="@+id/tv_record_account_receive"
+            app:tint="@color/app_icon_light"
             tools:ignore="MissingConstraints" />
 
         <TextView
@@ -299,7 +302,7 @@
             android:clickable="true"
             android:textColor="@color/app_option_text"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintWidth_percent="0.43"
+            app:layout_constraintWidth_percent="0.44"
             tools:ignore="MissingConstraints" />
         <TextView
             android:id="@+id/tv_record_account_receive"
@@ -315,7 +318,7 @@
             android:clickable="true"
             android:textColor="@color/app_option_text"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintWidth_percent="0.43"
+            app:layout_constraintWidth_percent="0.44"
             tools:ignore="MissingConstraints" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
