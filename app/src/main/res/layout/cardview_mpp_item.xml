@@ -19,7 +19,8 @@
             android:id="@+id/tv_mpp_name"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="10dp"
+            android:paddingStart="15dp"
+            android:paddingVertical="10dp"
             android:singleLine="true"
             android:text="SubCategory"
             android:textSize="16sp"
@@ -27,7 +28,8 @@
             android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:textColor="@color/app_amount"
-            app:drawableEndCompat="@drawable/ic_baseline_keyboard_arrow_right_24" />"
+            app:drawableEndCompat="@drawable/ic_baseline_keyboard_arrow_right_24"
+            android:drawableTint="@color/app_icon_light"
             tools:ignore="MissingConstraints,RtlHardcoded" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

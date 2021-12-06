@@ -379,6 +379,7 @@ class RecordFragment : Fragment() {
 
         // account receive
         tv_record_account_receive.setOnClickListener {
+
             if (recordViewModel.account.size > 1) {
                 // load account name as list and show it in a popup window
                 val nameList: Array<String> = recordViewModel.getListOfAccountName(tv_record_account_pay.text.toString(),false)
@@ -392,6 +393,7 @@ class RecordFragment : Fragment() {
                 // create new account if no account
                 createNewAccount(recordViewModel.transDetail.TransactionType_ID, recordViewModel.transDetail.SubCategory_Name, false)
             }
+
         }
         tv_record_account_receive.doAfterTextChanged{
             recordViewModel.transDetail.AccountRecipient_Name = tv_record_account_receive.text.toString()
