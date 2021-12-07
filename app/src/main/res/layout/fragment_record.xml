@@ -155,337 +155,353 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/record_category_layout"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="-10dp"
-        android:background="@color/app_section_background"
-        android:padding="20dp"
         app:layout_constraintTop_toBottomOf="@id/record_top_layout"
-        tools:ignore="MissingConstraints">
+        app:layout_constraintBottom_toTopOf="@+id/layout_record_buttons">
 
-        <ImageView
-            android:id="@+id/imgTransactionIcon"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:src="@drawable/ic_baseline_fastfood_24"
-            android:layout_marginTop="8dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/app_label_text" />
-
-        <TextView
-            android:id="@+id/tv_record_category"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:singleLine="true"
-            android:text="Dinner"
-            android:textColor="@color/app_amount"
-            android:textSize="22sp"
-            app:layout_constraintStart_toEndOf="@id/imgTransactionIcon"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent="0.42"/>
-
-        <TextView
-            android:id="@+id/tv_record_budget"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:singleLine="true"
-            android:text="@string/option_budget_balance"
-            android:textColor="@color/app_sub_line_text"
-            app:layout_constraintStart_toStartOf="@id/tv_record_category"
-            app:layout_constraintTop_toBottomOf="@id/tv_record_category" />
-
-        <TextView
-            android:id="@+id/tv_record_budget_balance"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:singleLine="true"
-            android:text="$0.00"
-            android:textColor="@color/app_sub_line_text"
-            app:layout_constraintStart_toEndOf="@id/tv_record_budget"
-            app:layout_constraintTop_toTopOf="@id/tv_record_budget" />
-
-
-        <TextView
-            android:id="@+id/tv_record_amount"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:maxLength="10"
-            android:text="0.00"
-            android:textAlignment="textEnd"
-            android:textColor="@color/app_expense_amount"
-            android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/imgTransactionIcon"
-            app:layout_constraintWidth_percent="0.45"/>
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_record_category"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingStart="15dp"
-        android:paddingEnd="15dp"
-        android:background="@color/app_section_background"
-        app:layout_constraintTop_toBottomOf="@+id/record_category_layout">
-
-        <TextView
-            android:id="@+id/tv_record_common_category"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/option_common_category"
-            android:singleLine="true"
-            android:textColor="@color/app_sub_line_text"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-        <TextView
-            android:id="@+id/tv_record_all_category"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/option_all"
-            android:textColor="@color/app_sub_line_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/vp_record_category"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            app:layout_constraintTop_toBottomOf="@id/tv_record_common_category">
+            android:layout_height="match_parent"
+            tools:ignore="MissingConstraints">
 
-        </androidx.viewpager2.widget.ViewPager2>
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_record_account"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:paddingStart="15dp"
-        android:paddingTop="10dp"
-        android:paddingEnd="15dp"
-        android:background="@color/app_section_background"
-        app:layout_constraintTop_toBottomOf="@id/layout_record_category">
-
-        <ImageView
-            android:id="@+id/iv_record_swap"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:src="@drawable/ic_baseline_keyboard_arrow_right_24"
-            android:background="?android:attr/selectableItemBackground"
-            android:clickable="true"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_record_account_pay"
-            app:layout_constraintTop_toTopOf="@+id/tv_record_account_pay"
-            app:layout_constraintStart_toEndOf="@id/tv_record_account_pay"
-            app:layout_constraintEnd_toStartOf="@+id/tv_record_account_receive"
-            app:tint="@color/app_icon_light"
-            tools:ignore="MissingConstraints" />
-
-        <TextView
-            android:id="@+id/tv_record_account_pay"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:singleLine="true"
-            android:drawablePadding="3dp"
-            android:gravity="center|left"
-            android:drawableStart="@drawable/ic_baseline_credit_card_24"
-            android:drawableTint="@color/app_label_text"
-            android:textSize="16dp"
-            android:background="?android:attr/selectableItemBackground"
-            android:clickable="true"
-            android:textColor="@color/app_option_text"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintWidth_percent="0.44"
-            tools:ignore="MissingConstraints" />
-        <TextView
-            android:id="@+id/tv_record_account_receive"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:singleLine="true"
-            android:drawablePadding="3dp"
-            android:gravity="center|left"
-            android:drawableStart="@drawable/ic_baseline_credit_card_24"
-            android:drawableTint="@color/app_label_text"
-            android:textSize="16dp"
-            android:background="?android:attr/selectableItemBackground"
-            android:clickable="true"
-            android:textColor="@color/app_option_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintWidth_percent="0.44"
-            tools:ignore="MissingConstraints" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_record_list_space_1"
-        android:layout_width="match_parent"
-        android:layout_height="5dp"
-        app:layout_constraintTop_toBottomOf="@id/layout_record_account">
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_record_memo"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:paddingTop="10dp"
-        android:paddingStart="15dp"
-        android:paddingEnd="15dp"
-        android:background="@color/app_section_background"
-        app:layout_constraintTop_toBottomOf="@id/layout_record_list_space_1">
-
-        <EditText
-            android:id="@+id/tv_record_memo"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/record_category_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@null"
-            android:maxLength="90"
-            android:hint="@string/option_memo"
-            android:inputType="text"
-            android:textColor="@color/app_option_text"
-            app:boxStrokeWidth="0dp"
-            tools:ignore="MissingConstraints" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:background="@color/app_section_background"
+            android:padding="20dp"
+            tools:ignore="MissingConstraints">
+
+            <ImageView
+                android:id="@+id/imgTransactionIcon"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/ic_baseline_fastfood_24"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/app_label_text"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/tv_record_category"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:singleLine="true"
+                android:text=""
+                android:textColor="@color/app_amount"
+                android:textSize="22sp"
+                app:layout_constraintStart_toEndOf="@id/imgTransactionIcon"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.42"/>
+
+            <TextView
+                android:id="@+id/tv_record_budget"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text="@string/option_budget_balance"
+                android:textColor="@color/app_sub_line_text"
+                app:layout_constraintStart_toStartOf="@id/tv_record_category"
+                app:layout_constraintTop_toBottomOf="@id/tv_record_category" />
+
+            <TextView
+                android:id="@+id/tv_record_budget_balance"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:singleLine="true"
+                android:text="@string/amount_zero_with_dollar_sign"
+                android:textColor="@color/app_sub_line_text"
+                app:layout_constraintStart_toEndOf="@id/tv_record_budget"
+                app:layout_constraintTop_toTopOf="@id/tv_record_budget" />
+
+
+            <TextView
+                android:id="@+id/tv_record_amount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:maxLength="10"
+                android:text="@string/amount_zero"
+                android:textAlignment="textEnd"
+                android:textColor="@color/app_expense_amount"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/imgTransactionIcon"
+                app:layout_constraintWidth_percent="0.45"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_record_category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:background="@color/app_section_background"
+            app:layout_constraintTop_toBottomOf="@+id/record_category_layout">
+
+            <TextView
+                android:id="@+id/tv_record_common_category"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/option_common_category"
+                android:singleLine="true"
+                android:textColor="@color/app_sub_line_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/tv_record_all_category"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/option_all"
+                android:textColor="@color/app_sub_line_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/vp_record_category"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_record_common_category">
+
+            </androidx.viewpager2.widget.ViewPager2>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_record_account"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:paddingStart="15dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="15dp"
+            android:background="@color/app_section_background"
+            app:layout_constraintTop_toBottomOf="@id/layout_record_category">
+
+            <ImageView
+                android:id="@+id/iv_record_swap"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/ic_baseline_keyboard_arrow_right_24"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_record_account_pay"
+                app:layout_constraintTop_toTopOf="@+id/tv_record_account_pay"
+                app:layout_constraintStart_toEndOf="@id/tv_record_account_pay"
+                app:layout_constraintEnd_toStartOf="@+id/tv_record_account_receive"
+                app:tint="@color/app_icon_light"
+                tools:ignore="ContentDescription,MissingConstraints" />
+
+            <TextView
+                android:id="@+id/tv_record_account_pay"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:drawablePadding="3dp"
+                android:gravity="center|start"
+                android:textSize="16sp"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:textColor="@color/app_option_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintWidth_percent="0.44"
+                tools:ignore="MissingConstraints"
+                app:drawableStartCompat="@drawable/ic_baseline_credit_card_24"
+                app:drawableTint="@color/app_label_text" />
+            <TextView
+                android:id="@+id/tv_record_account_receive"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:drawablePadding="3dp"
+                android:gravity="center|start"
+                android:textSize="16sp"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:textColor="@color/app_option_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintWidth_percent="0.44"
+                tools:ignore="MissingConstraints"
+                app:drawableStartCompat="@drawable/ic_baseline_credit_card_24"
+                app:drawableTint="@color/app_label_text" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_record_list_space_1"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            app:layout_constraintTop_toBottomOf="@id/layout_record_account">
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_record_memo"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:paddingTop="10dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:background="@color/app_section_background"
+            app:layout_constraintTop_toBottomOf="@id/layout_record_list_space_1">
+
+            <EditText
+                android:id="@+id/tv_record_memo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:maxLength="90"
+                android:hint="@string/option_memo"
+                android:inputType="text"
+                android:textColor="@color/app_option_text"
+                app:boxStrokeWidth="0dp"
+                tools:ignore="MissingConstraints"
+                android:importantForAutofill="no" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_record_other_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            app:layout_constraintTop_toBottomOf="@id/layout_record_memo"
+            tools:ignore="RtlSymmetry">
+
+
+            <TextView
+                android:id="@+id/tv_record_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:background="@drawable/textview_additional_border"
+                android:gravity="center"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
+                android:text=""
+                android:tag="other_info"
+                android:textColor="@color/app_label_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:drawableStartCompat="@drawable/ic_baseline_date_range_24"
+                app:drawableTint="@color/app_label_text" />
+
+            <TextView
+                android:id="@+id/tv_record_time"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:singleLine="true"
+                android:background="@drawable/textview_additional_border"
+                android:gravity="center"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
+                android:text=""
+                android:tag="other_info"
+                android:textColor="@color/app_label_text"
+                app:layout_constraintStart_toEndOf="@+id/tv_record_date"
+                app:layout_constraintTop_toTopOf="parent"
+                app:drawableStartCompat="@drawable/ic_baseline_access_time_filled_24"
+                app:drawableTint="@color/app_label_text" />
+
+            <TextView
+                android:id="@+id/tv_record_reimburse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:background="@drawable/textview_additional_border"
+                android:gravity="center"
+                android:paddingStart="5dp"
+                android:paddingTop="3dp"
+                android:paddingEnd="5dp"
+                android:paddingBottom="3dp"
+                android:singleLine="true"
+                android:tag="other_info"
+                android:text="@string/option_non_reimbursable"
+                android:textColor="@color/app_label_text"
+                app:layout_constraintStart_toEndOf="@+id/tv_record_time"
+                app:layout_constraintTop_toTopOf="@id/tv_record_time"
+                app:drawableStartCompat="@drawable/ic_baseline_check_box_outline_blank_24"
+                app:drawableTint="@color/app_label_text" />
+
+            <TextView
+                android:id="@+id/tv_record_person"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:maxWidth="120dp"
+                android:background="@drawable/textview_additional_border"
+                android:gravity="center"
+                android:paddingStart="5dp"
+                android:paddingTop="3dp"
+                android:paddingEnd="5dp"
+                android:paddingBottom="3dp"
+                android:singleLine="true"
+                android:text="@string/option_me"
+                android:tag="other_info"
+                android:textColor="@color/app_label_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_record_date" />
+
+            <TextView
+                android:id="@+id/tv_record_merchant"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:maxWidth="120dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/textview_additional_border"
+                android:gravity="center"
+                android:paddingStart="5dp"
+                android:paddingTop="3dp"
+                android:paddingEnd="5dp"
+                android:paddingBottom="3dp"
+                android:singleLine="true"
+                android:text="@string/option_merchant"
+                android:tag="other_info"
+                android:visibility="visible"
+                android:textColor="@color/app_label_text"
+                app:layout_constraintStart_toEndOf="@id/tv_record_person"
+                app:layout_constraintTop_toTopOf="@id/tv_record_person" />
+
+            <TextView
+                android:id="@+id/tv_record_project"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:maxWidth="120dp"
+                android:layout_marginStart="8dp"
+                android:singleLine="true"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
+                android:visibility="visible"
+                android:tag="other_info"
+                android:background="@drawable/textview_additional_border"
+                android:gravity="center"
+                android:text="@string/option_project"
+                android:textColor="@color/app_label_text"
+                app:layout_constraintStart_toEndOf="@id/tv_record_merchant"
+                app:layout_constraintTop_toTopOf="@id/tv_record_person"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_record_other_info"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:paddingStart="15dp"
-        android:paddingEnd="15dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        app:layout_constraintTop_toBottomOf="@id/layout_record_memo"
-        tools:ignore="RtlSymmetry">
-
-
-        <TextView
-            android:id="@+id/tv_record_date"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:singleLine="true"
-            android:background="@drawable/textview_additional_border"
-            android:gravity="center"
-            android:paddingStart="5dp"
-            android:paddingEnd="5dp"
-            android:paddingTop="3dp"
-            android:paddingBottom="3dp"
-            android:drawableStart="@drawable/ic_baseline_date_range_24"
-            android:drawableTint="@color/app_label_text"
-            android:text="11/01/2021"
-            android:tag="other_info"
-            android:textColor="@color/app_label_text"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-        <TextView
-            android:id="@+id/tv_record_time"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:singleLine="true"
-            android:background="@drawable/textview_additional_border"
-            android:gravity="center"
-            android:paddingStart="5dp"
-            android:paddingEnd="5dp"
-            android:paddingTop="3dp"
-            android:paddingBottom="3dp"
-            android:drawableStart="@drawable/ic_baseline_access_time_filled_24"
-            android:drawableTint="@color/app_label_text"
-            android:text="12:01"
-            android:tag="other_info"
-            android:textColor="@color/app_label_text"
-            app:layout_constraintStart_toEndOf="@+id/tv_record_date"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-        <TextView
-            android:id="@+id/tv_record_reimburse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="18dp"
-            android:background="@drawable/textview_additional_border"
-            android:drawableStart="@drawable/ic_baseline_check_box_outline_blank_24"
-            android:drawableTint="@color/app_label_text"
-            android:gravity="center"
-            android:paddingStart="5dp"
-            android:paddingTop="3dp"
-            android:paddingEnd="5dp"
-            android:paddingBottom="3dp"
-            android:singleLine="true"
-            android:tag="other_info"
-            android:text="@string/option_non_reimbursable"
-            android:textColor="@color/app_label_text"
-            app:layout_constraintStart_toEndOf="@+id/tv_record_time"
-            app:layout_constraintTop_toTopOf="@id/tv_record_time" />
-
-        <TextView
-            android:id="@+id/tv_record_person"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:maxWidth="120dp"
-            android:background="@drawable/textview_additional_border"
-            android:gravity="center"
-            android:paddingStart="5dp"
-            android:paddingTop="3dp"
-            android:paddingEnd="5dp"
-            android:paddingBottom="3dp"
-            android:singleLine="true"
-            android:text="@string/option_me"
-            android:tag="other_info"
-            android:textColor="@color/app_label_text"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_record_date" />
-
-        <TextView
-            android:id="@+id/tv_record_merchant"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:maxWidth="120dp"
-            android:layout_marginStart="8dp"
-            android:background="@drawable/textview_additional_border"
-            android:gravity="center"
-            android:paddingStart="5dp"
-            android:paddingTop="3dp"
-            android:paddingEnd="5dp"
-            android:paddingBottom="3dp"
-            android:singleLine="true"
-            android:text="@string/option_merchant"
-            android:tag="other_info"
-            android:visibility="visible"
-            android:textColor="@color/app_label_text"
-            app:layout_constraintStart_toEndOf="@id/tv_record_person"
-            app:layout_constraintTop_toTopOf="@id/tv_record_person" />
-
-        <TextView
-            android:id="@+id/tv_record_project"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:maxWidth="120dp"
-            android:layout_marginStart="8dp"
-            android:singleLine="true"
-            android:paddingStart="5dp"
-            android:paddingEnd="5dp"
-            android:paddingTop="3dp"
-            android:paddingBottom="3dp"
-            android:visibility="visible"
-            android:tag="other_info"
-            android:background="@drawable/textview_additional_border"
-            android:gravity="center"
-            android:text="@string/option_project"
-            android:textColor="@color/app_label_text"
-            app:layout_constraintStart_toEndOf="@id/tv_record_merchant"
-            app:layout_constraintTop_toTopOf="@id/tv_record_person"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_record_buttons"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/app_section_background"

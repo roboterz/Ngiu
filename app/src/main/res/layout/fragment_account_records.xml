@@ -33,7 +33,7 @@
             android:src="@drawable/ic_baseline_credit_card_24"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginLeft="20dp" />
+            android:layout_marginStart="20dp" />
 
         <TextView
             android:id="@+id/tvAccountRecordName"

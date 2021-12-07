@@ -16,7 +16,7 @@ class AccountRecordsPayRecFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_account_records_p_r, container, false)
+        return inflater.inflate(R.layout.fragment_account_p_r_detail, container, false)
     }
 
 

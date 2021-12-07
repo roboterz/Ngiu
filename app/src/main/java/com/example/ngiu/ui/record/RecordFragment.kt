@@ -438,6 +438,7 @@ class RecordFragment : Fragment() {
             7L, 10L -> {
                 if (payable){
                     // create P/R account
+                    // todo create P/R account
                 }else{
                     findNavController().navigate(R.id.navigation_add_account)
                 }
@@ -446,6 +447,7 @@ class RecordFragment : Fragment() {
             8L, 9L -> {
                 if (!payable) {
                     // create P/R account
+                    // todo create P/R account
                 }else{
                     findNavController().navigate(R.id.navigation_add_account)
                 }

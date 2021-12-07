@@ -112,9 +112,9 @@
         tools:layout="@layout/fragment_account_records" />
     <fragment
         android:id="@+id/accountRecordsPR"
-        android:name="com.example.ngiu.ui.account.AccountRecordsPayRecFragment"
-        android:label="fragment_account_records_p_r"
-        tools:layout="@layout/fragment_account_records_p_r" />
+        android:name="com.example.ngiu.ui.account.detail.AccountPRDetailFragment"
+        android:label="fragment_account_p_r_detail"
+        tools:layout="@layout/fragment_account_p_r_detail" />
 
 
 
