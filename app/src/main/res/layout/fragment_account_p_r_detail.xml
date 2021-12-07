@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_account_debit_credit_detail"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:title="@string/nav_title_debit_credit_detail"
+        app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
+        app:menu="@menu/title_menu"
+        tools:ignore="MissingConstraints" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_account_dc_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="3dp"
+        android:paddingBottom="8dp"
+        android:background="@color/app_list_background"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_account_debit_credit_detail">
+
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@color/app_section_background"
+            android:padding="20dp"
+            app:layout_constraintWidth_percent="0.498"
+            tools:ignore="MissingConstraints">
+
+            <TextView
+                android:id="@+id/tv_account_dc_owe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/option_account_owe_you"
+                android:textColor="@color/app_sub_line_text"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_account_dc_balance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/amount_zero_with_dollar_sign"
+                android:textColor="@color/app_income_amount"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                app:layout_constraintTop_toBottomOf="@+id/tv_account_dc_owe" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:paddingTop="8dp"
+            android:background="@color/app_section_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintWidth_percent="0.498"
+            tools:ignore="MissingConstraints">
+            <TextView
+                android:id="@+id/tv_account_dc_lend"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:gravity="end"
+                android:text="@string/option_title_lend"
+                android:textColor="@color/app_sub_line_text"
+                android:textSize="14sp"
+                app:layout_constraintWidth_percent="0.4"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_account_dc_lend_amount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingStart="0dp"
+                android:paddingEnd="10dp"
+                android:text="@string/amount_zero_with_dollar_sign"
+                android:gravity="start"
+                android:textColor="@color/app_income_amount"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintWidth_percent="0.6"
+                app:layout_constraintTop_toTopOf="@+id/tv_account_dc_lend" />
+
+            <TextView
+                android:id="@+id/tv_account_dc_receive"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingStart="0dp"
+                android:paddingEnd="10dp"
+                android:gravity="end"
+                android:text="@string/option_title_receive"
+                android:textColor="@color/app_sub_line_text"
+                android:textSize="14sp"
+                app:layout_constraintWidth_percent="0.4"
+                app:layout_constraintTop_toBottomOf="@+id/tv_account_dc_lend" />
+
+            <TextView
+                android:id="@+id/tv_account_dc_receive_amount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingStart="0dp"
+                android:paddingEnd="10dp"
+                android:text="@string/amount_zero_with_dollar_sign"
+                android:textColor="@color/app_income_amount"
+                android:textSize="14sp"
+                android:gravity="start"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintWidth_percent="0.6"
+                app:layout_constraintTop_toTopOf="@+id/tv_account_dc_receive" />
+
+            <TextView
+                android:id="@+id/tv_account_dc_borrow"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingStart="20dp"
+                android:paddingEnd="10dp"
+                android:gravity="end"
+                android:text="@string/option_title_borrow"
+                android:textColor="@color/app_sub_line_text"
+                android:textSize="14sp"
+                app:layout_constraintWidth_percent="0.4"
+                app:layout_constraintTop_toBottomOf="@+id/tv_account_dc_receive" />
+
+            <TextView
+                android:id="@+id/tv_account_dc_borrow_amount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingStart="0dp"
+                android:paddingEnd="10dp"
+                android:text="@string/amount_zero_with_dollar_sign"
+                android:textColor="@color/app_income_amount"
+                android:textSize="14sp"
+                android:gravity="start"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintWidth_percent="0.6"
+                app:layout_constraintTop_toTopOf="@+id/tv_account_dc_borrow" />
+
+            <TextView
+                android:id="@+id/tv_account_dc_pay"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingStart="20dp"
+                android:paddingEnd="10dp"
+                android:gravity="end"
+                android:text="@string/option_title_pay"
+                android:textColor="@color/app_sub_line_text"
+                android:textSize="14sp"
+                app:layout_constraintWidth_percent="0.4"
+                app:layout_constraintTop_toBottomOf="@+id/tv_account_dc_borrow" />
+
+            <TextView
+                android:id="@+id/tv_account_dc_pay_amount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingStart="0dp"
+                android:paddingEnd="10dp"
+                android:text="@string/amount_zero_with_dollar_sign"
+                android:gravity="start"
+                android:textColor="@color/app_income_amount"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintWidth_percent="0.6"
+                app:layout_constraintTop_toTopOf="@+id/tv_account_dc_pay" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/app_section_background"
+        app:layout_constraintTop_toBottomOf="@+id/layout_account_dc_info"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview_account_detail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

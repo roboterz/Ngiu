@@ -173,7 +173,8 @@
             android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/app_label_text" />
+            app:tint="@color/app_label_text"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/tv_record_category"
@@ -181,7 +182,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:singleLine="true"
-            android:text="Dinner"
+            android:text=""
             android:textColor="@color/app_amount"
             android:textSize="22sp"
             app:layout_constraintStart_toEndOf="@id/imgTransactionIcon"
@@ -204,7 +205,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:singleLine="true"
-            android:text="$0.00"
+            android:text="@string/amount_zero_with_dollar_sign"
             android:textColor="@color/app_sub_line_text"
             app:layout_constraintStart_toEndOf="@id/tv_record_budget"
             app:layout_constraintTop_toTopOf="@id/tv_record_budget" />
@@ -215,7 +216,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:maxLength="10"
-            android:text="0.00"
+            android:text="@string/amount_zero"
             android:textAlignment="textEnd"
             android:textColor="@color/app_expense_amount"
             android:textSize="24sp"
@@ -286,7 +287,7 @@
             app:layout_constraintStart_toEndOf="@id/tv_record_account_pay"
             app:layout_constraintEnd_toStartOf="@+id/tv_record_account_receive"
             app:tint="@color/app_icon_light"
-            tools:ignore="MissingConstraints" />
+            tools:ignore="ContentDescription,MissingConstraints" />
 
         <TextView
             android:id="@+id/tv_record_account_pay"
@@ -294,32 +295,32 @@
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:drawablePadding="3dp"
-            android:gravity="center|left"
-            android:drawableStart="@drawable/ic_baseline_credit_card_24"
-            android:drawableTint="@color/app_label_text"
-            android:textSize="16dp"
+            android:gravity="center|start"
+            android:textSize="16sp"
             android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:textColor="@color/app_option_text"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintWidth_percent="0.44"
-            tools:ignore="MissingConstraints" />
+            tools:ignore="MissingConstraints"
+            app:drawableStartCompat="@drawable/ic_baseline_credit_card_24"
+            app:drawableTint="@color/app_label_text" />
         <TextView
             android:id="@+id/tv_record_account_receive"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:drawablePadding="3dp"
-            android:gravity="center|left"
-            android:drawableStart="@drawable/ic_baseline_credit_card_24"
-            android:drawableTint="@color/app_label_text"
-            android:textSize="16dp"
+            android:gravity="center|start"
+            android:textSize="16sp"
             android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:textColor="@color/app_option_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintWidth_percent="0.44"
-            tools:ignore="MissingConstraints" />
+            tools:ignore="MissingConstraints"
+            app:drawableStartCompat="@drawable/ic_baseline_credit_card_24"
+            app:drawableTint="@color/app_label_text" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -350,7 +351,8 @@
             android:inputType="text"
             android:textColor="@color/app_option_text"
             app:boxStrokeWidth="0dp"
-            tools:ignore="MissingConstraints" />
+            tools:ignore="MissingConstraints"
+            android:importantForAutofill="no" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -377,13 +379,13 @@
             android:paddingEnd="5dp"
             android:paddingTop="3dp"
             android:paddingBottom="3dp"
-            android:drawableStart="@drawable/ic_baseline_date_range_24"
-            android:drawableTint="@color/app_label_text"
-            android:text="11/01/2021"
+            android:text=""
             android:tag="other_info"
             android:textColor="@color/app_label_text"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            app:drawableStartCompat="@drawable/ic_baseline_date_range_24"
+            app:drawableTint="@color/app_label_text" />
 
         <TextView
             android:id="@+id/tv_record_time"
@@ -397,13 +399,13 @@
             android:paddingEnd="5dp"
             android:paddingTop="3dp"
             android:paddingBottom="3dp"
-            android:drawableStart="@drawable/ic_baseline_access_time_filled_24"
-            android:drawableTint="@color/app_label_text"
-            android:text="12:01"
+            android:text=""
             android:tag="other_info"
             android:textColor="@color/app_label_text"
             app:layout_constraintStart_toEndOf="@+id/tv_record_date"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            app:drawableStartCompat="@drawable/ic_baseline_access_time_filled_24"
+            app:drawableTint="@color/app_label_text" />
 
         <TextView
             android:id="@+id/tv_record_reimburse"
@@ -411,8 +413,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
             android:background="@drawable/textview_additional_border"
-            android:drawableStart="@drawable/ic_baseline_check_box_outline_blank_24"
-            android:drawableTint="@color/app_label_text"
             android:gravity="center"
             android:paddingStart="5dp"
             android:paddingTop="3dp"
@@ -423,7 +423,9 @@
             android:text="@string/option_non_reimbursable"
             android:textColor="@color/app_label_text"
             app:layout_constraintStart_toEndOf="@+id/tv_record_time"
-            app:layout_constraintTop_toTopOf="@id/tv_record_time" />
+            app:layout_constraintTop_toTopOf="@id/tv_record_time"
+            app:drawableStartCompat="@drawable/ic_baseline_check_box_outline_blank_24"
+            app:drawableTint="@color/app_label_text" />
 
         <TextView
             android:id="@+id/tv_record_person"

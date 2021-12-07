@@ -119,8 +119,8 @@
     <string name="option_account_outflow">Outflow</string>
     <string name="option_account_to">to</string>
     <string name="option_account_from">from</string>
-    <string name="option_account_owe_you">owe you</string>
-    <string name="option_account_owe_he">You owe</string>
+    <string name="option_account_owe_you">He/She owe you</string>
+    <string name="option_account_owe_he">You owe him/her</string>
 
     <string name="option_title_lend">Lend:</string>
     <string name="option_title_receive">Receive:</string>
@@ -192,6 +192,23 @@
     <string name="msg_name_add_error">This name cannot be add cause some unknown reason.</string>
     <string name="msg_name_edit_error">This name cannot be edit cause some unknown reason.</string>
 
+    <string name="amount_zero_with_dollar_sign">$0.00</string>
+    <string name="amount_zero">0.00</string>
+
+    <string name="keyboard_1">1</string>
+    <string name="keyboard_2">2</string>
+    <string name="keyboard_3">3</string>
+    <string name="keyboard_4">4</string>
+    <string name="keyboard_5">5</string>
+    <string name="keyboard_6">6</string>
+    <string name="keyboard_7">7</string>
+    <string name="keyboard_8">8</string>
+    <string name="keyboard_9">9</string>
+    <string name="keyboard_0">0</string>
+    <string name="keyboard_dot">.</string>
+    <string name="keyboard_c">C</string>
+    <string name="keyboard_enter">Enter</string>
+
 
 
     <string name="account_name_value">Wallet</string>
@@ -201,7 +218,6 @@
     <string name="statement_day">1st</string>
     <string name="Inflow">Inflow</string>
     <string name="Outflow">Outflow</string>
-    <string name="whoOwesMe">He/she owes me</string>
 
 
 
