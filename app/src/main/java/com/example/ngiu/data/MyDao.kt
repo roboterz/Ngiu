@@ -1,6 +1,7 @@
 package com.example.ngiu.data
 
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.ngiu.data.entities.*
 import androidx.room.Transaction
@@ -369,6 +370,10 @@ interface TransDao {
     fun getRecordsByAcctID(rID:Long): List<Trans>
 
     @Transaction
+    @Query("SELECT * FROM Trans WHERE Account_ID = :rID OR AccountRecipient_ID = :rID")
+    fun getRecordsByAccountAndAccountRecipientID(rID:Long): List<Trans>
+
+    @Transaction
     @Query("""
         SELECT Transaction_ID, Trans.TransactionType_ID, SubCategory_Name, Account.Account_Name, AccountRecipient.Account_Name as AccountRecipient_Name, 
                 Transaction_Amount, Transaction_Date, Person_Name, Merchant_Name, Transaction_Memo, Project_Name, 
@@ -475,6 +480,51 @@ interface TransDao {
         """)
     fun getTransRecordAccount(rID:Long): List<Trans>
 
+    @Transaction
+    @Query("""
+        SELECT SUM(Transaction_Amount) 
+        FROM Trans 
+        WHERE Account_ID = :rID 
+            AND TransactionType_ID = 2
+        """)
+    fun getTotalAmountOfIncomeByAccount(rID:Long): Double
+
+    @Transaction
+    @Query("""
+        SELECT SUM(Transaction_Amount) 
+        FROM Trans 
+        WHERE Account_ID = :rID 
+            AND TransactionType_ID = 1
+        """)
+    fun getTotalAmountOfExpenseByAccount(rID:Long):Double
+
+    @Transaction
+    @Query("""
+        SELECT SUM(Transaction_Amount) 
+        FROM Trans 
+        WHERE Account_ID = :rID 
+            AND TransactionType_ID > 2
+        """)
+    fun getTotalAmountOfTransferOutByAccount(rID:Long): Double
+
+    @Transaction
+    @Query("""
+        SELECT SUM(Transaction_Amount) 
+        FROM Trans 
+        WHERE AccountRecipient_ID = :rID 
+            AND TransactionType_ID > 2
+        """)
+    fun getTotalAmountOfTransferInByAccount(rID:Long): Double
+
+    @Transaction
+    @Query("""
+        SELECT SUM(Transaction_Amount) 
+        FROM Trans 
+        WHERE TransactionType_ID = 4 
+            AND SubCategory_ID = :subCateID
+            AND Account_ID = :acctID OR AccountRecipient_ID = :acctID
+        """)
+    fun getTotalAmountFromPRAccountBYSubCategoryID(acctID:Long, subCateID: Long): Double
 
 }
 

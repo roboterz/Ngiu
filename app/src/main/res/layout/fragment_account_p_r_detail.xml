@@ -92,7 +92,7 @@
                 android:paddingEnd="10dp"
                 android:text="@string/amount_zero_with_dollar_sign"
                 android:gravity="start"
-                android:textColor="@color/app_income_amount"
+                android:textColor="@color/app_expense_amount"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintWidth_percent="0.6"
@@ -173,7 +173,7 @@
                 android:paddingEnd="10dp"
                 android:text="@string/amount_zero_with_dollar_sign"
                 android:gravity="start"
-                android:textColor="@color/app_income_amount"
+                android:textColor="@color/app_expense_amount"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintWidth_percent="0.6"
@@ -195,7 +195,7 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerview_account_detail"
+            android:id="@+id/recyclerview_account_pr_detail"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 

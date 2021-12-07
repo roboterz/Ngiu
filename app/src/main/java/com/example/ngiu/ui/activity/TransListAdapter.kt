@@ -23,7 +23,7 @@ class TransListAdapter(
 
     private var transDetail: List<TransactionDetail> = ArrayList()
 
-    private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm")
+    private val formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm")
 
     // interface for passing the onClick event to fragment.
     interface OnClickListener {

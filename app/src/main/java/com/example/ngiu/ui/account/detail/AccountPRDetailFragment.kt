@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowId
 import android.widget.Toast
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -17,72 +19,69 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.MainActivity
 import com.example.ngiu.R
 import com.example.ngiu.databinding.FragmentAccountRecordsBinding
+import com.example.ngiu.ui.activity.TransListAdapter
 import kotlinx.android.synthetic.main.fragment_account.*
 import kotlinx.android.synthetic.main.fragment_account_add_cash.*
+import kotlinx.android.synthetic.main.fragment_account_p_r_detail.*
 import kotlinx.android.synthetic.main.fragment_account_records.*
+import kotlinx.android.synthetic.main.fragment_activity.*
 
 class AccountPRDetailFragment : Fragment() {
 
-    private lateinit var  AccountPRDetailViewModel:AccountPRDetailViewModel
+    private lateinit var  accountPRDetailViewModel:AccountPRDetailViewModel
     private var _binding: FragmentAccountRecordsBinding? = null
 
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-    private var rvAccount: RecyclerView? = null
-    private var adapter = AccountPRDetailAdapter()
 
-    private var itemId: Long = 0
-    private lateinit var accountName: String
-    private var balance: Double = 0.0
+    private var accountPRDetailAdapter: AccountPRDetailAdapter? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        AccountPRDetailViewModel =
+        accountPRDetailViewModel =
             ViewModelProvider(this).get(AccountPRDetailViewModel::class.java)
 
-
         _binding = FragmentAccountRecordsBinding.inflate(inflater, container, false)
-        rvAccount = binding.root.findViewById(R.id.rvAccountNormalDetails)
 
+        // load data to ram
+        Thread {
+            accountPRDetailViewModel.loadDataToRam(requireContext(), 1L)
+        }.start()
 
-        fetchDataFromBundle()
-        displayViews()
+        initAdapter()
 
 
         return binding.root
     }
 
-    private fun displayViews() {
-        binding.tvAccountRecordName.text = accountName
-        binding.tvAccountRecordBalance.text = balance.toString()
+    private fun initAdapter() {
+        Thread {
+            this.activity?.runOnUiThread {
 
+                recyclerview_account_pr_detail.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
+                accountPRDetailAdapter = this.context?.let {
+                    AccountPRDetailAdapter(object: AccountPRDetailAdapter.OnClickListener {
+                        // catch the item click event from adapter
+                        override fun onItemClick(transID: Long) {
+                            // switch to record fragment (Edit mode)
+                            navigateToRecordFragment(transID, true)
+                        }
+                    })
+                }
+                recyclerview_account_pr_detail.adapter = accountPRDetailAdapter
+            }
+        }.start()
     }
 
-    private fun fetchDataFromBundle() {
-        itemId = arguments?.getLong("accountId")!!
-        accountName = arguments?.getString("accountName")!!
-        balance = arguments?.getDouble("balance")!!
-    }
 
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        AccountPRDetailViewModel.getTransRecords(requireContext(),itemId, balance)
-        rvAccount?.layoutManager = LinearLayoutManager(context)
-        rvAccount?.adapter = adapter
-
-        binding.tvInflowValue.text = AccountPRDetailViewModel.getInflow(requireContext(),itemId).toString()
-        binding.tvOutflowValue.text = AccountPRDetailViewModel.getOutflow(requireContext(),itemId).toString()
-
-
-
-            AccountPRDetailViewModel.accountRecordsList.observe(viewLifecycleOwner){
-                adapter.addItems(it)
-        }
 
         // set up toolbar icon and click event
         // choose items to show
@@ -98,16 +97,14 @@ class AccountPRDetailFragment : Fragment() {
         toolbar_account_normal_details.setOnMenuItemClickListener{
             when (it.itemId) {
                 R.id.action_add -> {
-                    // hide nav bottom bar
-                    (activity as MainActivity).setNavBottomBarVisibility(View.GONE)
                     // navigate to add record screen
-                    view.findNavController().navigate(R.id.navigation_record)
+                    navigateToRecordFragment()
                     true
                 }
                 R.id.action_edit -> {
                     (activity as MainActivity).setNavBottomBarVisibility(View.GONE)
-                    // navigate to add record screen
-                    view.findNavController().navigate(R.id.navigation_record)
+                    // navigate to edit account
+                    // todo swtich to edit account
                     true
                 }
 
@@ -118,8 +115,25 @@ class AccountPRDetailFragment : Fragment() {
 
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onResume() {
         super.onResume()
+
+
+        // load transaction list
+        Thread {
+            activity?.runOnUiThread {
+                accountPRDetailAdapter?.setList(accountPRDetailViewModel.listPRDetail)
+            }
+        }.start()
+
+        // show the info at title
+        tv_account_pr_balance.text = "$" + "%.2f".format(accountPRDetailViewModel.accountBalance)
+        tv_account_pr_lend_amount.text = "$" + "%.2f".format(accountPRDetailViewModel.lendAmount)
+        tv_account_pr_receive_amount.text = "$" + "%.2f".format(accountPRDetailViewModel.receiveAmount)
+        tv_account_pr_borrow_amount.text = "$" + "%.2f".format(accountPRDetailViewModel.borrowAmount)
+        tv_account_pr_pay_amount.text = "$" + "%.2f".format(accountPRDetailViewModel.payAmount)
+
     }
 
     override fun onDestroyView() {
@@ -128,5 +142,14 @@ class AccountPRDetailFragment : Fragment() {
     }
 
 
+    private fun navigateToRecordFragment(transID: Long = 0, editMode: Boolean = false){
+        // hide nav bottom bar
+        //(activity as MainActivity).setNavBottomBarVisibility(View.GONE)
+
+        //parentFragmentManager.setFragmentResult("requestKey", bundleOf("bundleKey" to transactionList[position].Transaction_ID))
+        if (editMode) setFragmentResult("record_edit_mode", bundleOf("rID" to transID))
+        // switch to record fragment
+        findNavController().navigate(R.id.navigation_record)
+    }
 }
 

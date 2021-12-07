@@ -1,79 +1,30 @@
 package com.example.ngiu.ui.account.detail
 
+
 import android.content.Context
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.ngiu.data.AppDatabase
-import com.example.ngiu.data.entities.Account
 import com.example.ngiu.data.entities.Trans
-import com.example.ngiu.ui.account.model.AccountSectionUiModel
-import com.example.ngiu.ui.account.model.AccountTransRecordModel
+
 
 class AccountPRDetailViewModel : ViewModel() {
 
-    val accountRecordsList = MutableLiveData<List<AccountTransRecordModel>>()
+    var listPRDetail: List<Trans> = ArrayList()
+    var accountBalance: Double = 0.00
+    var lendAmount: Double = 0.00
+    var receiveAmount: Double = 0.00
+    var borrowAmount: Double = 0.00
+    var payAmount: Double = 0.00
 
-    fun getInflow(context: Context, id: Long): Double {
-        val appDatabase = AppDatabase.getDatabase(context)
-        val inflowA = appDatabase.account().getInflowA(id)
-        val inflowB = appDatabase.account().getInflowB(id)
-        return inflowA + inflowB
-    }
-
-    fun getOutflow(context: Context, id: Long): Double {
-        val appDatabase = AppDatabase.getDatabase(context)
-        val outflowA = appDatabase.account().getOutflowA(id)
-        val outflowB = appDatabase.account().getOutflowB(id)
-        return outflowA + outflowB
-
-    }
-
-    fun getTransRecords(context: Context, id: Long, balance: Double) {
-        val appDatabase = AppDatabase.getDatabase(context)
-        val allTypes = appDatabase.subcat().getAllSubCategory()
-        val allRecords = appDatabase.trans().getTransRecordAccount(id).asReversed()
-        val allAccounts = appDatabase.account().getAllAccount()
-        val accountTransRecordList = ArrayList<AccountTransRecordModel>()
-
-        var rBalance = balance;
-
-
-        allRecords
-            .forEach { item ->
-                // search the list of account type table to match with a accounttype_id
-                val subCat = allTypes.find { it.SubCategory_ID == item.SubCategory_ID }
-
-                val account = allAccounts.find { it.Account_ID == item.Account_ID }
-
-
-
-                //name, trans_amout, balance, date
-                val model = AccountTransRecordModel(
-                    subCat?.SubCategory_Name.toString(),
-                    item.Transaction_Amount.toString(),
-                   rBalance.toString(),
-                    item.Transaction_Date.toString()
-                )
-                accountTransRecordList.add(model)
-
-                //income
-                if (item.TransactionType_ID == 2L ) {
-                    rBalance = rBalance - item.Transaction_Amount
-                }
-                //expense
-                else if (item.TransactionType_ID == 1L ){
-                    rBalance = rBalance + item.Transaction_Amount
-                } else if ((item.TransactionType_ID == 3L || item.TransactionType_ID == 4L) && (item.Account_ID == id && item.AccountRecipient_ID != id) ) {
-                    rBalance = rBalance + item.Transaction_Amount
-                }
-                else if ((item.TransactionType_ID == 3L || item.TransactionType_ID == 4L) && (item.Account_ID != id && item.AccountRecipient_ID == id) ) {
-                    rBalance = rBalance - item.Transaction_Amount
-                }
-
-
-
-            }
-
-        accountRecordsList.value = accountTransRecordList
+    fun loadDataToRam(context: Context, acctID: Long){
+        listPRDetail = AppDatabase.getDatabase(context).trans().getRecordsByAccountAndAccountRecipientID(acctID)
+        (AppDatabase.getDatabase(context).trans().getTotalAmountOfIncomeByAccount(3L) +
+                AppDatabase.getDatabase(context).trans().getTotalAmountOfTransferInByAccount(3L) -
+                AppDatabase.getDatabase(context).trans().getTotalAmountOfExpenseByAccount(3L) -
+                AppDatabase.getDatabase(context).trans().getTotalAmountOfTransferOutByAccount(3L)).also { accountBalance = it }
+        lendAmount = AppDatabase.getDatabase(context).trans().getTotalAmountFromPRAccountBYSubCategoryID(acctID, 8L)
+        receiveAmount = AppDatabase.getDatabase(context).trans().getTotalAmountFromPRAccountBYSubCategoryID(acctID, 10L)
+        borrowAmount = AppDatabase.getDatabase(context).trans().getTotalAmountFromPRAccountBYSubCategoryID(acctID, 7L)
+        payAmount = AppDatabase.getDatabase(context).trans().getTotalAmountFromPRAccountBYSubCategoryID(acctID, 9L)
     }
 }
