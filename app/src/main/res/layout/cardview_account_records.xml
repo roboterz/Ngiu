@@ -22,9 +22,10 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:textColor="@color/app_text"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Transaction Type" />
+            tools:text="subcat" />
 
         <TextView
             android:id="@+id/tvAccountRecordTransaction"
@@ -32,6 +33,7 @@
             android:layout_height="match_parent"
             android:textColor="@color/app_text"
             android:layout_marginLeft="10dp"
+            android:textSize="15sp"
 
 
             app:layout_constraintStart_toEndOf="@+id/tvbAccountRecordsName"
@@ -42,7 +44,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:textColor="@color/app_text"
-            app:layout_constraintEnd_toEndOf="@+id/tvbAccountRecordsName"
+            app:layout_constraintEnd_toEndOf="@+id/tvAccountRecordTransaction"
             app:layout_constraintStart_toStartOf="@+id/tvbAccountRecordsName"
             app:layout_constraintTop_toBottomOf="@+id/tvbAccountRecordsName"
             tools:text="09/18" />

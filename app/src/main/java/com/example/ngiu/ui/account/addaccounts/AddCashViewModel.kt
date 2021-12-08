@@ -22,5 +22,20 @@ class AddCashViewModel : ViewModel() {
         return appDatabase.currency().getAllCurrency()
     }
 
+    fun getAccountByID(context: Context, id: Long): Account {
+        val appDatabase = AppDatabase.getDatabase(context)
+        return appDatabase.account().getRecordByID(id)
+    }
+
+    fun updateAccount(context: Context, account: Account){
+        val appDatabase = AppDatabase.getDatabase(context)
+        appDatabase.account().updateAccount(account)
+    }
+
+    fun getAllAccount(context: Context): List<Account> {
+        val appDatabase = AppDatabase.getDatabase(context)
+        return appDatabase.account().getAllAccount()
+    }
+
 
 }
