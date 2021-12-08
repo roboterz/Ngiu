@@ -62,7 +62,7 @@
             android:id="@+id/tvNumberOfDays"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginRight="8dp"
+            android:layout_marginRight="3dp"
             app:layout_constraintBottom_toBottomOf="@+id/tvCreditAccountBalance"
             app:layout_constraintEnd_toStartOf="@+id/tvDaysLeft"
             app:layout_constraintTop_toTopOf="@+id/tvCreditAccountBalance"

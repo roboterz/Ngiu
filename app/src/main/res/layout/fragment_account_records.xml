@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.account.AccountRecordsFragment">
+    tools:context=".ui.account.AccountDetailFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_account_normal_details"
@@ -31,16 +31,16 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_baseline_credit_card_24"
+            android:layout_marginLeft="50dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginStart="20dp" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvAccountRecordName"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:textSize="15sp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="8dp"
+            android:textSize="18sp"
             app:layout_constraintStart_toEndOf="@id/ivAccountCardSymbol"
             app:layout_constraintTop_toTopOf="@+id/ivAccountCardSymbol"
             tools:text="Wallet" />
@@ -49,10 +49,11 @@
             android:id="@+id/tvAccountRecordBalance"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:textSize="15sp"
+            android:textSize="18sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/ivAccountCardSymbol"
-            app:layout_constraintWidth_percent="0.3"
+            app:layout_constraintWidth_percent="0.33"
             tools:text="$2186.60" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -78,7 +79,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:textAlignment="center"
-
+                android:textColor="@color/app_income_amount"
+                android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -89,6 +91,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:textAlignment="center"
+                android:textSize="15sp"
+                android:textStyle="bold"
                 android:text="@string/Inflow"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -120,7 +124,9 @@
                 android:id="@+id/tvOutflowValue"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:textColor="@color/app_expense_amount"
                 android:textAlignment="center"
+                android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -131,6 +137,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:textAlignment="center"
+                android:textStyle="bold"
+                android:textSize="15sp"
                 android:text="@string/Outflow"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -147,10 +155,10 @@
         android:id="@+id/rvAccountNormalDetails"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginBottom="60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cvAccountInflow"
-
-        />
+        app:layout_constraintTop_toBottomOf="@+id/cvAccountInflow" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

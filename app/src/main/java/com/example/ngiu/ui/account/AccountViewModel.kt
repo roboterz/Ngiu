@@ -72,7 +72,7 @@ class AccountViewModel : ViewModel() {
                 val accountType = allTypes.find { it.AccountType_ID ==  item.key}
                 // add the value for all the same accounttype_id
                 item.value.forEach {
-                    // val sum1 = appDatabase.trans().getTotalSumA(it.Account_ID)
+                  /*  val sum1 = appDatabase.trans().getTotalSumA(it.Account_ID)*/
                     val sum2 = appDatabase.trans().getTotalSumB(it.Account_ID)
                     it.Account_Balance += sum2
 
@@ -85,8 +85,9 @@ class AccountViewModel : ViewModel() {
                 }
                 // store the total sum of each account
                 val totalSum = item.value.sumOf { it.Account_Balance }
+
                 // store the data to the Model
-                val sectionModel = AccountSectionUiModel(accountType?.AccountType_Name.orEmpty(), "%.2f".format(totalSum),true, item.value)
+                val sectionModel = AccountSectionUiModel(accountType?.AccountType_Name.orEmpty(), "$"+"%.2f".format(totalSum),true, item.value)
                 sections.add(sectionModel)
 
             }
@@ -95,10 +96,10 @@ class AccountViewModel : ViewModel() {
 
     // balance is the account original balance
     // add/subtract base off transaction type ID
-    fun calculateAmount(balance: Double, tran: Trans): Double{
+    private fun calculateAmount(balance: Double, tran: Trans): Double{
         return when(tran.TransactionType_ID){
-            in arrayOf<Long>(1,3)-> balance - tran.Transaction_Amount
-            in arrayOf<Long>(2,4)-> balance + tran.Transaction_Amount
+            in arrayOf<Long>(1,3,4)-> balance - tran.Transaction_Amount
+            2L -> balance + tran.Transaction_Amount
             else -> balance
         }
     }

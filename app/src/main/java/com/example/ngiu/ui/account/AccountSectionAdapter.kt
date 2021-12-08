@@ -36,6 +36,7 @@ class AccountSectionAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             item.isExpanded = !item.isExpanded
             viewHolder.foldItems(item.isExpanded)
         }
+
         val context = viewHolder.rvAccounts.context
         val adapter = AccountAdapter()
         viewHolder.rvAccounts.layoutManager = LinearLayoutManager(context)

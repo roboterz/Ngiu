@@ -63,11 +63,11 @@ class AccountFragment : Fragment() {
         val totalAsset = accountViewModel.getTotalAssets(requireContext())
         val totalLiability = accountViewModel.getTotalLiability()
 
-        binding.tvAccountTotalAssetsValue.text = "%.2f".format(totalAsset)
-        binding.tvAccountNetAssetsValue.text = "%.2f".format(netAssets)
+        binding.tvAccountTotalAssetsValue.text = "$"+"%.2f".format(totalAsset)
+        binding.tvAccountNetAssetsValue.text = "$"+"%.2f".format(netAssets)
 
         accountViewModel.accountSections.observe(viewLifecycleOwner){
-            binding.tvAccountTotalLiabilityValue.text = "%.2f".format(totalLiability)
+            binding.tvAccountTotalLiabilityValue.text = "$"+"%.2f".format(totalLiability)
             // if there is nothing to display go to the add account
             if(it.isEmpty()){
                 findNavController().navigate(R.id.navigation_add_account)

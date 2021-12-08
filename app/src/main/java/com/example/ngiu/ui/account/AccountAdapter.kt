@@ -92,10 +92,16 @@ class AccountAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 putLong("accountId", item.Account_ID)
                 putString("accountName", item.Account_Name)
                 putDouble("balance", item.Account_Balance)
+                putDouble("creditLimit", item.Account_CreditLimit)
+                putInt("paymentDate", item.Account_PaymentDay)
+                putInt("statementDate", item.Account_StatementDay)
+                putLong("accountType",item.AccountType_ID)
+
             }
+
             when (item.AccountType_ID) {
                 2L -> {
-                    holder.itemView.findNavController().navigate(R.id.accountCreditRecords)
+                    holder.itemView.findNavController().navigate(R.id.accountCreditRecords, bundle)
                 }
                 9L -> {
                     holder.itemView.findNavController().navigate(R.id.accountRecordsPR)
