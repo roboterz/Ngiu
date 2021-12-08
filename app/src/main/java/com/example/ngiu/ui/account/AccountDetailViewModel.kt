@@ -53,11 +53,11 @@ class AccountDetailViewModel : ViewModel() {
                     color = 1
 
                 } else if ((item.TransactionType_ID == 3L || item.TransactionType_ID == 4L) && (item.Account_ID == id && item.AccountRecipient_ID != id)) {
-                    color = 0
+                    color = 1
 
                 }
                 else if ((item.TransactionType_ID == 3L || item.TransactionType_ID == 4L) && (item.Account_ID != id && item.AccountRecipient_ID == id)) {
-                    color = 1
+                    color = 0
 
                 }
 
@@ -77,21 +77,21 @@ class AccountDetailViewModel : ViewModel() {
                 //income
                 if (item.TransactionType_ID == 2L ) {
                     rBalance -= item.Transaction_Amount
-                    color = 0
+
                 }
                 //expense
                 else if (item.TransactionType_ID == 1L ){
                     rBalance += item.Transaction_Amount
-                    color = 1
+
 
                 } else if ((item.TransactionType_ID == 3L || item.TransactionType_ID == 4L) && (item.Account_ID == id && item.AccountRecipient_ID != id)) {
                     rBalance += item.Transaction_Amount
-                    color = 0
+
 
                 }
                 else if ((item.TransactionType_ID == 3L || item.TransactionType_ID == 4L) && (item.Account_ID != id && item.AccountRecipient_ID == id)) {
                     rBalance -= item.Transaction_Amount
-                    color = 1
+
 
                 }
 
