@@ -23,6 +23,7 @@ class AccountDetailAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
         return AccountRecordsViewHolder(view)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = trans[position]
         val viewHolder = holder as AccountDetailAdapter.AccountRecordsViewHolder
@@ -32,11 +33,11 @@ class AccountDetailAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
 
         if(item.color == 0){
-            viewHolder.transRecordTransAmount.text = item.trans_amount
+            viewHolder.transRecordTransAmount.text = "+"+item.trans_amount
             viewHolder.transRecordTransAmount.setTextColor(ContextCompat.getColor(viewHolder.transRecordTransAmount.context, R.color.app_income_amount))
         }
         else {
-            viewHolder.transRecordTransAmount.text = item.trans_amount
+            viewHolder.transRecordTransAmount.text = "-"+item.trans_amount
             viewHolder.transRecordTransAmount.setTextColor(ContextCompat.getColor(viewHolder.transRecordTransAmount.context, R.color.app_expense_amount))
         }
 
