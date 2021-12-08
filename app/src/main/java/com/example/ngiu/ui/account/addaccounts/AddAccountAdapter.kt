@@ -2,6 +2,7 @@ package com.example.ngiu.ui.account.addaccounts
 
 
 import android.annotation.SuppressLint
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,7 +41,13 @@ class AddAccountAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         holder.itemView.setOnClickListener {
             when (holder.absoluteAdapterPosition) {
-                0 -> holder.itemView.findNavController().navigate(R.id.addCashFragment)
+
+                0 -> {
+                    val bundle = Bundle().apply {
+                        putString("page", "add_cash")
+                    }
+                    holder.itemView.findNavController().navigate(R.id.addCashFragment, bundle)
+                }
                 1 -> holder.itemView.findNavController().navigate(R.id.addCreditFragment)
                 2 -> holder.itemView.findNavController().navigate(R.id.addDebitFragment)
                 //3 -> supposed to be investment
@@ -51,7 +58,11 @@ class AddAccountAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 6 -> holder.itemView.findNavController().navigate(R.id.addVirtualAccountFragment)
                 7 -> holder.itemView.findNavController().navigate(R.id.addPermanentAssetFragment)
                 //8-> supposed to be receivable/payable
-                8 -> holder.itemView.findNavController().navigate(R.id.addPermanentAssetFragment)
+                8 ->  {
+                    val bundle = Bundle().apply {
+                        putString("page", "add_payable")
+                    }
+                    holder.itemView.findNavController().navigate(R.id.addCashFragment, bundle)}
             }
 
         }

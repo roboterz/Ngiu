@@ -29,30 +29,10 @@ interface AccountDao {
     @Query("SELECT * FROM Account WHERE Account_ID = :rID")
     fun getRecordByID(rID:Long): Account
 
+    @Update
+    fun updateAccount(vararg account: Account)
 
 
-
-  /*  @Transaction
-    @Query("""
-        SELECT SUM(Transaction_Amount) FROM Trans trans
-        INNER JOIN Account acct ON trans.Account_ID = acct.Account_ID
-        WHERE trans.TransactionType_ID = 2 AND trans.Account_ID = :rID
-        + (SELECT SUM(Transaction_Amount) FROM Trans trans
-            INNER JOIN Account acct ON trans.AccountRecipient_ID = acct.Account_ID
-            WHERE trans.TransactionType_ID in (3,4) AND trans.AccountRecipient_ID = :rID)
-         """)
-    fun getInflow(rID: Long): Double*/
-/*
-    inflow = sum( amount  if transaction_type =2)
-    + sum(amount if transaction_type = 3,4 and account_receipient = this acount)
-*/
-/*    @Transaction
-    @Query("""
-         SELECT SUM(Transaction_Amount) FROM Trans trans
-        INNER JOIN Account acct ON trans.Account_ID = acct.Account_ID
-        WHERE trans.TransactionType_ID = 2 AND trans.Account_ID = :rID
-        """)
-    fun getInflow(rID: Long): Double*/
 
 
       @Transaction
@@ -60,7 +40,6 @@ interface AccountDao {
           SELECT SUM(Transaction_Amount) FROM Trans trans
         INNER JOIN Account acct ON trans.Account_ID = acct.Account_ID
         WHERE trans.TransactionType_ID = 2 AND trans.Account_ID = :rID 
-
       """)
    fun getInflowA(rID:Long): Double
 
@@ -93,17 +72,7 @@ interface AccountDao {
 
 
 
-  /*  @Transaction
-    @Query("""
-        SELECT SUM(Transaction_Amount) FROM Trans trans
-        INNER JOIN Account acct ON trans.Account_ID = acct.Account_ID
-        WHERE trans.TransactionType_ID = 1 AND trans.Account_ID = :rID
-        + (SELECT SUM(Transaction_Amount) FROM Trans trans
-        INNER JOIN Account acct on trans.AccountRecipient_ID = acct.Account_ID
-        WHERE trans.TransactionType_ID IN (3,4) AND trans.AccountRecipient_ID = :rID)
-        """)
-    fun getOutflow(rID: Long): Double
-*/
+
     //@Transaction
     //@Query("SELECT * FROM Account")
     //fun getAcctTransRecip(): List<AcctTransRecipient>
@@ -428,11 +397,11 @@ interface TransDao {
     //@Query("SELECT *, :date AS passed_date, coalesce(date(date),'ouch') AS cnv_date, coalesce(date(:date),'ouch') AS cnv_passed_date FROM user WHERE date(date / 1000,'unixepoch') = date(:date / 1000,'unixepoch');")
 
     @Transaction
-    @Query("SELECT SUM(Transaction_Amount) as Transaction_Amount FROM Trans WHERE Account_ID = :rID")
+    @Query("SELECT SUM(Transaction_Amount) FROM Trans WHERE Account_ID = :rID")
     fun getTotalSumA(rID: Long): Double
 
     @Transaction
-    @Query("SELECT SUM(Transaction_Amount) as Transaction_Amount FROM Trans WHERE AccountRecipient_ID = :rID AND TransactionType_ID IN (3,4)")
+    @Query("SELECT SUM(Transaction_Amount)  FROM Trans WHERE AccountRecipient_ID = :rID AND TransactionType_ID IN (3,4)")
     fun getTotalSumB(rID: Long): Double
 
     // 0 for false, 1 for true: so countnetassets if true
@@ -475,8 +444,7 @@ interface TransDao {
     @Transaction
     @Query("""
         SELECT * FROM Trans trans
-        INNER JOIN Account acct on trans.Account_ID = acct.Account_ID
-        WHERE trans.Account_ID = :rID
+        WHERE trans.Account_ID = :rID OR trans.AccountRecipient_ID = :rID
         """)
     fun getTransRecordAccount(rID:Long): List<Trans>
 

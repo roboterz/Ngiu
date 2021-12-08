@@ -14,13 +14,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.MainActivity
 import com.example.ngiu.R
 import com.example.ngiu.databinding.FragmentAccountRecordsBinding
+import com.example.ngiu.functions.changeColor
 import kotlinx.android.synthetic.main.fragment_account_records.*
 
+class AccountDetailFragment : Fragment() {
 
-class AccountCreditRecordsFragment : Fragment() {
-
-
-    private lateinit var  accountRecordsViewModel:AccountRecordsViewModel
+    private lateinit var  accountDetailViewModel:AccountDetailViewModel
     private var _binding: FragmentAccountRecordsBinding? = null
 
 
@@ -28,30 +27,54 @@ class AccountCreditRecordsFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
     private var rvAccount: RecyclerView? = null
-    private var adapter = AccountRecordsAdapter()
+    private var adapter = AccountDetailAdapter()
+
+    private var itemId: Long = 0
+    private var accountType: Long = 0
+    private lateinit var accountName: String
+    private var balance: Double = 0.0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        accountRecordsViewModel =
-            ViewModelProvider(this).get(AccountRecordsViewModel::class.java)
+        accountDetailViewModel =
+            ViewModelProvider(this).get(AccountDetailViewModel::class.java)
 
 
         _binding = FragmentAccountRecordsBinding.inflate(inflater, container, false)
-        rvAccount = binding.root.findViewById(R.id.recyclerview_account_detail)
+        rvAccount = binding.root.findViewById(R.id.rvAccountNormalDetails)
+
+
+        fetchDataFromBundle()
+
 
         return binding.root
+    }
+
+    private fun fetchDataFromBundle() {
+        itemId = arguments?.getLong("accountId")!!
+        accountName = arguments?.getString("accountName")!!
+        balance = arguments?.getDouble("balance")!!
+        accountType = arguments?.getLong("accountType")!!
     }
 
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        accountDetailViewModel.getTransRecords(requireContext(),itemId, balance)
         rvAccount?.layoutManager = LinearLayoutManager(context)
         rvAccount?.adapter = adapter
 
+        binding.tvInflowValue.text = accountDetailViewModel.getInflow(requireContext(),itemId)
+        binding.tvOutflowValue.text = accountDetailViewModel.getOutflow(requireContext(),itemId)
+        binding.tvAccountRecordName.text = accountName
+        changeColor(tvAccountRecordBalance,balance )
 
+
+            accountDetailViewModel.accountRecordsList.observe(viewLifecycleOwner){
+                adapter.addItems(it)
+        }
 
         // set up toolbar icon and click event
         // choose items to show
@@ -70,13 +93,28 @@ class AccountCreditRecordsFragment : Fragment() {
                     // hide nav bottom bar
                     (activity as MainActivity).setNavBottomBarVisibility(View.GONE)
                     // navigate to add record screen
+                    findNavController().popBackStack()
                     view.findNavController().navigate(R.id.navigation_record)
                     true
                 }
                 R.id.action_edit -> {
                     (activity as MainActivity).setNavBottomBarVisibility(View.GONE)
                     // navigate to add record screen
-                    view.findNavController().navigate(R.id.navigation_record)
+
+                    if (accountType == 1L) {
+
+                        val bundle = Bundle().apply {
+                            putString("page", "edit_cash")
+                            putLong("id", itemId)
+                        }
+                        view.findNavController().navigate(R.id.addCashFragment, bundle)
+                    } else if (accountType == 9L) {
+                        val bundle = Bundle().apply {
+                            putString("page", "edit_payable")
+                            putLong("id", itemId)
+                        }
+                        view.findNavController().navigate(R.id.addCashFragment, bundle)
+                    }
                     true
                 }
 
@@ -96,4 +134,6 @@ class AccountCreditRecordsFragment : Fragment() {
         _binding = null
     }
 
+
 }
+
