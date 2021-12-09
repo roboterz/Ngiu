@@ -63,6 +63,7 @@ class AddDebitFragment : Fragment() {
                 binding.toolbarAddDebitAccount.title = "Add Debit"
             }
             "edit_debit" -> {
+                binding.debitBalanceTextLayout.isEnabled = false
                 binding.toolbarAddDebitAccount.title = "Edit Debit"
                 binding.toolbarAddDebitAccount.menu.findItem(R.id.action_delete).isVisible = true
                 accountTypeID = 3L
