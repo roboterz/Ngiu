@@ -20,6 +20,9 @@ interface AccountDao {
     @Delete
     fun deleteAccount(account: Account)
 
+    @Query("DELETE FROM Account WHERE  Account_ID = :rID")
+    fun deleteById(rID:Long)
+
     @Transaction
     @Query("SELECT * FROM Account")
     fun getAllAccount(): List<Account>

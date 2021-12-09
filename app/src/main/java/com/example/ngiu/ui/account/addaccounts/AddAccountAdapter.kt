@@ -88,7 +88,7 @@ class AddAccountAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 // permanent assets
                 7 -> {
                     val bundle = Bundle().apply {
-                        putString("page", "add_asset")
+                        putString("page", "add_perm")
                     }
                     holder.itemView.findNavController().navigate(R.id.addPermanentAssetFragment, bundle)
                 }
