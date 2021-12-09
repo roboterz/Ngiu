@@ -206,6 +206,7 @@
     <string name="record_paid_to">Paid to</string>
     <string name="record_transfer_out">Transfer out</string>
     <string name="record_transfer_in">Transfer in</string>
+    <string name="record_to">to</string>
 
     <string name="keyboard_1">1</string>
     <string name="keyboard_2">2</string>
