@@ -41,7 +41,7 @@ class AddCreditFragment : Fragment() {
         return binding.root
 
 
-        }
+    }
 
 
 
@@ -71,7 +71,7 @@ class AddCreditFragment : Fragment() {
         }
 
         binding.tvCreditStateDay.setOnClickListener {
-            val ls = listOf<String>("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28")
+            val ls = listOf<String>("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31")
             val array = ls.toTypedArray()
 
             // Initialize a new instance of alert dialog builder object
@@ -86,9 +86,9 @@ class AddCreditFragment : Fragment() {
 
             // Set items form alert dialog
             builder.setItems(array) { _, which ->
-                statementDay = array.get(which)
+                statementDay = array[which]
                 val suffix = getDayOfMonthSuffix(statementDay.toInt())
-                binding.tvCreditStateDayValue.setText(statementDay + "$suffix")
+                binding.tvCreditStateDayValue.text = statementDay + "$suffix"
             }
 
             // Create a new AlertDialog using builder object
@@ -97,7 +97,7 @@ class AddCreditFragment : Fragment() {
         }
 
         binding.tvCreditPaymentDay.setOnClickListener {
-            val ls = listOf<String>("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28")
+            val ls = listOf<String>("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31")
             val array = ls.toTypedArray()
 
             // Initialize a new instance of alert dialog builder object
@@ -112,9 +112,9 @@ class AddCreditFragment : Fragment() {
 
             // Set items form alert dialog
             builder.setItems(array) { _, which ->
-                paymentDay = array.get(which)
+                paymentDay = array[which]
                 val suffix = getDayOfMonthSuffix(paymentDay.toInt())
-                binding.tvCreditPaymentDayValue.setText(paymentDay + "$suffix")
+                binding.tvCreditPaymentDayValue.text = paymentDay + "$suffix"
             }
 
             // Create a new AlertDialog using builder object

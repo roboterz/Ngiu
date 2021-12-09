@@ -32,13 +32,16 @@ class AccountDetailAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
         changeColor(viewHolder.transRecordBalance, item.balance.toDouble())
 
 
-        if(item.color == 0){
+        // condition to check to show +/- trans_amount and recolor to red/green base off expense/income
+        if(item.trans_id == 2L || (item.trans_id == 3L || item.trans_id == 4L) &&
+            (item.account_ID != item.id && item.recipient_ID == item.id))  {
             viewHolder.transRecordTransAmount.text = "+"+item.trans_amount
-            viewHolder.transRecordTransAmount.setTextColor(ContextCompat.getColor(viewHolder.transRecordTransAmount.context, R.color.app_income_amount))
-        }
-        else {
+            viewHolder.transRecordTransAmount.setTextColor(ContextCompat.getColor(viewHolder.transRecordTransAmount.context,
+                R.color.app_income_amount))
+        } else {
             viewHolder.transRecordTransAmount.text = "-"+item.trans_amount
-            viewHolder.transRecordTransAmount.setTextColor(ContextCompat.getColor(viewHolder.transRecordTransAmount.context, R.color.app_expense_amount))
+            viewHolder.transRecordTransAmount.setTextColor(ContextCompat.getColor(viewHolder.transRecordTransAmount.context,
+                R.color.app_expense_amount))
         }
 
 
