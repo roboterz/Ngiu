@@ -16,12 +16,15 @@ data class AccountSectionUiModel(
 )
 
 
+
 data class AccountTransRecordModel(
     val name: String,
     val trans_amount: String,
     val balance: String,
     val date: String,
     val trans_id: Long,
-    val color: Int
+    val recipient_ID: Long,
+    val id: Long,
+    val account_ID: Long
 
 )

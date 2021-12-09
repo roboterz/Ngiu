@@ -26,8 +26,8 @@ class AddCashFragment : Fragment() {
     private var _binding: FragmentAccountAddCashBinding? = null
     private val binding get() = _binding!!
     private lateinit var addCashViewModel: AddCashViewModel
-     var accountTypeID : Long = 0L
-
+    var accountTypeID : Long = 0L
+    private var balance: Double = 0.0
     var currency = "USD"
 
     lateinit var page: String
@@ -57,7 +57,8 @@ class AddCashFragment : Fragment() {
                 accountTypeID = 1L
                 var id : Long= 0L
                 id = arguments?.getLong("id")!!
-
+                binding.tetCashBalance.isEnabled = false
+                binding.btnCashAddOtherCurrency.isEnabled = false
                 fetchAccountDetails(id)
             }
             "add_payable" -> {
@@ -77,17 +78,18 @@ class AddCashFragment : Fragment() {
     }
 
     private fun fetchAccountDetails(id: Long) {
-      val account =  addCashViewModel.getAccountByID(requireContext(),id)
+        val account =  addCashViewModel.getAccountByID(requireContext(),id)
         binding.tetCashAccountName.setText(account.Account_Name)
-        binding.tetCashBalance.setText(account.Account_Balance.toString())
+        binding.tetCashBalance.setText("%.2f".format(balance))
         binding.tetCashMemo.setText(account.Account_Memo)
         /*binding.scCashCountNetAssets.setText(account.Account_CountInNetAssets.toString())*/
-
+        binding.cashBalanceTextLayout.suffixText = account.Currency_ID
         binding.scCashCountNetAssets.isChecked = account.Account_CountInNetAssets
     }
 
     private fun getBundleData() {
         page = arguments?.getString("page")!!
+        balance = arguments?.getDouble("balance")!!
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -123,7 +125,7 @@ class AddCashFragment : Fragment() {
                     var id : Long= 0L
                     id = arguments?.getLong("id")!!
 
-                   updateAccount(id)
+                    updateAccount(id)
                 }
                 "add_payable" -> {
                     binding.toolbarAddCashAccount.title = "Add Receivable/Payable"
@@ -200,13 +202,13 @@ class AddCashFragment : Fragment() {
             AccountType_ID = accountTypeID,
             Currency_ID = currency
         )
-
         addCashViewModel.getAllAccount(requireContext()).forEach { item ->
-            if (item.Account_Name.equals(binding.tetCashAccountName.text.toString(), ignoreCase = true)) {
+            if (item.Account_Name.equals(binding.tetCashAccountName.text.toString(), ignoreCase = true)  && (account.Account_ID != item.Account_ID)) {
                 Toast.makeText(requireContext(), "Account Name already exist", Toast.LENGTH_LONG).show()
                 return
             }
         }
+
         addCashViewModel.updateAccount(requireContext(),account)
         findNavController().navigate(R.id.navigation_account)
         Toast.makeText(requireContext(), "Update Successful",Toast.LENGTH_LONG).show()
@@ -219,7 +221,7 @@ class AddCashFragment : Fragment() {
 
         addCashViewModel.getAllAccount(requireContext()).forEach { item ->
             if (item.Account_Name.equals(accountName, ignoreCase = true)) {
-               Toast.makeText(requireContext(), "Account Name already exist", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), "Account Name already exist", Toast.LENGTH_LONG).show()
                 return
             }
         }
@@ -250,8 +252,6 @@ class AddCashFragment : Fragment() {
     }
 
     private fun submitForm() {
-
-
         binding.cashAccountNameTextLayout.helperText = validAccountName()
 
         val validAccountName = binding.cashAccountNameTextLayout.helperText == null

@@ -19,6 +19,8 @@ import androidx.core.content.res.TypedArrayUtils.getText
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.ngiu.R
+import com.example.ngiu.data.AppDatabase
+import com.example.ngiu.data.entities.Trans
 import com.example.ngiu.databinding.AccountDetailCardviewBinding.inflate
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.fragment_record.*
@@ -258,6 +260,17 @@ fun changeColor(textView: TextView, amount: Double){
     textView.setTextColor(ContextCompat.getColor(context, color))
     textView.text = "$"+"%.2f".format(amount)
 
+}
+
+
+
+
+ fun calculateAmount(balance: Double, tran: Trans): Double{
+    return when(tran.TransactionType_ID){
+        in arrayOf<Long>(1,3,4)-> balance - tran.Transaction_Amount
+        2L -> balance + tran.Transaction_Amount
+        else -> balance
+    }
 }
 
 
