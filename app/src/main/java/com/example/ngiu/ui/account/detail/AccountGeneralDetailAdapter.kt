@@ -82,6 +82,9 @@ class AccountGeneralDetailAdapter(
                     holder.recordInfo.visibility = View.GONE
                 }
                 3L,4L ->{
+                    // info
+                    holder.recordInfo.visibility = View.VISIBLE
+
                     // category
                     if (TransactionType_ID == 3L){
                         if (Account_ID == currentAccountID){
@@ -89,20 +92,33 @@ class AccountGeneralDetailAdapter(
                         }else{
                             holder.recordText.text = holder.itemView.context.getString(R.string.record_transfer_in)
                         }
+                        // info
+                        holder.recordInfo.text = "$Account_Name " + holder.itemView.context.getString(R.string.record_to) + " $AccountRecipient_Name"
                     }
                     if (TransactionType_ID == 4L){
                         when (SubCategory_ID){
-                               7L -> holder.recordText.text = holder.itemView.context.getString(R.string.record_borrow_in)
-                               8L -> holder.recordText.text = holder.itemView.context.getString(R.string.record_borrow_in)
-
+                            7L -> {
+                                holder.recordText.text = holder.itemView.context.getString(R.string.record_borrow_in)
+                                holder.recordInfo.text = holder.itemView.context.getString(R.string.record_borrow_from) + " $Account_Name"
+                            }
+                            8L -> {
+                                holder.recordText.text = holder.itemView.context.getString(R.string.record_lend_out)
+                                holder.recordInfo.text = holder.itemView.context.getString(R.string.record_lend_to) + " $AccountRecipient_Name"
+                            }
+                            9L -> {
+                                holder.recordText.text = holder.itemView.context.getString(R.string.record_repay)
+                                holder.recordInfo.text = holder.itemView.context.getString(R.string.record_paid_to) + " $AccountRecipient_Name"
+                            }
+                            10L -> {
+                                holder.recordText.text = holder.itemView.context.getString(R.string.record_receive)
+                                holder.recordInfo.text = holder.itemView.context.getString(R.string.record_received_from) + " $Account_Name"
+                            }
                         }
                     }
                     // amount
                     holder.recordAmount.text = "$" + "%.2f".format(Transaction_Amount)
                     holder.recordAmount.setTextColor(holder.amountColor)
-                    // info
-                    holder.recordInfo.visibility = View.VISIBLE
-                    holder.recordInfo.text = "$Account_Name To $AccountRecipient_Name"
+
                 }
             }
 
