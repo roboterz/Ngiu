@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.ngiu.data.AppDatabase
 import com.example.ngiu.data.entities.Trans
+import com.example.ngiu.functions.calculateAmount
 import com.example.ngiu.ui.account.model.AccountSectionUiModel
 
 
@@ -94,13 +95,5 @@ class AccountViewModel : ViewModel() {
         accountSections.value = sections
     }
 
-    // balance is the account original balance
-    // add/subtract base off transaction type ID
-    private fun calculateAmount(balance: Double, tran: Trans): Double{
-        return when(tran.TransactionType_ID){
-            in arrayOf<Long>(1,3,4)-> balance - tran.Transaction_Amount
-            2L -> balance + tran.Transaction_Amount
-            else -> balance
-        }
-    }
+
 }

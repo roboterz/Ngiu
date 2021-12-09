@@ -17,6 +17,7 @@ import com.example.ngiu.databinding.FragmentAccountRecordsBinding
 import com.example.ngiu.functions.changeColor
 import kotlinx.android.synthetic.main.fragment_account_records.*
 
+
 class AccountDetailFragment : Fragment() {
 
     private lateinit var  accountDetailViewModel:AccountDetailViewModel
@@ -55,7 +56,8 @@ class AccountDetailFragment : Fragment() {
     private fun fetchDataFromBundle() {
         itemId = arguments?.getLong("accountId")!!
         accountName = arguments?.getString("accountName")!!
-        balance = arguments?.getDouble("balance")!!
+        //balance = arguments?.getDouble("balance")!!
+        balance = accountDetailViewModel.calculateBalance(requireContext(), itemId)
         accountType = arguments?.getLong("accountType")!!
     }
 
@@ -82,10 +84,11 @@ class AccountDetailFragment : Fragment() {
         toolbar_account_normal_details.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
-
+        binding.toolbarAccountNormalDetails.title = "Account Details"
         toolbar_account_normal_details.menu.findItem(R.id.action_edit).isVisible = true
         toolbar_account_normal_details.menu.findItem(R.id.action_add).isVisible = true
 
+        // menu item clicked
         // menu item clicked
         toolbar_account_normal_details.setOnMenuItemClickListener{
             when (it.itemId) {
@@ -93,7 +96,6 @@ class AccountDetailFragment : Fragment() {
                     // hide nav bottom bar
                     (activity as MainActivity).setNavBottomBarVisibility(View.GONE)
                     // navigate to add record screen
-                    findNavController().popBackStack()
                     view.findNavController().navigate(R.id.navigation_record)
                     true
                 }
@@ -101,19 +103,49 @@ class AccountDetailFragment : Fragment() {
                     (activity as MainActivity).setNavBottomBarVisibility(View.GONE)
                     // navigate to add record screen
 
-                    if (accountType == 1L) {
-
-                        val bundle = Bundle().apply {
-                            putString("page", "edit_cash")
-                            putLong("id", itemId)
+                    when (accountType) {
+                        1L -> {
+                            val bundle = Bundle().apply {
+                                putString("page", "edit_cash")
+                                putLong("id", itemId)
+                                putDouble("balance", balance)
+                            }
+                            view.findNavController().navigate(R.id.addCashFragment, bundle)
                         }
-                        view.findNavController().navigate(R.id.addCashFragment, bundle)
-                    } else if (accountType == 9L) {
-                        val bundle = Bundle().apply {
-                            putString("page", "edit_payable")
-                            putLong("id", itemId)
+                        3L -> {
+                            val bundle = Bundle().apply {
+                                putString("page", "edit_debit")
+                                putLong("id", itemId)
+                                putDouble("balance", balance)
+                            }
+                            view.findNavController().navigate(R.id.addDebitFragment, bundle)
                         }
-                        view.findNavController().navigate(R.id.addCashFragment, bundle)
+                        in arrayOf<Long>(4,5,7) -> {
+                            val bundle = Bundle().apply {
+                                putString("page", "edit_invest")
+                                putString("page", "edit_web")
+                                putString("page", "edit_virtual")
+                                putLong("id", itemId)
+                                putDouble("balance", balance)
+                            }
+                            view.findNavController().navigate(R.id.addWebAccountFragment, bundle)
+                        }
+                        in arrayOf<Long>(6,8) -> {
+                            val bundle = Bundle().apply {
+                                putString("page", "edit_perm")
+                                putString("page", "edit_valueCard")
+                                putLong("id", itemId)
+                                putDouble("balance", balance)
+                            }
+                            view.findNavController().navigate(R.id.addPermanentAssetFragment, bundle)
+                        }
+                        9L -> {
+                            val bundle = Bundle().apply {
+                                putString("page", "edit_payable")
+                                putLong("id", itemId)
+                            }
+                            view.findNavController().navigate(R.id.addCashFragment, bundle)
+                        }
                     }
                     true
                 }
@@ -127,6 +159,7 @@ class AccountDetailFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        (activity as MainActivity).setNavBottomBarVisibility(View.VISIBLE)
     }
 
     override fun onDestroyView() {

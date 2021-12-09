@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.example.ngiu.data.AppDatabase
 import com.example.ngiu.data.entities.Account
 import com.example.ngiu.data.entities.Trans
+import com.example.ngiu.functions.calculateAmount
 import com.example.ngiu.ui.account.model.AccountSectionUiModel
 import com.example.ngiu.ui.account.model.AccountTransRecordModel
 import java.time.format.DateTimeFormatter
@@ -45,23 +46,6 @@ class AccountDetailViewModel : ViewModel() {
                 val subCat = allTypes.find { it.SubCategory_ID == item.SubCategory_ID }
 
 
-                if (item.TransactionType_ID == 2L ) {
-                    color = 0
-                }
-                //expense
-                else if (item.TransactionType_ID == 1L ){
-                    color = 1
-
-                } else if ((item.TransactionType_ID == 3L || item.TransactionType_ID == 4L) && (item.Account_ID == id && item.AccountRecipient_ID != id)) {
-                    color = 1
-
-                }
-                else if ((item.TransactionType_ID == 3L || item.TransactionType_ID == 4L) && (item.Account_ID != id && item.AccountRecipient_ID == id)) {
-                    color = 0
-
-                }
-
-
 
                 val model = AccountTransRecordModel(
                     subCat?.SubCategory_Name.toString(),
@@ -69,31 +53,24 @@ class AccountDetailViewModel : ViewModel() {
                     "%.2f".format(rBalance),
                     item.Transaction_Date.format(recordTimeFormatter),
                     item.TransactionType_ID,
-                    color
+                    item.AccountRecipient_ID,
+                    id,
+                    item.Account_ID
 
                 )
                 accountTransRecordList.add(model)
 
                 //income
-                if (item.TransactionType_ID == 2L ) {
+                if (item.TransactionType_ID == 2L ||
+                    (item.TransactionType_ID == 3L || item.TransactionType_ID == 4L) &&
+                    (item.Account_ID != id && item.AccountRecipient_ID == id) ) {
+
                     rBalance -= item.Transaction_Amount
 
                 }
                 //expense
-                else if (item.TransactionType_ID == 1L ){
+                else
                     rBalance += item.Transaction_Amount
-
-
-                } else if ((item.TransactionType_ID == 3L || item.TransactionType_ID == 4L) && (item.Account_ID == id && item.AccountRecipient_ID != id)) {
-                    rBalance += item.Transaction_Amount
-
-
-                }
-                else if ((item.TransactionType_ID == 3L || item.TransactionType_ID == 4L) && (item.Account_ID != id && item.AccountRecipient_ID == id)) {
-                    rBalance -= item.Transaction_Amount
-
-
-                }
 
 
 
@@ -102,4 +79,16 @@ class AccountDetailViewModel : ViewModel() {
 
         accountRecordsList.value = accountTransRecordList
     }
+
+    fun calculateBalance(context: Context, itemId: Long): Double {
+        val appDatabase = AppDatabase.getDatabase(context)
+        val account = appDatabase.account().getRecordByID(itemId)
+        var accountBalance :Double =  account.Account_Balance
+        appDatabase.trans().getRecordsByAcctID(itemId)
+            .forEach { trans ->
+                accountBalance = calculateAmount(accountBalance, trans)
+            }
+        return accountBalance +  appDatabase.trans().getTotalSumB(itemId)
+    }
+
 }
