@@ -57,7 +57,7 @@ class AccountDetailFragment : Fragment() {
         itemId = arguments?.getLong("accountId")!!
         accountName = arguments?.getString("accountName")!!
         //balance = arguments?.getDouble("balance")!!
-        balance = accountDetailViewModel.calculateBalance(requireContext(), itemId)
+            balance = accountDetailViewModel.calculateBalance(requireContext(), itemId)
         accountType = arguments?.getLong("accountType")!!
     }
 
@@ -103,6 +103,8 @@ class AccountDetailFragment : Fragment() {
                     (activity as MainActivity).setNavBottomBarVisibility(View.GONE)
                     // navigate to add record screen
 
+
+
                     when (accountType) {
                         1L -> {
                             val bundle = Bundle().apply {
@@ -110,6 +112,8 @@ class AccountDetailFragment : Fragment() {
                                 putLong("id", itemId)
                                 putDouble("balance", balance)
                             }
+
+
                             view.findNavController().navigate(R.id.addCashFragment, bundle)
                         }
                         3L -> {
@@ -120,25 +124,50 @@ class AccountDetailFragment : Fragment() {
                             }
                             view.findNavController().navigate(R.id.addDebitFragment, bundle)
                         }
-                        in arrayOf<Long>(4,5,7) -> {
+                        4L-> {
                             val bundle = Bundle().apply {
-                                putString("page", "edit_invest")
-                                putString("page", "edit_web")
-                                putString("page", "edit_virtual")
+                                putString("page", "edit_investment")
                                 putLong("id", itemId)
                                 putDouble("balance", balance)
                             }
                             view.findNavController().navigate(R.id.addWebAccountFragment, bundle)
                         }
-                        in arrayOf<Long>(6,8) -> {
+                        5L-> {
                             val bundle = Bundle().apply {
-                                putString("page", "edit_perm")
+                                putString("page", "edit_web")
+                                putLong("id", itemId)
+                                putDouble("balance", balance)
+                            }
+                            view.findNavController().navigate(R.id.addWebAccountFragment, bundle)
+                        }
+                        6L -> {
+                            val bundle = Bundle().apply {
                                 putString("page", "edit_valueCard")
                                 putLong("id", itemId)
                                 putDouble("balance", balance)
                             }
                             view.findNavController().navigate(R.id.addPermanentAssetFragment, bundle)
                         }
+
+                        7L-> {
+                            val bundle = Bundle().apply {
+                                putString("page", "edit_virtual")
+                                putLong("id", itemId)
+                                putDouble("balance", balance)
+                            }
+                            view.findNavController().navigate(R.id.addWebAccountFragment, bundle)
+                        }
+
+                        8L -> {
+                            val bundle = Bundle().apply {
+                                putString("page", "edit_perm")
+                                putLong("id", itemId)
+                                putDouble("balance", balance)
+                            }
+                            view.findNavController().navigate(R.id.addPermanentAssetFragment, bundle)
+                        }
+
+
                         9L -> {
                             val bundle = Bundle().apply {
                                 putString("page", "edit_payable")

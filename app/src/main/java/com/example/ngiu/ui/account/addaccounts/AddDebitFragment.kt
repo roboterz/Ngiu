@@ -17,6 +17,7 @@ import com.example.ngiu.databinding.FragmentAccountAddDebitBinding
 import com.example.ngiu.functions.addDecimalLimiter
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.fragment_account_add_debit.*
+import kotlinx.android.synthetic.main.fragment_account_add_web_account.*
 import kotlinx.android.synthetic.main.popup_title.view.*
 
 
@@ -24,18 +25,18 @@ class AddDebitFragment : Fragment() {
     private var _binding: FragmentAccountAddDebitBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var addDebitViewModel: AddDebitViewModel
+    private lateinit var addCashViewModel: AddCashViewModel
     var currency = "USD"
     lateinit var page: String
     private var balance: Double = 0.0
     var accountTypeID: Long = 3L
-
+    var id: Long = 0L
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        addDebitViewModel = ViewModelProvider(this).get(AddDebitViewModel::class.java)
+        addCashViewModel = ViewModelProvider(this).get(AddCashViewModel::class.java)
         _binding = FragmentAccountAddDebitBinding.inflate(inflater, container, false)
 
         getBundleData()
@@ -63,9 +64,8 @@ class AddDebitFragment : Fragment() {
             }
             "edit_debit" -> {
                 binding.toolbarAddDebitAccount.title = "Edit Debit"
-
+                binding.toolbarAddDebitAccount.menu.findItem(R.id.action_delete).isVisible = true
                 accountTypeID = 3L
-                var id: Long = 0L
                 id = arguments?.getLong("id")!!
 
                 fetchAccountDetails(id)
@@ -80,7 +80,7 @@ class AddDebitFragment : Fragment() {
     }
 
     private fun fetchAccountDetails(id: Long) {
-        val account = addDebitViewModel.getAccountByID(requireContext(), id)
+        val account = addCashViewModel.getAccountByID(requireContext(), id)
         binding.tetDebitAccountName.setText(account.Account_Name)
         binding.tetDebitBalance.setText("%.2f".format(balance))
         binding.tetDebitCardNumber.setText(account.Account_CardNumber)
@@ -104,9 +104,11 @@ class AddDebitFragment : Fragment() {
 
             }
 
+
+
             binding.btnDebitAddOtherCurrency.setOnClickListener {
 
-                val array: List<Currency> = addDebitViewModel.getCurrency(requireActivity())
+                val array: List<Currency> = addCashViewModel.getCurrency(requireActivity())
 
                 val arrayList: ArrayList<String> = ArrayList()
 
@@ -139,6 +141,21 @@ class AddDebitFragment : Fragment() {
                 builder.create().show()
             }
         }
+
+        binding.toolbarAddDebitAccount.setOnMenuItemClickListener{
+            when (it.itemId) {
+                R.id.action_delete -> {
+                    // navigate to add record screen
+                    addCashViewModel.deleteAccount(requireContext(),id)
+                    findNavController().navigate(R.id.navigation_account)
+                    Toast.makeText(requireContext(), "Successfully Deleted Your Account", Toast.LENGTH_LONG).show()
+                    true
+                }
+
+
+                else -> super.onOptionsItemSelected(it)
+            }
+        }
     }
 
     private fun updateAccount(id: Long) {
@@ -152,14 +169,14 @@ class AddDebitFragment : Fragment() {
             AccountType_ID = accountTypeID,
             Currency_ID = currency
         )
-        addDebitViewModel.getAllAccount(requireContext()).forEach { item ->
+        addCashViewModel.getAllAccount(requireContext()).forEach { item ->
             if (item.Account_Name.equals(binding.tetDebitAccountName.text.toString(), ignoreCase = true)  && (account.Account_ID != item.Account_ID)) {
                 Toast.makeText(requireContext(), "Account Name already exist", Toast.LENGTH_LONG).show()
                 return
             }
         }
 
-        addDebitViewModel.updateAccount(requireContext(), account)
+        addCashViewModel.updateAccount(requireContext(), account)
         findNavController().navigate(R.id.navigation_account)
         Toast.makeText(requireContext(), "Update Successful", Toast.LENGTH_LONG).show()
 
@@ -167,7 +184,7 @@ class AddDebitFragment : Fragment() {
 
     private fun insertData() {
         val accountName = binding.tetDebitAccountName.text.toString()
-        addDebitViewModel.getAllAccount(requireContext()).forEach { item ->
+        addCashViewModel.getAllAccount(requireContext()).forEach { item ->
             if (item.Account_Name.equals(accountName, ignoreCase = true)) {
                 Toast.makeText(requireContext(), "Account Name already exist", Toast.LENGTH_LONG).show()
                 return
@@ -192,7 +209,8 @@ class AddDebitFragment : Fragment() {
             Currency_ID = currency
         )
 
-        addDebitViewModel.insertDebit(requireActivity(), debitAccount)
+        addCashViewModel.insertCash(requireActivity(), debitAccount)
+        Toast.makeText(requireContext(), "Successfully added your account",Toast.LENGTH_LONG).show()
     }
 
     private fun submitForm() {

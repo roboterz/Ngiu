@@ -20,17 +20,19 @@ import kotlinx.android.synthetic.main.fragment_account_add_cash.*
 import kotlinx.android.synthetic.main.popup_title.view.*
 import android.util.Log
 import android.widget.Toast
+import kotlinx.android.synthetic.main.fragment_account_add_web_account.*
 
 
 class AddCashFragment : Fragment() {
     private var _binding: FragmentAccountAddCashBinding? = null
     private val binding get() = _binding!!
     private lateinit var addCashViewModel: AddCashViewModel
-    var accountTypeID : Long = 0L
-    private var balance: Double = 0.0
-    var currency = "USD"
 
+    var currency = "USD"
+    private var balance: Double = 0.0
     lateinit var page: String
+    var accountTypeID : Long = 0L
+    var id : Long= 0L
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,6 +43,7 @@ class AddCashFragment : Fragment() {
 
         getBundleData()
         displayPage()
+
 
         return binding.root
     }
@@ -53,9 +56,9 @@ class AddCashFragment : Fragment() {
             }
             "edit_cash" -> {
                 binding.toolbarAddCashAccount.title = "Edit Cash"
-
+                binding.toolbarAddCashAccount.menu.findItem(R.id.action_delete).isVisible = true
                 accountTypeID = 1L
-                var id : Long= 0L
+
                 id = arguments?.getLong("id")!!
                 binding.tetCashBalance.isEnabled = false
                 binding.btnCashAddOtherCurrency.isEnabled = false
@@ -67,7 +70,7 @@ class AddCashFragment : Fragment() {
             }
             "edit_payable" -> {
                 binding.toolbarAddCashAccount.title = "Edit Receivable/Payable"
-
+                binding.toolbarAddCashAccount.menu.findItem(R.id.action_delete).isVisible = true
                 accountTypeID = 9L
                 var id : Long= 0L
                 id = arguments?.getLong("id")!!
@@ -134,9 +137,9 @@ class AddCashFragment : Fragment() {
 
                 }
                 "edit_payable" -> {
+                    binding.toolbarAddCashAccount.title = "Edit Receivable/Payable"
                     var id : Long= 0L
                     id = arguments?.getLong("id")!!
-
                     updateAccount(id)
                 }
             }
@@ -188,6 +191,22 @@ class AddCashFragment : Fragment() {
 //            )
 //        })
 
+
+
+        binding.toolbarAddCashAccount.setOnMenuItemClickListener{
+            when (it.itemId) {
+                R.id.action_delete -> {
+                    // navigate to add record screen
+                   addCashViewModel.deleteAccount(requireContext(),id)
+                    findNavController().navigate(R.id.navigation_account)
+                    Toast.makeText(requireContext(), "Successfully Deleted Your Account", Toast.LENGTH_LONG).show()
+                    true
+                }
+
+
+                else -> super.onOptionsItemSelected(it)
+            }
+        }
 
     }
 
@@ -248,6 +267,7 @@ class AddCashFragment : Fragment() {
 
         addCashViewModel.insertCash(requireActivity(), cashAccount)
 
+        Toast.makeText(requireContext(), "Successfully added your account",Toast.LENGTH_LONG).show()
 
     }
 
@@ -260,7 +280,6 @@ class AddCashFragment : Fragment() {
         if (validAccountName) {
             insertData()
             findNavController().navigate(R.id.navigation_account)
-            Toast.makeText(requireContext(), "Successfully added your account",Toast.LENGTH_LONG).show()
         } else
             invalidForm()
     }
