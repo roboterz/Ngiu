@@ -67,7 +67,7 @@ class AddPermanentAssetFragment : Fragment() {
                 binding.toolbarAddPermanentAssets.menu.findItem(R.id.action_delete).isVisible = true
                 accountTypeID = 6L
                 id = arguments?.getLong("id")!!
-                binding.tetPermaAssetsValue.isEnabled = false
+                binding.permaAssetsBalanceTextLayout.isEnabled = false
                 binding.btnPermaAssetsAddOtherCurrency.isEnabled = false
                 fetchAccountDetails(id)
             }
@@ -80,7 +80,7 @@ class AddPermanentAssetFragment : Fragment() {
                 binding.toolbarAddPermanentAssets.menu.findItem(R.id.action_delete).isVisible = true
                 accountTypeID = 8L
                 id = arguments?.getLong("id")!!
-                binding.tetPermaAssetsValue.isEnabled = false
+                binding.permaAssetsBalanceTextLayout.isEnabled = false
                 binding.btnPermaAssetsAddOtherCurrency.isEnabled = false
                 fetchAccountDetails(id)
             }
