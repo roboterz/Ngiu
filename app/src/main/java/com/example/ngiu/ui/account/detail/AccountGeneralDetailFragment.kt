@@ -18,40 +18,41 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.MainActivity
 import com.example.ngiu.R
-import com.example.ngiu.databinding.FragmentAccountRecordsBinding
+import com.example.ngiu.databinding.FragmentAccountGeneralDetailBinding
 import com.example.ngiu.ui.activity.TransListAdapter
 import kotlinx.android.synthetic.main.fragment_account.*
 import kotlinx.android.synthetic.main.fragment_account_add_cash.*
+import kotlinx.android.synthetic.main.fragment_account_general_detail.*
 import kotlinx.android.synthetic.main.fragment_account_p_r_detail.*
 import kotlinx.android.synthetic.main.fragment_account_records.*
 import kotlinx.android.synthetic.main.fragment_activity.*
 
 class AccountGeneralDetailFragment : Fragment() {
 
-    private lateinit var  accountPRDetailViewModel:AccountPRDetailViewModel
-    private var _binding: FragmentAccountRecordsBinding? = null
+    private lateinit var  accountGeneralDetailViewModel:AccountGeneralDetailViewModel
+    private var _binding: FragmentAccountGeneralDetailBinding? = null
 
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private var accountPRDetailAdapter: AccountPRDetailAdapter? = null
+    private var accountGeneralDetailAdapter: AccountGeneralDetailAdapter? = null
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        accountPRDetailViewModel =
-            ViewModelProvider(this).get(AccountPRDetailViewModel::class.java)
+        accountGeneralDetailViewModel =
+            ViewModelProvider(this).get(AccountGeneralDetailViewModel::class.java)
 
-        _binding = FragmentAccountRecordsBinding.inflate(inflater, container, false)
+        _binding = FragmentAccountGeneralDetailBinding.inflate(inflater, container, false)
 
         // load data to ram
-        Thread {
-            accountPRDetailViewModel.loadDataToRam(requireContext(), 1L)
-        }.start()
+        //Thread {
+            accountGeneralDetailViewModel.loadDataToRam(requireContext(), 3L)
+        //}.start()
 
         initAdapter()
 
@@ -63,9 +64,9 @@ class AccountGeneralDetailFragment : Fragment() {
         Thread {
             this.activity?.runOnUiThread {
 
-                recyclerview_account_pr_detail.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
-                accountPRDetailAdapter = this.context?.let {
-                    AccountPRDetailAdapter(object: AccountPRDetailAdapter.OnClickListener {
+                recyclerview_account_general_detail.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
+                accountGeneralDetailAdapter = this.context?.let {
+                    AccountGeneralDetailAdapter(object: AccountGeneralDetailAdapter.OnClickListener {
                         // catch the item click event from adapter
                         override fun onItemClick(transID: Long) {
                             // switch to record fragment (Edit mode)
@@ -73,7 +74,7 @@ class AccountGeneralDetailFragment : Fragment() {
                         }
                     })
                 }
-                recyclerview_account_pr_detail.adapter = accountPRDetailAdapter
+                recyclerview_account_general_detail.adapter = accountGeneralDetailAdapter
             }
         }.start()
     }
@@ -86,15 +87,16 @@ class AccountGeneralDetailFragment : Fragment() {
         // set up toolbar icon and click event
         // choose items to show
 
-        toolbar_account_normal_details.setNavigationOnClickListener {
-            findNavController().popBackStack()
+        toolbar_account_general_detail.setNavigationOnClickListener {
+            //findNavController().popBackStack()
+            requireActivity().onBackPressed()
         }
 
-        toolbar_account_normal_details.menu.findItem(R.id.action_edit).isVisible = true
-        toolbar_account_normal_details.menu.findItem(R.id.action_add).isVisible = true
+        toolbar_account_general_detail.menu.findItem(R.id.action_edit).isVisible = true
+        toolbar_account_general_detail.menu.findItem(R.id.action_add).isVisible = true
 
         // menu item clicked
-        toolbar_account_normal_details.setOnMenuItemClickListener{
+        toolbar_account_general_detail.setOnMenuItemClickListener{
             when (it.itemId) {
                 R.id.action_add -> {
                     // navigate to add record screen
@@ -123,16 +125,17 @@ class AccountGeneralDetailFragment : Fragment() {
         // load transaction list
         Thread {
             activity?.runOnUiThread {
-                accountPRDetailAdapter?.setList(accountPRDetailViewModel.listPRDetail)
+                accountGeneralDetailAdapter?.setTotalAccountBalance(accountGeneralDetailViewModel.accountID, accountGeneralDetailViewModel.accountBalance)
+                accountGeneralDetailAdapter?.setList(accountGeneralDetailViewModel.listDetail)
             }
         }.start()
 
         // show the info at title
-        tv_account_pr_balance.text = "$" + "%.2f".format(accountPRDetailViewModel.accountBalance)
-        tv_account_pr_lend_amount.text = "$" + "%.2f".format(accountPRDetailViewModel.lendAmount)
-        tv_account_pr_receive_amount.text = "$" + "%.2f".format(accountPRDetailViewModel.receiveAmount)
-        tv_account_pr_borrow_amount.text = "$" + "%.2f".format(accountPRDetailViewModel.borrowAmount)
-        tv_account_pr_pay_amount.text = "$" + "%.2f".format(accountPRDetailViewModel.payAmount)
+        tv_account_general_balance.text = "$" + "%.2f".format(accountGeneralDetailViewModel.accountBalance)
+        //tv_account_pr_lend_amount.text = "$" + "%.2f".format(accountGeneralDetailViewModel.lendAmount)
+        //tv_account_pr_receive_amount.text = "$" + "%.2f".format(accountGeneralDetailViewModel.receiveAmount)
+        //tv_account_pr_borrow_amount.text = "$" + "%.2f".format(accountGeneralDetailViewModel.borrowAmount)
+        //tv_account_pr_pay_amount.text = "$" + "%.2f".format(accountGeneralDetailViewModel.payAmount)
 
     }
 
@@ -147,7 +150,7 @@ class AccountGeneralDetailFragment : Fragment() {
         //(activity as MainActivity).setNavBottomBarVisibility(View.GONE)
 
         //parentFragmentManager.setFragmentResult("requestKey", bundleOf("bundleKey" to transactionList[position].Transaction_ID))
-        if (editMode) setFragmentResult("record_edit_mode", bundleOf("rID" to transID))
+        //if (editMode) setFragmentResult("record_edit_mode", bundleOf("rID" to transID))
         // switch to record fragment
         findNavController().navigate(R.id.navigation_record)
     }

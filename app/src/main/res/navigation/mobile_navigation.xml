@@ -90,7 +90,7 @@
         android:label="AddPermanentAssetFragment" />
     <fragment
         android:id="@+id/addVirtualAccountFragment"
-        android:name="com.example.ngiu.ui.account.addaccounts.AddVirtualAccountFragment"
+        android:name="com.example.ngiu.ui.account.addaccounts.AddWebAccountFragment"
         android:label="AddVirtualAccountFragment" />
     <fragment
         android:id="@+id/addWebAccountFragment"
@@ -107,9 +107,9 @@
         tools:layout="@layout/fragment_account_credit_records" />
     <fragment
         android:id="@+id/accountRecords"
-        android:name="com.example.ngiu.ui.account.AccountDetailFragment"
-        android:label="fragment_account_records"
-        tools:layout="@layout/fragment_account_records" />
+        android:name="com.example.ngiu.ui.account.detail.AccountGeneralDetailFragment"
+        android:label="fragment_account_general_detail"
+        tools:layout="@layout/fragment_account_general_detail" />
     <fragment
         android:id="@+id/accountRecordsPR"
         android:name="com.example.ngiu.ui.account.detail.AccountPRDetailFragment"

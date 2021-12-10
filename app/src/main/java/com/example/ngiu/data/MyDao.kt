@@ -459,10 +459,11 @@ interface TransDao {
                 Account.Account_ID, Account.Account_Name, AccountRecipient.Account_ID as AccountRecipient_ID, AccountRecipient.Account_Name as AccountRecipient_Name,
                 Transaction_Amount, Transaction_Date, Transaction_Memo
         FROM Trans, SubCategory, Account, Account as AccountRecipient
-        WHERE Trans.Account_ID = :acctID OR Trans.AccountRecipient_ID = :acctID
+        WHERE (Trans.Account_ID = :acctID OR Trans.AccountRecipient_ID = :acctID)
             AND Trans.SubCategory_ID = SubCategory.SubCategory_ID
             AND Trans.Account_ID = Account.Account_ID
             AND Trans.AccountRecipient_ID = AccountRecipient.Account_ID
+        ORDER BY Transaction_Date DESC
         """)
     fun getTransRecordDetailByAccount(acctID:Long): List<RecordDetail>
 

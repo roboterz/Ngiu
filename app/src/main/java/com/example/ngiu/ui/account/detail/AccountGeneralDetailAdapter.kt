@@ -35,7 +35,7 @@ class AccountGeneralDetailAdapter(
     private var totalAccountBalance: Double = 0.00
     private var currentAccountID: Long = 0L
     private val recordTimeFormatter = DateTimeFormatter.ofPattern("hh:mm")
-    private val groupDateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy ww")
+    private val groupDateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy EEEE")
 
     // interface for passing the onClick event to fragment.
     interface OnClickListener {
@@ -45,7 +45,7 @@ class AccountGeneralDetailAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         // inflate the custom view from xml layout file
         val view: View = LayoutInflater.from(parent.context)
-            .inflate(R.layout.cardview_account_p_r_detail_item,parent,false)
+            .inflate(R.layout.cardview_account_general_detail_item,parent,false)
 
 
         // return the view holder
@@ -143,7 +143,7 @@ class AccountGeneralDetailAdapter(
                     holder.groupLayout.visibility = View.VISIBLE
                 }
                 // balance
-                when (TransactionType_ID){
+                when (listDetail[position - 1].TransactionType_ID){
                     1L -> totalAccountBalance += listDetail[position - 1].Transaction_Amount
                     2L -> totalAccountBalance -= listDetail[position - 1].Transaction_Amount
                     3L, 4L -> {

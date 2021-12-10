@@ -8,7 +8,7 @@
     android:layout_margin="0.5dp"
     app:cardBackgroundColor="@color/app_section_background"
     app:cardCornerRadius="0dp"
-    app:cardElevation="3dp"
+    app:cardElevation="1dp"
     app:cardMaxElevation="7dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,8 +20,9 @@
             android:id="@+id/layout_account_general_card_view_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/app_list_background"
+            android:paddingTop="2dp"
             android:paddingBottom="1dp"
+            android:background="@color/app_list_background"
             tools:ignore="MissingConstraints">
 
             <TextView

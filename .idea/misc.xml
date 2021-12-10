@@ -270,6 +270,13 @@
         <entry key="..\:/Users/John/Documents/GitHub/Ngiu/app/src/main/res/menu/bottom_nav_menu.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/John/Documents/GitHub/Ngiu/app/src/main/res/menu/popup_menu.xml" value="0.3527777777777778" />
         <entry key="..\:/Users/John/Documents/GitHub/Ngiu/app/src/main/res/menu/title_menu.xml" value="0.16018518518518518" />
+        <entry key="..\:/Users/logan/Documents/GitHub/Ngiu/app/src/main/res/layout/cardview_account_credit_card_item.xml" value="0.25" />
+        <entry key="..\:/Users/logan/Documents/GitHub/Ngiu/app/src/main/res/layout/cardview_account_general_detail_item.xml" value="0.6" />
+        <entry key="..\:/Users/logan/Documents/GitHub/Ngiu/app/src/main/res/layout/cardview_account_p_r_detail_item.xml" value="0.25" />
+        <entry key="..\:/Users/logan/Documents/GitHub/Ngiu/app/src/main/res/layout/fragment_account_credit_records.xml" value="0.25" />
+        <entry key="..\:/Users/logan/Documents/GitHub/Ngiu/app/src/main/res/layout/fragment_account_general_detail.xml" value="0.4" />
+        <entry key="..\:/Users/logan/Documents/GitHub/Ngiu/app/src/main/res/layout/fragment_account_p_r_detail.xml" value="0.25" />
+        <entry key="..\:/Users/logan/Documents/GitHub/Ngiu/app/src/main/res/layout/fragment_account_records.xml" value="0.25" />
         <entry key="..\:/Users/logan/Documents/GitHub/Ngiu/app/src/main/res/layout/fragment_record.xml" value="0.25" />
       </map>
     </option>
