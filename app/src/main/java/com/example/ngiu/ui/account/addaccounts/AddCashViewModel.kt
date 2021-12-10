@@ -39,7 +39,8 @@ class AddCashViewModel : ViewModel() {
 
     fun deleteAccount(context: Context, id:Long){
         val appDatabase = AppDatabase.getDatabase(context)
-        appDatabase.account().deleteById(id)
+        appDatabase.account().deleteRecordByID(id)
+        appDatabase.account().deleteAccountById(id)
     }
 
 

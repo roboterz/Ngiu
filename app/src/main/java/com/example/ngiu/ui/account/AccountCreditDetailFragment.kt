@@ -105,8 +105,13 @@ class AccountCreditDetailFragment : Fragment() {
                 }
                 R.id.action_edit -> {
                     (activity as MainActivity).setNavBottomBarVisibility(View.GONE)
-                    // navigate to add record screen
-                    view.findNavController().navigate(R.id.navigation_record)
+
+                        val bundle = Bundle().apply {
+                            putString("page", "edit_credit")
+                            putLong("id", itemId)
+                        }
+                        view.findNavController().navigate(R.id.addCreditFragment, bundle)
+
                     true
                 }
 

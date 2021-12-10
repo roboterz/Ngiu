@@ -49,7 +49,12 @@ class AddAccountAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                     holder.itemView.findNavController().navigate(R.id.addCashFragment, bundle)
                 }
                 //credit
-                1 -> holder.itemView.findNavController().navigate(R.id.addCreditFragment)
+                1 -> {
+                    val bundle = Bundle().apply {
+                        putString("page", "add_credit")
+                    }
+                    holder.itemView.findNavController().navigate(R.id.addCreditFragment, bundle)
+                }
                 //debit
                 2 -> {
                     val bundle = Bundle().apply {

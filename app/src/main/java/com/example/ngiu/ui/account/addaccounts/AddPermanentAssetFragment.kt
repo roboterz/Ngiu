@@ -26,8 +26,6 @@ class AddPermanentAssetFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var addCashViewModel: AddCashViewModel
     var currency = "USD"
-
-    private var balance: Double = 0.0
     lateinit var page: String
     var accountTypeID : Long = 0L
     var id: Long = 0L
@@ -67,8 +65,6 @@ class AddPermanentAssetFragment : Fragment() {
                 binding.toolbarAddPermanentAssets.menu.findItem(R.id.action_delete).isVisible = true
                 accountTypeID = 6L
                 id = arguments?.getLong("id")!!
-                binding.permaAssetsBalanceTextLayout.isEnabled = false
-                binding.btnPermaAssetsAddOtherCurrency.isEnabled = false
                 fetchAccountDetails(id)
             }
             "add_perm" -> {
@@ -80,8 +76,6 @@ class AddPermanentAssetFragment : Fragment() {
                 binding.toolbarAddPermanentAssets.menu.findItem(R.id.action_delete).isVisible = true
                 accountTypeID = 8L
                 id = arguments?.getLong("id")!!
-                binding.permaAssetsBalanceTextLayout.isEnabled = false
-                binding.btnPermaAssetsAddOtherCurrency.isEnabled = false
                 fetchAccountDetails(id)
             }
 
@@ -92,14 +86,14 @@ class AddPermanentAssetFragment : Fragment() {
 
     private fun getBundleData() {
         page = arguments?.getString("page")!!
-        balance = arguments?.getDouble("balance")!!
+
     }
 
 
     private fun fetchAccountDetails(id: Long) {
         val account = addCashViewModel.getAccountByID(requireContext(), id)
         binding.tetPermaAssetsAccountName.setText(account.Account_Name)
-        binding.tetPermaAssetsValue.setText("%.2f".format(balance))
+        binding.tetPermaAssetsValue.setText(account.Account_Balance.toString())
         binding.tetPermaAssetsMemo.setText(account.Account_Memo)
         binding.scPermaAssetsCountNetAssets.isChecked = account.Account_CountInNetAssets
 
