@@ -64,7 +64,7 @@ class AccountViewModel : ViewModel() {
     fun getAccountSectionUiModel(context: Context){
         val appDatabase = AppDatabase.getDatabase(context)
         val allTypes = appDatabase.accounttype().getAllAccountTypes()
-        val allAccounts = appDatabase.account().getAllAccount()
+        val allAccounts = appDatabase.account().getAllAccountASC()
         val sections = ArrayList<AccountSectionUiModel>()
         // group the AccountType_ID; setting key,value
         allAccounts.groupBy { it.AccountType_ID }
