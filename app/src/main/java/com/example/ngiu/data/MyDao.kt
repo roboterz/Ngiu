@@ -29,8 +29,12 @@ interface AccountDao {
 
 
     @Transaction
-    @Query("SELECT * FROM Account")
+    @Query("SELECT * FROM Account ")
     fun getAllAccount(): List<Account>
+
+    @Transaction
+    @Query("SELECT * FROM Account ORDER BY AccountType_ID ASC ")
+    fun getAllAccountASC(): List<Account>
 
     // get a record BY ID
     @Transaction
