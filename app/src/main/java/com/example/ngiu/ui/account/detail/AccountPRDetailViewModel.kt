@@ -18,10 +18,13 @@ class AccountPRDetailViewModel : ViewModel() {
 
     fun loadDataToRam(context: Context, acctID: Long){
         listPRDetail = AppDatabase.getDatabase(context).trans().getRecordsByAccountAndAccountRecipientID(acctID)
-        (AppDatabase.getDatabase(context).trans().getTotalAmountOfIncomeByAccount(3L) +
+
+        (AppDatabase.getDatabase(context).account().getAccountInitialBalance(3L) +
+                AppDatabase.getDatabase(context).trans().getTotalAmountOfIncomeByAccount(3L) +
                 AppDatabase.getDatabase(context).trans().getTotalAmountOfTransferInByAccount(3L) -
                 AppDatabase.getDatabase(context).trans().getTotalAmountOfExpenseByAccount(3L) -
                 AppDatabase.getDatabase(context).trans().getTotalAmountOfTransferOutByAccount(3L)).also { accountBalance = it }
+
         lendAmount = AppDatabase.getDatabase(context).trans().getTotalAmountFromPRAccountBYSubCategoryID(acctID, 8L)
         receiveAmount = AppDatabase.getDatabase(context).trans().getTotalAmountFromPRAccountBYSubCategoryID(acctID, 10L)
         borrowAmount = AppDatabase.getDatabase(context).trans().getTotalAmountFromPRAccountBYSubCategoryID(acctID, 7L)

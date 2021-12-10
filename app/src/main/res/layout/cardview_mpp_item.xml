@@ -19,7 +19,7 @@
             android:id="@+id/tv_mpp_name"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingStart="15dp"
+            android:paddingStart="20dp"
             android:paddingVertical="10dp"
             android:singleLine="true"
             android:text="SubCategory"

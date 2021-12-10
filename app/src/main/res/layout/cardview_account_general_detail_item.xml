@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/card_view_account_pr_detail"
+    android:id="@+id/card_view_account_general_detail"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="0.5dp"
@@ -17,16 +17,16 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layout_account_pr_card_view_group"
+            android:id="@+id/layout_account_general_card_view_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/app_list_background"
             android:paddingTop="1dp"
             android:paddingBottom="2dp"
+            android:background="@color/app_list_background"
             tools:ignore="MissingConstraints">
 
             <TextView
-                android:id="@+id/tv_account_pr_item_group_time"
+                android:id="@+id/tv_account_general_item_group_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
@@ -35,45 +35,70 @@
                 android:background="@color/app_section_background"
                 android:textColor="@color/app_option_text"
                 android:textSize="12sp"
-                android:text="06/2021"
+                android:text="12/06/2021 Saturday"
                 app:layout_constraintTop_toTopOf="parent"/>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layout_account_pr_card_view_item"
+            android:id="@+id/layout_account_general_card_view_item"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:paddingHorizontal="20dp"
             android:paddingVertical="10dp"
-            app:layout_constraintTop_toBottomOf="@+id/layout_account_pr_card_view_group"    >
+            app:layout_constraintTop_toBottomOf="@+id/layout_account_general_card_view_group"    >
 
             <TextView
-                android:id="@+id/tv_account_pr_item_text"
+                android:id="@+id/tv_account_general_item_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
                 android:textColor="@color/app_amount"
-                android:textSize="20sp"
-                android:text="Lend to Calvin"
+                android:textSize="18sp"
+                android:text="Lunch"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
-                android:id="@+id/tv_account_pr_item_time"
+                android:id="@+id/tv_account_general_item_amount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:singleLine="true"
+                android:textColor="@color/app_expense_amount"
+                android:textSize="18sp"
+                android:text="$-100.00"
+                app:layout_constraintStart_toEndOf="@+id/tv_account_general_item_text"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:id="@+id/tv_account_general_item_time"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
                 android:textColor="@color/app_label_text"
                 android:textSize="12sp"
-                android:text="06/03/2021 13:15"
-                app:layout_constraintTop_toBottomOf="@+id/tv_account_pr_item_text"
+                android:text="13:15"
+                app:layout_constraintTop_toBottomOf="@+id/tv_account_general_item_text"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
-                android:id="@+id/tv_account_pr_item_memo"
+                android:id="@+id/tv_account_general_item_info"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:singleLine="true"
+                android:textColor="@color/app_label_text"
+                android:textSize="12sp"
+                android:text="wallet to Ezpass"
+                app:layout_constraintTop_toBottomOf="@+id/tv_account_general_item_text"
+                app:layout_constraintStart_toEndOf="@+id/tv_account_general_item_time" />
+
+            <TextView
+                android:id="@+id/tv_account_general_item_memo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -81,17 +106,18 @@
                 android:textColor="@color/app_label_text"
                 android:textSize="12sp"
                 android:text="memo"
-                app:layout_constraintTop_toBottomOf="@+id/tv_account_pr_item_text"
-                app:layout_constraintStart_toEndOf="@+id/tv_account_pr_item_time" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_account_general_item_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_account_general_item_info" />
 
             <TextView
-                android:id="@+id/tv_account_pr_item_amount"
+                android:id="@+id/tv_account_general_item_balance"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
                 android:textColor="@color/app_option_text"
-                android:textSize="20sp"
-                app:layout_constraintTop_toTopOf="@+id/tv_account_pr_item_text"
+                android:textSize="18sp"
+                app:layout_constraintTop_toTopOf="@+id/tv_account_general_item_text"
                 app:layout_constraintEnd_toEndOf="parent"
                 tools:text="$15.75" />
 

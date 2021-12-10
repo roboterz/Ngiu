@@ -20,21 +20,21 @@
     <string name="nav_title_category_expense_sub_edit">Edit Sub Category of Expense</string>
     <string name="nav_title_category_income_sub_add">Add Sub Category of Income</string>
     <string name="nav_title_category_income_sub_edit">Edit Sub Category of Income</string>
-    <string name="nav_title_category_expense_manage">Manage Category of Expense</string>
-    <string name="nav_title_category_income_manage">Manage Category of Income</string>
+    <string name="nav_title_category_expense_manage">Category of Expense</string>
+    <string name="nav_title_category_income_manage">Category of Income</string>
     <string name="nav_title_account_detail">Account Detail</string>
     <string name="nav_title_debit_credit_detail">Debit and Credit Detail</string>
     <string name="nav_title_payable_receivable_detail">Payable &amp; Receivable Detail</string>
     <string name="nav_title_account_type">Choose the Type of Account</string>
     <string name="nav_title_account_add">Add</string>
     <string name="nav_title_account_edit">Edit Account</string>
-    <string name="nav_title_merchant_manage">Manage Merchant</string>
+    <string name="nav_title_merchant_manage">Merchant</string>
     <string name="nav_title_merchant_add">Add Merchant</string>
     <string name="nav_title_merchant_edit">Edit Merchant</string>
-    <string name="nav_title_person_manage">Manage Person</string>
+    <string name="nav_title_person_manage">Person</string>
     <string name="nav_title_person_add">Add Person</string>
     <string name="nav_title_person_edit">Edit Person</string>
-    <string name="nav_title_project_manage">Manage Project</string>
+    <string name="nav_title_project_manage">Project</string>
     <string name="nav_title_project_add">Add Project</string>
     <string name="nav_title_project_edit">Edit Project</string>
     <string name="nav_title_currency">Base Currency</string>
@@ -196,10 +196,17 @@
     <string name="amount_zero_with_dollar_sign">$0.00</string>
     <string name="amount_zero">0.00</string>
 
+    <string name="record_lend_out">Lend out</string>
     <string name="record_lend_to">Lend to</string>
+    <string name="record_borrow_in">Borrow in</string>
     <string name="record_borrow_from">Borrow from</string>
+    <string name="record_receive">Receive</string>
     <string name="record_received_from">Received from</string>
+    <string name="record_repay">Repay</string>
     <string name="record_paid_to">Paid to</string>
+    <string name="record_transfer_out">Transfer out</string>
+    <string name="record_transfer_in">Transfer in</string>
+    <string name="record_to">to</string>
 
     <string name="keyboard_1">1</string>
     <string name="keyboard_2">2</string>

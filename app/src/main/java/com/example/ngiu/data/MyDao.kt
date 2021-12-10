@@ -6,6 +6,7 @@ import androidx.room.*
 import com.example.ngiu.data.entities.*
 import androidx.room.Transaction
 import com.example.ngiu.data.entities.Currency
+import com.example.ngiu.data.entities.returntype.RecordDetail
 import com.example.ngiu.data.entities.returntype.TransactionDetail
 
 import java.time.LocalDate
@@ -35,15 +36,16 @@ interface AccountDao {
     @Update
     fun updateAccount(vararg account: Account)
 
+    @Transaction
+    @Query("SELECT Account_Balance FROM Account WHERE Account_ID = :acctID")
+    fun getAccountInitialBalance(acctID: Long): Double
 
-
-
-      @Transaction
-      @Query("""
-          SELECT SUM(Transaction_Amount) FROM Trans trans
-        INNER JOIN Account acct ON trans.Account_ID = acct.Account_ID
-        WHERE trans.TransactionType_ID = 2 AND trans.Account_ID = :rID 
-      """)
+    @Transaction
+    @Query("""
+      SELECT SUM(Transaction_Amount) FROM Trans trans
+    INNER JOIN Account acct ON trans.Account_ID = acct.Account_ID
+    WHERE trans.TransactionType_ID = 2 AND trans.Account_ID = :rID 
+    """)
    fun getInflowA(rID:Long): Double
 
 
@@ -450,6 +452,20 @@ interface TransDao {
         WHERE trans.Account_ID = :rID OR trans.AccountRecipient_ID = :rID
         """)
     fun getTransRecordAccount(rID:Long): List<Trans>
+
+    @Transaction
+    @Query("""
+        SELECT Trans.Transaction_ID, Trans.TransactionType_ID, Trans.SubCategory_ID, SubCategory.SubCategory_Name, 
+                Account.Account_ID, Account.Account_Name, AccountRecipient.Account_ID as AccountRecipient_ID, AccountRecipient.Account_Name as AccountRecipient_Name,
+                Transaction_Amount, Transaction_Date, Transaction_Memo
+        FROM Trans, SubCategory, Account, Account as AccountRecipient
+        WHERE (Trans.Account_ID = :acctID OR Trans.AccountRecipient_ID = :acctID)
+            AND Trans.SubCategory_ID = SubCategory.SubCategory_ID
+            AND Trans.Account_ID = Account.Account_ID
+            AND Trans.AccountRecipient_ID = AccountRecipient.Account_ID
+        ORDER BY Transaction_Date DESC
+        """)
+    fun getTransRecordDetailByAccount(acctID:Long): List<RecordDetail>
 
     @Transaction
     @Query("""

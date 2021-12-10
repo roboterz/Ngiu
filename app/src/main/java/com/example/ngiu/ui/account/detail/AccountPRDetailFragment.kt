@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.MainActivity
 import com.example.ngiu.R
-import com.example.ngiu.databinding.FragmentAccountRecordsBinding
+import com.example.ngiu.databinding.FragmentAccountPRDetailBinding
 import com.example.ngiu.ui.activity.TransListAdapter
 import kotlinx.android.synthetic.main.fragment_account.*
 import kotlinx.android.synthetic.main.fragment_account_add_cash.*
@@ -29,7 +29,7 @@ import kotlinx.android.synthetic.main.fragment_activity.*
 class AccountPRDetailFragment : Fragment() {
 
     private lateinit var  accountPRDetailViewModel:AccountPRDetailViewModel
-    private var _binding: FragmentAccountRecordsBinding? = null
+    private var _binding: FragmentAccountPRDetailBinding? = null
 
 
     // This property is only valid between onCreateView and
@@ -46,7 +46,7 @@ class AccountPRDetailFragment : Fragment() {
         accountPRDetailViewModel =
             ViewModelProvider(this).get(AccountPRDetailViewModel::class.java)
 
-        _binding = FragmentAccountRecordsBinding.inflate(inflater, container, false)
+        _binding = FragmentAccountPRDetailBinding.inflate(inflater, container, false)
 
         // load data to ram
         Thread {
@@ -86,15 +86,15 @@ class AccountPRDetailFragment : Fragment() {
         // set up toolbar icon and click event
         // choose items to show
 
-        toolbar_account_normal_details.setNavigationOnClickListener {
-            findNavController().popBackStack()
+        toolbar_account_p_r_detail.setNavigationOnClickListener {
+            requireActivity().onBackPressed()
         }
 
-        toolbar_account_normal_details.menu.findItem(R.id.action_edit).isVisible = true
-        toolbar_account_normal_details.menu.findItem(R.id.action_add).isVisible = true
+        toolbar_account_p_r_detail.menu.findItem(R.id.action_edit).isVisible = true
+        toolbar_account_p_r_detail.menu.findItem(R.id.action_add).isVisible = true
 
         // menu item clicked
-        toolbar_account_normal_details.setOnMenuItemClickListener{
+        toolbar_account_p_r_detail.setOnMenuItemClickListener{
             when (it.itemId) {
                 R.id.action_add -> {
                     // navigate to add record screen

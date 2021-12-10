@@ -151,6 +151,7 @@
             android:theme="?attr/actionBarTheme"
             app:menu="@menu/title_menu"
             app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
+            app:titleTextAppearance="@style/Toolbar.TitleText"
             tools:ignore="MissingConstraints" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

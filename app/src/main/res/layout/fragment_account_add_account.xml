@@ -11,7 +11,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_add_acct"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="45dp"
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
@@ -20,6 +20,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:menu="@menu/title_menu"
         app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
+        app:titleTextAppearance="@style/Toolbar.TitleText"
         app:title="@string/nav_title_account_type"
         tools:ignore="MissingConstraints" />
 
@@ -27,6 +28,7 @@
         android:id="@+id/rv_acct_type"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="56dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar_add_acct"
