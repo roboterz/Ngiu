@@ -44,12 +44,7 @@ class AccountDetailAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
                 R.color.app_expense_amount))
         }
 
-
-
         viewHolder.transRecordDate.text = item.date
-
-
-
     }
 
     // clear data to add new as data is changed

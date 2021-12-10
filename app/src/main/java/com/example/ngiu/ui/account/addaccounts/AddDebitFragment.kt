@@ -28,7 +28,6 @@ class AddDebitFragment : Fragment() {
     private lateinit var addCashViewModel: AddCashViewModel
     var currency = "USD"
     lateinit var page: String
-    private var balance: Double = 0.0
     var accountTypeID: Long = 3L
     var id: Long = 0L
 
@@ -63,7 +62,6 @@ class AddDebitFragment : Fragment() {
                 binding.toolbarAddDebitAccount.title = "Add Debit"
             }
             "edit_debit" -> {
-                binding.debitBalanceTextLayout.isEnabled = false
                 binding.toolbarAddDebitAccount.title = "Edit Debit"
                 binding.toolbarAddDebitAccount.menu.findItem(R.id.action_delete).isVisible = true
                 accountTypeID = 3L
@@ -77,13 +75,13 @@ class AddDebitFragment : Fragment() {
 
     private fun getBundleData() {
         page = arguments?.getString("page")!!
-        balance = arguments?.getDouble("balance")!!
+
     }
 
     private fun fetchAccountDetails(id: Long) {
         val account = addCashViewModel.getAccountByID(requireContext(), id)
         binding.tetDebitAccountName.setText(account.Account_Name)
-        binding.tetDebitBalance.setText("%.2f".format(balance))
+        binding.tetDebitBalance.setText(account.Account_Balance.toString())
         binding.tetDebitCardNumber.setText(account.Account_CardNumber)
         binding.scDebitCountNetAssets.isChecked = account.Account_CountInNetAssets
         binding.tetDebitMemo.setText(account.Account_Memo)
@@ -96,10 +94,7 @@ class AddDebitFragment : Fragment() {
                     submitForm()
                 }
                 "edit_debit" -> {
-
-                    var id: Long = 0L
                     id = arguments?.getLong("id")!!
-
                     updateAccount(id)
                 }
 

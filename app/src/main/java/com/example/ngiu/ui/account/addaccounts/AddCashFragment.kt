@@ -29,7 +29,6 @@ class AddCashFragment : Fragment() {
     private lateinit var addCashViewModel: AddCashViewModel
 
     var currency = "USD"
-    private var balance: Double = 0.0
     lateinit var page: String
     var accountTypeID : Long = 0L
     var id : Long= 0L
@@ -60,8 +59,8 @@ class AddCashFragment : Fragment() {
                 accountTypeID = 1L
 
                 id = arguments?.getLong("id")!!
-                binding.cashBalanceTextLayout.isEnabled = false
-                binding.btnCashAddOtherCurrency.isEnabled = false
+             /*   binding.cashBalanceTextLayout.isEnabled = false
+                binding.btnCashAddOtherCurrency.isEnabled = false*/
                 fetchAccountDetails(id)
             }
             "add_payable" -> {
@@ -72,7 +71,6 @@ class AddCashFragment : Fragment() {
                 binding.toolbarAddCashAccount.title = "Edit Receivable/Payable"
                 binding.toolbarAddCashAccount.menu.findItem(R.id.action_delete).isVisible = true
                 accountTypeID = 9L
-                var id : Long= 0L
                 id = arguments?.getLong("id")!!
 
                 fetchAccountDetails(id)
@@ -83,7 +81,7 @@ class AddCashFragment : Fragment() {
     private fun fetchAccountDetails(id: Long) {
         val account =  addCashViewModel.getAccountByID(requireContext(),id)
         binding.tetCashAccountName.setText(account.Account_Name)
-        binding.tetCashBalance.setText("%.2f".format(balance))
+        binding.tetCashBalance.setText(account.Account_Balance.toString())
         binding.tetCashMemo.setText(account.Account_Memo)
         /*binding.scCashCountNetAssets.setText(account.Account_CountInNetAssets.toString())*/
         binding.cashBalanceTextLayout.suffixText = account.Currency_ID
@@ -92,7 +90,7 @@ class AddCashFragment : Fragment() {
 
     private fun getBundleData() {
         page = arguments?.getString("page")!!
-        balance = arguments?.getDouble("balance")!!
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -215,7 +213,7 @@ class AddCashFragment : Fragment() {
         val account = Account(
             Account_ID = id,
             Account_Name = binding.tetCashAccountName.text.toString(),
-           /* Account_Balance = binding.tetCashBalance.text.toString().toDouble(),*/
+            Account_Balance = binding.tetCashBalance.text.toString().toDouble(),
             Account_CountInNetAssets = binding.scCashCountNetAssets.isChecked,
             Account_Memo = binding.tetCashMemo.text.toString(),
             AccountType_ID = accountTypeID,
