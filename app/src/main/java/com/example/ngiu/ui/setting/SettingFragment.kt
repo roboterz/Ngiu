@@ -90,7 +90,7 @@ class SettingFragment : Fragment() {
 
         binding.tvSettingNgiu.setOnClickListener {
             // todo
-            findNavController().navigate(R.id.accountRecordsPR)
+
         }
     }
 

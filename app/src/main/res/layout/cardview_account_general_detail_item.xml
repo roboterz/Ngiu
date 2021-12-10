@@ -20,8 +20,8 @@
             android:id="@+id/layout_account_general_card_view_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="2dp"
-            android:paddingBottom="1dp"
+            android:paddingTop="1dp"
+            android:paddingBottom="2dp"
             android:background="@color/app_list_background"
             tools:ignore="MissingConstraints">
 
@@ -30,10 +30,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
-                android:paddingHorizontal="15dp"
+                android:paddingHorizontal="20dp"
                 android:paddingVertical="4dp"
                 android:background="@color/app_section_background"
-                android:textColor="@color/app_label_text"
+                android:textColor="@color/app_option_text"
                 android:textSize="12sp"
                 android:text="12/06/2021 Saturday"
                 app:layout_constraintTop_toTopOf="parent"/>
@@ -47,7 +47,7 @@
             android:layout_height="match_parent"
             android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
-            android:paddingHorizontal="15dp"
+            android:paddingHorizontal="20dp"
             android:paddingVertical="10dp"
             app:layout_constraintTop_toBottomOf="@+id/layout_account_general_card_view_group"    >
 

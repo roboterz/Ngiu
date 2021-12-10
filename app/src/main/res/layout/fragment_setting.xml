@@ -26,6 +26,7 @@
         android:background="@color/app_list_background"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginBottom="56dp"
         android:scrollbarAlwaysDrawVerticalTrack="true"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_setting"
         app:layout_constraintBottom_toBottomOf="parent">

@@ -15,22 +15,23 @@ class AccountGeneralDetailViewModel : ViewModel() {
     var inflowAmount: Double = 0.00
     var outflowAmount: Double = 0.00
     var accountID: Long = 0L
+    var accountName: String =""
+    var accountTypeID: Long = 0L
 
-    fun loadDataToRam(context: Context, acctID: Long){
-        accountID = acctID
+    fun loadDataToRam(context: Context){
 
-        listDetail = AppDatabase.getDatabase(context).trans().getTransRecordDetailByAccount(acctID)
+        listDetail = AppDatabase.getDatabase(context).trans().getTransRecordDetailByAccount(accountID)
 
-        (AppDatabase.getDatabase(context).account().getAccountInitialBalance(acctID) +
-            AppDatabase.getDatabase(context).trans().getTotalAmountOfIncomeByAccount(acctID) +
-            AppDatabase.getDatabase(context).trans().getTotalAmountOfTransferInByAccount(acctID) -
-            AppDatabase.getDatabase(context).trans().getTotalAmountOfExpenseByAccount(acctID) -
-            AppDatabase.getDatabase(context).trans().getTotalAmountOfTransferOutByAccount(acctID)).also { accountBalance = it }
-        //lendAmount = AppDatabase.getDatabase(context).trans().getTotalAmountFromPRAccountBYSubCategoryID(acctID, 8L)
-        //receiveAmount = AppDatabase.getDatabase(context).trans().getTotalAmountFromPRAccountBYSubCategoryID(acctID, 10L)
-        //borrowAmount = AppDatabase.getDatabase(context).trans().getTotalAmountFromPRAccountBYSubCategoryID(acctID, 7L)
-        //payAmount = AppDatabase.getDatabase(context).trans().getTotalAmountFromPRAccountBYSubCategoryID(acctID, 9L)
+        val initialBalance = AppDatabase.getDatabase(context).account().getAccountInitialBalance(accountID)
+        val totalAmountOfIncome = AppDatabase.getDatabase(context).trans().getTotalAmountOfIncomeByAccount(accountID)
+        val totalAmountOfExpense = AppDatabase.getDatabase(context).trans().getTotalAmountOfExpenseByAccount(accountID)
+        val totalAmountOfTransferOut = AppDatabase.getDatabase(context).trans().getTotalAmountOfTransferOutByAccount(accountID)
+        val totalAmountOfTransferIn = AppDatabase.getDatabase(context).trans().getTotalAmountOfTransferInByAccount(accountID)
 
+        accountBalance = initialBalance + totalAmountOfIncome + totalAmountOfTransferIn - totalAmountOfExpense - totalAmountOfTransferOut
+
+        inflowAmount = totalAmountOfIncome + totalAmountOfTransferIn
+        outflowAmount = totalAmountOfExpense + totalAmountOfTransferOut
 
     }
 }

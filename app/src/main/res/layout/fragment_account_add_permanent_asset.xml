@@ -10,7 +10,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarAddPermanentAssets"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="45dp"
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
@@ -20,6 +20,7 @@
         app:layout_constraintBottom_toTopOf="@id/addPermaAssetsLayout"
         app:menu="@menu/title_menu"
         app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
+        app:titleTextAppearance="@style/Toolbar.TitleText"
         app:title="@string/nav_title_add_permanent_assets" />
 
     <androidx.constraintlayout.widget.ConstraintLayout

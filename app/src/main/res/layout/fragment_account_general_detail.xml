@@ -15,6 +15,7 @@
         android:theme="?attr/actionBarTheme"
         app:title="@string/nav_title_account_detail"
         app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
+        app:titleTextAppearance="@style/Toolbar.TitleText"
         app:menu="@menu/title_menu"
         tools:ignore="MissingConstraints" />
 
@@ -22,8 +23,7 @@
         android:id="@+id/layout_account_general_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="3dp"
-        android:paddingBottom="8dp"
+        android:paddingBottom="3dp"
         android:background="@color/app_list_background"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_account_general_detail">
 
@@ -34,35 +34,38 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="@color/app_section_background"
-            android:paddingVertical="10dp"
+            android:paddingVertical="15dp"
             android:paddingHorizontal="20dp"
             android:paddingBottom="5dp"
             tools:ignore="MissingConstraints">
 
             <TextView
                 android:id="@+id/tv_account_general_name"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/account_name_value"
-                android:textColor="@color/app_sub_line_text"
-                android:textStyle="bold"
-                android:textSize="16sp"
+                android:textColor="@color/app_amount"
+                android:textSize="18sp"
                 android:drawablePadding="5dp"
                 app:drawableStartCompat="@drawable/ic_baseline_credit_card_24"
                 app:drawableTint="@color/app_title_background"
+                app:layout_constraintWidth_percent="0.5"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_account_general_balance"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/amount_zero_with_dollar_sign"
                 android:textColor="@color/app_amount"
-                android:textStyle="bold"
                 android:textSize="18sp"
+                android:gravity="end"
                 android:drawablePadding="5dp"
                 app:drawableEndCompat="@drawable/ic_baseline_edit_24"
                 app:drawableTint="@color/app_title_background"
+                app:layout_constraintWidth_percent="0.5"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -83,8 +86,8 @@
                 android:gravity="center"
                 android:text="@string/option_account_inflow"
                 android:textColor="@color/app_sub_line_text"
-                android:textSize="14sp"
-                app:layout_constraintWidth_percent="0.5"
+                android:textSize="16sp"
+                app:layout_constraintWidth_percent="0.499"
                 app:layout_constraintTop_toBottomOf="@+id/tv_account_general_inflow_amount"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -96,10 +99,20 @@
                 android:text="@string/amount_zero_with_dollar_sign"
                 android:gravity="center"
                 android:textColor="@color/app_income_amount"
-                android:textSize="14sp"
-                app:layout_constraintWidth_percent="0.5"
+                android:textSize="16sp"
+                app:layout_constraintWidth_percent="0.499"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="0dp"
+                android:background="@color/app_list_background"
+                app:layout_constraintStart_toEndOf="@+id/tv_account_general_inflow_amount"
+                app:layout_constraintEnd_toStartOf="@+id/tv_account_general_outflow_amount"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHeight_percent="0.6"/>
 
             <TextView
                 android:id="@+id/tv_account_general_outflow"
@@ -109,8 +122,8 @@
                 android:gravity="center"
                 android:text="@string/option_account_outflow"
                 android:textColor="@color/app_sub_line_text"
-                android:textSize="14sp"
-                app:layout_constraintWidth_percent="0.5"
+                android:textSize="16sp"
+                app:layout_constraintWidth_percent="0.499"
                 app:layout_constraintTop_toBottomOf="@id/tv_account_general_outflow_amount"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -121,9 +134,9 @@
                 android:paddingTop="5dp"
                 android:text="@string/amount_zero_with_dollar_sign"
                 android:textColor="@color/app_expense_amount"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:gravity="center"
-                app:layout_constraintWidth_percent="0.5"
+                app:layout_constraintWidth_percent="0.499"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_account_general_outflow" />

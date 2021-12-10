@@ -20,6 +20,7 @@ import com.example.ngiu.MainActivity
 import com.example.ngiu.R
 import com.example.ngiu.databinding.FragmentAccountGeneralDetailBinding
 import com.example.ngiu.ui.activity.TransListAdapter
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_account.*
 import kotlinx.android.synthetic.main.fragment_account_add_cash.*
 import kotlinx.android.synthetic.main.fragment_account_general_detail.*
@@ -40,6 +41,13 @@ class AccountGeneralDetailFragment : Fragment() {
     private var accountGeneralDetailAdapter: AccountGeneralDetailAdapter? = null
 
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        // hide bottom bar
+        (activity as MainActivity).setNavBottomBarVisibility(View.GONE)
+    }
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,10 +57,16 @@ class AccountGeneralDetailFragment : Fragment() {
 
         _binding = FragmentAccountGeneralDetailBinding.inflate(inflater, container, false)
 
+        accountGeneralDetailViewModel.accountID = arguments?.getLong("accountId")!!
+        accountGeneralDetailViewModel.accountName = arguments?.getString("accountName")!!
+        accountGeneralDetailViewModel.accountTypeID = arguments?.getLong("accountType")!!
+
+
         // load data to ram
         //Thread {
-            accountGeneralDetailViewModel.loadDataToRam(requireContext(), 3L)
+            accountGeneralDetailViewModel.loadDataToRam(requireContext())
         //}.start()
+
 
         initAdapter()
 
@@ -107,6 +121,78 @@ class AccountGeneralDetailFragment : Fragment() {
                     (activity as MainActivity).setNavBottomBarVisibility(View.GONE)
                     // navigate to edit account
                     // todo swtich to edit account
+
+                    when (accountGeneralDetailViewModel.accountTypeID) {
+                        1L -> {
+                            val bundle = Bundle().apply {
+                                putString("page", "edit_cash")
+                                putLong("id", accountGeneralDetailViewModel.accountID)
+                                putDouble("balance", accountGeneralDetailViewModel.accountBalance)
+                            }
+
+
+                            view.findNavController().navigate(R.id.addCashFragment, bundle)
+                        }
+                        3L -> {
+                            val bundle = Bundle().apply {
+                                putString("page", "edit_debit")
+                                putLong("id", accountGeneralDetailViewModel.accountID)
+                                putDouble("balance", accountGeneralDetailViewModel.accountBalance)
+                            }
+                            view.findNavController().navigate(R.id.addDebitFragment, bundle)
+                        }
+                        4L-> {
+                            val bundle = Bundle().apply {
+                                putString("page", "edit_investment")
+                                putLong("id", accountGeneralDetailViewModel.accountID)
+                                putDouble("balance", accountGeneralDetailViewModel.accountBalance)
+                            }
+                            view.findNavController().navigate(R.id.addWebAccountFragment, bundle)
+                        }
+                        5L-> {
+                            val bundle = Bundle().apply {
+                                putString("page", "edit_web")
+                                putLong("id", accountGeneralDetailViewModel.accountID)
+                                putDouble("balance", accountGeneralDetailViewModel.accountBalance)
+                            }
+                            view.findNavController().navigate(R.id.addWebAccountFragment, bundle)
+                        }
+                        6L -> {
+                            val bundle = Bundle().apply {
+                                putString("page", "edit_valueCard")
+                                putLong("id", accountGeneralDetailViewModel.accountID)
+                                putDouble("balance", accountGeneralDetailViewModel.accountBalance)
+                            }
+                            view.findNavController().navigate(R.id.addPermanentAssetFragment, bundle)
+                        }
+
+                        7L-> {
+                            val bundle = Bundle().apply {
+                                putString("page", "edit_virtual")
+                                putLong("id", accountGeneralDetailViewModel.accountID)
+                                putDouble("balance", accountGeneralDetailViewModel.accountBalance)
+                            }
+                            view.findNavController().navigate(R.id.addWebAccountFragment, bundle)
+                        }
+
+                        8L -> {
+                            val bundle = Bundle().apply {
+                                putString("page", "edit_perm")
+                                putLong("id", accountGeneralDetailViewModel.accountID)
+                                putDouble("balance", accountGeneralDetailViewModel.accountBalance)
+                            }
+                            view.findNavController().navigate(R.id.addPermanentAssetFragment, bundle)
+                        }
+
+
+                        9L -> {
+                            val bundle = Bundle().apply {
+                                putString("page", "edit_payable")
+                                putLong("id", accountGeneralDetailViewModel.accountID)
+                            }
+                            view.findNavController().navigate(R.id.addCashFragment, bundle)
+                        }
+                    }
                     true
                 }
 
@@ -132,10 +218,9 @@ class AccountGeneralDetailFragment : Fragment() {
 
         // show the info at title
         tv_account_general_balance.text = "$" + "%.2f".format(accountGeneralDetailViewModel.accountBalance)
-        //tv_account_pr_lend_amount.text = "$" + "%.2f".format(accountGeneralDetailViewModel.lendAmount)
-        //tv_account_pr_receive_amount.text = "$" + "%.2f".format(accountGeneralDetailViewModel.receiveAmount)
-        //tv_account_pr_borrow_amount.text = "$" + "%.2f".format(accountGeneralDetailViewModel.borrowAmount)
-        //tv_account_pr_pay_amount.text = "$" + "%.2f".format(accountGeneralDetailViewModel.payAmount)
+        tv_account_general_inflow_amount.text = "$" + "%.2f".format(accountGeneralDetailViewModel.inflowAmount)
+        tv_account_general_outflow_amount.text = "$" + "%.2f".format(accountGeneralDetailViewModel.outflowAmount)
+        tv_account_general_name.text = accountGeneralDetailViewModel.accountName
 
     }
 
@@ -150,7 +235,7 @@ class AccountGeneralDetailFragment : Fragment() {
         //(activity as MainActivity).setNavBottomBarVisibility(View.GONE)
 
         //parentFragmentManager.setFragmentResult("requestKey", bundleOf("bundleKey" to transactionList[position].Transaction_ID))
-        //if (editMode) setFragmentResult("record_edit_mode", bundleOf("rID" to transID))
+        if (editMode) setFragmentResult("record_edit_mode", bundleOf("rID" to transID))
         // switch to record fragment
         findNavController().navigate(R.id.navigation_record)
     }
