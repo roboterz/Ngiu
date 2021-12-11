@@ -1,12 +1,14 @@
 package com.example.ngiu.data
 
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.ngiu.data.entities.*
 import androidx.room.Transaction
 import com.example.ngiu.data.entities.Currency
+import com.example.ngiu.data.entities.returntype.RecordDetail
 import com.example.ngiu.data.entities.returntype.TransactionDetail
-import io.reactivex.Maybe
+
 import java.time.LocalDate
 import java.time.LocalDateTime
 
@@ -19,14 +21,68 @@ interface AccountDao {
     @Delete
     fun deleteAccount(account: Account)
 
+    @Query("DELETE FROM Account WHERE  Account_ID = :rID")
+    fun deleteAccountById(rID:Long)
+
+    @Query("DELETE FROM Trans WHERE  Account_ID = :rID")
+    fun deleteRecordByID(rID:Long)
+
+
     @Transaction
-    @Query("SELECT * FROM Account")
+    @Query("SELECT * FROM Account ")
     fun getAllAccount(): List<Account>
+
+    @Transaction
+    @Query("SELECT * FROM Account ORDER BY AccountType_ID ASC ")
+    fun getAllAccountASC(): List<Account>
 
     // get a record BY ID
     @Transaction
     @Query("SELECT * FROM Account WHERE Account_ID = :rID")
     fun getRecordByID(rID:Long): Account
+
+    @Update
+    fun updateAccount(vararg account: Account)
+
+    @Transaction
+    @Query("SELECT Account_Balance FROM Account WHERE Account_ID = :acctID")
+    fun getAccountInitialBalance(acctID: Long): Double
+
+    @Transaction
+    @Query("""
+      SELECT SUM(Transaction_Amount) FROM Trans trans
+    INNER JOIN Account acct ON trans.Account_ID = acct.Account_ID
+    WHERE trans.TransactionType_ID = 2 AND trans.Account_ID = :rID 
+    """)
+   fun getInflowA(rID:Long): Double
+
+
+    @Transaction
+    @Query("""
+        SELECT SUM(Transaction_Amount) FROM Trans trans
+        INNER JOIN Account acct ON trans.AccountRecipient_ID = acct.Account_ID
+        WHERE trans.TransactionType_ID in (3,4) AND trans.AccountRecipient_ID = :rID
+      """)
+    fun getInflowB(rID:Long): Double
+
+    @Transaction
+    @Query("""
+         SELECT SUM(Transaction_Amount) FROM Trans trans
+        INNER JOIN Account acct ON trans.Account_ID = acct.Account_ID
+        WHERE trans.TransactionType_ID = 1 AND trans.Account_ID = :rID
+
+      """)
+    fun getOutflowA(rID:Long): Double
+
+    @Transaction
+    @Query("""
+      SELECT SUM(Transaction_Amount) FROM Trans trans
+        INNER JOIN Account acct on trans.Account_ID = acct.Account_ID
+        WHERE trans.TransactionType_ID IN (3,4) AND trans.Account_ID = :rID
+      """)
+    fun getOutflowB(rID:Long): Double
+
+
 
 
 
@@ -65,7 +121,7 @@ interface AccountTypeDao{
 
     @Transaction
     @Query("SELECT * FROM AccountType")
-    fun getAllAccountType(): Maybe<List<AccountType>>
+    fun getAllAccountType(): List<AccountType>
 
     @Transaction
     @Query("SELECT * FROM AccountType")
@@ -296,6 +352,10 @@ interface TransDao {
     fun getRecordsByAcctID(rID:Long): List<Trans>
 
     @Transaction
+    @Query("SELECT * FROM Trans WHERE Account_ID = :rID OR AccountRecipient_ID = :rID")
+    fun getRecordsByAccountAndAccountRecipientID(rID:Long): List<Trans>
+
+    @Transaction
     @Query("""
         SELECT Transaction_ID, Trans.TransactionType_ID, SubCategory_Name, Account.Account_Name, AccountRecipient.Account_Name as AccountRecipient_Name, 
                 Transaction_Amount, Transaction_Date, Person_Name, Merchant_Name, Transaction_Memo, Project_Name, 
@@ -350,11 +410,11 @@ interface TransDao {
     //@Query("SELECT *, :date AS passed_date, coalesce(date(date),'ouch') AS cnv_date, coalesce(date(:date),'ouch') AS cnv_passed_date FROM user WHERE date(date / 1000,'unixepoch') = date(:date / 1000,'unixepoch');")
 
     @Transaction
-    @Query("SELECT SUM(Transaction_Amount) as Transaction_Amount FROM Trans WHERE Account_ID = :rID")
+    @Query("SELECT SUM(Transaction_Amount) FROM Trans WHERE Account_ID = :rID")
     fun getTotalSumA(rID: Long): Double
 
     @Transaction
-    @Query("SELECT SUM(Transaction_Amount) as Transaction_Amount FROM Trans WHERE AccountRecipient_ID = :rID AND TransactionType_ID IN (3,4)")
+    @Query("SELECT SUM(Transaction_Amount)  FROM Trans WHERE AccountRecipient_ID = :rID AND TransactionType_ID IN (3,4)")
     fun getTotalSumB(rID: Long): Double
 
     // 0 for false, 1 for true: so countnetassets if true
@@ -394,6 +454,72 @@ interface TransDao {
 
      */
 
+    @Transaction
+    @Query("""
+        SELECT * FROM Trans trans
+        WHERE trans.Account_ID = :rID OR trans.AccountRecipient_ID = :rID
+        """)
+    fun getTransRecordAccount(rID:Long): List<Trans>
+
+    @Transaction
+    @Query("""
+        SELECT Trans.Transaction_ID, Trans.TransactionType_ID, Trans.SubCategory_ID, SubCategory.SubCategory_Name, 
+                Account.Account_ID, Account.Account_Name, AccountRecipient.Account_ID as AccountRecipient_ID, AccountRecipient.Account_Name as AccountRecipient_Name,
+                Transaction_Amount, Transaction_Date, Transaction_Memo
+        FROM Trans, SubCategory, Account, Account as AccountRecipient
+        WHERE (Trans.Account_ID = :acctID OR Trans.AccountRecipient_ID = :acctID)
+            AND Trans.SubCategory_ID = SubCategory.SubCategory_ID
+            AND Trans.Account_ID = Account.Account_ID
+            AND Trans.AccountRecipient_ID = AccountRecipient.Account_ID
+        ORDER BY Transaction_Date DESC
+        """)
+    fun getTransRecordDetailByAccount(acctID:Long): List<RecordDetail>
+
+    @Transaction
+    @Query("""
+        SELECT SUM(Transaction_Amount) 
+        FROM Trans 
+        WHERE Account_ID = :rID 
+            AND TransactionType_ID = 2
+        """)
+    fun getTotalAmountOfIncomeByAccount(rID:Long): Double
+
+    @Transaction
+    @Query("""
+        SELECT SUM(Transaction_Amount) 
+        FROM Trans 
+        WHERE Account_ID = :rID 
+            AND TransactionType_ID = 1
+        """)
+    fun getTotalAmountOfExpenseByAccount(rID:Long):Double
+
+    @Transaction
+    @Query("""
+        SELECT SUM(Transaction_Amount) 
+        FROM Trans 
+        WHERE Account_ID = :rID 
+            AND TransactionType_ID > 2
+        """)
+    fun getTotalAmountOfTransferOutByAccount(rID:Long): Double
+
+    @Transaction
+    @Query("""
+        SELECT SUM(Transaction_Amount) 
+        FROM Trans 
+        WHERE AccountRecipient_ID = :rID 
+            AND TransactionType_ID > 2
+        """)
+    fun getTotalAmountOfTransferInByAccount(rID:Long): Double
+
+    @Transaction
+    @Query("""
+        SELECT SUM(Transaction_Amount) 
+        FROM Trans 
+        WHERE TransactionType_ID = 4 
+            AND SubCategory_ID = :subCateID
+            AND (Account_ID = :acctID OR AccountRecipient_ID = :acctID)
+        """)
+    fun getTotalAmountFromPRAccountBYSubCategoryID(acctID:Long, subCateID: Long): Double
 
 }
 

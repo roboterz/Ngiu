@@ -4,15 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/app_section_background"
+    android:background="@color/app_list_background"
     tools:context=".ui.activity.ActivityFragment">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_activity"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:menu="@menu/title_menu"
+        tools:ignore="MissingConstraints" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/info_activity_layout"
         android:layout_width="match_parent"
-        android:layout_height="140dp"
+        android:layout_height="0dp"
         android:background="@color/app_title_background"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/toolbar_activity">
 
         <TextView
             android:id="@+id/tvCurrentMonthExpense"
@@ -33,7 +43,7 @@
             android:layout_marginHorizontal="15dp"
             android:layout_marginBottom="15dp"
             android:singleLine="true"
-            android:text="$0.00"
+            android:text="@string/amount_zero_with_dollar_sign"
             android:textColor="@color/app_title_text"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -60,7 +70,7 @@
             android:layout_marginHorizontal="5dp"
             android:layout_marginBottom="15dp"
             android:singleLine="true"
-            android:text="$0.00"
+            android:text="@string/amount_zero_with_dollar_sign"
             android:textColor="@color/app_title_text"
             android:textSize="14sp"
             android:textStyle="bold"
@@ -87,22 +97,14 @@
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="15dp"
             android:singleLine="true"
-            android:text="$0.00"
+            android:text="@string/amount_zero_with_dollar_sign"
             android:textColor="@color/app_title_text"
             android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar_activity"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="?attr/colorPrimary"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme"
-            app:menu="@menu/title_menu"
-            tools:ignore="MissingConstraints" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -7,7 +7,6 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.DialogInterface
 import android.os.Bundle
-import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -35,7 +34,6 @@ import kotlinx.android.synthetic.main.popup_title.view.*
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
-import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
 
@@ -217,16 +215,16 @@ class RecordFragment : Fragment() {
         // date
         tv_record_date.setOnClickListener {
             // date picker
-            val date = LocalDate.parse(tv_record_date.text.toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+            val date = LocalDate.parse(tv_record_date.text.toString(), DateTimeFormatter.ofPattern("MM/dd/yyyy"))
 
             DateTimePicker(
                 date.year,
                 date.monthValue-1,
                 date.dayOfMonth
             ).pickDate(view.context, DatePickerDialog.OnDateSetListener{ _, year, month, day ->
-                tv_record_date.text =LocalDate.of(year,month+1, day).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+                tv_record_date.text =LocalDate.of(year,month+1, day).format(DateTimeFormatter.ofPattern("MM/dd/yyyy"))
 
-                recordViewModel.transDetail.Transaction_Date = LocalDateTime.parse(tv_record_date.text.toString() + " " + tv_record_time.text.toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+                recordViewModel.transDetail.Transaction_Date = getInternationalDateFromAmericanDate(tv_record_date.text.toString() + " " + tv_record_time.text.toString())
             })
 
         }
@@ -242,7 +240,7 @@ class RecordFragment : Fragment() {
             ).pickTime(context, TimePickerDialog.OnTimeSetListener { _, hour, minute ->
                 val s = Calendar.getInstance().get(Calendar.SECOND)
                 tv_record_time.text  = LocalTime.of(hour,minute,s).toString()
-                recordViewModel.transDetail.Transaction_Date = LocalDateTime.parse(tv_record_date.text.toString() + " " + tv_record_time.text.toString(),DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+                recordViewModel.transDetail.Transaction_Date = getInternationalDateFromAmericanDate(tv_record_date.text.toString() + " " + tv_record_time.text.toString())
             })
         }
 
@@ -406,7 +404,10 @@ class RecordFragment : Fragment() {
         }
     }
 
-
+    private fun getInternationalDateFromAmericanDate(string: String): LocalDateTime {
+        val lDateTime: LocalDateTime =  LocalDateTime.parse(string, DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss"))
+        return LocalDateTime.parse(lDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+    }
 
 
     // called when the fragment is visible and actively running.
@@ -438,6 +439,11 @@ class RecordFragment : Fragment() {
             7L, 10L -> {
                 if (payable){
                     // create P/R account
+                    val bundle = Bundle().apply {
+                        putString("page", "add_payable")
+                    }
+                    findNavController().navigate(R.id.addCashFragment, bundle)
+
                 }else{
                     findNavController().navigate(R.id.navigation_add_account)
                 }
@@ -446,6 +452,12 @@ class RecordFragment : Fragment() {
             8L, 9L -> {
                 if (!payable) {
                     // create P/R account
+                    // todo create P/R account
+                    val bundle = Bundle().apply {
+                        putString("page", "add_payable")
+                    }
+                    findNavController().navigate(R.id.addCashFragment, bundle)
+
                 }else{
                     findNavController().navigate(R.id.navigation_add_account)
                 }
@@ -494,7 +506,7 @@ class RecordFragment : Fragment() {
         }
 
 
-        tv_record_date.text = recordViewModel.transDetail.Transaction_Date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+        tv_record_date.text = recordViewModel.transDetail.Transaction_Date.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"))
         tv_record_time.text = recordViewModel.transDetail.Transaction_Date.format(DateTimeFormatter.ofPattern("HH:mm:ss"))
         tv_record_amount.text = "%.2f".format(recordViewModel.transDetail.Transaction_Amount)
         tv_record_account_pay.text = recordViewModel.transDetail.Account_Name
@@ -663,6 +675,9 @@ class RecordFragment : Fragment() {
         }
 
          */
+        //
+        tv_record_category.text = recordViewModel.getSubCategoryName()
+
 
         when (recordViewModel.transDetail.TransactionType_ID) {
             1L,2L -> {
@@ -686,11 +701,31 @@ class RecordFragment : Fragment() {
                 tv_record_account_receive.visibility = View.VISIBLE
                 tv_record_common_category.visibility = View.GONE
                 tv_record_all_category.visibility = View.GONE
+
+                /*
+                val listPRName = recordViewModel.getPRAccountList()
+                when (recordViewModel.getSubCategoryID(recordViewModel.transDetail.SubCategory_Name)) {
+                    // borrow in | received
+                    7L, 10L -> {
+                        if (listPRName.isEmpty()) {
+                            if (recordViewModel.account.isNotEmpty()){
+                                recordViewModel.transDetail.Account_Name = recordViewModel.account[0].Account_Name
+                            }else{
+                                recordViewModel.transDetail.Account_Name =  "No Account"
+                            }
+                        }
+                    }
+                    // lend out | repayment
+                    8L, 9L -> {
+
+                    }
+                }
+
+                 */
             }
         }
 
-        //
-        tv_record_category.text = recordViewModel.getSubCategoryName()
+
 
     }
 

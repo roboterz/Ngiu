@@ -17,6 +17,13 @@
         android:title="@string/menu_remove"
         android:visible="false"
         app:showAsAction="ifRoom|withText"/>
+
+    <item
+        android:id="@+id/action_add"
+        android:icon="@drawable/ic_baseline_add_24"
+        android:title="@string/menu_add"
+        android:visible="false"
+        app:showAsAction="ifRoom|withText"/>
     <item
         android:id="@+id/action_edit"
         android:icon="@drawable/ic_baseline_edit_24"
@@ -29,12 +36,7 @@
         android:title="@string/menu_chart"
         android:visible="false"
         app:showAsAction="ifRoom|withText"/>
-    <item
-        android:id="@+id/action_add"
-        android:icon="@drawable/ic_baseline_add_24"
-        android:title="@string/menu_add"
-        android:visible="false"
-        app:showAsAction="ifRoom|withText"/>
+
     <item
         android:id="@+id/action_settings"
         android:icon="@drawable/ic_baseline_settings_24"

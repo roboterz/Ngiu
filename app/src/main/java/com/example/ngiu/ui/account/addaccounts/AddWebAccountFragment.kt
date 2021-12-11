@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.ngiu.MainActivity
@@ -23,16 +24,18 @@ import kotlinx.android.synthetic.main.popup_title.view.*
 class AddWebAccountFragment : Fragment() {
     private var _binding: FragmentAccountAddWebAccountBinding? = null
     private val binding get() = _binding!!
-    private lateinit var addWebAccountViewModel: AddWebAccountViewModel
+    private lateinit var addCashViewModel: AddCashViewModel
     var currency = "USD"
-
-
+    private var balance: Double = 0.0
+    lateinit var page: String
+    var accountTypeID : Long = 0L
+    var id : Long= 0L
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        addWebAccountViewModel = ViewModelProvider(this).get(AddWebAccountViewModel::class.java)
+        addCashViewModel = ViewModelProvider(this).get(AddCashViewModel::class.java)
         _binding = FragmentAccountAddWebAccountBinding.inflate(inflater, container, false)
 
         return binding.root
@@ -46,27 +49,126 @@ class AddWebAccountFragment : Fragment() {
         toolbarAddWebAccount.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
+        getBundleData()
+        displayPage()
+
+
 
         (activity as MainActivity).setNavBottomBarVisibility(View.GONE)
     }
 
-    override fun onResume() {
-        super.onResume()
+    private fun displayPage() {
+        when (page) {
+            "add_investment" -> {
+                binding.toolbarAddWebAccount.title = "Add Investment Account"
+                accountTypeID = 4L
+            }
+            "edit_investment" -> {
+                binding.toolbarAddWebAccount.title = "Edit Investment Account"
+                binding.toolbarAddWebAccount.menu.findItem(R.id.action_delete).isVisible = true
+                accountTypeID = 4L
+                id = arguments?.getLong("id")!!
+                fetchAccountDetails(id)
+            }
+            "add_web" -> {
+                binding.toolbarAddWebAccount.title = "Add Web Account"
+                accountTypeID = 5L
+            }
+            "edit_web" -> {
+                binding.toolbarAddWebAccount.title = "Edit Web Account"
+                binding.toolbarAddWebAccount.menu.findItem(R.id.action_delete).isVisible = true
+                accountTypeID = 5L
+                id = arguments?.getLong("id")!!
+                fetchAccountDetails(id)
+            }
+            "add_virtual" -> {
+                binding.toolbarAddWebAccount.title = "Add Virtual Account"
+                accountTypeID = 7L
+            }
+            "edit_virtual" -> {
+                binding.toolbarAddWebAccount.title = "Edit Virtual Account"
+                binding.toolbarAddWebAccount.menu.findItem(R.id.action_delete).isVisible = true
+                accountTypeID = 7L
+                id = arguments?.getLong("id")!!
+                fetchAccountDetails(id)
+            }
+
+        }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
+
+    private fun getBundleData() {
+        page = arguments?.getString("page")!!
+        balance = arguments?.getDouble("balance")!!
     }
+
+
+    private fun fetchAccountDetails(id: Long) {
+        val account =  addCashViewModel.getAccountByID(requireContext(),id)
+        binding.tetWebAccountName.setText(account.Account_Name)
+        binding.tetWebBalance.setText(account.Account_Balance.toString())
+        binding.tetWebMemo.setText(account.Account_Memo)
+        binding.tetWebUserID.setText(account.Account_CardNumber)
+
+    }
+
+
 
     private fun initListeners() {
         binding.btnSaveWeb.setOnClickListener {
-            submitForm()
+            when (page) {
+                "add_investment" -> {
+                    accountTypeID = 4L
+                    submitForm()
+
+                }
+                "edit_investment" -> {
+                    accountTypeID = 4L
+                    id = arguments?.getLong("id")!!
+                    updateAccount(id)
+                }
+                "add_web" -> {
+                    accountTypeID = 5L
+                    submitForm()
+                }
+                "edit_web" -> {
+                    accountTypeID = 5L
+                    id = arguments?.getLong("id")!!
+                    updateAccount(id)
+                }
+
+
+                "add_virtual" -> {
+                    accountTypeID = 7L
+                    submitForm()
+
+                }
+                "edit_virtual" -> {
+                    accountTypeID = 7L
+                    id = arguments?.getLong("id")!!
+                    updateAccount(id)
+                }
+            }
+
+        }
+
+        binding.toolbarAddWebAccount.setOnMenuItemClickListener{
+            when (it.itemId) {
+                R.id.action_delete -> {
+                    // navigate to add record screen
+                    addCashViewModel.deleteAccount(requireContext(),id)
+                    findNavController().navigate(R.id.navigation_account)
+                    true
+                }
+
+
+                else -> super.onOptionsItemSelected(it)
+            }
         }
 
         binding.btnWebAddOtherCurrency.setOnClickListener {
 
-            val array : List<Currency> = addWebAccountViewModel.getCurrency(requireActivity())
+            val array : List<Currency> = addCashViewModel.getCurrency(requireActivity())
 
             val arrayList: ArrayList<String> = ArrayList()
 
@@ -99,12 +201,38 @@ class AddWebAccountFragment : Fragment() {
         }
     }
 
+    private fun updateAccount(id: Long) {
+
+        val account = Account(
+            Account_ID = id,
+            Account_Name = binding.tetWebAccountName.text.toString(),
+            Account_Balance = binding.tetWebBalance.text.toString().toDouble(),
+            Account_CountInNetAssets = binding.scWebCountNetAssets.isChecked,
+            Account_Memo = binding.tetWebMemo.text.toString(),
+            AccountType_ID = accountTypeID,
+            Currency_ID = currency,
+            Account_CardNumber = binding.tetWebUserID.text.toString()
+
+        )
+        addCashViewModel.getAllAccount(requireContext()).forEach { item ->
+            if (item.Account_Name.equals(binding.tetWebAccountName.text.toString(), ignoreCase = true)  && (account.Account_ID != item.Account_ID)) {
+                Toast.makeText(requireContext(), "Account Name already exist", Toast.LENGTH_LONG).show()
+                return
+            }
+        }
+
+        addCashViewModel.updateAccount(requireContext(),account)
+        findNavController().navigate(R.id.navigation_account)
+        Toast.makeText(requireContext(), "Update Successful", Toast.LENGTH_LONG).show()
+
+    }
+
     private fun insertData() {
         val accountName = binding.tetWebAccountName.text.toString()
         val userID = binding.tetWebUserID.text.toString()
         val countInNetAsset: Boolean = binding.scWebCountNetAssets.isChecked
         val memo = binding.tetWebMemo.text.toString()
-        val accountTypeID = 5L
+        val accountTypeID = accountTypeID
         var balance = binding.tetWebBalance.text.toString()
 
         if (balance.isEmpty()) {
@@ -115,7 +243,8 @@ class AddWebAccountFragment : Fragment() {
             Account_CountInNetAssets =  countInNetAsset, Account_Memo = memo, AccountType_ID = accountTypeID, Currency_ID = currency)
 
 
-        addWebAccountViewModel.insertWebAccount(requireActivity(), cashAccount)
+        addCashViewModel.insertCash(requireActivity(), cashAccount)
+        Toast.makeText(requireContext(), "Successfully Deleted Your Account", Toast.LENGTH_LONG).show()
 
 
     }
@@ -161,6 +290,16 @@ class AddWebAccountFragment : Fragment() {
             return "Minimum of 3 Characters required."
         }
         return null
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
 

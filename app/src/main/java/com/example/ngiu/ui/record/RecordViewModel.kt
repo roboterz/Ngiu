@@ -39,6 +39,7 @@ class RecordViewModel : ViewModel() {
     var merchant: List<Merchant> = ArrayList()
     var account: List<Account> = ArrayList()
     var project: List<Project> = ArrayList()
+    var prAccountName: String = ""
 
 
 
@@ -114,11 +115,12 @@ class RecordViewModel : ViewModel() {
         }
     }
 
-    // get account name list
-    fun getAccountList(): List<String>{
+    // get P/R account name list
+    fun getPRAccountList(): List<String>{
         val tList: MutableList<String> = ArrayList<String>()
-        for (account in account){
-            tList.add(account.Account_Name)
+        for (at in account){
+            if (at.AccountType_ID == 9L)
+                tList.add(at.Account_Name)
         }
         return tList
     }

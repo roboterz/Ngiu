@@ -20,20 +20,21 @@
     <string name="nav_title_category_expense_sub_edit">Edit Sub Category of Expense</string>
     <string name="nav_title_category_income_sub_add">Add Sub Category of Income</string>
     <string name="nav_title_category_income_sub_edit">Edit Sub Category of Income</string>
-    <string name="nav_title_category_expense_manage">Manage Category of Expense</string>
-    <string name="nav_title_category_income_manage">Manage Category of Income</string>
+    <string name="nav_title_category_expense_manage">Category of Expense</string>
+    <string name="nav_title_category_income_manage">Category of Income</string>
     <string name="nav_title_account_detail">Account Detail</string>
     <string name="nav_title_debit_credit_detail">Debit and Credit Detail</string>
+    <string name="nav_title_payable_receivable_detail">Payable &amp; Receivable Detail</string>
     <string name="nav_title_account_type">Choose the Type of Account</string>
     <string name="nav_title_account_add">Add</string>
     <string name="nav_title_account_edit">Edit Account</string>
-    <string name="nav_title_merchant_manage">Manage Merchant</string>
+    <string name="nav_title_merchant_manage">Merchant</string>
     <string name="nav_title_merchant_add">Add Merchant</string>
     <string name="nav_title_merchant_edit">Edit Merchant</string>
-    <string name="nav_title_person_manage">Manage Person</string>
+    <string name="nav_title_person_manage">Person</string>
     <string name="nav_title_person_add">Add Person</string>
     <string name="nav_title_person_edit">Edit Person</string>
-    <string name="nav_title_project_manage">Manage Project</string>
+    <string name="nav_title_project_manage">Project</string>
     <string name="nav_title_project_add">Add Project</string>
     <string name="nav_title_project_edit">Edit Project</string>
     <string name="nav_title_currency">Base Currency</string>
@@ -119,8 +120,8 @@
     <string name="option_account_outflow">Outflow</string>
     <string name="option_account_to">to</string>
     <string name="option_account_from">from</string>
-    <string name="option_account_owe_you">owe you</string>
-    <string name="option_account_owe_he">You owe</string>
+    <string name="option_account_owe_you">He/She owe you</string>
+    <string name="option_account_owe_he">You owe him/her</string>
 
     <string name="option_title_lend">Lend:</string>
     <string name="option_title_receive">Receive:</string>
@@ -131,9 +132,9 @@
     <string name="option_title_add_currency">Add other Currency</string>
     <string name="option_title_count_in_net_assets">Count in Net Assets</string>
     <string name="option_title_advanced">Advanced</string>
-    <string name="option_title_statement_day">Statement Day:</string>
+    <string name="option_title_statement_day">Statement Day: 1st</string>
     <string name="option_title_card_number">Card Number</string>
-    <string name="option_title_payment_day">Payment Day:</string>
+    <string name="option_title_payment_day">Payment Day:&#160; &#160;26th</string>
     <string name="option_title_credit_limit">Credit Limit</string>
     <string name="option_title_current_arrears">Current Arrears</string>
     <string name="option_title_user_id">User ID</string>
@@ -192,6 +193,35 @@
     <string name="msg_name_add_error">This name cannot be add cause some unknown reason.</string>
     <string name="msg_name_edit_error">This name cannot be edit cause some unknown reason.</string>
 
+    <string name="amount_zero_with_dollar_sign">$0.00</string>
+    <string name="amount_zero">0.00</string>
+
+    <string name="record_lend_out">Lend out</string>
+    <string name="record_lend_to">Lend to</string>
+    <string name="record_borrow_in">Borrow in</string>
+    <string name="record_borrow_from">Borrow from</string>
+    <string name="record_receive">Receive</string>
+    <string name="record_received_from">Received from</string>
+    <string name="record_repay">Repay</string>
+    <string name="record_paid_to">Paid to</string>
+    <string name="record_transfer_out">Transfer out</string>
+    <string name="record_transfer_in">Transfer in</string>
+    <string name="record_to">to</string>
+
+    <string name="keyboard_1">1</string>
+    <string name="keyboard_2">2</string>
+    <string name="keyboard_3">3</string>
+    <string name="keyboard_4">4</string>
+    <string name="keyboard_5">5</string>
+    <string name="keyboard_6">6</string>
+    <string name="keyboard_7">7</string>
+    <string name="keyboard_8">8</string>
+    <string name="keyboard_9">9</string>
+    <string name="keyboard_0">0</string>
+    <string name="keyboard_dot">.</string>
+    <string name="keyboard_c">C</string>
+    <string name="keyboard_enter">Enter</string>
+
 
 
     <string name="account_name_value">Wallet</string>
@@ -199,16 +229,8 @@
     <string name="account_balance_suffix">USD</string>
     <string name="payment_day">25th</string>
     <string name="statement_day">1st</string>
-
-    <string name="account_type_credit">Credit Card</string>
-    <string name="account_type_debit">Debit Card/Checking/Saving</string>
-    <string name="account_type_invest">Investment Account</string>
-    <string name="account_type_web_acct">Web Account</string>
-    <string name="account_type_stored_value_card">Stored Value Card</string>
-    <string name="account_type_virtual_acct">Virtual Account</string>
-    <string name="account_type_permanent_assets">Permanent Assets</string>
-    <string name="account_type_receivable">Receivable/Payable</string>
-    <string name="title_activity_record">Activity_Record</string>
+    <string name="Inflow">Inflow</string>
+    <string name="Outflow">Outflow</string>
 
 
 
@@ -223,7 +245,6 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
-
 
 
 </resources>

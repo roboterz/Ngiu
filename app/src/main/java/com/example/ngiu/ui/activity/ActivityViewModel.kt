@@ -3,6 +3,7 @@ package com.example.ngiu.ui.activity
 import android.content.Context
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.example.ngiu.data.AppDatabase
 import com.example.ngiu.data.entities.Trans
@@ -43,7 +44,7 @@ class ActivityViewModel : ViewModel() {
         val toDate = lDate.plusMonths(1).format(formatter)
 
         monthExpense = AppDatabase.getDatabase(context).trans().getMonthExpense(fromDate, toDate)
-        //budget =
+        // budget
         monthIncome = AppDatabase.getDatabase(context).trans().getMonthIncome(fromDate, toDate)
         transactionDetail = AppDatabase.getDatabase(context).trans().getAllTrans()
     }
@@ -51,3 +52,4 @@ class ActivityViewModel : ViewModel() {
 
 
 }
+

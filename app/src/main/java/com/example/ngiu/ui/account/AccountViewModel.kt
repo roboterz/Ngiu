@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.ngiu.data.AppDatabase
 import com.example.ngiu.data.entities.Trans
+import com.example.ngiu.functions.calculateAmount
 import com.example.ngiu.ui.account.model.AccountSectionUiModel
 
 
@@ -63,16 +64,19 @@ class AccountViewModel : ViewModel() {
     fun getAccountSectionUiModel(context: Context){
         val appDatabase = AppDatabase.getDatabase(context)
         val allTypes = appDatabase.accounttype().getAllAccountTypes()
-        val allAccounts = appDatabase.account().getAllAccount()
+        val allAccounts = appDatabase.account().getAllAccountASC()
         val sections = ArrayList<AccountSectionUiModel>()
         // group the AccountType_ID; setting key,value
+        // key:value = accounttype_id : list of all accounts with same accounttype_id
         allAccounts.groupBy { it.AccountType_ID }
             .forEach { item->
-                // search the list of account type table to match with a accounttype_id
+                // search the list of account type table to match with accounttype_id
                 val accountType = allTypes.find { it.AccountType_ID ==  item.key}
-                // add the value for all the same accounttype_id
+
+                // Individual accounts calculation
+                // get all the transaction base off account_ID and aggregate the new balance
                 item.value.forEach {
-                    // val sum1 = appDatabase.trans().getTotalSumA(it.Account_ID)
+                    // gets the sum of AccountRecipient_ID == Account_ID
                     val sum2 = appDatabase.trans().getTotalSumB(it.Account_ID)
                     it.Account_Balance += sum2
 
@@ -83,23 +87,16 @@ class AccountViewModel : ViewModel() {
                             it.Account_Balance = calculateAmount(it.Account_Balance,tran)
                         }
                 }
-                // store the total sum of each account
+                // store the total sum of each account base off accounttype_id
                 val totalSum = item.value.sumOf { it.Account_Balance }
+
                 // store the data to the Model
-                val sectionModel = AccountSectionUiModel(accountType?.AccountType_Name.orEmpty(), "%.2f".format(totalSum),true, item.value)
+                val sectionModel = AccountSectionUiModel(accountType?.AccountType_Name.orEmpty(), "$"+"%.2f".format(totalSum),true, item.value)
                 sections.add(sectionModel)
 
             }
         accountSections.value = sections
     }
 
-    // balance is the account original balance
-    // add/subtract base off transaction type ID
-    fun calculateAmount(balance: Double, tran: Trans): Double{
-        return when(tran.TransactionType_ID){
-            in arrayOf<Long>(1,3)-> balance - tran.Transaction_Amount
-            in arrayOf<Long>(2,4)-> balance + tran.Transaction_Amount
-            else -> balance
-        }
-    }
+
 }

@@ -5,11 +5,11 @@
     android:id="@+id/card_view_transaction"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="0.5dp"
+    android:layout_marginBottom="1dp"
     app:cardBackgroundColor="@color/app_section_background"
     app:cardCornerRadius="0dp"
-    app:cardElevation="5dp"
-    app:cardMaxElevation="7dp">
+    app:cardElevation="1dp"
+    app:cardMaxElevation="5dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_transaction_item"
@@ -42,7 +42,7 @@
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvName"
+            app:layout_constraintTop_toBottomOf="@id/tvTrans_month_day"
             tools:text="11" />
 
         <TextView
@@ -277,79 +277,6 @@
             tools:text="$15.75" />
 
 
-
-        <TextView
-            android:id="@+id/tvTrans_month_income"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:singleLine="true"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvName"
-            tools:text="time" />
-
-        <TextView
-            android:id="@+id/tvTrans_month_income_amount"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:singleLine="true"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvName"
-            tools:text="time" />
-
-        <TextView
-            android:id="@+id/tvTrans_month_expense"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:singleLine="true"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvName"
-            tools:text="time" />
-
-        <TextView
-            android:id="@+id/tvTrans_month_expense_amount"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:singleLine="true"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvName"
-            tools:text="time" />
-
-        <TextView
-            android:id="@+id/tvTrans_month_balance"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:singleLine="true"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvName"
-            tools:text="time" />
-
-        <TextView
-            android:id="@+id/tvTrans_month_balance_amount"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:singleLine="true"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvName"
-            tools:text="time"
-            tools:ignore="NotSibling" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

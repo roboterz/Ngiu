@@ -87,6 +87,11 @@ class SettingFragment : Fragment() {
             // switch to category manage fragment
             findNavController().navigate(R.id.navigation_mpp_manage)
         }
+
+        binding.tvSettingNgiu.setOnClickListener {
+            // todo
+
+        }
     }
 
 

@@ -9,9 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,7 +21,6 @@ import com.example.ngiu.data.entities.Merchant
 import com.example.ngiu.data.entities.Person
 import com.example.ngiu.data.entities.Project
 import com.example.ngiu.databinding.FragmentMerchantPersonProjectManageBinding
-import kotlinx.android.synthetic.main.fragment_category_manage.*
 import kotlinx.android.synthetic.main.fragment_merchant_person_project_manage.*
 import kotlinx.android.synthetic.main.popup_title.view.*
 

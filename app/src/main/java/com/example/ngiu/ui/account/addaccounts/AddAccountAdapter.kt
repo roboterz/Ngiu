@@ -1,74 +1,129 @@
 package com.example.ngiu.ui.account.addaccounts
 
-import android.content.Context
+
+import android.annotation.SuppressLint
+import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
+import android.widget.TextView
 import androidx.navigation.findNavController
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
-import com.example.ngiu.databinding.AccountAddAccountItemBinding
 import com.example.ngiu.ui.account.model.AccountTypeUIModel
+import kotlinx.android.synthetic.main.cardview_account_add_account_item.view.*
 
 
-class AddAccountAdapter(val context: Context) :
-    ListAdapter<AccountTypeUIModel, AddAccountAdapter.AddAccountViewHolder>(DiffCallback()) {
+class AddAccountAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    private val accountType = ArrayList<AccountTypeUIModel>()
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddAccountViewHolder {
-        return AccountAddAccountItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-            .run {
-                val holder = AddAccountViewHolder(this);
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.cardview_account_add_account_item, parent, false)
+        return AddAccountViewHolder(view)
 
-                this.root.setOnClickListener {
-                    when (holder.adapterPosition) {
-                        0 -> holder.itemView.findNavController().navigate(R.id.addCashFragment)
-                        1 -> holder.itemView.findNavController().navigate(R.id.addCreditFragment)
-                        2 -> holder.itemView.findNavController().navigate(R.id.addDebitFragment)
-                        //3 -> supposed to be investment
-                        3 -> holder.itemView.findNavController().navigate(R.id.addDebitFragment)
-                        4 -> holder.itemView.findNavController().navigate(R.id.addWebAccountFragment)
-                        //5-> supposed to be store value
-                        5 -> holder.itemView.findNavController().navigate(R.id.addVirtualAccountFragment)
-                        6 -> holder.itemView.findNavController().navigate(R.id.addVirtualAccountFragment)
-                        7 -> holder.itemView.findNavController().navigate(R.id.addPermanentAssetFragment)
-                        //8-> supposed to be receivable/payable
-                        8 -> holder.itemView.findNavController().navigate(R.id.addPermanentAssetFragment)
-                    }
-                }
-
-                holder
-            }
     }
 
-    override fun onBindViewHolder(holder: AddAccountViewHolder, position: Int) {
-        holder.bind(getItem(position))
-    }
 
-    inner class AddAccountViewHolder(private val binding: AccountAddAccountItemBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        // Display memo if account type has memo
-        fun bind(uiModel: AccountTypeUIModel) {
-            binding.tvAccountTypeTitle.text = uiModel.Name
-            if (!uiModel.Memo.isNullOrBlank()) {
-                binding.tvAcctTypeSubTitle.isVisible = true
-                binding.tvAcctTypeSubTitle.text = uiModel.Name
-            }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        val item = accountType[position]
+        val viewHolder = holder as AddAccountViewHolder
+
+        viewHolder.acctTypeTitle.text = item.Name
+        if(!item.Memo.isNullOrBlank()){
+            viewHolder.acctTypeSubTitle.text = item.Memo
+            viewHolder.acctTypeSubTitle.visibility = View.VISIBLE
         }
 
+        holder.itemView.setOnClickListener {
+            when (holder.absoluteAdapterPosition) {
+                //cash
+                0 -> {
+                    val bundle = Bundle().apply {
+                        putString("page", "add_cash")
+                    }
+                    holder.itemView.findNavController().navigate(R.id.addCashFragment, bundle)
+                }
+                //credit
+                1 -> {
+                    val bundle = Bundle().apply {
+                        putString("page", "add_credit")
+                    }
+                    holder.itemView.findNavController().navigate(R.id.addCreditFragment, bundle)
+                }
+                //debit
+                2 -> {
+                    val bundle = Bundle().apply {
+                        putString("page", "add_debit")
+                    }
+                    holder.itemView.findNavController().navigate(R.id.addDebitFragment, bundle)
+                }
+                // investment account
+                3 -> {
+                    val bundle = Bundle().apply {
+                        putString("page", "add_investment")
+                    }
+                    holder.itemView.findNavController().navigate(R.id.addWebAccountFragment, bundle)
+                }
+                // web account
+                4 -> {
+                    val bundle = Bundle().apply {
+                        putString("page", "add_web")
+                    }
+                    holder.itemView.findNavController().navigate(R.id.addWebAccountFragment, bundle)
+                }
+                //store valued card
+                5 -> {
+                    val bundle = Bundle().apply {
+                        putString("page", "add_valueCard")
+                    }
+                    holder.itemView.findNavController().navigate(R.id.addPermanentAssetFragment, bundle)
+                }
+                // virtual account
+                6 -> {
+                    val bundle = Bundle().apply {
+                        putString("page", "add_virtual")
+                    }
+                    holder.itemView.findNavController().navigate(R.id.addWebAccountFragment, bundle)
+                }
+                // permanent assets
+                7 -> {
+                    val bundle = Bundle().apply {
+                        putString("page", "add_perm")
+                    }
+                    holder.itemView.findNavController().navigate(R.id.addPermanentAssetFragment, bundle)
+                }
+                //receivable/payable
+                8 ->  {
+                    val bundle = Bundle().apply {
+                        putString("page", "add_payable")
+                    }
+                    holder.itemView.findNavController().navigate(R.id.addCashFragment, bundle)}
+            }
+
+        }
     }
 
-    //check to see if items and contents are the same
-    private class DiffCallback : DiffUtil.ItemCallback<AccountTypeUIModel>() {
-        override fun areItemsTheSame(
-            oldItem: AccountTypeUIModel,
-            newItem: AccountTypeUIModel,
-        ): Boolean = oldItem.Name == newItem.Memo
-
-        override fun areContentsTheSame(
-            oldItem: AccountTypeUIModel,
-            newItem: AccountTypeUIModel,
-        ): Boolean = oldItem == newItem
+    override fun getItemCount(): Int {
+        return accountType.size
     }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun addItems(data: List<AccountTypeUIModel>){
+        accountType.clear()
+        accountType.addAll(data)
+        notifyDataSetChanged()
+    }
+
+    inner class AddAccountViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val acctTypeTitle: TextView = itemView.tv_account_type_title
+        val acctTypeSubTitle: TextView = itemView.tv_acct_type_subTitle
+
+    }
+
+
+
 }

@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
 import com.example.ngiu.ui.account.model.AccountSectionUiModel
 import kotlinx.android.synthetic.main.cardview_account_header_item.view.*
-import kotlinx.android.synthetic.main.account_section_item.view.*
+import kotlinx.android.synthetic.main.cardview_account_section_item.view.*
 
 
 class AccountSectionAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -20,13 +20,13 @@ class AccountSectionAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.account_section_item, parent, false);
+            .inflate(R.layout.cardview_account_section_item, parent, false);
         return AccountSectionViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = accountItems[position]
-        val viewHolder = holder as AccountSectionViewHolder;
+        val viewHolder = holder as AccountSectionViewHolder
         viewHolder.accountHeaderType.text = item.title
         viewHolder.accountHeaderBalance.text = item.balance
         viewHolder.foldItems(item.isExpanded)
@@ -34,6 +34,7 @@ class AccountSectionAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             item.isExpanded = !item.isExpanded
             viewHolder.foldItems(item.isExpanded)
         }
+
         val context = viewHolder.rvAccounts.context
         val adapter = AccountAdapter()
         viewHolder.rvAccounts.layoutManager = LinearLayoutManager(context)
