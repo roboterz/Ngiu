@@ -26,7 +26,6 @@ class AddWebAccountFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var addCashViewModel: AddCashViewModel
     var currency = "USD"
-
     private var balance: Double = 0.0
     lateinit var page: String
     var accountTypeID : Long = 0L
@@ -68,10 +67,7 @@ class AddWebAccountFragment : Fragment() {
                 binding.toolbarAddWebAccount.title = "Edit Investment Account"
                 binding.toolbarAddWebAccount.menu.findItem(R.id.action_delete).isVisible = true
                 accountTypeID = 4L
-
                 id = arguments?.getLong("id")!!
-                binding.tetWebBalance.isEnabled = false
-                binding.btnWebAddOtherCurrency.isEnabled = false
                 fetchAccountDetails(id)
             }
             "add_web" -> {
@@ -83,8 +79,6 @@ class AddWebAccountFragment : Fragment() {
                 binding.toolbarAddWebAccount.menu.findItem(R.id.action_delete).isVisible = true
                 accountTypeID = 5L
                 id = arguments?.getLong("id")!!
-                binding.tetWebBalance.isEnabled = false
-                binding.btnWebAddOtherCurrency.isEnabled = false
                 fetchAccountDetails(id)
             }
             "add_virtual" -> {
@@ -96,8 +90,6 @@ class AddWebAccountFragment : Fragment() {
                 binding.toolbarAddWebAccount.menu.findItem(R.id.action_delete).isVisible = true
                 accountTypeID = 7L
                 id = arguments?.getLong("id")!!
-                binding.tetWebBalance.isEnabled = false
-                binding.btnWebAddOtherCurrency.isEnabled = false
                 fetchAccountDetails(id)
             }
 
@@ -114,7 +106,7 @@ class AddWebAccountFragment : Fragment() {
     private fun fetchAccountDetails(id: Long) {
         val account =  addCashViewModel.getAccountByID(requireContext(),id)
         binding.tetWebAccountName.setText(account.Account_Name)
-        binding.tetWebBalance.setText("%.2f".format(balance))
+        binding.tetWebBalance.setText(account.Account_Balance.toString())
         binding.tetWebMemo.setText(account.Account_Memo)
         binding.tetWebUserID.setText(account.Account_CardNumber)
 

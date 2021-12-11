@@ -106,22 +106,7 @@
                     android:textColor="@color/app_option_text"
                     android:textSize="15sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tvCreditStateDayValue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginRight="90dp"
-                    android:text="@string/statement_day"
-                    android:padding="5dp"
-                    android:textColor="@color/app_option_text"
-                    android:textSize="15sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/tvCreditStateDay"
-                    app:layout_constraintTop_toTopOf="parent"
-                     />
+                    app:layout_constraintTop_toTopOf="parent"/>
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -149,20 +134,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/tvCreditPaymentDayValue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:padding="5dp"
-                    android:layout_marginRight="90dp"
-                    android:text="@string/payment_day"
-                    android:textColor="@color/app_option_text"
-                    android:textSize="15sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    />
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -270,12 +242,12 @@
                     android:text="@string/option_title_count_in_net_assets"
                     android:textColor="@color/app_option_text"
                     android:textSize="15sp"
-                    app:layout_constraintEnd_toStartOf="@+id/scCashCountNetAssets"
+                    app:layout_constraintEnd_toStartOf="@+id/scCreditCountNetAssets"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/scCashCountNetAssets"
+                    android:id="@+id/scCreditCountNetAssets"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:background="@color/app_section_background"

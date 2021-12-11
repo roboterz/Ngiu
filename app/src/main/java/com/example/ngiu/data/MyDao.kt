@@ -22,11 +22,19 @@ interface AccountDao {
     fun deleteAccount(account: Account)
 
     @Query("DELETE FROM Account WHERE  Account_ID = :rID")
-    fun deleteById(rID:Long)
+    fun deleteAccountById(rID:Long)
+
+    @Query("DELETE FROM Trans WHERE  Account_ID = :rID")
+    fun deleteRecordByID(rID:Long)
+
 
     @Transaction
-    @Query("SELECT * FROM Account")
+    @Query("SELECT * FROM Account ")
     fun getAllAccount(): List<Account>
+
+    @Transaction
+    @Query("SELECT * FROM Account ORDER BY AccountType_ID ASC ")
+    fun getAllAccountASC(): List<Account>
 
     // get a record BY ID
     @Transaction

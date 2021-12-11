@@ -28,14 +28,26 @@ class AccountAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val VIEW_TYPE_CREDIT: Int = 1
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        if (viewType == VIEW_TYPE_CREDIT) {
-            val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.cardview_account_credit_card_item, parent, false)
-            return CreditViewHolder(view)
+
+        return when (viewType) {
+            VIEW_TYPE_CASH -> {
+                val view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.cardview_account_cash_item, parent, false)
+                CashViewHolder(view)
+            }
+            VIEW_TYPE_CREDIT -> {
+                val view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.cardview_account_credit_card_item, parent, false)
+                CreditViewHolder(view)
+            }
+            else -> {
+                val view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.cardview_account_cash_item, parent, false)
+                CashViewHolder(view)
+            }
         }
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.cardview_account_cash_item, parent, false)
-        return CashViewHolder(view)
+
+
     }
 
     @SuppressLint("SetTextI18n")
@@ -45,12 +57,6 @@ class AccountAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             val viewHolder: CashViewHolder = holder
             viewHolder.accountTypeTitle.text = item.Account_Name
             changeColor(viewHolder.accountCashBalance, item.Account_Balance)
-
-
-            /* condition for recievable/payable
-                if(item.AccountType_ID == 9L){
-
-                }*/
 
         } else if (holder is CreditViewHolder) {
             val viewHolder: CreditViewHolder = holder
@@ -116,10 +122,10 @@ class AccountAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun getItemViewType(position: Int): Int {
         val item: Account = accounts[position]
-        return if (item.AccountType_ID == 2L || item.AccountType_ID == 3L) {
-            VIEW_TYPE_CREDIT
-        } else {
-            VIEW_TYPE_CASH
+       return when(item.AccountType_ID) {
+            1L -> VIEW_TYPE_CASH
+            in 2..3L -> VIEW_TYPE_CREDIT
+            else -> VIEW_TYPE_CASH
         }
     }
 
@@ -139,8 +145,6 @@ class AccountAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     inner class CashViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val accountTypeTitle: TextView = itemView.tvCashAccountName
         val accountCashBalance: TextView = itemView.tvAccountCashBalance
-        val lend: TextView = itemView.tvLend
-        val borrow: TextView = itemView.tvBorrow
 
     }
 
