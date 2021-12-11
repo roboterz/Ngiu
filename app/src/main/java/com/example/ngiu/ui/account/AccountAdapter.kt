@@ -93,6 +93,7 @@ class AccountAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             }
         }
 
+
         holder.itemView.setOnClickListener {
             val bundle = Bundle().apply {
                 putLong("accountId", item.Account_ID)
