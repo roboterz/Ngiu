@@ -5,8 +5,8 @@
     android:id="@+id/card_view_transaction"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="1dp"
-    app:cardBackgroundColor="@color/app_list_background"
+    android:layout_marginBottom="0dp"
+    app:cardBackgroundColor="@color/app_section_background"
     app:cardCornerRadius="0dp"
     app:cardElevation="1dp"
     app:cardMaxElevation="5dp">
@@ -17,7 +17,7 @@
         android:paddingStart="5dp"
         android:paddingEnd="15dp"
         android:paddingVertical="6dp"
-        android:background="@color/app_section_background"
+        android:background="?android:attr/selectableItemBackground"
         >
 
         <ImageView
