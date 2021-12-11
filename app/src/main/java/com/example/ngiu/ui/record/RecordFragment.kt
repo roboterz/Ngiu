@@ -439,7 +439,11 @@ class RecordFragment : Fragment() {
             7L, 10L -> {
                 if (payable){
                     // create P/R account
-                    // todo create P/R account
+                    val bundle = Bundle().apply {
+                        putString("page", "add_payable")
+                    }
+                    findNavController().navigate(R.id.addCashFragment, bundle)
+
                 }else{
                     findNavController().navigate(R.id.navigation_add_account)
                 }
@@ -449,6 +453,11 @@ class RecordFragment : Fragment() {
                 if (!payable) {
                     // create P/R account
                     // todo create P/R account
+                    val bundle = Bundle().apply {
+                        putString("page", "add_payable")
+                    }
+                    findNavController().navigate(R.id.addCashFragment, bundle)
+
                 }else{
                     findNavController().navigate(R.id.navigation_add_account)
                 }
@@ -666,6 +675,9 @@ class RecordFragment : Fragment() {
         }
 
          */
+        //
+        tv_record_category.text = recordViewModel.getSubCategoryName()
+
 
         when (recordViewModel.transDetail.TransactionType_ID) {
             1L,2L -> {
@@ -689,11 +701,31 @@ class RecordFragment : Fragment() {
                 tv_record_account_receive.visibility = View.VISIBLE
                 tv_record_common_category.visibility = View.GONE
                 tv_record_all_category.visibility = View.GONE
+
+                /*
+                val listPRName = recordViewModel.getPRAccountList()
+                when (recordViewModel.getSubCategoryID(recordViewModel.transDetail.SubCategory_Name)) {
+                    // borrow in | received
+                    7L, 10L -> {
+                        if (listPRName.isEmpty()) {
+                            if (recordViewModel.account.isNotEmpty()){
+                                recordViewModel.transDetail.Account_Name = recordViewModel.account[0].Account_Name
+                            }else{
+                                recordViewModel.transDetail.Account_Name =  "No Account"
+                            }
+                        }
+                    }
+                    // lend out | repayment
+                    8L, 9L -> {
+
+                    }
+                }
+
+                 */
             }
         }
 
-        //
-        tv_record_category.text = recordViewModel.getSubCategoryName()
+
 
     }
 

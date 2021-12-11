@@ -5,11 +5,11 @@
     android:id="@+id/card_view_transaction"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="0.5dp"
+    android:layout_marginBottom="1dp"
     app:cardBackgroundColor="@color/app_section_background"
     app:cardCornerRadius="0dp"
-    app:cardElevation="5dp"
-    app:cardMaxElevation="7dp">
+    app:cardElevation="1dp"
+    app:cardMaxElevation="5dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_transaction_item"

@@ -26,7 +26,6 @@
         android:id="@+id/addDebitLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:padding="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbarAddDebitAccount">
 
@@ -37,7 +36,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/option_title_account_name"
             app:counterEnabled="true"
-            app:counterMaxLength="15"
+            app:counterMaxLength="50"
             app:endIconMode="clear_text"
             app:helperText="Required*"
             app:helperTextTextColor="@color/app_expense_amount"
@@ -51,7 +50,7 @@
                 android:layout_width="match_parent"
                 android:background="@color/app_section_background"
                 android:layout_height="wrap_content"
-                android:maxLength="15">
+                android:maxLength="50">
 
             </com.google.android.material.textfield.TextInputEditText>
 
@@ -67,7 +66,6 @@
             app:counterEnabled="true"
             app:counterMaxLength="16"
             app:endIconMode="clear_text"
-            app:helperText="Required*"
             app:helperTextTextColor="@color/app_expense_amount"
             app:layout_constraintTop_toBottomOf="@+id/debitAccountNameTextLayout"
             app:layout_constraintBottom_toTopOf="@id/debitBalanceTextLayout"
