@@ -67,13 +67,16 @@ class AccountViewModel : ViewModel() {
         val allAccounts = appDatabase.account().getAllAccountASC()
         val sections = ArrayList<AccountSectionUiModel>()
         // group the AccountType_ID; setting key,value
+        // key:value = accounttype_id : list of all accounts with same accounttype_id
         allAccounts.groupBy { it.AccountType_ID }
             .forEach { item->
-                // search the list of account type table to match with a accounttype_id
+                // search the list of account type table to match with accounttype_id
                 val accountType = allTypes.find { it.AccountType_ID ==  item.key}
-                // add the value for all the same accounttype_id
+
+                // Individual accounts calculation
+                // get all the transaction base off account_ID and aggregate the new balance
                 item.value.forEach {
-                  /*  val sum1 = appDatabase.trans().getTotalSumA(it.Account_ID)*/
+                    // gets the sum of AccountRecipient_ID == Account_ID
                     val sum2 = appDatabase.trans().getTotalSumB(it.Account_ID)
                     it.Account_Balance += sum2
 
@@ -84,7 +87,7 @@ class AccountViewModel : ViewModel() {
                             it.Account_Balance = calculateAmount(it.Account_Balance,tran)
                         }
                 }
-                // store the total sum of each account
+                // store the total sum of each account base off accounttype_id
                 val totalSum = item.value.sumOf { it.Account_Balance }
 
                 // store the data to the Model

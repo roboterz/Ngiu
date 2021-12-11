@@ -71,10 +71,6 @@ class AccountDetailViewModel : ViewModel() {
                 //expense
                 else
                     rBalance += item.Transaction_Amount
-
-
-
-
             }
 
         accountRecordsList.value = accountTransRecordList
