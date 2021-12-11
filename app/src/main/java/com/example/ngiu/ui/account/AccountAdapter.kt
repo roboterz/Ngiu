@@ -110,7 +110,7 @@ class AccountAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                     holder.itemView.findNavController().navigate(R.id.accountCreditRecords, bundle)
                 }
                 9L -> {
-                    holder.itemView.findNavController().navigate(R.id.accountRecordsPR)
+                    holder.itemView.findNavController().navigate(R.id.accountRecordsPR, bundle)
                 }
                 else -> {
                     holder.itemView.findNavController().navigate(R.id.accountRecords, bundle)

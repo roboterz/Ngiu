@@ -517,7 +517,7 @@ interface TransDao {
         FROM Trans 
         WHERE TransactionType_ID = 4 
             AND SubCategory_ID = :subCateID
-            AND Account_ID = :acctID OR AccountRecipient_ID = :acctID
+            AND (Account_ID = :acctID OR AccountRecipient_ID = :acctID)
         """)
     fun getTotalAmountFromPRAccountBYSubCategoryID(acctID:Long, subCateID: Long): Double
 

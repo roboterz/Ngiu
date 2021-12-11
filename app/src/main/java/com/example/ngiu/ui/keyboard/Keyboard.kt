@@ -26,6 +26,7 @@ class Keyboard(view: View){
 
     @SuppressLint("SetTextI18n")
     fun initKeys(echoView: TextView) {
+        if (echoView.text.isEmpty()) echoView.text = "0.00"
         dot = echoView.text.length - echoView.text.lastIndexOf('.')
         if (dot >0) {
             if (echoView.text.last() == '0') {

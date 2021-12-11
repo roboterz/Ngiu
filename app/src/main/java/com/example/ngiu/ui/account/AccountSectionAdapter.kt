@@ -2,19 +2,17 @@ package com.example.ngiu.ui.account
 
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
 import com.example.ngiu.ui.account.model.AccountSectionUiModel
 import kotlinx.android.synthetic.main.cardview_account_header_item.view.*
-import kotlinx.android.synthetic.main.account_section_item.view.*
+import kotlinx.android.synthetic.main.cardview_account_section_item.view.*
 
 
 class AccountSectionAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -22,7 +20,7 @@ class AccountSectionAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.account_section_item, parent, false);
+            .inflate(R.layout.cardview_account_section_item, parent, false);
         return AccountSectionViewHolder(view)
     }
 

@@ -1,34 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tool="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true">
-    <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarAddCreditAccount"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/app_list_background">
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbarAddCreditAccount"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="?attr/colorPrimary"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:menu="@menu/title_menu"
-            app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
-            app:titleTextAppearance="@style/Toolbar.TitleText"
-            app:title="@string/nav_title_add_credit_card" />
+        android:layout_height="45dp"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintTop_toTopOf="parent"
+        app:menu="@menu/title_menu"
+        app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
+        app:titleTextAppearance="@style/Toolbar.TitleText"
+        app:title="@string/nav_title_add_credit_card" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarAddCreditAccount"
+        app:layout_constraintBottom_toTopOf="@+id/btnSaveCash">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/addCreditLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/toolbarAddCreditAccount"
+            android:background="@color/app_list_background"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
@@ -51,6 +54,8 @@
                     android:id="@+id/tetCreditAccountName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="15dp"
                     android:background="@color/app_section_background"
                     android:maxLength="50">
 
@@ -63,6 +68,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="-4dp"
                 android:hint="@string/option_title_card_number"
                 app:counterEnabled="true"
                 app:counterMaxLength="16"
@@ -76,10 +82,13 @@
                     android:id="@+id/tetCreditCardNumber"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="15dp"
                     android:background="@color/app_section_background"
                     android:digits="0123456789"
                     android:inputType="numberDecimal"
-                    android:maxLength="16">
+                    android:maxLength="16"
+                    tool:ignore="RtlSymmetry">
 
                 </com.google.android.material.textfield.TextInputEditText>
             </com.google.android.material.textfield.TextInputLayout>
@@ -88,7 +97,6 @@
                 android:id="@+id/addCreditStatementDayLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:background="@color/app_section_background"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -99,13 +107,16 @@
                     android:id="@+id/tvCreditStateDay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableEnd="@drawable/ic_baseline_arrow_right_24"
-                    android:padding="20dp"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="10dp"
+                    android:paddingVertical="15dp"
                     android:text="@string/option_title_statement_day"
                     android:textColor="@color/app_option_text"
                     android:textSize="15sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:drawableEndCompat="@drawable/ic_baseline_keyboard_arrow_right_24"
+                    app:drawableTint="@color/app_icon_light" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -114,7 +125,7 @@
                 android:id="@+id/addCreditPaymentDayLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="1dp"
                 android:background="@color/app_section_background"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -125,13 +136,16 @@
                     android:id="@+id/tvCreditPaymentDay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableEnd="@drawable/ic_baseline_arrow_right_24"
-                    android:padding="20dp"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="10dp"
+                    android:paddingVertical="15dp"
                     android:text="@string/option_title_payment_day"
                     android:textColor="@color/app_option_text"
                     android:textSize="15sp"
+                    app:drawableEndCompat="@drawable/ic_baseline_keyboard_arrow_right_24"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:drawableTint="@color/app_icon_light" />
 
 
 
@@ -142,6 +156,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="-4dp"
                 android:hint="@string/option_title_credit_limit"
                 app:endIconMode="clear_text"
                 app:suffixText="@string/account_balance_suffix"
@@ -154,6 +169,8 @@
                     android:id="@+id/tetCreditLimit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="15dp"
                     android:background="@color/app_section_background"
                     android:digits=".0123456789"
                     android:inputType="numberDecimal">
@@ -170,6 +187,7 @@
                 android:textAllCaps="true"
                 android:textColor="@color/app_option_text"
                 android:textSize="11sp"
+                android:visibility="gone"
                 app:backgroundTint="@color/app_section_background"
                 app:icon="@drawable/ic_baseline_add_circle_24"
                 app:iconGravity="textStart"
@@ -185,6 +203,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="-4dp"
                 android:hint="@string/option_title_current_arrears"
                 app:endIconMode="clear_text"
                 app:suffixText="@string/account_balance_suffix"
@@ -197,6 +216,8 @@
                     android:id="@+id/tetCreditArrears"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="15dp"
                     android:background="@color/app_section_background"
                     android:digits=".0123456789"
                     android:inputType="numberDecimal"
@@ -214,6 +235,7 @@
                 android:textAllCaps="true"
                 android:textColor="@color/app_option_text"
                 android:textSize="11sp"
+                android:visibility="gone"
                 app:backgroundTint="@color/app_section_background"
                 app:icon="@drawable/ic_baseline_add_circle_24"
                 app:iconGravity="textStart"
@@ -228,6 +250,7 @@
                 android:id="@+id/addCreditCountNetAssetsLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:background="@color/app_section_background"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -241,14 +264,18 @@
                     android:text="@string/option_title_count_in_net_assets"
                     android:textColor="@color/app_option_text"
                     android:textSize="15sp"
+                    android:paddingStart="20dp"
+                    android:paddingVertical="15dp"
                     app:layout_constraintEnd_toStartOf="@+id/scCreditCountNetAssets"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tool:ignore="RtlSymmetry" />
 
                 <androidx.appcompat.widget.SwitchCompat
                     android:id="@+id/scCreditCountNetAssets"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingEnd="10dp"
                     android:background="@color/app_section_background"
                     android:checked="true"
                     android:enabled="true"
@@ -256,7 +283,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/tvCashCountNetAssets"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tool:ignore="RtlSymmetry" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -274,13 +302,16 @@
                     android:id="@+id/tvCreditAdvanced"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableEnd="@drawable/ic_baseline_arrow_right_24"
-                    android:padding="20dp"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="10dp"
+                    android:paddingVertical="15dp"
                     android:text="@string/option_title_advanced"
                     android:textColor="@color/app_option_text"
                     android:textSize="15sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:drawableEndCompat="@drawable/ic_baseline_keyboard_arrow_right_24"
+                    app:drawableTint="@color/app_icon_light" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -290,6 +321,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:hint="@string/option_memo"
                 app:counterEnabled="true"
                 app:counterMaxLength="100"
@@ -302,6 +334,7 @@
                     android:id="@+id/tetCreditMemo"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
+                    android:paddingHorizontal="20dp"
                     android:inputType="text"
                     android:background="@color/app_section_background"
                     android:maxLength="100"
@@ -310,34 +343,26 @@
                 </com.google.android.material.textfield.TextInputEditText>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/creditMemoLayout"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="230dp">
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnSaveCash"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/option_save"
-                    android:textAllCaps="true"
-                    android:textColor="@color/app_button_text"
-                    android:textSize="11sp"
-                    app:backgroundTint="@color/app_section_background"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent">
 
-                </com.google.android.material.button.MaterialButton>
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
-</ScrollView>
+    </ScrollView>
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSaveCash"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/option_save"
+        android:textAllCaps="true"
+        android:textColor="@color/app_button_text"
+        android:textSize="11sp"
+        app:backgroundTint="@color/app_section_background"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+    </com.google.android.material.button.MaterialButton>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

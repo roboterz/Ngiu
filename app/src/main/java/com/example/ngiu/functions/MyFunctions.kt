@@ -21,7 +21,6 @@ import androidx.navigation.findNavController
 import com.example.ngiu.R
 import com.example.ngiu.data.AppDatabase
 import com.example.ngiu.data.entities.Trans
-import com.example.ngiu.databinding.AccountDetailCardviewBinding.inflate
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.fragment_record.*
 import kotlinx.android.synthetic.main.popup_title.view.*

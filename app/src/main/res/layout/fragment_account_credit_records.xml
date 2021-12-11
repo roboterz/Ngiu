@@ -116,13 +116,13 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_account_detail_current_arrears"
                 app:layout_constraintWidth_percent="0.5"
-                tools:text="$178.30" />
+                tools:text="@string/amount_zero_with_dollar_sign" />
 
             <TextView
                 android:id="@+id/tv_account_detail_available_credit_limit_value"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="$4821.70"
+                android:text="@string/amount_zero_with_dollar_sign"
                 android:textAlignment="center"
                 android:textColor="@color/app_title_text"
                 android:textSize="22sp"

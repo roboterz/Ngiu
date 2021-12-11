@@ -23,7 +23,7 @@
         android:id="@+id/layout_account_general_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="3dp"
+        android:paddingBottom="10dp"
         android:background="@color/app_list_background"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_account_general_detail">
 
@@ -82,7 +82,7 @@
                 android:id="@+id/tv_account_general_inflow"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:paddingBottom="5dp"
+                android:paddingBottom="10dp"
                 android:gravity="center"
                 android:text="@string/option_account_inflow"
                 android:textColor="@color/app_sub_line_text"
@@ -118,7 +118,7 @@
                 android:id="@+id/tv_account_general_outflow"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:paddingBottom="5dp"
+                android:paddingBottom="10dp"
                 android:gravity="center"
                 android:text="@string/option_account_outflow"
                 android:textColor="@color/app_sub_line_text"

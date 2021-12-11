@@ -10,9 +10,8 @@ import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
-import com.example.ngiu.ui.account.AccountSectionAdapter
 import com.example.ngiu.ui.account.model.AccountTypeUIModel
-import kotlinx.android.synthetic.main.account_add_account_item.view.*
+import kotlinx.android.synthetic.main.cardview_account_add_account_item.view.*
 
 
 class AddAccountAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -22,7 +21,7 @@ class AddAccountAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddAccountViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.account_add_account_item, parent, false)
+            .inflate(R.layout.cardview_account_add_account_item, parent, false)
         return AddAccountViewHolder(view)
 
     }

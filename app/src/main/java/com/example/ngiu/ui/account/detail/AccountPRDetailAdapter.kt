@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.Account
 import com.example.ngiu.data.entities.Trans
+import com.example.ngiu.data.entities.returntype.RecordDetail
 import com.example.ngiu.data.entities.returntype.TransactionDetail
 import com.example.ngiu.ui.account.model.AccountTransRecordModel
 import kotlinx.android.synthetic.main.cardview_account_p_r_detail_item.view.*
@@ -24,7 +25,7 @@ class AccountPRDetailAdapter(
     )
     : RecyclerView.Adapter<AccountPRDetailAdapter.ViewHolder>() {
 
-        private var listPRDetail: List<Trans> = ArrayList()
+        private var listPRDetail: List<RecordDetail> = ArrayList()
 
         private val recordTimeFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm")
         private val groupDateFormatter = DateTimeFormatter.ofPattern("MM/yyyy")
@@ -51,7 +52,13 @@ class AccountPRDetailAdapter(
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             // display the custom class
             listPRDetail[position].apply {
-                holder.recordText.text = holder.itemView.context.getString(R.string.record_lend_to) + " $Account_ID"
+                when (SubCategory_ID){
+                    7L -> { holder.recordText.text = holder.itemView.context.getString(R.string.record_borrow_from) + " $Account_Name"}
+                    8L -> { holder.recordText.text = holder.itemView.context.getString(R.string.record_lend_to) + " $AccountRecipient_Name"}
+                    9L -> { holder.recordText.text = holder.itemView.context.getString(R.string.record_paid_to) + " $AccountRecipient_Name"}
+                    10L -> { holder.recordText.text = holder.itemView.context.getString(R.string.record_received_from) + " $Account_Name"}
+                }
+
                 holder.recordTime.text = Transaction_Date.format(recordTimeFormatter)
                 holder.recordAmount.text = "$" + "%.2f".format(Transaction_Amount)
                 holder.recordMemo.text = Transaction_Memo
@@ -76,7 +83,7 @@ class AccountPRDetailAdapter(
 
 
         @SuppressLint("NotifyDataSetChanged")
-        fun setList(list: List<Trans>){
+        fun setList(list: List<RecordDetail>){
             listPRDetail = list
             notifyDataSetChanged()
         }

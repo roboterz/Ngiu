@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowId
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.ViewModelProvider
@@ -25,6 +26,7 @@ import kotlinx.android.synthetic.main.fragment_account_add_cash.*
 import kotlinx.android.synthetic.main.fragment_account_p_r_detail.*
 import kotlinx.android.synthetic.main.fragment_account_records.*
 import kotlinx.android.synthetic.main.fragment_activity.*
+import kotlin.math.abs
 
 class AccountPRDetailFragment : Fragment() {
 
@@ -48,10 +50,12 @@ class AccountPRDetailFragment : Fragment() {
 
         _binding = FragmentAccountPRDetailBinding.inflate(inflater, container, false)
 
+        accountPRDetailViewModel.accountID = arguments?.getLong("accountId")!!
+        accountPRDetailViewModel.accountName = arguments?.getString("accountName")!!
+        accountPRDetailViewModel.accountTypeID = arguments?.getLong("accountType")!!
+
         // load data to ram
-        Thread {
-            accountPRDetailViewModel.loadDataToRam(requireContext(), 1L)
-        }.start()
+        accountPRDetailViewModel.loadDataToRam(requireContext())
 
         initAdapter()
 
@@ -128,7 +132,16 @@ class AccountPRDetailFragment : Fragment() {
         }.start()
 
         // show the info at title
-        tv_account_pr_balance.text = "$" + "%.2f".format(accountPRDetailViewModel.accountBalance)
+        if (accountPRDetailViewModel.accountBalance < 0){
+            tv_account_pr_owe.text = getString(R.string.option_account_owe_he)
+            tv_account_pr_balance.text = "$" + "%.2f".format(abs(accountPRDetailViewModel.accountBalance))
+            tv_account_pr_balance.setTextColor(ContextCompat.getColor(requireContext(), R.color.app_expense_amount))
+        }else{
+            tv_account_pr_owe.text = getString(R.string.option_account_owe_you)
+            tv_account_pr_balance.text = "$" + "%.2f".format(accountPRDetailViewModel.accountBalance)
+            tv_account_pr_balance.setTextColor(ContextCompat.getColor(requireContext(), R.color.app_income_amount))
+        }
+
         tv_account_pr_lend_amount.text = "$" + "%.2f".format(accountPRDetailViewModel.lendAmount)
         tv_account_pr_receive_amount.text = "$" + "%.2f".format(accountPRDetailViewModel.receiveAmount)
         tv_account_pr_borrow_amount.text = "$" + "%.2f".format(accountPRDetailViewModel.borrowAmount)

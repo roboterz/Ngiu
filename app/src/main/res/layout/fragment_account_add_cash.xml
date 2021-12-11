@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_list_background">
@@ -49,11 +50,13 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tetCashAccountName"
                     android:layout_width="match_parent"
-                    android:singleLine="true"
-                    android:hint="@string/option_title_account_name"
-                    android:background="@color/app_section_background"
                     android:layout_height="match_parent"
-                    android:maxLength="50">
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="15dp"
+                    android:background="@color/app_section_background"
+                    android:hint="@string/option_title_account_name"
+                    android:maxLength="50"
+                    android:singleLine="true">
 
                 </com.google.android.material.textfield.TextInputEditText>
 
@@ -64,6 +67,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="-4dp"
                 android:hint="@string/option_title_balance"
                 app:endIconMode="clear_text"
                 app:suffixText="@string/account_balance_suffix"
@@ -76,6 +80,8 @@
                     android:id="@+id/tetCashBalance"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="15dp"
                     android:singleLine="true"
                     android:background="@color/app_section_background"
                     android:digits="0123456789."
@@ -92,6 +98,7 @@
                 android:textAllCaps="true"
                 android:textColor="@color/app_option_text"
                 android:textSize="11sp"
+                android:visibility="gone"
                 app:backgroundTint="@color/app_section_background"
                 app:icon="@drawable/ic_baseline_add_circle_24"
                 app:iconGravity="textStart"
@@ -105,6 +112,7 @@
                 android:id="@+id/addCashCountNetAssetsLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
                 android:background="@color/app_section_background"
                 app:layout_constraintTop_toBottomOf="@+id/btnCashAddOtherCurrency"
                 app:layout_constraintBottom_toTopOf="@+id/cashMemoLayout">
@@ -114,6 +122,8 @@
                     android:id="@+id/tvCashCountNetAssets"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="15dp"
                     android:text="@string/option_title_count_in_net_assets"
                     android:textColor="@color/app_option_text"
                     android:textSize="15sp"
@@ -130,11 +140,13 @@
                     android:checked="true"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:paddingEnd="10dp"
                     android:background="@color/app_section_background"
                     android:foregroundTint="@color/app_title_background"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    tools:ignore="RtlSymmetry" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -144,6 +156,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:paddingTop="10dp"
                 android:hint="@string/option_memo"
                 app:counterEnabled="true"
                 app:counterMaxLength="100"

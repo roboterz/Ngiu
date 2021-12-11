@@ -56,7 +56,7 @@
                 android:layout_height="wrap_content"
                 android:singleLine="true"
                 android:textColor="@color/app_amount"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:text="Lend to Calvin"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
@@ -90,7 +90,7 @@
                 android:layout_height="wrap_content"
                 android:singleLine="true"
                 android:textColor="@color/app_option_text"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 app:layout_constraintTop_toTopOf="@+id/tv_account_pr_item_text"
                 app:layout_constraintEnd_toEndOf="parent"
                 tools:text="$15.75" />
