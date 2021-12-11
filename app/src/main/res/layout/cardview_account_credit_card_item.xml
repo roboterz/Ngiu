@@ -8,22 +8,23 @@
     app:cardBackgroundColor="@color/app_section_background"
     app:cardCornerRadius="0dp"
     app:cardElevation="1dp"
-    app:cardMaxElevation="7dp"
-    android:layout_margin="4dp">
+    app:cardMaxElevation="7dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="12dp"
+        android:paddingStart="30dp"
+        android:paddingEnd="15dp"
+        android:paddingVertical="10dp"
         android:background="@color/app_section_background">
         <ImageView
             android:id="@+id/ivCreditCardSymbol"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_baseline_credit_card_24"
-            android:layout_marginLeft="20dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/app_title_background" />
 
         <TextView
             android:id="@+id/tvCreditAccountName"

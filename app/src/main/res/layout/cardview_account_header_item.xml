@@ -5,15 +5,18 @@
     android:id="@+id/card_view_transaction"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="@color/app_section_background"
+    android:layout_marginBottom="1dp"
+    app:cardBackgroundColor="@color/app_list_background"
     app:cardCornerRadius="0dp"
-    app:cardElevation="3dp"
+    app:cardElevation="1dp"
     app:cardMaxElevation="5dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="12dp"
+        android:paddingStart="5dp"
+        android:paddingEnd="15dp"
+        android:paddingVertical="6dp"
         android:background="@color/app_section_background"
         >
 
@@ -26,7 +29,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            />
+            app:tint="@color/app_icon_light" />
 
         <ImageView
             android:id="@+id/ivCollapseRow"
@@ -45,6 +48,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:textColor="@color/app_text"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@id/ivExpandRow"
             app:layout_constraintStart_toEndOf="@+id/ivExpandRow"
             app:layout_constraintTop_toTopOf="@id/ivExpandRow"
@@ -54,6 +58,7 @@
             android:id="@+id/tvAccountHeaderBalance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/app_sub_line_text"
             tools:text="Account Balance"
             app:layout_constraintTop_toTopOf="@id/ivExpandRow"
             app:layout_constraintBottom_toBottomOf="@id/ivExpandRow"
