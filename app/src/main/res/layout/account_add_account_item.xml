@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:padding="12dp"
     android:background="@color/app_section_background"
-    android:layout_margin="0.5dp"
+    android:layout_marginBottom="1dp"
     app:cardBackgroundColor="@color/app_section_background">
 
 
@@ -55,5 +55,6 @@
         android:src="@drawable/ic_baseline_keyboard_arrow_right_24"
         app:layout_constraintHeight_percent="1"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:ignore="ContentDescription,MissingConstraints" />
+        tools:ignore="ContentDescription,MissingConstraints"
+        app:tint="@color/app_icon_light" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,16 +5,18 @@
     android:id="@+id/card_view_transaction"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="0.5dp"
+    android:layout_marginTop="0.5dp"
     app:cardBackgroundColor="@color/app_section_background"
     app:cardCornerRadius="0dp"
     app:cardElevation="1dp"
-    app:cardMaxElevation="7dp">
+    app:cardMaxElevation="5dp">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
         android:paddingStart="30dp"
         android:paddingEnd="15dp"
         android:paddingVertical="12dp">
@@ -28,13 +30,13 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:tint="@color/app_title_background"
-            />
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/tvCashAccountName"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
             android:textColor="@color/app_text"
             app:layout_constraintBottom_toBottomOf="@id/ivCashCardSymbol"
             app:layout_constraintStart_toEndOf="@+id/ivCashCardSymbol"
@@ -47,7 +49,7 @@
             android:layout_height="wrap_content"
             tools:text="Borrow"
             android:background="@color/app_label_text"
-            android:layout_marginRight="15dp"
+            android:layout_marginEnd="15dp"
             android:padding="5dp"
             android:visibility="gone"
             android:text="@string/option_borrow"
@@ -62,7 +64,7 @@
             tools:text="Borrow"
             android:textSize="12sp"
             android:background="@drawable/textview_border_press"
-            android:layout_marginRight="15dp"
+            android:layout_marginEnd="15dp"
             android:textColor="@color/app_option_text"
             android:padding="5dp"
             android:visibility="gone"
@@ -75,7 +77,7 @@
             android:id="@+id/tvAccountCashBalance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18dp"
+            android:textSize="18sp"
             tools:text="$235.75"
             app:layout_constraintTop_toTopOf="@id/ivCashCardSymbol"
             app:layout_constraintBottom_toBottomOf="@id/ivCashCardSymbol"
