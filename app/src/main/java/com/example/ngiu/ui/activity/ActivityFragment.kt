@@ -6,16 +6,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.view.*
-import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
 import com.example.ngiu.MainActivity
 import com.example.ngiu.R
 import com.example.ngiu.databinding.FragmentActivityBinding
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_activity.*
-import java.util.*
 
 
 class ActivityFragment : Fragment() {
@@ -29,7 +26,7 @@ class ActivityFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private var vpAdapter: TransListAdapter? = null
+    private var vpAdapter: ActivityListAdapter? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -132,7 +129,7 @@ class ActivityFragment : Fragment() {
 
                 recyclerView_activity.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
                 vpAdapter = this.context?.let {
-                    TransListAdapter(object: TransListAdapter.OnClickListener {
+                    ActivityListAdapter(object: ActivityListAdapter.OnClickListener {
                         // catch the item click event from adapter
                         override fun onItemClick(transID: Long) {
                             // switch to record fragment (Edit mode)

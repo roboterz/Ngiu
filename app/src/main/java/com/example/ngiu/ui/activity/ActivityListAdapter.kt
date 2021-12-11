@@ -1,7 +1,6 @@
 package com.example.ngiu.ui.activity
 
 import android.annotation.SuppressLint
-import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,10 +15,10 @@ import java.time.format.DateTimeFormatter
 import kotlin.collections.ArrayList
 
 
-class TransListAdapter(
+class ActivityListAdapter(
     private val onClickListener: OnClickListener
     )
-    : RecyclerView.Adapter<TransListAdapter.ViewHolder>() {
+    : RecyclerView.Adapter<ActivityListAdapter.ViewHolder>() {
 
     private var transDetail: List<TransactionDetail> = ArrayList()
 
