@@ -29,6 +29,7 @@ class RecordViewModel : ViewModel() {
     var transDetail = TransactionDetail(TransactionType_ID = 1L)
 
     var subCategoryName = ArrayList<String>()
+    var tempSavedAccountName = ArrayList<String>()
 
     var expenseCommonCategory: List<SubCategory> = ArrayList()
     var incomeCommonCategory: List<SubCategory> = ArrayList()
@@ -77,6 +78,15 @@ class RecordViewModel : ViewModel() {
         subCategoryName.add(transferCategory[0].SubCategory_Name)
         subCategoryName.add(debitCreditCategory[0].SubCategory_Name)
 
+
+        tempSavedAccountName.add(if (account.isNotEmpty()) account[0].Account_Name else "No Account")
+        tempSavedAccountName.add(if (account.size > 1) account[1].Account_Name else "No Account")
+        tempSavedAccountName.add("No Account")
+        for (at in account){
+            if (at.AccountType_ID == 9L) tempSavedAccountName[2] = at.Account_Name
+        }
+        tempSavedAccountName.add(if (account.isNotEmpty()) account[0].Account_Name else "No Account")
+
         //transDetail.TransactionType_ID = 1L
     }
 
@@ -94,6 +104,21 @@ class RecordViewModel : ViewModel() {
     }
     fun setSubCategoryName(string: String){
         subCategoryName[transDetail.TransactionType_ID.toInt() -1] = string
+    }
+
+    fun getAccountName(payAccount: Boolean): String{
+        return if (transDetail.TransactionType_ID ==4L){
+                    tempSavedAccountName[if (payAccount) 2 else 3 ]
+                }else{
+                    tempSavedAccountName[if (payAccount) 0 else 1 ]
+                }
+    }
+    fun setAccountName(payAccount: Boolean, string: String){
+        if (transDetail.TransactionType_ID ==4L){
+            tempSavedAccountName[if (payAccount) 2 else 3 ] = string
+        }else{
+            tempSavedAccountName[if (payAccount) 0 else 1 ] = string
+        }
     }
 
     // get reimburse status
@@ -143,8 +168,16 @@ class RecordViewModel : ViewModel() {
         for (at in account) {
             // Normal Account
             if (at.AccountType_ID != 9L) {
-                if ((transDetail.TransactionType_ID != 3L) || (at.Account_Name != exceptName))
-                    nameList.add(at.Account_Name)
+                if ((transDetail.TransactionType_ID != 3L) || (at.Account_Name != exceptName)) {
+                    when (getSubCategoryID(transDetail.SubCategory_Name)) {
+                        // borrow in | received
+                        7L, 10L -> if (!payAccount) nameList.add(at.Account_Name)
+                        // lend out | repayment
+                        8L, 9L -> if (payAccount) nameList.add(at.Account_Name)
+                        // not transaction type 4
+                        else -> nameList.add(at.Account_Name)
+                    }
+                }
                 // Payable|Receivable Account
             } else if (transDetail.TransactionType_ID == 4L) {
                 when (getSubCategoryID(transDetail.SubCategory_Name)) {
