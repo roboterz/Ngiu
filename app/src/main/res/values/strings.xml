@@ -169,7 +169,7 @@
     <string name="setting_page">Setting Page</string>
 
     <string name="msg_button_confirm">Confirm</string>
-    <string name="msg_button_ok">Ok</string>
+    <string name="msg_button_ok">OK</string>
     <string name="msg_button_cancel">Cancel</string>
     <string name="msg_button_delete">Delete</string>
     <string name="msg_Title_prompt">Prompt</string>
@@ -192,6 +192,7 @@
     <string name="msg_name_delete_error">This name cannot be deleted because it is being referenced by other records.</string>
     <string name="msg_name_add_error">This name cannot be add cause some unknown reason.</string>
     <string name="msg_name_edit_error">This name cannot be edit cause some unknown reason.</string>
+    <string name="msg_no_account">No Account</string>
 
     <string name="amount_zero_with_dollar_sign">$0.00</string>
     <string name="amount_zero">0.00</string>

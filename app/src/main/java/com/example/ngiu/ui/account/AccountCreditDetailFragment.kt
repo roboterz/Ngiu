@@ -14,11 +14,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.MainActivity
 import com.example.ngiu.R
 import com.example.ngiu.databinding.FragmentAccountCreditRecordsBinding
-import com.example.ngiu.functions.changeColor
 import com.example.ngiu.functions.getDayOfMonthSuffix
 import com.example.ngiu.functions.toStatementDate
 import kotlinx.android.synthetic.main.fragment_account_credit_records.*
-import kotlinx.android.synthetic.main.fragment_account_records.*
 
 
 class AccountCreditDetailFragment : Fragment() {

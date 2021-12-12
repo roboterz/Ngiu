@@ -3,9 +3,6 @@ package com.example.ngiu.ui.record
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
-import android.app.DatePickerDialog
-import android.app.TimePickerDialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -154,7 +151,7 @@ class RecordFragment : Fragment() {
         // touch DebitCredit textView, switch to DebitCredit page
         tvSectionDebitCredit.setOnClickListener {
             setStatus(recordViewModel.setTransactionType(4L))
-            loadCommonCategory( 4L)
+            loadCommonCategory(4L)
         }
 
 
@@ -167,10 +164,10 @@ class RecordFragment : Fragment() {
 
 
         // click the navigation Icon in the left side of toolbar
-        toolbar_record.setNavigationOnClickListener(View.OnClickListener {
+        toolbar_record.setNavigationOnClickListener{
             // call back button event to switch to previous fragment
             requireActivity().onBackPressed()
-        })
+        }
 
         // menu item clicked
         toolbar_record.setOnMenuItemClickListener{
@@ -223,11 +220,13 @@ class RecordFragment : Fragment() {
                 date.year,
                 date.monthValue-1,
                 date.dayOfMonth
-            ).pickDate(view.context, DatePickerDialog.OnDateSetListener{ _, year, month, day ->
-                tv_record_date.text =LocalDate.of(year,month+1, day).format(DateTimeFormatter.ofPattern("MM/dd/yyyy"))
+            ).pickDate(view.context) { _, year, month, day ->
+                tv_record_date.text = LocalDate.of(year, month + 1, day)
+                    .format(DateTimeFormatter.ofPattern("MM/dd/yyyy"))
 
-                recordViewModel.transDetail.Transaction_Date = getInternationalDateFromAmericanDate(tv_record_date.text.toString() + " " + tv_record_time.text.toString())
-            })
+                recordViewModel.transDetail.Transaction_Date =
+                    getInternationalDateFromAmericanDate(tv_record_date.text.toString() + " " + tv_record_time.text.toString())
+            }
 
         }
 
@@ -239,11 +238,12 @@ class RecordFragment : Fragment() {
             DateTimePicker(
                 startHour = time.hour,
                 startMinute = time.minute
-            ).pickTime(context, TimePickerDialog.OnTimeSetListener { _, hour, minute ->
+            ).pickTime(context) { _, hour, minute ->
                 val s = Calendar.getInstance().get(Calendar.SECOND)
-                tv_record_time.text  = LocalTime.of(hour,minute,s).toString()
-                recordViewModel.transDetail.Transaction_Date = getInternationalDateFromAmericanDate(tv_record_date.text.toString() + " " + tv_record_time.text.toString())
-            })
+                tv_record_time.text = LocalTime.of(hour, minute, s).toString()
+                recordViewModel.transDetail.Transaction_Date =
+                    getInternationalDateFromAmericanDate(tv_record_date.text.toString() + " " + tv_record_time.text.toString())
+            }
         }
 
         // reimburse
@@ -256,7 +256,7 @@ class RecordFragment : Fragment() {
 
         // person
         tv_record_person.setOnClickListener {
-            val tList: MutableList<String> = ArrayList<String>()
+            val tList: MutableList<String> = ArrayList()
             for (person in recordViewModel.person){
                 tList.add(person.Person_Name)
             }
@@ -273,7 +273,7 @@ class RecordFragment : Fragment() {
 
         // Merchant
         tv_record_merchant.setOnClickListener {
-            val tList: MutableList<String> = ArrayList<String>()
+            val tList: MutableList<String> = ArrayList()
             for (merchant in recordViewModel.merchant){
                 tList.add(merchant.Merchant_Name)
             }
@@ -291,7 +291,7 @@ class RecordFragment : Fragment() {
 
         // Project
         tv_record_project.setOnClickListener {
-            val tList: MutableList<String> = ArrayList<String>()
+            val tList: MutableList<String> = ArrayList()
             for (project in recordViewModel.project){
                 tList.add(project.Project_Name)
             }
@@ -359,7 +359,7 @@ class RecordFragment : Fragment() {
 
         // account pay
         tv_record_account_pay.setOnClickListener {
-            if (tv_record_account_pay.text.toString() != "No Account") {
+            if (tv_record_account_pay.text.toString() != getString(R.string.msg_no_account)) {
                 // load account name as list and show it in a popup window
                 val nameList: Array<String> = recordViewModel.getListOfAccountName(tv_record_account_receive.text.toString(),true)
                 popupWindow(requireContext(),getText(R.string.setting_merchant).toString(),  nameList,
@@ -371,7 +371,7 @@ class RecordFragment : Fragment() {
                     })
             }else{
                 // create new account if no account
-                createNewAccount(recordViewModel.transDetail.TransactionType_ID, recordViewModel.transDetail.SubCategory_Name,true)
+                createNewAccount(recordViewModel.transDetail.SubCategory_Name, true)
             }
         }
         tv_record_account_pay.doAfterTextChanged{
@@ -382,7 +382,7 @@ class RecordFragment : Fragment() {
         // account receive
         tv_record_account_receive.setOnClickListener {
 
-            if (tv_record_account_receive.text.toString() != "No Account") {
+            if (tv_record_account_receive.text.toString() != getString(R.string.msg_no_account)) {
                 // load account name as list and show it in a popup window
                 val nameList: Array<String> = recordViewModel.getListOfAccountName(tv_record_account_pay.text.toString(),false)
                 popupWindow(requireContext(),getText(R.string.setting_merchant).toString(),  nameList,
@@ -394,7 +394,7 @@ class RecordFragment : Fragment() {
                     })
             }else{
                 // create new account if no account
-                createNewAccount(recordViewModel.transDetail.TransactionType_ID, recordViewModel.transDetail.SubCategory_Name, false)
+                createNewAccount(recordViewModel.transDetail.SubCategory_Name, false)
             }
 
         }
@@ -460,7 +460,7 @@ class RecordFragment : Fragment() {
     }
 
 
-    private fun createNewAccount(transactionTypeId: Long, subcategoryName: String, payable: Boolean) {
+    private fun createNewAccount(subcategoryName: String, payable: Boolean) {
 
         when (recordViewModel.getSubCategoryID(subcategoryName)) {
             // borrow in | received
@@ -552,7 +552,7 @@ class RecordFragment : Fragment() {
         //todo period,
 
         setStatus( recordViewModel.currentTransactionType )
-        loadCommonCategory( recordViewModel.transDetail.TransactionType_ID,recordViewModel.transDetail.SubCategory_Name )
+        loadCommonCategory(recordViewModel.transDetail.TransactionType_ID)
 
     }
 
@@ -566,7 +566,7 @@ class RecordFragment : Fragment() {
                 getText(R.string.msg_cannot_save_with_zero_amount),
                 Toast.LENGTH_SHORT
             ).show()
-            //Snackbar.make(requireView(), getText(R.string.msg_cannot_save_with_zero_amount), Snackbar.LENGTH_SHORT).show()
+            //Snack.make(requireView(), getText(R.string.msg_cannot_save_with_zero_amount), Snack.LENGTH_SHORT).show()
             return 1
         }else {
 
@@ -606,29 +606,29 @@ class RecordFragment : Fragment() {
             }
 
             Toast.makeText(context,getText(R.string.msg_saved),Toast.LENGTH_SHORT).show()
-            //Snackbar.make(requireView(), getText(R.string.msg_saved), Snackbar.LENGTH_SHORT).show()
             return 0
         }
     }
 
     // delete record
+    @SuppressLint("InflateParams")
     private fun deleteRecord(activity: FragmentActivity?, transactionID: Long) {
 
         val dialogBuilder = AlertDialog.Builder(activity)
 
         dialogBuilder.setMessage(getText(R.string.msg_content_transaction_delete))
             .setCancelable(true)
-            .setPositiveButton(getText(R.string.msg_button_confirm),DialogInterface.OnClickListener{ _,_->
+            .setPositiveButton(getText(R.string.msg_button_confirm)) { _, _ ->
                 // delete record
                 val trans = Trans(Transaction_ID = transactionID)
                 AppDatabase.getDatabase(requireContext()).trans().deleteTransaction(trans)
                 // exit
                 requireActivity().onBackPressed()
-            })
-            .setNegativeButton(getText(R.string.msg_button_cancel),DialogInterface.OnClickListener{ dialog, _ ->
+            }
+            .setNegativeButton(getText(R.string.msg_button_cancel)) { dialog, _ ->
                 // cancel
                 dialog.cancel()
-            })
+            }
 
         // set Title Style
         val titleView = layoutInflater.inflate(R.layout.popup_title,null)
@@ -643,7 +643,7 @@ class RecordFragment : Fragment() {
 
 
     //
-    private fun loadCommonCategory( tyID: Long, categoryString: String = "") {
+    private fun loadCommonCategory(tyID: Long) {
         Thread {
             activity?.runOnUiThread {
 
@@ -717,7 +717,7 @@ class RecordFragment : Fragment() {
                 tv_record_account_receive.visibility = View.INVISIBLE
                 tv_record_common_category.visibility = View.VISIBLE
                 tv_record_all_category.visibility = View.VISIBLE
-                // acount name
+                // account name
                 tv_record_account_pay.text = recordViewModel.getAccountName(true)
             }
             3L -> {
@@ -727,13 +727,13 @@ class RecordFragment : Fragment() {
                 tv_record_account_receive.visibility = View.VISIBLE
                 tv_record_common_category.visibility = View.GONE
                 tv_record_all_category.visibility = View.GONE
-                // acount name
+                // account name
                 tv_record_account_pay.text = recordViewModel.getAccountName(true)
                 tv_record_account_receive.text = recordViewModel.getAccountName(false)
                 if (tv_record_account_pay.text.toString() == tv_record_account_receive.text.toString()){
                     val ltName = recordViewModel.getListOfAccountName(tv_record_account_pay.text.toString(), false)
                     if (ltName.isNotEmpty())  tv_record_account_receive.text = ltName[0]
-                    else tv_record_account_receive.text = "No Account"
+                    else tv_record_account_receive.text = getString(R.string.msg_no_account)
                 }
             }
             4L -> {
@@ -743,7 +743,7 @@ class RecordFragment : Fragment() {
                 tv_record_account_receive.visibility = View.VISIBLE
                 tv_record_common_category.visibility = View.GONE
                 tv_record_all_category.visibility = View.GONE
-                // acount name
+                // account name
                 showAccountName(tv_record_category.text.toString())
             }
 
@@ -765,14 +765,7 @@ class RecordFragment : Fragment() {
         findNavController().navigate(R.id.navigation_category_manage)
     }
 
-    private fun openAddAccountFragment(tID: Long) {
 
-        //setFragmentResult("category_manage_mode", bundleOf("edit_mode" to false))
-        //setFragmentResult("category_manage_type", bundleOf("transaction_type" to recordViewModel.transDetail.TransactionType_ID))
-
-        // switch to category manage fragment
-        findNavController().navigate(R.id.navigation_add_account)
-    }
 }
 
 

@@ -7,21 +7,18 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.forEach
-import androidx.core.view.iterator
 import com.example.ngiu.R
-import kotlinx.android.synthetic.main.keyboard.view.*
-import java.util.stream.IntStream.range
 
 @SuppressLint("ClickableViewAccessibility")
 class Keyboard(view: View){
-    //private val key0: TextView = view.findViewById<TextView>(R.id.tv_price_0)
-    private val keyBack: TextView = view.findViewById<TextView>(R.id.tv_price_back)
-    private val keyDot: TextView = view.findViewById<TextView>(R.id.tv_price_dot)
-    private val keyEnter: TextView = view.findViewById<TextView>(R.id.tv_price_enter)
-    private val keyCalc: TextView = view.findViewById<TextView>(R.id.tv_price_calc)
-    private val keyClear: TextView = view.findViewById<TextView>(R.id.tv_price_clear)
-    private val keyboardPanel: ConstraintLayout = view.findViewById<ConstraintLayout>(R.id.layout_Keyboard)
-    private val keys: ConstraintLayout = view.findViewById<ConstraintLayout>(R.id.price_input_keys)
+    //private val key0: TextView = view.findViewById(R.id.tv_price_0)
+    private val keyBack: TextView = view.findViewById(R.id.tv_price_back)
+    private val keyDot: TextView = view.findViewById(R.id.tv_price_dot)
+    private val keyEnter: TextView = view.findViewById(R.id.tv_price_enter)
+    private val keyCalc: TextView = view.findViewById(R.id.tv_price_calc)
+    private val keyClear: TextView = view.findViewById(R.id.tv_price_clear)
+    private val keyboardPanel: ConstraintLayout = view.findViewById(R.id.layout_Keyboard)
+    private val keys: ConstraintLayout = view.findViewById(R.id.price_input_keys)
     private var dot: Int = 3  // the places of Decimal point
 
     @SuppressLint("SetTextI18n")

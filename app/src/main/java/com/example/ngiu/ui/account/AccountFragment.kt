@@ -45,6 +45,10 @@ class AccountFragment : Fragment() {
         _binding = FragmentAccountBinding.inflate(inflater, container, false)
         rvAccount = binding.root.findViewById(R.id.rvAccount)
 
+        // Show bottom bar
+        (activity as MainActivity).setNavBottomBarVisibility(View.VISIBLE)
+
+
         return binding.root
     }
 
@@ -69,9 +73,9 @@ class AccountFragment : Fragment() {
         accountViewModel.accountSections.observe(viewLifecycleOwner){
             binding.tvAccountTotalLiabilityValue.text = "$"+"%.2f".format(totalLiability)
             // if there is nothing to display go to the add account
-            if(it.isEmpty()){
-                findNavController().navigate(R.id.navigation_add_account)
-            }
+            //if(it.isEmpty()){
+                //findNavController().navigate(R.id.navigation_add_account)
+            //}
             adapter.addItems(it)
         }
 
@@ -100,8 +104,7 @@ class AccountFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        // Show bottom bar
-        (activity as MainActivity).setNavBottomBarVisibility(View.VISIBLE)
+
     }
 
     override fun onDestroyView() {

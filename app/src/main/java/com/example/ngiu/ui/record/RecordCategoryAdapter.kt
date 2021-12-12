@@ -22,8 +22,6 @@ class RecordCategoryAdapter(
     private var currentOnFocus: Int = 1
     private var currentPage: Int = 0
 
-    private var btnHighLight: Boolean = true
-    private var strCurrentCategory: String = ""
 
     // interface for passing the onClick event to fragment.
     interface OnClickListener {
@@ -219,15 +217,7 @@ class RecordCategoryAdapter(
         notifyDataSetChanged()
     }
 
-    fun setHighLight(btn : Boolean = true){
-        btnHighLight = btn      // open record ui on Edit mode. set btnHighLight as false. don't set highlight on first time.
-    }
 
-    //@SuppressLint("NotifyDataSetChanged")
-    fun setCategoryString(string: String){
-        strCurrentCategory = string
-        //notifyDataSetChanged()
-    }
 
     override fun getItemCount(): Int {
         return  ceil(mList.size.toDouble()/8).toInt()
