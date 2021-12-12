@@ -27,7 +27,7 @@ class RecordCategoryAdapter(
 
     // interface for passing the onClick event to fragment.
     interface OnClickListener {
-        fun onItemClick(string: String)
+        fun onItemClick(subCategoryName: String)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PagerViewHolder {

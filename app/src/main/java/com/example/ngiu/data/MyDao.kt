@@ -252,11 +252,11 @@ interface MainCategoryDao {
     fun getMainCategoryByID(rID:Long): MainCategory
 
     @Transaction
-    @Query("SELECT * FROM MainCategory WHERE TransactionType_ID = :tID")
+    @Query("SELECT * FROM MainCategory WHERE TransactionType_ID = :tID ORDER BY MainCategory_Name" )
     fun getMainCategoryByTransactionType(tID: Long): MutableList<MainCategory>
 
     @Transaction
-    @Query("SELECT * FROM MainCategory")
+    @Query("SELECT * FROM MainCategory ORDER BY MainCategory_Name")
     fun getAllMainCategory(): List<MainCategory>
 }
 
@@ -307,6 +307,7 @@ interface SubCategoryDao {
         SELECT SubCategory_ID, MainCategory_ID, SubCategory_Name, SubCategory_Common
         FROM SubCategory
         WHERE MainCategory_ID = :rID
+        ORDER BY SubCategory_Name
     """)
     fun getSubCategoryByMainCategoryID(rID: Long): MutableList<SubCategory>
 
@@ -323,7 +324,7 @@ interface SubCategoryDao {
      */
 
     @Transaction
-    @Query("SELECT * FROM SUBCATEGORY")
+    @Query("SELECT * FROM SUBCATEGORY ORDER BY SubCategory_Name")
     fun getAllSubCategory(): List<SubCategory>
 
 }

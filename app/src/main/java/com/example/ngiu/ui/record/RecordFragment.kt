@@ -106,10 +106,11 @@ class RecordFragment : Fragment() {
                         RecordCategoryAdapter(object : RecordCategoryAdapter.OnClickListener {
 
                             // catch the item click event from adapter
-                            override fun onItemClick(string: String) {
+                            override fun onItemClick(subCategoryName: String) {
                                 // do something after clicked
-                                tv_record_category.text = string
-                                recordViewModel.setSubCategoryName(string)
+                                tv_record_category.text = subCategoryName
+                                recordViewModel.setSubCategoryName(subCategoryName)
+                                showAccountName(subCategoryName)
                             }
                         })
                     }
@@ -124,6 +125,7 @@ class RecordFragment : Fragment() {
 
         return binding.root
     }
+
 
 
 
@@ -351,6 +353,7 @@ class RecordFragment : Fragment() {
         // swap
         iv_record_swap.setOnClickListener {
             tv_record_account_receive.text = tv_record_account_pay.text.apply { tv_record_account_pay.text = tv_record_account_receive.text }
+            recordViewModel.tempSavedAccountName[0] = recordViewModel.tempSavedAccountName[1].apply { recordViewModel.tempSavedAccountName[1] = recordViewModel.tempSavedAccountName[0] }
         }
 
 
@@ -363,6 +366,7 @@ class RecordFragment : Fragment() {
                     object : SelectItem {
                         override fun clicked(idx: Int) {
                             tv_record_account_pay.text = nameList[idx]
+                            recordViewModel.setAccountName(true,tv_record_account_pay.text.toString())
                         }
                     })
             }else{
@@ -385,6 +389,7 @@ class RecordFragment : Fragment() {
                     object : SelectItem {
                         override fun clicked(idx: Int) {
                             tv_record_account_receive.text = nameList[idx]
+                            recordViewModel.setAccountName(false,tv_record_account_receive.text.toString())
                         }
                     })
             }else{
@@ -431,6 +436,29 @@ class RecordFragment : Fragment() {
 
     //------------------------------------------Private Functions--------------------------------------------------
     //------------------------------------------Private Functions--------------------------------------------------
+
+
+    private fun showAccountName(subCategoryName: String) {
+        if (recordViewModel.transDetail.TransactionType_ID == 4L){
+            when (recordViewModel.getSubCategoryID(subCategoryName)) {
+                // borrow in | received
+                7L, 10L -> {
+                    tv_record_account_pay.text =  recordViewModel.tempSavedAccountName[2]
+                    tv_record_account_receive.text = recordViewModel.tempSavedAccountName[3]
+                }
+                // lend out | repayment
+                8L, 9L -> {
+                    tv_record_account_pay.text =  recordViewModel.tempSavedAccountName[3]
+                    tv_record_account_receive.text = recordViewModel.tempSavedAccountName[2]
+                }
+            }
+
+        }else{
+            tv_record_account_pay.text =  recordViewModel.tempSavedAccountName[0]
+            tv_record_account_receive.text = recordViewModel.tempSavedAccountName[1]
+        }
+    }
+
 
     private fun createNewAccount(transactionTypeId: Long, subcategoryName: String, payable: Boolean) {
 
@@ -480,6 +508,7 @@ class RecordFragment : Fragment() {
 
         }else{
             // new record
+                /*
             if (recordViewModel.transDetail.Account_Name.isEmpty()) {
                 if (recordViewModel.account.isNotEmpty()){
                     recordViewModel.transDetail.Account_Name = recordViewModel.account[0].Account_Name
@@ -494,6 +523,8 @@ class RecordFragment : Fragment() {
                     recordViewModel.transDetail.AccountRecipient_Name =  "No Account"
                 }
             }
+
+                 */
             if (recordViewModel.transDetail.Person_Name.isEmpty()) {
                 recordViewModel.transDetail.Person_Name = recordViewModel.person[0].Person_Name
             }
@@ -675,8 +706,9 @@ class RecordFragment : Fragment() {
         }
 
          */
-        //
+        // Subcategory
         tv_record_category.text = recordViewModel.getSubCategoryName()
+
 
 
         when (recordViewModel.transDetail.TransactionType_ID) {
@@ -685,6 +717,8 @@ class RecordFragment : Fragment() {
                 tv_record_account_receive.visibility = View.INVISIBLE
                 tv_record_common_category.visibility = View.VISIBLE
                 tv_record_all_category.visibility = View.VISIBLE
+                // acount name
+                tv_record_account_pay.text = recordViewModel.getAccountName(true)
             }
             3L -> {
                 iv_record_swap.visibility = View.VISIBLE
@@ -693,6 +727,14 @@ class RecordFragment : Fragment() {
                 tv_record_account_receive.visibility = View.VISIBLE
                 tv_record_common_category.visibility = View.GONE
                 tv_record_all_category.visibility = View.GONE
+                // acount name
+                tv_record_account_pay.text = recordViewModel.getAccountName(true)
+                tv_record_account_receive.text = recordViewModel.getAccountName(false)
+                if (tv_record_account_pay.text.toString() == tv_record_account_receive.text.toString()){
+                    val ltName = recordViewModel.getListOfAccountName(tv_record_account_pay.text.toString(), false)
+                    if (ltName.isNotEmpty())  tv_record_account_receive.text = ltName[0]
+                    else tv_record_account_receive.text = "No Account"
+                }
             }
             4L -> {
                 iv_record_swap.visibility = View.VISIBLE
@@ -701,29 +743,12 @@ class RecordFragment : Fragment() {
                 tv_record_account_receive.visibility = View.VISIBLE
                 tv_record_common_category.visibility = View.GONE
                 tv_record_all_category.visibility = View.GONE
-
-                /*
-                val listPRName = recordViewModel.getPRAccountList()
-                when (recordViewModel.getSubCategoryID(recordViewModel.transDetail.SubCategory_Name)) {
-                    // borrow in | received
-                    7L, 10L -> {
-                        if (listPRName.isEmpty()) {
-                            if (recordViewModel.account.isNotEmpty()){
-                                recordViewModel.transDetail.Account_Name = recordViewModel.account[0].Account_Name
-                            }else{
-                                recordViewModel.transDetail.Account_Name =  "No Account"
-                            }
-                        }
-                    }
-                    // lend out | repayment
-                    8L, 9L -> {
-
-                    }
-                }
-
-                 */
+                // acount name
+                showAccountName(tv_record_category.text.toString())
             }
+
         }
+
 
 
 
