@@ -70,7 +70,8 @@ class MainCategoryAdapter(
                 // selected item status
                 if (position == currentArrow){
                     holder.arrow.visibility = View.VISIBLE
-                    holder.itemBackground.setBackgroundColor(holder.activeItem)
+                    //holder.itemBackground.setBackgroundColor(holder.activeItem)
+                    holder.mainCategoryName.setTextColor(holder.activeItem)
                 }
                 // click event
                 holder.mainCategoryName.setOnClickListener {
@@ -121,9 +122,9 @@ class MainCategoryAdapter(
         val itemBackground: ConstraintLayout = itemView.layout_main_category_item
 
 
-        val activeItem = ContextCompat.getColor(itemView.context, R.color.app_select_item)
+        val activeItem = ContextCompat.getColor(itemView.context, R.color.app_expense_amount)
         val addButtonTextColor = ContextCompat.getColor(itemView.context, R.color.app_sub_line_text)
-        val itemTextColor = ContextCompat.getColor(itemView.context, R.color.app_amount)
+        val itemTextColor = ContextCompat.getColor(itemView.context, R.color.app_text)
         val iconDelete = ContextCompat.getDrawable(itemView.context, R.drawable.ic_baseline_delete_forever_24)
 
     }

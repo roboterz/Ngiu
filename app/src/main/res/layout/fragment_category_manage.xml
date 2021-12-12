@@ -35,7 +35,7 @@
      <androidx.constraintlayout.widget.ConstraintLayout
          android:layout_width="0dp"
          android:layout_height="match_parent"
-         android:background="@color/app_list_background"
+         android:background="@color/app_main_list"
          app:layout_constraintStart_toStartOf="parent"
          app:layout_constraintWidth_percent="0.334"
          tools:layout_editor_absoluteY="0dp"

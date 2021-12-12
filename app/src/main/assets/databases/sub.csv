@@ -26,111 +26,110 @@
 26,5,Lunch,1
 27,5,Dinner,1
 28,5,Midnight Dinner,0
-29,1,KTV,0
-30,5,Drink,1
-31,5,Grocery,1
-32,14,Car Services,1
-33,10,Houseware,1
-34,14,Toll,1
-35,5,Snack,1
-36,5,Fruit,1
-37,6,Membership,0
-38,6,Gift Card,1
-39,6,Software,0
-40,6,Clothing,1
-41,6,Shoes,1
-42,6,Bags,1
-43,6,Home Department Store,0
-44,6,Baby Supplies,0
-45,6,Makeup & Skin Care,1
-46,6,Tobacco & Alcohol,0
-47,6,Electronic Digital,1
-48,6,Stationery toys,0
-49,6,Newspapers & Books,1
-50,6,Jewelry,0
-51,6,Health Supplies,0
-52,6,Shopping Other,0
-53,7,Tax,0
-54,7,Tax fill fee,0
-55,7,Overdue Tax,0
-56,7,Document procedures,0
-57,7,Bank charges,0
-58,8,Insurance,0
-59,8,Purchase,0
-60,8,Labor,0
-61,8,Material accessories,0
-62,8,Office expenses,0
-63,8,Transportation,0
-64,8,Project payment,0
-65,8,Operating expenses,0
-66,8,Conference fees,0
-67,8,Marketing advertisement,0
-68,8,Store rent,0
-69,8,Registration,0
-70,8,Business other,0
-71,9,Handing fee,0
-72,9,Loss,0
-73,9,Interest expense,0
-74,9,Business Insurance,0
-75,9,Funding,0
-76,9,Stock,0
-77,9,P2P,0
-78,9,Financial product,0
-79,9,Investment Loan,0
-80,9,Bank Savings,0
-81,9,Securities & Futures,0
-82,9,Foreign Exchange,0
-83,9,Collection,0
-84,9,Precious metals,0
-85,10,Tool,0
-86,10,Phone,0
-87,10,Water,0
-88,10,Electricity,0
-89,10,Gas,0
-90,10,Living expenses,0
-91,10,Hairdressing,0
-92,10,Rent,0
-93,10,Building Materials,0
-94,10,House Loan,0
-95,10,Express post,0
-96,10,Computer & Broadband,0
-97,10,Housekeeping,0
-98,10,Property tax,0
-99,10,House Insurance,0
-100,10,Consumer Loan,0
-101,12,Drugs,0
-102,12,Health Care,0
-103,12,Hospital expenses,0
-104,11,Textbooks,0
-105,11,Training,0
-106,11,Exam fee,0
-107,11,Childhood Education,0
-108,11,Tuition Fee,0
-109,11,Tutoring,0
-110,11,Student Loans,0
-111,13,Party,0
-112,13,Gamble,0
-113,13,Travel,0
-114,13,Movie,0
-115,13,Games,1
-116,13,Mahjong & Chess,0
-117,13,Bath,0
-118,13,Sports Fitness,0
-119,13,KTV,1
-120,13,Show,0
-121,14,Car rental,0
-122,14,Bus,1
-123,14,Gasoline,1
-124,14,Parking,1
-125,14,Subway,1
-126,14,Train,0
-127,14,Airplane,0
-128,14,Bike,0
-129,14,Ship,0
-130,14,Auto Maintainance,0
-131,14,Repair,0
-132,14,Fine,0
-133,14,Auto Loan,0
-134,14,Auto Insurance,0
-135,14,Driver License,0
-136,14,MTA,0
+29,5,Drink,1
+30,5,Grocery,1
+31,14,Car Services,1
+32,10,Houseware,1
+33,14,Toll,1
+34,5,Snack,1
+35,5,Fruit,1
+36,6,Membership,0
+37,6,Gift Card,1
+38,6,Software,0
+39,6,Clothing,1
+40,6,Shoes,1
+41,6,Bags,1
+42,6,Home Department Store,0
+43,6,Baby Supplies,0
+44,6,Makeup & Skin Care,1
+45,6,Tobacco & Alcohol,0
+46,6,Electronic Digital,1
+47,6,Stationery toys,0
+48,6,Newspapers & Books,1
+49,6,Jewelry,0
+50,6,Health Supplies,0
+51,6,Shopping Other,0
+52,7,Tax,0
+53,7,Tax fill fee,0
+54,7,Overdue Tax,0
+55,7,Document procedures,0
+56,7,Bank charges,0
+57,8,Insurance,0
+58,8,Purchase,0
+59,8,Labor,0
+60,8,Material accessories,0
+61,8,Office expenses,0
+62,8,Transportation,0
+63,8,Project payment,0
+64,8,Operating expenses,0
+65,8,Conference fees,0
+66,8,Marketing advertisement,0
+67,8,Store rent,0
+68,8,Registration,0
+69,8,Business other,0
+70,9,Handing fee,0
+71,9,Loss,0
+72,9,Interest expense,0
+73,9,Business Insurance,0
+74,9,Funding,0
+75,9,Stock,0
+76,9,P2P,0
+77,9,Financial product,0
+78,9,Investment Loan,0
+79,9,Bank Savings,0
+80,9,Securities & Futures,0
+81,9,Foreign Exchange,0
+82,9,Collection,0
+83,9,Precious metals,0
+84,10,Tool,0
+85,10,Phone,0
+86,10,Water,0
+87,10,Electricity,0
+88,10,Gas,0
+89,10,Living expenses,0
+90,10,Hairdressing,0
+91,10,Rent,0
+92,10,Building Materials,0
+93,10,House Loan,0
+94,10,Express post,0
+95,10,Computer & Broadband,0
+96,10,Housekeeping,0
+97,10,Property tax,0
+98,10,House Insurance,0
+99,10,Consumer Loan,0
+100,12,Drugs,0
+101,12,Health Care,0
+102,12,Hospital expenses,0
+103,11,Textbooks,0
+104,11,Training,0
+105,11,Exam fee,0
+106,11,Childhood Education,0
+107,11,Tuition Fee,0
+108,11,Tutoring,0
+109,11,Student Loans,0
+110,13,Party,0
+111,13,Gamble,0
+112,13,Travel,0
+113,13,Movie,0
+114,13,Games,1
+115,13,Mahjong & Chess,0
+116,13,Bath,0
+117,13,Sports Fitness,0
+118,13,KTV,1
+119,13,Show,0
+120,14,Car rental,0
+121,14,Bus,1
+122,14,Gasoline,1
+123,14,Parking,1
+124,14,Subway,1
+125,14,Train,0
+126,14,Airplane,0
+127,14,Bike,0
+128,14,Ship,0
+129,14,Auto Maintainance,0
+130,14,Repair,0
+131,14,Fine,0
+132,14,Auto Loan,0
+133,14,Auto Insurance,0
+134,14,Driver License,0
+135,14,MTA,0
