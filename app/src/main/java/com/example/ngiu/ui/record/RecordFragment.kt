@@ -359,7 +359,7 @@ class RecordFragment : Fragment() {
 
         // account pay
         tv_record_account_pay.setOnClickListener {
-            if (recordViewModel.account.isNotEmpty()) {
+            if (tv_record_account_pay.text.toString() != "No Account") {
                 // load account name as list and show it in a popup window
                 val nameList: Array<String> = recordViewModel.getListOfAccountName(tv_record_account_receive.text.toString(),true)
                 popupWindow(requireContext(),getText(R.string.setting_merchant).toString(),  nameList,
@@ -382,7 +382,7 @@ class RecordFragment : Fragment() {
         // account receive
         tv_record_account_receive.setOnClickListener {
 
-            if (recordViewModel.account.size > 1) {
+            if (tv_record_account_receive.text.toString() != "No Account") {
                 // load account name as list and show it in a popup window
                 val nameList: Array<String> = recordViewModel.getListOfAccountName(tv_record_account_pay.text.toString(),false)
                 popupWindow(requireContext(),getText(R.string.setting_merchant).toString(),  nameList,
