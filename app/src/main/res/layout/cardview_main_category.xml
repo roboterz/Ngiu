@@ -13,17 +13,18 @@
         android:id="@+id/layout_main_category_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="10dp"
-        android:background="@color/app_list_background">
+        android:background="@color/app_main_list">
 
         <TextView
             android:id="@+id/tv_main_category_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:paddingVertical="15dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="0dp"
             android:singleLine="true"
-            android:text="MainCategory"
-            android:textSize="18sp"
+            android:text="@string/msg_new_category"
+            android:textSize="17sp"
             android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:textColor="@color/app_amount"

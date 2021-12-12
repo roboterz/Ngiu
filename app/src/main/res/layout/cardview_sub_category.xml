@@ -6,28 +6,31 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/app_section_background"
-    android:layout_margin="0.5dp"
+    android:layout_marginTop="0.5dp"
     app:cardCornerRadius="0dp"
-    app:cardElevation="2dp"
-    app:cardMaxElevation="3dp">
+    app:cardElevation="1dp"
+    app:cardMaxElevation="1dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingHorizontal="10dp">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/tv_sub_category_name"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:paddingVertical="10dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="10dp"
+            android:paddingVertical="15dp"
             android:singleLine="true"
-            android:text="SubCategory"
-            android:textSize="16sp"
+            android:text=""
+            android:textSize="15sp"
             android:gravity="center|left"
             android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:textColor="@color/app_amount"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/img_sub_category_star"
             tools:ignore="MissingConstraints,RtlHardcoded" />
@@ -36,10 +39,11 @@
             android:id="@+id/img_sub_category_star"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:paddingVertical="10dp"
+            android:paddingHorizontal="15dp"
             app:srcCompat="@drawable/ic_baseline_star_border_24"
             app:layout_constraintEnd_toEndOf="parent"
-            app:tint="@color/app_star"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             tools:ignore="ContentDescription" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

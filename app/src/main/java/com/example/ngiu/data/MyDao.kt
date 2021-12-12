@@ -252,7 +252,7 @@ interface MainCategoryDao {
     fun getMainCategoryByID(rID:Long): MainCategory
 
     @Transaction
-    @Query("SELECT * FROM MainCategory WHERE TransactionType_ID = :tID ORDER BY MainCategory_Name" )
+    @Query("SELECT * FROM MainCategory WHERE TransactionType_ID = :tID" )
     fun getMainCategoryByTransactionType(tID: Long): MutableList<MainCategory>
 
     @Transaction
