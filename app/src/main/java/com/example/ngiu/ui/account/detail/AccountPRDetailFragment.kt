@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -40,6 +41,9 @@ class AccountPRDetailFragment : Fragment() {
             ViewModelProvider(this).get(AccountPRDetailViewModel::class.java)
 
         _binding = FragmentAccountPRDetailBinding.inflate(inflater, container, false)
+
+        // hide nav bottom bar
+        (activity as MainActivity).setNavBottomBarVisibility(View.GONE)
 
         accountPRDetailViewModel.accountID = arguments?.getLong("accountId")!!
         accountPRDetailViewModel.accountName = arguments?.getString("accountName")!!
@@ -99,7 +103,12 @@ class AccountPRDetailFragment : Fragment() {
                 R.id.action_edit -> {
                     (activity as MainActivity).setNavBottomBarVisibility(View.GONE)
                     // navigate to edit account
-                    // todo swtich to edit account
+                    val bundle = Bundle().apply {
+                        putString("page", "edit_payable")
+                        putLong("id", accountPRDetailViewModel.accountID)
+                    }
+                    view.findNavController().navigate(R.id.addCashFragment, bundle)
+
                     true
                 }
 
@@ -147,8 +156,7 @@ class AccountPRDetailFragment : Fragment() {
 
 
     private fun navigateToRecordFragment(transID: Long = 0, editMode: Boolean = false){
-        // hide nav bottom bar
-        //(activity as MainActivity).setNavBottomBarVisibility(View.GONE)
+
 
         //parentFragmentManager.setFragmentResult("requestKey", bundleOf("bundleKey" to transactionList[position].Transaction_ID))
         if (editMode) setFragmentResult("record_edit_mode", bundleOf("rID" to transID))

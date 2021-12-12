@@ -9,7 +9,6 @@ import com.example.ngiu.R
 import com.example.ngiu.data.AppDatabase
 import com.example.ngiu.data.entities.*
 import com.example.ngiu.data.entities.returntype.TransactionDetail
-import kotlinx.android.synthetic.main.fragment_record.*
 
 import kotlin.collections.ArrayList
 
@@ -28,7 +27,7 @@ class RecordViewModel : ViewModel() {
     // temp save changed data
     var transDetail = TransactionDetail(TransactionType_ID = 1L)
 
-    var subCategoryName = ArrayList<String>()
+    private var subCategoryName = ArrayList<String>()
     var tempSavedAccountName = ArrayList<String>()
 
     var expenseCommonCategory: List<SubCategory> = ArrayList()
@@ -40,7 +39,6 @@ class RecordViewModel : ViewModel() {
     var merchant: List<Merchant> = ArrayList()
     var account: List<Account> = ArrayList()
     var project: List<Project> = ArrayList()
-    var prAccountName: String = ""
 
 
 
@@ -79,20 +77,15 @@ class RecordViewModel : ViewModel() {
         subCategoryName.add(debitCreditCategory[0].SubCategory_Name)
 
 
-        tempSavedAccountName.add(if (account.isNotEmpty()) account[0].Account_Name else "No Account")
-        tempSavedAccountName.add(if (account.size > 1) account[1].Account_Name else "No Account")
-        tempSavedAccountName.add("No Account")
+        tempSavedAccountName.add(if (account.isNotEmpty()) account[0].Account_Name else activity.getString(R.string.msg_no_account))
+        tempSavedAccountName.add(if (account.size > 1) account[1].Account_Name else activity.getString(R.string.msg_no_account))
+        tempSavedAccountName.add(activity.getString(R.string.msg_no_account))
         for (at in account){
             if (at.AccountType_ID == 9L) tempSavedAccountName[2] = at.Account_Name
         }
-        tempSavedAccountName.add(if (account.isNotEmpty()) account[0].Account_Name else "No Account")
+        tempSavedAccountName.add(if (account.isNotEmpty()) account[0].Account_Name else activity.getString(R.string.msg_no_account))
 
-        //transDetail.TransactionType_ID = 1L
     }
-
-    //fun getOneSubCategory(activity: FragmentActivity?, rID: Long): SubCategory {
-    //    return AppDatabase.getDatabase(activity!!).subcat().getRecordByID(rID)
-    //}
 
 
     fun loadTransactionDetail(activity: FragmentActivity?, rID: Long) {
@@ -140,6 +133,7 @@ class RecordViewModel : ViewModel() {
         }
     }
 
+    /*
     // get P/R account name list
     fun getPRAccountList(): List<String>{
         val tList: MutableList<String> = ArrayList<String>()
@@ -149,6 +143,8 @@ class RecordViewModel : ViewModel() {
         }
         return tList
     }
+
+     */
 
     fun getSubCategoryID(string: String): Long{
         val idx = subCategory.indexOfFirst { it.SubCategory_Name == string }

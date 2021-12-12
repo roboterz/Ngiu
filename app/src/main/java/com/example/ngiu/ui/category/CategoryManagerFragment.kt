@@ -1,7 +1,7 @@
 package com.example.ngiu.ui.category
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.database.sqlite.SQLiteException
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -195,11 +195,11 @@ class CategoryManagerFragment: Fragment() {
         //toolbar_category.menu.findItem(R.id.action_edit).isVisible = true
 
         // click the navigation Icon in the left side of toolbar
-        toolbar_category.setNavigationOnClickListener(View.OnClickListener {
+        toolbar_category.setNavigationOnClickListener {
 
             // call back button event to switch to previous fragment
             requireActivity().onBackPressed()
-        })
+        }
 
         // menu item clicked
         toolbar_category.setOnMenuItemClickListener{
@@ -312,56 +312,61 @@ class CategoryManagerFragment: Fragment() {
 
         alert.setView(editText)
             .setCustomTitle(titleView)
-            .setPositiveButton(R.string.msg_button_confirm,
-                DialogInterface.OnClickListener { dialog, whichButton -> //What ever you want to do with the value
+            .setPositiveButton(R.string.msg_button_confirm
+            ) { _, _ -> //What ever you want to do with the value
 
-                    when (type){
-                        0 -> {
-                            val mainCate = MainCategory()
-                            mainCate.MainCategory_Name = editText.text.toString()
-                            mainCate.TransactionType_ID = categoryManagerViewModel.mainCategory[0].TransactionType_ID
-                            AppDatabase.getDatabase(requireContext()).mainCategory().addMainCategory(mainCate)
-                            // refresh
-                            refreshMainCategory()
-                        }
-                        1 -> {
-                            val mainCate = categoryManagerViewModel.mainCategory[
-                                    categoryManagerViewModel.mainCategory.indexOfFirst { it.MainCategory_ID == rID }]
-                            mainCate.TransactionType_ID = categoryManagerViewModel.mainCategory[0].TransactionType_ID
-                            mainCate.MainCategory_Name = editText.text.toString()
-                            AppDatabase.getDatabase(requireContext()).mainCategory().updateMainCategory(mainCate)
-                            // refresh
-                            refreshMainCategory()
-                        }
-                        2 -> {
-                            val subCate = SubCategory()
-                            subCate.MainCategory_ID = categoryManagerViewModel.currentActiveMainCategory
-                            subCate.SubCategory_Name = editText.text.toString()
-                            AppDatabase.getDatabase(requireContext()).subcat().addSubCategory(subCate)
-                            // refresh
-                            refreshSubCategory()
-                        }
-                        3 -> {
-                            val subCate = categoryManagerViewModel.subCategory[
-                                    categoryManagerViewModel.subCategory.indexOfFirst { it.SubCategory_ID == rID }]
-                            subCate.SubCategory_Name = editText.text.toString()
-                            AppDatabase.getDatabase(requireContext()).subcat().updateSubCategory(subCate)
-                            // refresh
-                            refreshSubCategory()
-                        }
+                when (type) {
+                    0 -> {
+                        val mainCate = MainCategory()
+                        mainCate.MainCategory_Name = editText.text.toString()
+                        mainCate.TransactionType_ID =
+                            categoryManagerViewModel.mainCategory[0].TransactionType_ID
+                        AppDatabase.getDatabase(requireContext()).mainCategory()
+                            .addMainCategory(mainCate)
+                        // refresh
+                        refreshMainCategory()
                     }
+                    1 -> {
+                        val mainCate = categoryManagerViewModel.mainCategory[
+                                categoryManagerViewModel.mainCategory.indexOfFirst { it.MainCategory_ID == rID }]
+                        mainCate.TransactionType_ID =
+                            categoryManagerViewModel.mainCategory[0].TransactionType_ID
+                        mainCate.MainCategory_Name = editText.text.toString()
+                        AppDatabase.getDatabase(requireContext()).mainCategory()
+                            .updateMainCategory(mainCate)
+                        // refresh
+                        refreshMainCategory()
+                    }
+                    2 -> {
+                        val subCate = SubCategory()
+                        subCate.MainCategory_ID = categoryManagerViewModel.currentActiveMainCategory
+                        subCate.SubCategory_Name = editText.text.toString()
+                        AppDatabase.getDatabase(requireContext()).subcat().addSubCategory(subCate)
+                        // refresh
+                        refreshSubCategory()
+                    }
+                    3 -> {
+                        val subCate = categoryManagerViewModel.subCategory[
+                                categoryManagerViewModel.subCategory.indexOfFirst { it.SubCategory_ID == rID }]
+                        subCate.SubCategory_Name = editText.text.toString()
+                        AppDatabase.getDatabase(requireContext()).subcat()
+                            .updateSubCategory(subCate)
+                        // refresh
+                        refreshSubCategory()
+                    }
+                }
 
-                })
-            .setNegativeButton(R.string.msg_button_cancel,
-                DialogInterface.OnClickListener { dialog, whichButton ->
-                    dialog.cancel()
-                })
+            }
+            .setNegativeButton(R.string.msg_button_cancel
+            ) { dialog, _ ->
+                dialog.cancel()
+            }
 
-            // main category edit mode with delete button
+        // main category edit mode with delete button
             if (type == 1) {
-                alert.setNeutralButton(R.string.msg_button_delete,DialogInterface.OnClickListener{ dialog, whichButton ->
+                alert.setNeutralButton(R.string.msg_button_delete) { _, _ ->
                     deleteCategory(0, rID, nextRowID)
-                })
+                }
             }
 
             alert.show()
@@ -371,15 +376,16 @@ class CategoryManagerFragment: Fragment() {
     // delete category---------------------
     // 0: mainCategory
     // 1: subCategory
+    @SuppressLint("InflateParams")
     private fun deleteCategory(type: Int, rID: Long, nextRowID: Long = 0) {
 
         val dialogBuilder = AlertDialog.Builder(activity)
 
         dialogBuilder.setMessage(getText(R.string.msg_content_category_delete))
             .setCancelable(true)
-            .setPositiveButton(getText(R.string.msg_button_confirm),DialogInterface.OnClickListener{ _,_->
+            .setPositiveButton(getText(R.string.msg_button_confirm)) { _, _ ->
                 // delete record
-                when (type){
+                when (type) {
                     0 -> {
                         try {
                             AppDatabase.getDatabase(requireContext()).mainCategory()
@@ -392,25 +398,34 @@ class CategoryManagerFragment: Fragment() {
                             if (rID != nextRowID) showSubCategoryItems(nextRowID)
 
                         } catch (e: SQLiteException) {
-                            Toast.makeText(context, getString(R.string.msg_category_delete_error), Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                context,
+                                getString(R.string.msg_category_delete_error),
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                     }
                     1 -> {
                         try {
-                            AppDatabase.getDatabase(requireContext()).subcat().deleteSubCategory(SubCategory(rID))
+                            AppDatabase.getDatabase(requireContext()).subcat()
+                                .deleteSubCategory(SubCategory(rID))
                         } catch (e: SQLiteException) {
-                            Toast.makeText(context, getString(R.string.msg_category_delete_error), Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                context,
+                                getString(R.string.msg_category_delete_error),
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                         // refresh
                         refreshSubCategory()
                     }
                 }
 
-            })
-            .setNegativeButton(getText(R.string.msg_button_cancel),DialogInterface.OnClickListener{ dialog, _ ->
+            }
+            .setNegativeButton(getText(R.string.msg_button_cancel)) { dialog, _ ->
                 // cancel
                 dialog.cancel()
-            })
+            }
 
         // set Title Style
         val titleView = layoutInflater.inflate(R.layout.popup_title,null)
