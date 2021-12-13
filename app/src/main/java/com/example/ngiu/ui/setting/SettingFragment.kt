@@ -33,6 +33,9 @@ class SettingFragment : Fragment() {
 
         _binding = FragmentSettingBinding.inflate(inflater, container, false)
 
+        // Show bottom bar
+        (activity as MainActivity).setNavBottomBarVisibility(View.VISIBLE)
+        
 
         //todo on click to the next screen
         val textView: TextView = binding.tvSettingExpense
