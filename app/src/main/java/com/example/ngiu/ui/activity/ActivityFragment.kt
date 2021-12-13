@@ -49,9 +49,9 @@ class ActivityFragment : Fragment() {
 
 
         // load data to ram
-        Thread {
+        //Thread {
             activityViewModel.loadDataToRam(requireContext())
-        }.start()
+        //}.start()
 
         initAdapter()
 
