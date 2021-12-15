@@ -132,9 +132,10 @@
             android:textColor="@color/app_text"
             android:textSize="18sp"
             android:textStyle="normal"
+            android:text="@string/msg_new_category"
             app:layout_constraintStart_toStartOf="@id/tvTrans_year"
             app:layout_constraintTop_toBottomOf="@id/tvTrans_year"
-            tools:text="" />
+             />
 
         <TextView
             android:id="@+id/tvTrans_time"
