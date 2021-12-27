@@ -53,21 +53,11 @@ class RecordFragment : Fragment() {
         // hide bottom bar
         (activity as MainActivity).setNavBottomBarVisibility(View.GONE)
 
-        // Pass value from other fragment
-        // --implementation "androidx.fragment:fragment-ktx:1.3.6"
-        setFragmentResultListener("record_edit_mode") { _, bundle ->
-            receivedID = bundle.getLong("rID")
+
+        // receive data from other fragment
+        receivedID = arguments?.getLong("Transaction_ID")!!
 
 
-            if (receivedID > 0) {
-                // show delete menu
-                toolbar_record.menu.findItem(R.id.action_delete).isVisible = true
-                // show delete button
-                tv_record_left_button.text = getText(R.string.menu_delete)
-
-                recordViewModel.loadTransactionDetail(activity, receivedID)
-            }
-        }
 
         // get string from category manage
         setFragmentResultListener("category_manage") { _, bundle ->
@@ -88,6 +78,8 @@ class RecordFragment : Fragment() {
             ViewModelProvider(this).get(RecordViewModel::class.java)
 
         _binding = FragmentRecordBinding.inflate(inflater, container, false)
+
+
 
         // load Data to Ram
         recordViewModel.loadDataToRam(activity)
@@ -132,6 +124,16 @@ class RecordFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         //tv_record_amount.addDecimalLimiter()
+
+        if (receivedID > 0) {
+            // show delete menu
+            toolbar_record.menu.findItem(R.id.action_delete).isVisible = true
+            // show delete button
+            tv_record_left_button.text = getText(R.string.menu_delete)
+
+            recordViewModel.loadTransactionDetail(activity, receivedID)
+        }
+
 
         // touch Expense textView, switch to Expense page
         tvSectionExpense.setOnClickListener {
@@ -718,7 +720,7 @@ class RecordFragment : Fragment() {
                 tv_record_common_category.visibility = View.VISIBLE
                 tv_record_all_category.visibility = View.VISIBLE
                 // account name
-                tv_record_account_pay.text = recordViewModel.getAccountName(true)
+                if (recordViewModel.transDetail.Account_Name.isEmpty()) tv_record_account_pay.text = recordViewModel.getAccountName(true)
             }
             3L -> {
                 iv_record_swap.visibility = View.VISIBLE
@@ -728,8 +730,8 @@ class RecordFragment : Fragment() {
                 tv_record_common_category.visibility = View.GONE
                 tv_record_all_category.visibility = View.GONE
                 // account name
-                tv_record_account_pay.text = recordViewModel.getAccountName(true)
-                tv_record_account_receive.text = recordViewModel.getAccountName(false)
+                if (recordViewModel.transDetail.Account_Name.isEmpty()) tv_record_account_pay.text = recordViewModel.getAccountName(true)
+                if (recordViewModel.transDetail.AccountRecipient_Name.isEmpty()) tv_record_account_receive.text = recordViewModel.getAccountName(false)
                 if (tv_record_account_pay.text.toString() == tv_record_account_receive.text.toString()){
                     val ltName = recordViewModel.getListOfAccountName(tv_record_account_pay.text.toString(), false)
                     if (ltName.isNotEmpty())  tv_record_account_receive.text = ltName[0]
@@ -744,7 +746,7 @@ class RecordFragment : Fragment() {
                 tv_record_common_category.visibility = View.GONE
                 tv_record_all_category.visibility = View.GONE
                 // account name
-                showAccountName(tv_record_category.text.toString())
+                if (recordViewModel.transDetail.Account_Name.isEmpty()) showAccountName(tv_record_category.text.toString())
             }
 
         }

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_view_account_credit_detail"
+    android:layout_marginTop="-1dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/app_list_background">
+
+        <TextView
+            android:id="@+id/tv_account_credit_detail_item_blank"
+            android:layout_width="20dp"
+            android:layout_height="0dp"
+            android:background="@color/app_section_background"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:ignore="MissingConstraints" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginVertical="1dp"
+            android:layout_marginStart="1dp"
+            android:background="@color/app_section_background"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_account_credit_detail_item_blank"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_account_credit_detail_card_view_item"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="10dp">
+
+
+
+                <TextView
+                    android:id="@+id/tv_account_credit_detail_item_category"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:textColor="@color/app_amount"
+                    android:textSize="18sp"
+                    android:text="Lunch"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+
+                <TextView
+                    android:id="@+id/tv_account_credit_detail_item_date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:textColor="@color/app_label_text"
+                    android:textSize="12sp"
+                    android:text="09/23"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_account_credit_detail_item_category"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_account_credit_detail_item_memo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:paddingHorizontal="10dp"
+                    android:text="memo"
+                    android:textColor="@color/app_label_text"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toStartOf="@id/tv_account_credit_detail_item_amount"
+                    app:layout_constraintStart_toEndOf="@id/tv_account_credit_detail_item_date"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_account_credit_detail_item_category" />
+
+                <TextView
+                    android:id="@+id/tv_account_credit_detail_item_amount"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:textColor="@color/app_expense_amount"
+                    android:textSize="18sp"
+                    app:layout_constraintTop_toTopOf="@+id/tv_account_credit_detail_item_category"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:text="$15.75" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

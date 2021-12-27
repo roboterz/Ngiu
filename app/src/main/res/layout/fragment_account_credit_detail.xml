@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.account.AccountCreditDetailFragment">
+    tools:context=".ui.account.detail.AccountCreditDetailFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_account_credit_card_details"
@@ -20,7 +20,7 @@
         app:navigationIcon="@drawable/ic_baseline_arrow_back_24" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_account_info"
+        android:id="@+id/layout_account_credit_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/app_list_background"
@@ -31,7 +31,7 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar_account_credit_card_details">
 
         <TextView
-            android:id="@+id/tv_account_info_statement_day"
+            android:id="@+id/tv_account_credit_info_statement_day"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/option_account_statement_date"
@@ -41,33 +41,33 @@
             app:layout_constraintWidth_percent="0.3" />
 
         <TextView
-            android:id="@+id/tv_account_info_statement_day_value"
+            android:id="@+id/tv_account_credit_info_statement_day_value"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="27th"
             android:textAlignment="textStart"
-            app:layout_constraintStart_toEndOf="@id/tv_account_info_statement_day"
-            app:layout_constraintTop_toTopOf="@id/tv_account_info_statement_day"
+            app:layout_constraintStart_toEndOf="@id/tv_account_credit_info_statement_day"
+            app:layout_constraintTop_toTopOf="@id/tv_account_credit_info_statement_day"
             app:layout_constraintWidth_percent="0.2" />
 
         <TextView
-            android:id="@+id/tv_account_info_payment_day"
+            android:id="@+id/tv_account_credit_info_payment_day"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/option_account_payment_date"
             android:textAlignment="textEnd"
-            app:layout_constraintEnd_toStartOf="@id/tv_account_info_payment_day_value"
-            app:layout_constraintTop_toTopOf="@+id/tv_account_info_statement_day"
+            app:layout_constraintEnd_toStartOf="@id/tv_account_credit_info_payment_day_value"
+            app:layout_constraintTop_toTopOf="@+id/tv_account_credit_info_statement_day"
             app:layout_constraintWidth_percent="0.3" />
 
         <TextView
-            android:id="@+id/tv_account_info_payment_day_value"
+            android:id="@+id/tv_account_credit_info_payment_day_value"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="10/22"
             android:textAlignment="textStart"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_account_info_statement_day"
+            app:layout_constraintTop_toTopOf="@+id/tv_account_credit_info_statement_day"
             app:layout_constraintWidth_percent="0.2" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -79,10 +79,10 @@
             android:paddingBottom="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_account_info_statement_day">
+            app:layout_constraintTop_toBottomOf="@+id/tv_account_credit_info_statement_day">
 
             <TextView
-                android:id="@+id/tv_account_detail_current_arrears"
+                android:id="@+id/tv_account_credit_detail_current_arrears"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/option_account_current_arrears"
@@ -94,7 +94,7 @@
                 app:layout_constraintWidth_percent="0.5" />
 
             <TextView
-                android:id="@+id/tv_account_detail_available_credit_limit"
+                android:id="@+id/tv_account_credit_detail_available_credit_limit"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/option_account_available_credit_limit"
@@ -102,11 +102,11 @@
                 android:textColor="@color/app_title_text"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tv_account_detail_current_arrears"
+                app:layout_constraintTop_toTopOf="@+id/tv_account_credit_detail_current_arrears"
                 app:layout_constraintWidth_percent="0.5" />
 
             <TextView
-                android:id="@+id/tv_account_detail_current_arrears_value"
+                android:id="@+id/tv_account_credit_detail_current_arrears_value"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
@@ -114,12 +114,12 @@
                 android:textSize="22sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_account_detail_current_arrears"
+                app:layout_constraintTop_toBottomOf="@id/tv_account_credit_detail_current_arrears"
                 app:layout_constraintWidth_percent="0.5"
                 tools:text="@string/amount_zero_with_dollar_sign" />
 
             <TextView
-                android:id="@+id/tv_account_detail_available_credit_limit_value"
+                android:id="@+id/tv_account_credit_detail_available_credit_limit_value"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/amount_zero_with_dollar_sign"
@@ -128,7 +128,7 @@
                 android:textSize="22sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_account_detail_available_credit_limit"
+                app:layout_constraintTop_toBottomOf="@id/tv_account_credit_detail_available_credit_limit"
                 app:layout_constraintWidth_percent="0.5" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -138,10 +138,10 @@
         android:layout_height="0dp"
         android:background="@color/app_section_background"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layout_account_info">
+        app:layout_constraintTop_toBottomOf="@+id/layout_account_credit_info">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerview_account_detail"
+            android:id="@+id/recyclerview_account_credit_detail"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 

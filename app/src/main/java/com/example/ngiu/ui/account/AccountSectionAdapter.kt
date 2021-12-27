@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
 import com.example.ngiu.ui.account.model.AccountSectionUiModel
-import kotlinx.android.synthetic.main.cardview_account_header_item.view.*
 import kotlinx.android.synthetic.main.cardview_account_section_item.view.*
 
 
@@ -59,7 +58,7 @@ class AccountSectionAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val accountHeaderBalance: TextView = itemView.tvAccountHeaderBalance
         var expandRow: ImageView = itemView.ivExpandRow
         var rvAccounts: RecyclerView = itemView.rvAccounts
-        var topheader: View = itemView.includeHeader
+        var topheader: View = itemView.cardview_account_section_item
 
         // function to fold child base off the header
         fun foldItems(expand: Boolean){

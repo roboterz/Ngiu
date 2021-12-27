@@ -75,7 +75,7 @@ class AccountGeneralDetailFragment : Fragment() {
                         // catch the item click event from adapter
                         override fun onItemClick(transID: Long) {
                             // switch to record fragment (Edit mode)
-                            navigateToRecordFragment(transID, true)
+                            navigateToRecordFragment(transID)
                         }
                     })
                 }
@@ -109,9 +109,9 @@ class AccountGeneralDetailFragment : Fragment() {
                     true
                 }
                 R.id.action_edit -> {
-                    (activity as MainActivity).setNavBottomBarVisibility(View.GONE)
+                    //(activity as MainActivity).setNavBottomBarVisibility(View.GONE)
                     // navigate to edit account
-                    // todo swtich to edit account
+                    // swtich to edit account
 
                     when (accountGeneralDetailViewModel.accountTypeID) {
                         1L -> {
@@ -221,14 +221,12 @@ class AccountGeneralDetailFragment : Fragment() {
     }
 
 
-    private fun navigateToRecordFragment(transID: Long = 0, editMode: Boolean = false){
-        // hide nav bottom bar
-        //(activity as MainActivity).setNavBottomBarVisibility(View.GONE)
-
-        //parentFragmentManager.setFragmentResult("requestKey", bundleOf("bundleKey" to transactionList[position].Transaction_ID))
-        if (editMode) setFragmentResult("record_edit_mode", bundleOf("rID" to transID))
+    private fun navigateToRecordFragment(transID: Long = 0){
+        val bundle = Bundle().apply {
+            putLong("Transaction_ID", transID)
+        }
         // switch to record fragment
-        findNavController().navigate(R.id.navigation_record)
+        findNavController().navigate(R.id.navigation_record, bundle)
     }
 }
 
