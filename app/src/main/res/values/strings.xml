@@ -115,7 +115,7 @@
     <string name="option_account_current_arrears">Current Arrears</string>
     <string name="option_account_available_credit_limit">Available Credit Limit</string>
     <string name="option_account_statement_not_generated">Statement Not Generated</string>
-    <string name="option_account_amount_due">Amount Due</string>
+    <string name="option_account_amount_due">Amount Due:</string>
     <string name="option_account_inflow">Inflow</string>
     <string name="option_account_outflow">Outflow</string>
     <string name="option_account_to">to</string>
@@ -207,6 +207,8 @@
     <string name="record_paid_to">Paid to</string>
     <string name="record_transfer_out">Transfer out</string>
     <string name="record_transfer_in">Transfer in</string>
+    <string name="record_transfer_to">Transfer to</string>
+    <string name="record_transfer_from">Transfer from</string>
     <string name="record_to">to</string>
 
     <string name="keyboard_1">1</string>

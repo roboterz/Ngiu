@@ -68,7 +68,7 @@ class AccountPRDetailFragment : Fragment() {
                         // catch the item click event from adapter
                         override fun onItemClick(transID: Long) {
                             // switch to record fragment (Edit mode)
-                            navigateToRecordFragment(transID, true)
+                            navigateToRecordFragment(transID)
                         }
                     })
                 }
@@ -155,13 +155,13 @@ class AccountPRDetailFragment : Fragment() {
     }
 
 
-    private fun navigateToRecordFragment(transID: Long = 0, editMode: Boolean = false){
+    private fun navigateToRecordFragment(transID: Long = 0){
 
-
-        //parentFragmentManager.setFragmentResult("requestKey", bundleOf("bundleKey" to transactionList[position].Transaction_ID))
-        if (editMode) setFragmentResult("record_edit_mode", bundleOf("rID" to transID))
+        val bundle = Bundle().apply {
+            putLong("Transaction_ID", transID)
+        }
         // switch to record fragment
-        findNavController().navigate(R.id.navigation_record)
+        findNavController().navigate(R.id.navigation_record, bundle)
     }
 }
 
