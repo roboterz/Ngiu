@@ -6,10 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
+import com.example.ngiu.data.entities.Account
+import com.example.ngiu.data.entities.Trans
 import com.example.ngiu.data.entities.returntype.RecordDetail
+import com.example.ngiu.data.entities.returntype.TransactionDetail
+import com.example.ngiu.ui.account.model.AccountTransRecordModel
 import kotlinx.android.synthetic.main.cardview_account_p_r_detail_item.view.*
+import kotlinx.android.synthetic.main.cardview_account_records.view.*
+import kotlinx.android.synthetic.main.cardview_transaction.view.*
+import org.w3c.dom.Text
 import java.time.format.DateTimeFormatter
 
 class AccountPRDetailAdapter(

@@ -144,10 +144,12 @@ class ActivityFragment : Fragment() {
 
 
     private fun navigateToRecordFragment(transID: Long = 0){
-        val bundle = Bundle().apply {
-            putLong("Transaction_ID", transID)
-        }
+        // hide nav bottom bar
+        //(activity as MainActivity).setNavBottomBarVisibility(View.GONE)
+
+        //parentFragmentManager.setFragmentResult("requestKey", bundleOf("bundleKey" to transactionList[position].Transaction_ID))
+        if (transID >0) setFragmentResult("record_edit_mode", bundleOf("rID" to transID))
         // switch to record fragment
-        findNavController().navigate(R.id.navigation_record, bundle)
+        findNavController().navigate(R.id.navigation_record)
     }
 }

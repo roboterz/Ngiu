@@ -102,9 +102,9 @@
         tools:layout="@layout/fragment_merchant_person_project_manage" />
     <fragment
         android:id="@+id/accountCreditRecords"
-        android:name="com.example.ngiu.ui.account.detail.AccountCreditDetailFragment"
-        android:label="fragment_account_credit_detail"
-        tools:layout="@layout/fragment_account_credit_detail" />
+        android:name="com.example.ngiu.ui.account.AccountCreditDetailFragment"
+        android:label="fragment_account_credit_records"
+        tools:layout="@layout/fragment_account_credit_records" />
     <fragment
         android:id="@+id/accountRecords"
         android:name="com.example.ngiu.ui.account.detail.AccountGeneralDetailFragment"

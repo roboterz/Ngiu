@@ -2,9 +2,6 @@ package com.example.ngiu.ui.account.model
 
 
 import com.example.ngiu.data.entities.Account
-import com.example.ngiu.data.entities.returntype.RecordDetail
-import java.time.LocalDateTime
-import java.time.LocalDateTime.now
 
 
 data class AccountTypeUIModel(val Name: String, val Memo: String? = null)
@@ -30,14 +27,4 @@ data class AccountTransRecordModel(
     val id: Long,
     val account_ID: Long
 
-)
-
-data class AccountCreditDetailGroupModel(
-    var TermStartDate: LocalDateTime = now(),
-    var TermEndDate: LocalDateTime = now(),
-    // false: statement Not Generated; true: amount due
-    var StatementStatus: Boolean = false,
-    var DueAmount: Double = 0.00,
-    var IsExpanded: Boolean = true,
-    val CDList: MutableList<RecordDetail> = ArrayList()
 )

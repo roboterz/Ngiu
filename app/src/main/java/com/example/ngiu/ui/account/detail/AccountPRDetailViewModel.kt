@@ -4,6 +4,7 @@ package com.example.ngiu.ui.account.detail
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import com.example.ngiu.data.AppDatabase
+import com.example.ngiu.data.entities.Trans
 import com.example.ngiu.data.entities.returntype.RecordDetail
 
 

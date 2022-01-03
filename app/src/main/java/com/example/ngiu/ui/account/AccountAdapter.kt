@@ -3,6 +3,7 @@ package com.example.ngiu.ui.account
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,7 @@ import com.example.ngiu.functions.toDayLeft
 import com.example.ngiu.functions.toStatementDate
 import kotlinx.android.synthetic.main.cardview_account_cash_item.view.*
 import kotlinx.android.synthetic.main.cardview_account_credit_card_item.view.*
+import org.w3c.dom.Text
 
 
 class AccountAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

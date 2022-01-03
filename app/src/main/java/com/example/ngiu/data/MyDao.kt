@@ -9,6 +9,9 @@ import com.example.ngiu.data.entities.Currency
 import com.example.ngiu.data.entities.returntype.RecordDetail
 import com.example.ngiu.data.entities.returntype.TransactionDetail
 
+import java.time.LocalDate
+import java.time.LocalDateTime
+
 // Account
 @Dao
 interface AccountDao {
@@ -44,10 +47,6 @@ interface AccountDao {
     @Transaction
     @Query("SELECT Account_Balance FROM Account WHERE Account_ID = :acctID")
     fun getAccountInitialBalance(acctID: Long): Double
-
-    @Transaction
-    @Query("SELECT Account_CreditLimit FROM Account WHERE Account_ID = :acctID")
-    fun getAccountCreditLimit(acctID: Long): Double
 
     @Transaction
     @Query("""
@@ -452,10 +451,9 @@ interface TransDao {
                     WHERE Trans.TransactionType_ID = 4 
                         AND Account.AccountType_ID <> 9 )
             """)
-    fun getAccountDetailByAccountID(acctID: Long): List<CreditCardDetailList>
+    fun getLiability(): Double
 
      */
-
 
     @Transaction
     @Query("""
