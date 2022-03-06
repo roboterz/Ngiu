@@ -24,7 +24,7 @@ object Shortcuts {
             .setShortLabel("New")
             .setLongLabel("Create a new record.")
             .setIcon(Icon.createWithResource(context, R.drawable.ic_baseline_add_24))
-            .setIntents(intents)
+            .setIntent(Intent(Intent.ACTION_VIEW, null, context, RecordFragment::class.java ))
             .build()
 
         shortcutManager!!.dynamicShortcuts = listOf(shortcutNew)
