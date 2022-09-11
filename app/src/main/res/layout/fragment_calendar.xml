@@ -84,6 +84,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="@color/app_list_background"
         app:layout_constraintTop_toBottomOf="@id/layout_calendar_title"
         app:layout_constraintBottom_toBottomOf="parent">
 

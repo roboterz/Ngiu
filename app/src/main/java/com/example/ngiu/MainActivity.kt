@@ -3,6 +3,7 @@ package com.example.ngiu
 
 import android.app.Activity
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -16,6 +17,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.ngiu.databinding.ActivityMainBinding
+import com.example.ngiu.functions.Shortcuts
 import com.example.ngiu.ui.activity.ActivityFragment
 /*import com.example.ngiu.data.DBManager
 import com.example.ngiu.data.Record*/
@@ -51,6 +53,10 @@ class MainActivity: AppCompatActivity() {
         //....
         supportActionBar?.hide()
 
+        //if (Build.VERSION.SDK_INT >= 25){
+        //    Shortcuts.setUp(applicationContext)
+        //}
+
 
     }
 
@@ -65,7 +71,6 @@ class MainActivity: AppCompatActivity() {
     public fun setNavBottomBarVisibility(ID:Int){
         nav_view.visibility = ID
     }
-
 
 
 

@@ -236,6 +236,10 @@
     <string name="Outflow">Outflow</string>
 
 
+    <string name="shortcut_msg">New</string>
+    <string name="shortcut_long_label">Long</string>
+    <string name="shortcut_short_label">Short</string>
+
 
     <string-array name="data_reimburse_array">
         <item>Non-Reimbursable</item>
