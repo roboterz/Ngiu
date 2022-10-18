@@ -10,6 +10,14 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.ngiu.databinding.FragmentCalendarBinding
 import com.example.ngiu.functions.DateTimePicker
 import android.app.TimePickerDialog
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.ngiu.MainActivity
+import com.example.ngiu.data.entities.Account
+import com.example.ngiu.data.entities.returntype.CalendarModel
+import com.example.ngiu.ui.activity.ActivityListAdapter
+import kotlinx.android.synthetic.main.fragment_activity.*
+import kotlinx.android.synthetic.main.fragment_calendar.*
 
 
 class CalendarFragment : Fragment() {
@@ -23,6 +31,9 @@ class CalendarFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
+    private var CAdapter: CalendarAdapter? = null
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -33,6 +44,10 @@ class CalendarFragment : Fragment() {
 
         _binding = FragmentCalendarBinding.inflate(inflater, container, false)
 
+        //
+        calendarViewModel.loadDataToRam(requireContext())
+
+        initAdapter()
 
         return binding.root
     }
@@ -108,6 +123,24 @@ class CalendarFragment : Fragment() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        // Show bottom bar
+        (activity as MainActivity).setNavBottomBarVisibility(View.VISIBLE)
+
+        // load transaction list
+        Thread {
+            activity?.runOnUiThread {
+                //vpAdapter?.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+
+                CAdapter?.setList(calendarViewModel.accountList)
+                //recyclerView_activity.adapter = vpAdapter
+            }
+        }.start()
+
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -115,4 +148,27 @@ class CalendarFragment : Fragment() {
     }
 
 
+    // init Adapter
+    private fun initAdapter() {
+
+        Thread {
+            this.activity?.runOnUiThread {
+
+                recyclerView_calendar.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
+                CAdapter = this.context?.let {
+                    CalendarAdapter(object: CalendarAdapter.OnClickListener {
+                        // catch the item click event from adapter
+                        override fun onItemClick(transID: Long) {
+                            // switch to record fragment (Edit mode)
+
+                        }
+                    })
+                }
+
+                recyclerView_calendar.adapter = CAdapter
+            }
+        }.start()
+    }
+
 }
+

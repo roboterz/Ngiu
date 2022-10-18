@@ -83,6 +83,9 @@ interface AccountDao {
       """)
     fun getOutflowB(rID:Long): Double
 
+    @Transaction
+    @Query("SELECT * FROM Account WHERE AccountType_ID = :tID")
+    fun getRecordByType(tID:Long): List<Account>
 
 
 

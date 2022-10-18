@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_view_calendar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="1dp"
+    app:cardBackgroundColor="@color/app_section_background"
+    app:cardCornerRadius="0dp"
+    app:cardElevation="1dp"
+    app:cardMaxElevation="5dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_calendar_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="15dp"
+        android:paddingStart="15dp"
+        android:paddingTop="15dp"
+        android:paddingEnd="10dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true" >
+
+        <TextView
+            android:id="@+id/cv_calendar_tv_month_day"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textColor="@color/app_option_text"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="11-13" />
+
+
+        <TextView
+            android:id="@+id/cv_calendar_tv_account_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:maxWidth="150dp"
+            android:singleLine="true"
+            android:text="Card Name"
+            android:textColor="@color/app_text"
+            android:textSize="18sp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toEndOf="@+id/cv_calendar_tv_month_day"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/cv_calendar_tv_amount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:singleLine="true"
+            android:textColor="@color/app_text"
+            android:textSize="18sp"
+            android:textStyle="normal"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="$15.75" />
+
+        <ImageView
+            android:id="@+id/img_calendar_paid"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="5dp"
+            android:paddingVertical="5dp"
+            app:srcCompat="@drawable/ic_baseline_check_box_outline_blank_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:ignore="ContentDescription" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

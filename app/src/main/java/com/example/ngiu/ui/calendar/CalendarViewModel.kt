@@ -1,33 +1,31 @@
 package com.example.ngiu.ui.calendar
 
+import android.content.Context
 import android.text.Editable
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.ngiu.data.AppDatabase
+import com.example.ngiu.data.entities.Account
 import com.example.ngiu.data.entities.Person
+import com.example.ngiu.data.entities.Trans
+import com.example.ngiu.data.entities.returntype.TransactionDetail
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class CalendarViewModel : ViewModel() {
 
-    var recordId: Long = 0
-    private val _text = MutableLiveData<String>().apply {
-        value = "Record info:"
+    private var recordId: Long = 0
+    var accountList: List<Account> = ArrayList()
+
+
+    fun getRecordByID(activity: FragmentActivity?, rID: Long): Trans {
+        return AppDatabase.getDatabase(activity!!).trans().getRecordByID(rID)
     }
-    val text: LiveData<String> = _text
 
-
-    fun insertData(
-        activity: FragmentActivity?,
-        strName: Editable,
-        strDate: Editable,
-        strMemo: Editable
-    ): Long {
-
-            val person = Person(Person_ID= 0, Person_Name= strName.toString())
-        val appDatabase = AppDatabase.getDatabase(activity!!)
-            recordId= appDatabase.person().addPerson(person)
-        return recordId
+    fun loadDataToRam(context: Context){
+        accountList = AppDatabase.getDatabase(context).account().getRecordByType(2L)
     }
 
 }
