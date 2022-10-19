@@ -14,6 +14,7 @@ import com.example.ngiu.R
 import kotlinx.android.synthetic.main.cardview_calendar.view.*
 import kotlinx.android.synthetic.main.cardview_transaction.view.*
 import java.time.DayOfWeek
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
@@ -52,7 +53,7 @@ class CalendarAdapter(
         accountList[position].apply {
             //holder.monthDay.text = Account_PaymentDay?.format(DateTimeFormatter.ofPattern("MM/dd"))
             //if (Account_PaymentDay >= Calendar.DAY_OF_MONTH){
-                holder.monthDay.text = Calendar.MONTH.toString() + "/$Account_PaymentDay"
+                holder.monthDay.text = LocalDateTime.now().month.value.toString() + "/$Account_PaymentDay"
             //}
             //holder.monthDay.text = "$Account_PaymentDay"
             holder.name.text = Account_Name

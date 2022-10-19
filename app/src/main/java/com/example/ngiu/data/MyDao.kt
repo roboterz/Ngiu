@@ -26,11 +26,11 @@ interface AccountDao {
 
 
     @Transaction
-    @Query("SELECT * FROM Account ")
+    @Query("SELECT * FROM Account ORDER BY Account_Name")
     fun getAllAccount(): List<Account>
 
     @Transaction
-    @Query("SELECT * FROM Account ORDER BY AccountType_ID ASC ")
+    @Query("SELECT * FROM Account ORDER BY AccountType_ID ASC, Account_Name ")
     fun getAllAccountASC(): List<Account>
 
     // get a record BY ID
@@ -84,7 +84,7 @@ interface AccountDao {
     fun getOutflowB(rID:Long): Double
 
     @Transaction
-    @Query("SELECT * FROM Account WHERE AccountType_ID = :tID")
+    @Query("SELECT * FROM Account WHERE AccountType_ID = :tID Order By Account_PaymentDay ASC")
     fun getRecordByType(tID:Long): List<Account>
 
 
