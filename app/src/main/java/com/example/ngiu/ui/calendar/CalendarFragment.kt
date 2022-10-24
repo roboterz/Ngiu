@@ -13,6 +13,7 @@ import android.app.TimePickerDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.MainActivity
+import com.example.ngiu.data.AppDatabase
 import com.example.ngiu.data.entities.Account
 import com.example.ngiu.data.entities.returntype.CalendarModel
 import com.example.ngiu.ui.activity.ActivityListAdapter
@@ -158,9 +159,18 @@ class CalendarFragment : Fragment() {
                 CAdapter = this.context?.let {
                     CalendarAdapter(object: CalendarAdapter.OnClickListener {
                         // catch the item click event from adapter
-                        override fun onItemClick(transID: Long) {
+                        override fun onItemClick(accountID: Long, blnFixed: Boolean) {
                             // switch to record fragment (Edit mode)
+                            calendarViewModel.updateAccountFixedPayment(it,accountID,blnFixed)
 
+                            //val acct = calendarViewModel.accountList[
+                            //        calendarViewModel.accountList.indexOfFirst { it.Account_ID == accountID }
+                            //]
+                            //acct.Account_FixedPaymentDay = blnFixed
+
+                            //AppDatabase.getDatabase(requireContext()).account().updateAccount(acct)
+                            // refresh
+                            refreshCalendar()
                         }
                     })
                 }
@@ -168,6 +178,14 @@ class CalendarFragment : Fragment() {
                 recyclerView_calendar.adapter = CAdapter
             }
         }.start()
+    }
+
+
+    // refresh subCategory
+    private fun refreshCalendar(){
+
+        calendarViewModel.loadDataToRam(requireContext())
+        CAdapter?.setList(calendarViewModel.accountList)
     }
 
 }

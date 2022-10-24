@@ -2,9 +2,12 @@ package com.example.ngiu.ui.calendar
 
 import com.example.ngiu.data.entities.Account
 import android.annotation.SuppressLint
+import android.graphics.Paint
+import android.graphics.PorterDuff
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -31,7 +34,7 @@ class CalendarAdapter(
 
     // interface for passing the onClick event to fragment.
     interface OnClickListener {
-        fun onItemClick(transID: Long)
+        fun onItemClick(accountID: Long, blnFixed: Boolean)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -53,24 +56,53 @@ class CalendarAdapter(
         accountList[position].apply {
             //holder.monthDay.text = Account_PaymentDay?.format(DateTimeFormatter.ofPattern("MM/dd"))
             //if (Account_PaymentDay >= Calendar.DAY_OF_MONTH){
-                holder.monthDay.text = LocalDateTime.now().month.value.toString() + "/$Account_PaymentDay"
+            if (Account_PaymentDay < 10) {
+                holder.monthDay.text =
+                    LocalDateTime.now().month.value.toString() + "/0$Account_PaymentDay"
+            }else{
+                holder.monthDay.text =
+                    LocalDateTime.now().month.value.toString() + "/$Account_PaymentDay"
+            }
             //}
             //holder.monthDay.text = "$Account_PaymentDay"
+
+            //name
             holder.name.text = Account_Name
-
-
+            //amount
             holder.amount.text ="$" + "%.2f".format(Account_Balance)
+            //checkbox
+            holder.cbox.isChecked = !Account_FixedPaymentDay
+            if (Account_FixedPaymentDay) {
+                holder.name.paintFlags = 0
+            }else{
+                holder.name.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+            }
+
+            if (Account_PaymentDay < LocalDateTime.now().dayOfMonth){
+                holder.name.setTextColor(holder.textColorDone)
+                holder.amount.setTextColor(holder.textColorDone)
+                holder.monthDay.setTextColor(holder.textColorDone)
+
+            }else if ((Account_PaymentDay - LocalDateTime.now().dayOfMonth) >=0 && (Account_PaymentDay - LocalDateTime.now().dayOfMonth) <=5){
+                //holder.name.setTextColor(holder.textColorDue)
+                //holder.amount.setTextColor(holder.textColorDue)
+                holder.monthDay.setTextColor(holder.textColorDue)
+                holder.dot.setColorFilter(holder.textColorDue)
+
+            }else{
+                holder.name.setTextColor(holder.textColorFuture)
+                holder.amount.setTextColor(holder.textColorFuture)
+                holder.monthDay.setTextColor(holder.textColorFuture)
+            }
 
             // pass the item click listener to fragment
             holder.cbox.setOnClickListener {
-                //onClickListener.onItemClick(Account_ID)
-                if (Account_FixedPaymentDay){
-                    Account_FixedPaymentDay = false
-                    holder.cbox.setImageDrawable(holder.drawableBlank)
-                }else{
-                    Account_FixedPaymentDay = true
-                    holder.cbox.setImageDrawable(holder.drawableDone)
-                }
+                Account_FixedPaymentDay = !Account_FixedPaymentDay
+                //holder.cbox.isChecked = Account_FixedPaymentDay
+
+                onClickListener.onItemClick(Account_ID, Account_FixedPaymentDay)
+                //in CalendarFragment, to save the value into database
+
             }
         }
     }
@@ -94,7 +126,8 @@ class CalendarAdapter(
         val name: TextView = itemView.cv_calendar_tv_account_name
         val amount: TextView = itemView.cv_calendar_tv_amount
         val aItem: ConstraintLayout = itemView.layout_calendar_item
-        val cbox: ImageView = itemView.img_calendar_paid
+        val cbox: CheckBox = itemView.cv_calendar_checkBox
+        val dot: ImageView = itemView.cv_calendar_img_circle
 
         //val expenseColor = ContextCompat.getColor(itemView.context, R.color.app_expense_amount)
         //val incomeColor = ContextCompat.getColor(itemView.context, R.color.app_income_amount)
@@ -102,6 +135,9 @@ class CalendarAdapter(
         val drawableDone = ContextCompat.getDrawable(itemView.context, R.drawable.ic_baseline_check_box_24)
         val drawableBlank = ContextCompat.getDrawable(itemView.context, R.drawable.ic_baseline_check_box_outline_blank_24)
 
+        val textColorDone = ContextCompat.getColor(itemView.context, R.color.app_sub_line_text)
+        val textColorDue = ContextCompat.getColor(itemView.context, R.color.app_expense_amount)
+        val textColorFuture = ContextCompat.getColor(itemView.context, R.color.app_amount)
 
     }
 

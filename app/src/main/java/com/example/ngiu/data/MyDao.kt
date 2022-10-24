@@ -39,7 +39,7 @@ interface AccountDao {
     fun getRecordByID(rID:Long): Account
 
     @Update
-    fun updateAccount(vararg account: Account)
+    fun updateAccount(account: Account)
 
     @Transaction
     @Query("SELECT Account_Balance FROM Account WHERE Account_ID = :acctID")
@@ -86,6 +86,10 @@ interface AccountDao {
     @Transaction
     @Query("SELECT * FROM Account WHERE AccountType_ID = :tID Order By Account_PaymentDay ASC")
     fun getRecordByType(tID:Long): List<Account>
+
+
+
+
 
 
 

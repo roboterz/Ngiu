@@ -28,4 +28,13 @@ class CalendarViewModel : ViewModel() {
         accountList = AppDatabase.getDatabase(context).account().getRecordByType(2L)
     }
 
+    fun updateAccountFixedPayment(context: Context, accountID:Long, blnFixed: Boolean){
+
+        val acct = AppDatabase.getDatabase(context).account().getRecordByID(accountID)
+
+        acct.Account_FixedPaymentDay = blnFixed
+
+        AppDatabase.getDatabase(context).account().updateAccount(acct)
+
+    }
 }
