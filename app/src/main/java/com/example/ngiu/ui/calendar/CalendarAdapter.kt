@@ -56,53 +56,70 @@ class CalendarAdapter(
         accountList[position].apply {
             //holder.monthDay.text = Account_PaymentDay?.format(DateTimeFormatter.ofPattern("MM/dd"))
             //if (Account_PaymentDay >= Calendar.DAY_OF_MONTH){
-            if (Account_PaymentDay < 10) {
-                holder.monthDay.text =
-                    LocalDateTime.now().month.value.toString() + "/0$Account_PaymentDay"
-            }else{
-                holder.monthDay.text =
-                    LocalDateTime.now().month.value.toString() + "/$Account_PaymentDay"
-            }
-            //}
-            //holder.monthDay.text = "$Account_PaymentDay"
+            val today_Day:Int =  LocalDateTime.now().dayOfMonth
+            val today_Month:Int = LocalDateTime.now().month.value
 
-            //name
-            holder.name.text = Account_Name
-            //amount
-            holder.amount.text ="$" + "%.2f".format(Account_Balance)
-            //checkbox
-            holder.cbox.isChecked = !Account_FixedPaymentDay
-            if (Account_FixedPaymentDay) {
-                holder.name.paintFlags = 0
-            }else{
-                holder.name.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
-            }
-
-            if (Account_PaymentDay < LocalDateTime.now().dayOfMonth){
-                holder.name.setTextColor(holder.textColorDone)
-                holder.amount.setTextColor(holder.textColorDone)
-                holder.monthDay.setTextColor(holder.textColorDone)
-
-            }else if ((Account_PaymentDay - LocalDateTime.now().dayOfMonth) >=0 && (Account_PaymentDay - LocalDateTime.now().dayOfMonth) <=5){
-                //holder.name.setTextColor(holder.textColorDue)
-                //holder.amount.setTextColor(holder.textColorDue)
-                holder.monthDay.setTextColor(holder.textColorDue)
-                holder.dot.setColorFilter(holder.textColorDue)
+            if (today_Day - Account_PaymentDay > 10) {
+                //作为下一个月的事件
 
             }else{
-                holder.name.setTextColor(holder.textColorFuture)
-                holder.amount.setTextColor(holder.textColorFuture)
-                holder.monthDay.setTextColor(holder.textColorFuture)
-            }
+                if (Account_PaymentDay < 10) {
+                    holder.monthDay.text =
+                        today_Month.toString() + "/0$Account_PaymentDay"
+                }else{
+                    holder.monthDay.text =
+                        today_Month.toString() + "/$Account_PaymentDay"
+                }
 
-            // pass the item click listener to fragment
-            holder.cbox.setOnClickListener {
-                Account_FixedPaymentDay = !Account_FixedPaymentDay
-                //holder.cbox.isChecked = Account_FixedPaymentDay
+                //hide the date if same day as above
+                if (position>0) {
+                    if (Account_PaymentDay == accountList[position - 1].Account_PaymentDay){
+                        holder.monthDay.text = ""
+                    }
+                }
+                //}
+                //holder.monthDay.text = "$Account_PaymentDay"
 
-                onClickListener.onItemClick(Account_ID, Account_FixedPaymentDay)
-                //in CalendarFragment, to save the value into database
+                //name
+                holder.name.text = Account_Name
+                //amount
+                holder.amount.text ="$" + "%.2f".format(Account_Balance)
+                //checkbox
+                holder.cbox.isChecked = !Account_FixedPaymentDay
 
+                //text with delete line
+                /*if (Account_FixedPaymentDay) {
+                    holder.name.paintFlags = 0
+                }else{
+                    holder.name.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+                }*/
+
+                if (Account_PaymentDay < today_Day){
+                    holder.name.setTextColor(holder.textColorDone)
+                    holder.amount.setTextColor(holder.textColorDone)
+                    //holder.monthDay.setTextColor(holder.textColorDone)
+
+                }else if ((Account_PaymentDay - today_Day) >=0 && (Account_PaymentDay - today_Day) <=5){
+                    //holder.name.setTextColor(holder.textColorDue)
+                    //holder.amount.setTextColor(holder.textColorDue)
+                    //holder.monthDay.setTextColor(holder.textColorDue)
+                    holder.dot.setColorFilter(holder.textColorDue)
+
+                }else{
+                    holder.name.setTextColor(holder.textColorFuture)
+                    holder.amount.setTextColor(holder.textColorFuture)
+                    //holder.monthDay.setTextColor(holder.textColorFuture)
+                }
+
+                // pass the item click listener to fragment
+                holder.cbox.setOnClickListener {
+                    Account_FixedPaymentDay = !Account_FixedPaymentDay
+                    //holder.cbox.isChecked = Account_FixedPaymentDay
+
+                    onClickListener.onItemClick(Account_ID, Account_FixedPaymentDay)
+                    //in CalendarFragment, to save the value into database
+
+                }
             }
         }
     }
