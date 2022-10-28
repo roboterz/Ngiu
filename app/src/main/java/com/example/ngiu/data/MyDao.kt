@@ -85,7 +85,7 @@ interface AccountDao {
 
     @Transaction
     @Query("SELECT * FROM Account WHERE AccountType_ID = :tID Order By Account_PaymentDay ASC")
-    fun getRecordByType(tID:Long): List<Account>
+    fun getRecordByType(tID:Long): MutableList<Account>
 
 
 

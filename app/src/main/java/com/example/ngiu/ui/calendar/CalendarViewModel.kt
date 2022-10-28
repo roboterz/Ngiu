@@ -12,12 +12,13 @@ import com.example.ngiu.data.entities.Person
 import com.example.ngiu.data.entities.Trans
 import com.example.ngiu.data.entities.returntype.TransactionDetail
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class CalendarViewModel : ViewModel() {
 
     private var recordId: Long = 0
-    var accountList: List<Account> = ArrayList()
+    var accountList: MutableList<Account> = ArrayList()
 
 
     fun getRecordByID(activity: FragmentActivity?, rID: Long): Trans {
@@ -25,7 +26,17 @@ class CalendarViewModel : ViewModel() {
     }
 
     fun loadDataToRam(context: Context){
-        accountList = AppDatabase.getDatabase(context).account().getRecordByType(2L)
+        val today:Int =  LocalDateTime.now().dayOfMonth
+        val aList = AppDatabase.getDatabase(context).account().getRecordByType(2L)
+
+        accountList.clear()
+        //for (i in aList.indices){
+        //    if (aList[i].Account_PaymentDay >= today){
+                accountList.addAll(aList.filter { it.Account_PaymentDay>=today })
+                accountList.addAll(aList.filter { it.Account_PaymentDay < today })
+        //    }
+        //}
+
     }
 
     fun updateAccountFixedPayment(context: Context, accountID:Long, blnFixed: Boolean){
