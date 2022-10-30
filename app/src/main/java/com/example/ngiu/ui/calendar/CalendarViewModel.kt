@@ -10,6 +10,7 @@ import com.example.ngiu.data.AppDatabase
 import com.example.ngiu.data.entities.Account
 import com.example.ngiu.data.entities.Person
 import com.example.ngiu.data.entities.Trans
+import com.example.ngiu.data.entities.returntype.CalendarDetail
 import com.example.ngiu.data.entities.returntype.TransactionDetail
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -18,7 +19,9 @@ import java.time.format.DateTimeFormatter
 class CalendarViewModel : ViewModel() {
 
     private var recordId: Long = 0
-    var accountList: MutableList<Account> = ArrayList()
+    //var accountList: MutableList<Account> = ArrayList()
+
+    var calendarDetail: MutableList<CalendarDetail> = ArrayList()
 
 
     fun getRecordByID(activity: FragmentActivity?, rID: Long): Trans {
@@ -26,20 +29,36 @@ class CalendarViewModel : ViewModel() {
     }
 
     fun loadDataToRam(context: Context){
-        val today:Int =  LocalDateTime.now().dayOfMonth
+        val today:Int =  LocalDate.now().dayOfMonth
         val aList = AppDatabase.getDatabase(context).account().getRecordByType(2L)
 
-        accountList.clear()
-        //for (i in aList.indices){
-        //    if (aList[i].Account_PaymentDay >= today){
-                accountList.addAll(aList.filter { it.Account_PaymentDay>=today })
-                accountList.addAll(aList.filter { it.Account_PaymentDay < today })
-        //    }
-        //}
+        val acctList: MutableList<Account> = ArrayList()
+        acctList.addAll(aList.filter { it.Account_PaymentDay>=today })
+        acctList.addAll(aList.filter { it.Account_PaymentDay < today })
+
+        calendarDetail.clear()
+        for (i in acctList.indices) {
+            val cd: CalendarDetail = CalendarDetail()
+            cd.apply {
+                this.name = acctList[i].Account_Name
+                this.type = 1
+                this.account_last_four_number = acctList[i].Account_CardNumber
+                if (today <= acctList[i].Account_PaymentDay) {
+                    this.date =
+                        LocalDate.now().plusDays((acctList[i].Account_PaymentDay - today).toLong())
+                } else {
+                    this.date = LocalDate.now().plusMonths(1)
+                        .minusDays((today - acctList[i].Account_PaymentDay).toLong())
+                }
+            }
+            calendarDetail.add(cd)
+        }
 
     }
 
-    fun updateAccountFixedPayment(context: Context, accountID:Long, blnFixed: Boolean){
+
+
+/*    fun updateAccountFixedPayment(context: Context, accountID:Long, blnFixed: Boolean){
 
         val acct = AppDatabase.getDatabase(context).account().getRecordByID(accountID)
 
@@ -47,5 +66,5 @@ class CalendarViewModel : ViewModel() {
 
         AppDatabase.getDatabase(context).account().updateAccount(acct)
 
-    }
+    }*/
 }

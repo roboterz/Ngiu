@@ -9,11 +9,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.ImageView
+import android.widget.Switch
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
+import com.example.ngiu.data.entities.returntype.CalendarDetail
 import kotlinx.android.synthetic.main.cardview_calendar.view.*
 import kotlinx.android.synthetic.main.cardview_transaction.view.*
 import java.time.DayOfWeek
@@ -29,6 +31,7 @@ class CalendarAdapter(
     : RecyclerView.Adapter<CalendarAdapter.ViewHolder>() {
 
     var accountList: MutableList<Account> = ArrayList()
+    var calendarDetail: MutableList<CalendarDetail> = ArrayList()
 
     private val formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm")
 
@@ -54,42 +57,37 @@ class CalendarAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         // display the custom class
 
-        val today:Int =  LocalDateTime.now().dayOfMonth
-        val month:Int = LocalDateTime.now().month.value
-        val nextMonth:Int = LocalDateTime.now().month.plus(1).value
-
-        accountList[position].apply {
+        calendarDetail[position].apply {
             //holder.monthDay.text = Account_PaymentDay?.format(DateTimeFormatter.ofPattern("MM/dd"))
             //if (Account_PaymentDay >= Calendar.DAY_OF_MONTH){
 
 
+            holder.monthDay.text = date?.format(DateTimeFormatter.ofPattern("MM/dd"))
 
-            if (Account_PaymentDay < 10) {
-                holder.monthDay.text =
-                    (if(today>Account_PaymentDay) nextMonth.toString() else month.toString()) + "/0$Account_PaymentDay"
-            }else{
-                holder.monthDay.text =
-                    (if(today>Account_PaymentDay) nextMonth.toString() else month.toString()) + "/$Account_PaymentDay"
-            }
 
             //hide the date if same day as above
             if (position>0) {
-                if (Account_PaymentDay == accountList[position - 1].Account_PaymentDay){
+                if (date == calendarDetail[position - 1].date){
                     holder.monthDay.text = ""
                 }
             }
             //}
             //holder.monthDay.text = "$Account_PaymentDay"
 
-            //Event
-            holder.event.text = "Credit Card Payment"
+            // todo Event
+            when (type){
+                1 -> holder.event.text = "Credit Card Payment"
+                2 -> holder.event.text = "Payment"
+                else -> holder.event.text = ""
+            }
+
 
             //name
-            holder.name.text = Account_Name
+            holder.name.text = name
             //amount
-            holder.amount.text ="$" + "%.2f".format(Account_Balance)
+            holder.amount.text ="$" + "%.2f".format(amount)
             //checkbox
-            holder.cbox.isChecked = !Account_FixedPaymentDay
+            //holder.cbox.isChecked = !Account_FixedPaymentDay
 
             //text with delete line
             /*if (Account_FixedPaymentDay) {
@@ -98,7 +96,7 @@ class CalendarAdapter(
                 holder.name.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
             }*/
 
-            if (Account_PaymentDay < today){
+/*            if (Account_PaymentDay < today){
                 holder.name.setTextColor(holder.textColorDone)
                 holder.amount.setTextColor(holder.textColorDone)
                 //holder.monthDay.setTextColor(holder.textColorDone)
@@ -113,14 +111,22 @@ class CalendarAdapter(
                 holder.name.setTextColor(holder.textColorFuture)
                 holder.amount.setTextColor(holder.textColorFuture)
                 //holder.monthDay.setTextColor(holder.textColorFuture)
-            }
+            }*/
+
+            // todo dot color
+            holder.dot.setColorFilter(holder.textColorDue)
 
             // pass the item click listener to fragment
-            holder.cbox.setOnClickListener {
-                Account_FixedPaymentDay = !Account_FixedPaymentDay
+            holder.aItem.setOnClickListener {
+
+                // todo 点击进入相应的账号查看
+                //
+
+
+                //Account_FixedPaymentDay = !Account_FixedPaymentDay
                 //holder.cbox.isChecked = Account_FixedPaymentDay
 
-                onClickListener.onItemClick(Account_ID, Account_FixedPaymentDay)
+                //onClickListener.onItemClick(Account_ID, Account_FixedPaymentDay)
                 //in CalendarFragment, to save the value into database
 
             }
@@ -128,17 +134,16 @@ class CalendarAdapter(
         }
     }
 
-
     @SuppressLint("NotifyDataSetChanged")
-    fun setList(list: MutableList<Account>){
-        accountList = list
+    fun setList(list: MutableList<CalendarDetail>){
+        calendarDetail = list
         notifyDataSetChanged()
     }
 
 
     override fun getItemCount(): Int {
         // the data set held by the adapter.
-        return accountList.size
+        return calendarDetail.size
     }
 
 
@@ -147,7 +152,7 @@ class CalendarAdapter(
         val name: TextView = itemView.cv_calendar_tv_account_name
         val amount: TextView = itemView.cv_calendar_tv_amount
         val aItem: ConstraintLayout = itemView.layout_calendar_item
-        val cbox: CheckBox = itemView.cv_calendar_checkBox
+        //val cbox: CheckBox = itemView.cv_calendar_checkBox
         val dot: ImageView = itemView.cv_calendar_img_circle
         val event: TextView = itemView.cv_calendar_tv_event
 

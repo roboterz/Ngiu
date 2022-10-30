@@ -4,20 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.ngiu.databinding.FragmentCalendarBinding
-import com.example.ngiu.functions.DateTimePicker
-import android.app.TimePickerDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.MainActivity
-import com.example.ngiu.data.AppDatabase
-import com.example.ngiu.data.entities.Account
-import com.example.ngiu.data.entities.returntype.CalendarModel
-import com.example.ngiu.ui.activity.ActivityListAdapter
-import kotlinx.android.synthetic.main.fragment_activity.*
 import kotlinx.android.synthetic.main.fragment_calendar.*
 
 
@@ -135,7 +127,7 @@ class CalendarFragment : Fragment() {
             activity?.runOnUiThread {
                 //vpAdapter?.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
 
-                CAdapter?.setList(calendarViewModel.accountList)
+                CAdapter?.setList(calendarViewModel.calendarDetail)
                 //recyclerView_activity.adapter = vpAdapter
             }
         }.start()
@@ -161,7 +153,7 @@ class CalendarFragment : Fragment() {
                         // catch the item click event from adapter
                         override fun onItemClick(accountID: Long, blnFixed: Boolean) {
                             // switch to record fragment (Edit mode)
-                            calendarViewModel.updateAccountFixedPayment(it,accountID,blnFixed)
+                            //calendarViewModel.updateAccountFixedPayment(it,accountID,blnFixed)
 
                             //val acct = calendarViewModel.accountList[
                             //        calendarViewModel.accountList.indexOfFirst { it.Account_ID == accountID }
@@ -185,7 +177,7 @@ class CalendarFragment : Fragment() {
     private fun refreshCalendar(){
 
         calendarViewModel.loadDataToRam(requireContext())
-        CAdapter?.setList(calendarViewModel.accountList)
+        CAdapter?.setList(calendarViewModel.calendarDetail)
     }
 
 }
