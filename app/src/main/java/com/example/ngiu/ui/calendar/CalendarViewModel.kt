@@ -30,17 +30,13 @@ class CalendarViewModel : ViewModel() {
 
     fun loadDataToRam(context: Context){
         val today:Int =  LocalDate.now().dayOfMonth
-        val aList = AppDatabase.getDatabase(context).account().getRecordByType(2L)
-
-        val acctList: MutableList<Account> = ArrayList()
-        acctList.addAll(aList.filter { it.Account_PaymentDay>=today })
-        acctList.addAll(aList.filter { it.Account_PaymentDay < today })
+        val acctList = AppDatabase.getDatabase(context).account().getRecordByType(2L)
 
         calendarDetail.clear()
         for (i in acctList.indices) {
             val cd: CalendarDetail = CalendarDetail()
             cd.apply {
-                this.name = acctList[i].Account_Name
+                this.title = acctList[i].Account_Name
                 this.type = 1
                 this.account_last_four_number = acctList[i].Account_CardNumber
                 if (today <= acctList[i].Account_PaymentDay) {
@@ -53,6 +49,7 @@ class CalendarViewModel : ViewModel() {
             }
             calendarDetail.add(cd)
         }
+        calendarDetail.sortBy { it.date }
 
     }
 

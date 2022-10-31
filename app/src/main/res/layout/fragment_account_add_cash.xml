@@ -53,6 +53,7 @@
                     android:layout_height="match_parent"
                     android:paddingHorizontal="20dp"
                     android:paddingVertical="15dp"
+                    android:textColor="@color/app_option_text"
                     android:background="@color/app_section_background"
                     android:hint="@string/option_title_account_name"
                     android:maxLength="50"
@@ -83,6 +84,7 @@
                     android:paddingHorizontal="20dp"
                     android:paddingVertical="15dp"
                     android:singleLine="true"
+                    android:textColor="@color/app_option_text"
                     android:background="@color/app_section_background"
                     android:digits="0123456789."
                     android:inputType="numberDecimal">
@@ -170,6 +172,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:inputType="text"
+                    android:textColor="@color/app_option_text"
                     android:background="@color/app_section_background"
                     android:maxLength="100"
                     android:lines="5"

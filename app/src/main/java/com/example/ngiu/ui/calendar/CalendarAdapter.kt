@@ -30,14 +30,13 @@ class CalendarAdapter(
     )
     : RecyclerView.Adapter<CalendarAdapter.ViewHolder>() {
 
-    var accountList: MutableList<Account> = ArrayList()
     var calendarDetail: MutableList<CalendarDetail> = ArrayList()
 
-    private val formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm")
+    //private val formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm")
 
     // interface for passing the onClick event to fragment.
     interface OnClickListener {
-        fun onItemClick(accountID: Long, blnFixed: Boolean)
+        fun onItemClick(accountID: Long, type: Int)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -83,13 +82,13 @@ class CalendarAdapter(
 
 
             //name
-            holder.name.text = name
+            holder.name.text = "$title $account_last_four_number"
             //amount
             holder.amount.text ="$" + "%.2f".format(amount)
             //checkbox
             //holder.cbox.isChecked = !Account_FixedPaymentDay
 
-            //text with delete line
+            //添加删除线
             /*if (Account_FixedPaymentDay) {
                 holder.name.paintFlags = 0
             }else{
@@ -115,20 +114,14 @@ class CalendarAdapter(
 
             // todo dot color
             holder.dot.setColorFilter(holder.textColorDue)
+            holder.amount.setTextColor(holder.textColorDue)
 
             // pass the item click listener to fragment
             holder.aItem.setOnClickListener {
 
                 // todo 点击进入相应的账号查看
                 //
-
-
-                //Account_FixedPaymentDay = !Account_FixedPaymentDay
-                //holder.cbox.isChecked = Account_FixedPaymentDay
-
-                //onClickListener.onItemClick(Account_ID, Account_FixedPaymentDay)
-                //in CalendarFragment, to save the value into database
-
+                onClickListener.onItemClick(account_id, type)
             }
 
         }

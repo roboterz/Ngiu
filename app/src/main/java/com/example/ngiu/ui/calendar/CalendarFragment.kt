@@ -151,18 +151,12 @@ class CalendarFragment : Fragment() {
                 CAdapter = this.context?.let {
                     CalendarAdapter(object: CalendarAdapter.OnClickListener {
                         // catch the item click event from adapter
-                        override fun onItemClick(accountID: Long, blnFixed: Boolean) {
-                            // switch to record fragment (Edit mode)
-                            //calendarViewModel.updateAccountFixedPayment(it,accountID,blnFixed)
+                        override fun onItemClick(accountID: Long, type: Int) {
+                            // Open/switch to account detail
 
-                            //val acct = calendarViewModel.accountList[
-                            //        calendarViewModel.accountList.indexOfFirst { it.Account_ID == accountID }
-                            //]
-                            //acct.Account_FixedPaymentDay = blnFixed
 
-                            //AppDatabase.getDatabase(requireContext()).account().updateAccount(acct)
                             // refresh
-                            refreshCalendar()
+                            //refreshCalendar()
                         }
                     })
                 }
