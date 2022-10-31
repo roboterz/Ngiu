@@ -36,16 +36,17 @@
 
         <TextView
             android:id="@+id/cv_calendar_tv_event"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:maxWidth="150dp"
+            android:layout_marginEnd="10dp"
             android:singleLine="true"
             android:text="Credit Card Payment"
             android:textColor="@color/app_text"
             android:textSize="16sp"
             android:textStyle="normal"
             app:layout_constraintStart_toEndOf="@+id/cv_calendar_img_circle"
+            app:layout_constraintEnd_toStartOf="@+id/cv_calendar_tv_amount"
             app:layout_constraintTop_toTopOf="@+id/cv_calendar_tv_month_day" />
 
         <TextView
@@ -68,13 +69,14 @@
             android:id="@+id/cv_calendar_tv_amount"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:singleLine="true"
             android:textColor="@color/app_text"
             android:textSize="16sp"
             android:textStyle="normal"
             android:visibility="visible"
             app:layout_constraintStart_toEndOf="@id/cv_calendar_tv_event"
+            app:layout_constraintEnd_toStartOf="@+id/cv_calendar_hint"
             app:layout_constraintTop_toTopOf="@id/cv_calendar_tv_event"
             tools:text="$0.00" />
 

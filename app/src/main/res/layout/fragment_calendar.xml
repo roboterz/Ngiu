@@ -78,15 +78,106 @@
             android:layout_width="0.5dp"
             android:layout_height="60dp"
             android:background="@color/app_list_background"
-            app:layout_constraintStart_toEndOf="@id/tv_calendar_pending_payment_amount" />
+            app:layout_constraintStart_toEndOf="@id/tv_calendar_pending_payment_amount"
+            tools:ignore="MissingConstraints" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/app_list_background"
+        android:background="@color/app_section_background"
         app:layout_constraintTop_toBottomOf="@id/layout_calendar_title"
         app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_calendar_first_item"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:clickable="true"
+            tools:ignore="MissingConstraints">
+
+            <TextView
+                android:id="@+id/cv_calendar_first_item_tv_month_day"
+                android:layout_width="43dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:paddingTop="2dp"
+                android:singleLine="true"
+                android:textColor="@color/app_option_text"
+                android:textSize="13sp"
+                android:text="History"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/cv_calendar_first_item_tv_event"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="10dp"
+                android:text="Last 30 days' capital reminder"
+                android:textColor="@color/app_option_text"
+                android:textSize="14sp"
+                android:textStyle="normal"
+                app:layout_constraintStart_toEndOf="@+id/cv_calendar_first_item_img_circle"
+                app:layout_constraintEnd_toStartOf="@+id/cv_calendar_first_item_hint"
+                app:layout_constraintTop_toTopOf="@+id/cv_calendar_first_item_tv_month_day" />
+
+
+
+
+
+
+
+            <View
+                android:id="@+id/cv_calendar_first_item_div_date"
+                android:layout_width="0.5dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="4.3dp"
+                android:background="@color/app_icon_light"
+                android:layout_marginTop="2dp"
+                app:layout_constraintStart_toStartOf="@id/cv_calendar_first_item_img_circle"
+                app:layout_constraintTop_toTopOf="@id/cv_calendar_first_item_img_circle"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
+
+            <View
+                android:id="@+id/cv_calendar_first_item_div_sep"
+                android:layout_width="0dp"
+                android:layout_height="0.5dp"
+                android:background="@color/app_icon_light"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/cv_calendar_first_item_div_date"
+                />
+
+            <ImageView
+                android:id="@+id/cv_calendar_first_item_img_circle"
+                android:layout_width="9dp"
+                android:layout_height="9dp"
+                android:layout_marginTop="7dp"
+                android:tint="@color/app_sub_line_text"
+                app:layout_constraintStart_toEndOf="@id/cv_calendar_first_item_tv_month_day"
+                app:layout_constraintTop_toTopOf="@id/cv_calendar_first_item_tv_month_day"
+                app:srcCompat="@drawable/ic_baseline_circle_24"
+                tools:ignore="UseAppTint" />
+
+            <TextView
+                android:id="@+id/cv_calendar_first_item_hint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="24sp"
+                app:drawableEndCompat="@drawable/ic_baseline_keyboard_arrow_right_24"
+                android:drawableTint="@color/app_icon_light"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView_calendar"
@@ -96,7 +187,7 @@
             android:descendantFocusability="blocksDescendants"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constrainedHeight="true"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/layout_calendar_first_item" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
