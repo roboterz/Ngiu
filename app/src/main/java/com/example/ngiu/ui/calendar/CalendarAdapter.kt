@@ -4,6 +4,7 @@ import com.example.ngiu.data.entities.Account
 import android.annotation.SuppressLint
 import android.graphics.Paint
 import android.graphics.PorterDuff
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import android.widget.Switch
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.returntype.CalendarDetail
@@ -120,8 +122,27 @@ class CalendarAdapter(
             holder.aItem.setOnClickListener {
 
                 // todo 点击进入相应的账号查看
+
+                when (type) {
+                    // credit card
+                    1 -> {
+                        val bundle = Bundle().apply {
+                            putLong("accountId", account_id)
+                            putString("accountName", account_out_name)
+                            putDouble("balance", amount)
+                            putDouble("creditLimit", 5000.00)
+                            putInt("paymentDate", 23)
+                            putInt("statementDate", 23)
+                            putLong("accountType", 2L)
+                        }
+
+                        holder.itemView.findNavController()
+                            .navigate(R.id.accountCreditRecords, bundle)
+                    }
+                }
+
                 //
-                onClickListener.onItemClick(account_id, type)
+                //onClickListener.onItemClick(account_id, type)
             }
 
         }

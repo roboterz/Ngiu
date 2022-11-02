@@ -92,16 +92,17 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_calendar_first_item"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="45dp"
+            android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
             tools:ignore="MissingConstraints">
 
             <TextView
                 android:id="@+id/cv_calendar_first_item_tv_month_day"
-                android:layout_width="43dp"
+                android:layout_width="45dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="10dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginStart="8dp"
                 android:paddingTop="2dp"
                 android:singleLine="true"
                 android:textColor="@color/app_option_text"

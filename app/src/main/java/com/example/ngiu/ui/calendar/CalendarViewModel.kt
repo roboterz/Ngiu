@@ -36,6 +36,7 @@ class CalendarViewModel : ViewModel() {
         for (i in acctList.indices) {
             val cd: CalendarDetail = CalendarDetail()
             cd.apply {
+                this.account_id = acctList[i].Account_ID
                 this.title = acctList[i].Account_Name
                 this.type = 1
                 this.account_last_four_number = acctList[i].Account_CardNumber

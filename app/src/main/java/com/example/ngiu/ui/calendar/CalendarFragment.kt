@@ -6,10 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.ngiu.databinding.FragmentCalendarBinding
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.MainActivity
+import com.example.ngiu.R
 import kotlinx.android.synthetic.main.fragment_calendar.*
 
 
@@ -155,6 +160,7 @@ class CalendarFragment : Fragment() {
                             // Open/switch to account detail
 
 
+
                             // refresh
                             //refreshCalendar()
                         }
@@ -172,6 +178,15 @@ class CalendarFragment : Fragment() {
 
         calendarViewModel.loadDataToRam(requireContext())
         CAdapter?.setList(calendarViewModel.calendarDetail)
+    }
+
+    // switch to page
+    private fun navigateToRecordFragment(transID: Long = 0){
+        val bundle = Bundle().apply {
+            putLong("Transaction_ID", transID)
+        }
+        // switch to record fragment
+        findNavController().navigate(R.id.navigation_record, bundle)
     }
 
 }
