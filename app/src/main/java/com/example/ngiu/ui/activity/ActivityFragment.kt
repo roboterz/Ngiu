@@ -65,6 +65,7 @@ class ActivityFragment : Fragment() {
         // set up toolbar icon and click event
         // choose items to show
         toolbar_activity.menu.findItem(R.id.action_add).isVisible = true
+        toolbar_activity.menu.findItem(R.id.action_settings).isVisible = true
 
         // menu item clicked
         toolbar_activity.setOnMenuItemClickListener{
@@ -72,6 +73,11 @@ class ActivityFragment : Fragment() {
                 R.id.action_add -> {
                     // switch to record fragment
                     navigateToRecordFragment()
+                    true
+                }
+                R.id.action_settings -> {
+                    //switch to setting fragment
+                    navigateToSettingFragment()
                     true
                 }
                 else -> super.onOptionsItemSelected(it)
@@ -88,6 +94,8 @@ class ActivityFragment : Fragment() {
         // call readPerson function on the bottom of this class
 
     }
+
+
 
 
     override fun onResume() {
@@ -149,5 +157,9 @@ class ActivityFragment : Fragment() {
         }
         // switch to record fragment
         findNavController().navigate(R.id.navigation_record, bundle)
+    }
+
+    private fun navigateToSettingFragment() {
+        findNavController().navigate(R.id.navigation_setting)
     }
 }
