@@ -16,6 +16,7 @@ import com.example.ngiu.R
 import com.example.ngiu.databinding.FragmentRewardsBinding
 import com.example.ngiu.ui.rewards.RewardsAdapter
 import com.example.ngiu.ui.rewards.RewardsViewModel
+import kotlinx.android.synthetic.main.fragment_activity.*
 import kotlinx.android.synthetic.main.fragment_rewards.*
 
 class RewardsFragment : Fragment() {
@@ -46,6 +47,23 @@ class RewardsFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        toolbar_rewards.menu.findItem(R.id.action_add).isVisible = true
+
+        // menu item clicked
+        toolbar_rewards.setOnMenuItemClickListener{
+            when (it.itemId) {
+                R.id.action_add -> {
+                    // switch to record fragment
+                    //navigateToRecordFragment()
+                    true
+                }
+                else -> super.onOptionsItemSelected(it)
+            }
+        }
+    }
 
 
 
