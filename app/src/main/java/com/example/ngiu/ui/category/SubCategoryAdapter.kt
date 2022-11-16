@@ -11,8 +11,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
-import com.example.ngiu.data.entities.MainCategory
-import com.example.ngiu.data.entities.SubCategory
+import com.example.ngiu.data.entities.Category
 import com.example.ngiu.data.entities.returntype.TransactionDetail
 import kotlinx.android.synthetic.main.cardview_sub_category.view.*
 import kotlin.collections.ArrayList
@@ -23,7 +22,7 @@ class SubCategoryAdapter(
 )
     : RecyclerView.Adapter<SubCategoryAdapter.ViewHolder>() {
 
-    private var subCategory: List<SubCategory> = ArrayList()
+    private var subCategory: List<Category> = ArrayList()
     private var currentArrow: Int = 0
 
     // interface for passing the onClick event to fragment.
@@ -51,14 +50,14 @@ class SubCategoryAdapter(
         // display the custom class
         subCategory[position].apply {
             // load data
-            holder.subCategoryName.text = SubCategory_Name
+            holder.subCategoryName.text = Category_Name
 
-            if (position == subCategory.size - 1 && SubCategory_ID == 0L){
+            if (position == subCategory.size - 1 && Category_ID == 0L){
                 // add
                 holder.subCategoryName.setTextColor(holder.addButtonTextColor)
                 holder.star.visibility = View.GONE
                 holder.subCategoryName.setOnClickListener {
-                    onClickListener.onItemClick(SubCategory_ID, SubCategory_Name, true)
+                    onClickListener.onItemClick(Category_ID, Category_Name, true)
                 }
 
             }else{
@@ -67,30 +66,30 @@ class SubCategoryAdapter(
                 holder.star.visibility = View.VISIBLE
 
                 // set star icon
-                if (SubCategory_Common) holder.star.setImageDrawable(holder.drawableStar)
+                if (Category_Common) holder.star.setImageDrawable(holder.drawableStar)
                 else holder.star.setImageDrawable(holder.drawableStarBorder)
 
                 // click item
                 holder.subCategoryName.setOnClickListener {
-                    onClickListener.onItemClick(SubCategory_ID, SubCategory_Name)
+                    onClickListener.onItemClick(Category_ID, Category_Name)
                 }
                 // long click item
                 holder.subCategoryName.setOnLongClickListener {
-                    onClickListener.onItemLongClick(SubCategory_ID)
+                    onClickListener.onItemLongClick(Category_ID)
                     true
                 }
 
                 // click star
                 holder.star.setOnClickListener {
-                    if (SubCategory_Common) {
-                        SubCategory_Common = false
+                    if (Category_Common) {
+                        Category_Common = false
                         holder.star.setImageDrawable(holder.drawableStarBorder)
                     }
                     else{
-                        SubCategory_Common = true
+                        Category_Common = true
                         holder.star.setImageDrawable(holder.drawableStar)
                     }
-                    onClickListener.onStarClick(SubCategory_ID, SubCategory_Common)
+                    onClickListener.onStarClick(Category_ID, Category_Common)
                 }
             }
 
@@ -99,7 +98,7 @@ class SubCategoryAdapter(
 
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setList(list: List<SubCategory>){
+    fun setList(list: List<Category>){
         subCategory = list
         notifyDataSetChanged()
     }

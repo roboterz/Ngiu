@@ -10,7 +10,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.forEach
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
-import com.example.ngiu.data.entities.SubCategory
+import com.example.ngiu.data.entities.Category
 import kotlin.math.ceil
 
 
@@ -18,14 +18,14 @@ class RecordCategoryAdapter(
     private val onClickListener: OnClickListener)
     : RecyclerView.Adapter<RecordCategoryAdapter.PagerViewHolder>( ) {
 
-    private var mList: List<SubCategory> = ArrayList()
+    private var mList: List<Category> = ArrayList()
     private var currentOnFocus: Int = 1
     private var currentPage: Int = 0
 
 
     // interface for passing the onClick event to fragment.
     interface OnClickListener {
-        fun onItemClick(subCategoryName: String)
+        fun onItemClick(categoryName: String)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PagerViewHolder {
@@ -41,42 +41,42 @@ class RecordCategoryAdapter(
 
         // load common categories to textview
         if (i < mList.size) {
-            holder.tvCate1.text = mList[i].SubCategory_Name
+            holder.tvCate1.text = mList[i].Category_Name
         }else{
             holder.tvCate1.visibility = View.INVISIBLE
         }
         if (i+1 < mList.size) {
-            holder.tvCate2.text = mList[i+1].SubCategory_Name
+            holder.tvCate2.text = mList[i+1].Category_Name
         }else{
             holder.tvCate2.visibility = View.INVISIBLE
         }
         if (i+2 < mList.size) {
-            holder.tvCate3.text = mList[i+2].SubCategory_Name
+            holder.tvCate3.text = mList[i+2].Category_Name
         }else{
             holder.tvCate3.visibility = View.INVISIBLE
         }
         if (i+3 < mList.size) {
-            holder.tvCate4.text = mList[i+3].SubCategory_Name
+            holder.tvCate4.text = mList[i+3].Category_Name
         }else{
             holder.tvCate4.visibility = View.INVISIBLE
         }
         if (i+4 < mList.size) {
-            holder.tvCate5.text = mList[i+4].SubCategory_Name
+            holder.tvCate5.text = mList[i+4].Category_Name
         }else{
             holder.tvCate5.visibility = View.INVISIBLE
         }
         if (i+5 < mList.size) {
-            holder.tvCate6.text = mList[i+5].SubCategory_Name
+            holder.tvCate6.text = mList[i+5].Category_Name
         }else{
             holder.tvCate6.visibility = View.INVISIBLE
         }
         if (i+6 < mList.size) {
-            holder.tvCate7.text = mList[i+6].SubCategory_Name
+            holder.tvCate7.text = mList[i+6].Category_Name
         }else{
             holder.tvCate7.visibility = View.INVISIBLE
         }
         if (i+7 < mList.size) {
-            holder.tvCate8.text = mList[i+7].SubCategory_Name
+            holder.tvCate8.text = mList[i+7].Category_Name
         }else{
             holder.tvCate8.visibility = View.INVISIBLE
         }
@@ -212,7 +212,7 @@ class RecordCategoryAdapter(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setList(list: List<SubCategory>) {
+    fun setList(list: List<Category>) {
         mList = list
         notifyDataSetChanged()
     }

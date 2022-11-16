@@ -30,7 +30,7 @@ class AccountDetailViewModel : ViewModel() {
 
     fun getTransRecords(context: Context, id: Long, balance: Double) {
         val appDatabase = AppDatabase.getDatabase(context)
-        val allTypes = appDatabase.subcat().getAllSubCategory()
+        val allTypes = appDatabase.category().getAllCategory()
         val allRecords = appDatabase.trans().getTransRecordAccount(id).asReversed()
 
         val accountTransRecordList = ArrayList<AccountTransRecordModel>()
@@ -40,12 +40,12 @@ class AccountDetailViewModel : ViewModel() {
 
         allRecords
             .forEach { item ->
-                val subCat = allTypes.find { it.SubCategory_ID == item.SubCategory_ID }
+                val cate = allTypes.find { it.Category_ID == item.Category_ID }
 
 
 
                 val model = AccountTransRecordModel(
-                    subCat?.SubCategory_Name.toString(),
+                    cate?.Category_Name.toString(),
                     "%.2f".format(item.Transaction_Amount),
                     "%.2f".format(rBalance),
                     item.Transaction_Date.format(recordTimeFormatter),

@@ -9,12 +9,12 @@ plugins {
 }
 
 android {
-    compileSdk 31
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.example.ngiu"
-        minSdk 26
-        targetSdk 31
+        minSdk 28
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -51,26 +51,35 @@ android {
 //$rootProject values are stored in build.gradle ext{}
 dependencies {
 
-    implementation "androidx.fragment:fragment-ktx:1.3.6"
+
+    implementation "androidx.fragment:fragment-ktx:1.5.4"
+
+    implementation 'com.google.android.material:material:1.8.0-alpha02'
 
     implementation 'io.reactivex.rxjava2:rxjava:2.2.19'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
 
+    //noinspection GradleDependency
     implementation "androidx.appcompat:appcompat:$rootProject.appCompatVersion"
     //noinspection GradleDependency
     implementation "androidx.activity:activity-ktx:$rootProject.activityVersion"
 
     // Navigation components
+    //noinspection GradleDependency
     implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.navigationfragment"
+    //noinspection GradleDependency
     implementation "androidx.navigation:navigation-ui-ktx:$rootProject.navigationUI"
 
 
     // Room components
+    //noinspection GradleDependency
     implementation "androidx.room:room-rxjava2:$rootProject.roomVersion"
+    //noinspection GradleDependency
     implementation "androidx.room:room-ktx:$rootProject.roomVersion"
-    implementation 'com.google.firebase:firebase-database-ktx:20.0.2'
+    implementation 'com.google.firebase:firebase-database-ktx:20.1.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     kapt "androidx.room:room-compiler:$rootProject.roomVersion"
+    //noinspection GradleDependency
     androidTestImplementation "androidx.room:room-testing:$rootProject.roomVersion"
 
 
@@ -84,11 +93,13 @@ dependencies {
 
     // Kotlin components
     api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.coroutines"
+    //noinspection GradleDependency
     api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.coroutines"
 
     // UI
     //noinspection GradleDependency
     implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayoutVersion"
+    //noinspection GradleDependency
     implementation "com.google.android.material:material:$rootProject.materialVersion"
 
     // Testing
@@ -97,10 +108,11 @@ dependencies {
     androidTestImplementation ("androidx.test.espresso:espresso-core:$rootProject.espressoVersion", {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    //noinspection GradleDependency
     androidTestImplementation "androidx.test.ext:junit:$rootProject.androidxJunitVersion"
 
     // recyclerView 1.2.0
-    implementation "androidx.recyclerview:recyclerview:1.3.0-alpha01"
+    implementation "androidx.recyclerview:recyclerview:1.3.0-rc01"
 
 }
 

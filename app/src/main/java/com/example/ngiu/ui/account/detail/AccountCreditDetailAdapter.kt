@@ -46,7 +46,7 @@ class AccountCreditDetailAdapter()
             when (TransactionType_ID){
                 1L -> {
                     // category
-                    holder.recordText.text = SubCategory_Name
+                    holder.recordText.text = Category_Name
                     // amount
                     holder.recordAmount.text = "$" + "%.2f".format(Transaction_Amount)
                     holder.recordAmount.setTextColor(holder.expenseColor)
@@ -54,7 +54,7 @@ class AccountCreditDetailAdapter()
                 }
                 2L -> {
                     // category
-                    holder.recordText.text = SubCategory_Name
+                    holder.recordText.text = Category_Name
                     // amount
                     holder.recordAmount.text = "$" + "%.2f".format(Transaction_Amount)
                     holder.recordAmount.setTextColor(holder.incomeColor)
@@ -69,7 +69,7 @@ class AccountCreditDetailAdapter()
                         }
                     }
                     if (TransactionType_ID == 4L){
-                        when (SubCategory_ID){
+                        when (Category_ID){
                             7L -> {
                                 holder.recordText.text = holder.itemView.context.getString(R.string.record_borrow_from) + " $Account_Name"
                             }

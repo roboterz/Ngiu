@@ -9,28 +9,31 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.ngiu.data.entities.*
 import java.io.File
 
-private const val DB_NAME = "ngiu.db"
-private const val DB_PATH = "databases/ngiu.db"
+private const val DB_NAME = "ngiux.db"
+private const val DB_PATH = "databases/ngiux.db"
 
 @Database(
     entities = [
-        Account::class, AccountType::class, Currency::class, Person::class,
-        MainCategory::class, Merchant::class, Period::class, Project::class,
-        SubCategory::class, TransactionType::class,
-        Trans::class, ], version = 5, exportSchema = false)
-@TypeConverters(DateTypeConverter::class)
+        Account::class, AccountType::class, Category::class, Currency::class,
+        Person::class, Merchant::class, Period::class, Icon::class,
+        Project::class, TransactionType::class, Budget::class,
+        Trans::class, ], version = 8, exportSchema = false)
+@TypeConverters(DateTypeConverter::class, ImageConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun account(): AccountDao
-    abstract fun accounttype(): AccountTypeDao
+    abstract fun accountType(): AccountTypeDao
+    abstract fun budget(): BudgetDao
+    abstract fun category(): CategoryDao
     abstract fun currency(): CurrencyDao
+    abstract fun iconDao(): IconDao
     abstract fun person(): PersonDao
-    abstract fun mainCategory(): MainCategoryDao
+    //abstract fun mainCategory(): MainCategoryDao
     abstract fun merchant(): MerchantDao
     abstract fun period(): PeriodDao
     abstract fun project(): ProjectDao
-    abstract fun subcat(): SubCategoryDao
+    //abstract fun subCat(): SubCategoryDao
     abstract fun trans(): TransDao
-    abstract fun transtype(): TransTypeDao
+    abstract fun transType(): TransTypeDao
 
 
     companion object {
@@ -43,12 +46,14 @@ abstract class AppDatabase : RoomDatabase() {
                 if (tempInstance != null) {
                     return tempInstance
                 }
+
                 synchronized(this){
                     val instance = Room.databaseBuilder(
                         context.applicationContext,
                         AppDatabase::class.java,
                         DB_NAME
                     ).createFromAsset(DB_PATH).allowMainThreadQueries().build()
+                    //.createFromAsset(DB_PATH)
 
                     INSTANCE = instance
                     return instance

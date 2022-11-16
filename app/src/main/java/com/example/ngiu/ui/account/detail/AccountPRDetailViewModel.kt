@@ -22,10 +22,10 @@ class AccountPRDetailViewModel : ViewModel() {
     fun loadDataToRam(context: Context){
         listPRDetail = AppDatabase.getDatabase(context).trans().getTransRecordDetailByAccount(accountID)
 
-        lendAmount = AppDatabase.getDatabase(context).trans().getTotalAmountFromPRAccountBYSubCategoryID(accountID, 8L)
-        receiveAmount = AppDatabase.getDatabase(context).trans().getTotalAmountFromPRAccountBYSubCategoryID(accountID, 10L)
-        borrowAmount = AppDatabase.getDatabase(context).trans().getTotalAmountFromPRAccountBYSubCategoryID(accountID, 7L)
-        payAmount = AppDatabase.getDatabase(context).trans().getTotalAmountFromPRAccountBYSubCategoryID(accountID, 9L)
+        lendAmount = AppDatabase.getDatabase(context).trans().getTotalAmountFromPRAccountBYCategoryID(accountID, 8L)
+        receiveAmount = AppDatabase.getDatabase(context).trans().getTotalAmountFromPRAccountBYCategoryID(accountID, 10L)
+        borrowAmount = AppDatabase.getDatabase(context).trans().getTotalAmountFromPRAccountBYCategoryID(accountID, 7L)
+        payAmount = AppDatabase.getDatabase(context).trans().getTotalAmountFromPRAccountBYCategoryID(accountID, 9L)
 
         accountBalance = lendAmount + payAmount - receiveAmount - borrowAmount
     }

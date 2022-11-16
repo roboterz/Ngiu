@@ -15,9 +15,9 @@ import java.util.*
         onDelete = ForeignKey.RESTRICT,
         onUpdate = ForeignKey.CASCADE
     ),ForeignKey(
-        entity = SubCategory::class,
-        parentColumns = ["SubCategory_ID"],
-        childColumns = ["SubCategory_ID"],
+        entity = Category::class,
+        parentColumns = ["Category_ID"],
+        childColumns = ["Category_ID"],
         onDelete = ForeignKey.RESTRICT,
         onUpdate = ForeignKey.CASCADE
     ),ForeignKey(
@@ -56,11 +56,11 @@ import java.util.*
 
 data class Trans(
     @PrimaryKey(autoGenerate = true)
-    var Transaction_ID: Long = 0,
+    var Transaction_ID: Long = 0L,
     @ColumnInfo(defaultValue = "1")
     var TransactionType_ID: Long = 1L,
     @ColumnInfo(defaultValue = "1")
-    var SubCategory_ID: Long = 1L,
+    var Category_ID: Long = 1L,
     @ColumnInfo(defaultValue = "1")
     var Account_ID: Long = 1L,
     @ColumnInfo(defaultValue = "1")
@@ -76,11 +76,22 @@ data class Trans(
     @ColumnInfo(defaultValue = "")
     var Transaction_Memo: String = "",
     @ColumnInfo(defaultValue = "1")
-    var Project_ID: Long = 1,
+    var Project_ID: Long = 1L,
     @ColumnInfo(defaultValue = "0")
     var Transaction_ReimburseStatus: Int = 0,
     @ColumnInfo(defaultValue = "0")
-    var Period_ID: Long = 0
+    var Period_ID: Long = 0L,
+
+    @ColumnInfo(defaultValue = "false")
+    var Transaction_UploadStatus: Boolean = false,
+    @ColumnInfo(defaultValue = "false")
+    var Transaction_IsDelete: Boolean = false,
+
+    @TypeConverters(DateTypeConverter::class)
+    var Transaction_CreateTime: LocalDateTime = LocalDateTime.now(),
+
+    @TypeConverters(DateTypeConverter::class)
+    var Transaction_UploadTime: LocalDateTime = LocalDateTime.now()
 ){
     /*
     constructor( ): this(

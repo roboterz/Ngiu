@@ -44,7 +44,7 @@ class AccountPRDetailAdapter(
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             // display the custom class
             listPRDetail[position].apply {
-                when (SubCategory_ID){
+                when (Category_ID){
                     7L -> { holder.recordText.text = holder.itemView.context.getString(R.string.record_borrow_from) + " $Account_Name"}
                     8L -> { holder.recordText.text = holder.itemView.context.getString(R.string.record_lend_to) + " $AccountRecipient_Name"}
                     9L -> { holder.recordText.text = holder.itemView.context.getString(R.string.record_paid_to) + " $AccountRecipient_Name"}

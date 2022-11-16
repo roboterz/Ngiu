@@ -4,8 +4,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import com.example.ngiu.R
 import com.example.ngiu.data.AppDatabase
-import com.example.ngiu.data.entities.MainCategory
-import com.example.ngiu.data.entities.SubCategory
+import com.example.ngiu.data.entities.Category
 import com.example.ngiu.data.entities.returntype.MPPItem
 
 

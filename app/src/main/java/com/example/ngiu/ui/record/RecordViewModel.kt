@@ -27,14 +27,14 @@ class RecordViewModel : ViewModel() {
     // temp save changed data
     var transDetail = TransactionDetail(TransactionType_ID = 1L)
 
-    private var subCategoryName = ArrayList<String>()
+    private var categoryName = ArrayList<String>()
     var tempSavedAccountName = ArrayList<String>()
 
-    var expenseCommonCategory: List<SubCategory> = ArrayList()
-    var incomeCommonCategory: List<SubCategory> = ArrayList()
-    var transferCommonCategory: List<SubCategory> = ArrayList()
-    var debitCreditCommonCategory: List<SubCategory> = ArrayList()
-    var subCategory: List<SubCategory> = ArrayList()
+    var expenseCommonCategory: List<Category> = ArrayList()
+    var incomeCommonCategory: List<Category> = ArrayList()
+    var transferCommonCategory: List<Category> = ArrayList()
+    var debitCreditCommonCategory: List<Category> = ArrayList()
+    var category: List<Category> = ArrayList()
     var person: List<Person> = ArrayList()
     var merchant: List<Merchant> = ArrayList()
     var account: List<Account> = ArrayList()
@@ -52,12 +52,12 @@ class RecordViewModel : ViewModel() {
     //
     fun loadDataToRam(activity: FragmentActivity?) {
         val database = AppDatabase.getDatabase(activity!!)
-        subCategory = database.subcat().getAllSubCategory()
+        category = database.category().getAllCategory()
         account = database.account().getAllAccount()
-        expenseCommonCategory = database.subcat().getCommonCategoryByTransactionType(1L)
-        incomeCommonCategory = database.subcat().getCommonCategoryByTransactionType(2L)
-        transferCommonCategory = database.subcat().getCommonCategoryByTransactionType(3L)
-        debitCreditCommonCategory = database.subcat().getCommonCategoryByTransactionType(4L)
+        expenseCommonCategory = database.category().getCommonCategoryByTransactionType(1L)
+        incomeCommonCategory = database.category().getCommonCategoryByTransactionType(2L)
+        transferCommonCategory = database.category().getCommonCategoryByTransactionType(3L)
+        debitCreditCommonCategory = database.category().getCommonCategoryByTransactionType(4L)
 
         person = database.person().getAllPerson()
         merchant = database.merchant().getAllMerchant()
@@ -65,16 +65,16 @@ class RecordViewModel : ViewModel() {
 
         // default sub category name
 
-        val expenseCategory = database.subcat().getSubCategoryByTransactionType(1L)
-        val incomeCategory = database.subcat().getSubCategoryByTransactionType(2L)
-        val transferCategory = database.subcat().getSubCategoryByTransactionType(3L)
-        val debitCreditCategory = database.subcat().getSubCategoryByTransactionType(4L)
+        val expenseCategory = database.category().getCategoryByTransactionType(1L)
+        val incomeCategory = database.category().getCategoryByTransactionType(2L)
+        val transferCategory = database.category().getCategoryByTransactionType(3L)
+        val debitCreditCategory = database.category().getCategoryByTransactionType(4L)
 
 
-        subCategoryName.add(if (expenseCategory.size > 1) expenseCategory[1].SubCategory_Name else expenseCategory[0].SubCategory_Name)
-        subCategoryName.add(if (incomeCategory.size > 1) incomeCategory[1].SubCategory_Name else incomeCategory[0].SubCategory_Name)
-        subCategoryName.add(transferCategory[0].SubCategory_Name)
-        subCategoryName.add(debitCreditCategory[0].SubCategory_Name)
+        categoryName.add(if (expenseCategory.size > 1) expenseCategory[1].Category_Name else expenseCategory[0].Category_Name)
+        categoryName.add(if (incomeCategory.size > 1) incomeCategory[1].Category_Name else incomeCategory[0].Category_Name)
+        categoryName.add(transferCategory[0].Category_Name)
+        categoryName.add(debitCreditCategory[0].Category_Name)
 
 
         tempSavedAccountName.add(if (account.isNotEmpty()) account[0].Account_Name else activity.getString(R.string.msg_no_account))
@@ -93,10 +93,10 @@ class RecordViewModel : ViewModel() {
     }
 
     fun getSubCategoryName(): String{
-        return subCategoryName[transDetail.TransactionType_ID.toInt() -1]
+        return categoryName[transDetail.TransactionType_ID.toInt() -1]
     }
     fun setSubCategoryName(string: String){
-        subCategoryName[transDetail.TransactionType_ID.toInt() -1] = string
+        categoryName[transDetail.TransactionType_ID.toInt() -1] = string
     }
 
     fun getAccountName(payAccount: Boolean): String{
@@ -146,9 +146,9 @@ class RecordViewModel : ViewModel() {
 
      */
 
-    fun getSubCategoryID(string: String): Long{
-        val idx = subCategory.indexOfFirst { it.SubCategory_Name == string }
-        return if (idx >= 0) subCategory[idx].SubCategory_ID
+    fun getCategoryID(string: String): Long{
+        val idx = category.indexOfFirst { it.Category_Name == string }
+        return if (idx >= 0) category[idx].Category_ID
             else idx.toLong()
     }
 
@@ -165,7 +165,7 @@ class RecordViewModel : ViewModel() {
             // Normal Account
             if (at.AccountType_ID != 9L) {
                 if ((transDetail.TransactionType_ID != 3L) || (at.Account_Name != exceptName)) {
-                    when (getSubCategoryID(transDetail.SubCategory_Name)) {
+                    when (getCategoryID(transDetail.Category_Name)) {
                         // borrow in | received
                         7L, 10L -> if (!payAccount) nameList.add(at.Account_Name)
                         // lend out | repayment
@@ -176,7 +176,7 @@ class RecordViewModel : ViewModel() {
                 }
                 // Payable|Receivable Account
             } else if (transDetail.TransactionType_ID == 4L) {
-                when (getSubCategoryID(transDetail.SubCategory_Name)) {
+                when (getCategoryID(transDetail.Category_Name)) {
                     // borrow in | received
                     7L, 10L -> if (payAccount) nameList.add(at.Account_Name)
                     // lend out | repayment

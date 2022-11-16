@@ -9,8 +9,10 @@ import androidx.room.PrimaryKey
 data class Currency(
     @PrimaryKey()
     //@ColumnInfo(name = "ID")
-    var Currency_ID: String,
+    var Currency_ID: String = "",
     //@ColumnInfo(name = "Name")
-    var Currency_Name: String,
-    var Currency_ExchangeRate: Double
+    var Currency_Name: String = "",
+    var Currency_ShortName: String = "",
+    var Currency_ExchangeRate: Double = 1.0,
+    var Currency_OrderNo: Int = 0
 )

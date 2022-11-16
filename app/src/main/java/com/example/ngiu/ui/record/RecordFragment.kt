@@ -61,8 +61,8 @@ class RecordFragment : Fragment() {
 
         // get string from category manage
         setFragmentResultListener("category_manage") { _, bundle ->
-            receivedString = bundle.getString("subCategory_Name").toString()
-            recordViewModel.transDetail.SubCategory_Name = receivedString
+            receivedString = bundle.getString("category_Name").toString()
+            recordViewModel.transDetail.Category_Name = receivedString
         }
 
 
@@ -95,11 +95,11 @@ class RecordFragment : Fragment() {
                         RecordCategoryAdapter(object : RecordCategoryAdapter.OnClickListener {
 
                             // catch the item click event from adapter
-                            override fun onItemClick(subCategoryName: String) {
+                            override fun onItemClick(categoryName: String) {
                                 // do something after clicked
-                                tv_record_category.text = subCategoryName
-                                recordViewModel.setSubCategoryName(subCategoryName)
-                                showAccountName(subCategoryName)
+                                tv_record_category.text = categoryName
+                                recordViewModel.setSubCategoryName(categoryName)
+                                showAccountName(categoryName)
                             }
                         })
                     }
@@ -338,7 +338,7 @@ class RecordFragment : Fragment() {
             }
         }
         tv_record_category.doAfterTextChanged{
-            recordViewModel.transDetail.SubCategory_Name = tv_record_category.text.toString()
+            recordViewModel.transDetail.Category_Name = tv_record_category.text.toString()
         }
 
 
@@ -373,7 +373,7 @@ class RecordFragment : Fragment() {
                     })
             }else{
                 // create new account if no account
-                createNewAccount(recordViewModel.transDetail.SubCategory_Name, true)
+                createNewAccount(recordViewModel.transDetail.Category_Name, true)
             }
         }
         tv_record_account_pay.doAfterTextChanged{
@@ -396,7 +396,7 @@ class RecordFragment : Fragment() {
                     })
             }else{
                 // create new account if no account
-                createNewAccount(recordViewModel.transDetail.SubCategory_Name, false)
+                createNewAccount(recordViewModel.transDetail.Category_Name, false)
             }
 
         }
@@ -440,9 +440,9 @@ class RecordFragment : Fragment() {
     //------------------------------------------Private Functions--------------------------------------------------
 
 
-    private fun showAccountName(subCategoryName: String) {
+    private fun showAccountName(categoryName: String) {
         if (recordViewModel.transDetail.TransactionType_ID == 4L){
-            when (recordViewModel.getSubCategoryID(subCategoryName)) {
+            when (recordViewModel.getCategoryID(categoryName)) {
                 // borrow in | received
                 7L, 10L -> {
                     tv_record_account_pay.text =  recordViewModel.tempSavedAccountName[2]
@@ -462,9 +462,9 @@ class RecordFragment : Fragment() {
     }
 
 
-    private fun createNewAccount(subcategoryName: String, payable: Boolean) {
+    private fun createNewAccount(categoryName: String, payable: Boolean) {
 
-        when (recordViewModel.getSubCategoryID(subcategoryName)) {
+        when (recordViewModel.getCategoryID(categoryName)) {
             // borrow in | received
             7L, 10L -> {
                 if (payable){
@@ -506,7 +506,7 @@ class RecordFragment : Fragment() {
         if (transactionID > 0 || receivedString.isNotEmpty()) {
             // edit record
             //load data to textview
-            recordViewModel.setSubCategoryName(recordViewModel.transDetail.SubCategory_Name)
+            recordViewModel.setSubCategoryName(recordViewModel.transDetail.Category_Name)
 
         }else{
             // new record
@@ -575,7 +575,7 @@ class RecordFragment : Fragment() {
             val trans = Trans(
                 Transaction_ID = transactionID,
                 TransactionType_ID = recordViewModel.transDetail.TransactionType_ID,
-                SubCategory_ID = recordViewModel.getSubCategoryID(tv_record_category.text.toString()),
+                Category_ID = recordViewModel.getCategoryID(tv_record_category.text.toString()),
                 Account_ID = recordViewModel.getAccountID(tv_record_account_pay.text.toString()),
                 Transaction_Amount = tv_record_amount.text.toString().toDouble(),
                 Transaction_Date = recordViewModel.transDetail.Transaction_Date,
