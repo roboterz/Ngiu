@@ -18,7 +18,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.ngiu.MainActivity
 import com.example.ngiu.R
-import com.example.ngiu.data.AppDatabase
 import com.example.ngiu.data.entities.Trans
 import com.example.ngiu.databinding.FragmentRecordBinding
 import com.example.ngiu.functions.DateTimePicker
@@ -601,10 +600,9 @@ class RecordFragment : Fragment() {
 
             // save
             if (transactionID > 0) {
-
-                AppDatabase.getDatabase(requireContext()).trans().updateTransaction(trans)
+                recordViewModel.updateTransaction(requireContext(), trans)
             } else {
-                AppDatabase.getDatabase(requireContext()).trans().addTransaction(trans)
+                recordViewModel.addTransaction(requireContext(),trans)
             }
 
             Toast.makeText(context,getText(R.string.msg_saved),Toast.LENGTH_SHORT).show()
@@ -621,11 +619,13 @@ class RecordFragment : Fragment() {
         dialogBuilder.setMessage(getText(R.string.msg_content_transaction_delete))
             .setCancelable(true)
             .setPositiveButton(getText(R.string.msg_button_confirm)) { _, _ ->
+
                 // delete record
                 val trans = Trans(Transaction_ID = transactionID)
-                AppDatabase.getDatabase(requireContext()).trans().deleteTransaction(trans)
+                recordViewModel.deleteTrans(requireContext(),trans)
                 // exit
                 requireActivity().onBackPressed()
+
             }
             .setNegativeButton(getText(R.string.msg_button_cancel)) { dialog, _ ->
                 // cancel
