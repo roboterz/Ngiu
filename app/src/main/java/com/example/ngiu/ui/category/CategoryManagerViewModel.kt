@@ -30,7 +30,7 @@ class CategoryManagerViewModel: ViewModel() {
             mainCategory[0].Category_ID = 0L
             mainCategory[0].Category_Name = context.getString(R.string.option_category_common)
             // add "+Add" item
-            mainCategory.add(Category(0L,0L,0L, context.getString(R.string.menu_add_cate)))
+            mainCategory.add(Category(0L,transactionType,0L, context.getString(R.string.menu_add_cate)))
         }else{
             // add Common section
             mainCategory.add(0, Category(0L, transactionType, 0L, context.getString(R.string.option_category_common)))
