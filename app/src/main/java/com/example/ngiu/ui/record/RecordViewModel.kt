@@ -187,6 +187,19 @@ class RecordViewModel : ViewModel() {
         return nameList.toTypedArray()
 
     }
+
+    fun updateTransaction(context: Context ,trans: Trans){
+        AppDatabase.getDatabase(context).trans().updateTransaction(trans)
+    }
+
+    fun addTransaction(context: Context ,trans: Trans){
+        AppDatabase.getDatabase(context).trans().addTransaction(trans)
+    }
+
+    fun deleteTrans(context: Context ,trans: Trans){
+        AppDatabase.getDatabase(context).trans().deleteTransaction(trans)
+    }
+
 }
 
 
@@ -225,6 +238,7 @@ class CurrentTransactionType {
 
         return cTT
     }
+
 
 
 }
