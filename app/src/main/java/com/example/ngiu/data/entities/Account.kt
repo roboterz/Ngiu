@@ -71,6 +71,9 @@ data class Account(
     @ColumnInfo(defaultValue = "0")
     var Account_StatisticalMode: Int = 0,
 
+    @ColumnInfo(defaultValue = "1.0")
+    var Account_BaseReward: Double = 1.0,
+
     // additional data
     @ColumnInfo(defaultValue = "false")
     var Account_IsDefault: Boolean = false,
