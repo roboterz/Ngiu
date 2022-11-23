@@ -261,6 +261,20 @@ interface PersonDao {
 }
 
 
+//Event
+@Dao
+interface EventDao{
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun addEvent(event: Event)
+
+    @Update
+    fun updateEvent(vararg event: Event)
+
+    @Delete
+    fun deleteEvent(event: Event)
+}
+
+
 //ICON
 @Dao
 interface IconDao{

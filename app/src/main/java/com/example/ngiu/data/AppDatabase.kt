@@ -17,7 +17,7 @@ private const val DB_PATH = "databases/ngiux.db"
         Account::class, AccountType::class, Category::class, Currency::class,
         Person::class, Merchant::class, Period::class, Icon::class,
         Project::class, TransactionType::class, Budget::class,
-        Trans::class, ], version = 8, exportSchema = false)
+        Trans::class, Event::class, ], version = 9, exportSchema = false)
 @TypeConverters(DateTypeConverter::class, ImageConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun account(): AccountDao
@@ -25,6 +25,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun budget(): BudgetDao
     abstract fun category(): CategoryDao
     abstract fun currency(): CurrencyDao
+    abstract fun event(): EventDao
     abstract fun iconDao(): IconDao
     abstract fun person(): PersonDao
     //abstract fun mainCategory(): MainCategoryDao

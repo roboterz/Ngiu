@@ -11,6 +11,7 @@ import androidx.room.PrimaryKey
 data class Icon(
     @PrimaryKey(autoGenerate = true)
     var Icon_ID: Long = 0L,
+    var Icon_Name: String = "",
     var Icon_Path: String = "",
     @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
     var Icon_Image: Bitmap? = null
