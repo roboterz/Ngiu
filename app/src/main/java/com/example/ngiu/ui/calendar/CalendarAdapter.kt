@@ -99,7 +99,6 @@ class CalendarAdapter(
                     holder.dot.setColorFilter(holder.eventColor)
 
                     holder.memo.visibility = View.VISIBLE
-                    holder.memo.gravity = View.TEXT_ALIGNMENT_TEXT_START
                     holder.memo.text = memo
                 }
                 else -> holder.eventType.text = ""
