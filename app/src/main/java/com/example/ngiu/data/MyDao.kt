@@ -272,6 +272,10 @@ interface EventDao{
 
     @Delete
     fun deleteEvent(event: Event)
+
+    @Transaction
+    @Query("Select * From Event")
+    fun getAllEvent(): List<Event>
 }
 
 

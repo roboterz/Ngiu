@@ -31,10 +31,13 @@ class CalendarViewModel : ViewModel() {
     fun loadDataToRam(context: Context){
         val today:Int =  LocalDate.now().dayOfMonth
         val acctList = AppDatabase.getDatabase(context).account().getRecordByType(2L)
+        val eventList = AppDatabase.getDatabase(context).event().getAllEvent()
 
         calendarDetail.clear()
+
+        //load account list
         for (i in acctList.indices) {
-            val cd: CalendarDetail = CalendarDetail()
+            val cd = CalendarDetail()
             cd.apply {
                 this.account_id = acctList[i].Account_ID
                 this.title = acctList[i].Account_Name
@@ -50,6 +53,20 @@ class CalendarViewModel : ViewModel() {
             }
             calendarDetail.add(cd)
         }
+
+        //load event list
+        for (i in eventList.indices){
+            val cd = CalendarDetail()
+            cd.apply {
+                this.type = 3
+                this.date = eventList[i].Event_Date.toLocalDate()
+                this.memo = eventList[i].Event_Memo
+            }
+            calendarDetail.add(cd)
+        }
+
+
+        // sort by date
         calendarDetail.sortBy { it.date }
 
     }

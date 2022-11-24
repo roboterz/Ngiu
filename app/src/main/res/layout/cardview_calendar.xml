@@ -45,6 +45,7 @@
             android:textColor="@color/app_text"
             android:textSize="16sp"
             android:textStyle="normal"
+            android:visibility="invisible"
             app:layout_constraintStart_toEndOf="@+id/cv_calendar_img_circle"
             app:layout_constraintEnd_toStartOf="@+id/cv_calendar_tv_amount"
             app:layout_constraintTop_toTopOf="@+id/cv_calendar_tv_month_day" />
@@ -60,6 +61,7 @@
             android:textColor="@color/app_sub_line_text"
             android:textSize="14sp"
             android:textStyle="normal"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/cv_calendar_tv_event"
             app:layout_constraintTop_toBottomOf="@+id/cv_calendar_tv_event" />
@@ -74,7 +76,7 @@
             android:textColor="@color/app_text"
             android:textSize="16sp"
             android:textStyle="normal"
-            android:visibility="visible"
+            android:visibility="invisible"
             app:layout_constraintStart_toEndOf="@id/cv_calendar_tv_event"
             app:layout_constraintEnd_toStartOf="@+id/cv_calendar_hint"
             app:layout_constraintTop_toTopOf="@id/cv_calendar_tv_event"
@@ -137,6 +139,23 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             />
+
+        <TextView
+            android:id="@+id/cv_calendar_tv_memo"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="2dp"
+            android:textColor="@color/app_text"
+            android:textSize="16sp"
+            android:textStyle="normal"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="@id/cv_calendar_tv_event"
+            app:layout_constraintEnd_toStartOf="@+id/cv_calendar_hint"
+            app:layout_constraintTop_toTopOf="@+id/cv_calendar_tv_month_day"
+            app:layout_constraintBottom_toBottomOf="@+id/cv_calendar_tv_account_name"
+            tools:ignore="RtlSymmetry" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

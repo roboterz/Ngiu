@@ -11,9 +11,11 @@ data class CalendarDetail(
     var type: Int = 0,
     //type:1 Credit Card Payment
     //type:2 周期帐
-    //type:3
+    //type:3 Event
     var category: String ="",
     var amount: Double =0.0,
-    var date: LocalDate = LocalDate.now()
+    var date: LocalDate = LocalDate.now(),
+    var mode: Int = 0,
+    var memo: String = ""
 )
 // never used
