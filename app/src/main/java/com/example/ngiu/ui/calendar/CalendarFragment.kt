@@ -19,6 +19,9 @@ import com.afollestad.materialdialogs.customview.customView
 import com.example.ngiu.MainActivity
 import com.example.ngiu.R
 import kotlinx.android.synthetic.main.fragment_calendar.*
+import kotlinx.android.synthetic.main.popup_title.view.*
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 
 class CalendarFragment : Fragment() {
@@ -155,19 +158,29 @@ class CalendarFragment : Fragment() {
 
 
     private fun showReminderDialog(context: Context, event_ID: Long = 0L){
+
         val dialog = MaterialDialog(context)
             .noAutoDismiss()
             .customView(R.layout.popup_reminder_dialog)
+
 
         // button text
         if (event_ID == 0L){
             // Add Mode
             dialog.findViewById<TextView>(R.id.button_left).text = getText(R.string.msg_button_cancel)
+            // date
+            dialog.findViewById<TextView>(R.id.reminder_date).text = LocalDate.now().format(
+                DateTimeFormatter.ofPattern("MM/dd/yyyy"))
         } else {
             // Edit Mode
             dialog.findViewById<TextView>(R.id.button_left).text = getText(R.string.msg_button_delete)
-            // load text from database
-            dialog.findViewById<EditText>(R.id.reminder_memo).setText(calendarViewModel.getEventRecord(context, event_ID).Event_Memo)
+            // load event from database
+            val event = calendarViewModel.getEventRecord(context, event_ID)
+            // memo
+            dialog.findViewById<EditText>(R.id.reminder_memo).setText(event.Event_Memo)
+            // date
+            dialog.findViewById<TextView>(R.id.reminder_date).text = event.Event_Date.format(
+                DateTimeFormatter.ofPattern("MM/dd/yyyy"))
         }
         dialog.findViewById<TextView>(R.id.button_right).text = getText(R.string.menu_save)
 
