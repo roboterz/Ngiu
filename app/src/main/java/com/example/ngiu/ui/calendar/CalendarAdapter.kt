@@ -38,7 +38,7 @@ class CalendarAdapter(
 
     // interface for passing the onClick event to fragment.
     interface OnClickListener {
-        fun onItemClick(accountID: Long, type: Int)
+        fun onItemClick(ID: Long, type: Int)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -63,7 +63,7 @@ class CalendarAdapter(
             //if (Account_PaymentDay >= Calendar.DAY_OF_MONTH){
 
 
-            holder.monthDay.text = date?.format(DateTimeFormatter.ofPattern("MM/dd"))
+            holder.monthDay.text = date.format(DateTimeFormatter.ofPattern("MM/dd"))
 
 
             //hide the date if same day as above
