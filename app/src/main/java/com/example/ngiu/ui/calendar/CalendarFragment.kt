@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.MainActivity
 import com.example.ngiu.R
+import kotlinx.android.synthetic.main.fragment_activity.*
 import kotlinx.android.synthetic.main.fragment_calendar.*
 
 
@@ -54,72 +55,26 @@ class CalendarFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-        //  get data fom edittext when user enter something
-
-            //time picker
-            //DateTimePicker().PickTime(context,TimePickerDialog.OnTimeSetListener { _, hour, minute ->
-                //do something after time picked
-                //Toast.makeText(context , hour.toString() + ":" +  minute.toString(), Toast.LENGTH_SHORT).show()
-            //})
+        // toolbar
+        // show add button
+        toolbar_calendar.menu.findItem(R.id.action_add).isVisible = true
 
 
-
-        //textview popup menu
-        /*
-
-        txtview.setOnClickListener{
-            //do something
-
-            val array = arrayOf("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28")
-            //val array = arrayOf("1","2","3","4")
-
-            // Initialize a new instance of alert dialog builder object
-            val builder = AlertDialog.Builder(requireContext())
-
-            builder.setTitle("Statement Day")
-
-
-            // Set items form alert dialog
-            builder.setItems(array) { _, which ->
-                // Get the dialog selected item
-                val selected = array[which]
-                Toast.makeText(context, "You Clicked : " + selected, Toast.LENGTH_SHORT).show()
+        // toolbar menu item clicked
+        toolbar_activity.setOnMenuItemClickListener{
+            when (it.itemId) {
+                R.id.action_add -> {
+                    // switch to Event fragment
+                    navigateToEventFragment()
+                    true
+                }
+                else -> super.onOptionsItemSelected(it)
             }
-
-            // Create a new AlertDialog using builder object
-            // Finally, display the alert dialog
-            builder.create().show()
-
-
-
-            /*
-            val popupMenu: PopupMenu = PopupMenu(this,txtview)
-            popupMenu.menuInflater.inflate(R.menu.popup_menu,popupMenu.menu)
-
-            //add menu
-            for (i in 1 until 20) {
-                popupMenu.menu.add(i.toString())
-            }
-
-            //set click listener
-            popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener {    item ->
-                Toast.makeText(this, "You Clicked : " + item.title, Toast.LENGTH_SHORT).show()
-                true
-            })
-
-            //show popup menu
-            popupMenu.show()
-
-             */
-
-         */
-
-
-
+        }
 
 
     }
+
 
     override fun onResume() {
         super.onResume()
@@ -156,7 +111,7 @@ class CalendarFragment : Fragment() {
                 CAdapter = this.context?.let {
                     CalendarAdapter(object: CalendarAdapter.OnClickListener {
                         // catch the item click event from adapter
-                        override fun onItemClick(accountID: Long, type: Int) {
+                        override fun onItemClick(ID: Long, type: Int) {
                             // Open/switch to account detail
 
 
@@ -173,7 +128,7 @@ class CalendarFragment : Fragment() {
     }
 
 
-    // refresh subCategory
+    // refresh Calendar
     private fun refreshCalendar(){
 
         calendarViewModel.loadDataToRam(requireContext())
@@ -189,5 +144,14 @@ class CalendarFragment : Fragment() {
         findNavController().navigate(R.id.navigation_record, bundle)
     }
 
+
+    private fun navigateToEventFragment(eventID: Long = 0) {
+        TODO("Event Fragment")
+        val bundle = Bundle().apply {
+            putLong("Event_ID", eventID)
+        }
+        // switch to event fragment
+        //findNavController().navigate(R.id.navigation_record, bundle)
+    }
 }
 
