@@ -1,21 +1,23 @@
 package com.example.ngiu.ui.calendar
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation.findNavController
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.ngiu.databinding.FragmentCalendarBinding
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.customview.customView
 import com.example.ngiu.MainActivity
 import com.example.ngiu.R
-import kotlinx.android.synthetic.main.fragment_activity.*
 import kotlinx.android.synthetic.main.fragment_calendar.*
 
 
@@ -30,7 +32,7 @@ class CalendarFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private var CAdapter: CalendarAdapter? = null
+    private var cAdapter: CalendarAdapter? = null
 
 
     override fun onCreateView(
@@ -61,11 +63,12 @@ class CalendarFragment : Fragment() {
 
 
         // toolbar menu item clicked
-        toolbar_activity.setOnMenuItemClickListener{
+        toolbar_calendar.setOnMenuItemClickListener{
             when (it.itemId) {
                 R.id.action_add -> {
                     // switch to Event fragment
-                    navigateToEventFragment()
+                    //navigateToEventFragment(0L)
+                    showReminderDialog(view.context)
                     true
                 }
                 else -> super.onOptionsItemSelected(it)
@@ -87,7 +90,7 @@ class CalendarFragment : Fragment() {
             activity?.runOnUiThread {
                 //vpAdapter?.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
 
-                CAdapter?.setList(calendarViewModel.calendarDetail)
+                cAdapter?.setList(calendarViewModel.calendarDetail)
                 //recyclerView_activity.adapter = vpAdapter
             }
         }.start()
@@ -108,12 +111,17 @@ class CalendarFragment : Fragment() {
             this.activity?.runOnUiThread {
 
                 recyclerView_calendar.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
-                CAdapter = this.context?.let {
+                cAdapter = this.context?.let {
                     CalendarAdapter(object: CalendarAdapter.OnClickListener {
                         // catch the item click event from adapter
                         override fun onItemClick(ID: Long, type: Int) {
                             // Open/switch to account detail
 
+                            when (type){
+
+                                // show reminder dialog
+                                3 -> showReminderDialog(requireContext(),ID)
+                            }
 
 
                             // refresh
@@ -122,7 +130,7 @@ class CalendarFragment : Fragment() {
                     })
                 }
 
-                recyclerView_calendar.adapter = CAdapter
+                recyclerView_calendar.adapter = cAdapter
             }
         }.start()
     }
@@ -132,7 +140,7 @@ class CalendarFragment : Fragment() {
     private fun refreshCalendar(){
 
         calendarViewModel.loadDataToRam(requireContext())
-        CAdapter?.setList(calendarViewModel.calendarDetail)
+        cAdapter?.setList(calendarViewModel.calendarDetail)
     }
 
     // switch to page
@@ -145,13 +153,41 @@ class CalendarFragment : Fragment() {
     }
 
 
-    private fun navigateToEventFragment(eventID: Long = 0) {
-        TODO("Event Fragment")
-        val bundle = Bundle().apply {
-            putLong("Event_ID", eventID)
+
+    private fun showReminderDialog(context: Context, event_ID: Long = 0L){
+        val dialog = MaterialDialog(context)
+            .noAutoDismiss()
+            .customView(R.layout.popup_reminder_dialog)
+
+        // button text
+        if (event_ID == 0L){
+            // Add Mode
+            dialog.findViewById<TextView>(R.id.button_left).text = getText(R.string.msg_button_cancel)
+        } else {
+            // Edit Mode
+            dialog.findViewById<TextView>(R.id.button_left).text = getText(R.string.msg_button_delete)
+            // load text from database
+            dialog.findViewById<EditText>(R.id.reminder_memo).setText(calendarViewModel.getEventRecord(context, event_ID).Event_Memo)
         }
-        // switch to event fragment
-        //findNavController().navigate(R.id.navigation_record, bundle)
+        dialog.findViewById<TextView>(R.id.button_right).text = getText(R.string.menu_save)
+
+
+        // todo button Event
+        dialog.findViewById<TextView>(R.id.button_left).setOnClickListener(){
+            if (event_ID == 0L){
+                // cancel
+                dialog.dismiss()
+            }else{
+                // delete
+            }
+        }
+        dialog.findViewById<TextView>(R.id.button_right).setOnClickListener(){
+            // save
+        }
+
+        dialog.show()
     }
+
+
 }
 

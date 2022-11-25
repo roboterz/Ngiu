@@ -196,6 +196,10 @@
     <string name="msg_name_edit_error">This name cannot be edit cause some unknown reason.</string>
     <string name="msg_no_account">No Account</string>
 
+    <string name="event_credit_card_payment">Credit Card Payment</string>
+    <string name="event_reminder">Reminder</string>
+    <string name="event_periodic_Event">Periodic Event</string>
+
     <string name="amount_zero_with_dollar_sign">$0.00</string>
     <string name="amount_zero">0.00</string>
 

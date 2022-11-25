@@ -1,13 +1,22 @@
 package com.example.ngiu.ui.calendar
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.content.res.loader.ResourcesProvider
+import android.provider.Settings.Global.getString
+import android.provider.Settings.Secure.getString
 import android.text.Editable
+import androidx.core.content.res.TypedArrayUtils.getNamedString
+import androidx.core.content.res.TypedArrayUtils.getText
+import androidx.databinding.ObservableInt
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.ngiu.R
 import com.example.ngiu.data.AppDatabase
 import com.example.ngiu.data.entities.Account
+import com.example.ngiu.data.entities.Event
 import com.example.ngiu.data.entities.Person
 import com.example.ngiu.data.entities.Trans
 import com.example.ngiu.data.entities.returntype.CalendarDetail
@@ -18,30 +27,32 @@ import java.time.format.DateTimeFormatter
 
 class CalendarViewModel : ViewModel() {
 
-    private var recordId: Long = 0
-    //var accountList: MutableList<Account> = ArrayList()
-
     var calendarDetail: MutableList<CalendarDetail> = ArrayList()
 
 
-    fun getRecordByID(activity: FragmentActivity?, rID: Long): Trans {
-        return AppDatabase.getDatabase(activity!!).trans().getRecordByID(rID)
+    // return event record
+    fun getEventRecord(context: Context, event_ID: Long): Event {
+        return AppDatabase.getDatabase(context).event().getRecordByID(event_ID)
     }
 
-    fun loadDataToRam(context: Context){
-        val today:Int =  LocalDate.now().dayOfMonth
+
+    fun loadDataToRam(context: Context) {
+        val today: Int = LocalDate.now().dayOfMonth
         val acctList = AppDatabase.getDatabase(context).account().getRecordByType(2L)
         val eventList = AppDatabase.getDatabase(context).event().getAllEvent()
 
         calendarDetail.clear()
 
+        var eventTitle: String = context.getString(R.string.event_credit_card_payment)
+
         //load account list
         for (i in acctList.indices) {
             val cd = CalendarDetail()
             cd.apply {
-                this.account_id = acctList[i].Account_ID
-                this.title = acctList[i].Account_Name
+                this.id = acctList[i].Account_ID
+                this.account_out_name = acctList[i].Account_Name
                 this.type = 1
+                this.title = eventTitle
                 this.account_last_four_number = acctList[i].Account_CardNumber
                 if (today <= acctList[i].Account_PaymentDay) {
                     this.date =
@@ -54,10 +65,13 @@ class CalendarViewModel : ViewModel() {
             calendarDetail.add(cd)
         }
 
+        eventTitle = context.getString(R.string.event_reminder)
         //load event list
-        for (i in eventList.indices){
+        for (i in eventList.indices) {
             val cd = CalendarDetail()
             cd.apply {
+                this.id = eventList[i].Event_ID
+                this.title = eventTitle
                 this.type = 3
                 this.date = eventList[i].Event_Date.toLocalDate()
                 this.memo = eventList[i].Event_Memo
@@ -72,14 +86,4 @@ class CalendarViewModel : ViewModel() {
     }
 
 
-
-/*    fun updateAccountFixedPayment(context: Context, accountID:Long, blnFixed: Boolean){
-
-        val acct = AppDatabase.getDatabase(context).account().getRecordByID(accountID)
-
-        acct.Account_FixedPaymentDay = blnFixed
-
-        AppDatabase.getDatabase(context).account().updateAccount(acct)
-
-    }*/
 }

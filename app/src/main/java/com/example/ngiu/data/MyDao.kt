@@ -276,6 +276,10 @@ interface EventDao{
     @Transaction
     @Query("Select * From Event")
     fun getAllEvent(): List<Event>
+
+    @Transaction
+    @Query("Select * From Event WHERE Event_ID = :rID")
+    fun getRecordByID(rID:Long): Event
 }
 
 

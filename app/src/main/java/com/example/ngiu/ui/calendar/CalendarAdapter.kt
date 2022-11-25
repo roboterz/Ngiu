@@ -14,6 +14,7 @@ import android.widget.Switch
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.TypedArrayUtils.getText
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
@@ -54,17 +55,13 @@ class CalendarAdapter(
 
 
     //@SuppressLint("ResourceAsColor")
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "RestrictedApi")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         // display the custom class
 
         calendarDetail[position].apply {
-            //holder.monthDay.text = Account_PaymentDay?.format(DateTimeFormatter.ofPattern("MM/dd"))
-            //if (Account_PaymentDay >= Calendar.DAY_OF_MONTH){
-
 
             holder.monthDay.text = date.format(DateTimeFormatter.ofPattern("MM/dd"))
-
 
             //hide the date if same day as above
             if (position>0) {
@@ -72,17 +69,19 @@ class CalendarAdapter(
                     holder.monthDay.text = ""
                 }
             }
-            //}
-            //holder.monthDay.text = "$Account_PaymentDay"
+
+            //title
+            holder.eventTitle.text = title
+            //amount
+            holder.amount.text ="$" + "%.2f".format(amount)
 
             // todo Event
             when (type){
                 //Credit Card
                 1 -> {
-                    holder.eventType.visibility = View.VISIBLE
                     holder.amount.visibility = View.VISIBLE
-                    holder.acctName.visibility = View.VISIBLE
-                    holder.eventType.text = "Credit Card Payment"
+                    //account name
+                    holder.content.text = "$account_out_name $account_last_four_number"
 
                     // todo dot color
                     holder.dot.setColorFilter(holder.expenseColor)
@@ -90,64 +89,29 @@ class CalendarAdapter(
                 }
                 //周期帐
                 2 -> {
-                    holder.eventType.visibility = View.VISIBLE
-                    holder.eventType.text = "Payment"
+                    holder.amount.visibility = View.VISIBLE
                 }
                 //Event
                 3 -> {
                     //color
                     holder.dot.setColorFilter(holder.eventColor)
 
-                    holder.memo.visibility = View.VISIBLE
-                    holder.memo.text = memo
+                    holder.content.text = memo
                 }
-                else -> holder.eventType.text = ""
+                //else -> holder.eventType.text = ""
             }
 
-
-            //name
-            holder.acctName.text = "$title $account_last_four_number"
-            //amount
-            holder.amount.text ="$" + "%.2f".format(amount)
-            //checkbox
-            //holder.cbox.isChecked = !Account_FixedPaymentDay
-
-            //添加删除线
-            /*if (Account_FixedPaymentDay) {
-                holder.name.paintFlags = 0
-            }else{
-                holder.name.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
-            }*/
-
-/*            if (Account_PaymentDay < today){
-                holder.name.setTextColor(holder.textColorDone)
-                holder.amount.setTextColor(holder.textColorDone)
-                //holder.monthDay.setTextColor(holder.textColorDone)
-
-            }else if ((Account_PaymentDay - today) >=0 && (Account_PaymentDay - today) <=5){
-                //holder.name.setTextColor(holder.textColorDue)
-                //holder.amount.setTextColor(holder.textColorDue)
-                //holder.monthDay.setTextColor(holder.textColorDue)
-                holder.dot.setColorFilter(holder.textColorDue)
-
-            }else{
-                holder.name.setTextColor(holder.textColorFuture)
-                holder.amount.setTextColor(holder.textColorFuture)
-                //holder.monthDay.setTextColor(holder.textColorFuture)
-            }*/
 
 
 
             // pass the item click listener to fragment
             holder.aItem.setOnClickListener {
-
                 // todo 点击进入相应的账号查看
-
                 when (type) {
                     // credit card
                     1 -> {
                         val bundle = Bundle().apply {
-                            putLong("accountId", account_id)
+                            putLong("accountId", id)
                             putString("accountName", account_out_name)
                             putDouble("balance", amount)
                             putDouble("creditLimit", 5000.00)
@@ -159,6 +123,8 @@ class CalendarAdapter(
                         holder.itemView.findNavController()
                             .navigate(R.id.accountCreditRecords, bundle)
                     }
+
+                    3 -> onClickListener.onItemClick(id, type)
                 }
 
                 //
@@ -183,13 +149,12 @@ class CalendarAdapter(
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val monthDay: TextView = itemView.cv_calendar_tv_month_day
-        val acctName: TextView = itemView.cv_calendar_tv_account_name
+        val content: TextView = itemView.cv_calendar_tv_content
         val amount: TextView = itemView.cv_calendar_tv_amount
         val aItem: ConstraintLayout = itemView.layout_calendar_item
         //val cbox: CheckBox = itemView.cv_calendar_checkBox
         val dot: ImageView = itemView.cv_calendar_img_circle
-        val eventType: TextView = itemView.cv_calendar_tv_event
-        val memo: TextView = itemView.cv_calendar_tv_memo
+        val eventTitle: TextView = itemView.cv_calendar_tv_event
 
 
         //icon

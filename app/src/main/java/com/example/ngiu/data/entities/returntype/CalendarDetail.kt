@@ -4,7 +4,7 @@ import java.time.LocalDate
 
 data class CalendarDetail(
     var title: String = "",
-    var account_id: Long = 0L,
+    var id: Long = 0L,
     var account_out_name: String ="",
     var account_in_name: String ="",
     var account_last_four_number: String="",
