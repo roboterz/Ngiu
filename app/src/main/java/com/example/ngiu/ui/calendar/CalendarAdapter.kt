@@ -87,7 +87,7 @@ class CalendarAdapter(
                     holder.dot.setColorFilter(holder.expenseColor)
                     holder.amount.setTextColor(holder.expenseColor)
                 }
-                //周期帐
+                //peri
                 2 -> {
                     holder.amount.visibility = View.VISIBLE
                 }
@@ -124,6 +124,7 @@ class CalendarAdapter(
                             .navigate(R.id.accountCreditRecords, bundle)
                     }
 
+                    // Event
                     3 -> onClickListener.onItemClick(id, type)
                 }
 
