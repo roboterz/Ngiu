@@ -1,5 +1,6 @@
 package com.example.ngiu.ui.calendar
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -18,6 +19,7 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
 import com.example.ngiu.MainActivity
 import com.example.ngiu.R
+import com.example.ngiu.data.entities.Trans
 import kotlinx.android.synthetic.main.fragment_calendar.*
 import kotlinx.android.synthetic.main.popup_title.view.*
 import java.time.LocalDate
@@ -144,6 +146,7 @@ class CalendarFragment : Fragment() {
 
         calendarViewModel.loadDataToRam(requireContext())
         cAdapter?.setList(calendarViewModel.calendarDetail)
+        recyclerView_calendar.adapter = cAdapter
     }
 
     // switch to page
@@ -192,6 +195,36 @@ class CalendarFragment : Fragment() {
                 dialog.dismiss()
             }else{
                 // delete
+                // todo
+                val dialogBuilder = AlertDialog.Builder(activity)
+
+                dialogBuilder.setMessage(getText(R.string.msg_content_event_delete))
+                    .setCancelable(true)
+                    .setPositiveButton(getText(R.string.msg_button_confirm)) { _, _ ->
+
+
+                        // delete event
+                        calendarViewModel.deleteEventRecord(context,event_ID)
+                        // exit
+                        dialog.dismiss()
+                        //onResume()
+                        //refreshCalendar()
+
+                    }
+                    .setNegativeButton(getText(R.string.msg_button_cancel)) { dialog, _ ->
+                        // cancel
+                        dialog.cancel()
+                    }
+
+                // set Title Style
+                val titleView = layoutInflater.inflate(R.layout.popup_title,null)
+                // set Title Text
+                titleView.tv_popup_title_text.text = getText(R.string.msg_Title_prompt)
+
+                val alert = dialogBuilder.create()
+                //alert.setIcon(R.drawable.ic_baseline_delete_forever_24)
+                alert.setCustomTitle(titleView)
+                alert.show()
             }
         }
         dialog.findViewById<TextView>(R.id.button_right).setOnClickListener(){

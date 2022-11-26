@@ -175,6 +175,7 @@
     <string name="msg_button_delete">Delete</string>
     <string name="msg_Title_prompt">Prompt</string>
     <string name="msg_content_transaction_delete">Confirm to delete this transaction.</string>
+    <string name="msg_content_event_delete">Confirm to delete this event.</string>
     <string name="msg_content_account_delete">Confirm to delete this account.</string>
     <string name="msg_content_category_delete">Confirm to delete this category.</string>
     <string name="msg_cannot_save_with_zero_amount">Cannot save with zero amount.</string>
