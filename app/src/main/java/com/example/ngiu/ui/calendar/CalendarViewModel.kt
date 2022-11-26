@@ -35,6 +35,11 @@ class CalendarViewModel : ViewModel() {
         return AppDatabase.getDatabase(context).event().getRecordByID(event_ID)
     }
 
+    // delete event record
+    fun deleteEventRecord(context: Context, event_ID: Long){
+        return AppDatabase.getDatabase(context).event().deleteEvent(Event(Event_ID = event_ID))
+    }
+
 
     fun loadDataToRam(context: Context) {
         val today: Int = LocalDate.now().dayOfMonth
