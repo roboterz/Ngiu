@@ -458,7 +458,28 @@ interface ProjectDao {
 //
 //}
 
+// Reward
+@Dao
+interface RewardDao{
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun addReward(reward: Reward)
 
+    @Update
+    fun updateReward(vararg reward: Reward)
+
+    @Delete
+    fun deleteReward(reward: Reward)
+
+    @Transaction
+    @Query("SELECT * FROM Reward WHERE Reward_ID = :rID")
+    fun getRecordByID(rID:Long): Reward
+
+    @Transaction
+    @Query("SELECT * FROM Reward")
+    fun getAllReward(): List<Reward>
+
+
+}
 
 // Transaction
 @Dao

@@ -1,5 +1,6 @@
 package com.example.ngiu.ui.calendar
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.content.SharedPreferences
@@ -19,10 +20,16 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
 import com.example.ngiu.MainActivity
 import com.example.ngiu.R
+import com.example.ngiu.data.entities.Event
 import com.example.ngiu.data.entities.Trans
+import com.example.ngiu.functions.DateTimePicker
+import com.example.ngiu.functions.getInternationalDateFromAmericanDate
 import kotlinx.android.synthetic.main.fragment_calendar.*
+import kotlinx.android.synthetic.main.fragment_record.*
 import kotlinx.android.synthetic.main.popup_title.view.*
 import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 
@@ -149,22 +156,14 @@ class CalendarFragment : Fragment() {
         recyclerView_calendar.adapter = cAdapter
     }
 
-    // switch to page
-    private fun navigateToRecordFragment(transID: Long = 0){
-        val bundle = Bundle().apply {
-            putLong("Transaction_ID", transID)
-        }
-        // switch to record fragment
-        findNavController().navigate(R.id.navigation_record, bundle)
-    }
 
-
-
+    @SuppressLint("CutPasteId")
     private fun showReminderDialog(context: Context, event_ID: Long = 0L){
 
         val dialog = MaterialDialog(context)
             .noAutoDismiss()
-            .customView(R.layout.popup_reminder_dialog)
+            .customView(R.layout.popup_reminder_dialog, noVerticalPadding = true)
+
 
 
         // button text
@@ -174,46 +173,83 @@ class CalendarFragment : Fragment() {
             // date
             dialog.findViewById<TextView>(R.id.reminder_date).text = LocalDate.now().format(
                 DateTimeFormatter.ofPattern("MM/dd/yyyy"))
+            // time
+            dialog.findViewById<TextView>(R.id.reminder_time).text = LocalTime.now().format(
+                DateTimeFormatter.ofPattern("HH:mm:ss"))
+
         } else {
             // Edit Mode
-            dialog.findViewById<TextView>(R.id.button_left).text = getText(R.string.msg_button_delete)
+            dialog.findViewById<TextView>(R.id.button_left).text =
+                getText(R.string.msg_button_delete)
             // load event from database
             val event = calendarViewModel.getEventRecord(context, event_ID)
             // memo
             dialog.findViewById<EditText>(R.id.reminder_memo).setText(event.Event_Memo)
             // date
             dialog.findViewById<TextView>(R.id.reminder_date).text = event.Event_Date.format(
-                DateTimeFormatter.ofPattern("MM/dd/yyyy"))
+                DateTimeFormatter.ofPattern("MM/dd/yyyy")
+            )
+            // time
+            dialog.findViewById<TextView>(R.id.reminder_time).text = event.Event_Date.format(
+                DateTimeFormatter.ofPattern("HH:mm:ss")
+            )
         }
+        // set text for save button
         dialog.findViewById<TextView>(R.id.button_right).text = getText(R.string.menu_save)
 
 
-        // todo button Event
+        // Delete or Cancel Button click
         dialog.findViewById<TextView>(R.id.button_left).setOnClickListener(){
             if (event_ID == 0L){
-                // cancel
-                dialog.dismiss()
-            }else{
-                // delete
-                // todo
-                val dialogBuilder = AlertDialog.Builder(activity)
 
+                // cancel button
+                dialog.dismiss()
+
+            }else{
+
+                // delete button
+
+                // popup confirm window
+                // --------------------------------------------------------------------------
+                val dialogBuilder = AlertDialog.Builder(activity)
                 dialogBuilder.setMessage(getText(R.string.msg_content_event_delete))
                     .setCancelable(true)
                     .setPositiveButton(getText(R.string.msg_button_confirm)) { _, _ ->
-
-
-                        // delete event
-                        calendarViewModel.deleteEventRecord(context,event_ID)
+                        // confirm delete
                         // exit
                         dialog.dismiss()
-                        //onResume()
-                        //refreshCalendar()
-
+                        // delete
+                        deleteEvent(context, event_ID)
                     }
-                    .setNegativeButton(getText(R.string.msg_button_cancel)) { dialog, _ ->
+                    .setNegativeButton(getText(R.string.msg_button_cancel)) { popupWindow, _ ->
                         // cancel
-                        dialog.cancel()
+                        popupWindow.cancel()
+                    }
+
+                // set Title Style
+                val titleView = layoutInflater.inflate(R.layout.popup_title,null)
+                // set Title Text
+                titleView.tv_popup_title_text.text = getText(R.string.msg_Title_prompt)
+
+                val alert = dialogBuilder.create()
+                alert.setCustomTitle(titleView)
+                alert.show()
+                // --------------------------------------------------------------------------
+            }
+        }
+
+        // save button click
+        dialog.findViewById<TextView>(R.id.button_right).setOnClickListener(){
+            // save
+            if (dialog.findViewById<EditText>(R.id.reminder_memo).text.toString().trim() ==""){
+
+                // popup prompt window "Cannot save with no content"
+                // --------------------------------------------------------------------------
+                val dialogBuilder = AlertDialog.Builder(activity)
+                dialogBuilder.setMessage(getText(R.string.msg_cannot_save_with_no_content))
+                    .setCancelable(true)
+                    .setPositiveButton(getText(R.string.msg_button_ok)){ popupWindow,_ ->
+                        popupWindow.cancel()
                     }
 
                 // set Title Style
@@ -225,15 +261,50 @@ class CalendarFragment : Fragment() {
                 //alert.setIcon(R.drawable.ic_baseline_delete_forever_24)
                 alert.setCustomTitle(titleView)
                 alert.show()
+                // --------------------------------------------------------------------------
+
+            } else{
+                // create event
+                val event = Event(
+                    Event_ID = event_ID,
+                    Event_Date = getInternationalDateFromAmericanDate(
+                        dialog.findViewById<TextView>(R.id.reminder_date).text.toString() + " " +
+                                dialog.findViewById<TextView>(R.id.reminder_time).text.toString()),
+                    Event_Memo = dialog.findViewById<EditText>(R.id.reminder_memo).text.toString()
+                )
+                // save
+                calendarViewModel.saveEventRecord(context, event)
+                // close dialog
+                dialog.dismiss()
+                //refresh
+                refreshCalendar()
             }
         }
-        dialog.findViewById<TextView>(R.id.button_right).setOnClickListener(){
-            // save
+
+        // date picker click
+        dialog.findViewById<TextView>(R.id.reminder_date).setOnClickListener(){
+
+            val date = LocalDate.parse(dialog.findViewById<TextView>(R.id.reminder_date).text.toString(), DateTimeFormatter.ofPattern("MM/dd/yyyy"))
+
+            DateTimePicker(
+                date.year,
+                date.monthValue-1,
+                date.dayOfMonth
+            ).pickDate(context) { _, year, month, day ->
+                // save date to textView
+                dialog.findViewById<TextView>(R.id.reminder_date).text = LocalDate.of(year, month + 1, day)
+                    .format(DateTimeFormatter.ofPattern("MM/dd/yyyy"))
+            }
         }
+
 
         dialog.show()
     }
 
+    private fun deleteEvent(context: Context, event_ID: Long){
+        calendarViewModel.deleteEventRecord(context,event_ID)
+        refreshCalendar()
+    }
 
 }
 

@@ -16,7 +16,7 @@ private const val DB_PATH = "databases/ngiux.db"
     entities = [
         Account::class, AccountType::class, Category::class, Currency::class,
         Person::class, Merchant::class, Period::class, Icon::class,
-        Project::class, TransactionType::class, Budget::class,
+        Project::class, TransactionType::class, Budget::class, Reward::class,
         Trans::class, Event::class, ], version = 9, exportSchema = false)
 @TypeConverters(DateTypeConverter::class, ImageConverter::class)
 abstract class AppDatabase : RoomDatabase() {
@@ -33,6 +33,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun period(): PeriodDao
     abstract fun project(): ProjectDao
     //abstract fun subCat(): SubCategoryDao
+    abstract fun reward(): RewardDao
     abstract fun trans(): TransDao
     abstract fun transType(): TransTypeDao
 
@@ -53,7 +54,7 @@ abstract class AppDatabase : RoomDatabase() {
                         context.applicationContext,
                         AppDatabase::class.java,
                         DB_NAME
-                    ).createFromAsset(DB_PATH).allowMainThreadQueries().build()
+                    ).allowMainThreadQueries().build()
                     //.createFromAsset(DB_PATH)
 
                     INSTANCE = instance

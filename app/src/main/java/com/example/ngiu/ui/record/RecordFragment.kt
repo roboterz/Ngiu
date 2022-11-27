@@ -20,11 +20,9 @@ import com.example.ngiu.MainActivity
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.Trans
 import com.example.ngiu.databinding.FragmentRecordBinding
-import com.example.ngiu.functions.DateTimePicker
-import com.example.ngiu.functions.SelectItem
+import com.example.ngiu.functions.*
 import kotlinx.android.synthetic.main.fragment_record.*
 import kotlin.collections.ArrayList
-import com.example.ngiu.functions.popupWindow
 import com.example.ngiu.ui.keyboard.Keyboard
 import kotlinx.android.synthetic.main.popup_title.view.*
 import java.time.LocalDate
@@ -243,7 +241,7 @@ class RecordFragment : Fragment() {
                 val s = Calendar.getInstance().get(Calendar.SECOND)
                 tv_record_time.text = LocalTime.of(hour, minute, s).toString()
                 recordViewModel.transDetail.Transaction_Date =
-                    getInternationalDateFromAmericanDate(tv_record_date.text.toString() + " " + tv_record_time.text.toString())
+                   getInternationalDateFromAmericanDate(tv_record_date.text.toString() + " " + tv_record_time.text.toString())
             }
         }
 
@@ -410,10 +408,7 @@ class RecordFragment : Fragment() {
         }
     }
 
-    private fun getInternationalDateFromAmericanDate(string: String): LocalDateTime {
-        val lDateTime: LocalDateTime =  LocalDateTime.parse(string, DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss"))
-        return LocalDateTime.parse(lDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
-    }
+
 
 
     // called when the fragment is visible and actively running.
