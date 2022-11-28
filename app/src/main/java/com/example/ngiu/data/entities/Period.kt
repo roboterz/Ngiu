@@ -88,13 +88,13 @@ data class Period (
 
     var Period_OrderNo: Int = 0,
 
+    @ColumnInfo(defaultValue = "false")
     var Period_IsDelete: Boolean = false,
 
+    @ColumnInfo(defaultValue = "false")
     var Period_UploadStatus: Boolean = false,
-
     @TypeConverters(DateTypeConverter::class)
     var Period_CreateTime: LocalDateTime = LocalDateTime.now(),
-
     @TypeConverters(DateTypeConverter::class)
     var Period_UploadTime: LocalDateTime = LocalDateTime.now()
 )

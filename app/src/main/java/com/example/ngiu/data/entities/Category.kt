@@ -16,37 +16,28 @@ import java.time.LocalDateTime
 data class Category(
     @PrimaryKey(autoGenerate = true)
     var Category_ID: Long = 0L,
-
     @ColumnInfo(defaultValue = "0")
     var TransactionType_ID: Long = 0L,
-
     @ColumnInfo(defaultValue = "0")
     var Category_ParentID: Long = 0L,
-
     @ColumnInfo(defaultValue = "")
     var Category_Name: String = "",
-
     @ColumnInfo(defaultValue = "false")
     var Category_Common: Boolean = false,
 
-    @ColumnInfo(defaultValue = "false")
-    var Category_UploadStatus: Boolean = false,
-
     @ColumnInfo(defaultValue = "0")
     var Category_OrderNo: Int = 0,
-
-    @ColumnInfo(defaultValue = "false")
-    var Category_IsDelete: Boolean = false,
-
     @ColumnInfo(defaultValue = "false")
     var Category_IsDefault: Boolean = false,
-
     @ColumnInfo(defaultValue = "0")
     var Category_Icon: Int = 0,
 
+    @ColumnInfo(defaultValue = "false")
+    var Category_IsDelete: Boolean = false,
+    @ColumnInfo(defaultValue = "false")
+    var Category_UploadStatus: Boolean = false,
     @TypeConverters(DateTypeConverter::class)
     var Category_CreateTime: LocalDateTime = LocalDateTime.now(),
-
     @TypeConverters(DateTypeConverter::class)
     var Category_UploadTime: LocalDateTime = LocalDateTime.now()
 

@@ -74,15 +74,16 @@ data class Account(
     @ColumnInfo(defaultValue = "1.0")
     var Account_BaseReward: Double = 1.0,
 
+    @ColumnInfo(defaultValue = "0")
+    var Account_Icon: Int = 0,
+    @ColumnInfo(defaultValue = "0")
+    var Account_OrderNo: Int = 0,
+
     // additional data
     @ColumnInfo(defaultValue = "false")
     var Account_IsDefault: Boolean = false,
-    @ColumnInfo(defaultValue = "0")
-    var Account_OrderNo: Int = 0,
     @ColumnInfo(defaultValue = "false")
     var Account_UploadStatus: Boolean = false,
-    @ColumnInfo(defaultValue = "0")
-    var Account_Icon: Int = 0,
     @TypeConverters(DateTypeConverter::class)
     var Account_CreateTime: LocalDateTime = LocalDateTime.now(),
     @TypeConverters(DateTypeConverter::class)

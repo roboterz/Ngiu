@@ -29,8 +29,6 @@ class DateTypeConverter {
      */
 
 
-
-
     private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
 
     @TypeConverter
