@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.MainActivity
@@ -110,7 +111,7 @@ class AccountCreditDetailFragment : Fragment() {
             when (it.itemId) {
                 R.id.action_add -> {
                     // navigate to add record screen
-                    view.findNavController().navigate(R.id.navigation_record)
+                    navigateToRecordFragment()
                     true
                 }
                 R.id.action_edit -> {
@@ -149,6 +150,15 @@ class AccountCreditDetailFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun navigateToRecordFragment(transID: Long = 0){
+        val bundle = Bundle().apply {
+            putLong("Transaction_ID", transID)
+        }
+        // todo open record fragment with specified account or specified transaction type
+        // switch to record fragment
+        findNavController().navigate(R.id.navigation_record, bundle)
     }
 
 }

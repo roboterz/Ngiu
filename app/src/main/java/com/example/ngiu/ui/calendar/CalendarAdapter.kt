@@ -87,7 +87,7 @@ class CalendarAdapter(
                     holder.dot.setColorFilter(holder.expenseColor)
                     holder.amount.setTextColor(holder.expenseColor)
                 }
-                //peri
+                //周期帐
                 2 -> {
                     holder.amount.visibility = View.VISIBLE
                 }

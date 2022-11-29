@@ -16,7 +16,7 @@ import kotlin.collections.ArrayList
 
 
 class ActivityListAdapter(
-    private val onClickListener: OnClickListener
+    private val onClick: OnClickListener
     )
     : RecyclerView.Adapter<ActivityListAdapter.ViewHolder>() {
 
@@ -112,7 +112,7 @@ class ActivityListAdapter(
 
             // pass the item click listener to fragment
             holder.aItem.setOnClickListener {
-                onClickListener.onItemClick(Transaction_ID)
+                onClick.onItemClick(Transaction_ID)
             }
 
         }

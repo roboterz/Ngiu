@@ -21,5 +21,8 @@ data class AccountType (
     var AccountType_Parent: Int = 0,
 
     @ColumnInfo(defaultValue = "0")
-    var AccountType_OrderNo: Int = 0
+    var AccountType_OrderNo: Int = 0,
+
+    @ColumnInfo(defaultValue = "true")
+    var AccountType_Expanded: Boolean = true
 )

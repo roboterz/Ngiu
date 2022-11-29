@@ -122,6 +122,9 @@ interface AccountTypeDao{
     @Delete
     fun deleteAccountType(accountType: AccountType)
 
+    @Update
+    fun updateAccountType(accountType: AccountType)
+
     // get a record BY ID
     @Transaction
     @Query("SELECT * FROM AccountType WHERE AccountType_ID = :rID")
@@ -132,8 +135,8 @@ interface AccountTypeDao{
     fun getAllAccountType(): List<AccountType>
 
     @Transaction
-    @Query("SELECT * FROM AccountType")
-    fun getAllAccountTypes(): List<AccountType>
+    @Query("Update AccountType SET AccountType_Expanded = :value WHERE AccountType_ID = :rID")
+    fun updateExpandedValueByID(rID:Long, value: Boolean)
 }
 
 // Budget

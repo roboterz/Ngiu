@@ -78,6 +78,8 @@ data class Account(
     var Account_Icon: Int = 0,
     @ColumnInfo(defaultValue = "0")
     var Account_OrderNo: Int = 0,
+    @ColumnInfo(defaultValue = "false")
+    var Account_IsHiding: Boolean = false,
 
     // additional data
     @ColumnInfo(defaultValue = "false")

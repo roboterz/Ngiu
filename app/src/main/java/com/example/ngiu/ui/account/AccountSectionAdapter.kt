@@ -11,11 +11,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
 import com.example.ngiu.ui.account.model.AccountSectionUiModel
+import com.example.ngiu.ui.activity.ActivityListAdapter
 import kotlinx.android.synthetic.main.cardview_account_section_item.view.*
 
 
-class AccountSectionAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class AccountSectionAdapter(
+    private val onClick: OnClickListener
+    )
+    : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val accountItems = ArrayList<AccountSectionUiModel>()
+
+    // interface for passing the onClick event to fragment.
+    interface OnClickListener {
+        fun onItemClick(AccountTypeID: Long, isExpanded: Boolean)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -29,9 +38,10 @@ class AccountSectionAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         viewHolder.accountHeaderType.text = item.title
         viewHolder.accountHeaderBalance.text = item.balance
         viewHolder.foldItems(item.isExpanded)
-        viewHolder.topheader.setOnClickListener {
+        viewHolder.topHeader.setOnClickListener {
             item.isExpanded = !item.isExpanded
             viewHolder.foldItems(item.isExpanded)
+            onClick.onItemClick(item.accountTypeID, item.isExpanded)
         }
 
         val context = viewHolder.rvAccounts.context
@@ -58,7 +68,7 @@ class AccountSectionAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val accountHeaderBalance: TextView = itemView.tvAccountHeaderBalance
         var expandRow: ImageView = itemView.ivExpandRow
         var rvAccounts: RecyclerView = itemView.rvAccounts
-        var topheader: View = itemView.cardview_account_section_item
+        var topHeader: View = itemView.cardview_account_section_item
 
         // function to fold child base off the header
         fun foldItems(expand: Boolean){
