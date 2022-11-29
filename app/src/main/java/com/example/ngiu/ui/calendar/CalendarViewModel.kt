@@ -8,7 +8,6 @@ import android.provider.Settings.Secure.getString
 import android.text.Editable
 import androidx.core.content.res.TypedArrayUtils.getNamedString
 import androidx.core.content.res.TypedArrayUtils.getText
-import androidx.databinding.ObservableInt
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

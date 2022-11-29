@@ -11,6 +11,7 @@ import androidx.core.view.forEach
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.Category
+import kotlinx.android.synthetic.main.cardview_record_category_item.view.*
 import kotlin.math.ceil
 
 
@@ -226,15 +227,15 @@ class RecordCategoryAdapter(
 
     //	ViewHolder base from RecycleView.ViewHolder
     class PagerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val tvCate1: TextView = itemView.findViewById(R.id.tv_record_category_1)
-        val tvCate2: TextView = itemView.findViewById(R.id.tv_record_category_2)
-        val tvCate3: TextView = itemView.findViewById(R.id.tv_record_category_3)
-        val tvCate4: TextView = itemView.findViewById(R.id.tv_record_category_4)
-        val tvCate5: TextView = itemView.findViewById(R.id.tv_record_category_5)
-        val tvCate6: TextView = itemView.findViewById(R.id.tv_record_category_6)
-        val tvCate7: TextView = itemView.findViewById(R.id.tv_record_category_7)
-        val tvCate8: TextView = itemView.findViewById(R.id.tv_record_category_8)
-        val tvItems: ConstraintLayout = itemView.findViewById(R.id.tv_record_category_items)
+        val tvCate1: TextView = itemView.tv_record_category_1
+        val tvCate2: TextView = itemView.tv_record_category_2
+        val tvCate3: TextView = itemView.tv_record_category_3
+        val tvCate4: TextView = itemView.tv_record_category_4
+        val tvCate5: TextView = itemView.tv_record_category_5
+        val tvCate6: TextView = itemView.tv_record_category_6
+        val tvCate7: TextView = itemView.tv_record_category_7
+        val tvCate8: TextView = itemView.tv_record_category_8
+        val tvItems: ConstraintLayout = itemView.tv_record_category_items
 
         //val onFocusColor: Int = ContextCompat.getColor(itemView.context,R.color.app_section_background)
         //val offFocusColor: Int = R.drawable.textview_border

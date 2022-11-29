@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp"
+    android:layout_marginBottom="13dp"
     android:background="@color/app_list_background">
 
     <androidx.cardview.widget.CardView
@@ -36,7 +36,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:tint="@color/app_icon_light" />
+                app:tint="@color/app_add_button_grey" />
 
             <ImageView
                 android:id="@+id/ivCollapseRow"
@@ -79,6 +79,7 @@
         android:id="@+id/rvAccounts"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/app_list_background"
         app:layout_constraintTop_toBottomOf="@id/cardview_account_section_item"
          />
 

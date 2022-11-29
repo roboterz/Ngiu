@@ -293,7 +293,13 @@
         <entry key="..\:/Users/logan/Documents/GitHub/Ngiu/app/src/main/res/layout/fragment_calendar.xml" value="0.20244565217391305" />
         <entry key="..\:/Users/logan/Documents/GitHub/Ngiu/app/src/main/res/layout/fragment_record.xml" value="0.25" />
         <entry key="..\:/Users/logan/Documents/GitHub/Ngiu/app/src/main/res/layout/popup_reminder_dialog.xml" value="0.125" />
+        <entry key="..\:/Users/logan2/Documents/GitHub/Ngiu/app/src/main/res/layout/cardview_account_add_account_item.xml" value="0.22" />
+        <entry key="..\:/Users/logan2/Documents/GitHub/Ngiu/app/src/main/res/layout/cardview_account_cash_item.xml" value="0.33" />
+        <entry key="..\:/Users/logan2/Documents/GitHub/Ngiu/app/src/main/res/layout/cardview_account_records.xml" value="0.276268115942029" />
+        <entry key="..\:/Users/logan2/Documents/GitHub/Ngiu/app/src/main/res/layout/cardview_account_section_item.xml" value="0.25" />
         <entry key="..\:/Users/logan2/Documents/GitHub/Ngiu/app/src/main/res/layout/cardview_calendar.xml" value="0.33" />
+        <entry key="..\:/Users/logan2/Documents/GitHub/Ngiu/app/src/main/res/layout/fragment_account.xml" value="0.5" />
+        <entry key="..\:/Users/logan2/Documents/GitHub/Ngiu/app/src/main/res/layout/fragment_account_records.xml" value="0.276268115942029" />
         <entry key="..\:/Users/logan2/Documents/GitHub/Ngiu/app/src/main/res/layout/fragment_calendar.xml" value="0.33" />
       </map>
     </option>
