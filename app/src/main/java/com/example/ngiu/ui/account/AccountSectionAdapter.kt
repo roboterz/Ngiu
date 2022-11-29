@@ -77,12 +77,12 @@ class AccountSectionAdapter(
             if (expand) {
                 rvAccounts.visibility = View.VISIBLE
                 expandRow.setImageResource(R.drawable.ic_baseline_arrow_drop_down_24)
-                accountHeaderBalance.setTextColor(ContextCompat.getColor(itemView.context, R.color.app_option_text))
+                accountHeaderBalance.setTextColor(ContextCompat.getColor(itemView.context, R.color.app_sub_line_text))
 
             } else {
                 rvAccounts.visibility = View.GONE
                 expandRow.setImageResource(R.drawable.ic_baseline_arrow_right_24)
-                accountHeaderBalance.setTextColor(ContextCompat.getColor(itemView.context, R.color.app_sub_line_text))
+                accountHeaderBalance.setTextColor(ContextCompat.getColor(itemView.context, R.color.app_option_text))
             }
         }
     }
