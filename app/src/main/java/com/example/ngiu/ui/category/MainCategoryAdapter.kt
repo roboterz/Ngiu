@@ -17,7 +17,7 @@ import kotlin.collections.ArrayList
 
 
 class MainCategoryAdapter(
-    private val onClickListener: OnClickListener
+    private val onClick: OnClickListener
 )
     : RecyclerView.Adapter<MainCategoryAdapter.ViewHolder>() {
 
@@ -51,11 +51,11 @@ class MainCategoryAdapter(
 
             holder.mainCategoryName.text = Category_Name
 
-            if (position == mainCategory.size - 1 && TransactionType_ID == 0L){
+            if (position == mainCategory.size - 1 && TransactionType_ID == 1L){
                 // add New
                 holder.mainCategoryName.setTextColor(holder.addButtonTextColor)
                 holder.mainCategoryName.setOnClickListener {
-                    onClickListener.onItemClick(Category_ID,true)
+                    onClick.onItemClick(Category_ID,true)
                 }
 
             }else{
@@ -77,12 +77,12 @@ class MainCategoryAdapter(
                 // click event
                 holder.mainCategoryName.setOnClickListener {
                     currentArrow = position
-                    onClickListener.onItemClick(Category_ID)
+                    onClick.onItemClick(Category_ID)
                 }
                 // long click event
                 holder.mainCategoryName.setOnLongClickListener {
                     if (position>0){
-                        onClickListener.onItemLongClick(Category_ID, Category_Name, mainCategory[position-1].Category_ID)
+                        onClick.onItemLongClick(Category_ID, Category_Name, mainCategory[position-1].Category_ID)
                     }
                     true
                 }
