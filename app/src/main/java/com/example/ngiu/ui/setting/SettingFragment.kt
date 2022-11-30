@@ -10,10 +10,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI.navigateUp
 import com.example.ngiu.MainActivity
 import com.example.ngiu.R
 import com.example.ngiu.databinding.FragmentSettingBinding
+import kotlinx.android.synthetic.main.fragment_record.*
+import kotlinx.android.synthetic.main.fragment_setting.*
 
 class SettingFragment : Fragment() {
 
@@ -96,8 +101,17 @@ class SettingFragment : Fragment() {
             // todo
 
         }
-    }
 
+
+        // click the navigation Icon in the left side of toolbar
+        toolbar_setting.setNavigationOnClickListener {
+            // call back button event to switch to previous fragment
+
+            //requireActivity().onBackPressed()
+            NavHostFragment.findNavController(this).navigateUp()
+        }
+
+    }
 
 
     override fun onDestroy() {

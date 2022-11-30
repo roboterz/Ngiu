@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.MainActivity
@@ -104,7 +105,8 @@ class MPPManagerFragment: Fragment() {
         toolbar_mpp.setNavigationOnClickListener(View.OnClickListener {
 
             // call back button event to switch to previous fragment
-            requireActivity().onBackPressed()
+            //requireActivity().onBackPressed()
+            NavHostFragment.findNavController(this).navigateUp()
         })
 
         /*

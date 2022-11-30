@@ -15,6 +15,7 @@ import androidx.core.view.forEach
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.*
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.example.ngiu.MainActivity
 import com.example.ngiu.R
@@ -165,7 +166,8 @@ class RecordFragment : Fragment() {
         // click the navigation Icon in the left side of toolbar
         toolbar_record.setNavigationOnClickListener{
             // call back button event to switch to previous fragment
-            requireActivity().onBackPressed()
+            //requireActivity().onBackPressed()
+            NavHostFragment.findNavController(this).navigateUp()
         }
 
         // menu item clicked
@@ -176,7 +178,8 @@ class RecordFragment : Fragment() {
                     // save record
                     if (saveRecord(receivedID) == 0) {
                         // call back button event to switch to previous fragment
-                        requireActivity().onBackPressed()
+                        //requireActivity().onBackPressed()
+                        NavHostFragment.findNavController(this).navigateUp()
                     }
                     true
                 }
@@ -195,7 +198,8 @@ class RecordFragment : Fragment() {
         tv_record_right_button.setOnClickListener {
             if (saveRecord(receivedID) == 0) {
                 // exit
-                requireActivity().onBackPressed()
+                //requireActivity().onBackPressed()
+                NavHostFragment.findNavController(this).navigateUp()
             }
         }
 
@@ -619,7 +623,8 @@ class RecordFragment : Fragment() {
                 val trans = Trans(Transaction_ID = transactionID)
                 recordViewModel.deleteTrans(requireContext(),trans)
                 // exit
-                requireActivity().onBackPressed()
+                //requireActivity().onBackPressed()
+                NavHostFragment.findNavController(this).navigateUp()
 
             }
             .setNegativeButton(getText(R.string.msg_button_cancel)) { dialog, _ ->
