@@ -101,9 +101,9 @@ class RecordViewModel : ViewModel() {
 
     fun getAccountName(payAccount: Boolean): String{
         return if (transDetail.TransactionType_ID ==4L){
-                    tempSavedAccountName[if (payAccount) 2 else 3 ]
+                    tempSavedAccountName[if (payAccount) 3 else 2 ]
                 }else{
-                    tempSavedAccountName[if (payAccount) 0 else 1 ]
+                    tempSavedAccountName[if (payAccount) 1 else 0 ]
                 }
     }
     fun setAccountName(payAccount: Boolean, string: String){
@@ -161,15 +161,16 @@ class RecordViewModel : ViewModel() {
     fun getListOfAccountName(exceptName:String, payAccount: Boolean): Array<String> {
         val nameList: ArrayList<String> = ArrayList()
 
+        // todo need rewrite
         for (at in account) {
             // Normal Account
             if (at.AccountType_ID != 9L) {
                 if ((transDetail.TransactionType_ID != 3L) || (at.Account_Name != exceptName)) {
                     when (getCategoryID(transDetail.Category_Name)) {
                         // borrow in | received
-                        7L, 10L -> if (!payAccount) nameList.add(at.Account_Name)
+                        7L, 9L -> if (!payAccount) nameList.add(at.Account_Name)
                         // lend out | repayment
-                        8L, 9L -> if (payAccount) nameList.add(at.Account_Name)
+                        8L, 10L -> if (payAccount) nameList.add(at.Account_Name)
                         // not transaction type 4
                         else -> nameList.add(at.Account_Name)
                     }
@@ -178,9 +179,9 @@ class RecordViewModel : ViewModel() {
             } else if (transDetail.TransactionType_ID == 4L) {
                 when (getCategoryID(transDetail.Category_Name)) {
                     // borrow in | received
-                    7L, 10L -> if (payAccount) nameList.add(at.Account_Name)
+                    7L, 9L -> if (payAccount) nameList.add(at.Account_Name)
                     // lend out | repayment
-                    8L, 9L -> if (!payAccount) nameList.add(at.Account_Name)
+                    8L, 10L -> if (!payAccount) nameList.add(at.Account_Name)
                 }
             }
         }
