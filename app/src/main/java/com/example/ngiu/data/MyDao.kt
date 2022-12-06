@@ -699,5 +699,27 @@ interface TransTypeDao {
 
 }
 
+// Template
+@Dao
+interface TemplateDao{
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun addTemplate(template: Template)
+
+    @Delete
+    fun deleteTemplate(template: Template)
+
+    @Update
+    fun updateTemplate(vararg template: Template)
+
+    //get a record BY ID
+    @Transaction
+    @Query("SELECT * FROM Template WHERE Template_ID = :rID")
+    fun getRecordByID(rID:Long):Template
+
+    @Transaction
+    @Query("SELECT * FROM Template")
+    fun getAllTemplate(): List<Template>
+
+}
 
 

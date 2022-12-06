@@ -274,11 +274,23 @@ fun changeColor(textView: TextView, amount: Double){
     }
 }
 
+// return international date format
 fun getInternationalDateFromAmericanDate(string: String): LocalDateTime {
     val lDateTime: LocalDateTime =  LocalDateTime.parse(string, DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss"))
     return LocalDateTime.parse(lDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
 }
 
 
+// return account name when open the record fragment with different transaction type.
+fun getAccountNameByTransactionType(): String{
+    // todo
+    return ""
+}
 
+// return account name list when open the record fragment with different transaction type.
+fun getAccountListByTransactionType(): List<String>?{
+    val acctList: List<String>? = null
+    // todo
 
+    return acctList
+}
