@@ -311,6 +311,7 @@ class RecordFragment : Fragment() {
 
 
         // touch feedback
+        // other info -- under Memo section
         layout_record_other_info.forEach {
             if (it.tag == "other_info"){
                 it.setOnTouchListener { _, motionEvent ->
@@ -327,7 +328,7 @@ class RecordFragment : Fragment() {
         // all category
         tv_record_all_category.setOnClickListener{
             when (recordViewModel.transDetail.TransactionType_ID){
-                1L,2L -> openCategoryManager()
+                1L,2L -> openCategoryManager(recordViewModel.transDetail.TransactionType_ID)
             }
         }
 
@@ -335,7 +336,7 @@ class RecordFragment : Fragment() {
         // category
         tv_record_category.setOnClickListener {
             when (recordViewModel.transDetail.TransactionType_ID){
-                1L,2L -> openCategoryManager()
+                1L,2L -> openCategoryManager(recordViewModel.transDetail.TransactionType_ID)
             }
         }
         tv_record_category.doAfterTextChanged{
@@ -756,12 +757,12 @@ class RecordFragment : Fragment() {
 
     }
 
-    private fun openCategoryManager() {
+    private fun openCategoryManager(transactionID: Long) {
         // hide nav bottom bar
         //(activity as MainActivity).setNavBottomBarVisibility(View.GONE)
 
         setFragmentResult("category_manage_mode", bundleOf("edit_mode" to false))
-        setFragmentResult("category_manage_type", bundleOf("transaction_type" to recordViewModel.transDetail.TransactionType_ID))
+        setFragmentResult("category_manage_type", bundleOf("transaction_type" to transactionID))
 
         // switch to category manage fragment
         findNavController().navigate(R.id.navigation_category_manage)
