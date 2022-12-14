@@ -54,8 +54,6 @@ class CategoryManagerViewModel: ViewModel() {
             subCategory.add(
                 Category(0L, 1L, 0L, context.getString(R.string.menu_add_cate), false)
             )
-
-            if (mainCategory[0].TransactionType_ID == 2L) subCategory.removeAt(0)
         }
         return subCategory
     }
