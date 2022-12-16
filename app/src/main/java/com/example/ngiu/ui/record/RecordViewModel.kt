@@ -9,9 +9,7 @@ import com.example.ngiu.R
 import com.example.ngiu.data.AppDatabase
 import com.example.ngiu.data.entities.*
 import com.example.ngiu.data.entities.returntype.TransactionDetail
-import com.example.ngiu.functions.NON_REIMBURSABLE
-import com.example.ngiu.functions.REIMBURSABLE
-import com.example.ngiu.functions.TRANSACTION_TYPE_DEBIT
+import com.example.ngiu.functions.*
 
 import kotlin.collections.ArrayList
 
@@ -28,7 +26,7 @@ class RecordViewModel : ViewModel() {
     var currentTransactionType: CurrentTransactionType = CurrentTransactionType()
 
     // temp save changed data
-    var transDetail = TransactionDetail(TransactionType_ID = 1L)
+    var transDetail = TransactionDetail(TransactionType_ID = TRANSACTION_TYPE_EXPENSE)
 
     private var categoryName = ArrayList<String>()
     var tempSavedAccountName = ArrayList<String>()
@@ -84,7 +82,7 @@ class RecordViewModel : ViewModel() {
         tempSavedAccountName.add(if (account.size > 1) account[1].Account_Name else activity.getString(R.string.msg_no_account))
         tempSavedAccountName.add(activity.getString(R.string.msg_no_account))
         for (at in account){
-            if (at.AccountType_ID == 9L) tempSavedAccountName[2] = at.Account_Name
+            if (at.AccountType_ID == ACCOUNT_TYPE_RECEIVABLE) tempSavedAccountName[2] = at.Account_Name
         }
         tempSavedAccountName.add(if (account.isNotEmpty()) account[0].Account_Name else activity.getString(R.string.msg_no_account))
 
@@ -167,24 +165,24 @@ class RecordViewModel : ViewModel() {
         // todo need rewrite
         for (at in account) {
             // Normal Account
-            if (at.AccountType_ID != 9L) {
-                if ((transDetail.TransactionType_ID != 3L) || (at.Account_Name != exceptName)) {
+            if (at.AccountType_ID != ACCOUNT_TYPE_RECEIVABLE) {
+                if ((transDetail.TransactionType_ID != TRANSACTION_TYPE_TRANSFER) || (at.Account_Name != exceptName)) {
                     when (getCategoryID(transDetail.Category_Name)) {
                         // borrow in | received
-                        7L, 9L -> if (!payAccount) nameList.add(at.Account_Name)
+                        CATEGORY_SUB_DEPOSIT, CATEGORY_SUB_BORROW -> if (!payAccount) nameList.add(at.Account_Name)
                         // lend out | repayment
-                        8L, 10L -> if (payAccount) nameList.add(at.Account_Name)
+                        CATEGORY_SUB_WITHDRAW, CATEGORY_SUB_LEND -> if (payAccount) nameList.add(at.Account_Name)
                         // not transaction type 4
                         else -> nameList.add(at.Account_Name)
                     }
                 }
                 // Payable|Receivable Account
-            } else if (transDetail.TransactionType_ID == 4L) {
+            } else if (transDetail.TransactionType_ID == TRANSACTION_TYPE_DEBIT) {
                 when (getCategoryID(transDetail.Category_Name)) {
                     // borrow in | received
-                    7L, 9L -> if (payAccount) nameList.add(at.Account_Name)
+                    CATEGORY_SUB_DEPOSIT, CATEGORY_SUB_BORROW -> if (payAccount) nameList.add(at.Account_Name)
                     // lend out | repayment
-                    8L, 10L -> if (!payAccount) nameList.add(at.Account_Name)
+                    CATEGORY_SUB_WITHDRAW, CATEGORY_SUB_LEND -> if (!payAccount) nameList.add(at.Account_Name)
                 }
             }
         }
@@ -222,19 +220,19 @@ class CurrentTransactionType {
         val cTT = CurrentTransactionType()
 
         when (tyID) {
-            1L -> {
+            TRANSACTION_TYPE_EXPENSE -> {
                 cTT.expense = R.color.app_title_text
                 cTT.expensePointer = View.VISIBLE
             }
-            2L -> {
+            TRANSACTION_TYPE_INCOME -> {
                 cTT.income = R.color.app_title_text
                 cTT.incomePointer = View.VISIBLE
             }
-            3L -> {
+            TRANSACTION_TYPE_TRANSFER -> {
                 cTT.transfer = R.color.app_title_text
                 cTT.transferPointer = View.VISIBLE
             }
-            4L -> {
+            TRANSACTION_TYPE_DEBIT -> {
                 cTT.debitCredit = R.color.app_title_text
                 cTT.debitCreditPointer = View.VISIBLE
             }
