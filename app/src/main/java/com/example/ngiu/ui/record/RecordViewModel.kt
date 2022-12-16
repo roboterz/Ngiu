@@ -9,6 +9,9 @@ import com.example.ngiu.R
 import com.example.ngiu.data.AppDatabase
 import com.example.ngiu.data.entities.*
 import com.example.ngiu.data.entities.returntype.TransactionDetail
+import com.example.ngiu.functions.NON_REIMBURSABLE
+import com.example.ngiu.functions.REIMBURSABLE
+import com.example.ngiu.functions.TRANSACTION_TYPE_DEBIT
 
 import kotlin.collections.ArrayList
 
@@ -100,14 +103,14 @@ class RecordViewModel : ViewModel() {
     }
 
     fun getAccountName(payAccount: Boolean): String{
-        return if (transDetail.TransactionType_ID ==4L){
+        return if (transDetail.TransactionType_ID == TRANSACTION_TYPE_DEBIT){
                     tempSavedAccountName[if (payAccount) 3 else 2 ]
                 }else{
                     tempSavedAccountName[if (payAccount) 1 else 0 ]
                 }
     }
     fun setAccountName(payAccount: Boolean, string: String){
-        if (transDetail.TransactionType_ID ==4L){
+        if (transDetail.TransactionType_ID == TRANSACTION_TYPE_DEBIT){
             tempSavedAccountName[if (payAccount) 2 else 3 ] = string
         }else{
             tempSavedAccountName[if (payAccount) 0 else 1 ] = string
@@ -122,7 +125,7 @@ class RecordViewModel : ViewModel() {
     fun setReimbursable(context: Context):String{
         val array: Array<String> = context.resources.getStringArray(R.array.data_reimburse_array)
         return when(transDetail.Transaction_ReimburseStatus){
-            0,1 -> {
+            NON_REIMBURSABLE, REIMBURSABLE -> {
                 transDetail.Transaction_ReimburseStatus++
                 array[transDetail.Transaction_ReimburseStatus]
             }
