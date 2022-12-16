@@ -135,23 +135,23 @@ class RecordFragment : Fragment() {
 
         // touch Expense textView, switch to Expense page
         tvSectionExpense.setOnClickListener {
-            setStatus(recordViewModel.setTransactionType(1L))
-            loadCommonCategory(1L)
+            setStatus(recordViewModel.setTransactionType(TRANSACTION_TYPE_EXPENSE))
+            loadCommonCategory(TRANSACTION_TYPE_EXPENSE)
         }
         // touch Income textView, switch to Income page
         tvSectionIncome.setOnClickListener {
-            setStatus(recordViewModel.setTransactionType(2L))
-            loadCommonCategory(2L)
+            setStatus(recordViewModel.setTransactionType(TRANSACTION_TYPE_INCOME))
+            loadCommonCategory(TRANSACTION_TYPE_INCOME)
         }
         // touch Transfer textView, switch to Transfer page
         tvSectionTransfer.setOnClickListener {
-            setStatus(recordViewModel.setTransactionType(3L))
-            loadCommonCategory(3L)
+            setStatus(recordViewModel.setTransactionType(TRANSACTION_TYPE_TRANSFER))
+            loadCommonCategory(TRANSACTION_TYPE_TRANSFER)
         }
         // touch DebitCredit textView, switch to DebitCredit page
         tvSectionDebitCredit.setOnClickListener {
-            setStatus(recordViewModel.setTransactionType(4L))
-            loadCommonCategory(4L)
+            setStatus(recordViewModel.setTransactionType(TRANSACTION_TYPE_DEBIT))
+            loadCommonCategory(TRANSACTION_TYPE_DEBIT)
         }
 
 
@@ -328,7 +328,7 @@ class RecordFragment : Fragment() {
         // all category
         tv_record_all_category.setOnClickListener{
             when (recordViewModel.transDetail.TransactionType_ID){
-                1L,2L -> openCategoryManager(recordViewModel.transDetail.TransactionType_ID)
+                TRANSACTION_TYPE_EXPENSE, TRANSACTION_TYPE_INCOME -> openCategoryManager(recordViewModel.transDetail.TransactionType_ID)
             }
         }
 
@@ -336,7 +336,7 @@ class RecordFragment : Fragment() {
         // category
         tv_record_category.setOnClickListener {
             when (recordViewModel.transDetail.TransactionType_ID){
-                1L,2L -> openCategoryManager(recordViewModel.transDetail.TransactionType_ID)
+                TRANSACTION_TYPE_EXPENSE, TRANSACTION_TYPE_INCOME -> openCategoryManager(recordViewModel.transDetail.TransactionType_ID)
             }
         }
         tv_record_category.doAfterTextChanged{
@@ -443,12 +443,12 @@ class RecordFragment : Fragment() {
         if (recordViewModel.transDetail.TransactionType_ID == 4L){
             when (recordViewModel.getCategoryID(categoryName)) {
                 // borrow in | received
-                7L, 9L -> {
+                CATEGORY_SUB_DEPOSIT, CATEGORY_SUB_BORROW -> {
                     tv_record_account_pay.text =  recordViewModel.tempSavedAccountName[2]
                     tv_record_account_receive.text = recordViewModel.tempSavedAccountName[3]
                 }
                 // lend out | repayment
-                8L, 10L -> {
+                CATEGORY_SUB_WITHDRAW, CATEGORY_SUB_LEND -> {
                     tv_record_account_pay.text =  recordViewModel.tempSavedAccountName[3]
                     tv_record_account_receive.text = recordViewModel.tempSavedAccountName[2]
                 }
@@ -465,7 +465,7 @@ class RecordFragment : Fragment() {
 
         when (recordViewModel.getCategoryID(categoryName)) {
             // borrow in | received
-            7L, 9L -> {
+            CATEGORY_SUB_DEPOSIT, CATEGORY_SUB_BORROW -> {
                 if (payable){
                     // create P/R account
                     val bundle = Bundle().apply {
@@ -478,7 +478,7 @@ class RecordFragment : Fragment() {
                 }
             }
             // lend out | repayment
-            8L, 10L -> {
+            CATEGORY_SUB_WITHDRAW, CATEGORY_SUB_LEND -> {
                 if (!payable) {
                     // create P/R account
                     // todo create P/R account
@@ -651,10 +651,10 @@ class RecordFragment : Fragment() {
             activity?.runOnUiThread {
 
                 val cmCategory = when (tyID){
-                    1L -> recordViewModel.expenseCommonCategory
-                    2L -> recordViewModel.incomeCommonCategory
-                    3L -> recordViewModel.transferCommonCategory
-                    4L -> recordViewModel.debitCreditCommonCategory
+                    TRANSACTION_TYPE_EXPENSE -> recordViewModel.expenseCommonCategory
+                    TRANSACTION_TYPE_INCOME -> recordViewModel.incomeCommonCategory
+                    TRANSACTION_TYPE_TRANSFER -> recordViewModel.transferCommonCategory
+                    TRANSACTION_TYPE_DEBIT -> recordViewModel.debitCreditCommonCategory
                     else -> emptyList()
                 }
 
@@ -671,13 +671,13 @@ class RecordFragment : Fragment() {
 
     private fun setReimburseIcon(transactionReimburseStatus: Int) {
         when(transactionReimburseStatus){
-            0 -> {
+            NON_REIMBURSABLE -> {
                 tv_record_reimburse.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_baseline_check_box_outline_blank_24,0,0,0)
             }
-            1 -> {
+            REIMBURSABLE -> {
                 tv_record_reimburse.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_baseline_indeterminate_check_box_24,0,0,0)
             }
-            2 -> {
+            REIMBURSED -> {
                 tv_record_reimburse.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_baseline_check_box_24,0,0,0)
             }
         }
@@ -695,8 +695,8 @@ class RecordFragment : Fragment() {
         tvSectionDebitCreditPointer.visibility = ctt.debitCreditPointer
         tv_record_amount.setTextColor(
             when (recordViewModel.transDetail.TransactionType_ID){
-                1L -> ContextCompat.getColor( requireContext(), R.color.app_expense_amount)
-                2L -> ContextCompat.getColor( requireContext(), R.color.app_income_amount)
+                TRANSACTION_TYPE_EXPENSE -> ContextCompat.getColor( requireContext(), R.color.app_expense_amount)
+                TRANSACTION_TYPE_INCOME -> ContextCompat.getColor( requireContext(), R.color.app_income_amount)
                 else -> ContextCompat.getColor( requireContext(), R.color.app_amount)
             }
         )
@@ -715,7 +715,7 @@ class RecordFragment : Fragment() {
 
 
         when (recordViewModel.transDetail.TransactionType_ID) {
-            1L,2L -> {
+            TRANSACTION_TYPE_EXPENSE, TRANSACTION_TYPE_INCOME -> {
                 iv_record_swap.visibility = View.INVISIBLE
                 tv_record_account_receive.visibility = View.INVISIBLE
                 tv_record_common_category.visibility = View.VISIBLE
@@ -723,7 +723,7 @@ class RecordFragment : Fragment() {
                 // account name
                 if (recordViewModel.transDetail.Account_Name.isEmpty()) tv_record_account_pay.text = recordViewModel.getAccountName(true)
             }
-            3L -> {
+            TRANSACTION_TYPE_TRANSFER -> {
                 iv_record_swap.visibility = View.VISIBLE
                 iv_record_swap.isClickable = true
                 iv_record_swap.setImageDrawable(requireContext().getDrawable(R.drawable.ic_baseline_swap_horiz_24))
@@ -739,7 +739,7 @@ class RecordFragment : Fragment() {
                     else tv_record_account_receive.text = getString(R.string.msg_no_account)
                 }
             }
-            4L -> {
+            TRANSACTION_TYPE_DEBIT -> {
                 iv_record_swap.visibility = View.VISIBLE
                 iv_record_swap.isClickable = false
                 iv_record_swap.setImageDrawable(requireContext().getDrawable(R.drawable.ic_baseline_keyboard_arrow_right_24))
