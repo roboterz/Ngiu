@@ -55,10 +55,10 @@ class RecordViewModel : ViewModel() {
         val database = AppDatabase.getDatabase(activity!!)
         category = database.category().getAllCategory()
         account = database.account().getAllAccount()
-        expenseCommonCategory = database.category().getCommonCategoryByTransactionType(1L)
-        incomeCommonCategory = database.category().getCommonCategoryByTransactionType(2L)
-        transferCommonCategory = database.category().getCommonCategoryByTransactionType(3L)
-        debitCreditCommonCategory = database.category().getCommonCategoryByTransactionType(4L)
+        expenseCommonCategory = database.category().getCommonCategoryByTransactionType(TRANSACTION_TYPE_EXPENSE)
+        incomeCommonCategory = database.category().getCommonCategoryByTransactionType(TRANSACTION_TYPE_INCOME)
+        transferCommonCategory = database.category().getCommonCategoryByTransactionType(TRANSACTION_TYPE_TRANSFER)
+        debitCreditCommonCategory = database.category().getCommonCategoryByTransactionType(TRANSACTION_TYPE_DEBIT)
 
         person = database.person().getAllPerson()
         merchant = database.merchant().getAllMerchant()
@@ -66,10 +66,10 @@ class RecordViewModel : ViewModel() {
 
         // default sub category name
 
-        val expenseCategory = database.category().getCategoryByTransactionType(1L)
-        val incomeCategory = database.category().getCategoryByTransactionType(2L)
-        val transferCategory = database.category().getCategoryByTransactionType(3L)
-        val debitCreditCategory = database.category().getCategoryByTransactionType(4L)
+        val expenseCategory = database.category().getCategoryByTransactionType(TRANSACTION_TYPE_EXPENSE)
+        val incomeCategory = database.category().getCategoryByTransactionType(TRANSACTION_TYPE_INCOME)
+        val transferCategory = database.category().getCategoryByTransactionType(TRANSACTION_TYPE_TRANSFER)
+        val debitCreditCategory = database.category().getCategoryByTransactionType(TRANSACTION_TYPE_DEBIT)
 
 
         categoryName.add(if (expenseCategory.size > 1) expenseCategory[1].Category_Name else expenseCategory[0].Category_Name)
