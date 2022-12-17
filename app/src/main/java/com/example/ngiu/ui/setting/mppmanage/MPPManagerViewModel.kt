@@ -6,6 +6,9 @@ import com.example.ngiu.R
 import com.example.ngiu.data.AppDatabase
 import com.example.ngiu.data.entities.Category
 import com.example.ngiu.data.entities.returntype.MPPItem
+import com.example.ngiu.functions.MPP_MERCHANT
+import com.example.ngiu.functions.MPP_PERSON
+import com.example.ngiu.functions.MPP_PROJECT
 
 
 class MPPManagerViewModel: ViewModel() {
@@ -20,21 +23,21 @@ class MPPManagerViewModel: ViewModel() {
         itemList.clear()
         when (type) {
             // merchant
-            0 -> {
+            MPP_MERCHANT -> {
                 val mc = AppDatabase.getDatabase(context).merchant().getAllMerchant()
                 for ( i in mc){
                     itemList.add(MPPItem(i.Merchant_ID, i.Merchant_Name))
                 }
             }
             // person
-            1 -> {
+            MPP_PERSON -> {
                 val ps = AppDatabase.getDatabase(context).person().getAllPerson()
                 for ( i in ps){
                     itemList.add(MPPItem(i.Person_ID, i.Person_Name))
                 }
             }
             // project
-            2 -> {
+            MPP_PROJECT -> {
                 val pj = AppDatabase.getDatabase(context).project().getAllProject()
                 for ( i in pj){
                     itemList.add(MPPItem(i.Project_ID, i.Project_Name))

@@ -22,6 +22,7 @@ import com.example.ngiu.data.entities.Merchant
 import com.example.ngiu.data.entities.Person
 import com.example.ngiu.data.entities.Project
 import com.example.ngiu.databinding.FragmentMerchantPersonProjectManageBinding
+import com.example.ngiu.functions.*
 import kotlinx.android.synthetic.main.fragment_merchant_person_project_manage.*
 import kotlinx.android.synthetic.main.popup_title.view.*
 
@@ -36,6 +37,10 @@ class MPPManagerFragment: Fragment() {
     private var mppAdapter: MPPAdapter? = null
 
     private var receiveTypeID: Int = 0
+    // Type:
+    // 0: Merchant
+    // 1: Person
+    // 2: Project
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -153,9 +158,9 @@ class MPPManagerFragment: Fragment() {
 
         // show title
         when (receiveTypeID){
-            0 -> toolbar_mpp.setTitle(R.string.nav_title_merchant_manage)
-            1 -> toolbar_mpp.setTitle(R.string.nav_title_person_manage)
-            2 -> toolbar_mpp.setTitle(R.string.nav_title_project_manage)
+            MPP_MERCHANT -> toolbar_mpp.setTitle(R.string.nav_title_merchant_manage)
+            MPP_PERSON -> toolbar_mpp.setTitle(R.string.nav_title_person_manage)
+            MPP_PROJECT -> toolbar_mpp.setTitle(R.string.nav_title_project_manage)
         }
     }
 
@@ -222,9 +227,9 @@ class MPPManagerFragment: Fragment() {
     private fun editItem(rID: Long, itemName: String) {
         try {
             when (mppManagerViewModel.typeID) {
-                0 -> AppDatabase.getDatabase(requireContext()).merchant().addMerchant( Merchant(rID, itemName) )
-                1 -> AppDatabase.getDatabase(requireContext()).person().addPerson( Person(rID,itemName) )
-                2 -> AppDatabase.getDatabase(requireContext()).project().addProject( Project(rID, itemName) )
+                MPP_MERCHANT -> AppDatabase.getDatabase(requireContext()).merchant().addMerchant( Merchant(rID, itemName) )
+                MPP_PERSON -> AppDatabase.getDatabase(requireContext()).person().addPerson( Person(rID,itemName) )
+                MPP_PROJECT -> AppDatabase.getDatabase(requireContext()).project().addProject( Project(rID, itemName) )
             }
             refreshList()
 
@@ -238,9 +243,9 @@ class MPPManagerFragment: Fragment() {
     private fun addItem(itemName: String) {
         try {
             when (mppManagerViewModel.typeID) {
-                0 -> AppDatabase.getDatabase(requireContext()).merchant().addMerchant( Merchant(0L, itemName) )
-                1 -> AppDatabase.getDatabase(requireContext()).person().addPerson( Person(0L,itemName) )
-                2 -> AppDatabase.getDatabase(requireContext()).project().addProject( Project(0L, itemName) )
+                MPP_MERCHANT -> AppDatabase.getDatabase(requireContext()).merchant().addMerchant( Merchant(0L, itemName) )
+                MPP_PERSON -> AppDatabase.getDatabase(requireContext()).person().addPerson( Person(0L,itemName) )
+                MPP_PROJECT -> AppDatabase.getDatabase(requireContext()).project().addProject( Project(0L, itemName) )
             }
             refreshList()
 
@@ -265,9 +270,9 @@ class MPPManagerFragment: Fragment() {
                 // delete
                 try {
                     when (mppManagerViewModel.typeID) {
-                        0 -> AppDatabase.getDatabase(requireContext()).merchant().deleteMerchant( Merchant(rID, "") )
-                        1 -> AppDatabase.getDatabase(requireContext()).person().deletePerson( Person(rID,"") )
-                        2 -> AppDatabase.getDatabase(requireContext()).project().deleteProject( Project(rID, "") )
+                        MPP_MERCHANT -> AppDatabase.getDatabase(requireContext()).merchant().deleteMerchant( Merchant(rID, "") )
+                        MPP_PERSON -> AppDatabase.getDatabase(requireContext()).person().deletePerson( Person(rID,"") )
+                        MPP_PROJECT -> AppDatabase.getDatabase(requireContext()).project().deleteProject( Project(rID, "") )
                     }
                     refreshList()
 

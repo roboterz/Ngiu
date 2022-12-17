@@ -44,3 +44,21 @@ const val CATEGORY_SUB_RECEIVE_PAYMENT = 12L
 const val NON_REIMBURSABLE = 0
 const val REIMBURSABLE = 1
 const val REIMBURSED = 2
+
+// EVENT
+const val EVENT_CREDIT_PAYMENT = 1
+const val EVENT_PERIODIC_BILL = 2
+const val EVENT_NOTE = 3
+
+// CATEGORY EDIT
+const val ADD_MAIN_CATEGORY = 0
+const val EDIT_MAIN_CATEGORY = 1
+const val ADD_SUB_CATEGORY = 2
+const val EDIT_SUB_CATEGORY = 3
+const val MAIN_CATEGORY = 0
+const val SUB_CATEGORY = 1
+
+// MPP MANAGE
+const val MPP_MERCHANT = 0
+const val MPP_PERSON = 1
+const val MPP_PROJECT = 2

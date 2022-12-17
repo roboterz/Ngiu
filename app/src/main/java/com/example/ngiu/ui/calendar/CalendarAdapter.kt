@@ -19,6 +19,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.returntype.CalendarDetail
+import com.example.ngiu.functions.*
 import kotlinx.android.synthetic.main.cardview_calendar.view.*
 import kotlinx.android.synthetic.main.cardview_transaction.view.*
 import java.time.DayOfWeek
@@ -78,7 +79,7 @@ class CalendarAdapter(
             // todo Event
             when (type){
                 //Credit Card
-                1 -> {
+                EVENT_CREDIT_PAYMENT -> {
                     holder.amount.visibility = View.VISIBLE
                     //account name
                     holder.content.text = "$account_out_name $account_last_four_number"
@@ -87,12 +88,12 @@ class CalendarAdapter(
                     holder.dot.setColorFilter(holder.expenseColor)
                     holder.amount.setTextColor(holder.expenseColor)
                 }
-                //周期帐
-                2 -> {
+                //Periodic Bill
+                EVENT_PERIODIC_BILL -> {
                     holder.amount.visibility = View.VISIBLE
                 }
-                //Event
-                3 -> {
+                //Note
+                EVENT_NOTE -> {
                     //color
                     holder.dot.setColorFilter(holder.eventColor)
 
@@ -109,7 +110,7 @@ class CalendarAdapter(
                 // todo 点击进入相应的账号查看
                 when (type) {
                     // credit card
-                    1 -> {
+                    EVENT_CREDIT_PAYMENT -> {
                         val bundle = Bundle().apply {
                             putLong("accountId", id)
                             putString("accountName", account_out_name)
@@ -117,15 +118,15 @@ class CalendarAdapter(
                             putDouble("creditLimit", 5000.00)
                             putInt("paymentDate", 23)
                             putInt("statementDate", 23)
-                            putLong("accountType", 2L)
+                            putLong("accountType", ACCOUNT_TYPE_CREDIT)
                         }
 
                         holder.itemView.findNavController()
                             .navigate(R.id.accountCreditRecords, bundle)
                     }
 
-                    // Event
-                    3 -> onClickListener.onItemClick(id, type)
+                    // Note
+                    EVENT_NOTE -> onClickListener.onItemClick(id, type)
                 }
 
                 //

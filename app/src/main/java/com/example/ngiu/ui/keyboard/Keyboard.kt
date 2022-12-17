@@ -9,6 +9,12 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.forEach
 import com.example.ngiu.R
 
+
+const val NO_DOT = 0
+const val NO_DECIMAL = 1
+const val ONE_DECIMAL = 2
+
+
 @SuppressLint("ClickableViewAccessibility")
 class Keyboard(view: View){
     //private val key0: TextView = view.findViewById(R.id.tv_price_0)
@@ -20,6 +26,9 @@ class Keyboard(view: View){
     private val keyboardPanel: ConstraintLayout = view.findViewById(R.id.layout_Keyboard)
     private val keys: ConstraintLayout = view.findViewById(R.id.price_input_keys)
     private var dot: Int = 3  // the places of Decimal point
+
+
+
 
     @SuppressLint("SetTextI18n")
     fun initKeys(echoView: TextView) {
@@ -94,10 +103,10 @@ class Keyboard(view: View){
 
         keyEnter.setOnClickListener {
             when (dot){
-                0 -> echoView.text = echoView.text.toString() + ".00"
-                1 -> echoView.text = echoView.text.toString() + "00"
-                2 -> echoView.text = echoView.text.toString() + "0"
-                else -> echoView.text = echoView.text
+                NO_DOT -> echoView.text = echoView.text.toString() + ".00"
+                NO_DECIMAL -> echoView.text = echoView.text.toString() + "00"
+                ONE_DECIMAL -> echoView.text = echoView.text.toString() + "0"
+                //else -> echoView.text = echoView.text
             }
             hide()
         }

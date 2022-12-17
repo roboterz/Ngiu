@@ -20,6 +20,7 @@ import com.example.ngiu.data.entities.Person
 import com.example.ngiu.data.entities.Trans
 import com.example.ngiu.data.entities.returntype.CalendarDetail
 import com.example.ngiu.data.entities.returntype.TransactionDetail
+import com.example.ngiu.functions.*
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -51,7 +52,7 @@ class CalendarViewModel : ViewModel() {
 
     fun loadDataToRam(context: Context) {
         val today: Int = LocalDate.now().dayOfMonth
-        val acctList = AppDatabase.getDatabase(context).account().getRecordByType(2L)
+        val acctList = AppDatabase.getDatabase(context).account().getRecordByType(ACCOUNT_TYPE_CREDIT)
         val eventList = AppDatabase.getDatabase(context).event().getAllEvent()
 
         calendarDetail.clear()
@@ -64,7 +65,7 @@ class CalendarViewModel : ViewModel() {
             cd.apply {
                 this.id = acctList[i].Account_ID
                 this.account_out_name = acctList[i].Account_Name
-                this.type = 1
+                this.type = EVENT_CREDIT_PAYMENT
                 this.title = eventTitle
                 this.account_last_four_number = acctList[i].Account_CardNumber
                 if (today <= acctList[i].Account_PaymentDay) {
@@ -85,7 +86,7 @@ class CalendarViewModel : ViewModel() {
             cd.apply {
                 this.id = eventList[i].Event_ID
                 this.title = eventTitle
-                this.type = 3
+                this.type = EVENT_NOTE
                 this.date = eventList[i].Event_Date.toLocalDate()
                 this.memo = eventList[i].Event_Memo
             }

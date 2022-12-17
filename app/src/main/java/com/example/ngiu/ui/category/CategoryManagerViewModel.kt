@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.example.ngiu.R
 import com.example.ngiu.data.AppDatabase
 import com.example.ngiu.data.entities.Category
+import com.example.ngiu.functions.*
 
 
 class CategoryManagerViewModel: ViewModel() {
@@ -25,7 +26,7 @@ class CategoryManagerViewModel: ViewModel() {
         mainCategory = AppDatabase.getDatabase(context).category().getCategoryByTransactionTypeAndParentID(transactionType,0L)
 
 
-        if (transactionType == 1L){
+        if (transactionType == TRANSACTION_TYPE_EXPENSE){
             // add Common section
             mainCategory[0].Category_ID = 0L
             mainCategory[0].Category_Name = context.getString(R.string.option_category_common)
@@ -52,7 +53,7 @@ class CategoryManagerViewModel: ViewModel() {
         // add "+Add" item
         if (mainCategoryID > 0L) {
             subCategory.add(
-                Category(0L, 1L, 0L, context.getString(R.string.menu_add_cate), false)
+                Category(0L, TRANSACTION_TYPE_EXPENSE, 0L, context.getString(R.string.menu_add_cate), false)
             )
         }
         return subCategory

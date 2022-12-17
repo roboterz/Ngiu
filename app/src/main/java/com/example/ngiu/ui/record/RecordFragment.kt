@@ -585,7 +585,7 @@ class RecordFragment : Fragment() {
                 Transaction_ReimburseStatus = recordViewModel.transDetail.Transaction_ReimburseStatus
             )
 
-            trans.AccountRecipient_ID = if (recordViewModel.transDetail.TransactionType_ID < 3L) trans.Account_ID
+            trans.AccountRecipient_ID = if (recordViewModel.transDetail.TransactionType_ID < TRANSACTION_TYPE_TRANSFER) trans.Account_ID
                                         else recordViewModel.getAccountID(tv_record_account_receive.text.toString())
 
             if (trans.Account_ID < 1L || trans.AccountRecipient_ID < 1L) {

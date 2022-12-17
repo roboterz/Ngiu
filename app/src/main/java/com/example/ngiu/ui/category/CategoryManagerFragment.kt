@@ -20,6 +20,7 @@ import com.example.ngiu.MainActivity
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.Category
 import com.example.ngiu.databinding.FragmentCategoryManageBinding
+import com.example.ngiu.functions.*
 import kotlinx.android.synthetic.main.fragment_category_manage.*
 import kotlinx.android.synthetic.main.popup_title.view.*
 
@@ -90,7 +91,7 @@ class CategoryManagerFragment: Fragment() {
                         // catch the item click event from adapter
                         override fun onItemClick(rID: Long, addNew: Boolean) {
                             if (addNew) {
-                                manageCategory(0)
+                                manageCategory(ADD_MAIN_CATEGORY)
                             }else {
                                 showSubCategoryItems(rID)
                             }
@@ -98,7 +99,7 @@ class CategoryManagerFragment: Fragment() {
 
                         override fun onItemLongClick(rID: Long, mainCategoryName: String, nextRowID: Long) {
                             // edit/delete
-                            if (editMode) manageCategory(1,rID,mainCategoryName, nextRowID)
+                            if (editMode) manageCategory(EDIT_MAIN_CATEGORY,rID,mainCategoryName, nextRowID)
                         }
                     })
                 }
@@ -117,12 +118,12 @@ class CategoryManagerFragment: Fragment() {
                         // catch the item click event from adapter
                         override fun onItemClick(rID: Long, subCategoryName: String, addNew: Boolean) {
                             if (addNew){
-                                manageCategory(2)
+                                manageCategory(ADD_SUB_CATEGORY)
                             }else {
                                 // edit mode
                                 if (editMode) {
                                     // edit sub category
-                                    manageCategory(3, rID, subCategoryName)
+                                    manageCategory(EDIT_SUB_CATEGORY, rID, subCategoryName)
 
                                     // select mode
                                 } else {
@@ -298,11 +299,11 @@ class CategoryManagerFragment: Fragment() {
         //editText.imeOptions = EditorInfo.IME_ACTION_DONE
 
         when (type) {
-            1, 3 -> {
+            EDIT_MAIN_CATEGORY, EDIT_SUB_CATEGORY -> {
                 editText.setText(string)
                 titleView.tv_popup_title_text.text = getString(R.string.msg_edit_category)
             }
-            0,2 -> {
+            ADD_MAIN_CATEGORY, ADD_SUB_CATEGORY -> {
                 titleView.tv_popup_title_text.text = getString(R.string.msg_new_category)
             }
         }
@@ -315,7 +316,7 @@ class CategoryManagerFragment: Fragment() {
 
                 when (type) {
                     //add main category
-                    0 -> {
+                    ADD_MAIN_CATEGORY -> {
                         val mainCate = Category()
                         mainCate.Category_Name = editText.text.toString()
                         mainCate.TransactionType_ID =
@@ -325,7 +326,7 @@ class CategoryManagerFragment: Fragment() {
                         refreshMainCategory()
                     }
                     //edit main category
-                    1 -> {
+                    EDIT_MAIN_CATEGORY -> {
                         val mainCate = categoryManagerViewModel.mainCategory[
                                 categoryManagerViewModel.mainCategory.indexOfFirst { it.Category_ID == rID }]
                         mainCate.TransactionType_ID =
@@ -336,7 +337,7 @@ class CategoryManagerFragment: Fragment() {
                         refreshMainCategory()
                     }
                     //add sub category
-                    2 -> {
+                    ADD_SUB_CATEGORY -> {
                         val subCate = Category()
                         //subCate.Category_ID = categoryManagerViewModel.currentActiveMainCategory
                         subCate.Category_Name = editText.text.toString()
@@ -347,7 +348,7 @@ class CategoryManagerFragment: Fragment() {
                         refreshSubCategory()
                     }
                     //edit sub category
-                    3 -> {
+                    EDIT_SUB_CATEGORY -> {
                         val subCate = categoryManagerViewModel.subCategory[
                                 categoryManagerViewModel.subCategory.indexOfFirst { it.Category_ID == rID }]
                         subCate.Category_Name = editText.text.toString()
@@ -364,9 +365,9 @@ class CategoryManagerFragment: Fragment() {
             }
 
         // main category edit mode with delete button
-            if (type == 1) {
+            if (type == EDIT_MAIN_CATEGORY) {
                 alert.setNeutralButton(R.string.msg_button_delete) { _, _ ->
-                    deleteCategory(0, rID, nextRowID)
+                    deleteCategory(MAIN_CATEGORY, rID, nextRowID)
                 }
             }
 
@@ -390,14 +391,14 @@ class CategoryManagerFragment: Fragment() {
                     categoryManagerViewModel.deleteCategory(requireContext(), Category(rID))
 
                     when (type){
-                        0 -> {
+                        MAIN_CATEGORY -> {
                             mainCategoryAdapter?.setArrowAfterDelete()
                             // refresh
                             refreshMainCategory()
                             // show subcategory
                             if (rID != nextRowID) showSubCategoryItems(nextRowID)
                         }
-                        1 -> {
+                        SUB_CATEGORY -> {
                             refreshSubCategory()
                         }
                     }
