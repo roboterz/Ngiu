@@ -3,6 +3,7 @@ package com.example.ngiu.functions
 
 // ACCOUNT TYPE
 const val ACCOUNT_TYPE_LIMIT = 9
+
 const val ACCOUNT_TYPE_CASH = 1L
 const val ACCOUNT_TYPE_CREDIT = 2L
 const val ACCOUNT_TYPE_DEBIT = 3L
@@ -27,6 +28,7 @@ const val CURRENCY_USD = 1L
 
 // CATEGORY
 const val CATEGORY_LIMIT = 12
+
 const val CATEGORY_MAIN_EXPENSE = 1L
 const val CATEGORY_MAIN_INCOME = 2L
 const val CATEGORY_MAIN_TRANSFER = 3L
@@ -55,6 +57,7 @@ const val ADD_MAIN_CATEGORY = 0
 const val EDIT_MAIN_CATEGORY = 1
 const val ADD_SUB_CATEGORY = 2
 const val EDIT_SUB_CATEGORY = 3
+
 const val MAIN_CATEGORY = 0
 const val SUB_CATEGORY = 1
 
