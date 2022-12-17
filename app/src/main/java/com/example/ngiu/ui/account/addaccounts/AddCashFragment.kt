@@ -24,6 +24,7 @@ import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import com.example.ngiu.data.AppDatabase
 import com.example.ngiu.data.entities.Trans
+import com.example.ngiu.functions.*
 import kotlinx.android.synthetic.main.fragment_account_add_web_account.*
 
 
@@ -55,12 +56,12 @@ class AddCashFragment : Fragment() {
         when (page) {
             "add_cash" -> {
                 binding.toolbarAddCashAccount.title = "Add Cash"
-                accountTypeID = 1L
+                accountTypeID = ACCOUNT_TYPE_CASH
             }
             "edit_cash" -> {
                 binding.toolbarAddCashAccount.title = "Edit Cash"
                 binding.toolbarAddCashAccount.menu.findItem(R.id.action_delete).isVisible = true
-                accountTypeID = 1L
+                accountTypeID = ACCOUNT_TYPE_CREDIT
 
                 accountID = arguments?.getLong("id")!!
              /*   binding.cashBalanceTextLayout.isEnabled = false
@@ -69,12 +70,12 @@ class AddCashFragment : Fragment() {
             }
             "add_payable" -> {
                 binding.toolbarAddCashAccount.title = "Add Receivable/Payable"
-                accountTypeID = 9L
+                accountTypeID = ACCOUNT_TYPE_RECEIVABLE
             }
             "edit_payable" -> {
                 binding.toolbarAddCashAccount.title = "Edit Receivable/Payable"
                 binding.toolbarAddCashAccount.menu.findItem(R.id.action_delete).isVisible = true
-                accountTypeID = 9L
+                accountTypeID = ACCOUNT_TYPE_RECEIVABLE
                 accountID = arguments?.getLong("id")!!
 
                 fetchAccountDetails(accountID)
@@ -134,7 +135,7 @@ class AddCashFragment : Fragment() {
                 }
                 "add_payable" -> {
                     binding.toolbarAddCashAccount.title = "Add Receivable/Payable"
-                    accountTypeID = 9L
+                    accountTypeID = ACCOUNT_TYPE_RECEIVABLE
                     submitForm()
 
                 }

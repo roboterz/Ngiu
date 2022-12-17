@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.ngiu.data.AppDatabase
+import com.example.ngiu.functions.*
 import com.example.ngiu.functions.calculateAmount
 import com.example.ngiu.ui.account.model.AccountTransRecordModel
 import java.time.format.DateTimeFormatter
@@ -58,8 +59,8 @@ class AccountDetailViewModel : ViewModel() {
                 accountTransRecordList.add(model)
 
                 //income
-                if (item.TransactionType_ID == 2L ||
-                    (item.TransactionType_ID == 3L || item.TransactionType_ID == 4L) &&
+                if (item.TransactionType_ID == TRANSACTION_TYPE_INCOME ||
+                    (item.TransactionType_ID == TRANSACTION_TYPE_TRANSFER || item.TransactionType_ID == TRANSACTION_TYPE_DEBIT) &&
                     (item.Account_ID != id && item.AccountRecipient_ID == id) ) {
 
                     rBalance -= item.Transaction_Amount

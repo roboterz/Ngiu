@@ -14,6 +14,7 @@ import com.example.ngiu.R
 import com.example.ngiu.data.entities.Account
 import com.example.ngiu.data.entities.Currency
 import com.example.ngiu.databinding.FragmentAccountAddDebitBinding
+import com.example.ngiu.functions.ACCOUNT_TYPE_DEBIT
 import com.example.ngiu.functions.addDecimalLimiter
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.fragment_account_add_debit.*
@@ -28,7 +29,7 @@ class AddDebitFragment : Fragment() {
     private lateinit var addCashViewModel: AddCashViewModel
     var currency = "USD"
     lateinit var page: String
-    var accountTypeID: Long = 3L
+    var accountTypeID: Long = ACCOUNT_TYPE_DEBIT
     var id: Long = 0L
 
     override fun onCreateView(
@@ -64,7 +65,7 @@ class AddDebitFragment : Fragment() {
             "edit_debit" -> {
                 binding.toolbarAddDebitAccount.title = "Edit Debit"
                 binding.toolbarAddDebitAccount.menu.findItem(R.id.action_delete).isVisible = true
-                accountTypeID = 3L
+                accountTypeID = ACCOUNT_TYPE_DEBIT
                 id = arguments?.getLong("id")!!
 
                 fetchAccountDetails(id)

@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.example.ngiu.data.AppDatabase
 import com.example.ngiu.data.entities.Account
 import com.example.ngiu.data.entities.returntype.RecordDetail
+import com.example.ngiu.functions.*
 import com.example.ngiu.ui.account.model.AccountCreditDetailGroupModel
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -57,9 +58,9 @@ class AccountCreditDetailViewModel : ViewModel() {
                 // in this term
                 accountCDGM.CDList.add(listDetail[i].copy())
                 when (listDetail[i].TransactionType_ID){
-                    1L -> {amt += listDetail[i].Transaction_Amount}
-                    2L -> {amt -= listDetail[i].Transaction_Amount}
-                    3L, 4L -> {
+                    TRANSACTION_TYPE_EXPENSE -> {amt += listDetail[i].Transaction_Amount}
+                    TRANSACTION_TYPE_INCOME -> {amt -= listDetail[i].Transaction_Amount}
+                    TRANSACTION_TYPE_TRANSFER, TRANSACTION_TYPE_DEBIT -> {
                         if (listDetail[i].Account_ID == accountID) amt += listDetail[i].Transaction_Amount
                         else amt -= listDetail[i].Transaction_Amount
                     }
@@ -84,9 +85,9 @@ class AccountCreditDetailViewModel : ViewModel() {
                     if (listDetail[i].Transaction_Date < endDate && listDetail[i].Transaction_Date >= startDate){
                         accountCDGM.CDList.add(listDetail[i].copy())
                         when (listDetail[i].TransactionType_ID){
-                            1L -> {amt += listDetail[i].Transaction_Amount}
-                            2L -> {amt -= listDetail[i].Transaction_Amount}
-                            3L, 4L -> {
+                            TRANSACTION_TYPE_EXPENSE -> {amt += listDetail[i].Transaction_Amount}
+                            TRANSACTION_TYPE_INCOME -> {amt -= listDetail[i].Transaction_Amount}
+                            TRANSACTION_TYPE_TRANSFER, TRANSACTION_TYPE_DEBIT -> {
                                 if (listDetail[i].Account_ID == accountID) amt += listDetail[i].Transaction_Amount
                                 else amt -= listDetail[i].Transaction_Amount
                             }

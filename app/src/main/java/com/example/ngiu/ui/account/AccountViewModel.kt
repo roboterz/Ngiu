@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.ngiu.data.AppDatabase
+import com.example.ngiu.functions.*
 import com.example.ngiu.functions.calculateAmount
 import com.example.ngiu.ui.account.model.AccountSectionUiModel
 
@@ -27,7 +28,7 @@ class AccountViewModel : ViewModel() {
         accountSections.value?.forEach { it ->
             sum += it.list.filter {
                 it.Account_Balance<0
-                it.AccountType_ID == 2L || it.AccountType_ID == 9L
+                it.AccountType_ID == ACCOUNT_TYPE_CREDIT || it.AccountType_ID == ACCOUNT_TYPE_RECEIVABLE
             }.sumOf { it.Account_Balance }
         }
 

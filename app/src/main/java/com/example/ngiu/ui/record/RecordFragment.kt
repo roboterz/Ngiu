@@ -443,12 +443,12 @@ class RecordFragment : Fragment() {
         if (recordViewModel.transDetail.TransactionType_ID == 4L){
             when (recordViewModel.getCategoryID(categoryName)) {
                 // borrow in | received
-                CATEGORY_SUB_DEPOSIT, CATEGORY_SUB_BORROW -> {
+                CATEGORY_SUB_BORROW, CATEGORY_SUB_RECEIVE_PAYMENT -> {
                     tv_record_account_pay.text =  recordViewModel.tempSavedAccountName[2]
                     tv_record_account_receive.text = recordViewModel.tempSavedAccountName[3]
                 }
                 // lend out | repayment
-                CATEGORY_SUB_WITHDRAW, CATEGORY_SUB_LEND -> {
+                CATEGORY_SUB_LEND, CATEGORY_SUB_PAYMENT -> {
                     tv_record_account_pay.text =  recordViewModel.tempSavedAccountName[3]
                     tv_record_account_receive.text = recordViewModel.tempSavedAccountName[2]
                 }
@@ -465,7 +465,7 @@ class RecordFragment : Fragment() {
 
         when (recordViewModel.getCategoryID(categoryName)) {
             // borrow in | received
-            CATEGORY_SUB_DEPOSIT, CATEGORY_SUB_BORROW -> {
+            CATEGORY_SUB_BORROW, CATEGORY_SUB_RECEIVE_PAYMENT -> {
                 if (payable){
                     // create P/R account
                     val bundle = Bundle().apply {
@@ -478,7 +478,7 @@ class RecordFragment : Fragment() {
                 }
             }
             // lend out | repayment
-            CATEGORY_SUB_WITHDRAW, CATEGORY_SUB_LEND -> {
+            CATEGORY_SUB_LEND, CATEGORY_SUB_PAYMENT -> {
                 if (!payable) {
                     // create P/R account
                     // todo create P/R account

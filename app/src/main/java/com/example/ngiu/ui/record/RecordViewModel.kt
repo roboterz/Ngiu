@@ -169,9 +169,9 @@ class RecordViewModel : ViewModel() {
                 if ((transDetail.TransactionType_ID != TRANSACTION_TYPE_TRANSFER) || (at.Account_Name != exceptName)) {
                     when (getCategoryID(transDetail.Category_Name)) {
                         // borrow in | received
-                        CATEGORY_SUB_DEPOSIT, CATEGORY_SUB_BORROW -> if (!payAccount) nameList.add(at.Account_Name)
+                        CATEGORY_SUB_BORROW, CATEGORY_SUB_RECEIVE_PAYMENT -> if (!payAccount) nameList.add(at.Account_Name)
                         // lend out | repayment
-                        CATEGORY_SUB_WITHDRAW, CATEGORY_SUB_LEND -> if (payAccount) nameList.add(at.Account_Name)
+                        CATEGORY_SUB_LEND, CATEGORY_SUB_PAYMENT -> if (payAccount) nameList.add(at.Account_Name)
                         // not transaction type 4
                         else -> nameList.add(at.Account_Name)
                     }
@@ -180,9 +180,9 @@ class RecordViewModel : ViewModel() {
             } else if (transDetail.TransactionType_ID == TRANSACTION_TYPE_DEBIT) {
                 when (getCategoryID(transDetail.Category_Name)) {
                     // borrow in | received
-                    CATEGORY_SUB_DEPOSIT, CATEGORY_SUB_BORROW -> if (payAccount) nameList.add(at.Account_Name)
+                    CATEGORY_SUB_BORROW, CATEGORY_SUB_RECEIVE_PAYMENT -> if (payAccount) nameList.add(at.Account_Name)
                     // lend out | repayment
-                    CATEGORY_SUB_WITHDRAW, CATEGORY_SUB_LEND -> if (!payAccount) nameList.add(at.Account_Name)
+                    CATEGORY_SUB_LEND, CATEGORY_SUB_PAYMENT -> if (!payAccount) nameList.add(at.Account_Name)
                 }
             }
         }
