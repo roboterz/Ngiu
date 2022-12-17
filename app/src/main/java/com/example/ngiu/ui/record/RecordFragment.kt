@@ -440,7 +440,7 @@ class RecordFragment : Fragment() {
 
 
     private fun showAccountName(categoryName: String) {
-        if (recordViewModel.transDetail.TransactionType_ID == 4L){
+        if (recordViewModel.transDetail.TransactionType_ID == TRANSACTION_TYPE_DEBIT){
             when (recordViewModel.getCategoryID(categoryName)) {
                 // borrow in | received
                 CATEGORY_SUB_BORROW, CATEGORY_SUB_RECEIVE_PAYMENT -> {
@@ -509,6 +509,8 @@ class RecordFragment : Fragment() {
 
         }else{
             // new record
+
+            // todo when add a record from account detail frame
                 /*
             if (recordViewModel.transDetail.Account_Name.isEmpty()) {
                 if (recordViewModel.account.isNotEmpty()){
