@@ -281,16 +281,4 @@ fun getInternationalDateFromAmericanDate(string: String): LocalDateTime {
 }
 
 
-// return account name when open the record fragment with different transaction type.
-fun getAccountNameByTransactionType(): String{
-    // todo
-    return ""
-}
 
-// return account name list when open the record fragment with different transaction type.
-fun getAccountListByTransactionType(): List<String>?{
-    val acctList: List<String>? = null
-    // todo
-
-    return acctList
-}

@@ -6,6 +6,7 @@ import androidx.room.*
 import com.example.ngiu.data.entities.*
 import androidx.room.Transaction
 import com.example.ngiu.data.entities.Currency
+import com.example.ngiu.data.entities.returntype.AccountCount
 import com.example.ngiu.data.entities.returntype.RecordDetail
 import com.example.ngiu.data.entities.returntype.TransactionDetail
 
@@ -26,7 +27,7 @@ interface AccountDao {
 
 
     @Transaction
-    @Query("SELECT * FROM Account ORDER BY Account_Name")
+    @Query("SELECT * FROM Account ORDER BY AccountType_ID, Account_Name")
     fun getAllAccount(): List<Account>
 
     @Transaction
@@ -676,6 +677,53 @@ interface TransDao {
         """)
     fun getTotalAmountFromPRAccountBYCategoryID(acctID:Long, cateID: Long): Double
 
+    @Transaction
+    @Query("SELECT COUNT(*) FROM Trans")
+    fun getTotalCount(): Int
+
+    @Transaction
+    @Query("""
+        SELECT Account_Name, COUNT(Trans.Account_ID) as Account_Count
+        FROM Trans, Account
+        WHERE Trans.TransactionType_ID = :tID AND Category_ID = :cID
+            AND Trans.Account_ID = Account.Account_ID
+        GROUP BY Trans.Account_ID
+        ORDER BY Account_Count DESC
+        """)
+    fun getCountOfAccountsByTransactionTypeAndCategory(tID: Long, cID: Long): List<AccountCount>
+
+    @Transaction
+    @Query("""
+        SELECT Account_Name, COUNT(Trans.Account_ID) as Account_Count
+        FROM Trans, Account
+        WHERE Trans.TransactionType_ID = :tID
+            AND Trans.Account_ID = Account.Account_ID
+        GROUP BY Trans.Account_ID
+        ORDER BY Account_Count DESC
+        """)
+    fun getCountOfAccountsByTransactionType(tID: Long): List<AccountCount>
+
+    @Transaction
+    @Query("""
+        SELECT Account_Name, COUNT(AccountRecipient_ID) as Account_Count
+        FROM Trans, Account
+        WHERE TransactionType_ID = :tID AND Category_ID = :cID
+            AND Trans.AccountRecipient_ID = Account.Account_ID
+        GROUP BY Trans.AccountRecipient_ID
+        ORDER BY Account_Count DESC
+        """)
+    fun getCountOfRecipientAccountsByTransactionTypeAndCategory(tID: Long, cID: Long): List<AccountCount>
+
+    @Transaction
+    @Query("""
+        SELECT Account_Name, COUNT(AccountRecipient_ID) as Account_Count
+        FROM Trans, Account
+        WHERE TransactionType_ID = :tID 
+            AND Trans.AccountRecipient_ID = Account.Account_ID
+        GROUP BY Trans.AccountRecipient_ID
+        ORDER BY Account_Count DESC
+        """)
+    fun getCountOfRecipientAccountsByTransactionType(tID: Long): List<AccountCount>
 }
 
 // Transaction Type

@@ -8,9 +8,10 @@ import androidx.lifecycle.ViewModel
 import com.example.ngiu.R
 import com.example.ngiu.data.AppDatabase
 import com.example.ngiu.data.entities.*
+import com.example.ngiu.data.entities.returntype.AccountCount
 import com.example.ngiu.data.entities.returntype.TransactionDetail
 import com.example.ngiu.functions.*
-
+import kotlin.collections.groupingBy
 import kotlin.collections.ArrayList
 
 class RecordViewModel : ViewModel() {
@@ -200,6 +201,51 @@ class RecordViewModel : ViewModel() {
 
     fun deleteTrans(context: Context ,trans: Trans){
         AppDatabase.getDatabase(context).trans().deleteTransaction(trans)
+    }
+
+
+
+    // return account name when open the record fragment with different transaction type.
+    fun getPayOutAccountName(context: Context, category: Long = 0L , transType: Long = 0L): String{
+        // todo
+        val count = AppDatabase.getDatabase(context).trans().getTotalCount()
+        return if (count > 0) {
+            var acctNameList = AppDatabase.getDatabase(context).trans()
+                .getCountOfAccountsByTransactionTypeAndCategory(transType, category)
+
+            if (acctNameList.isEmpty()) {
+                acctNameList = AppDatabase.getDatabase(context).trans()
+                    .getCountOfAccountsByTransactionType(transType)
+            }
+
+            if (acctNameList.isEmpty()){
+                transDetail.Account_Name
+            }else {
+                acctNameList[0].Account_Name
+            }
+        }else{
+            transDetail.Account_Name
+        }
+
+        /*        fun findMostCommonValues(values: List<Any>): List<Any> {
+            // Group the values by their count
+            val groups = values.groupingBy { it }.eachCount()
+
+            // Sort the map by count in descending order
+            val sortedGroups = groups.toList().sortedByDescending { (_, count) -> count }
+
+            // Extract the elements from the sorted map
+            return sortedGroups.map { (element, _) -> element }
+        }*/
+
+    }
+
+    // return account name list when open the record fragment with different transaction type.
+    fun getAccountList(): List<String>?{
+        val acctList: List<String>? = null
+        // todo
+
+        return acctList
     }
 
 }

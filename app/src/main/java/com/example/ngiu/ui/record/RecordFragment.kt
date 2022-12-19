@@ -543,7 +543,7 @@ class RecordFragment : Fragment() {
         tv_record_date.text = recordViewModel.transDetail.Transaction_Date.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"))
         tv_record_time.text = recordViewModel.transDetail.Transaction_Date.format(DateTimeFormatter.ofPattern("HH:mm:ss"))
         tv_record_amount.text = "%.2f".format(recordViewModel.transDetail.Transaction_Amount)
-        tv_record_account_pay.text = recordViewModel.transDetail.Account_Name
+        tv_record_account_pay.text = recordViewModel.getPayOutAccountName(requireContext(), 0L, 1L)
         tv_record_account_receive.text = recordViewModel.transDetail.AccountRecipient_Name
         tv_record_memo.setText(recordViewModel.transDetail.Transaction_Memo)
         tv_record_person.text = recordViewModel.transDetail.Person_Name
