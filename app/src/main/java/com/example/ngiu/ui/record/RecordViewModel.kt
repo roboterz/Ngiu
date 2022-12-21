@@ -42,6 +42,11 @@ class RecordViewModel : ViewModel() {
     var account: List<Account> = ArrayList()
     var project: List<Project> = ArrayList()
 
+    var tempSaveOutAccountName: String = ""
+    var tempSaveInAccountName: String = ""
+    var tempSaveDebitOutAccountName: String = ""
+    var tempSaveDebitInAccountName: String = ""
+
 
 
     fun setTransactionType(tyID: Long): CurrentTransactionType {
@@ -52,8 +57,8 @@ class RecordViewModel : ViewModel() {
 
 
     //
-    fun loadDataToRam(activity: FragmentActivity?) {
-        val database = AppDatabase.getDatabase(activity!!)
+    fun loadDataToRam(context: Context) {
+        val database = AppDatabase.getDatabase(context)
         category = database.category().getAllCategory()
         account = database.account().getAllAccount()
         expenseCommonCategory = database.category().getCommonCategoryByTransactionType(TRANSACTION_TYPE_EXPENSE)
@@ -79,19 +84,36 @@ class RecordViewModel : ViewModel() {
         categoryName.add(debitCreditCategory[0].Category_Name)
 
 
-        tempSavedAccountName.add(if (account.isNotEmpty()) account[0].Account_Name else activity.getString(R.string.msg_no_account))
-        tempSavedAccountName.add(if (account.size > 1) account[1].Account_Name else activity.getString(R.string.msg_no_account))
-        tempSavedAccountName.add(activity.getString(R.string.msg_no_account))
+        tempSavedAccountName.add(if (account.isNotEmpty()) account[0].Account_Name else context.getString(R.string.msg_no_account))
+        tempSavedAccountName.add(if (account.size > 1) account[1].Account_Name else context.getString(R.string.msg_no_account))
+        tempSavedAccountName.add(context.getString(R.string.msg_no_account))
         for (at in account){
             if (at.AccountType_ID == ACCOUNT_TYPE_RECEIVABLE) tempSavedAccountName[2] = at.Account_Name
         }
-        tempSavedAccountName.add(if (account.isNotEmpty()) account[0].Account_Name else activity.getString(R.string.msg_no_account))
+        tempSavedAccountName.add(if (account.isNotEmpty()) account[0].Account_Name else context.getString(R.string.msg_no_account))
+
+        if (account.isEmpty()){
+            tempSaveOutAccountName = context.getString(R.string.msg_no_account)
+            tempSaveInAccountName = context.getString(R.string.msg_no_account)
+            tempSaveDebitOutAccountName = context.getString(R.string.msg_no_account)
+            tempSaveDebitInAccountName = context.getString(R.string.msg_no_account)
+        }else if (account.size == 1){
+            tempSaveOutAccountName = getPayOutAccountName(context, CATEGORY_MAIN_EXPENSE, TRANSACTION_TYPE_EXPENSE)
+            tempSaveInAccountName = context.getString(R.string.msg_no_account)
+            tempSaveDebitOutAccountName = tempSaveOutAccountName
+            tempSaveDebitInAccountName = context.getString(R.string.msg_no_account)
+        }else{
+            tempSaveOutAccountName = getPayOutAccountName(context, CATEGORY_MAIN_EXPENSE, TRANSACTION_TYPE_EXPENSE)
+            //tempSaveInAccountName = context.getString(R.string.msg_no_account)
+            //tempSaveDebitOutAccountName = tempSaveOutAccountName
+            //tempSaveDebitInAccountName = context.getString(R.string.msg_no_account)
+        }
 
     }
 
 
-    fun loadTransactionDetail(activity: FragmentActivity?, rID: Long) {
-        transDetail = AppDatabase.getDatabase(activity!!).trans().getOneTransaction(rID)
+    fun loadTransactionDetail(context: Context, rID: Long) {
+        transDetail = AppDatabase.getDatabase(context).trans().getOneTransaction(rID)
     }
 
     fun getSubCategoryName(): String{
