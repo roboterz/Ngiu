@@ -80,7 +80,7 @@ class RecordFragment : Fragment() {
 
 
         // load Data to Ram
-        recordViewModel.loadDataToRam(activity)
+        recordViewModel.loadDataToRam(requireContext())
 
         Thread {
             // load Data to Ram
@@ -129,7 +129,7 @@ class RecordFragment : Fragment() {
             // show delete button
             tv_record_left_button.text = getText(R.string.menu_delete)
 
-            recordViewModel.loadTransactionDetail(activity, receivedID)
+            recordViewModel.loadTransactionDetail(view.context, receivedID)
         }
 
 
