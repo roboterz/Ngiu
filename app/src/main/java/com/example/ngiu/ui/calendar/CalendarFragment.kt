@@ -26,6 +26,7 @@ import com.example.ngiu.functions.DateTimePicker
 import com.example.ngiu.functions.getInternationalDateFromAmericanDate
 import kotlinx.android.synthetic.main.fragment_calendar.*
 import kotlinx.android.synthetic.main.fragment_record.*
+import kotlinx.android.synthetic.main.popup_reminder_dialog.*
 import kotlinx.android.synthetic.main.popup_title.view.*
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -169,37 +170,37 @@ class CalendarFragment : Fragment() {
         // button text
         if (event_ID == 0L){
             // Add Mode
-            dialog.findViewById<TextView>(R.id.button_left).text = getText(R.string.msg_button_cancel)
+            dialog.button_left.text = getText(R.string.msg_button_cancel)
             // date
-            dialog.findViewById<TextView>(R.id.reminder_date).text = LocalDate.now().format(
+            dialog.reminder_date.text = LocalDate.now().format(
                 DateTimeFormatter.ofPattern("MM/dd/yyyy"))
             // time
-            dialog.findViewById<TextView>(R.id.reminder_time).text = LocalTime.now().format(
+            dialog.reminder_time.text = LocalTime.now().format(
                 DateTimeFormatter.ofPattern("HH:mm:ss"))
 
         } else {
             // Edit Mode
-            dialog.findViewById<TextView>(R.id.button_left).text =
+            dialog.button_left.text =
                 getText(R.string.msg_button_delete)
             // load event from database
             val event = calendarViewModel.getEventRecord(context, event_ID)
             // memo
-            dialog.findViewById<EditText>(R.id.reminder_memo).setText(event.Event_Memo)
+            dialog.reminder_memo.setText(event.Event_Memo)
             // date
-            dialog.findViewById<TextView>(R.id.reminder_date).text = event.Event_Date.format(
+            dialog.reminder_date.text = event.Event_Date.format(
                 DateTimeFormatter.ofPattern("MM/dd/yyyy")
             )
             // time
-            dialog.findViewById<TextView>(R.id.reminder_time).text = event.Event_Date.format(
+            dialog.reminder_time.text = event.Event_Date.format(
                 DateTimeFormatter.ofPattern("HH:mm:ss")
             )
         }
         // set text for save button
-        dialog.findViewById<TextView>(R.id.button_right).text = getText(R.string.menu_save)
+        dialog.button_right.text = getText(R.string.menu_save)
 
 
         // Delete or Cancel Button click
-        dialog.findViewById<TextView>(R.id.button_left).setOnClickListener(){
+        dialog.button_left.setOnClickListener(){
             if (event_ID == 0L){
 
                 // cancel button
@@ -239,9 +240,9 @@ class CalendarFragment : Fragment() {
         }
 
         // save button click
-        dialog.findViewById<TextView>(R.id.button_right).setOnClickListener(){
+        dialog.button_right.setOnClickListener(){
             // save
-            if (dialog.findViewById<EditText>(R.id.reminder_memo).text.toString().trim() ==""){
+            if (dialog.reminder_memo.text.toString().trim() ==""){
 
                 // popup prompt window "Cannot save with no content"
                 // --------------------------------------------------------------------------
@@ -268,9 +269,9 @@ class CalendarFragment : Fragment() {
                 val event = Event(
                     Event_ID = event_ID,
                     Event_Date = getInternationalDateFromAmericanDate(
-                        dialog.findViewById<TextView>(R.id.reminder_date).text.toString() + " " +
-                                dialog.findViewById<TextView>(R.id.reminder_time).text.toString()),
-                    Event_Memo = dialog.findViewById<EditText>(R.id.reminder_memo).text.toString()
+                        dialog.reminder_date.text.toString() + " " +
+                                dialog.reminder_date.text.toString()),
+                    Event_Memo = dialog.reminder_date.text.toString()
                 )
                 // save
                 calendarViewModel.saveEventRecord(context, event)
@@ -282,9 +283,9 @@ class CalendarFragment : Fragment() {
         }
 
         // date picker click
-        dialog.findViewById<TextView>(R.id.reminder_date).setOnClickListener(){
+        dialog.reminder_date.setOnClickListener(){
 
-            val date = LocalDate.parse(dialog.findViewById<TextView>(R.id.reminder_date).text.toString(), DateTimeFormatter.ofPattern("MM/dd/yyyy"))
+            val date = LocalDate.parse(dialog.reminder_date.text.toString(), DateTimeFormatter.ofPattern("MM/dd/yyyy"))
 
             DateTimePicker(
                 date.year,
@@ -292,7 +293,7 @@ class CalendarFragment : Fragment() {
                 date.dayOfMonth
             ).pickDate(context) { _, year, month, day ->
                 // save date to textView
-                dialog.findViewById<TextView>(R.id.reminder_date).text = LocalDate.of(year, month + 1, day)
+                dialog.reminder_date.text = LocalDate.of(year, month + 1, day)
                     .format(DateTimeFormatter.ofPattern("MM/dd/yyyy"))
             }
         }

@@ -52,9 +52,9 @@ android {
 dependencies {
 
 
-    implementation "androidx.fragment:fragment-ktx:1.5.4"
+    implementation "androidx.fragment:fragment-ktx:1.5.5"
 
-    implementation 'com.google.android.material:material:1.8.0-alpha02'
+    implementation 'com.google.android.material:material:1.8.0-beta01'
 
     implementation 'io.reactivex.rxjava2:rxjava:2.2.19'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
@@ -78,7 +78,7 @@ dependencies {
     implementation "androidx.room:room-ktx:$rootProject.roomVersion"
     implementation 'com.google.firebase:firebase-database-ktx:20.1.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.databinding:databinding-runtime:4.2.2'
+    implementation 'androidx.databinding:databinding-runtime:7.3.1'
     kapt "androidx.room:room-compiler:$rootProject.roomVersion"
     //noinspection GradleDependency
     androidTestImplementation "androidx.room:room-testing:$rootProject.roomVersion"
@@ -117,6 +117,9 @@ dependencies {
 
     // material dialogs
     implementation "com.afollestad.material-dialogs:core:3.3.0"
+    // full screen dialog fragment
+    //noinspection GradleCompatible
+    implementation "com.android.support:support-v4:26.1.0"
 
 }
 

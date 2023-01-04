@@ -11,6 +11,7 @@
     <string name="nav_bottom_setting">Setting</string>
 
     <string name="nav_title_setting">Settings</string>
+    <string name="nav_title_account_list">Accounts</string>
     <string name="nav_title_category_expense">Expense Categories</string>
     <string name="nav_title_category_income">Income Categories</string>
     <string name="nav_title_category_expense_main_add">Add Main Category of Expense</string>

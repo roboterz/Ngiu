@@ -25,6 +25,13 @@ interface AccountDao {
     @Query("DELETE FROM Trans WHERE Account_ID = :rID")
     fun deleteRecordByID(rID:Long)*/
 
+    @Transaction
+    @Query("SELECT COUNT(*) FROM Account WHERE AccountType_ID <> :typeID")
+    fun getAccountCountExcept(typeID: Long): Int
+
+    @Transaction
+    @Query("SELECT COUNT(*) FROM Account WHERE AccountType_ID = :typeID")
+    fun getAccountCountType(typeID: Long): Int
 
     @Transaction
     @Query("SELECT * FROM Account ORDER BY AccountType_ID, Account_Name")
@@ -679,7 +686,7 @@ interface TransDao {
 
     @Transaction
     @Query("SELECT COUNT(*) FROM Trans")
-    fun getTotalCount(): Int
+    fun getTransCount(): Long
 
     @Transaction
     @Query("""

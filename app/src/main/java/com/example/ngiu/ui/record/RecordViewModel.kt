@@ -92,22 +92,22 @@ class RecordViewModel : ViewModel() {
         }
         tempSavedAccountName.add(if (account.isNotEmpty()) account[0].Account_Name else context.getString(R.string.msg_no_account))
 
-        if (account.isEmpty()){
-            tempSaveOutAccountName = context.getString(R.string.msg_no_account)
-            tempSaveInAccountName = context.getString(R.string.msg_no_account)
-            tempSaveDebitOutAccountName = context.getString(R.string.msg_no_account)
-            tempSaveDebitInAccountName = context.getString(R.string.msg_no_account)
-        }else if (account.size == 1){
-            tempSaveOutAccountName = getPayOutAccountName(context, CATEGORY_MAIN_EXPENSE, TRANSACTION_TYPE_EXPENSE)
-            tempSaveInAccountName = context.getString(R.string.msg_no_account)
-            tempSaveDebitOutAccountName = tempSaveOutAccountName
-            tempSaveDebitInAccountName = context.getString(R.string.msg_no_account)
-        }else{
-            tempSaveOutAccountName = getPayOutAccountName(context, CATEGORY_MAIN_EXPENSE, TRANSACTION_TYPE_EXPENSE)
-            //tempSaveInAccountName = context.getString(R.string.msg_no_account)
-            //tempSaveDebitOutAccountName = tempSaveOutAccountName
-            //tempSaveDebitInAccountName = context.getString(R.string.msg_no_account)
-        }
+//        if (account.isEmpty()){
+//            tempSaveOutAccountName = context.getString(R.string.msg_no_account)
+//            tempSaveInAccountName = context.getString(R.string.msg_no_account)
+//            tempSaveDebitOutAccountName = context.getString(R.string.msg_no_account)
+//            tempSaveDebitInAccountName = context.getString(R.string.msg_no_account)
+//        }else if (account.size == 1){
+//            tempSaveOutAccountName = getPayOutAccountName(context, CATEGORY_MAIN_EXPENSE, TRANSACTION_TYPE_EXPENSE)
+//            tempSaveInAccountName = context.getString(R.string.msg_no_account)
+//            tempSaveDebitOutAccountName = tempSaveOutAccountName
+//            tempSaveDebitInAccountName = context.getString(R.string.msg_no_account)
+//        }else{
+//            tempSaveOutAccountName = getPayOutAccountName(context, CATEGORY_MAIN_EXPENSE, TRANSACTION_TYPE_EXPENSE)
+//            //tempSaveInAccountName = context.getString(R.string.msg_no_account)
+//            //tempSaveDebitOutAccountName = tempSaveOutAccountName
+//            //tempSaveDebitInAccountName = context.getString(R.string.msg_no_account)
+//        }
 
     }
 
@@ -230,25 +230,46 @@ class RecordViewModel : ViewModel() {
     // return account name when open the record fragment with different transaction type.
     fun getPayOutAccountName(context: Context, category: Long = 0L , transType: Long = 0L): String{
         // todo
-        val count = AppDatabase.getDatabase(context).trans().getTotalCount()
-        return if (count > 0) {
-            var acctNameList = AppDatabase.getDatabase(context).trans()
-                .getCountOfAccountsByTransactionTypeAndCategory(transType, category)
+        val transCount = AppDatabase.getDatabase(context).trans().getTransCount()
 
-            if (acctNameList.isEmpty()) {
-                acctNameList = AppDatabase.getDatabase(context).trans()
-                    .getCountOfAccountsByTransactionType(transType)
+        val accountCount: Int = when (transType){
+            TRANSACTION_TYPE_DEBIT -> {
+                AppDatabase.getDatabase(context).account().getAccountCountType(
+                    TRANSACTION_TYPE_DEBIT)
             }
-
-            if (acctNameList.isEmpty()){
-                transDetail.Account_Name
-            }else {
-                acctNameList[0].Account_Name
+            else ->{
+                AppDatabase.getDatabase(context).account().getAccountCountExcept(
+                    TRANSACTION_TYPE_DEBIT)
             }
-        }else{
-            transDetail.Account_Name
         }
+        //val accountCount = AppDatabase.getDatabase(context).account().getAccountCountExcept(
+        //    if (transType == TRANSACTION_TYPE_TRANSFER) 0L else ACCOUNT_TYPE_RECEIVABLE
+        //    )
 
+        val account = AppDatabase.getDatabase(context).account().getAllAccount()
+
+        if (accountCount == 0) {
+            return context.getString(R.string.msg_no_account)
+
+        }else{
+            return if (transCount > 0) {
+                var acctNameList = AppDatabase.getDatabase(context).trans()
+                    .getCountOfAccountsByTransactionTypeAndCategory(transType, category)
+
+                if (acctNameList.isEmpty()) {
+                    acctNameList = AppDatabase.getDatabase(context).trans()
+                        .getCountOfAccountsByTransactionType(transType)
+                }
+
+                if (acctNameList.isEmpty()){
+                    transDetail.Account_Name
+                }else {
+                    acctNameList[0].Account_Name
+                }
+            }else{
+                transDetail.Account_Name
+            }
+        }
         /*        fun findMostCommonValues(values: List<Any>): List<Any> {
             // Group the values by their count
             val groups = values.groupingBy { it }.eachCount()

@@ -2,13 +2,19 @@ package com.example.ngiu.ui.record
 
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.AlertDialog
+import android.app.Dialog
+import android.content.Context
+import android.content.res.Resources
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.MotionEvent
-import android.view.View
-import android.view.ViewGroup
+import android.util.DisplayMetrics
+import android.view.*
+import android.widget.EditText
+import android.widget.ListPopupWindow.MATCH_PARENT
+import android.widget.TextView
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.core.view.forEach
@@ -17,20 +23,25 @@ import androidx.fragment.app.*
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.customview.customView
 import com.example.ngiu.MainActivity
 import com.example.ngiu.R
+import com.example.ngiu.data.entities.Event
 import com.example.ngiu.data.entities.Trans
 import com.example.ngiu.databinding.FragmentRecordBinding
 import com.example.ngiu.functions.*
 import kotlinx.android.synthetic.main.fragment_record.*
 import kotlin.collections.ArrayList
 import com.example.ngiu.ui.keyboard.Keyboard
+import kotlinx.android.synthetic.main.fragment_account_list.*
 import kotlinx.android.synthetic.main.popup_title.view.*
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import java.util.*
+import kotlin.concurrent.fixedRateTimer
 
 
 class RecordFragment : Fragment() {
@@ -363,20 +374,21 @@ class RecordFragment : Fragment() {
 
         // account pay
         tv_record_account_pay.setOnClickListener {
-            if (tv_record_account_pay.text.toString() != getString(R.string.msg_no_account)) {
-                // load account name as list and show it in a popup window
-                val nameList: Array<String> = recordViewModel.getListOfAccountName(tv_record_account_receive.text.toString(),true)
-                popupWindow(requireContext(),getText(R.string.setting_merchant).toString(),  nameList,
-                    object : SelectItem {
-                        override fun clicked(idx: Int) {
-                            tv_record_account_pay.text = nameList[idx]
-                            recordViewModel.setAccountName(true,tv_record_account_pay.text.toString())
-                        }
-                    })
-            }else{
-                // create new account if no account
-                createNewAccount(recordViewModel.transDetail.Category_Name, true)
-            }
+            showAccountListDialog(view.context, 0L)
+//            if (tv_record_account_pay.text.toString() != getString(R.string.msg_no_account)) {
+//                // load account name as list and show it in a popup window
+//                val nameList: Array<String> = recordViewModel.getListOfAccountName(tv_record_account_receive.text.toString(),true)
+//                popupWindow(requireContext(),getText(R.string.setting_merchant).toString(),  nameList,
+//                    object : SelectItem {
+//                        override fun clicked(idx: Int) {
+//                            tv_record_account_pay.text = nameList[idx]
+//                            recordViewModel.setAccountName(true,tv_record_account_pay.text.toString())
+//                        }
+//                    })
+//            }else{
+//                // create new account if no account
+//                createNewAccount(recordViewModel.transDetail.Category_Name, true)
+//            }
         }
         tv_record_account_pay.doAfterTextChanged{
             recordViewModel.transDetail.Account_Name = tv_record_account_pay.text.toString()
@@ -771,7 +783,36 @@ class RecordFragment : Fragment() {
     }
 
 
+    @SuppressLint("CutPasteId")
+    private fun showAccountListDialog(context: Context, event_ID: Long = 0L){
+
+//        val dialog = MaterialDialog(context)
+//            .noAutoDismiss()
+//            .customView(R.layout.fragment_account_list, noVerticalPadding = true)
+//
+//        //val displayMetrics = DisplayMetrics()
+//
+//        dialog.account_list_layout.minHeight = Resources.getSystem().displayMetrics.heightPixels
+//        dialog.account_list_layout.minWidth = Resources.getSystem().displayMetrics.widthPixels
+//
+//        //dialog.window?.setLayout(Resources.getSystem().displayMetrics.widthPixels,Resources.getSystem().displayMetrics.heightPixels)
+//
+//        dialog.show()
+
+        val dialog = Dialog(context,android.R.style.Theme_DeviceDefault_NoActionBar)
+
+        dialog.setContentView(R.layout.fragment_account_list)
+
+        dialog.toolbar_account_list.setNavigationOnClickListener{
+            dialog.dismiss()
+        }
+
+        dialog.show()
+
+
+
+    }
+
+
+
 }
-
-
-
