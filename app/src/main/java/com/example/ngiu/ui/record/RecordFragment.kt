@@ -374,21 +374,23 @@ class RecordFragment : Fragment() {
 
         // account pay
         tv_record_account_pay.setOnClickListener {
-            showAccountListDialog(view.context, 0L)
-//            if (tv_record_account_pay.text.toString() != getString(R.string.msg_no_account)) {
-//                // load account name as list and show it in a popup window
-//                val nameList: Array<String> = recordViewModel.getListOfAccountName(tv_record_account_receive.text.toString(),true)
-//                popupWindow(requireContext(),getText(R.string.setting_merchant).toString(),  nameList,
-//                    object : SelectItem {
-//                        override fun clicked(idx: Int) {
-//                            tv_record_account_pay.text = nameList[idx]
-//                            recordViewModel.setAccountName(true,tv_record_account_pay.text.toString())
-//                        }
-//                    })
-//            }else{
-//                // create new account if no account
-//                createNewAccount(recordViewModel.transDetail.Category_Name, true)
-//            }
+
+            //showAccountListDialog(view.context, 0L)
+
+            if (tv_record_account_pay.text.toString() != getString(R.string.msg_no_account)) {
+                // load account name as list and show it in a popup window
+                val nameList: Array<String> = recordViewModel.getListOfAccountName(tv_record_account_receive.text.toString(),true)
+                popupWindow(requireContext(),getText(R.string.setting_merchant).toString(),  nameList,
+                    object : SelectItem {
+                        override fun clicked(idx: Int) {
+                            tv_record_account_pay.text = nameList[idx]
+                            recordViewModel.setAccountName(true,tv_record_account_pay.text.toString())
+                        }
+                    })
+            }else{
+                // create new account if no account
+                createNewAccount(recordViewModel.transDetail.Category_Name, true)
+            }
         }
         tv_record_account_pay.doAfterTextChanged{
             recordViewModel.transDetail.Account_Name = tv_record_account_pay.text.toString()
@@ -806,6 +808,7 @@ class RecordFragment : Fragment() {
         dialog.toolbar_account_list.setNavigationOnClickListener{
             dialog.dismiss()
         }
+
 
         dialog.show()
 
