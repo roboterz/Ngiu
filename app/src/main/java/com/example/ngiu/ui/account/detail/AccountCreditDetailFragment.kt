@@ -85,8 +85,7 @@ class AccountCreditDetailFragment : Fragment() {
 
         if (accountCreditDetailViewModel.accountRecord.Account_PaymentDay > LocalDate.now().dayOfMonth){
             tv_account_credit_info_payment_day_value.text =
-                LocalDate.of(LocalDate.now().year, LocalDate.now().month, accountCreditDetailViewModel.accountRecord.Account_PaymentDay)
-                    .format(itemDateFormatter)
+                LocalDate.now().plusDays(accountCreditDetailViewModel.accountRecord.Account_PaymentDay.toLong() - LocalDate.now().dayOfMonth).format(itemDateFormatter)
         }else{
             tv_account_credit_info_payment_day_value.text =
                 LocalDate.of(LocalDate.now().year, LocalDate.now().month, accountCreditDetailViewModel.accountRecord.Account_PaymentDay)

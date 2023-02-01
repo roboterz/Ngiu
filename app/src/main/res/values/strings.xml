@@ -168,6 +168,7 @@
     <string name="menu_chart">Chart</string>
     <string name="menu_save_next">Save &amp; Next</string>
     <string name="menu_add_cate">+ Add</string>
+    <string name="menu_reimburse">Reimburse</string>
     <string name="setting_page">Setting Page</string>
 
     <string name="msg_button_confirm">Confirm</string>

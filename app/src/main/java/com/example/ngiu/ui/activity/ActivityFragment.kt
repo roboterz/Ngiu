@@ -64,7 +64,9 @@ class ActivityFragment : Fragment() {
 
         // set up toolbar icon and click event
         // choose items to show
-        toolbar_activity.menu.findItem(R.id.action_add).isVisible = true
+        //toolbar_activity.menu.findItem(R.id.action_add).isVisible = true
+        toolbar_activity.menu.findItem(R.id.action_reimburse).isVisible = true
+        toolbar_activity.menu.findItem(R.id.action_chart).isVisible = true
         toolbar_activity.menu.findItem(R.id.action_settings).isVisible = true
 
         // menu item clicked
@@ -73,6 +75,16 @@ class ActivityFragment : Fragment() {
                 R.id.action_add -> {
                     // switch to record fragment
                     navigateToRecordFragment()
+                    true
+                }
+                R.id.action_reimburse -> {
+                    // switch to reimburse fragment
+
+                    true
+                }
+                R.id.action_chart -> {
+                    // switch to chart fragment
+
                     true
                 }
                 R.id.action_settings -> {

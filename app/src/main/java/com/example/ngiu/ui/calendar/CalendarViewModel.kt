@@ -72,8 +72,9 @@ class CalendarViewModel : ViewModel() {
                     this.date =
                         LocalDate.now().plusDays((acctList[i].Account_PaymentDay - today).toLong())
                 } else {
-                    this.date = LocalDate.now().plusMonths(1)
-                        .minusDays((today - acctList[i].Account_PaymentDay).toLong())
+                    this.date = LocalDate.now().minusDays((today - acctList[i].Account_PaymentDay).toLong())
+                        .plusMonths(1)
+
                 }
             }
             calendarDetail.add(cd)
