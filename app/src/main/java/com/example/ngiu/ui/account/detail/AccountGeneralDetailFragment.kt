@@ -106,7 +106,7 @@ class AccountGeneralDetailFragment : Fragment() {
             when (it.itemId) {
                 R.id.action_add -> {
                     // navigate to add record screen
-                    navigateToRecordFragment()
+                    navigateToRecordFragment(0, accountGeneralDetailViewModel.accountID, TRANSACTION_TYPE_EXPENSE)
                     true
                 }
                 R.id.action_edit -> {
@@ -222,10 +222,13 @@ class AccountGeneralDetailFragment : Fragment() {
     }
 
 
-    private fun navigateToRecordFragment(transID: Long = 0){
+    private fun navigateToRecordFragment(trans_ID: Long = 0, account_ID: Long = 0, transType_ID: Long = 0){
         val bundle = Bundle().apply {
-            putLong("Transaction_ID", transID)
+            putLong("Transaction_ID", trans_ID)
+            putLong("Account_ID", account_ID)
+            putLong("TransactionType_ID", transType_ID)
         }
+        // todo open record fragment with specified account or specified transaction type
         // switch to record fragment
         findNavController().navigate(R.id.navigation_record, bundle)
     }

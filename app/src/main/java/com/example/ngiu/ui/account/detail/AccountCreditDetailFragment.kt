@@ -13,7 +13,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.MainActivity
 import com.example.ngiu.R
+import com.example.ngiu.data.entities.Account
 import com.example.ngiu.databinding.FragmentAccountCreditDetailBinding
+import com.example.ngiu.functions.CATEGORY_MAIN_EXPENSE
+import com.example.ngiu.functions.TRANSACTION_TYPE_EXPENSE
 import com.example.ngiu.functions.getDayOfMonthSuffix
 import kotlinx.android.synthetic.main.fragment_account_credit_detail.*
 import java.time.LocalDate
@@ -110,7 +113,7 @@ class AccountCreditDetailFragment : Fragment() {
             when (it.itemId) {
                 R.id.action_add -> {
                     // navigate to add record screen
-                    navigateToRecordFragment()
+                    navigateToRecordFragment(0, accountID, TRANSACTION_TYPE_EXPENSE)
                     true
                 }
                 R.id.action_edit -> {
@@ -151,9 +154,11 @@ class AccountCreditDetailFragment : Fragment() {
         _binding = null
     }
 
-    private fun navigateToRecordFragment(transID: Long = 0){
+    private fun navigateToRecordFragment(trans_ID: Long = 0, account_ID: Long = 0, transType_ID: Long = 0){
         val bundle = Bundle().apply {
-            putLong("Transaction_ID", transID)
+            putLong("Transaction_ID", trans_ID)
+            putLong("Account_ID", account_ID)
+            putLong("TransactionType_ID", transType_ID)
         }
         // todo open record fragment with specified account or specified transaction type
         // switch to record fragment

@@ -1,8 +1,7 @@
-package com.example.ngiu
+package com.example.ngiu.ui.reimburse
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 

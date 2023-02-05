@@ -228,8 +228,14 @@ class RecordViewModel : ViewModel() {
 
 
     // return account name when open the record fragment with different transaction type.
-    fun getPayOutAccountName(context: Context, category: Long = 0L , transType: Long = 0L): String{
+    fun getPayOutAccountName(context: Context, category: Long = 0L , transType: Long = 0L, accountID: Long = 0L): String{
         // todo
+
+
+        if (accountID > 0 ){
+            return AppDatabase.getDatabase(context).account().getRecordByID(accountID).Account_Name
+        }
+
         val transCount = AppDatabase.getDatabase(context).trans().getTransCount()
 
         val accountCount: Int = when (transType){
@@ -246,7 +252,7 @@ class RecordViewModel : ViewModel() {
         //    if (transType == TRANSACTION_TYPE_TRANSFER) 0L else ACCOUNT_TYPE_RECEIVABLE
         //    )
 
-        val account = AppDatabase.getDatabase(context).account().getAllAccount()
+        //val account = AppDatabase.getDatabase(context).account().getAllAccount()
 
         if (accountCount == 0) {
             return context.getString(R.string.msg_no_account)

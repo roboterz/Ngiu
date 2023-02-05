@@ -50,7 +50,9 @@ class RecordFragment : Fragment() {
     private lateinit var recordViewModel: RecordViewModel
     private var _binding: FragmentRecordBinding? = null
     private var vpAdapter: RecordCategoryAdapter? = null
-    private var receivedID: Long = 0
+    private var receivedTransID: Long = 0
+    private var receivedAccountID: Long = 0
+    private var receivedTransTypeID: Long = 0
     private var receivedString: String = ""
 
     // This property is only valid between onCreateView and
@@ -64,8 +66,9 @@ class RecordFragment : Fragment() {
 
 
         // receive data from other fragment
-        receivedID = arguments?.getLong("Transaction_ID")!!
-
+        receivedTransID = arguments?.getLong("Transaction_ID")!!
+        receivedAccountID = arguments?.getLong("Account_ID")!!
+        receivedTransTypeID = arguments?.getLong("TransactionType_ID")!!
 
 
         // get string from category manage
@@ -92,6 +95,10 @@ class RecordFragment : Fragment() {
 
         // load Data to Ram
         recordViewModel.loadDataToRam(requireContext())
+        if (receivedTransTypeID > 0) {
+            recordViewModel.transDetail.TransactionType_ID = receivedTransTypeID
+        }
+        // todo category未选中（Transfer and Debit & Credit），账号不固定，
 
         Thread {
             // load Data to Ram
@@ -134,13 +141,13 @@ class RecordFragment : Fragment() {
 
         //tv_record_amount.addDecimalLimiter()
 
-        if (receivedID > 0) {
+        if (receivedTransID > 0L ) {
             // show delete menu
             toolbar_record.menu.findItem(R.id.action_delete).isVisible = true
             // show delete button
             tv_record_left_button.text = getText(R.string.menu_delete)
 
-            recordViewModel.loadTransactionDetail(view.context, receivedID)
+            recordViewModel.loadTransactionDetail(view.context, receivedTransID)
         }
 
 
@@ -187,7 +194,7 @@ class RecordFragment : Fragment() {
                 // done menu
                 R.id.action_done -> {
                     // save record
-                    if (saveRecord(receivedID) == 0) {
+                    if (saveRecord(receivedTransID) == 0) {
                         // call back button event to switch to previous fragment
                         //requireActivity().onBackPressed()
                         NavHostFragment.findNavController(this).navigateUp()
@@ -197,7 +204,7 @@ class RecordFragment : Fragment() {
                 // delete menu
                 R.id.action_delete -> {
                     // delete record
-                    deleteRecord(activity, receivedID)
+                    deleteRecord(activity, receivedTransID)
                     true
                 }
 
@@ -207,7 +214,7 @@ class RecordFragment : Fragment() {
 
         // Save Button
         tv_record_right_button.setOnClickListener {
-            if (saveRecord(receivedID) == 0) {
+            if (saveRecord(receivedTransID) == 0) {
                 // exit
                 //requireActivity().onBackPressed()
                 NavHostFragment.findNavController(this).navigateUp()
@@ -216,9 +223,9 @@ class RecordFragment : Fragment() {
 
         // Save and Next Button | Delete Button
         tv_record_left_button.setOnClickListener {
-            if (receivedID > 0){
+            if (receivedTransID > 0){
                 // delete
-                deleteRecord(activity, receivedID)
+                deleteRecord(activity, receivedTransID)
             }else{
                 // save and next
                 if (saveRecord() == 0) tv_record_amount.text = "0.00"
@@ -435,7 +442,7 @@ class RecordFragment : Fragment() {
         super.onResume()
 
         // load data to UI textview
-        loadUIData(receivedID)
+        loadUIData(receivedTransID)
     }
 
 
@@ -557,7 +564,7 @@ class RecordFragment : Fragment() {
         tv_record_date.text = recordViewModel.transDetail.Transaction_Date.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"))
         tv_record_time.text = recordViewModel.transDetail.Transaction_Date.format(DateTimeFormatter.ofPattern("HH:mm:ss"))
         tv_record_amount.text = "%.2f".format(recordViewModel.transDetail.Transaction_Amount)
-        tv_record_account_pay.text = recordViewModel.getPayOutAccountName(requireContext(), 0L, 1L)
+        tv_record_account_pay.text = recordViewModel.getPayOutAccountName(requireContext(), 0L, 1L, receivedAccountID)
         tv_record_account_receive.text = recordViewModel.transDetail.AccountRecipient_Name
         tv_record_memo.setText(recordViewModel.transDetail.Transaction_Memo)
         tv_record_person.text = recordViewModel.transDetail.Person_Name
