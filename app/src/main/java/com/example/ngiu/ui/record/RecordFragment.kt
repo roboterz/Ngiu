@@ -99,6 +99,7 @@ class RecordFragment : Fragment() {
             recordViewModel.transDetail.TransactionType_ID = receivedTransTypeID
         }
         // todo category未选中（Transfer and Debit & Credit），账号不固定，
+        // 初始化Cate
 
         Thread {
             // load Data to Ram
