@@ -46,6 +46,7 @@ android {
     noArg {
         annotation("androidx.room.Entity")
     }
+    namespace 'com.example.ngiu'
 }
 
 //$rootProject values are stored in build.gradle ext{}

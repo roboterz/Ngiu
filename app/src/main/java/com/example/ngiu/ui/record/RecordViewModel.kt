@@ -119,7 +119,7 @@ class RecordViewModel : ViewModel() {
     fun getSubCategoryName(): String{
         return categoryName[transDetail.TransactionType_ID.toInt() -1]
     }
-    fun setSubCategoryName(string: String){
+    fun  setSubCategoryName(string: String){
         categoryName[transDetail.TransactionType_ID.toInt() -1] = string
     }
 
@@ -229,7 +229,7 @@ class RecordViewModel : ViewModel() {
 
     // return account name when open the record fragment with different transaction type.
     fun getPayOutAccountName(context: Context, category: Long = 0L , transType: Long = 0L, accountID: Long = 0L): String{
-        // todo
+        // todo bug: open category manager and go back, RP default account was changed.
 
 
         if (accountID > 0 ){

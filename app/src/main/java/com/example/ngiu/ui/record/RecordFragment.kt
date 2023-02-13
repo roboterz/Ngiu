@@ -27,6 +27,7 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
 import com.example.ngiu.MainActivity
 import com.example.ngiu.R
+import com.example.ngiu.data.entities.Category
 import com.example.ngiu.data.entities.Event
 import com.example.ngiu.data.entities.Trans
 import com.example.ngiu.databinding.FragmentRecordBinding
@@ -69,7 +70,6 @@ class RecordFragment : Fragment() {
         receivedTransID = arguments?.getLong("Transaction_ID")!!
         receivedAccountID = arguments?.getLong("Account_ID")!!
         receivedTransTypeID = arguments?.getLong("TransactionType_ID")!!
-
 
         // get string from category manage
         setFragmentResultListener("category_manage") { _, bundle ->
@@ -461,7 +461,7 @@ class RecordFragment : Fragment() {
     //------------------------------------------Private Functions--------------------------------------------------
 
 
-    private fun showAccountName(categoryName: String) {
+    private fun showAccountName(categoryName: String, blnNew: Boolean = true) {
         if (recordViewModel.transDetail.TransactionType_ID == TRANSACTION_TYPE_DEBIT){
             when (recordViewModel.getCategoryID(categoryName)) {
                 // borrow in | received
@@ -522,17 +522,36 @@ class RecordFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun loadUIData(transactionID: Long){
-        recordViewModel.setTransactionType(recordViewModel.transDetail.TransactionType_ID)
+        recordViewModel.setSubCategoryName(recordViewModel.transDetail.Category_Name)
 
         if (transactionID > 0 || receivedString.isNotEmpty()) {
             // edit record
             //load data to textview
-            recordViewModel.setSubCategoryName(recordViewModel.transDetail.Category_Name)
+            recordViewModel.setTransactionType(recordViewModel.transDetail.TransactionType_ID)
+
+
 
         }else{
             // new record
+//            if (receivedTransTypeID > 0) {
+//                recordViewModel.setTransactionType(receivedTransTypeID)
+//            }
 
             // todo when add a record from account detail frame
+            // set category as "Borrow" when open a new record from RP account
+            if (receivedTransTypeID == TRANSACTION_TYPE_DEBIT) {
+                //val tempCate = recordViewModel.category[recordViewModel.category.indexOfFirst { it.Category_ID == CATEGORY_SUB_BORROW }].Category_Name
+                //tv_record_category.text = categoryName
+                recordViewModel.setSubCategoryName(recordViewModel.debitCreditCommonCategory[0].Category_Name)
+                showAccountName(recordViewModel.debitCreditCommonCategory[0].Category_Name)
+                recordViewModel.setAccountName(true, recordViewModel.account[recordViewModel.account.indexOfFirst { it.Account_ID == receivedAccountID }].Account_Name)
+                //recordViewModel.transDetail.Category_Name = recordViewModel.debitCreditCommonCategory[0].Category_Name
+                //todo bug: account name was changed after click category.
+                //todo bug: open category manager then go back will lcok on debet transetion type.
+                setStatus(recordViewModel.setTransactionType(TRANSACTION_TYPE_DEBIT))
+                //loadCommonCategory(TRANSACTION_TYPE_DEBIT)
+                receivedTransTypeID=0
+            }
                 /*
             if (recordViewModel.transDetail.Account_Name.isEmpty()) {
                 if (recordViewModel.account.isNotEmpty()){
