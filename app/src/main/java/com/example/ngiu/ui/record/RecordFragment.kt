@@ -547,7 +547,8 @@ class RecordFragment : Fragment() {
                 recordViewModel.setAccountName(true, recordViewModel.account[recordViewModel.account.indexOfFirst { it.Account_ID == receivedAccountID }].Account_Name)
                 //recordViewModel.transDetail.Category_Name = recordViewModel.debitCreditCommonCategory[0].Category_Name
                 //todo bug: account name was changed after click category.
-                //todo bug: open category manager then go back will lcok on debet transetion type.
+
+                //bug: open category manager then go back will lock on debit transition type.(fixed)
                 setStatus(recordViewModel.setTransactionType(TRANSACTION_TYPE_DEBIT))
                 //loadCommonCategory(TRANSACTION_TYPE_DEBIT)
                 receivedTransTypeID=0
