@@ -8,8 +8,8 @@ import java.util.*
 data class RecordDetail(
     var Transaction_ID: Long = 0,
     var TransactionType_ID: Long = 0,
-    var Category_ID: Long = 0,
-    var Category_Name: String = "",
+    var SubCategory_ID: Long = 0,
+    var SubCategory_Name: String = "",
     var Account_ID: Long = 0,
     var Account_Name: String = "",
     var AccountRecipient_ID: Long = 0,

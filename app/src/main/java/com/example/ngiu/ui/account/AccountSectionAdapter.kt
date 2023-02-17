@@ -7,25 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
 import com.example.ngiu.ui.account.model.AccountSectionUiModel
-import com.example.ngiu.ui.activity.ActivityListAdapter
 import kotlinx.android.synthetic.main.cardview_account_section_item.view.*
 
 
-class AccountSectionAdapter(
-    private val onClick: OnClickListener
-    )
-    : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class AccountSectionAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val accountItems = ArrayList<AccountSectionUiModel>()
-
-    // interface for passing the onClick event to fragment.
-    interface OnClickListener {
-        fun onItemClick(AccountTypeID: Long, isExpanded: Boolean)
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -39,10 +29,9 @@ class AccountSectionAdapter(
         viewHolder.accountHeaderType.text = item.title
         viewHolder.accountHeaderBalance.text = item.balance
         viewHolder.foldItems(item.isExpanded)
-        viewHolder.topHeader.setOnClickListener {
+        viewHolder.topheader.setOnClickListener {
             item.isExpanded = !item.isExpanded
             viewHolder.foldItems(item.isExpanded)
-            onClick.onItemClick(item.accountTypeID, item.isExpanded)
         }
 
         val context = viewHolder.rvAccounts.context
@@ -69,20 +58,16 @@ class AccountSectionAdapter(
         val accountHeaderBalance: TextView = itemView.tvAccountHeaderBalance
         var expandRow: ImageView = itemView.ivExpandRow
         var rvAccounts: RecyclerView = itemView.rvAccounts
-        var topHeader: View = itemView.cardview_account_section_item
+        var topheader: View = itemView.cardview_account_section_item
 
         // function to fold child base off the header
-        @SuppressLint("ResourceAsColor")
         fun foldItems(expand: Boolean){
             if (expand) {
                 rvAccounts.visibility = View.VISIBLE
                 expandRow.setImageResource(R.drawable.ic_baseline_arrow_drop_down_24)
-                accountHeaderBalance.setTextColor(ContextCompat.getColor(itemView.context, R.color.app_sub_line_text))
-
             } else {
                 rvAccounts.visibility = View.GONE
                 expandRow.setImageResource(R.drawable.ic_baseline_arrow_right_24)
-                accountHeaderBalance.setTextColor(ContextCompat.getColor(itemView.context, R.color.app_option_text))
             }
         }
     }

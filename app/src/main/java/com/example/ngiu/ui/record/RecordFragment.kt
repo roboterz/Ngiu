@@ -2,47 +2,37 @@ package com.example.ngiu.ui.record
 
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.app.AlertDialog
-import android.app.Dialog
-import android.content.Context
-import android.content.res.Resources
 import android.os.Bundle
-import android.util.DisplayMetrics
-import android.view.*
-import android.widget.EditText
-import android.widget.ListPopupWindow.MATCH_PARENT
-import android.widget.TextView
+import android.view.LayoutInflater
+import android.view.MotionEvent
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.core.view.forEach
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.*
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
-import com.afollestad.materialdialogs.MaterialDialog
-import com.afollestad.materialdialogs.customview.customView
 import com.example.ngiu.MainActivity
 import com.example.ngiu.R
-import com.example.ngiu.data.entities.Category
-import com.example.ngiu.data.entities.Event
+import com.example.ngiu.data.AppDatabase
 import com.example.ngiu.data.entities.Trans
 import com.example.ngiu.databinding.FragmentRecordBinding
-import com.example.ngiu.functions.*
+import com.example.ngiu.functions.DateTimePicker
+import com.example.ngiu.functions.SelectItem
 import kotlinx.android.synthetic.main.fragment_record.*
 import kotlin.collections.ArrayList
+import com.example.ngiu.functions.popupWindow
 import com.example.ngiu.ui.keyboard.Keyboard
-import kotlinx.android.synthetic.main.fragment_account_list.*
 import kotlinx.android.synthetic.main.popup_title.view.*
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import java.util.*
-import kotlin.concurrent.fixedRateTimer
 
 
 class RecordFragment : Fragment() {
@@ -51,9 +41,7 @@ class RecordFragment : Fragment() {
     private lateinit var recordViewModel: RecordViewModel
     private var _binding: FragmentRecordBinding? = null
     private var vpAdapter: RecordCategoryAdapter? = null
-    private var receivedTransID: Long = 0
-    private var receivedAccountID: Long = 0
-    private var receivedTransTypeID: Long = 0
+    private var receivedID: Long = 0
     private var receivedString: String = ""
 
     // This property is only valid between onCreateView and
@@ -67,14 +55,14 @@ class RecordFragment : Fragment() {
 
 
         // receive data from other fragment
-        receivedTransID = arguments?.getLong("Transaction_ID")!!
-        receivedAccountID = arguments?.getLong("Account_ID")!!
-        receivedTransTypeID = arguments?.getLong("TransactionType_ID")!!
+        receivedID = arguments?.getLong("Transaction_ID")!!
+
+
 
         // get string from category manage
         setFragmentResultListener("category_manage") { _, bundle ->
-            receivedString = bundle.getString("category_Name").toString()
-            recordViewModel.transDetail.Category_Name = receivedString
+            receivedString = bundle.getString("subCategory_Name").toString()
+            recordViewModel.transDetail.SubCategory_Name = receivedString
         }
 
 
@@ -94,12 +82,7 @@ class RecordFragment : Fragment() {
 
 
         // load Data to Ram
-        recordViewModel.loadDataToRam(requireContext())
-        if (receivedTransTypeID > 0) {
-            recordViewModel.transDetail.TransactionType_ID = receivedTransTypeID
-        }
-        // todo category未选中（Transfer and Debit & Credit），账号不固定，
-        // 初始化Cate
+        recordViewModel.loadDataToRam(activity)
 
         Thread {
             // load Data to Ram
@@ -112,11 +95,11 @@ class RecordFragment : Fragment() {
                         RecordCategoryAdapter(object : RecordCategoryAdapter.OnClickListener {
 
                             // catch the item click event from adapter
-                            override fun onItemClick(categoryName: String) {
+                            override fun onItemClick(subCategoryName: String) {
                                 // do something after clicked
-                                tv_record_category.text = categoryName
-                                recordViewModel.setSubCategoryName(categoryName)
-                                showAccountName(categoryName)
+                                tv_record_category.text = subCategoryName
+                                recordViewModel.setSubCategoryName(subCategoryName)
+                                showAccountName(subCategoryName)
                             }
                         })
                     }
@@ -142,35 +125,35 @@ class RecordFragment : Fragment() {
 
         //tv_record_amount.addDecimalLimiter()
 
-        if (receivedTransID > 0L ) {
+        if (receivedID > 0) {
             // show delete menu
             toolbar_record.menu.findItem(R.id.action_delete).isVisible = true
             // show delete button
             tv_record_left_button.text = getText(R.string.menu_delete)
 
-            recordViewModel.loadTransactionDetail(view.context, receivedTransID)
+            recordViewModel.loadTransactionDetail(activity, receivedID)
         }
 
 
         // touch Expense textView, switch to Expense page
         tvSectionExpense.setOnClickListener {
-            setStatus(recordViewModel.setTransactionType(TRANSACTION_TYPE_EXPENSE))
-            loadCommonCategory(TRANSACTION_TYPE_EXPENSE)
+            setStatus(recordViewModel.setTransactionType(1L))
+            loadCommonCategory(1L)
         }
         // touch Income textView, switch to Income page
         tvSectionIncome.setOnClickListener {
-            setStatus(recordViewModel.setTransactionType(TRANSACTION_TYPE_INCOME))
-            loadCommonCategory(TRANSACTION_TYPE_INCOME)
+            setStatus(recordViewModel.setTransactionType(2L))
+            loadCommonCategory(2L)
         }
         // touch Transfer textView, switch to Transfer page
         tvSectionTransfer.setOnClickListener {
-            setStatus(recordViewModel.setTransactionType(TRANSACTION_TYPE_TRANSFER))
-            loadCommonCategory(TRANSACTION_TYPE_TRANSFER)
+            setStatus(recordViewModel.setTransactionType(3L))
+            loadCommonCategory(3L)
         }
         // touch DebitCredit textView, switch to DebitCredit page
         tvSectionDebitCredit.setOnClickListener {
-            setStatus(recordViewModel.setTransactionType(TRANSACTION_TYPE_DEBIT))
-            loadCommonCategory(TRANSACTION_TYPE_DEBIT)
+            setStatus(recordViewModel.setTransactionType(4L))
+            loadCommonCategory(4L)
         }
 
 
@@ -185,8 +168,7 @@ class RecordFragment : Fragment() {
         // click the navigation Icon in the left side of toolbar
         toolbar_record.setNavigationOnClickListener{
             // call back button event to switch to previous fragment
-            //requireActivity().onBackPressed()
-            NavHostFragment.findNavController(this).navigateUp()
+            requireActivity().onBackPressed()
         }
 
         // menu item clicked
@@ -195,17 +177,16 @@ class RecordFragment : Fragment() {
                 // done menu
                 R.id.action_done -> {
                     // save record
-                    if (saveRecord(receivedTransID) == 0) {
+                    if (saveRecord(receivedID) == 0) {
                         // call back button event to switch to previous fragment
-                        //requireActivity().onBackPressed()
-                        NavHostFragment.findNavController(this).navigateUp()
+                        requireActivity().onBackPressed()
                     }
                     true
                 }
                 // delete menu
                 R.id.action_delete -> {
                     // delete record
-                    deleteRecord(activity, receivedTransID)
+                    deleteRecord(activity, receivedID)
                     true
                 }
 
@@ -215,18 +196,17 @@ class RecordFragment : Fragment() {
 
         // Save Button
         tv_record_right_button.setOnClickListener {
-            if (saveRecord(receivedTransID) == 0) {
+            if (saveRecord(receivedID) == 0) {
                 // exit
-                //requireActivity().onBackPressed()
-                NavHostFragment.findNavController(this).navigateUp()
+                requireActivity().onBackPressed()
             }
         }
 
         // Save and Next Button | Delete Button
         tv_record_left_button.setOnClickListener {
-            if (receivedTransID > 0){
+            if (receivedID > 0){
                 // delete
-                deleteRecord(activity, receivedTransID)
+                deleteRecord(activity, receivedID)
             }else{
                 // save and next
                 if (saveRecord() == 0) tv_record_amount.text = "0.00"
@@ -264,7 +244,7 @@ class RecordFragment : Fragment() {
                 val s = Calendar.getInstance().get(Calendar.SECOND)
                 tv_record_time.text = LocalTime.of(hour, minute, s).toString()
                 recordViewModel.transDetail.Transaction_Date =
-                   getInternationalDateFromAmericanDate(tv_record_date.text.toString() + " " + tv_record_time.text.toString())
+                    getInternationalDateFromAmericanDate(tv_record_date.text.toString() + " " + tv_record_time.text.toString())
             }
         }
 
@@ -330,7 +310,6 @@ class RecordFragment : Fragment() {
 
 
         // touch feedback
-        // other info -- under Memo section
         layout_record_other_info.forEach {
             if (it.tag == "other_info"){
                 it.setOnTouchListener { _, motionEvent ->
@@ -347,7 +326,7 @@ class RecordFragment : Fragment() {
         // all category
         tv_record_all_category.setOnClickListener{
             when (recordViewModel.transDetail.TransactionType_ID){
-                TRANSACTION_TYPE_EXPENSE, TRANSACTION_TYPE_INCOME -> openCategoryManager(recordViewModel.transDetail.TransactionType_ID)
+                1L,2L -> openCategoryManager()
             }
         }
 
@@ -355,11 +334,11 @@ class RecordFragment : Fragment() {
         // category
         tv_record_category.setOnClickListener {
             when (recordViewModel.transDetail.TransactionType_ID){
-                TRANSACTION_TYPE_EXPENSE, TRANSACTION_TYPE_INCOME -> openCategoryManager(recordViewModel.transDetail.TransactionType_ID)
+                1L,2L -> openCategoryManager()
             }
         }
         tv_record_category.doAfterTextChanged{
-            recordViewModel.transDetail.Category_Name = tv_record_category.text.toString()
+            recordViewModel.transDetail.SubCategory_Name = tv_record_category.text.toString()
         }
 
 
@@ -382,9 +361,6 @@ class RecordFragment : Fragment() {
 
         // account pay
         tv_record_account_pay.setOnClickListener {
-
-            //showAccountListDialog(view.context, 0L)
-
             if (tv_record_account_pay.text.toString() != getString(R.string.msg_no_account)) {
                 // load account name as list and show it in a popup window
                 val nameList: Array<String> = recordViewModel.getListOfAccountName(tv_record_account_receive.text.toString(),true)
@@ -397,7 +373,7 @@ class RecordFragment : Fragment() {
                     })
             }else{
                 // create new account if no account
-                createNewAccount(recordViewModel.transDetail.Category_Name, true)
+                createNewAccount(recordViewModel.transDetail.SubCategory_Name, true)
             }
         }
         tv_record_account_pay.doAfterTextChanged{
@@ -420,7 +396,7 @@ class RecordFragment : Fragment() {
                     })
             }else{
                 // create new account if no account
-                createNewAccount(recordViewModel.transDetail.Category_Name, false)
+                createNewAccount(recordViewModel.transDetail.SubCategory_Name, false)
             }
 
         }
@@ -435,7 +411,10 @@ class RecordFragment : Fragment() {
         }
     }
 
-
+    private fun getInternationalDateFromAmericanDate(string: String): LocalDateTime {
+        val lDateTime: LocalDateTime =  LocalDateTime.parse(string, DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss"))
+        return LocalDateTime.parse(lDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+    }
 
 
     // called when the fragment is visible and actively running.
@@ -443,7 +422,7 @@ class RecordFragment : Fragment() {
         super.onResume()
 
         // load data to UI textview
-        loadUIData(receivedTransID)
+        loadUIData(receivedID)
     }
 
 
@@ -461,16 +440,16 @@ class RecordFragment : Fragment() {
     //------------------------------------------Private Functions--------------------------------------------------
 
 
-    private fun showAccountName(categoryName: String, blnNew: Boolean = true) {
-        if (recordViewModel.transDetail.TransactionType_ID == TRANSACTION_TYPE_DEBIT){
-            when (recordViewModel.getCategoryID(categoryName)) {
+    private fun showAccountName(subCategoryName: String) {
+        if (recordViewModel.transDetail.TransactionType_ID == 4L){
+            when (recordViewModel.getSubCategoryID(subCategoryName)) {
                 // borrow in | received
-                CATEGORY_SUB_BORROW, CATEGORY_SUB_RECEIVE_PAYMENT -> {
+                7L, 10L -> {
                     tv_record_account_pay.text =  recordViewModel.tempSavedAccountName[2]
                     tv_record_account_receive.text = recordViewModel.tempSavedAccountName[3]
                 }
                 // lend out | repayment
-                CATEGORY_SUB_LEND, CATEGORY_SUB_PAYMENT -> {
+                8L, 9L -> {
                     tv_record_account_pay.text =  recordViewModel.tempSavedAccountName[3]
                     tv_record_account_receive.text = recordViewModel.tempSavedAccountName[2]
                 }
@@ -483,11 +462,11 @@ class RecordFragment : Fragment() {
     }
 
 
-    private fun createNewAccount(categoryName: String, payable: Boolean) {
+    private fun createNewAccount(subcategoryName: String, payable: Boolean) {
 
-        when (recordViewModel.getCategoryID(categoryName)) {
+        when (recordViewModel.getSubCategoryID(subcategoryName)) {
             // borrow in | received
-            CATEGORY_SUB_BORROW, CATEGORY_SUB_RECEIVE_PAYMENT -> {
+            7L, 10L -> {
                 if (payable){
                     // create P/R account
                     val bundle = Bundle().apply {
@@ -500,7 +479,7 @@ class RecordFragment : Fragment() {
                 }
             }
             // lend out | repayment
-            CATEGORY_SUB_LEND, CATEGORY_SUB_PAYMENT -> {
+            8L, 9L -> {
                 if (!payable) {
                     // create P/R account
                     // todo create P/R account
@@ -522,37 +501,15 @@ class RecordFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun loadUIData(transactionID: Long){
-        recordViewModel.setSubCategoryName(recordViewModel.transDetail.Category_Name)
+        recordViewModel.setTransactionType(recordViewModel.transDetail.TransactionType_ID)
 
         if (transactionID > 0 || receivedString.isNotEmpty()) {
             // edit record
             //load data to textview
-            recordViewModel.setTransactionType(recordViewModel.transDetail.TransactionType_ID)
-
-
+            recordViewModel.setSubCategoryName(recordViewModel.transDetail.SubCategory_Name)
 
         }else{
             // new record
-//            if (receivedTransTypeID > 0) {
-//                recordViewModel.setTransactionType(receivedTransTypeID)
-//            }
-
-            // todo when add a record from account detail frame
-            // set category as "Borrow" when open a new record from RP account
-            if (receivedTransTypeID == TRANSACTION_TYPE_DEBIT) {
-                //val tempCate = recordViewModel.category[recordViewModel.category.indexOfFirst { it.Category_ID == CATEGORY_SUB_BORROW }].Category_Name
-                //tv_record_category.text = categoryName
-                recordViewModel.setSubCategoryName(recordViewModel.debitCreditCommonCategory[0].Category_Name)
-                showAccountName(recordViewModel.debitCreditCommonCategory[0].Category_Name)
-                recordViewModel.setAccountName(true, recordViewModel.account[recordViewModel.account.indexOfFirst { it.Account_ID == receivedAccountID }].Account_Name)
-                //recordViewModel.transDetail.Category_Name = recordViewModel.debitCreditCommonCategory[0].Category_Name
-                //todo bug: account name was changed after click category.
-
-                //bug: open category manager then go back will lock on debit transition type.(fixed)
-                setStatus(recordViewModel.setTransactionType(TRANSACTION_TYPE_DEBIT))
-                //loadCommonCategory(TRANSACTION_TYPE_DEBIT)
-                receivedTransTypeID=0
-            }
                 /*
             if (recordViewModel.transDetail.Account_Name.isEmpty()) {
                 if (recordViewModel.account.isNotEmpty()){
@@ -585,7 +542,7 @@ class RecordFragment : Fragment() {
         tv_record_date.text = recordViewModel.transDetail.Transaction_Date.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"))
         tv_record_time.text = recordViewModel.transDetail.Transaction_Date.format(DateTimeFormatter.ofPattern("HH:mm:ss"))
         tv_record_amount.text = "%.2f".format(recordViewModel.transDetail.Transaction_Amount)
-        tv_record_account_pay.text = recordViewModel.getPayOutAccountName(requireContext(), 0L, 1L, receivedAccountID)
+        tv_record_account_pay.text = recordViewModel.transDetail.Account_Name
         tv_record_account_receive.text = recordViewModel.transDetail.AccountRecipient_Name
         tv_record_memo.setText(recordViewModel.transDetail.Transaction_Memo)
         tv_record_person.text = recordViewModel.transDetail.Person_Name
@@ -618,7 +575,7 @@ class RecordFragment : Fragment() {
             val trans = Trans(
                 Transaction_ID = transactionID,
                 TransactionType_ID = recordViewModel.transDetail.TransactionType_ID,
-                Category_ID = recordViewModel.getCategoryID(tv_record_category.text.toString()),
+                SubCategory_ID = recordViewModel.getSubCategoryID(tv_record_category.text.toString()),
                 Account_ID = recordViewModel.getAccountID(tv_record_account_pay.text.toString()),
                 Transaction_Amount = tv_record_amount.text.toString().toDouble(),
                 Transaction_Date = recordViewModel.transDetail.Transaction_Date,
@@ -629,7 +586,7 @@ class RecordFragment : Fragment() {
                 Transaction_ReimburseStatus = recordViewModel.transDetail.Transaction_ReimburseStatus
             )
 
-            trans.AccountRecipient_ID = if (recordViewModel.transDetail.TransactionType_ID < TRANSACTION_TYPE_TRANSFER) trans.Account_ID
+            trans.AccountRecipient_ID = if (recordViewModel.transDetail.TransactionType_ID < 3L) trans.Account_ID
                                         else recordViewModel.getAccountID(tv_record_account_receive.text.toString())
 
             if (trans.Account_ID < 1L || trans.AccountRecipient_ID < 1L) {
@@ -644,9 +601,10 @@ class RecordFragment : Fragment() {
 
             // save
             if (transactionID > 0) {
-                recordViewModel.updateTransaction(requireContext(), trans)
+
+                AppDatabase.getDatabase(requireContext()).trans().updateTransaction(trans)
             } else {
-                recordViewModel.addTransaction(requireContext(),trans)
+                AppDatabase.getDatabase(requireContext()).trans().addTransaction(trans)
             }
 
             Toast.makeText(context,getText(R.string.msg_saved),Toast.LENGTH_SHORT).show()
@@ -663,14 +621,11 @@ class RecordFragment : Fragment() {
         dialogBuilder.setMessage(getText(R.string.msg_content_transaction_delete))
             .setCancelable(true)
             .setPositiveButton(getText(R.string.msg_button_confirm)) { _, _ ->
-
                 // delete record
                 val trans = Trans(Transaction_ID = transactionID)
-                recordViewModel.deleteTrans(requireContext(),trans)
+                AppDatabase.getDatabase(requireContext()).trans().deleteTransaction(trans)
                 // exit
-                //requireActivity().onBackPressed()
-                NavHostFragment.findNavController(this).navigateUp()
-
+                requireActivity().onBackPressed()
             }
             .setNegativeButton(getText(R.string.msg_button_cancel)) { dialog, _ ->
                 // cancel
@@ -695,10 +650,10 @@ class RecordFragment : Fragment() {
             activity?.runOnUiThread {
 
                 val cmCategory = when (tyID){
-                    TRANSACTION_TYPE_EXPENSE -> recordViewModel.expenseCommonCategory
-                    TRANSACTION_TYPE_INCOME -> recordViewModel.incomeCommonCategory
-                    TRANSACTION_TYPE_TRANSFER -> recordViewModel.transferCommonCategory
-                    TRANSACTION_TYPE_DEBIT -> recordViewModel.debitCreditCommonCategory
+                    1L -> recordViewModel.expenseCommonCategory
+                    2L -> recordViewModel.incomeCommonCategory
+                    3L -> recordViewModel.transferCommonCategory
+                    4L -> recordViewModel.debitCreditCommonCategory
                     else -> emptyList()
                 }
 
@@ -715,13 +670,13 @@ class RecordFragment : Fragment() {
 
     private fun setReimburseIcon(transactionReimburseStatus: Int) {
         when(transactionReimburseStatus){
-            NON_REIMBURSABLE -> {
+            0 -> {
                 tv_record_reimburse.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_baseline_check_box_outline_blank_24,0,0,0)
             }
-            REIMBURSABLE -> {
+            1 -> {
                 tv_record_reimburse.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_baseline_indeterminate_check_box_24,0,0,0)
             }
-            REIMBURSED -> {
+            2 -> {
                 tv_record_reimburse.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_baseline_check_box_24,0,0,0)
             }
         }
@@ -739,8 +694,8 @@ class RecordFragment : Fragment() {
         tvSectionDebitCreditPointer.visibility = ctt.debitCreditPointer
         tv_record_amount.setTextColor(
             when (recordViewModel.transDetail.TransactionType_ID){
-                TRANSACTION_TYPE_EXPENSE -> ContextCompat.getColor( requireContext(), R.color.app_expense_amount)
-                TRANSACTION_TYPE_INCOME -> ContextCompat.getColor( requireContext(), R.color.app_income_amount)
+                1L -> ContextCompat.getColor( requireContext(), R.color.app_expense_amount)
+                2L -> ContextCompat.getColor( requireContext(), R.color.app_income_amount)
                 else -> ContextCompat.getColor( requireContext(), R.color.app_amount)
             }
         )
@@ -759,7 +714,7 @@ class RecordFragment : Fragment() {
 
 
         when (recordViewModel.transDetail.TransactionType_ID) {
-            TRANSACTION_TYPE_EXPENSE, TRANSACTION_TYPE_INCOME -> {
+            1L,2L -> {
                 iv_record_swap.visibility = View.INVISIBLE
                 tv_record_account_receive.visibility = View.INVISIBLE
                 tv_record_common_category.visibility = View.VISIBLE
@@ -767,7 +722,7 @@ class RecordFragment : Fragment() {
                 // account name
                 if (recordViewModel.transDetail.Account_Name.isEmpty()) tv_record_account_pay.text = recordViewModel.getAccountName(true)
             }
-            TRANSACTION_TYPE_TRANSFER -> {
+            3L -> {
                 iv_record_swap.visibility = View.VISIBLE
                 iv_record_swap.isClickable = true
                 iv_record_swap.setImageDrawable(requireContext().getDrawable(R.drawable.ic_baseline_swap_horiz_24))
@@ -783,7 +738,7 @@ class RecordFragment : Fragment() {
                     else tv_record_account_receive.text = getString(R.string.msg_no_account)
                 }
             }
-            TRANSACTION_TYPE_DEBIT -> {
+            4L -> {
                 iv_record_swap.visibility = View.VISIBLE
                 iv_record_swap.isClickable = false
                 iv_record_swap.setImageDrawable(requireContext().getDrawable(R.drawable.ic_baseline_keyboard_arrow_right_24))
@@ -801,49 +756,19 @@ class RecordFragment : Fragment() {
 
     }
 
-    private fun openCategoryManager(transactionID: Long) {
+    private fun openCategoryManager() {
         // hide nav bottom bar
         //(activity as MainActivity).setNavBottomBarVisibility(View.GONE)
 
         setFragmentResult("category_manage_mode", bundleOf("edit_mode" to false))
-        setFragmentResult("category_manage_type", bundleOf("transaction_type" to transactionID))
+        setFragmentResult("category_manage_type", bundleOf("transaction_type" to recordViewModel.transDetail.TransactionType_ID))
 
         // switch to category manage fragment
         findNavController().navigate(R.id.navigation_category_manage)
     }
 
 
-    @SuppressLint("CutPasteId")
-    private fun showAccountListDialog(context: Context, event_ID: Long = 0L){
-
-//        val dialog = MaterialDialog(context)
-//            .noAutoDismiss()
-//            .customView(R.layout.fragment_account_list, noVerticalPadding = true)
-//
-//        //val displayMetrics = DisplayMetrics()
-//
-//        dialog.account_list_layout.minHeight = Resources.getSystem().displayMetrics.heightPixels
-//        dialog.account_list_layout.minWidth = Resources.getSystem().displayMetrics.widthPixels
-//
-//        //dialog.window?.setLayout(Resources.getSystem().displayMetrics.widthPixels,Resources.getSystem().displayMetrics.heightPixels)
-//
-//        dialog.show()
-
-        val dialog = Dialog(context,android.R.style.Theme_DeviceDefault_NoActionBar)
-
-        dialog.setContentView(R.layout.fragment_account_list)
-
-        dialog.toolbar_account_list.setNavigationOnClickListener{
-            dialog.dismiss()
-        }
-
-
-        dialog.show()
-
-
-
-    }
-
-
-
 }
+
+
+

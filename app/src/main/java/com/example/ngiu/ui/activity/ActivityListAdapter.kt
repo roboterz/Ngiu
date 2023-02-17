@@ -16,7 +16,7 @@ import kotlin.collections.ArrayList
 
 
 class ActivityListAdapter(
-    private val onClick: OnClickListener
+    private val onClickListener: OnClickListener
     )
     : RecyclerView.Adapter<ActivityListAdapter.ViewHolder>() {
 
@@ -46,14 +46,14 @@ class ActivityListAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         // display the custom class
         transDetail[position].apply {
-            holder.monthDay.text = Transaction_Date.format(DateTimeFormatter.ofPattern("MM/dd"))
-            holder.week.text =Transaction_Date.format(DateTimeFormatter.ofPattern("EEEE"))
+            holder.monthDay.text = Transaction_Date?.format(DateTimeFormatter.ofPattern("MM/dd"))
+            holder.week.text =Transaction_Date?.format(DateTimeFormatter.ofPattern("EEEE"))
             //holder.income.text = "Income"
             //holder.dailyIncome.text ="$0.00"
             //holder.expense.text = "Expense"
             //holder.dailyExpense.text ="$0.00"
-            holder.time.text = Transaction_Date.format(DateTimeFormatter.ofPattern("HH:mm"))
-            holder.year.text = Transaction_Date.format(DateTimeFormatter.ofPattern("yyyy"))
+            holder.time.text = Transaction_Date?.format(DateTimeFormatter.ofPattern("HH:mm"))
+            holder.year.text = Transaction_Date?.format(DateTimeFormatter.ofPattern("yyyy"))
             //holder.period.text = ""
             holder.memo.text = Transaction_Memo
 
@@ -62,7 +62,7 @@ class ActivityListAdapter(
 
             // TransactionType 1, 2
             if (TransactionType_ID in 1L..2L) {
-                holder.subCategory.text = Category_Name
+                holder.subCategory.text = SubCategory_Name
                 holder.account.text = Account_Name
                 holder.person.text = Person_Name
                 holder.merchant.text = Merchant_Name
@@ -112,7 +112,7 @@ class ActivityListAdapter(
 
             // pass the item click listener to fragment
             holder.aItem.setOnClickListener {
-                onClick.onItemClick(Transaction_ID)
+                onClickListener.onItemClick(Transaction_ID)
             }
 
         }

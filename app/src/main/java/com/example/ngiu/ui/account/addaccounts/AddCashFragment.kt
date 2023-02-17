@@ -1,6 +1,5 @@
 package com.example.ngiu.ui.account.addaccounts
 
-import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -21,10 +20,6 @@ import kotlinx.android.synthetic.main.fragment_account_add_cash.*
 import kotlinx.android.synthetic.main.popup_title.view.*
 import android.util.Log
 import android.widget.Toast
-import androidx.fragment.app.FragmentActivity
-import com.example.ngiu.data.AppDatabase
-import com.example.ngiu.data.entities.Trans
-import com.example.ngiu.functions.*
 import kotlinx.android.synthetic.main.fragment_account_add_web_account.*
 
 
@@ -36,7 +31,7 @@ class AddCashFragment : Fragment() {
     var currency = "USD"
     lateinit var page: String
     var accountTypeID : Long = 0L
-    var accountID : Long= 0L
+    var id : Long= 0L
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,35 +51,35 @@ class AddCashFragment : Fragment() {
         when (page) {
             "add_cash" -> {
                 binding.toolbarAddCashAccount.title = "Add Cash"
-                accountTypeID = ACCOUNT_TYPE_CASH
+                accountTypeID = 1L
             }
             "edit_cash" -> {
                 binding.toolbarAddCashAccount.title = "Edit Cash"
                 binding.toolbarAddCashAccount.menu.findItem(R.id.action_delete).isVisible = true
-                accountTypeID = ACCOUNT_TYPE_CREDIT
+                accountTypeID = 1L
 
-                accountID = arguments?.getLong("id")!!
+                id = arguments?.getLong("id")!!
              /*   binding.cashBalanceTextLayout.isEnabled = false
                 binding.btnCashAddOtherCurrency.isEnabled = false*/
-                fetchAccountDetails(accountID)
+                fetchAccountDetails(id)
             }
             "add_payable" -> {
                 binding.toolbarAddCashAccount.title = "Add Receivable/Payable"
-                accountTypeID = ACCOUNT_TYPE_RECEIVABLE
+                accountTypeID = 9L
             }
             "edit_payable" -> {
                 binding.toolbarAddCashAccount.title = "Edit Receivable/Payable"
                 binding.toolbarAddCashAccount.menu.findItem(R.id.action_delete).isVisible = true
-                accountTypeID = ACCOUNT_TYPE_RECEIVABLE
-                accountID = arguments?.getLong("id")!!
+                accountTypeID = 9L
+                id = arguments?.getLong("id")!!
 
-                fetchAccountDetails(accountID)
+                fetchAccountDetails(id)
             }
         }
     }
 
-    private fun fetchAccountDetails(acctID: Long) {
-        val account =  addCashViewModel.getAccountByID(requireContext(),acctID)
+    private fun fetchAccountDetails(id: Long) {
+        val account =  addCashViewModel.getAccountByID(requireContext(),id)
         binding.tetCashAccountName.setText(account.Account_Name)
         binding.tetCashBalance.setText(account.Account_Balance.toString())
         binding.tetCashMemo.setText(account.Account_Memo)
@@ -128,22 +123,22 @@ class AddCashFragment : Fragment() {
                 }
                 "edit_cash" -> {
 
-                    var tempID : Long= 0L
-                    tempID = arguments?.getLong("id")!!
+                    var id : Long= 0L
+                    id = arguments?.getLong("id")!!
 
-                    updateAccount(tempID)
+                    updateAccount(id)
                 }
                 "add_payable" -> {
                     binding.toolbarAddCashAccount.title = "Add Receivable/Payable"
-                    accountTypeID = ACCOUNT_TYPE_RECEIVABLE
+                    accountTypeID = 9L
                     submitForm()
 
                 }
                 "edit_payable" -> {
                     binding.toolbarAddCashAccount.title = "Edit Receivable/Payable"
-                    var tempID : Long= 0L
-                    tempID = arguments?.getLong("id")!!
-                    updateAccount(tempID)
+                    var id : Long= 0L
+                    id = arguments?.getLong("id")!!
+                    updateAccount(id)
                 }
             }
 
@@ -199,9 +194,10 @@ class AddCashFragment : Fragment() {
         binding.toolbarAddCashAccount.setOnMenuItemClickListener{
             when (it.itemId) {
                 R.id.action_delete -> {
-
-                    deleteAccount(requireActivity(), accountID)
-
+                    // navigate to add record screen
+                   addCashViewModel.deleteAccount(requireContext(),id)
+                    findNavController().navigate(R.id.navigation_account)
+                    Toast.makeText(requireContext(), "Successfully Deleted Your Account", Toast.LENGTH_LONG).show()
                     true
                 }
 
@@ -212,10 +208,10 @@ class AddCashFragment : Fragment() {
 
     }
 
-    private fun updateAccount(acctID: Long) {
+    private fun updateAccount(id: Long) {
 
         val account = Account(
-            Account_ID = acctID,
+            Account_ID = id,
             Account_Name = binding.tetCashAccountName.text.toString(),
             Account_Balance = binding.tetCashBalance.text.toString().toDouble(),
             Account_CountInNetAssets = binding.scCashCountNetAssets.isChecked,
@@ -310,40 +306,5 @@ class AddCashFragment : Fragment() {
         return null
     }
 
-    // delete record
-    @SuppressLint("InflateParams")
-    private fun deleteAccount(activity: FragmentActivity?, accountID: Long) {
-
-        val dialogBuilder = AlertDialog.Builder(activity)
-
-        dialogBuilder.setMessage(getText(R.string.msg_content_account_delete))
-            .setCancelable(true)
-            .setPositiveButton(getText(R.string.msg_button_confirm)) { _, _ ->
-
-                //delete account
-                addCashViewModel.deleteAccount(requireContext(),accountID)
-                // navigate to account list screen
-                findNavController().navigate(R.id.navigation_account)
-                Toast.makeText(requireContext(), "Successfully Deleted Your Account", Toast.LENGTH_LONG).show()
-
-                // exit
-                //requireActivity().onBackPressed()
-
-            }
-            .setNegativeButton(getText(R.string.msg_button_cancel)) { dialog, _ ->
-                // cancel
-                dialog.cancel()
-            }
-
-        // set Title Style
-        val titleView = layoutInflater.inflate(R.layout.popup_title,null)
-        // set Title Text
-        titleView.tv_popup_title_text.text = getText(R.string.msg_Title_prompt)
-
-        val alert = dialogBuilder.create()
-        //alert.setIcon(R.drawable.ic_baseline_delete_forever_24)
-        alert.setCustomTitle(titleView)
-        alert.show()
-    }
 
 }

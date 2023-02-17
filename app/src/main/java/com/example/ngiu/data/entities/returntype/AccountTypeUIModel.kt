@@ -12,7 +12,6 @@ data class AccountTypeUIModel(val Name: String, val Memo: String? = null)
 
 
 data class AccountSectionUiModel(
-    val accountTypeID: Long,
     val title: String,
     val balance: String,
     var isExpanded: Boolean,
@@ -26,7 +25,7 @@ data class AccountTransRecordModel(
     val trans_amount: String,
     val balance: String,
     val date: String,
-    val trans_type_id: Long,
+    val trans_id: Long,
     val recipient_ID: Long,
     val id: Long,
     val account_ID: Long

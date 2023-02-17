@@ -11,7 +11,6 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.Account
-import com.example.ngiu.functions.*
 import com.example.ngiu.functions.changeColor
 import com.example.ngiu.functions.toDayLeft
 import com.example.ngiu.functions.toStatementDate
@@ -73,7 +72,7 @@ class AccountAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             }
             changeColor(viewHolder.currentCreditBalance, item.Account_Balance)
             // credit card
-            if (item.AccountType_ID == ACCOUNT_TYPE_CREDIT) {
+            if (item.AccountType_ID == 2L) {
                 if (item.Account_Balance >= 0.0) {
                     viewHolder.numberOfDays.text = toDayLeft(item.Account_StatementDay)
                     viewHolder.date.text = toStatementDate(item.Account_StatementDay)
@@ -84,7 +83,7 @@ class AccountAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                     viewHolder.creditPaymentDay.visibility = View.GONE
                 }
                 // debit card
-            } else if (item.AccountType_ID == ACCOUNT_TYPE_DEBIT) {
+            } else if (item.AccountType_ID == 3L) {
                 viewHolder.numberOfDays.visibility = View.GONE
                 viewHolder.date.visibility = View.GONE
                 viewHolder.numberOfDays.visibility = View.GONE
@@ -106,10 +105,10 @@ class AccountAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             }
 
             when (item.AccountType_ID) {
-                ACCOUNT_TYPE_CREDIT -> {
+                2L -> {
                     holder.itemView.findNavController().navigate(R.id.accountCreditRecords, bundle)
                 }
-                ACCOUNT_TYPE_RECEIVABLE -> {
+                9L -> {
                     holder.itemView.findNavController().navigate(R.id.accountRecordsPR, bundle)
                 }
                 else -> {
@@ -123,8 +122,8 @@ class AccountAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun getItemViewType(position: Int): Int {
         val item: Account = accounts[position]
        return when(item.AccountType_ID) {
-           ACCOUNT_TYPE_CASH -> VIEW_TYPE_CASH
-           ACCOUNT_TYPE_CREDIT, ACCOUNT_TYPE_DEBIT -> VIEW_TYPE_CREDIT
+            1L -> VIEW_TYPE_CASH
+            in 2..3L -> VIEW_TYPE_CREDIT
             else -> VIEW_TYPE_CASH
         }
     }

@@ -17,8 +17,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.MainActivity
 import com.example.ngiu.R
 import com.example.ngiu.databinding.FragmentAccountPRDetailBinding
-import com.example.ngiu.functions.TRANSACTION_TYPE_DEBIT
-import com.example.ngiu.functions.TRANSACTION_TYPE_EXPENSE
 import kotlinx.android.synthetic.main.fragment_account_p_r_detail.*
 import kotlin.math.abs
 
@@ -99,7 +97,7 @@ class AccountPRDetailFragment : Fragment() {
             when (it.itemId) {
                 R.id.action_add -> {
                     // navigate to add record screen
-                    navigateToRecordFragment(0, accountPRDetailViewModel.accountID, TRANSACTION_TYPE_DEBIT)
+                    navigateToRecordFragment()
                     true
                 }
                 R.id.action_edit -> {
@@ -157,13 +155,11 @@ class AccountPRDetailFragment : Fragment() {
     }
 
 
-    private fun navigateToRecordFragment(trans_ID: Long = 0, account_ID: Long = 0, transType_ID: Long = 0){
+    private fun navigateToRecordFragment(transID: Long = 0){
+
         val bundle = Bundle().apply {
-            putLong("Transaction_ID", trans_ID)
-            putLong("Account_ID", account_ID)
-            putLong("TransactionType_ID", transType_ID)
+            putLong("Transaction_ID", transID)
         }
-        // todo open record fragment with specified account or specified transaction type
         // switch to record fragment
         findNavController().navigate(R.id.navigation_record, bundle)
     }

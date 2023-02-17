@@ -19,12 +19,6 @@
     <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">18sp</item>
     </style>
-
-    <style name="FullScreenDialog" parent="Theme.MaterialComponents.DayNight.Dialog">
-        <!-- Customize your theme here. -->
-        <item name="android:windowBackground">@android:color/white</item>
-        <item name="android:windowIsFloating">false</item>
-    </style>
 </resources>
 
 

@@ -14,7 +14,7 @@ class AddAccountViewModel : ViewModel() {
 
      fun getAccountType(context: Context) {
          val appDatabase = AppDatabase.getDatabase(context)
-         val accountTypes = appDatabase.accountType().getAllAccountType()
+         val accountTypes = appDatabase.accounttype().getAllAccountType()
 
          val sections = ArrayList<AccountTypeUIModel>()
 

@@ -12,7 +12,6 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.returntype.RecordDetail
-import com.example.ngiu.functions.*
 import kotlinx.android.synthetic.main.cardview_account_credit_detail_item.view.*
 import java.time.format.DateTimeFormatter
 
@@ -45,42 +44,42 @@ class AccountCreditDetailAdapter()
 
             // category, amount , info
             when (TransactionType_ID){
-                TRANSACTION_TYPE_EXPENSE -> {
+                1L -> {
                     // category
-                    holder.recordText.text = Category_Name
+                    holder.recordText.text = SubCategory_Name
                     // amount
                     holder.recordAmount.text = "$" + "%.2f".format(Transaction_Amount)
                     holder.recordAmount.setTextColor(holder.expenseColor)
 
                 }
-                TRANSACTION_TYPE_INCOME -> {
+                2L -> {
                     // category
-                    holder.recordText.text = Category_Name
+                    holder.recordText.text = SubCategory_Name
                     // amount
                     holder.recordAmount.text = "$" + "%.2f".format(Transaction_Amount)
                     holder.recordAmount.setTextColor(holder.incomeColor)
                 }
-                TRANSACTION_TYPE_TRANSFER,TRANSACTION_TYPE_DEBIT ->{
+                3L,4L ->{
                     // category
-                    if (TransactionType_ID == TRANSACTION_TYPE_TRANSFER){
+                    if (TransactionType_ID == 3L){
                         if (Account_ID == currentAccountID){
                             holder.recordText.text = holder.itemView.context.getString(R.string.record_transfer_to) + " $AccountRecipient_Name"
                         }else{
                             holder.recordText.text = holder.itemView.context.getString(R.string.record_transfer_from) + " $Account_Name"
                         }
                     }
-                    if (TransactionType_ID == TRANSACTION_TYPE_DEBIT){
-                        when (Category_ID){
-                            CATEGORY_SUB_BORROW -> {
+                    if (TransactionType_ID == 4L){
+                        when (SubCategory_ID){
+                            7L -> {
                                 holder.recordText.text = holder.itemView.context.getString(R.string.record_borrow_from) + " $Account_Name"
                             }
-                            CATEGORY_SUB_LEND -> {
+                            8L -> {
                                 holder.recordText.text = holder.itemView.context.getString(R.string.record_lend_to) + " $AccountRecipient_Name"
                             }
-                            CATEGORY_SUB_PAYMENT -> {
+                            9L -> {
                                 holder.recordText.text = holder.itemView.context.getString(R.string.record_paid_to) + " $AccountRecipient_Name"
                             }
-                            CATEGORY_SUB_RECEIVE_PAYMENT -> {
+                            10L -> {
                                 holder.recordText.text = holder.itemView.context.getString(R.string.record_received_from) + " $Account_Name"
                             }
                         }

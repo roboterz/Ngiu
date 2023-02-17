@@ -28,7 +28,7 @@ class AccountFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
     private var rvAccount: RecyclerView? = null
-    private var adapter: AccountSectionAdapter? = null
+    private var adapter = AccountSectionAdapter()
 
 
 
@@ -59,14 +59,6 @@ class AccountFragment : Fragment() {
 
         accountViewModel.getAccountSectionUiModel(requireContext())
         rvAccount?.layoutManager = LinearLayoutManager(context)
-        adapter = this.context?.let{
-            AccountSectionAdapter(object: AccountSectionAdapter.OnClickListener{
-                override fun onItemClick(AccountTypeID: Long, isExpanded: Boolean) {
-                    // save the expanded status
-                    accountViewModel.saveExpandedStatus(it, AccountTypeID, isExpanded)
-                }
-            })
-        }
         rvAccount?.adapter = adapter
 
         val netAssets = accountViewModel.getNetAssets(requireContext())
@@ -82,7 +74,7 @@ class AccountFragment : Fragment() {
             //if(it.isEmpty()){
                 //findNavController().navigate(R.id.navigation_add_account)
             //}
-            adapter?.addItems(it)
+            adapter.addItems(it)
         }
 
 

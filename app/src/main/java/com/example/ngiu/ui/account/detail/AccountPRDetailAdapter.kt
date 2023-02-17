@@ -8,7 +8,6 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
-import com.example.ngiu.functions.*
 import com.example.ngiu.data.entities.returntype.RecordDetail
 import kotlinx.android.synthetic.main.cardview_account_p_r_detail_item.view.*
 import java.time.format.DateTimeFormatter
@@ -45,11 +44,11 @@ class AccountPRDetailAdapter(
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             // display the custom class
             listPRDetail[position].apply {
-                when (Category_ID){
-                    CATEGORY_SUB_BORROW -> { holder.recordText.text = holder.itemView.context.getString(R.string.record_borrow_from) + " $Account_Name"}
-                    CATEGORY_SUB_LEND -> { holder.recordText.text = holder.itemView.context.getString(R.string.record_lend_to) + " $AccountRecipient_Name"}
-                    CATEGORY_SUB_PAYMENT -> { holder.recordText.text = holder.itemView.context.getString(R.string.record_paid_to) + " $AccountRecipient_Name"}
-                    CATEGORY_SUB_RECEIVE_PAYMENT -> { holder.recordText.text = holder.itemView.context.getString(R.string.record_received_from) + " $Account_Name"}
+                when (SubCategory_ID){
+                    7L -> { holder.recordText.text = holder.itemView.context.getString(R.string.record_borrow_from) + " $Account_Name"}
+                    8L -> { holder.recordText.text = holder.itemView.context.getString(R.string.record_lend_to) + " $AccountRecipient_Name"}
+                    9L -> { holder.recordText.text = holder.itemView.context.getString(R.string.record_paid_to) + " $AccountRecipient_Name"}
+                    10L -> { holder.recordText.text = holder.itemView.context.getString(R.string.record_received_from) + " $Account_Name"}
                 }
 
                 holder.recordTime.text = Transaction_Date.format(recordTimeFormatter)

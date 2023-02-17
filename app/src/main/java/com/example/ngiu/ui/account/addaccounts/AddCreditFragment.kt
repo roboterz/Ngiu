@@ -15,7 +15,6 @@ import com.example.ngiu.R
 import com.example.ngiu.data.entities.Account
 import com.example.ngiu.data.entities.Currency
 import com.example.ngiu.databinding.FragmentAccountAddCreditBinding
-import com.example.ngiu.functions.ACCOUNT_TYPE_CREDIT
 import com.example.ngiu.functions.addDecimalLimiter
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.popup_title.view.*
@@ -30,7 +29,7 @@ class AddCreditFragment : Fragment() {
     var currency = "USD"
     var statementDay = "1"
     var paymentDay = "26"
-    private val accountTypeID = ACCOUNT_TYPE_CREDIT
+    private val accountTypeID = 2L
     var id: Long = 0L
     lateinit var page: String
 

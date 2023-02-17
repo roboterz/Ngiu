@@ -2,11 +2,9 @@ package com.example.ngiu
 
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.AttributeSet
 import android.view.View
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
@@ -39,17 +37,6 @@ class MainActivity: AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
-        //if (Build.VERSION.SDK_INT >= 25){
-        //    Shortcuts.setUp(applicationContext)
-        //}
-
-
-    }
-
-    override fun onStart() {
-        super.onStart()
-
         val navView: BottomNavigationView = binding.navView
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
@@ -57,7 +44,7 @@ class MainActivity: AppCompatActivity() {
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_activity, R.id.navigation_account, R.id.navigation_calender, R.id.navigation_rewards
+                R.id.navigation_activity, R.id.navigation_account, R.id.navigation_calender, R.id.navigation_setting
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -66,10 +53,20 @@ class MainActivity: AppCompatActivity() {
         //....
         supportActionBar?.hide()
 
+        //if (Build.VERSION.SDK_INT >= 25){
+        //    Shortcuts.setUp(applicationContext)
+        //}
+
+
     }
 
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
 
-
+        if (hasFocus){
+            //nav_view.visibility=View.GONE
+        }
+    }
 
     public fun setNavBottomBarVisibility(ID:Int){
         nav_view.visibility = ID

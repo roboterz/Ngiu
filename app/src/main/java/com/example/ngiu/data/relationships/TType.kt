@@ -19,7 +19,7 @@ data class TransTypeMC (
         parentColumn = "TransactionType_ID",
         entityColumn = "TransactionType_ID"
     )
-    val categories: List<Category>
+    val mainCategories: List<MainCategory>
 )
 
 data class TransTypePeriod (

@@ -4,11 +4,11 @@ import androidx.room.Embedded
 import androidx.room.Relation
 import com.example.ngiu.data.entities.*
 
-data class CategoryPeriod (
-    @Embedded val categories: Category,
+data class SubCatPeriod (
+    @Embedded val subCategories: SubCategory,
     @Relation(
-        parentColumn = "Category_ID",
-        entityColumn = "Period_Category_ID"
+        parentColumn = "SubCategory_ID",
+        entityColumn = "Period_SubCategory_ID"
     )
     val trans: List<Period>
 )

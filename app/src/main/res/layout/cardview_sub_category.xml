@@ -40,7 +40,7 @@
             android:id="@+id/img_sub_category_star"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:paddingHorizontal="10dp"
+            android:paddingHorizontal="15dp"
             app:srcCompat="@drawable/ic_baseline_star_border_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"

@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.ngiu.data.AppDatabase
-import com.example.ngiu.functions.*
 import com.example.ngiu.functions.calculateAmount
 import com.example.ngiu.ui.account.model.AccountTransRecordModel
 import java.time.format.DateTimeFormatter
@@ -31,7 +30,7 @@ class AccountDetailViewModel : ViewModel() {
 
     fun getTransRecords(context: Context, id: Long, balance: Double) {
         val appDatabase = AppDatabase.getDatabase(context)
-        val allTypes = appDatabase.category().getAllCategory()
+        val allTypes = appDatabase.subcat().getAllSubCategory()
         val allRecords = appDatabase.trans().getTransRecordAccount(id).asReversed()
 
         val accountTransRecordList = ArrayList<AccountTransRecordModel>()
@@ -41,12 +40,12 @@ class AccountDetailViewModel : ViewModel() {
 
         allRecords
             .forEach { item ->
-                val cate = allTypes.find { it.Category_ID == item.Category_ID }
+                val subCat = allTypes.find { it.SubCategory_ID == item.SubCategory_ID }
 
 
 
                 val model = AccountTransRecordModel(
-                    cate?.Category_Name.toString(),
+                    subCat?.SubCategory_Name.toString(),
                     "%.2f".format(item.Transaction_Amount),
                     "%.2f".format(rBalance),
                     item.Transaction_Date.format(recordTimeFormatter),
@@ -59,8 +58,8 @@ class AccountDetailViewModel : ViewModel() {
                 accountTransRecordList.add(model)
 
                 //income
-                if (item.TransactionType_ID == TRANSACTION_TYPE_INCOME ||
-                    (item.TransactionType_ID == TRANSACTION_TYPE_TRANSFER || item.TransactionType_ID == TRANSACTION_TYPE_DEBIT) &&
+                if (item.TransactionType_ID == 2L ||
+                    (item.TransactionType_ID == 3L || item.TransactionType_ID == 4L) &&
                     (item.Account_ID != id && item.AccountRecipient_ID == id) ) {
 
                     rBalance -= item.Transaction_Amount

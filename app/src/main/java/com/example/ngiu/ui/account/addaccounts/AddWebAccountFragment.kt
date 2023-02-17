@@ -14,7 +14,6 @@ import com.example.ngiu.R
 import com.example.ngiu.data.entities.Account
 import com.example.ngiu.data.entities.Currency
 import com.example.ngiu.databinding.FragmentAccountAddWebAccountBinding
-import com.example.ngiu.functions.*
 import com.example.ngiu.functions.addDecimalLimiter
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.fragment_account_add_web_account.*
@@ -62,34 +61,34 @@ class AddWebAccountFragment : Fragment() {
         when (page) {
             "add_investment" -> {
                 binding.toolbarAddWebAccount.title = "Add Investment Account"
-                accountTypeID = ACCOUNT_TYPE_INVESTMENT
+                accountTypeID = 4L
             }
             "edit_investment" -> {
                 binding.toolbarAddWebAccount.title = "Edit Investment Account"
                 binding.toolbarAddWebAccount.menu.findItem(R.id.action_delete).isVisible = true
-                accountTypeID = ACCOUNT_TYPE_INVESTMENT
+                accountTypeID = 4L
                 id = arguments?.getLong("id")!!
                 fetchAccountDetails(id)
             }
             "add_web" -> {
                 binding.toolbarAddWebAccount.title = "Add Web Account"
-                accountTypeID = ACCOUNT_TYPE_WEB
+                accountTypeID = 5L
             }
             "edit_web" -> {
                 binding.toolbarAddWebAccount.title = "Edit Web Account"
                 binding.toolbarAddWebAccount.menu.findItem(R.id.action_delete).isVisible = true
-                accountTypeID = ACCOUNT_TYPE_WEB
+                accountTypeID = 5L
                 id = arguments?.getLong("id")!!
                 fetchAccountDetails(id)
             }
             "add_virtual" -> {
                 binding.toolbarAddWebAccount.title = "Add Virtual Account"
-                accountTypeID = ACCOUNT_TYPE_VIRTUAL
+                accountTypeID = 7L
             }
             "edit_virtual" -> {
                 binding.toolbarAddWebAccount.title = "Edit Virtual Account"
                 binding.toolbarAddWebAccount.menu.findItem(R.id.action_delete).isVisible = true
-                accountTypeID = ACCOUNT_TYPE_VIRTUAL
+                accountTypeID = 7L
                 id = arguments?.getLong("id")!!
                 fetchAccountDetails(id)
             }
@@ -119,33 +118,33 @@ class AddWebAccountFragment : Fragment() {
         binding.btnSaveWeb.setOnClickListener {
             when (page) {
                 "add_investment" -> {
-                    accountTypeID = ACCOUNT_TYPE_INVESTMENT
+                    accountTypeID = 4L
                     submitForm()
 
                 }
                 "edit_investment" -> {
-                    accountTypeID = ACCOUNT_TYPE_INVESTMENT
+                    accountTypeID = 4L
                     id = arguments?.getLong("id")!!
                     updateAccount(id)
                 }
                 "add_web" -> {
-                    accountTypeID = ACCOUNT_TYPE_WEB
+                    accountTypeID = 5L
                     submitForm()
                 }
                 "edit_web" -> {
-                    accountTypeID = ACCOUNT_TYPE_WEB
+                    accountTypeID = 5L
                     id = arguments?.getLong("id")!!
                     updateAccount(id)
                 }
 
 
                 "add_virtual" -> {
-                    accountTypeID = ACCOUNT_TYPE_VIRTUAL
+                    accountTypeID = 7L
                     submitForm()
 
                 }
                 "edit_virtual" -> {
-                    accountTypeID = ACCOUNT_TYPE_VIRTUAL
+                    accountTypeID = 7L
                     id = arguments?.getLong("id")!!
                     updateAccount(id)
                 }

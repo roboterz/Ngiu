@@ -5,10 +5,6 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import com.example.ngiu.data.AppDatabase
 import com.example.ngiu.data.entities.returntype.RecordDetail
-import com.example.ngiu.functions.CATEGORY_SUB_BORROW
-import com.example.ngiu.functions.CATEGORY_SUB_LEND
-import com.example.ngiu.functions.CATEGORY_SUB_PAYMENT
-import com.example.ngiu.functions.CATEGORY_SUB_RECEIVE_PAYMENT
 
 
 class AccountPRDetailViewModel : ViewModel() {
@@ -26,10 +22,10 @@ class AccountPRDetailViewModel : ViewModel() {
     fun loadDataToRam(context: Context){
         listPRDetail = AppDatabase.getDatabase(context).trans().getTransRecordDetailByAccount(accountID)
 
-        lendAmount = AppDatabase.getDatabase(context).trans().getTotalAmountFromPRAccountBYCategoryID(accountID, CATEGORY_SUB_LEND)
-        receiveAmount = AppDatabase.getDatabase(context).trans().getTotalAmountFromPRAccountBYCategoryID(accountID, CATEGORY_SUB_RECEIVE_PAYMENT)
-        borrowAmount = AppDatabase.getDatabase(context).trans().getTotalAmountFromPRAccountBYCategoryID(accountID, CATEGORY_SUB_BORROW)
-        payAmount = AppDatabase.getDatabase(context).trans().getTotalAmountFromPRAccountBYCategoryID(accountID, CATEGORY_SUB_PAYMENT)
+        lendAmount = AppDatabase.getDatabase(context).trans().getTotalAmountFromPRAccountBYSubCategoryID(accountID, 8L)
+        receiveAmount = AppDatabase.getDatabase(context).trans().getTotalAmountFromPRAccountBYSubCategoryID(accountID, 10L)
+        borrowAmount = AppDatabase.getDatabase(context).trans().getTotalAmountFromPRAccountBYSubCategoryID(accountID, 7L)
+        payAmount = AppDatabase.getDatabase(context).trans().getTotalAmountFromPRAccountBYSubCategoryID(accountID, 9L)
 
         accountBalance = lendAmount + payAmount - receiveAmount - borrowAmount
     }

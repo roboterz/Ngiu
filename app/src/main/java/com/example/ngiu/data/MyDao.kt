@@ -6,7 +6,6 @@ import androidx.room.*
 import com.example.ngiu.data.entities.*
 import androidx.room.Transaction
 import com.example.ngiu.data.entities.Currency
-import com.example.ngiu.data.entities.returntype.AccountCount
 import com.example.ngiu.data.entities.returntype.RecordDetail
 import com.example.ngiu.data.entities.returntype.TransactionDetail
 
@@ -19,26 +18,19 @@ interface AccountDao {
     @Delete
     fun deleteAccount(account: Account)
 
-/*    @Query("DELETE FROM Account WHERE Account_ID = :rID")
+    @Query("DELETE FROM Account WHERE  Account_ID = :rID")
     fun deleteAccountById(rID:Long)
 
-    @Query("DELETE FROM Trans WHERE Account_ID = :rID")
-    fun deleteRecordByID(rID:Long)*/
+    @Query("DELETE FROM Trans WHERE  Account_ID = :rID")
+    fun deleteRecordByID(rID:Long)
+
 
     @Transaction
-    @Query("SELECT COUNT(*) FROM Account WHERE AccountType_ID <> :typeID")
-    fun getAccountCountExcept(typeID: Long): Int
-
-    @Transaction
-    @Query("SELECT COUNT(*) FROM Account WHERE AccountType_ID = :typeID")
-    fun getAccountCountType(typeID: Long): Int
-
-    @Transaction
-    @Query("SELECT * FROM Account ORDER BY AccountType_ID, Account_Name")
+    @Query("SELECT * FROM Account ")
     fun getAllAccount(): List<Account>
 
     @Transaction
-    @Query("SELECT * FROM Account ORDER BY AccountType_ID ASC, Account_Name ")
+    @Query("SELECT * FROM Account ORDER BY AccountType_ID ASC ")
     fun getAllAccountASC(): List<Account>
 
     // get a record BY ID
@@ -47,7 +39,7 @@ interface AccountDao {
     fun getRecordByID(rID:Long): Account
 
     @Update
-    fun updateAccount(account: Account)
+    fun updateAccount(vararg account: Account)
 
     @Transaction
     @Query("SELECT Account_Balance FROM Account WHERE Account_ID = :acctID")
@@ -91,13 +83,6 @@ interface AccountDao {
       """)
     fun getOutflowB(rID:Long): Double
 
-    @Transaction
-    @Query("SELECT * FROM Account WHERE AccountType_ID = :tID Order By Account_PaymentDay ASC")
-    fun getRecordByType(tID:Long): MutableList<Account>
-
-
-
-
 
 
 
@@ -130,9 +115,6 @@ interface AccountTypeDao{
     @Delete
     fun deleteAccountType(accountType: AccountType)
 
-    @Update
-    fun updateAccountType(accountType: AccountType)
-
     // get a record BY ID
     @Transaction
     @Query("SELECT * FROM AccountType WHERE AccountType_ID = :rID")
@@ -143,94 +125,9 @@ interface AccountTypeDao{
     fun getAllAccountType(): List<AccountType>
 
     @Transaction
-    @Query("Update AccountType SET AccountType_Expanded = :value WHERE AccountType_ID = :rID")
-    fun updateExpandedValueByID(rID:Long, value: Boolean)
+    @Query("SELECT * FROM AccountType")
+    fun getAllAccountTypes(): List<AccountType>
 }
-
-// Budget
-@Dao
-interface BudgetDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addBudget(budget: Budget)
-
-    // get a record BY ID
-    @Transaction
-    @Query("SELECT * FROM Budget WHERE Budget_ID = :rID")
-    fun getRecordByID(rID:Long): Budget
-
-    @Transaction
-    @Query("SELECT * FROM Budget")
-    fun getAllBudget(): List<Budget>
-}
-
-// Category
-@Dao
-interface CategoryDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addCategory(category: Category)
-
-    // get a record BY ID
-    @Transaction
-    @Query("SELECT * FROM Category WHERE Category_ID = :rID")
-    fun getRecordByID(rID:Long): Category
-
-    @Transaction
-    @Query("SELECT * FROM Category")
-    fun getAllCategory(): List<Category>
-
-
-    @Update
-    fun updateCategory(vararg category: Category)
-
-    @Delete
-    fun deleteCategory(category: Category)
-
-    @Transaction
-    @Query("DELETE FROM Category WHERE Category_ParentID = :parentID")
-    fun deleteCategoryByParentID(parentID: Long)
-
-    // get a record BY ID
-    @Transaction
-    @Query("SELECT * FROM Category WHERE Category_ID = :rID")
-    fun getCategoryByID(rID:Long): Category
-
-
-
-    @Transaction
-    @Query("""
-        SELECT * FROM Category
-        WHERE Category.TransactionType_ID = :tID
-            AND Category_Common= 1
-    """)
-    fun getCommonCategoryByTransactionType(tID: Long): MutableList<Category>
-
-    @Transaction
-    @Query("""
-        SELECT * FROM Category
-        WHERE Category.TransactionType_ID = :tID
-    """)
-    fun getCategoryByTransactionType(tID: Long): MutableList<Category>
-
-    @Transaction
-    @Query("""
-        SELECT * FROM Category
-        WHERE Category.TransactionType_ID = :tID
-            AND Category_ParentID = :pID
-    """)
-    fun getCategoryByTransactionTypeAndParentID(tID: Long, pID: Long): MutableList<Category>
-
-    @Transaction
-    @Query("""
-        SELECT * FROM Category
-        WHERE Category_ParentID = :rID
-        ORDER BY Category_Name
-    """)
-    fun getCategoryByParentID(rID: Long): MutableList<Category>
-
-
-}
-
-
 
 // Currency
 @Dao
@@ -271,42 +168,6 @@ interface PersonDao {
 
 }
 
-
-//Event
-@Dao
-interface EventDao{
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addEvent(event: Event)
-
-    @Update
-    fun updateEvent(vararg event: Event)
-
-    @Delete
-    fun deleteEvent(event: Event)
-
-    @Transaction
-    @Query("Select * From Event")
-    fun getAllEvent(): List<Event>
-
-    @Transaction
-    @Query("Select * From Event WHERE Event_ID = :rID")
-    fun getRecordByID(rID:Long): Event
-}
-
-
-//ICON
-@Dao
-interface IconDao{
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addIcon(icon: Icon)
-
-    @Update
-    fun updateIcon(vararg icon:Icon)
-
-    @Delete
-    fun deleteIcon(icon: Icon)
-
-}
 
 
 // Merchant
@@ -374,123 +235,102 @@ interface ProjectDao {
     fun getAllProject(): List<Project>
 }
 
-////Main Categories
-//@Dao
-//interface MainCategoryDao {
-//    @Insert(onConflict = OnConflictStrategy.REPLACE)
-//    fun addMainCategory(mainCategory: MainCategory)
-//
-//    @Update
-//    fun updateMainCategory(vararg mainCategory: MainCategory)
-//
-//    @Delete
-//    fun deleteMainCategory(mainCategory: MainCategory)
-//
-//    // get a record BY ID
-//    @Transaction
-//    @Query("SELECT * FROM MainCategory WHERE MainCategory_ID = :rID")
-//    fun getMainCategoryByID(rID:Long): MainCategory
-//
-//    @Transaction
-//    @Query("SELECT * FROM MainCategory WHERE TransactionType_ID = :tID" )
-//    fun getMainCategoryByTransactionType(tID: Long): MutableList<MainCategory>
-//
-//    @Transaction
-//    @Query("SELECT * FROM MainCategory ORDER BY MainCategory_Name")
-//    fun getAllMainCategory(): List<MainCategory>
-//}
-//
-//// Sub_Categories
-//@Dao
-//interface SubCategoryDao {
-//    @Insert(onConflict = OnConflictStrategy.REPLACE)
-//    fun addSubCategory(subcategory: SubCategory)
-//
-//    @Update
-//    fun updateSubCategory(vararg subCategory: SubCategory)
-//
-//    @Delete
-//    fun deleteSubCategory(subcategory: SubCategory)
-//
-//
-//    // get a record BY ID
-//    @Transaction
-//    @Query("SELECT * FROM SubCategory WHERE SubCategory_ID = :rID")
-//    fun getSubCategoryByID(rID:Long): SubCategory
-//
-//
-//
-//    @Transaction
-//    @Query("""
-//        SELECT SubCategory_ID, SubCategory.MainCategory_ID, SubCategory_Name, SubCategory_Common
-//        FROM SubCategory, MainCategory, TransactionType
-//        WHERE SubCategory.MainCategory_ID = MainCategory.MainCategory_ID
-//            AND MainCategory.TransactionType_ID = TransactionType.TransactionType_ID
-//            AND MainCategory.TransactionType_ID = :tID
-//            AND SubCategory_Common= 1
-//    """)
-//    fun getCommonCategoryByTransactionType(tID: Long): MutableList<SubCategory>
-//
-//    @Transaction
-//    @Query("""
-//        SELECT SubCategory_ID, SubCategory.MainCategory_ID, SubCategory_Name, SubCategory_Common
-//        FROM SubCategory, MainCategory, TransactionType
-//        WHERE SubCategory.MainCategory_ID = MainCategory.MainCategory_ID
-//            AND MainCategory.TransactionType_ID = TransactionType.TransactionType_ID
-//            AND MainCategory.TransactionType_ID = :tID
-//        LIMIT 2
-//    """)
-//    fun getSubCategoryByTransactionType(tID: Long): List<SubCategory>
-//
-//    @Transaction
-//    @Query("""
-//        SELECT SubCategory_ID, MainCategory_ID, SubCategory_Name, SubCategory_Common
-//        FROM SubCategory
-//        WHERE MainCategory_ID = :rID
-//        ORDER BY SubCategory_Name
-//    """)
-//    fun getSubCategoryByMainCategoryID(rID: Long): MutableList<SubCategory>
-//
-//    /*
-//    @Transaction
-//    @Query("""
-//        SELECT SubCategory.SubCategory_ID, SubCategory.MainCategory_ID, TransactionType.TransactionType_ID, SubCategory.SubCategory_Name, SubCategory.SubCategory_Common
-//        FROM SubCategory, MainCategory, TransactionType
-//        WHERE SubCategory.MainCategory_ID = MainCategory.MainCategory_ID
-//            AND MainCategory.TransactionType_ID = TransactionType.TransactionType_ID
-//    """)
-//    fun getAllSubCategory(): List<RecordSubCategory>
-//
-//     */
-//
-//    @Transaction
-//    @Query("SELECT * FROM SUBCATEGORY ORDER BY SubCategory_Name")
-//    fun getAllSubCategory(): List<SubCategory>
-//
-//}
-
-// Reward
+//Main Categories
 @Dao
-interface RewardDao{
+interface MainCategoryDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addReward(reward: Reward)
+    fun addMainCategory(mainCategory: MainCategory)
 
     @Update
-    fun updateReward(vararg reward: Reward)
+    fun updateMainCategory(vararg mainCategory: MainCategory)
 
     @Delete
-    fun deleteReward(reward: Reward)
+    fun deleteMainCategory(mainCategory: MainCategory)
+
+    // get a record BY ID
+    @Transaction
+    @Query("SELECT * FROM MainCategory WHERE MainCategory_ID = :rID")
+    fun getMainCategoryByID(rID:Long): MainCategory
 
     @Transaction
-    @Query("SELECT * FROM Reward WHERE Reward_ID = :rID")
-    fun getRecordByID(rID:Long): Reward
+    @Query("SELECT * FROM MainCategory WHERE TransactionType_ID = :tID" )
+    fun getMainCategoryByTransactionType(tID: Long): MutableList<MainCategory>
 
     @Transaction
-    @Query("SELECT * FROM Reward")
-    fun getAllReward(): List<Reward>
+    @Query("SELECT * FROM MainCategory ORDER BY MainCategory_Name")
+    fun getAllMainCategory(): List<MainCategory>
+}
 
+// Sub_Categories
+@Dao
+interface SubCategoryDao {
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun addSubCategory(subcategory: SubCategory)
+
+    @Update
+    fun updateSubCategory(vararg subCategory: SubCategory)
+
+    @Delete
+    fun deleteSubCategory(subcategory: SubCategory)
+
+
+    // get a record BY ID
+    @Transaction
+    @Query("SELECT * FROM SubCategory WHERE SubCategory_ID = :rID")
+    fun getSubCategoryByID(rID:Long): SubCategory
+
+
+
+    @Transaction
+    @Query("""
+        SELECT SubCategory_ID, SubCategory.MainCategory_ID, SubCategory_Name, SubCategory_Common
+        FROM SubCategory, MainCategory, TransactionType
+        WHERE SubCategory.MainCategory_ID = MainCategory.MainCategory_ID
+            AND MainCategory.TransactionType_ID = TransactionType.TransactionType_ID
+            AND MainCategory.TransactionType_ID = :tID
+            AND SubCategory_Common= 1
+    """)
+    fun getCommonCategoryByTransactionType(tID: Long): MutableList<SubCategory>
+
+    @Transaction
+    @Query("""
+        SELECT SubCategory_ID, SubCategory.MainCategory_ID, SubCategory_Name, SubCategory_Common
+        FROM SubCategory, MainCategory, TransactionType
+        WHERE SubCategory.MainCategory_ID = MainCategory.MainCategory_ID
+            AND MainCategory.TransactionType_ID = TransactionType.TransactionType_ID
+            AND MainCategory.TransactionType_ID = :tID
+        LIMIT 2
+    """)
+    fun getSubCategoryByTransactionType(tID: Long): List<SubCategory>
+
+    @Transaction
+    @Query("""
+        SELECT SubCategory_ID, MainCategory_ID, SubCategory_Name, SubCategory_Common
+        FROM SubCategory
+        WHERE MainCategory_ID = :rID
+        ORDER BY SubCategory_Name
+    """)
+    fun getSubCategoryByMainCategoryID(rID: Long): MutableList<SubCategory>
+
+    /*
+    @Transaction
+    @Query("""
+        SELECT SubCategory.SubCategory_ID, SubCategory.MainCategory_ID, TransactionType.TransactionType_ID, SubCategory.SubCategory_Name, SubCategory.SubCategory_Common
+        FROM SubCategory, MainCategory, TransactionType
+        WHERE SubCategory.MainCategory_ID = MainCategory.MainCategory_ID
+            AND MainCategory.TransactionType_ID = TransactionType.TransactionType_ID
+    """)
+    fun getAllSubCategory(): List<RecordSubCategory>
+
+     */
+
+    @Transaction
+    @Query("SELECT * FROM SUBCATEGORY ORDER BY SubCategory_Name")
+    fun getAllSubCategory(): List<SubCategory>
 
 }
+
+
 
 // Transaction
 @Dao
@@ -519,12 +359,12 @@ interface TransDao {
 
     @Transaction
     @Query("""
-        SELECT Transaction_ID, Trans.TransactionType_ID, Category_Name, Account.Account_Name, AccountRecipient.Account_Name as AccountRecipient_Name, 
+        SELECT Transaction_ID, Trans.TransactionType_ID, SubCategory_Name, Account.Account_Name, AccountRecipient.Account_Name as AccountRecipient_Name, 
                 Transaction_Amount, Transaction_Date, Person_Name, Merchant_Name, Transaction_Memo, Project_Name, 
                 Transaction_ReimburseStatus, Period_ID  
-        FROM Trans, TransactionType, Category, Account, Account as AccountRecipient, Person, Merchant, Project
+        FROM Trans, TransactionType, SubCategory, Account, Account as AccountRecipient, Person, Merchant, Project
         WHERE Trans.TransactionType_ID = TransactionType.TransactionType_ID 
-                AND Trans.Category_ID = Category.Category_ID
+                AND Trans.SubCategory_ID = SubCategory.SubCategory_ID
                 And Trans.Account_ID = Account.Account_ID
                 AND Trans.AccountRecipient_ID = AccountRecipient.Account_ID
                 AND Trans.Person_ID = Person.Person_ID
@@ -536,12 +376,12 @@ interface TransDao {
 
     @Transaction
     @Query("""
-        SELECT Transaction_ID, Trans.TransactionType_ID, Category_Name, Account.Account_Name, AccountRecipient.Account_Name as AccountRecipient_Name, 
+        SELECT Transaction_ID, Trans.TransactionType_ID, SubCategory_Name, Account.Account_Name, AccountRecipient.Account_Name as AccountRecipient_Name, 
                 Transaction_Amount, Transaction_Date, Person_Name, Merchant_Name, Transaction_Memo, Project_Name, 
                 Transaction_ReimburseStatus, Period_ID  
-        FROM Trans, TransactionType, Category, Account, Account as AccountRecipient, Person, Merchant, Project
+        FROM Trans, TransactionType, SubCategory, Account, Account as AccountRecipient, Person, Merchant, Project
         WHERE Trans.TransactionType_ID = TransactionType.TransactionType_ID 
-                AND Trans.Category_ID = Category.Category_ID
+                AND Trans.SubCategory_ID = SubCategory.SubCategory_ID
                 And Trans.Account_ID = Account.Account_ID
                 AND Trans.AccountRecipient_ID = AccountRecipient.Account_ID
                 AND Trans.Person_ID = Person.Person_ID
@@ -626,12 +466,12 @@ interface TransDao {
 
     @Transaction
     @Query("""
-        SELECT Trans.Transaction_ID, Trans.TransactionType_ID, Trans.Category_ID, Category.Category_Name, 
+        SELECT Trans.Transaction_ID, Trans.TransactionType_ID, Trans.SubCategory_ID, SubCategory.SubCategory_Name, 
                 Account.Account_ID, Account.Account_Name, AccountRecipient.Account_ID as AccountRecipient_ID, AccountRecipient.Account_Name as AccountRecipient_Name,
                 Transaction_Amount, Transaction_Date, Transaction_Memo
-        FROM Trans, Category, Account, Account as AccountRecipient
+        FROM Trans, SubCategory, Account, Account as AccountRecipient
         WHERE (Trans.Account_ID = :acctID OR Trans.AccountRecipient_ID = :acctID)
-            AND Trans.Category_ID = Category.Category_ID
+            AND Trans.SubCategory_ID = SubCategory.SubCategory_ID
             AND Trans.Account_ID = Account.Account_ID
             AND Trans.AccountRecipient_ID = AccountRecipient.Account_ID
         ORDER BY Transaction_Date DESC
@@ -679,102 +519,43 @@ interface TransDao {
         SELECT SUM(Transaction_Amount) 
         FROM Trans 
         WHERE TransactionType_ID = 4 
-            AND Category_ID = :cateID
+            AND SubCategory_ID = :subCateID
             AND (Account_ID = :acctID OR AccountRecipient_ID = :acctID)
         """)
-    fun getTotalAmountFromPRAccountBYCategoryID(acctID:Long, cateID: Long): Double
+    fun getTotalAmountFromPRAccountBYSubCategoryID(acctID:Long, subCateID: Long): Double
 
-    @Transaction
-    @Query("SELECT COUNT(*) FROM Trans")
-    fun getTransCount(): Long
-
-    @Transaction
-    @Query("""
-        SELECT Account_Name, COUNT(Trans.Account_ID) as Account_Count
-        FROM Trans, Account
-        WHERE Trans.TransactionType_ID = :tID AND Category_ID = :cID
-            AND Trans.Account_ID = Account.Account_ID
-        GROUP BY Trans.Account_ID
-        ORDER BY Account_Count DESC
-        """)
-    fun getCountOfAccountsByTransactionTypeAndCategory(tID: Long, cID: Long): List<AccountCount>
-
-    @Transaction
-    @Query("""
-        SELECT Account_Name, COUNT(Trans.Account_ID) as Account_Count
-        FROM Trans, Account
-        WHERE Trans.TransactionType_ID = :tID
-            AND Trans.Account_ID = Account.Account_ID
-        GROUP BY Trans.Account_ID
-        ORDER BY Account_Count DESC
-        """)
-    fun getCountOfAccountsByTransactionType(tID: Long): List<AccountCount>
-
-    @Transaction
-    @Query("""
-        SELECT Account_Name, COUNT(AccountRecipient_ID) as Account_Count
-        FROM Trans, Account
-        WHERE TransactionType_ID = :tID AND Category_ID = :cID
-            AND Trans.AccountRecipient_ID = Account.Account_ID
-        GROUP BY Trans.AccountRecipient_ID
-        ORDER BY Account_Count DESC
-        """)
-    fun getCountOfRecipientAccountsByTransactionTypeAndCategory(tID: Long, cID: Long): List<AccountCount>
-
-    @Transaction
-    @Query("""
-        SELECT Account_Name, COUNT(AccountRecipient_ID) as Account_Count
-        FROM Trans, Account
-        WHERE TransactionType_ID = :tID 
-            AND Trans.AccountRecipient_ID = Account.Account_ID
-        GROUP BY Trans.AccountRecipient_ID
-        ORDER BY Account_Count DESC
-        """)
-    fun getCountOfRecipientAccountsByTransactionType(tID: Long): List<AccountCount>
 }
 
 // Transaction Type
 @Dao
 interface TransTypeDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addTransType(transactionType: TransactionType)
+    //@Insert(onConflict = OnConflictStrategy.REPLACE)
+    //fun addTransType(transactionType: TransactionType)
 
-    @Delete
-    fun deleteTransType(transactionType: TransactionType)
+    //@Delete
+    //fun deleteTransType(transactionType: TransactionType)
 
-    //get a record BY ID
-    @Transaction
-    @Query("SELECT * FROM TransactionType WHERE TransactionType_ID = :rID")
-    fun getRecordByID(rID:Long):TransactionType
+    // get a record BY ID
+    //@Transaction
+    //@Query("SELECT * FROM TransactionType WHERE TransactionType_ID = :rID")
+    //fun getRecordByID(rID:Long):TransactionType
 
-    @Transaction
-    @Query("SELECT * FROM TransactionType")
-    fun getAllTransactionType(): List<TransactionType>
+    //@Transaction
+    //@Query("SELECT * FROM TransactionType")
+    //fun getAllTransactionType(): List<TransactionType>
 
+    //@Transaction
+    //@Query("SELECT * FROM TransactionType")
+    //fun getTransTypeTrans(): Flow<List<TransTypeTrans>>
 
+    //@Transaction
+    //@Query("SELECT * FROM TransactionType")
+    //fun getTransTypeMC(): Flow<List<TransTypeMC>>
+
+    //@Transaction
+    //@Query("SELECT * FROM TransactionType")
+    //fun getTransTypePeriod(): Flow<List<TransTypePeriod>>
 }
 
-// Template
-@Dao
-interface TemplateDao{
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addTemplate(template: Template)
-
-    @Delete
-    fun deleteTemplate(template: Template)
-
-    @Update
-    fun updateTemplate(vararg template: Template)
-
-    //get a record BY ID
-    @Transaction
-    @Query("SELECT * FROM Template WHERE Template_ID = :rID")
-    fun getRecordByID(rID:Long):Template
-
-    @Transaction
-    @Query("SELECT * FROM Template")
-    fun getAllTemplate(): List<Template>
-
-}
 
 

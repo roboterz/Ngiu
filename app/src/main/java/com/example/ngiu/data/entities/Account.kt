@@ -1,8 +1,6 @@
 package com.example.ngiu.data.entities
 
 import androidx.room.*
-import org.w3c.dom.Text
-import java.time.LocalDateTime
 
 @Entity(
     foreignKeys = [ForeignKey(
@@ -23,10 +21,10 @@ import java.time.LocalDateTime
 data class Account(
     @PrimaryKey(autoGenerate = true)
     //@ColumnInfo(name = "ID")
-    var Account_ID: Long = 0L,
+    var Account_ID: Long = 0,
 
     @ColumnInfo(defaultValue = "1")
-    var AccountType_ID: Long = 1L,
+    var AccountType_ID: Long = 1,
 
     @ColumnInfo(defaultValue = "")
     var Account_Name: String = "",
@@ -69,26 +67,6 @@ data class Account(
     var Account_Reminder: Int = 0,
 
     @ColumnInfo(defaultValue = "0")
-    var Account_StatisticalMode: Int = 0,
-
-    @ColumnInfo(defaultValue = "1.0")
-    var Account_BaseReward: Double = 1.0,
-
-    @ColumnInfo(defaultValue = "0")
-    var Account_Icon: Int = 0,
-    @ColumnInfo(defaultValue = "0")
-    var Account_OrderNo: Int = 0,
-    @ColumnInfo(defaultValue = "false")
-    var Account_IsHiding: Boolean = false,
-
-    // additional data
-    @ColumnInfo(defaultValue = "false")
-    var Account_IsDefault: Boolean = false,
-    @ColumnInfo(defaultValue = "false")
-    var Account_UploadStatus: Boolean = false,
-    @TypeConverters(DateTypeConverter::class)
-    var Account_CreateTime: LocalDateTime = LocalDateTime.now(),
-    @TypeConverters(DateTypeConverter::class)
-    var Account_UploadTime: LocalDateTime = LocalDateTime.now()
+    var Account_StatisticalMode: Int = 0
 
 )

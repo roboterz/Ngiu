@@ -16,7 +16,6 @@
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
         app:menu="@menu/title_menu"
         app:title="@string/nav_title_setting"
         app:titleCentered="true"

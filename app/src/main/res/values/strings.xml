@@ -7,11 +7,9 @@
     <string name="nav_bottom_activity">Activity</string>
     <string name="nav_bottom_account">Account</string>
     <string name="nav_bottom_calendar">Calendar</string>
-    <string name="nav_bottom_rewards">Rewards</string>
     <string name="nav_bottom_setting">Setting</string>
 
     <string name="nav_title_setting">Settings</string>
-    <string name="nav_title_account_list">Accounts</string>
     <string name="nav_title_category_expense">Expense Categories</string>
     <string name="nav_title_category_income">Income Categories</string>
     <string name="nav_title_category_expense_main_add">Add Main Category of Expense</string>
@@ -168,7 +166,6 @@
     <string name="menu_chart">Chart</string>
     <string name="menu_save_next">Save &amp; Next</string>
     <string name="menu_add_cate">+ Add</string>
-    <string name="menu_reimburse">Reimburse</string>
     <string name="setting_page">Setting Page</string>
 
     <string name="msg_button_confirm">Confirm</string>
@@ -177,13 +174,10 @@
     <string name="msg_button_delete">Delete</string>
     <string name="msg_Title_prompt">Prompt</string>
     <string name="msg_content_transaction_delete">Confirm to delete this transaction.</string>
-    <string name="msg_content_event_delete">Confirm to delete this event.</string>
-    <string name="msg_content_account_delete">Confirm to delete this account.</string>
     <string name="msg_content_category_delete">Confirm to delete this category.</string>
     <string name="msg_cannot_save_with_zero_amount">Cannot save with zero amount.</string>
     <string name="msg_cannot_save_with_no_account">Cannot save with no account.</string>
     <string name="msg_cannot_save_with_no_category">Cannot save with no category.</string>
-    <string name="msg_cannot_save_with_no_content">Cannot save with no content.</string>
     <string name="msg_saved">Saved.</string>
     <string name="msg_new_category">New Category</string>
     <string name="msg_edit_category">Edit Category</string>
@@ -199,10 +193,6 @@
     <string name="msg_name_add_error">This name cannot be add cause some unknown reason.</string>
     <string name="msg_name_edit_error">This name cannot be edit cause some unknown reason.</string>
     <string name="msg_no_account">No Account</string>
-
-    <string name="event_credit_card_payment">Credit Card Payment</string>
-    <string name="event_reminder">Reminder</string>
-    <string name="event_periodic_Event">Periodic Event</string>
 
     <string name="amount_zero_with_dollar_sign">$0.00</string>
     <string name="amount_zero">0.00</string>

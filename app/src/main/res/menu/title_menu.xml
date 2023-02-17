@@ -31,12 +31,6 @@
         android:visible="false"
         app:showAsAction="ifRoom|withText"/>
     <item
-        android:id="@+id/action_reimburse"
-        android:icon="@drawable/ic_baseline_task_24"
-        android:title="@string/menu_reimburse"
-        android:visible="false"
-        app:showAsAction="ifRoom|withText"/>
-    <item
         android:id="@+id/action_chart"
         android:icon="@drawable/ic_baseline_insert_chart_24"
         android:title="@string/menu_chart"
@@ -55,7 +49,5 @@
         android:title="@string/menu_done"
         android:visible="false"
         app:showAsAction="ifRoom|withText"/>
-
-
 
 </menu>

@@ -14,7 +14,6 @@ import com.example.ngiu.R
 import com.example.ngiu.data.entities.Account
 import com.example.ngiu.data.entities.Currency
 import com.example.ngiu.databinding.FragmentAccountAddPermanentAssetBinding
-import com.example.ngiu.functions.*
 import com.example.ngiu.functions.addDecimalLimiter
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.fragment_account_add_permanent_asset.*
@@ -59,23 +58,23 @@ class AddPermanentAssetFragment : Fragment() {
         when (page) {
             "add_valueCard" -> {
                 binding.toolbarAddPermanentAssets.title = "Add Store Value Card"
-                accountTypeID = ACCOUNT_TYPE_STORED
+                accountTypeID = 6L
             }
             "edit_valueCard" -> {
                 binding.toolbarAddPermanentAssets.title = "Add Store Value Card"
                 binding.toolbarAddPermanentAssets.menu.findItem(R.id.action_delete).isVisible = true
-                accountTypeID = ACCOUNT_TYPE_STORED
+                accountTypeID = 6L
                 id = arguments?.getLong("id")!!
                 fetchAccountDetails(id)
             }
             "add_perm" -> {
                 binding.toolbarAddPermanentAssets.title = "Add Permanent Account"
-                accountTypeID = ACCOUNT_TYPE_ASSETS
+                accountTypeID = 8L
             }
             "edit_perm" -> {
                 binding.toolbarAddPermanentAssets.title = "Edit Permanent Account"
                 binding.toolbarAddPermanentAssets.menu.findItem(R.id.action_delete).isVisible = true
-                accountTypeID = ACCOUNT_TYPE_ASSETS
+                accountTypeID = 8L
                 id = arguments?.getLong("id")!!
                 fetchAccountDetails(id)
             }

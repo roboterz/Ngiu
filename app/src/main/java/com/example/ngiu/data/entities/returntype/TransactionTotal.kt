@@ -3,7 +3,7 @@ package com.example.ngiu.data.entities.returntype
 data class TransactionTotal(
     val Transaction_ID: Long,
     val TransactionType_ID: Long,
-    val Category_Name: String,
+    val SubCategory_Name: String,
     val Account_Name: String,
     val AccountRecipient_Name: String,
     val Transaction_Amount: Double

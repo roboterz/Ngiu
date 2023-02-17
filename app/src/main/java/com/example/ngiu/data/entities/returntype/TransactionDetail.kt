@@ -9,7 +9,7 @@ import java.util.*
 data class TransactionDetail(
     var Transaction_ID: Long = 0L,
     var TransactionType_ID: Long = 0L,
-    var Category_Name: String = "",
+    var SubCategory_Name: String = "",
     var Account_Name: String = "",
     var AccountRecipient_Name: String = "",
     var Transaction_Amount: Double = 0.00,

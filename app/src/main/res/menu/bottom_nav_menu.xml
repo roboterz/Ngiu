@@ -13,11 +13,11 @@
 
     <item
         android:id="@+id/navigation_calender"
-        android:icon="@drawable/ic_baseline_calendar_month_24"
+        android:icon="@drawable/ic_baseline_event_24"
         android:title="@string/nav_bottom_calendar" />
     <item
-        android:id="@+id/navigation_rewards"
-        android:icon="@drawable/ic_baseline_savings_24"
-        android:title="@string/nav_bottom_rewards" />
+        android:id="@+id/navigation_setting"
+        android:icon="@drawable/ic_baseline_settings_24"
+        android:title="@string/nav_bottom_setting" />
 
 </menu>

@@ -8,7 +8,6 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
-import com.example.ngiu.functions.*
 import com.example.ngiu.functions.changeColor
 import com.example.ngiu.ui.account.model.AccountTransRecordModel
 import kotlinx.android.synthetic.main.cardview_account_records.view.*
@@ -34,7 +33,7 @@ class AccountDetailAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
 
         // condition to check to show +/- trans_amount and recolor to red/green base off expense/income
-        if(item.trans_type_id == TRANSACTION_TYPE_INCOME || (item.trans_type_id == TRANSACTION_TYPE_TRANSFER || item.trans_type_id == TRANSACTION_TYPE_DEBIT) &&
+        if(item.trans_id == 2L || (item.trans_id == 3L || item.trans_id == 4L) &&
             (item.account_ID != item.id && item.recipient_ID == item.id))  {
             viewHolder.transRecordTransAmount.text = "+"+item.trans_amount
             viewHolder.transRecordTransAmount.setTextColor(ContextCompat.getColor(viewHolder.transRecordTransAmount.context,
