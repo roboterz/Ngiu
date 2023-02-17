@@ -8,8 +8,7 @@ import androidx.room.PrimaryKey
 @Entity(indices = [Index(value = ["TransactionType_ID"], unique = true)])
 data class TransactionType (
     @PrimaryKey(autoGenerate = true)
-    //@ColumnInfo(name = "ID")
-    var TransactionType_ID: Long,
-    //@ColumnInfo(name = "Name")
-    var TransactionType_Name: String
+    var TransactionType_ID: Long = 0L,
+    @ColumnInfo(defaultValue = "")
+    var TransactionType_Name: String = ""
 )

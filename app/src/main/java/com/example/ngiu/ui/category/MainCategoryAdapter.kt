@@ -11,17 +11,17 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
-import com.example.ngiu.data.entities.MainCategory
+import com.example.ngiu.data.entities.Category
 import kotlinx.android.synthetic.main.cardview_main_category.view.*
 import kotlin.collections.ArrayList
 
 
 class MainCategoryAdapter(
-    private val onClickListener: OnClickListener
+    private val onClick: OnClickListener
 )
     : RecyclerView.Adapter<MainCategoryAdapter.ViewHolder>() {
 
-    private var mainCategory: List<MainCategory> = ArrayList()
+    private var mainCategory: List<Category> = ArrayList()
     private var currentArrow: Int = 0
     //private var editMode: Boolean =false
 
@@ -49,16 +49,17 @@ class MainCategoryAdapter(
         // display the custom class
         mainCategory[position].apply {
 
-            holder.mainCategoryName.text = MainCategory_Name
+            holder.mainCategoryName.text = Category_Name
 
-            if (position == mainCategory.size - 1 && TransactionType_ID == 0L){
-                // add
+            if (position == mainCategory.size - 1 && TransactionType_ID == 1L){
+                // add New
                 holder.mainCategoryName.setTextColor(holder.addButtonTextColor)
                 holder.mainCategoryName.setOnClickListener {
-                    onClickListener.onItemClick(MainCategory_ID,true)
+                    onClick.onItemClick(Category_ID,true)
                 }
 
             }else{
+
                 /*
                 if (editMode){
                     holder.mainCategoryName.setCompoundDrawables(null,null, holder.iconDelete,null)
@@ -76,12 +77,12 @@ class MainCategoryAdapter(
                 // click event
                 holder.mainCategoryName.setOnClickListener {
                     currentArrow = position
-                    onClickListener.onItemClick(MainCategory_ID)
+                    onClick.onItemClick(Category_ID)
                 }
                 // long click event
                 holder.mainCategoryName.setOnLongClickListener {
                     if (position>0){
-                        onClickListener.onItemLongClick(MainCategory_ID, MainCategory_Name, mainCategory[position-1].MainCategory_ID)
+                        onClick.onItemLongClick(Category_ID, Category_Name, mainCategory[position-1].Category_ID)
                     }
                     true
                 }
@@ -93,7 +94,7 @@ class MainCategoryAdapter(
 
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setList(list: List<MainCategory>){
+    fun setList(list: List<Category>){
         mainCategory = list
         notifyDataSetChanged()
     }

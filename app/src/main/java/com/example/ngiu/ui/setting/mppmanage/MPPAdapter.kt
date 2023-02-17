@@ -11,7 +11,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
-import com.example.ngiu.data.entities.MainCategory
+import com.example.ngiu.data.entities.Category
 import com.example.ngiu.data.entities.returntype.MPPItem
 import kotlinx.android.synthetic.main.cardview_main_category.view.*
 import kotlinx.android.synthetic.main.cardview_mpp_item.view.*

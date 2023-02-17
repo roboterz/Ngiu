@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_section_background"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <TextView
+            android:id="@+id/title_reminder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/app_title_text"
+            android:paddingTop="10dp"
+            android:paddingBottom="15dp"
+            android:textSize="20sp"
+            android:text="Reminder"
+            android:gravity="center"
+            android:background="@color/app_title_background"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="HardcodedText" />
+
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/reminder_date_time"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:background="@color/app_title_background"
+            app:layout_constraintTop_toBottomOf="@id/title_reminder"
+            >
+
+                <TextView
+                    android:id="@+id/reminder_date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:singleLine="true"
+                    android:background="@drawable/textview_additional_border"
+                    android:gravity="center"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="3dp"
+                    android:text=""
+                    android:textColor="@color/app_label_text"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:drawableStartCompat="@drawable/ic_baseline_date_range_24"
+                    app:drawableTint="@color/app_label_text"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:id="@+id/reminder_time"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:singleLine="true"
+                    android:background="@drawable/textview_additional_border"
+                    android:gravity="center"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="3dp"
+                    android:text=""
+                    android:visibility="invisible"
+                    android:textColor="@color/app_label_text"
+                    app:layout_constraintStart_toEndOf="@+id/reminder_date"
+                    app:layout_constraintTop_toTopOf="@id/reminder_date"
+                    app:drawableStartCompat="@drawable/ic_baseline_access_time_filled_24"
+                    app:drawableTint="@color/app_label_text" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+        <EditText
+            android:id="@+id/reminder_memo"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:padding="10dp"
+            android:gravity="start|top"
+            android:inputType="textMultiLine"
+            android:textColor="@color/app_option_text"
+            android:background="@color/app_title_text"
+            app:layout_constraintTop_toBottomOf="@+id/reminder_date_time"
+            app:layout_constraintBottom_toTopOf="@+id/button_left"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/button_left"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/app_title_text"
+            android:textSize="20sp"
+            android:padding="10dp"
+            android:gravity="center"
+            android:clickable="true"
+            android:background="@color/app_title_background"
+            app:layout_constraintWidth_percent="0.499"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="Button" />
+
+        <TextView
+            android:id="@+id/button_right"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/app_title_text"
+            android:textSize="20sp"
+            android:padding="10dp"
+            app:layout_constraintWidth_percent="0.499"
+            android:gravity="center"
+            android:clickable="true"
+            android:background="@color/app_title_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="Button" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

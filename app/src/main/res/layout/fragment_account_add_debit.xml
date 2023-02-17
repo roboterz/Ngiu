@@ -53,6 +53,7 @@
                     android:layout_width="match_parent"
                     android:background="@color/app_section_background"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/app_option_text"
                     android:paddingHorizontal="20dp"
                     android:paddingVertical="15dp"
                     android:maxLength="50">
@@ -84,6 +85,7 @@
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="20dp"
                     android:paddingVertical="15dp"
+                    android:textColor="@color/app_option_text"
                     android:background="@color/app_section_background"
                     android:digits="0123456789"
                     android:inputType="numberDecimal"
@@ -115,6 +117,7 @@
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="20dp"
                     android:paddingVertical="15dp"
+                    android:textColor="@color/app_option_text"
                     android:background="@color/app_section_background"
                     android:digits="0123456789."
                     android:inputType="numberDecimal">
@@ -207,6 +210,7 @@
                     android:inputType="text"
                     android:background="@color/app_section_background"
                     android:maxLength="100"
+                    android:textColor="@color/app_option_text"
                     android:lines="5"
                     android:maxLines="15">
                 </com.google.android.material.textfield.TextInputEditText>

@@ -24,6 +24,8 @@ import com.example.ngiu.data.entities.Trans
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.fragment_record.*
 import kotlinx.android.synthetic.main.popup_title.view.*
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.coroutines.coroutineContext
 import kotlin.math.abs
@@ -272,8 +274,11 @@ fun changeColor(textView: TextView, amount: Double){
     }
 }
 
-
-
+// return international date format
+fun getInternationalDateFromAmericanDate(string: String): LocalDateTime {
+    val lDateTime: LocalDateTime =  LocalDateTime.parse(string, DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss"))
+    return LocalDateTime.parse(lDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+}
 
 
 

@@ -53,6 +53,12 @@
         tools:layout="@layout/fragment_calendar" />
 
     <fragment
+        android:id="@+id/navigation_rewards"
+        android:name="com.example.ngiu.ui.rewards.RewardsFragment"
+        android:label="@string/nav_bottom_rewards"
+        tools:layout="@layout/fragment_rewards" />
+
+    <fragment
         android:id="@+id/navigation_setting"
         android:name="com.example.ngiu.ui.setting.SettingFragment"
         android:label="@string/nav_bottom_setting"

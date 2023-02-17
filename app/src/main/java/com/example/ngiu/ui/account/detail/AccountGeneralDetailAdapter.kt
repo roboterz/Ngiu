@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.returntype.RecordDetail
+import com.example.ngiu.functions.*
 import kotlinx.android.synthetic.main.cardview_account_general_detail_item.view.*
 import java.time.format.DateTimeFormatter
 
@@ -50,30 +51,30 @@ class AccountGeneralDetailAdapter(
 
             // category, amount , info
             when (TransactionType_ID){
-                1L -> {
+                TRANSACTION_TYPE_EXPENSE -> {
                     // category
-                    holder.recordText.text = SubCategory_Name
+                    holder.recordText.text = Category_Name
                     // amount
                     holder.recordAmount.text = "$-" + "%.2f".format(Transaction_Amount)
                     holder.recordAmount.setTextColor(holder.expenseColor)
                     // info
                     holder.recordInfo.visibility = View.GONE
                 }
-                2L -> {
+                TRANSACTION_TYPE_INCOME -> {
                     // category
-                    holder.recordText.text = SubCategory_Name
+                    holder.recordText.text = Category_Name
                     // amount
                     holder.recordAmount.text = "$" + "%.2f".format(Transaction_Amount)
                     holder.recordAmount.setTextColor(holder.incomeColor)
                     // info
                     holder.recordInfo.visibility = View.GONE
                 }
-                3L,4L ->{
+                TRANSACTION_TYPE_TRANSFER,TRANSACTION_TYPE_DEBIT ->{
                     // info
                     holder.recordInfo.visibility = View.VISIBLE
 
                     // category
-                    if (TransactionType_ID == 3L){
+                    if (TransactionType_ID == TRANSACTION_TYPE_TRANSFER){
                         if (Account_ID == currentAccountID){
                             holder.recordText.text = holder.itemView.context.getString(R.string.record_transfer_out)
                         }else{
@@ -82,21 +83,21 @@ class AccountGeneralDetailAdapter(
                         // info
                         holder.recordInfo.text = "$Account_Name " + holder.itemView.context.getString(R.string.record_to) + " $AccountRecipient_Name"
                     }
-                    if (TransactionType_ID == 4L){
-                        when (SubCategory_ID){
-                            7L -> {
+                    if (TransactionType_ID == TRANSACTION_TYPE_DEBIT){
+                        when (Category_ID){
+                            CATEGORY_SUB_BORROW -> {
                                 holder.recordText.text = holder.itemView.context.getString(R.string.record_borrow_in)
                                 holder.recordInfo.text = holder.itemView.context.getString(R.string.record_borrow_from) + " $Account_Name"
                             }
-                            8L -> {
+                            CATEGORY_SUB_LEND -> {
                                 holder.recordText.text = holder.itemView.context.getString(R.string.record_lend_out)
                                 holder.recordInfo.text = holder.itemView.context.getString(R.string.record_lend_to) + " $AccountRecipient_Name"
                             }
-                            9L -> {
+                            CATEGORY_SUB_PAYMENT -> {
                                 holder.recordText.text = holder.itemView.context.getString(R.string.record_repay)
                                 holder.recordInfo.text = holder.itemView.context.getString(R.string.record_paid_to) + " $AccountRecipient_Name"
                             }
-                            10L -> {
+                            CATEGORY_SUB_RECEIVE_PAYMENT -> {
                                 holder.recordText.text = holder.itemView.context.getString(R.string.record_receive)
                                 holder.recordInfo.text = holder.itemView.context.getString(R.string.record_received_from) + " $Account_Name"
                             }
@@ -131,9 +132,9 @@ class AccountGeneralDetailAdapter(
                 }
                 // balance
                 when (listDetail[position - 1].TransactionType_ID){
-                    1L -> totalAccountBalance += listDetail[position - 1].Transaction_Amount
-                    2L -> totalAccountBalance -= listDetail[position - 1].Transaction_Amount
-                    3L, 4L -> {
+                    TRANSACTION_TYPE_EXPENSE -> totalAccountBalance += listDetail[position - 1].Transaction_Amount
+                    TRANSACTION_TYPE_INCOME -> totalAccountBalance -= listDetail[position - 1].Transaction_Amount
+                    TRANSACTION_TYPE_TRANSFER, TRANSACTION_TYPE_DEBIT -> {
                         if (Account_ID == currentAccountID){
                             totalAccountBalance += listDetail[position - 1].Transaction_Amount
                         }else{

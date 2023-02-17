@@ -8,8 +8,10 @@ import androidx.lifecycle.ViewModel
 import com.example.ngiu.R
 import com.example.ngiu.data.AppDatabase
 import com.example.ngiu.data.entities.*
+import com.example.ngiu.data.entities.returntype.AccountCount
 import com.example.ngiu.data.entities.returntype.TransactionDetail
-
+import com.example.ngiu.functions.*
+import kotlin.collections.groupingBy
 import kotlin.collections.ArrayList
 
 class RecordViewModel : ViewModel() {
@@ -25,20 +27,25 @@ class RecordViewModel : ViewModel() {
     var currentTransactionType: CurrentTransactionType = CurrentTransactionType()
 
     // temp save changed data
-    var transDetail = TransactionDetail(TransactionType_ID = 1L)
+    var transDetail = TransactionDetail(TransactionType_ID = TRANSACTION_TYPE_EXPENSE)
 
-    private var subCategoryName = ArrayList<String>()
+    private var categoryName = ArrayList<String>()
     var tempSavedAccountName = ArrayList<String>()
 
-    var expenseCommonCategory: List<SubCategory> = ArrayList()
-    var incomeCommonCategory: List<SubCategory> = ArrayList()
-    var transferCommonCategory: List<SubCategory> = ArrayList()
-    var debitCreditCommonCategory: List<SubCategory> = ArrayList()
-    var subCategory: List<SubCategory> = ArrayList()
+    var expenseCommonCategory: List<Category> = ArrayList()
+    var incomeCommonCategory: List<Category> = ArrayList()
+    var transferCommonCategory: List<Category> = ArrayList()
+    var debitCreditCommonCategory: List<Category> = ArrayList()
+    var category: List<Category> = ArrayList()
     var person: List<Person> = ArrayList()
     var merchant: List<Merchant> = ArrayList()
     var account: List<Account> = ArrayList()
     var project: List<Project> = ArrayList()
+
+    var tempSaveOutAccountName: String = ""
+    var tempSaveInAccountName: String = ""
+    var tempSaveDebitOutAccountName: String = ""
+    var tempSaveDebitInAccountName: String = ""
 
 
 
@@ -50,14 +57,14 @@ class RecordViewModel : ViewModel() {
 
 
     //
-    fun loadDataToRam(activity: FragmentActivity?) {
-        val database = AppDatabase.getDatabase(activity!!)
-        subCategory = database.subcat().getAllSubCategory()
+    fun loadDataToRam(context: Context) {
+        val database = AppDatabase.getDatabase(context)
+        category = database.category().getAllCategory()
         account = database.account().getAllAccount()
-        expenseCommonCategory = database.subcat().getCommonCategoryByTransactionType(1L)
-        incomeCommonCategory = database.subcat().getCommonCategoryByTransactionType(2L)
-        transferCommonCategory = database.subcat().getCommonCategoryByTransactionType(3L)
-        debitCreditCommonCategory = database.subcat().getCommonCategoryByTransactionType(4L)
+        expenseCommonCategory = database.category().getCommonCategoryByTransactionType(TRANSACTION_TYPE_EXPENSE)
+        incomeCommonCategory = database.category().getCommonCategoryByTransactionType(TRANSACTION_TYPE_INCOME)
+        transferCommonCategory = database.category().getCommonCategoryByTransactionType(TRANSACTION_TYPE_TRANSFER)
+        debitCreditCommonCategory = database.category().getCommonCategoryByTransactionType(TRANSACTION_TYPE_DEBIT)
 
         person = database.person().getAllPerson()
         merchant = database.merchant().getAllMerchant()
@@ -65,49 +72,66 @@ class RecordViewModel : ViewModel() {
 
         // default sub category name
 
-        val expenseCategory = database.subcat().getSubCategoryByTransactionType(1L)
-        val incomeCategory = database.subcat().getSubCategoryByTransactionType(2L)
-        val transferCategory = database.subcat().getSubCategoryByTransactionType(3L)
-        val debitCreditCategory = database.subcat().getSubCategoryByTransactionType(4L)
+        val expenseCategory = database.category().getCategoryByTransactionType(TRANSACTION_TYPE_EXPENSE)
+        val incomeCategory = database.category().getCategoryByTransactionType(TRANSACTION_TYPE_INCOME)
+        val transferCategory = database.category().getCategoryByTransactionType(TRANSACTION_TYPE_TRANSFER)
+        val debitCreditCategory = database.category().getCategoryByTransactionType(TRANSACTION_TYPE_DEBIT)
 
 
-        subCategoryName.add(if (expenseCategory.size > 1) expenseCategory[1].SubCategory_Name else expenseCategory[0].SubCategory_Name)
-        subCategoryName.add(if (incomeCategory.size > 1) incomeCategory[1].SubCategory_Name else incomeCategory[0].SubCategory_Name)
-        subCategoryName.add(transferCategory[0].SubCategory_Name)
-        subCategoryName.add(debitCreditCategory[0].SubCategory_Name)
+        categoryName.add(if (expenseCategory.size > 1) expenseCategory[1].Category_Name else expenseCategory[0].Category_Name)
+        categoryName.add(if (incomeCategory.size > 1) incomeCategory[1].Category_Name else incomeCategory[0].Category_Name)
+        categoryName.add(transferCategory[0].Category_Name)
+        categoryName.add(debitCreditCategory[0].Category_Name)
 
 
-        tempSavedAccountName.add(if (account.isNotEmpty()) account[0].Account_Name else activity.getString(R.string.msg_no_account))
-        tempSavedAccountName.add(if (account.size > 1) account[1].Account_Name else activity.getString(R.string.msg_no_account))
-        tempSavedAccountName.add(activity.getString(R.string.msg_no_account))
+        tempSavedAccountName.add(if (account.isNotEmpty()) account[0].Account_Name else context.getString(R.string.msg_no_account))
+        tempSavedAccountName.add(if (account.size > 1) account[1].Account_Name else context.getString(R.string.msg_no_account))
+        tempSavedAccountName.add(context.getString(R.string.msg_no_account))
         for (at in account){
-            if (at.AccountType_ID == 9L) tempSavedAccountName[2] = at.Account_Name
+            if (at.AccountType_ID == ACCOUNT_TYPE_RECEIVABLE) tempSavedAccountName[2] = at.Account_Name
         }
-        tempSavedAccountName.add(if (account.isNotEmpty()) account[0].Account_Name else activity.getString(R.string.msg_no_account))
+        tempSavedAccountName.add(if (account.isNotEmpty()) account[0].Account_Name else context.getString(R.string.msg_no_account))
+
+//        if (account.isEmpty()){
+//            tempSaveOutAccountName = context.getString(R.string.msg_no_account)
+//            tempSaveInAccountName = context.getString(R.string.msg_no_account)
+//            tempSaveDebitOutAccountName = context.getString(R.string.msg_no_account)
+//            tempSaveDebitInAccountName = context.getString(R.string.msg_no_account)
+//        }else if (account.size == 1){
+//            tempSaveOutAccountName = getPayOutAccountName(context, CATEGORY_MAIN_EXPENSE, TRANSACTION_TYPE_EXPENSE)
+//            tempSaveInAccountName = context.getString(R.string.msg_no_account)
+//            tempSaveDebitOutAccountName = tempSaveOutAccountName
+//            tempSaveDebitInAccountName = context.getString(R.string.msg_no_account)
+//        }else{
+//            tempSaveOutAccountName = getPayOutAccountName(context, CATEGORY_MAIN_EXPENSE, TRANSACTION_TYPE_EXPENSE)
+//            //tempSaveInAccountName = context.getString(R.string.msg_no_account)
+//            //tempSaveDebitOutAccountName = tempSaveOutAccountName
+//            //tempSaveDebitInAccountName = context.getString(R.string.msg_no_account)
+//        }
 
     }
 
 
-    fun loadTransactionDetail(activity: FragmentActivity?, rID: Long) {
-        transDetail = AppDatabase.getDatabase(activity!!).trans().getOneTransaction(rID)
+    fun loadTransactionDetail(context: Context, rID: Long) {
+        transDetail = AppDatabase.getDatabase(context).trans().getOneTransaction(rID)
     }
 
     fun getSubCategoryName(): String{
-        return subCategoryName[transDetail.TransactionType_ID.toInt() -1]
+        return categoryName[transDetail.TransactionType_ID.toInt() -1]
     }
-    fun setSubCategoryName(string: String){
-        subCategoryName[transDetail.TransactionType_ID.toInt() -1] = string
+    fun  setSubCategoryName(string: String){
+        categoryName[transDetail.TransactionType_ID.toInt() -1] = string
     }
 
     fun getAccountName(payAccount: Boolean): String{
-        return if (transDetail.TransactionType_ID ==4L){
-                    tempSavedAccountName[if (payAccount) 2 else 3 ]
+        return if (transDetail.TransactionType_ID == TRANSACTION_TYPE_DEBIT){
+                    tempSavedAccountName[if (payAccount) 3 else 2 ]
                 }else{
-                    tempSavedAccountName[if (payAccount) 0 else 1 ]
+                    tempSavedAccountName[if (payAccount) 1 else 0 ]
                 }
     }
     fun setAccountName(payAccount: Boolean, string: String){
-        if (transDetail.TransactionType_ID ==4L){
+        if (transDetail.TransactionType_ID == TRANSACTION_TYPE_DEBIT){
             tempSavedAccountName[if (payAccount) 2 else 3 ] = string
         }else{
             tempSavedAccountName[if (payAccount) 0 else 1 ] = string
@@ -122,7 +146,7 @@ class RecordViewModel : ViewModel() {
     fun setReimbursable(context: Context):String{
         val array: Array<String> = context.resources.getStringArray(R.array.data_reimburse_array)
         return when(transDetail.Transaction_ReimburseStatus){
-            0,1 -> {
+            NON_REIMBURSABLE, REIMBURSABLE -> {
                 transDetail.Transaction_ReimburseStatus++
                 array[transDetail.Transaction_ReimburseStatus]
             }
@@ -146,9 +170,9 @@ class RecordViewModel : ViewModel() {
 
      */
 
-    fun getSubCategoryID(string: String): Long{
-        val idx = subCategory.indexOfFirst { it.SubCategory_Name == string }
-        return if (idx >= 0) subCategory[idx].SubCategory_ID
+    fun getCategoryID(string: String): Long{
+        val idx = category.indexOfFirst { it.Category_Name == string }
+        return if (idx >= 0) category[idx].Category_ID
             else idx.toLong()
     }
 
@@ -161,32 +185,118 @@ class RecordViewModel : ViewModel() {
     fun getListOfAccountName(exceptName:String, payAccount: Boolean): Array<String> {
         val nameList: ArrayList<String> = ArrayList()
 
+        // todo need rewrite
         for (at in account) {
             // Normal Account
-            if (at.AccountType_ID != 9L) {
-                if ((transDetail.TransactionType_ID != 3L) || (at.Account_Name != exceptName)) {
-                    when (getSubCategoryID(transDetail.SubCategory_Name)) {
+            if (at.AccountType_ID != ACCOUNT_TYPE_RECEIVABLE) {
+                if ((transDetail.TransactionType_ID != TRANSACTION_TYPE_TRANSFER) || (at.Account_Name != exceptName)) {
+                    when (getCategoryID(transDetail.Category_Name)) {
                         // borrow in | received
-                        7L, 10L -> if (!payAccount) nameList.add(at.Account_Name)
+                        CATEGORY_SUB_BORROW, CATEGORY_SUB_RECEIVE_PAYMENT -> if (!payAccount) nameList.add(at.Account_Name)
                         // lend out | repayment
-                        8L, 9L -> if (payAccount) nameList.add(at.Account_Name)
+                        CATEGORY_SUB_LEND, CATEGORY_SUB_PAYMENT -> if (payAccount) nameList.add(at.Account_Name)
                         // not transaction type 4
                         else -> nameList.add(at.Account_Name)
                     }
                 }
                 // Payable|Receivable Account
-            } else if (transDetail.TransactionType_ID == 4L) {
-                when (getSubCategoryID(transDetail.SubCategory_Name)) {
+            } else if (transDetail.TransactionType_ID == TRANSACTION_TYPE_DEBIT) {
+                when (getCategoryID(transDetail.Category_Name)) {
                     // borrow in | received
-                    7L, 10L -> if (payAccount) nameList.add(at.Account_Name)
+                    CATEGORY_SUB_BORROW, CATEGORY_SUB_RECEIVE_PAYMENT -> if (payAccount) nameList.add(at.Account_Name)
                     // lend out | repayment
-                    8L, 9L -> if (!payAccount) nameList.add(at.Account_Name)
+                    CATEGORY_SUB_LEND, CATEGORY_SUB_PAYMENT -> if (!payAccount) nameList.add(at.Account_Name)
                 }
             }
         }
         return nameList.toTypedArray()
 
     }
+
+    fun updateTransaction(context: Context ,trans: Trans){
+        AppDatabase.getDatabase(context).trans().updateTransaction(trans)
+    }
+
+    fun addTransaction(context: Context ,trans: Trans){
+        AppDatabase.getDatabase(context).trans().addTransaction(trans)
+    }
+
+    fun deleteTrans(context: Context ,trans: Trans){
+        AppDatabase.getDatabase(context).trans().deleteTransaction(trans)
+    }
+
+
+
+    // return account name when open the record fragment with different transaction type.
+    fun getPayOutAccountName(context: Context, category: Long = 0L , transType: Long = 0L, accountID: Long = 0L): String{
+        // todo bug: open category manager and go back, RP default account was changed.
+
+
+        if (accountID > 0 ){
+            return AppDatabase.getDatabase(context).account().getRecordByID(accountID).Account_Name
+        }
+
+        val transCount = AppDatabase.getDatabase(context).trans().getTransCount()
+
+        val accountCount: Int = when (transType){
+            TRANSACTION_TYPE_DEBIT -> {
+                AppDatabase.getDatabase(context).account().getAccountCountType(
+                    TRANSACTION_TYPE_DEBIT)
+            }
+            else ->{
+                AppDatabase.getDatabase(context).account().getAccountCountExcept(
+                    TRANSACTION_TYPE_DEBIT)
+            }
+        }
+        //val accountCount = AppDatabase.getDatabase(context).account().getAccountCountExcept(
+        //    if (transType == TRANSACTION_TYPE_TRANSFER) 0L else ACCOUNT_TYPE_RECEIVABLE
+        //    )
+
+        //val account = AppDatabase.getDatabase(context).account().getAllAccount()
+
+        if (accountCount == 0) {
+            return context.getString(R.string.msg_no_account)
+
+        }else{
+            return if (transCount > 0) {
+                var acctNameList = AppDatabase.getDatabase(context).trans()
+                    .getCountOfAccountsByTransactionTypeAndCategory(transType, category)
+
+                if (acctNameList.isEmpty()) {
+                    acctNameList = AppDatabase.getDatabase(context).trans()
+                        .getCountOfAccountsByTransactionType(transType)
+                }
+
+                if (acctNameList.isEmpty()){
+                    transDetail.Account_Name
+                }else {
+                    acctNameList[0].Account_Name
+                }
+            }else{
+                transDetail.Account_Name
+            }
+        }
+        /*        fun findMostCommonValues(values: List<Any>): List<Any> {
+            // Group the values by their count
+            val groups = values.groupingBy { it }.eachCount()
+
+            // Sort the map by count in descending order
+            val sortedGroups = groups.toList().sortedByDescending { (_, count) -> count }
+
+            // Extract the elements from the sorted map
+            return sortedGroups.map { (element, _) -> element }
+        }*/
+
+    }
+
+    // return account name list when open the record fragment with different transaction type.
+    fun getAccountList(): List<String>?{
+        val acctList: List<String>? = null
+        // todo
+
+        return acctList
+    }
+
 }
 
 
@@ -205,19 +315,19 @@ class CurrentTransactionType {
         val cTT = CurrentTransactionType()
 
         when (tyID) {
-            1L -> {
+            TRANSACTION_TYPE_EXPENSE -> {
                 cTT.expense = R.color.app_title_text
                 cTT.expensePointer = View.VISIBLE
             }
-            2L -> {
+            TRANSACTION_TYPE_INCOME -> {
                 cTT.income = R.color.app_title_text
                 cTT.incomePointer = View.VISIBLE
             }
-            3L -> {
+            TRANSACTION_TYPE_TRANSFER -> {
                 cTT.transfer = R.color.app_title_text
                 cTT.transferPointer = View.VISIBLE
             }
-            4L -> {
+            TRANSACTION_TYPE_DEBIT -> {
                 cTT.debitCredit = R.color.app_title_text
                 cTT.debitCreditPointer = View.VISIBLE
             }
@@ -225,6 +335,7 @@ class CurrentTransactionType {
 
         return cTT
     }
+
 
 
 }

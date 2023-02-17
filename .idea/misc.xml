@@ -16,6 +16,8 @@
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/ic_baseline_arrow_forward_ios_24.xml" value="0.21875" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/ic_baseline_arrow_left_24.xml" value="0.37447916666666664" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/ic_baseline_arrow_right_24.xml" value="0.37447916666666664" />
+        <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/ic_baseline_assignment_late_24.xml" value="0.1825" />
+        <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/ic_baseline_assignment_turned_in_24.xml" value="0.1825" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/ic_baseline_backspace_24.xml" value="0.37864583333333335" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/ic_baseline_backup_24.xml" value="0.37864583333333335" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/ic_baseline_bar_chart_24.xml" value="0.37864583333333335" />
@@ -23,6 +25,7 @@
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/ic_baseline_bookmark_border_24.xml" value="0.37447916666666664" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/ic_baseline_border_color_24.xml" value="0.37864583333333335" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/ic_baseline_calculate_24.xml" value="0.2703125" />
+        <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/ic_baseline_calendar_month_24.xml" value="0.1825" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/ic_baseline_check_box_24.xml" value="0.2703125" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/ic_baseline_check_box_outline_blank_24.xml" value="0.2703125" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/ic_baseline_credit_card_24.xml" value="0.37864583333333335" />
@@ -35,8 +38,8 @@
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/ic_baseline_edit_24.xml" value="0.37864583333333335" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/ic_baseline_edit_calendar_24.xml" value="0.37864583333333335" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/ic_baseline_edit_note_24.xml" value="0.37864583333333335" />
-        <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/ic_baseline_event_24.xml" value="0.37864583333333335" />
-        <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/ic_baseline_event_note_24.xml" value="0.37864583333333335" />
+        <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/ic_baseline_event_24.xml" value="0.164" />
+        <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/ic_baseline_event_note_24.xml" value="0.164" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/ic_baseline_fastfood_24.xml" value="0.37864583333333335" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/ic_baseline_indeterminate_check_box_24.xml" value="0.2703125" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/ic_baseline_insert_chart_24.xml" value="0.37864583333333335" />
@@ -63,9 +66,11 @@
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/ic_baseline_star_24.xml" value="0.21875" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/ic_baseline_star_border_24.xml" value="0.37864583333333335" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/ic_baseline_swap_horiz_24.xml" value="0.37864583333333335" />
+        <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/ic_baseline_swap_horizontal_circle_24.xml" value="0.245" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/ic_baseline_sync_alt_24.xml" value="0.37864583333333335" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/ic_baseline_table_chart_24.xml" value="0.37864583333333335" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/ic_baseline_table_rows_24.xml" value="0.37864583333333335" />
+        <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/ic_baseline_task_24.xml" value="0.245" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/ic_baseline_toc_24.xml" value="0.37864583333333335" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/ic_baseline_toggle_off_24.xml" value="0.37864583333333335" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/drawable/ic_baseline_toggle_on_24.xml" value="0.37864583333333335" />
@@ -85,7 +90,7 @@
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/account_detail_cardview.xml" value="0.28940217391304346" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/account_list_cardview.xml" value="0.20260416666666667" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/account_section_item.xml" value="0.3625" />
-        <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/activity_main.xml" value="0.5893310753598645" />
+        <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/add_account.xml" value="0.35833333333333334" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/add_account_item.xml" value="0.35833333333333334" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/cardview_account_add_account_item.xml" value="0.3625" />
@@ -99,11 +104,12 @@
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/cardview_account_p_r_detail_item.xml" value="0.33" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/cardview_account_records.xml" value="0.3625" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/cardview_account_section_item.xml" value="0.3625" />
+        <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/cardview_calendar.xml" value="0.3625" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/cardview_main_category.xml" value="0.3007246376811594" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/cardview_mpp_item.xml" value="0.3242753623188406" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/cardview_record_category_item.xml" value="0.1762917933130699" />
-        <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/cardview_sub_category.xml" value="0.5403151065801668" />
-        <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/cardview_transaction.xml" value="0.2871376811594203" />
+        <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/cardview_sub_category.xml" value="0.5" />
+        <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/cardview_transaction.xml" value="0.1032258064516129" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/custom_item.xml" value="0.2957427536231884" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/fragment_account.xml" value="0.28940217391304346" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/fragment_account_add_account.xml" value="0.33469202898550726" />
@@ -118,6 +124,7 @@
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/fragment_account_debit_credit_detail.xml" value="0.5" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/fragment_account_detail.xml" value="0.33" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/fragment_account_general_detail.xml" value="0.33" />
+        <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/fragment_account_list.xml" value="0.29891304347826086" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/fragment_account_p_r_detail.xml" value="0.33" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/fragment_account_records.xml" value="0.32653985507246375" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/fragment_account_records_p_r.xml" value="0.32653985507246375" />
@@ -132,7 +139,7 @@
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/fragment_add_virtual_account.xml" value="0.3625" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/fragment_add_web_account.xml" value="0.3625" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/fragment_addcredit.xml" value="0.35833333333333334" />
-        <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/fragment_calendar.xml" value="0.28940217391304346" />
+        <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/fragment_calendar.xml" value="0.33" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/fragment_category_manage.xml" value="0.34057971014492755" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/fragment_dashboard.xml" value="0.25" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/fragment_home.xml" value="0.1693840579710145" />
@@ -140,9 +147,14 @@
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/fragment_merchant_person_project_meange.xml" value="0.3242753623188406" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/fragment_notifications.xml" value="0.1037037037037037" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/fragment_record.xml" value="0.3625" />
+        <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/fragment_reimburse.xml" value="0.1762917933130699" />
+        <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/fragment_reimburse_list.xml" value="0.29891304347826086" />
+        <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/fragment_rewards.xml" value="0.3625" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/fragment_setting.xml" value="0.33" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/keyboard.xml" value="0.26721014492753625" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/manage_expense.xml" value="0.3351449275362319" />
+        <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/popup_dialog.xml" value="0.23641304347826086" />
+        <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/popup_reminder_dialog.xml" value="0.23641304347826086" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/popup_title.xml" value="0.20885416666666667" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/record_category_item.xml" value="0.33" />
         <entry key="..\:/GitHub/Ngiu/app/src/main/res/layout/test.xml" value="0.3625" />
@@ -281,12 +293,30 @@
         <entry key="..\:/Users/John/Documents/GitHub/Ngiu/app/src/main/res/menu/bottom_nav_menu.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/John/Documents/GitHub/Ngiu/app/src/main/res/menu/popup_menu.xml" value="0.3527777777777778" />
         <entry key="..\:/Users/John/Documents/GitHub/Ngiu/app/src/main/res/menu/title_menu.xml" value="0.16018518518518518" />
+        <entry key="..\:/Users/logan/Documents/GitHub/Ngiu/app/src/main/res/drawable/textview_additional_border.xml" value="0.1" />
+        <entry key="..\:/Users/logan/Documents/GitHub/Ngiu/app/src/main/res/layout/cardview_account_general_detail_item.xml" value="0.20244565217391305" />
+        <entry key="..\:/Users/logan/Documents/GitHub/Ngiu/app/src/main/res/layout/cardview_account_p_r_detail_item.xml" value="0.25" />
+        <entry key="..\:/Users/logan/Documents/GitHub/Ngiu/app/src/main/res/layout/cardview_calendar.xml" value="0.25" />
+        <entry key="..\:/Users/logan/Documents/GitHub/Ngiu/app/src/main/res/layout/fragment_account_records.xml" value="0.20244565217391305" />
+        <entry key="..\:/Users/logan/Documents/GitHub/Ngiu/app/src/main/res/layout/fragment_calendar.xml" value="0.20244565217391305" />
         <entry key="..\:/Users/logan/Documents/GitHub/Ngiu/app/src/main/res/layout/fragment_record.xml" value="0.25" />
+        <entry key="..\:/Users/logan/Documents/GitHub/Ngiu/app/src/main/res/layout/popup_reminder_dialog.xml" value="0.125" />
+        <entry key="..\:/Users/logan2/Documents/GitHub/Ngiu/app/src/main/res/layout/cardview_account_add_account_item.xml" value="0.22" />
+        <entry key="..\:/Users/logan2/Documents/GitHub/Ngiu/app/src/main/res/layout/cardview_account_cash_item.xml" value="0.33" />
+        <entry key="..\:/Users/logan2/Documents/GitHub/Ngiu/app/src/main/res/layout/cardview_account_credit_card_item.xml" value="0.5" />
+        <entry key="..\:/Users/logan2/Documents/GitHub/Ngiu/app/src/main/res/layout/cardview_account_records.xml" value="0.276268115942029" />
+        <entry key="..\:/Users/logan2/Documents/GitHub/Ngiu/app/src/main/res/layout/cardview_account_section_item.xml" value="0.25" />
+        <entry key="..\:/Users/logan2/Documents/GitHub/Ngiu/app/src/main/res/layout/cardview_calendar.xml" value="0.33" />
+        <entry key="..\:/Users/logan2/Documents/GitHub/Ngiu/app/src/main/res/layout/fragment_account.xml" value="0.5" />
+        <entry key="..\:/Users/logan2/Documents/GitHub/Ngiu/app/src/main/res/layout/fragment_account_records.xml" value="0.276268115942029" />
+        <entry key="..\:/Users/logan2/Documents/GitHub/Ngiu/app/src/main/res/layout/fragment_calendar.xml" value="0.33" />
+        <entry key="..\:/Users/logan2/Documents/GitHub/Ngiu/app/src/main/res/layout/fragment_record.xml" value="0.16236068895643363" />
+        <entry key="..\:/Users/logan2/Documents/GitHub/Ngiu/app/src/main/res/layout/fragment_setting.xml" value="0.5" />
       </map>
     </option>
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Embedded JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

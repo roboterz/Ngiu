@@ -2,9 +2,11 @@ package com.example.ngiu
 
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.AttributeSet
 import android.view.View
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
@@ -37,21 +39,6 @@ class MainActivity: AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val navView: BottomNavigationView = binding.navView
-
-        val navController = findNavController(R.id.nav_host_fragment_activity_main)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.navigation_activity, R.id.navigation_account, R.id.navigation_calender, R.id.navigation_setting
-            )
-        )
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
-
-        //....
-        supportActionBar?.hide()
 
         //if (Build.VERSION.SDK_INT >= 25){
         //    Shortcuts.setUp(applicationContext)
@@ -60,13 +47,29 @@ class MainActivity: AppCompatActivity() {
 
     }
 
-    override fun onWindowFocusChanged(hasFocus: Boolean) {
-        super.onWindowFocusChanged(hasFocus)
+    override fun onStart() {
+        super.onStart()
 
-        if (hasFocus){
-            //nav_view.visibility=View.GONE
-        }
+        val navView: BottomNavigationView = binding.navView
+
+        val navController = findNavController(R.id.nav_host_fragment_activity_main)
+        // Passing each menu ID as a set of Ids because each
+        // menu should be considered as top level destinations.
+        val appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.navigation_activity, R.id.navigation_account, R.id.navigation_calender, R.id.navigation_rewards
+            )
+        )
+        setupActionBarWithNavController(navController, appBarConfiguration)
+        navView.setupWithNavController(navController)
+
+        //....
+        supportActionBar?.hide()
+
     }
+
+
+
 
     public fun setNavBottomBarVisibility(ID:Int){
         nav_view.visibility = ID

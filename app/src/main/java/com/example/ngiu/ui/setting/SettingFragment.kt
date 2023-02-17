@@ -10,10 +10,18 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI.navigateUp
 import com.example.ngiu.MainActivity
 import com.example.ngiu.R
 import com.example.ngiu.databinding.FragmentSettingBinding
+import com.example.ngiu.functions.MPP_MERCHANT
+import com.example.ngiu.functions.MPP_PERSON
+import com.example.ngiu.functions.MPP_PROJECT
+import kotlinx.android.synthetic.main.fragment_record.*
+import kotlinx.android.synthetic.main.fragment_setting.*
 
 class SettingFragment : Fragment() {
 
@@ -71,7 +79,7 @@ class SettingFragment : Fragment() {
         // Merchant
         binding.tvSettingMerchant.setOnClickListener {
 
-            setFragmentResult("mpp_type", bundleOf("type_ID" to 0))
+            setFragmentResult("mpp_type", bundleOf("type_ID" to MPP_MERCHANT))
             // switch to category manage fragment
             findNavController().navigate(R.id.navigation_mpp_manage)
         }
@@ -79,7 +87,7 @@ class SettingFragment : Fragment() {
         // Person
         binding.tvSettingPerson.setOnClickListener {
 
-            setFragmentResult("mpp_type", bundleOf("type_ID" to 1))
+            setFragmentResult("mpp_type", bundleOf("type_ID" to MPP_PERSON))
             // switch to category manage fragment
             findNavController().navigate(R.id.navigation_mpp_manage)
         }
@@ -87,7 +95,7 @@ class SettingFragment : Fragment() {
         // Project
         binding.tvSettingProject.setOnClickListener {
 
-            setFragmentResult("mpp_type", bundleOf("type_ID" to 2))
+            setFragmentResult("mpp_type", bundleOf("type_ID" to MPP_PROJECT))
             // switch to category manage fragment
             findNavController().navigate(R.id.navigation_mpp_manage)
         }
@@ -96,8 +104,17 @@ class SettingFragment : Fragment() {
             // todo
 
         }
-    }
 
+
+        // click the navigation Icon in the left side of toolbar
+        toolbar_setting.setNavigationOnClickListener {
+            // call back button event to switch to previous fragment
+
+            //requireActivity().onBackPressed()
+            NavHostFragment.findNavController(this).navigateUp()
+        }
+
+    }
 
 
     override fun onDestroy() {
