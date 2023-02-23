@@ -270,7 +270,7 @@ class CalendarFragment : Fragment() {
                     Event_ID = event_ID,
                     Event_Date = getInternationalDateFromAmericanDate(
                         dialog.reminder_date.text.toString() + " " +
-                                dialog.reminder_date.text.toString()),
+                                "00:00:01"),
                     Event_Memo = dialog.reminder_date.text.toString()
                 )
                 // save
