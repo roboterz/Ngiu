@@ -23,6 +23,8 @@ import androidx.fragment.app.*
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions.click
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
 import com.example.ngiu.MainActivity
@@ -152,35 +154,9 @@ class RecordFragment : Fragment() {
         }
 
 
-        // touch Expense textView, switch to Expense page
-        tvSectionExpense.setOnClickListener {
-            setStatus(recordViewModel.setTransactionType(TRANSACTION_TYPE_EXPENSE))
-            loadCommonCategory(TRANSACTION_TYPE_EXPENSE)
-        }
-        // touch Income textView, switch to Income page
-        tvSectionIncome.setOnClickListener {
-            setStatus(recordViewModel.setTransactionType(TRANSACTION_TYPE_INCOME))
-            loadCommonCategory(TRANSACTION_TYPE_INCOME)
-        }
-        // touch Transfer textView, switch to Transfer page
-        tvSectionTransfer.setOnClickListener {
-            setStatus(recordViewModel.setTransactionType(TRANSACTION_TYPE_TRANSFER))
-            loadCommonCategory(TRANSACTION_TYPE_TRANSFER)
-        }
-        // touch DebitCredit textView, switch to DebitCredit page
-        tvSectionDebitCredit.setOnClickListener {
-            setStatus(recordViewModel.setTransactionType(TRANSACTION_TYPE_DEBIT))
-            loadCommonCategory(TRANSACTION_TYPE_DEBIT)
-        }
-
-
-
-        // set up toolbar icon and click event
-
+        // -------------------------- TOOLBAR -------------------------------------
         // choose items to show
         toolbar_record.menu.findItem(R.id.action_done).isVisible = true
-
-
 
         // click the navigation Icon in the left side of toolbar
         toolbar_record.setNavigationOnClickListener{
@@ -212,7 +188,32 @@ class RecordFragment : Fragment() {
                 else -> super.onOptionsItemSelected(it)
             }
         }
+        // ---------------------------- TOOLBAR ---------------------------------------
 
+
+        // touch Expense textView, switch to Expense page
+        tvSectionExpense.setOnClickListener {
+            setStatus(recordViewModel.setTransactionType(TRANSACTION_TYPE_EXPENSE))
+            loadCommonCategory(TRANSACTION_TYPE_EXPENSE)
+        }
+        // touch Income textView, switch to Income page
+        tvSectionIncome.setOnClickListener {
+            setStatus(recordViewModel.setTransactionType(TRANSACTION_TYPE_INCOME))
+            loadCommonCategory(TRANSACTION_TYPE_INCOME)
+        }
+        // touch Transfer textView, switch to Transfer page
+        tvSectionTransfer.setOnClickListener {
+            setStatus(recordViewModel.setTransactionType(TRANSACTION_TYPE_TRANSFER))
+            loadCommonCategory(TRANSACTION_TYPE_TRANSFER)
+        }
+        // touch DebitCredit textView, switch to DebitCredit page
+        tvSectionDebitCredit.setOnClickListener {
+            setStatus(recordViewModel.setTransactionType(TRANSACTION_TYPE_DEBIT))
+            loadCommonCategory(TRANSACTION_TYPE_DEBIT)
+        }
+
+
+        // --------------- TOUCH EVENTS ---------------------------------------------------------
         // Save Button
         tv_record_right_button.setOnClickListener {
             if (saveRecord(receivedTransID) == 0) {
@@ -433,6 +434,7 @@ class RecordFragment : Fragment() {
         tv_record_memo.doAfterTextChanged {
             recordViewModel.transDetail.Transaction_Memo = tv_record_memo.text.toString()
         }
+        // --------------- TOUCH EVENTS -----------------------------------------------------------------------------
     }
 
 
@@ -457,8 +459,23 @@ class RecordFragment : Fragment() {
 
 
 
-    //------------------------------------------Private Functions--------------------------------------------------
-    //------------------------------------------Private Functions--------------------------------------------------
+    //------------------------------------------ Private Functions --------------------------------------------------
+    //------------------------------------------  Private Functions --------------------------------------------------
+
+    private fun selectTransactionType(transType: Long, transID: Long, acctID: Long, cateID: Long){
+        // prepare the data after selected transaction type
+
+
+
+    }
+
+    private fun selectCategory(){
+        // prepare the data after selected Category
+
+
+
+    }
+
 
 
     private fun showAccountName(categoryName: String, blnNew: Boolean = true) {
