@@ -206,7 +206,7 @@ class AddCashFragment : Fragment() {
                 }
 
 
-                else -> super.onOptionsItemSelected(it)
+                else -> true
             }
         }
 
