@@ -101,7 +101,7 @@ class AccountFragment : Fragment() {
                     true
                 }
 
-                else -> super.onOptionsItemSelected(it)
+                else -> true
             }
         }
 
