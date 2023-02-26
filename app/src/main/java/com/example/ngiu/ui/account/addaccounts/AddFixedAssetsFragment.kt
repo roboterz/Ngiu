@@ -27,7 +27,7 @@ class AddFixedAssetsFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var addCashViewModel: AddCashViewModel
     var currency = "USD"
-    lateinit var page: String
+    var page: Long = 0L
     var accountTypeID : Long = 0L
     var id: Long = 0L
 
@@ -57,26 +57,26 @@ class AddFixedAssetsFragment : Fragment() {
 
     private fun displayPage() {
         when (page) {
-            "add_valueCard" -> {
+            KEY_VALUE_ACCOUNT_ADD_STORED -> {
                 binding.toolbarAddFixedAssets.title = "Add Store Value Card"
                 accountTypeID = ACCOUNT_TYPE_STORED
             }
-            "edit_valueCard" -> {
+            KEY_VALUE_ACCOUNT_EDIT_STORED -> {
                 binding.toolbarAddFixedAssets.title = "Add Store Value Card"
                 binding.toolbarAddFixedAssets.menu.findItem(R.id.action_delete).isVisible = true
                 accountTypeID = ACCOUNT_TYPE_STORED
-                id = arguments?.getLong("id")!!
+                id = arguments?.getLong(KEY_ACCOUNT_ID)!!
                 fetchAccountDetails(id)
             }
-            "add_perm" -> {
+            KEY_VALUE_ACCOUNT_ADD_ASSETS -> {
                 binding.toolbarAddFixedAssets.title = "Add Fixed Account"
                 accountTypeID = ACCOUNT_TYPE_ASSETS
             }
-            "edit_perm" -> {
+            KEY_VALUE_ACCOUNT_EDIT_ASSETS -> {
                 binding.toolbarAddFixedAssets.title = "Edit Fixed Account"
                 binding.toolbarAddFixedAssets.menu.findItem(R.id.action_delete).isVisible = true
                 accountTypeID = ACCOUNT_TYPE_ASSETS
-                id = arguments?.getLong("id")!!
+                id = arguments?.getLong(KEY_ACCOUNT_ID)!!
                 fetchAccountDetails(id)
             }
 
@@ -86,7 +86,7 @@ class AddFixedAssetsFragment : Fragment() {
     }
 
     private fun getBundleData() {
-        page = arguments?.getString("page")!!
+        page = arguments?.getLong(KEY_ACCOUNT_PAGE)!!
 
     }
 
@@ -106,19 +106,19 @@ class AddFixedAssetsFragment : Fragment() {
     private fun initListeners() {
         binding.btnSaveFixedAssets.setOnClickListener {
             when (page) {
-                "add_valueCard" -> {
+                KEY_VALUE_ACCOUNT_ADD_STORED -> {
                     submitForm()
                 }
-                "edit_valueCard" -> {
-                    id = arguments?.getLong("id")!!
+                KEY_VALUE_ACCOUNT_EDIT_STORED -> {
+                    id = arguments?.getLong(KEY_ACCOUNT_ID)!!
                     updateAccount(id)
                 }
-                "add_perm" -> {
+                KEY_VALUE_ACCOUNT_ADD_ASSETS -> {
                     submitForm()
                 }
-                "edit_perm" -> {
+                KEY_VALUE_ACCOUNT_EDIT_ASSETS -> {
 
-                    id = arguments?.getLong("id")!!
+                    id = arguments?.getLong(KEY_ACCOUNT_ID)!!
                     updateAccount(id)
                 }
 

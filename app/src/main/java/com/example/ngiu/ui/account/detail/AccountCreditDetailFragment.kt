@@ -116,11 +116,9 @@ class AccountCreditDetailFragment : Fragment() {
                 R.id.action_edit -> {
                     //(activity as MainActivity).setNavBottomBarVisibility(View.GONE)
 
-                    val bundle = Bundle().apply {
-                        putString("page", "edit_credit")
-                        putLong("id", accountID)
-                    }
-                    view.findNavController().navigate(R.id.addCreditFragment, bundle)
+                    // Switch to Credit Account Attribute Page
+                    switchToAccountAttributePage(view, ACCOUNT_TYPE_CREDIT,
+                                                accountID, 0.0, ACCOUNT_EDIT_MODE)
 
                     true
                 }

@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.ngiu.MainActivity
 import com.example.ngiu.R
 import com.example.ngiu.databinding.FragmentActivityBinding
+import com.example.ngiu.functions.KEY_RECORD_TRANSACTION_ID
 import kotlinx.android.synthetic.main.fragment_activity.*
 
 
@@ -165,7 +166,7 @@ class ActivityFragment : Fragment() {
 
     private fun navigateToRecordFragment(transID: Long = 0){
         val bundle = Bundle().apply {
-            putLong("Transaction_ID", transID)
+            putLong(KEY_RECORD_TRANSACTION_ID, transID)
         }
         // switch to record fragment
         findNavController().navigate(R.id.navigation_record, bundle)

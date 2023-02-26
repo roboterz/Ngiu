@@ -111,13 +111,13 @@ class AccountGeneralDetailFragment : Fragment() {
                 }
                 R.id.action_edit -> {
                     //(activity as MainActivity).setNavBottomBarVisibility(View.GONE)
-                    // navigate to edit account
-                    // swtich to edit account
 
+                    // switch to edit account attribute page
                     switchToAccountAttributePage(view,
                         accountGeneralDetailViewModel.accountTypeID,
                         accountGeneralDetailViewModel.accountID,
-                        accountGeneralDetailViewModel.accountBalance)
+                        accountGeneralDetailViewModel.accountBalance,
+                        ACCOUNT_EDIT_MODE)
 
                     true
                 }

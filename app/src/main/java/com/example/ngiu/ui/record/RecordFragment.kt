@@ -510,6 +510,8 @@ class RecordFragment : Fragment() {
             CATEGORY_SUB_BORROW, CATEGORY_SUB_RECEIVE_PAYMENT -> {
                 if (payable){
                     // create P/R account
+
+                    // TODO *****
                     val bundle = Bundle().apply {
                         putString("page", "add_payable")
                     }

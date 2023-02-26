@@ -104,11 +104,10 @@ class AccountPRDetailFragment : Fragment() {
                 R.id.action_edit -> {
                     (activity as MainActivity).setNavBottomBarVisibility(View.GONE)
                     // navigate to edit account
-                    val bundle = Bundle().apply {
-                        putString("page", "edit_payable")
-                        putLong("id", accountPRDetailViewModel.accountID)
-                    }
-                    view.findNavController().navigate(R.id.addCashFragment, bundle)
+
+                    switchToAccountAttributePage(view, ACCOUNT_TYPE_RECEIVABLE,
+                        accountPRDetailViewModel.accountID, 0.0,
+                        ACCOUNT_EDIT_MODE)
 
                     true
                 }

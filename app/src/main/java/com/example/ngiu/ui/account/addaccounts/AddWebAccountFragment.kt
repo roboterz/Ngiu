@@ -1,5 +1,6 @@
 package com.example.ngiu.ui.account.addaccounts
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -28,7 +29,7 @@ class AddWebAccountFragment : Fragment() {
     private lateinit var addCashViewModel: AddCashViewModel
     var currency = "USD"
     private var balance: Double = 0.0
-    lateinit var page: String
+    var page: Long = 0L
     var accountTypeID : Long = 0L
     var id : Long= 0L
 
@@ -36,7 +37,7 @@ class AddWebAccountFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        addCashViewModel = ViewModelProvider(this).get(AddCashViewModel::class.java)
+        addCashViewModel = ViewModelProvider(this)[AddCashViewModel::class.java]
         _binding = FragmentAccountAddWebAccountBinding.inflate(inflater, container, false)
 
         return binding.root
@@ -60,37 +61,37 @@ class AddWebAccountFragment : Fragment() {
 
     private fun displayPage() {
         when (page) {
-            "add_investment" -> {
+            KEY_VALUE_ACCOUNT_ADD_INVESTMENT -> {
                 binding.toolbarAddWebAccount.title = "Add Investment Account"
                 accountTypeID = ACCOUNT_TYPE_INVESTMENT
             }
-            "edit_investment" -> {
+            KEY_VALUE_ACCOUNT_EDIT_INVESTMENT -> {
                 binding.toolbarAddWebAccount.title = "Edit Investment Account"
                 binding.toolbarAddWebAccount.menu.findItem(R.id.action_delete).isVisible = true
                 accountTypeID = ACCOUNT_TYPE_INVESTMENT
-                id = arguments?.getLong("id")!!
+                id = arguments?.getLong(KEY_ACCOUNT_ID)!!
                 fetchAccountDetails(id)
             }
-            "add_web" -> {
+            KEY_VALUE_ACCOUNT_ADD_WEB -> {
                 binding.toolbarAddWebAccount.title = "Add Web Account"
                 accountTypeID = ACCOUNT_TYPE_WEB
             }
-            "edit_web" -> {
+            KEY_VALUE_ACCOUNT_EDIT_WEB -> {
                 binding.toolbarAddWebAccount.title = "Edit Web Account"
                 binding.toolbarAddWebAccount.menu.findItem(R.id.action_delete).isVisible = true
                 accountTypeID = ACCOUNT_TYPE_WEB
-                id = arguments?.getLong("id")!!
+                id = arguments?.getLong(KEY_ACCOUNT_ID)!!
                 fetchAccountDetails(id)
             }
-            "add_virtual" -> {
+            KEY_VALUE_ACCOUNT_ADD_VIRTUAL -> {
                 binding.toolbarAddWebAccount.title = "Add Virtual Account"
                 accountTypeID = ACCOUNT_TYPE_VIRTUAL
             }
-            "edit_virtual" -> {
+            KEY_VALUE_ACCOUNT_EDIT_VIRTUAL -> {
                 binding.toolbarAddWebAccount.title = "Edit Virtual Account"
                 binding.toolbarAddWebAccount.menu.findItem(R.id.action_delete).isVisible = true
                 accountTypeID = ACCOUNT_TYPE_VIRTUAL
-                id = arguments?.getLong("id")!!
+                id = arguments?.getLong(KEY_ACCOUNT_ID)!!
                 fetchAccountDetails(id)
             }
 
@@ -99,8 +100,8 @@ class AddWebAccountFragment : Fragment() {
 
 
     private fun getBundleData() {
-        page = arguments?.getString("page")!!
-        balance = arguments?.getDouble("balance")!!
+        page = arguments?.getLong(KEY_ACCOUNT_PAGE)!!
+        balance = arguments?.getDouble(KEY_ACCOUNT_BALANCE)!!
     }
 
 
@@ -115,38 +116,39 @@ class AddWebAccountFragment : Fragment() {
 
 
 
+    @SuppressLint("InflateParams")
     private fun initListeners() {
         binding.btnSaveWeb.setOnClickListener {
             when (page) {
-                "add_investment" -> {
+                KEY_VALUE_ACCOUNT_ADD_INVESTMENT -> {
                     accountTypeID = ACCOUNT_TYPE_INVESTMENT
                     submitForm()
 
                 }
-                "edit_investment" -> {
+                KEY_VALUE_ACCOUNT_EDIT_INVESTMENT -> {
                     accountTypeID = ACCOUNT_TYPE_INVESTMENT
-                    id = arguments?.getLong("id")!!
+                    id = arguments?.getLong(KEY_ACCOUNT_ID)!!
                     updateAccount(id)
                 }
-                "add_web" -> {
+                KEY_VALUE_ACCOUNT_ADD_WEB -> {
                     accountTypeID = ACCOUNT_TYPE_WEB
                     submitForm()
                 }
-                "edit_web" -> {
+                KEY_VALUE_ACCOUNT_EDIT_WEB -> {
                     accountTypeID = ACCOUNT_TYPE_WEB
-                    id = arguments?.getLong("id")!!
+                    id = arguments?.getLong(KEY_ACCOUNT_ID)!!
                     updateAccount(id)
                 }
 
 
-                "add_virtual" -> {
+                KEY_VALUE_ACCOUNT_ADD_VIRTUAL -> {
                     accountTypeID = ACCOUNT_TYPE_VIRTUAL
                     submitForm()
 
                 }
-                "edit_virtual" -> {
+                KEY_VALUE_ACCOUNT_EDIT_VIRTUAL -> {
                     accountTypeID = ACCOUNT_TYPE_VIRTUAL
-                    id = arguments?.getLong("id")!!
+                    id = arguments?.getLong(KEY_ACCOUNT_ID)!!
                     updateAccount(id)
                 }
             }

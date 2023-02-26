@@ -1,8 +1,6 @@
 package com.example.ngiu.ui.account.addaccounts
 
 import android.content.Context
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.ngiu.data.AppDatabase
 import com.example.ngiu.data.entities.Account
@@ -40,7 +38,7 @@ class AddCashViewModel : ViewModel() {
     fun deleteAccount(context: Context, id:Long){
         val appDatabase = AppDatabase.getDatabase(context)
 
-        val acct: Account = Account(Account_ID = id)
+        val acct = Account(Account_ID = id)
 
         appDatabase.account().deleteAccount(acct)
         //appDatabase.account().deleteAccountById(id)

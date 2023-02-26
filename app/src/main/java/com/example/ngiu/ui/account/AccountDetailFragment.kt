@@ -102,81 +102,10 @@ class AccountDetailFragment : Fragment() {
                 }
                 R.id.action_edit -> {
                     (activity as MainActivity).setNavBottomBarVisibility(View.GONE)
-                    // navigate to add record screen
+                    // navigate to edit account attribute
+                    switchToAccountAttributePage(view, accountType, itemId, balance,
+                                                ACCOUNT_EDIT_MODE)
 
-
-
-                    when (accountType) {
-                        ACCOUNT_TYPE_CASH -> {
-                            val bundle = Bundle().apply {
-                                putString("page", "edit_cash")
-                                putLong("id", itemId)
-                                putDouble("balance", balance)
-                            }
-
-
-                            view.findNavController().navigate(R.id.addCashFragment, bundle)
-                        }
-                        ACCOUNT_TYPE_DEBIT -> {
-                            val bundle = Bundle().apply {
-                                putString("page", "edit_debit")
-                                putLong("id", itemId)
-                                putDouble("balance", balance)
-                            }
-                            view.findNavController().navigate(R.id.addDebitFragment, bundle)
-                        }
-                        ACCOUNT_TYPE_INVESTMENT-> {
-                            val bundle = Bundle().apply {
-                                putString("page", "edit_investment")
-                                putLong("id", itemId)
-                                putDouble("balance", balance)
-                            }
-                            view.findNavController().navigate(R.id.addWebAccountFragment, bundle)
-                        }
-                        ACCOUNT_TYPE_WEB-> {
-                            val bundle = Bundle().apply {
-                                putString("page", "edit_web")
-                                putLong("id", itemId)
-                                putDouble("balance", balance)
-                            }
-                            view.findNavController().navigate(R.id.addWebAccountFragment, bundle)
-                        }
-                        ACCOUNT_TYPE_STORED -> {
-                            val bundle = Bundle().apply {
-                                putString("page", "edit_valueCard")
-                                putLong("id", itemId)
-                                putDouble("balance", balance)
-                            }
-                            view.findNavController().navigate(R.id.addFixedAssetsFragment, bundle)
-                        }
-
-                        ACCOUNT_TYPE_VIRTUAL-> {
-                            val bundle = Bundle().apply {
-                                putString("page", "edit_virtual")
-                                putLong("id", itemId)
-                                putDouble("balance", balance)
-                            }
-                            view.findNavController().navigate(R.id.addWebAccountFragment, bundle)
-                        }
-
-                        ACCOUNT_TYPE_ASSETS -> {
-                            val bundle = Bundle().apply {
-                                putString("page", "edit_perm")
-                                putLong("id", itemId)
-                                putDouble("balance", balance)
-                            }
-                            view.findNavController().navigate(R.id.addFixedAssetsFragment, bundle)
-                        }
-
-
-                        ACCOUNT_TYPE_RECEIVABLE -> {
-                            val bundle = Bundle().apply {
-                                putString("page", "edit_payable")
-                                putLong("id", itemId)
-                            }
-                            view.findNavController().navigate(R.id.addCashFragment, bundle)
-                        }
-                    }
                     true
                 }
 
