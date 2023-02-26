@@ -92,7 +92,7 @@ class ActivityFragment : Fragment() {
                     navigateToSettingFragment()
                     true
                 }
-                else -> super.onOptionsItemSelected(it)
+                else -> true
             }
         }
 
