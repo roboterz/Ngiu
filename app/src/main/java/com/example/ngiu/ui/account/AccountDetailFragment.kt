@@ -55,11 +55,11 @@ class AccountDetailFragment : Fragment() {
     }
 
     private fun fetchDataFromBundle() {
-        itemId = arguments?.getLong("accountId")!!
-        accountName = arguments?.getString("accountName")!!
-        //balance = arguments?.getDouble("balance")!!
+        itemId = arguments?.getLong(KEY_ACCOUNT_ID)!!
+        accountName = arguments?.getString(KEY_ACCOUNT_NAME)!!
+        //balance = arguments?.getDouble(KEY_ACCOUNT_BALANCE)!!
             balance = accountDetailViewModel.calculateBalance(requireContext(), itemId)
-        accountType = arguments?.getLong("accountType")!!
+        accountType = arguments?.getLong(KEY_ACCOUNT_TYPE)!!
     }
 
     @SuppressLint("SetTextI18n")
@@ -85,7 +85,7 @@ class AccountDetailFragment : Fragment() {
         toolbar_account_normal_details.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
-        binding.toolbarAccountNormalDetails.title = "Account Details"
+        binding.toolbarAccountNormalDetails.title = getString(R.string.nav_title_account_detail)
         toolbar_account_normal_details.menu.findItem(R.id.action_edit).isVisible = true
         toolbar_account_normal_details.menu.findItem(R.id.action_add).isVisible = true
 
@@ -147,7 +147,7 @@ class AccountDetailFragment : Fragment() {
                                 putLong("id", itemId)
                                 putDouble("balance", balance)
                             }
-                            view.findNavController().navigate(R.id.addPermanentAssetFragment, bundle)
+                            view.findNavController().navigate(R.id.addFixedAssetsFragment, bundle)
                         }
 
                         ACCOUNT_TYPE_VIRTUAL-> {
@@ -165,7 +165,7 @@ class AccountDetailFragment : Fragment() {
                                 putLong("id", itemId)
                                 putDouble("balance", balance)
                             }
-                            view.findNavController().navigate(R.id.addPermanentAssetFragment, bundle)
+                            view.findNavController().navigate(R.id.addFixedAssetsFragment, bundle)
                         }
 
 
@@ -180,7 +180,7 @@ class AccountDetailFragment : Fragment() {
                     true
                 }
 
-                else -> super.onOptionsItemSelected(it)
+                else -> true
             }
         }
 
