@@ -84,7 +84,7 @@ class CalendarFragment : Fragment() {
                     showReminderDialog(view.context)
                     true
                 }
-                else -> super.onOptionsItemSelected(it)
+                else -> true
             }
         }
 
