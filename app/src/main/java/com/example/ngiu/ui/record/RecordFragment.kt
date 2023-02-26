@@ -68,16 +68,18 @@ class RecordFragment : Fragment() {
         (activity as MainActivity).setNavBottomBarVisibility(View.GONE)
 
 
-        // receive data from other fragment
-        receivedTransID = arguments?.getLong("Transaction_ID")!!
-        receivedAccountID = arguments?.getLong("Account_ID")!!
-        receivedTransTypeID = arguments?.getLong("TransactionType_ID")!!
+        //*** CHECK IF ANY DATA WAS PASSED FROM OTHER FRAGMENTS
 
-        // get string from category manage
-        setFragmentResultListener("category_manage") { _, bundle ->
-            receivedString = bundle.getString("category_Name").toString()
-            recordViewModel.transDetail.Category_Name = receivedString
-        }
+            // receive data from other fragment
+            receivedTransID = arguments?.getLong(KEY_RECORD_TRANSACTION_ID)!!
+            receivedAccountID = arguments?.getLong(KEY_RECORD_ACCOUNT_ID)!!
+            receivedTransTypeID = arguments?.getLong(KEY_RECORD_TRANSACTION_TYPE_ID)!!
+
+            // get string from category manage
+            setFragmentResultListener(KEY_RECORD_CATEGORY) { _, bundle ->
+                receivedString = bundle.getString(KEY_RECORD_CATEGORY_NAME).toString()
+                recordViewModel.transDetail.Category_Name = receivedString
+            }
 
 
     }
@@ -185,7 +187,7 @@ class RecordFragment : Fragment() {
                     true
                 }
 
-                else -> super.onOptionsItemSelected(it)
+                else -> true
             }
         }
         // ---------------------------- TOOLBAR ---------------------------------------
@@ -464,6 +466,7 @@ class RecordFragment : Fragment() {
 
     private fun selectTransactionType(transType: Long, transID: Long, acctID: Long, cateID: Long){
         // prepare the data after selected transaction type
+
 
 
 
