@@ -133,7 +133,7 @@ class CategoryManagerFragment: Fragment() {
                                         bundleOf("category_Name" to subCategoryName)
                                     )
                                     // exit
-                                    requireActivity().onBackPressed()
+                                    requireActivity().onBackPressedDispatcher.onBackPressed()
                                 }
                             }
                         }
@@ -197,7 +197,7 @@ class CategoryManagerFragment: Fragment() {
         toolbar_category.setNavigationOnClickListener {
 
             // call back button event to switch to previous fragment
-            requireActivity().onBackPressed()
+            requireActivity().onBackPressedDispatcher.onBackPressed()
         }
 
         // menu item clicked
@@ -216,7 +216,7 @@ class CategoryManagerFragment: Fragment() {
                     true
                 }
 
-                else -> super.onOptionsItemSelected(it)
+                else -> true
             }
         }
         //---------------------------tool bar--------------------------------
