@@ -60,7 +60,7 @@ class RewardsFragment : Fragment() {
                     //navigateToRecordFragment()
                     true
                 }
-                else -> super.onOptionsItemSelected(it)
+                else -> true
             }
         }
     }
