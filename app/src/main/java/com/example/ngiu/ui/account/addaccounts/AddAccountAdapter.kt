@@ -80,7 +80,7 @@ class AddAccountAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                     val bundle = Bundle().apply {
                         putString("page", "add_valueCard")
                     }
-                    holder.itemView.findNavController().navigate(R.id.addPermanentAssetFragment, bundle)
+                    holder.itemView.findNavController().navigate(R.id.addFixedAssetsFragment, bundle)
                 }
                 // virtual account
                 6 -> {
@@ -94,7 +94,7 @@ class AddAccountAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                     val bundle = Bundle().apply {
                         putString("page", "add_perm")
                     }
-                    holder.itemView.findNavController().navigate(R.id.addPermanentAssetFragment, bundle)
+                    holder.itemView.findNavController().navigate(R.id.addFixedAssetsFragment, bundle)
                 }
                 //receivable/payable
                 8 ->  {
