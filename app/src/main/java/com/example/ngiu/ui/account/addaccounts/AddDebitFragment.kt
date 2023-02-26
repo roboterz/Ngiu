@@ -36,7 +36,7 @@ class AddDebitFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        addCashViewModel = ViewModelProvider(this).get(AddCashViewModel::class.java)
+        addCashViewModel = ViewModelProvider(this)[AddCashViewModel::class.java]
         _binding = FragmentAccountAddDebitBinding.inflate(inflater, container, false)
 
         getBundleData()
@@ -150,7 +150,7 @@ class AddDebitFragment : Fragment() {
                 }
 
 
-                else -> super.onOptionsItemSelected(it)
+                else -> true
             }
         }
     }
