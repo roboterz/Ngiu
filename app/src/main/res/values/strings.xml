@@ -44,7 +44,7 @@
     <string name="nav_title_add_credit_card">Add Credit Card</string>
     <string name="nav_title_add_debit_card">Add Debit Card/Checking/Saving</string>
     <string name="nav_title_add_web_account">Add Web Account</string>
-    <string name="nav_title_add_permanent_assets">Add Permanent Assets</string>
+    <string name="nav_title_add_fixed_assets">Add Fixed Assets</string>
     <string name="nav_title_add_virtual_account">Add Virtual Account</string>
 
 
