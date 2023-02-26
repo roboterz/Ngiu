@@ -5,6 +5,7 @@ import android.app.AlertDialog
 import android.content.ContentResolver
 import android.content.Context
 import android.content.res.Resources
+import android.os.Bundle
 import android.provider.Settings.Global.getString
 import android.text.Editable
 import android.text.TextWatcher
@@ -281,4 +282,83 @@ fun getInternationalDateFromAmericanDate(string: String): LocalDateTime {
 }
 
 
+
+fun switchToAccountAttributePage(view: View, accountTypeID: Long, accountID: Long, accountBalance: Double){
+    //(activity as MainActivity).setNavBottomBarVisibility(View.GONE)
+    // navigate to edit account
+    // swtich to edit account
+
+    when (accountTypeID) {
+        ACCOUNT_TYPE_CASH -> {
+            val bundle = Bundle().apply {
+                putString("page", "edit_cash")
+                putLong("id", accountID)
+                putDouble("balance", accountBalance)
+            }
+
+
+            view.findNavController().navigate(R.id.addCashFragment, bundle)
+        }
+        ACCOUNT_TYPE_DEBIT -> {
+            val bundle = Bundle().apply {
+                putString("page", "edit_debit")
+                putLong("id", accountID)
+                putDouble("balance", accountBalance)
+            }
+            view.findNavController().navigate(R.id.addDebitFragment, bundle)
+        }
+        ACCOUNT_TYPE_INVESTMENT-> {
+            val bundle = Bundle().apply {
+                putString("page", "edit_investment")
+                putLong("id", accountID)
+                putDouble("balance", accountBalance)
+            }
+            view.findNavController().navigate(R.id.addWebAccountFragment, bundle)
+        }
+        ACCOUNT_TYPE_WEB-> {
+            val bundle = Bundle().apply {
+                putString("page", "edit_web")
+                putLong("id", accountID)
+                putDouble("balance", accountBalance)
+            }
+            view.findNavController().navigate(R.id.addWebAccountFragment, bundle)
+        }
+        ACCOUNT_TYPE_STORED -> {
+            val bundle = Bundle().apply {
+                putString("page", "edit_valueCard")
+                putLong("id", accountID)
+                putDouble("balance", accountBalance)
+            }
+            view.findNavController().navigate(R.id.addFixedAssetsFragment, bundle)
+        }
+
+        ACCOUNT_TYPE_VIRTUAL-> {
+            val bundle = Bundle().apply {
+                putString("page", "edit_virtual")
+                putLong("id", accountID)
+                putDouble("balance", accountBalance)
+            }
+            view.findNavController().navigate(R.id.addWebAccountFragment, bundle)
+        }
+
+        ACCOUNT_TYPE_ASSETS -> {
+            val bundle = Bundle().apply {
+                putString("page", "edit_perm")
+                putLong("id", accountID)
+                putDouble("balance", accountBalance)
+            }
+            view.findNavController().navigate(R.id.addFixedAssetsFragment, bundle)
+        }
+
+
+        ACCOUNT_TYPE_RECEIVABLE -> {
+            val bundle = Bundle().apply {
+                putString("page", "edit_payable")
+                putLong("id", accountID)
+            }
+            view.findNavController().navigate(R.id.addCashFragment, bundle)
+        }
+    }
+
+}
 
