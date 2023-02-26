@@ -163,7 +163,7 @@ class AddWebAccountFragment : Fragment() {
                 }
 
 
-                else -> super.onOptionsItemSelected(it)
+                else -> true
             }
         }
 
