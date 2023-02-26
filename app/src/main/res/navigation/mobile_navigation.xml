@@ -36,7 +36,7 @@
             app:destination="@id/addDebitFragment" />
         <action
             android:id="@+id/action_navigation_add_account_to_addPermanentAssetFragment"
-            app:destination="@id/addPermanentAssetFragment" />
+            app:destination="@id/addFixedAssetsFragment" />
         <action
             android:id="@+id/action_navigation_add_account_to_addVirtualAccountFragment"
             app:destination="@id/addVirtualAccountFragment" />
@@ -91,8 +91,8 @@
         android:name="com.example.ngiu.ui.account.addaccounts.AddDebitFragment"
         android:label="AddDebitFragment" />
     <fragment
-        android:id="@+id/addPermanentAssetFragment"
-        android:name="com.example.ngiu.ui.account.addaccounts.AddPermanentAssetFragment"
+        android:id="@+id/addFixedAssetsFragment"
+        android:name="com.example.ngiu.ui.account.addaccounts.AddFixedAssetsFragment"
         android:label="AddPermanentAssetFragment" />
     <fragment
         android:id="@+id/addVirtualAccountFragment"
