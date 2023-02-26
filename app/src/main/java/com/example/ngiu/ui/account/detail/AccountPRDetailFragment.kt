@@ -17,8 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.MainActivity
 import com.example.ngiu.R
 import com.example.ngiu.databinding.FragmentAccountPRDetailBinding
-import com.example.ngiu.functions.TRANSACTION_TYPE_DEBIT
-import com.example.ngiu.functions.TRANSACTION_TYPE_EXPENSE
+import com.example.ngiu.functions.*
 import kotlinx.android.synthetic.main.fragment_account_p_r_detail.*
 import kotlin.math.abs
 
@@ -47,9 +46,9 @@ class AccountPRDetailFragment : Fragment() {
         // hide nav bottom bar
         (activity as MainActivity).setNavBottomBarVisibility(View.GONE)
 
-        accountPRDetailViewModel.accountID = arguments?.getLong("accountId")!!
-        accountPRDetailViewModel.accountName = arguments?.getString("accountName")!!
-        accountPRDetailViewModel.accountTypeID = arguments?.getLong("accountType")!!
+        accountPRDetailViewModel.accountID = arguments?.getLong(KEY_ACCOUNT_ID)!!
+        accountPRDetailViewModel.accountName = arguments?.getString(KEY_ACCOUNT_NAME)!!
+        accountPRDetailViewModel.accountTypeID = arguments?.getLong(KEY_ACCOUNT_TYPE)!!
 
         // load data to ram
         accountPRDetailViewModel.loadDataToRam(requireContext())
@@ -88,7 +87,7 @@ class AccountPRDetailFragment : Fragment() {
         // choose items to show
 
         toolbar_account_p_r_detail.setNavigationOnClickListener {
-            requireActivity().onBackPressed()
+            requireActivity().onBackPressedDispatcher.onBackPressed()
         }
 
         toolbar_account_p_r_detail.menu.findItem(R.id.action_edit).isVisible = true
@@ -114,7 +113,7 @@ class AccountPRDetailFragment : Fragment() {
                     true
                 }
 
-                else -> super.onOptionsItemSelected(it)
+                else -> true
             }
         }
 
@@ -159,9 +158,9 @@ class AccountPRDetailFragment : Fragment() {
 
     private fun navigateToRecordFragment(trans_ID: Long = 0, account_ID: Long = 0, transType_ID: Long = 0){
         val bundle = Bundle().apply {
-            putLong("Transaction_ID", trans_ID)
-            putLong("Account_ID", account_ID)
-            putLong("TransactionType_ID", transType_ID)
+            putLong(KEY_RECORD_TRANSACTION_ID, trans_ID)
+            putLong(KEY_RECORD_ACCOUNT_ID, account_ID)
+            putLong(KEY_RECORD_TRANSACTION_TYPE_ID, transType_ID)
         }
         // todo open record fragment with specified account or specified transaction type
         // switch to record fragment
