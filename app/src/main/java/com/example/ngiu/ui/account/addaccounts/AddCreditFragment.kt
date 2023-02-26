@@ -170,7 +170,7 @@ class AddCreditFragment : Fragment() {
                 }
 
 
-                else -> super.onOptionsItemSelected(it)
+                else -> true
             }
         }
 
