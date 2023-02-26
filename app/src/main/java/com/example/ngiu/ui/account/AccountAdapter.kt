@@ -23,8 +23,7 @@ class AccountAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val accounts = ArrayList<Account>()
 
 
-    private val VIEW_TYPE_CASH: Int = 0
-    private val VIEW_TYPE_CREDIT: Int = 1
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
@@ -95,13 +94,13 @@ class AccountAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         holder.itemView.setOnClickListener {
             val bundle = Bundle().apply {
-                putLong("accountId", item.Account_ID)
-                putString("accountName", item.Account_Name)
-                putDouble("balance", item.Account_Balance)
-                putDouble("creditLimit", item.Account_CreditLimit)
-                putInt("paymentDate", item.Account_PaymentDay)
-                putInt("statementDate", item.Account_StatementDay)
-                putLong("accountType",item.AccountType_ID)
+                putLong(KEY_ACCOUNT_ID, item.Account_ID)
+                putString(KEY_ACCOUNT_NAME, item.Account_Name)
+                putDouble(KEY_ACCOUNT_BALANCE, item.Account_Balance)
+                putDouble(KEY_ACCOUNT_LIMIT, item.Account_CreditLimit)
+                putInt(KEY_ACCOUNT_PAYMENT_DAY, item.Account_PaymentDay)
+                putInt(KEY_ACCOUNT_STATEMENT_DATE, item.Account_StatementDay)
+                putLong(KEY_ACCOUNT_TYPE,item.AccountType_ID)
 
             }
 
@@ -141,14 +140,14 @@ class AccountAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         notifyDataSetChanged()
     }
 
-    // cash/everything viewholder
+    // cash/everything view-holder
     inner class CashViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val accountTypeTitle: TextView = itemView.tvCashAccountName
         val accountCashBalance: TextView = itemView.tvAccountCashBalance
 
     }
 
-    // credit viewholder
+    // credit view-holder
     inner class CreditViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val creditAccountName: TextView = itemView.tvCreditAccountName
         val cardNumber: TextView = itemView.tvCardNumber
