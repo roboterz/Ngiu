@@ -104,7 +104,7 @@ class AccountDetailFragment : Fragment() {
                     (activity as MainActivity).setNavBottomBarVisibility(View.GONE)
                     // navigate to edit account attribute
                     switchToAccountAttributePage(view, accountType, itemId, balance,
-                                                ACCOUNT_EDIT_MODE)
+                                                EDIT_MODE)
 
                     true
                 }

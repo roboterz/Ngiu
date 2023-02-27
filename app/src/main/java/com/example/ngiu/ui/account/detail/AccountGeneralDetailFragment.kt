@@ -117,7 +117,7 @@ class AccountGeneralDetailFragment : Fragment() {
                         accountGeneralDetailViewModel.accountTypeID,
                         accountGeneralDetailViewModel.accountID,
                         accountGeneralDetailViewModel.accountBalance,
-                        ACCOUNT_EDIT_MODE)
+                        EDIT_MODE)
 
                     true
                 }

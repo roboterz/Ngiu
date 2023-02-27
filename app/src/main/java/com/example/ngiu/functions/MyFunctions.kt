@@ -17,11 +17,18 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ComplexColorCompat.inflate
 import androidx.core.content.res.TypedArrayUtils.getText
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.setFragmentResult
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.ngiu.R
 import com.example.ngiu.data.AppDatabase
 import com.example.ngiu.data.entities.Trans
+import com.example.ngiu.ui.reimburse.fragment_reimburse
+import com.google.android.gms.dynamic.SupportFragmentWrapper
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.fragment_record.*
 import kotlinx.android.synthetic.main.popup_title.view.*
@@ -298,7 +305,7 @@ fun switchToAccountAttributePage(view: View, acctTypeID: Long,
             // KEY_VALUE_ACCOUNT_ADD_CASH = Account_TYPE_CASH (Add Mode, by analogy)
             // KEY_VALUE_ACCOUNT_ADD_CASH - Account_TYPE_CASH = 20 (Edit Mode,by analogy)
             putLong(KEY_ACCOUNT_PAGE, acctTypeID +
-                    if (mode == ACCOUNT_ADD_MODE) 0 else 20)
+                    if (mode == NEW_MODE) 0 else 20)
             putLong(KEY_ACCOUNT_ID, keyValue_acctID)
             putDouble(KEY_ACCOUNT_BALANCE, keyValue_acctBalance)
         }
@@ -333,5 +340,17 @@ fun switchToAccountAttributePage(view: View, acctTypeID: Long,
             }
         }
 
+}
+
+fun switchToCategoryManager(view: View, activity: FragmentActivity, mode: Int, transactionID: Long) {
+
+    // Put Data Before switch
+    activity.supportFragmentManager.setFragmentResult(KEY_CATEGORY_MANAGER, bundleOf(
+        KEY_CATEGORY_MANAGER_MODE to mode,
+        KEY_CATEGORY_MANAGER_TRANSACTION_TYPE to transactionID)
+    )
+
+    // switch to category manage fragment
+    view.findNavController().navigate(R.id.navigation_category_manage)
 }
 

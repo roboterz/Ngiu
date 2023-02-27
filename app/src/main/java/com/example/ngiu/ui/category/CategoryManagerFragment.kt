@@ -36,7 +36,7 @@ class CategoryManagerFragment: Fragment() {
     private var subCategoryAdapter: SubCategoryAdapter? = null
 
     private var receiveID: Long = 0L
-    private var editMode: Boolean = false
+    private var cateMode: Int = EDIT_MODE
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,20 +62,31 @@ class CategoryManagerFragment: Fragment() {
          */
 
         // receive data from other fragment
-        setFragmentResultListener("category_manage_mode") { _, bundle ->
-            editMode = bundle.getBoolean("edit_mode")
-            // show edit icon
-            if (editMode) toolbar_category.menu.findItem(R.id.action_edit).isVisible = true
-        }
+//        cateMode = arguments?.getInt(KEY_CATEGORY_MANAGER_MODE)!!
+//        receiveID = arguments?.getLong(KEY_CATEGORY_MANAGER_TRANSACTION_TYPE)!!
+//
+//        if ( receiveID > 0 ) {
+//            categoryManagerViewModel.currentTransactionType = receiveID
+//            categoryManagerViewModel.loadMainCategory(requireContext(), receiveID)
+//        }
+
 
         // receive data from other fragment
-        setFragmentResultListener("category_manage_type") { _, bundle ->
+        setFragmentResultListener(KEY_CATEGORY_MANAGER) { _, bundle ->
+            val mode = bundle.getInt(KEY_CATEGORY_MANAGER_MODE)
+            val receiveID = bundle.getLong(KEY_CATEGORY_MANAGER_TRANSACTION_TYPE)
 
-            receiveID = bundle.getLong("transaction_type")
+            // if received data
+            if (mode > 0) cateMode = mode
 
-            categoryManagerViewModel.currentTransactionType = receiveID
-            categoryManagerViewModel.loadMainCategory(requireContext(), receiveID)
+            // show the Edit Icon
+            if (cateMode == EDIT_MODE)
+                toolbar_category.menu.findItem(R.id.action_edit).isVisible = true
 
+            if (receiveID > 0 ) {
+                categoryManagerViewModel.currentTransactionType = receiveID
+                categoryManagerViewModel.loadMainCategory(requireContext(), receiveID)
+            }
         }
 
 
@@ -99,7 +110,8 @@ class CategoryManagerFragment: Fragment() {
 
                         override fun onItemLongClick(rID: Long, mainCategoryName: String, nextRowID: Long) {
                             // edit/delete
-                            if (editMode) manageCategory(EDIT_MAIN_CATEGORY,rID,mainCategoryName, nextRowID)
+                            if (cateMode == EDIT_MODE)
+                                manageCategory(EDIT_MAIN_CATEGORY,rID,mainCategoryName, nextRowID)
                         }
                     })
                 }
@@ -121,7 +133,7 @@ class CategoryManagerFragment: Fragment() {
                                 manageCategory(ADD_SUB_CATEGORY)
                             }else {
                                 // edit mode
-                                if (editMode) {
+                                if (cateMode == EDIT_MODE) {
                                     // edit sub category
                                     manageCategory(EDIT_SUB_CATEGORY, rID, subCategoryName)
 
@@ -129,8 +141,8 @@ class CategoryManagerFragment: Fragment() {
                                 } else {
                                     // pass the string back to record fragment
                                     setFragmentResult(
-                                        "category_manage",
-                                        bundleOf("category_Name" to subCategoryName)
+                                        KEY_RECORD_CATEGORY,
+                                        bundleOf(KEY_RECORD_CATEGORY_NAME to subCategoryName)
                                     )
                                     // exit
                                     requireActivity().onBackPressedDispatcher.onBackPressed()
@@ -140,7 +152,7 @@ class CategoryManagerFragment: Fragment() {
 
                         // long click: delete
                         override fun onItemLongClick(rID: Long) {
-                            if (editMode) {
+                            if (cateMode == EDIT_MODE) {
                                 // delete sub category
                                 deleteCategory(1, rID)
                             }
@@ -206,7 +218,7 @@ class CategoryManagerFragment: Fragment() {
                 // done menu
                 R.id.action_edit -> {
                     // turn on edit mode
-                    //mainCategoryAdapter?.setEditMode(true)
+                    //mainCategoryAdapter?.setcateMode(true)
                     //recyclerview_category_main.adapter = mainCategoryAdapter
                     true
                 }
@@ -247,11 +259,11 @@ class CategoryManagerFragment: Fragment() {
 
         // show title
         when (receiveID){
-            1L -> {
-                toolbar_category.setTitle(if (editMode) R.string.nav_title_category_expense_manage else R.string.nav_title_category_expense)
+            TRANSACTION_TYPE_EXPENSE -> {
+                toolbar_category.setTitle(if (cateMode == EDIT_MODE) R.string.nav_title_category_expense_manage else R.string.nav_title_category_expense)
             }
-            2L -> {
-                toolbar_category.setTitle(if (editMode) R.string.nav_title_category_income_manage else R.string.nav_title_category_income)
+            TRANSACTION_TYPE_INCOME -> {
+                toolbar_category.setTitle(if (cateMode == EDIT_MODE) R.string.nav_title_category_income_manage else R.string.nav_title_category_income)
             }
         }
     }

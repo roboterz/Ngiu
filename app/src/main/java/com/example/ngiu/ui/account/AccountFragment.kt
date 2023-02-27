@@ -69,8 +69,8 @@ class AccountFragment : Fragment() {
         }
         rvAccount?.adapter = adapter
 
-        val netAssets = accountViewModel.getNetAssets(requireContext())
-        val totalAsset = accountViewModel.getTotalAssets(requireContext())
+        val netAssets = accountViewModel.getNetAssets()
+        val totalAsset = accountViewModel.getTotalAssets()
         val totalLiability = accountViewModel.getTotalLiability()
 
         binding.tvAccountTotalAssetsValue.text = "$"+"%.2f".format(totalAsset)

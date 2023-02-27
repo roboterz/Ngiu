@@ -350,7 +350,8 @@ class RecordFragment : Fragment() {
         // all category
         tv_record_all_category.setOnClickListener{
             when (recordViewModel.transDetail.TransactionType_ID){
-                TRANSACTION_TYPE_EXPENSE, TRANSACTION_TYPE_INCOME -> openCategoryManager(recordViewModel.transDetail.TransactionType_ID)
+                TRANSACTION_TYPE_EXPENSE, TRANSACTION_TYPE_INCOME ->
+                    switchToCategoryManager(view,requireActivity(), SELECT_MODE,recordViewModel.transDetail.TransactionType_ID)
             }
         }
 
@@ -358,7 +359,8 @@ class RecordFragment : Fragment() {
         // category
         tv_record_category.setOnClickListener {
             when (recordViewModel.transDetail.TransactionType_ID){
-                TRANSACTION_TYPE_EXPENSE, TRANSACTION_TYPE_INCOME -> openCategoryManager(recordViewModel.transDetail.TransactionType_ID)
+                TRANSACTION_TYPE_EXPENSE, TRANSACTION_TYPE_INCOME ->
+                    switchToCategoryManager(view,requireActivity(), SELECT_MODE,recordViewModel.transDetail.TransactionType_ID)
             }
         }
         tv_record_category.doAfterTextChanged{
@@ -400,7 +402,7 @@ class RecordFragment : Fragment() {
                     })
             }else{
                 // create new account if no account
-                createNewAccount(recordViewModel.transDetail.Category_Name, true)
+                createNewAccount(view, recordViewModel.transDetail.Category_Name, true)
             }
         }
         tv_record_account_pay.doAfterTextChanged{
@@ -423,7 +425,7 @@ class RecordFragment : Fragment() {
                     })
             }else{
                 // create new account if no account
-                createNewAccount(recordViewModel.transDetail.Category_Name, false)
+                createNewAccount(view, recordViewModel.transDetail.Category_Name, false)
             }
 
         }
@@ -503,33 +505,28 @@ class RecordFragment : Fragment() {
     }
 
 
-    private fun createNewAccount(categoryName: String, payable: Boolean) {
+    private fun createNewAccount(view: View, categoryName: String, payable: Boolean) {
 
         when (recordViewModel.getCategoryID(categoryName)) {
             // borrow in | received
             CATEGORY_SUB_BORROW, CATEGORY_SUB_RECEIVE_PAYMENT -> {
                 if (payable){
                     // create P/R account
-
-                    // TODO *****
-                    val bundle = Bundle().apply {
-                        putString("page", "add_payable")
-                    }
-                    findNavController().navigate(R.id.addCashFragment, bundle)
-
+                    switchToAccountAttributePage(view, ACCOUNT_TYPE_RECEIVABLE
+                                            ,0,0.0,
+                                            NEW_MODE)
                 }else{
                     findNavController().navigate(R.id.navigation_add_account)
                 }
+
             }
             // lend out | repayment
             CATEGORY_SUB_LEND, CATEGORY_SUB_PAYMENT -> {
                 if (!payable) {
                     // create P/R account
-                    // todo create P/R account
-                    val bundle = Bundle().apply {
-                        putString("page", "add_payable")
-                    }
-                    findNavController().navigate(R.id.addCashFragment, bundle)
+                    switchToAccountAttributePage(view, ACCOUNT_TYPE_RECEIVABLE
+                        ,0,0.0,
+                        NEW_MODE)
 
                 }else{
                     findNavController().navigate(R.id.navigation_add_account)
@@ -827,8 +824,10 @@ class RecordFragment : Fragment() {
         // hide nav bottom bar
         //(activity as MainActivity).setNavBottomBarVisibility(View.GONE)
 
-        setFragmentResult("category_manage_mode", bundleOf("edit_mode" to false))
-        setFragmentResult("category_manage_type", bundleOf("transaction_type" to transactionID))
+        // Put Data Before switch
+        setFragmentResult(KEY_CATEGORY_MANAGER, bundleOf(
+            KEY_CATEGORY_MANAGER_MODE to SELECT_MODE,
+            KEY_CATEGORY_MANAGER_TRANSACTION_TYPE to transactionID))
 
         // switch to category manage fragment
         findNavController().navigate(R.id.navigation_category_manage)

@@ -107,7 +107,7 @@ class AccountPRDetailFragment : Fragment() {
 
                     switchToAccountAttributePage(view, ACCOUNT_TYPE_RECEIVABLE,
                         accountPRDetailViewModel.accountID, 0.0,
-                        ACCOUNT_EDIT_MODE)
+                        EDIT_MODE)
 
                     true
                 }

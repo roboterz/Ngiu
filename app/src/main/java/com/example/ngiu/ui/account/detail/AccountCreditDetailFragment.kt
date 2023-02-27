@@ -118,7 +118,7 @@ class AccountCreditDetailFragment : Fragment() {
 
                     // Switch to Credit Account Attribute Page
                     switchToAccountAttributePage(view, ACCOUNT_TYPE_CREDIT,
-                                                accountID, 0.0, ACCOUNT_EDIT_MODE)
+                                                accountID, 0.0, EDIT_MODE)
 
                     true
                 }
