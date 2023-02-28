@@ -59,14 +59,14 @@ class SettingFragment : Fragment() {
 
         // Expense
         binding.tvSettingExpense.setOnClickListener {
-            //openCategoryManager(TRANSACTION_TYPE_EXPENSE)
-            switchToCategoryManager(view,requireActivity(), EDIT_MODE, TRANSACTION_TYPE_EXPENSE)
+            openCategoryManager(TRANSACTION_TYPE_EXPENSE)
+            //switchToCategoryManager(view,, EDIT_MODE, TRANSACTION_TYPE_EXPENSE)
         }
 
         // Income
         binding.tvSettingIncome.setOnClickListener {
-            //openCategoryManager(TRANSACTION_TYPE_INCOME)
-            switchToCategoryManager(view,requireActivity(), EDIT_MODE, TRANSACTION_TYPE_INCOME)
+            openCategoryManager(TRANSACTION_TYPE_INCOME)
+            //switchToCategoryManager(view,, EDIT_MODE, TRANSACTION_TYPE_INCOME)
         }
 
         // Merchant

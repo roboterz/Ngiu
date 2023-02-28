@@ -18,7 +18,7 @@ class CategoryManagerViewModel: ViewModel() {
     var currentTransactionType: Long = 0L
 
 
-    fun loadMainCategory(context: Context ,transactionType: Long){
+    fun loadMainCategory(context: Context ,transactionType: Long = TRANSACTION_TYPE_EXPENSE){
 
         //commonCategory = AppDatabase.getDatabase(context).category().getCommonCategoryByTransactionType(categoryType)
 

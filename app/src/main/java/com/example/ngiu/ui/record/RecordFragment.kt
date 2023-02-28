@@ -351,7 +351,8 @@ class RecordFragment : Fragment() {
         tv_record_all_category.setOnClickListener{
             when (recordViewModel.transDetail.TransactionType_ID){
                 TRANSACTION_TYPE_EXPENSE, TRANSACTION_TYPE_INCOME ->
-                    switchToCategoryManager(view,requireActivity(), SELECT_MODE,recordViewModel.transDetail.TransactionType_ID)
+                    //switchToCategoryManager(view, SELECT_MODE, recordViewModel.transDetail.TransactionType_ID)
+                    openCategoryManager(recordViewModel.transDetail.TransactionType_ID)
             }
         }
 
@@ -360,7 +361,8 @@ class RecordFragment : Fragment() {
         tv_record_category.setOnClickListener {
             when (recordViewModel.transDetail.TransactionType_ID){
                 TRANSACTION_TYPE_EXPENSE, TRANSACTION_TYPE_INCOME ->
-                    switchToCategoryManager(view,requireActivity(), SELECT_MODE,recordViewModel.transDetail.TransactionType_ID)
+                    //switchToCategoryManager(view, SELECT_MODE,recordViewModel.transDetail.TransactionType_ID)
+                openCategoryManager(recordViewModel.transDetail.TransactionType_ID)
             }
         }
         tv_record_category.doAfterTextChanged{

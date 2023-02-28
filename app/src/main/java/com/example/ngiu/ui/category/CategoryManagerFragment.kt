@@ -35,7 +35,7 @@ class CategoryManagerFragment: Fragment() {
     private var mainCategoryAdapter: MainCategoryAdapter? = null
     private var subCategoryAdapter: SubCategoryAdapter? = null
 
-    private var receiveID: Long = 0L
+    private var transactionTypeID: Long = 0L
     private var cateMode: Int = EDIT_MODE
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,31 +63,35 @@ class CategoryManagerFragment: Fragment() {
 
         // receive data from other fragment
 //        cateMode = arguments?.getInt(KEY_CATEGORY_MANAGER_MODE)!!
-//        receiveID = arguments?.getLong(KEY_CATEGORY_MANAGER_TRANSACTION_TYPE)!!
+//        transactionTypeID = arguments?.getLong(KEY_CATEGORY_MANAGER_TRANSACTION_TYPE)!!
 //
-//        if ( receiveID > 0 ) {
-//            categoryManagerViewModel.currentTransactionType = receiveID
-//            categoryManagerViewModel.loadMainCategory(requireContext(), receiveID)
+//        if ( transactionTypeID > 0 ) {
+//            categoryManagerViewModel.currentTransactionType = transactionTypeID
+//            categoryManagerViewModel.loadMainCategory(requireContext(), transactionTypeID)
 //        }
+//
+//        if (cateMode == EDIT_MODE)
+//            toolbar_category.menu.findItem(R.id.action_edit).isVisible = true
 
 
         // receive data from other fragment
         setFragmentResultListener(KEY_CATEGORY_MANAGER) { _, bundle ->
-            val mode = bundle.getInt(KEY_CATEGORY_MANAGER_MODE)
-            val receiveID = bundle.getLong(KEY_CATEGORY_MANAGER_TRANSACTION_TYPE)
-
-            // if received data
-            if (mode > 0) cateMode = mode
+            cateMode = bundle.getInt(KEY_CATEGORY_MANAGER_MODE)
+            transactionTypeID = bundle.getLong(KEY_CATEGORY_MANAGER_TRANSACTION_TYPE)
 
             // show the Edit Icon
             if (cateMode == EDIT_MODE)
                 toolbar_category.menu.findItem(R.id.action_edit).isVisible = true
 
-            if (receiveID > 0 ) {
-                categoryManagerViewModel.currentTransactionType = receiveID
-                categoryManagerViewModel.loadMainCategory(requireContext(), receiveID)
+            if (transactionTypeID > 0 ) {
+                // set transaction type
+                categoryManagerViewModel.currentTransactionType = transactionTypeID
+                // load data
+                categoryManagerViewModel.loadMainCategory(requireContext(), transactionTypeID)
             }
+            //Toast.makeText(context, cateMode.toString(), Toast.LENGTH_SHORT).show()
         }
+
 
 
 
@@ -190,7 +194,7 @@ class CategoryManagerFragment: Fragment() {
 
 
         // load data
-        categoryManagerViewModel.loadMainCategory(requireContext(),1L)
+        //if (transactionTypeID == 0L) categoryManagerViewModel.loadMainCategory(requireContext())
 
 
         return binding.root
@@ -258,7 +262,7 @@ class CategoryManagerFragment: Fragment() {
 
 
         // show title
-        when (receiveID){
+        when (transactionTypeID){
             TRANSACTION_TYPE_EXPENSE -> {
                 toolbar_category.setTitle(if (cateMode == EDIT_MODE) R.string.nav_title_category_expense_manage else R.string.nav_title_category_expense)
             }
