@@ -97,7 +97,8 @@ class AccountDetailFragment : Fragment() {
                     // hide nav bottom bar
                     (activity as MainActivity).setNavBottomBarVisibility(View.GONE)
                     // navigate to add record screen
-                    view.findNavController().navigate(R.id.navigation_record)
+                    //view.findNavController().navigate(R.id.navigation_record)
+                    switchToRecordFragment(view, this)
                     true
                 }
                 R.id.action_edit -> {

@@ -55,7 +55,7 @@ class RecordFragment : Fragment() {
     private var vpAdapter: RecordCategoryAdapter? = null
     private var receivedTransID: Long = 0
     private var receivedAccountID: Long = 0
-    private var receivedTransTypeID: Long = 0
+    private var receivedTransTypeID: Long = TRANSACTION_TYPE_EXPENSE
     private var receivedString: String = ""
 
     // This property is only valid between onCreateView and
@@ -71,9 +71,15 @@ class RecordFragment : Fragment() {
         //*** CHECK IF ANY DATA WAS PASSED FROM OTHER FRAGMENTS
 
             // receive data from other fragment
-            receivedTransID = arguments?.getLong(KEY_RECORD_TRANSACTION_ID)!!
+/*            receivedTransID = arguments?.getLong(KEY_RECORD_TRANSACTION_ID)!!
             receivedAccountID = arguments?.getLong(KEY_RECORD_ACCOUNT_ID)!!
-            receivedTransTypeID = arguments?.getLong(KEY_RECORD_TRANSACTION_TYPE_ID)!!
+            receivedTransTypeID = arguments?.getLong(KEY_RECORD_TRANSACTION_TYPE_ID)!!*/
+            setFragmentResultListener(KEY_RECORD){ _, bundle ->
+                receivedTransID = bundle.getLong(KEY_RECORD_TRANSACTION_ID)
+                receivedAccountID = bundle.getLong(KEY_RECORD_ACCOUNT_ID)
+                receivedTransTypeID = bundle.getLong(KEY_RECORD_TRANSACTION_TYPE_ID)
+
+            }
 
             // get string from category manage
             setFragmentResultListener(KEY_RECORD_CATEGORY) { _, bundle ->
@@ -351,8 +357,8 @@ class RecordFragment : Fragment() {
         tv_record_all_category.setOnClickListener{
             when (recordViewModel.transDetail.TransactionType_ID){
                 TRANSACTION_TYPE_EXPENSE, TRANSACTION_TYPE_INCOME ->
-                    //switchToCategoryManager(view, SELECT_MODE, recordViewModel.transDetail.TransactionType_ID)
-                    openCategoryManager(recordViewModel.transDetail.TransactionType_ID)
+                    switchToCategoryManager(view, this, SELECT_MODE, recordViewModel.transDetail.TransactionType_ID)
+                    //openCategoryManager(recordViewModel.transDetail.TransactionType_ID)
             }
         }
 
@@ -361,8 +367,8 @@ class RecordFragment : Fragment() {
         tv_record_category.setOnClickListener {
             when (recordViewModel.transDetail.TransactionType_ID){
                 TRANSACTION_TYPE_EXPENSE, TRANSACTION_TYPE_INCOME ->
-                    //switchToCategoryManager(view, SELECT_MODE,recordViewModel.transDetail.TransactionType_ID)
-                openCategoryManager(recordViewModel.transDetail.TransactionType_ID)
+                    switchToCategoryManager(view, this, SELECT_MODE,recordViewModel.transDetail.TransactionType_ID)
+                //openCategoryManager(recordViewModel.transDetail.TransactionType_ID)
             }
         }
         tv_record_category.doAfterTextChanged{
@@ -469,15 +475,39 @@ class RecordFragment : Fragment() {
     //------------------------------------------  Private Functions --------------------------------------------------
 
     private fun selectTransactionType(transType: Long, transID: Long, acctID: Long, cateID: Long){
-        // prepare the data after selected transaction type
+        //*** prepare the data after selected transaction type
 
 
-
+        // show data
+        showData(transType)
 
     }
 
+    private fun showData(transType: Long){
+        //*** show data on UI
+        // todo show data
+
+        // category
+
+        // budget
+
+        // account
+
+        // data time
+
+        // reimbursable
+
+        // person
+
+        // location
+
+        // project
+
+        // button
+    }
+
     private fun selectCategory(){
-        // prepare the data after selected Category
+        //*** prepare the data after selected Category
 
 
 

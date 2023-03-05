@@ -110,7 +110,11 @@ class AccountCreditDetailFragment : Fragment() {
             when (it.itemId) {
                 R.id.action_add -> {
                     // navigate to add record screen
-                    navigateToRecordFragment(0, accountID, TRANSACTION_TYPE_EXPENSE)
+                    //navigateToRecordFragment(0, accountID, TRANSACTION_TYPE_EXPENSE)
+                    switchToRecordFragment(view, this, 0,
+                        accountID,
+                        TRANSACTION_TYPE_EXPENSE
+                    )
                     true
                 }
                 R.id.action_edit -> {

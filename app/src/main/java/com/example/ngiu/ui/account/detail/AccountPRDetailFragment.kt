@@ -53,35 +53,19 @@ class AccountPRDetailFragment : Fragment() {
         // load data to ram
         accountPRDetailViewModel.loadDataToRam(requireContext())
 
-        initAdapter()
+
 
 
         return binding.root
-    }
-
-    private fun initAdapter() {
-        Thread {
-            this.activity?.runOnUiThread {
-
-                recyclerview_account_pr_detail.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
-                accountPRDetailAdapter = this.context?.let {
-                    AccountPRDetailAdapter(object: AccountPRDetailAdapter.OnClickListener {
-                        // catch the item click event from adapter
-                        override fun onItemClick(transID: Long) {
-                            // switch to record fragment (Edit mode)
-                            navigateToRecordFragment(transID)
-                        }
-                    })
-                }
-                recyclerview_account_pr_detail.adapter = accountPRDetailAdapter
-            }
-        }.start()
     }
 
 
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        initAdapter(view, this)
+
 
         // set up toolbar icon and click event
         // choose items to show
@@ -98,7 +82,11 @@ class AccountPRDetailFragment : Fragment() {
             when (it.itemId) {
                 R.id.action_add -> {
                     // navigate to add record screen
-                    navigateToRecordFragment(0, accountPRDetailViewModel.accountID, TRANSACTION_TYPE_DEBIT)
+                    //navigateToRecordFragment(0, accountPRDetailViewModel.accountID, TRANSACTION_TYPE_DEBIT)
+                    switchToRecordFragment(view, this,
+                        0,
+                        accountPRDetailViewModel.accountID,
+                        TRANSACTION_TYPE_DEBIT)
                     true
                 }
                 R.id.action_edit -> {
@@ -152,6 +140,32 @@ class AccountPRDetailFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+
+
+    private fun initAdapter(view: View, fragment: Fragment) {
+        Thread {
+            this.activity?.runOnUiThread {
+
+                recyclerview_account_pr_detail.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
+                accountPRDetailAdapter = this.context?.let {
+                    AccountPRDetailAdapter(object: AccountPRDetailAdapter.OnClickListener {
+                        // catch the item click event from adapter
+                        override fun onItemClick(transID: Long) {
+                            // switch to record fragment (Edit mode)
+                            //navigateToRecordFragment(transID)
+                            switchToRecordFragment(view, fragment,
+                                transID,
+                                accountPRDetailViewModel.accountID,
+                                TRANSACTION_TYPE_DEBIT
+                            )
+                        }
+                    })
+                }
+                recyclerview_account_pr_detail.adapter = accountPRDetailAdapter
+            }
+        }.start()
     }
 
 

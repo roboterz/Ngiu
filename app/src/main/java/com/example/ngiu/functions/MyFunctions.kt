@@ -2,31 +2,21 @@ package com.example.ngiu.functions
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
-import android.content.ContentResolver
 import android.content.Context
-import android.content.res.Resources
 import android.os.Bundle
-import android.provider.Settings.Global.getString
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
-import android.view.LayoutInflater
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ComplexColorCompat.inflate
-import androidx.core.content.res.TypedArrayUtils.getText
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.setFragmentResult
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import com.example.ngiu.R
-import com.example.ngiu.data.AppDatabase
 import com.example.ngiu.data.entities.Trans
+import com.example.ngiu.ui.activity.ActivityListAdapter
 import com.example.ngiu.ui.reimburse.fragment_reimburse
 import com.google.android.gms.dynamic.SupportFragmentWrapper
 import com.google.android.material.textfield.TextInputEditText
@@ -40,16 +30,6 @@ import kotlin.math.abs
 
 
 class MyFunctions {
-
-    @SuppressLint("RestrictedApi")
-    fun switchToFragment(view: View, resID: Int, withBackStack: Boolean){
-        // pop out fragment from back stack
-        if (!withBackStack) view.findNavController().popBackStack()
-        // switch to fragment
-        view.findNavController().navigate(resID)
-    }
-
-
 
 }
 
@@ -296,9 +276,6 @@ fun switchToAccountAttributePage(view: View, acctTypeID: Long,
                                  mode: Int){
     //*** switch to Account Attribute page (create a new account | edit a account)
 
-        // Hide the Navigate Bottom Bar
-        //(activity as MainActivity).setNavBottomBarVisibility(View.GONE)
-
         // Pass Data
         // Add Mode | Edit Mode
         val bundle = Bundle().apply {
@@ -342,18 +319,43 @@ fun switchToAccountAttributePage(view: View, acctTypeID: Long,
 
 }
 
-fun switchToCategoryManager(view: View, mode: Int, transactionID: Long) {
+fun switchToCategoryManager(view: View, fragment: Fragment, mode: Int, transactionID: Long) {
 
     // Put Data Before switch
 //    activity.supportFragmentManager.setFragmentResult(KEY_CATEGORY_MANAGER, bundleOf(
 //        KEY_CATEGORY_MANAGER_MODE to mode)
 //    )
-    val bundle = Bundle().apply {
+/*    val bundle = Bundle().apply {
         putInt(KEY_CATEGORY_MANAGER_MODE, mode)
         putLong(KEY_CATEGORY_MANAGER_TRANSACTION_TYPE, transactionID)
     }
 
     // switch to category manage fragment
-    view.findNavController().navigate(R.id.navigation_category_manage, bundle)
+    view.findNavController().navigate(R.id.navigation_category_manage, bundle)*/
+
+    // Put Data Before switch
+    fragment.setFragmentResult(KEY_CATEGORY_MANAGER, bundleOf(
+        KEY_CATEGORY_MANAGER_MODE to mode,
+        KEY_CATEGORY_MANAGER_TRANSACTION_TYPE to transactionID
+    ))
+
+    // switch to category manage fragment
+    view.findNavController().navigate(R.id.navigation_category_manage)
 }
 
+fun switchToRecordFragment(
+    view: View, fragment: Fragment, transID: Long = 0,
+    acctID: Long = 0, transTypeID: Long = TRANSACTION_TYPE_EXPENSE){
+/*    val bundle = Bundle().apply {
+        putLong(KEY_RECORD_TRANSACTION_ID, transID)
+    }*/
+
+    // put data before switch
+    fragment.setFragmentResult(KEY_RECORD, bundleOf(
+        KEY_RECORD_TRANSACTION_ID to transID,
+        KEY_RECORD_ACCOUNT_ID to acctID,
+        KEY_RECORD_TRANSACTION_TYPE_ID to transTypeID
+    ))
+    // switch to record fragment
+    view.findNavController().navigate(R.id.navigation_record)
+}

@@ -47,6 +47,23 @@ class RecordViewModel : ViewModel() {
     var tempSaveDebitOutAccountName: String = ""
     var tempSaveDebitInAccountName: String = ""
 
+    // Transaction Type color and pointer
+    var textViewTransactionTypeColor: Array<Int> = Array(4) {R.color.app_title_text_inactive}
+    var transactionTypePointerVisible: Array<Int> = Array(4) {View.INVISIBLE}
+
+
+    fun setTransactionTypeTextViewColor(transType: Long){
+        //*** set transaction type textview color and pointer
+        //*** base on the TransactionType const Value(need amend function if changed)
+        for (i in textViewTransactionTypeColor){
+            textViewTransactionTypeColor[i] = R.color.app_title_text_inactive
+        }
+        for (i in transactionTypePointerVisible){
+            transactionTypePointerVisible[i] = View.INVISIBLE
+        }
+        textViewTransactionTypeColor[transType.toInt()-1] = R.color.app_title_text
+        transactionTypePointerVisible[transType.toInt()-1] = View.VISIBLE
+    }
 
 
     fun setTransactionType(tyID: Long): CurrentTransactionType {

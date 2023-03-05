@@ -6,13 +6,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.view.*
-import androidx.core.os.bundleOf
-import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
 import com.example.ngiu.MainActivity
 import com.example.ngiu.R
 import com.example.ngiu.databinding.FragmentActivityBinding
 import com.example.ngiu.functions.KEY_RECORD_TRANSACTION_ID
+import com.example.ngiu.functions.switchToRecordFragment
 import kotlinx.android.synthetic.main.fragment_activity.*
 
 
@@ -54,7 +53,7 @@ class ActivityFragment : Fragment() {
             activityViewModel.loadDataToRam(requireContext())
         //}.start()
 
-        initAdapter()
+
 
         return binding.root
     }
@@ -62,6 +61,10 @@ class ActivityFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // init Adapter
+        initAdapter(view, this)
+
 
         // set up toolbar icon and click event
         // choose items to show
@@ -75,7 +78,8 @@ class ActivityFragment : Fragment() {
             when (it.itemId) {
                 R.id.action_add -> {
                     // switch to record fragment
-                    navigateToRecordFragment()
+                    //navigateToRecordFragment()
+                    switchToRecordFragment(view, this)
                     true
                 }
                 R.id.action_reimburse -> {
@@ -101,7 +105,8 @@ class ActivityFragment : Fragment() {
         val fab: View = view.findViewById(R.id.floatingAddTransactionButton)
         fab.setOnClickListener {
             // switch to record fragment
-            navigateToRecordFragment()
+            //navigateToRecordFragment()
+            switchToRecordFragment(view, this)
         }
 
         // call readPerson function on the bottom of this class
@@ -143,7 +148,7 @@ class ActivityFragment : Fragment() {
 
 
     // init Adapter
-    private fun initAdapter() {
+    private fun initAdapter(view: View, fragment: Fragment) {
         
         Thread {
             this.activity?.runOnUiThread {
@@ -154,7 +159,8 @@ class ActivityFragment : Fragment() {
                         // catch the item click event from adapter
                         override fun onItemClick(transID: Long) {
                             // switch to record fragment (Edit mode)
-                            navigateToRecordFragment(transID)
+                            //navigateToRecordFragment(transID)
+                            switchToRecordFragment(view, fragment, transID)
                         }
                     })
                 }

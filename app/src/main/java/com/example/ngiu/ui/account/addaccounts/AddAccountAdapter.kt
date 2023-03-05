@@ -10,7 +10,7 @@ import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
-import com.example.ngiu.functions.ACCOUNT_ADD_MODE
+import com.example.ngiu.functions.NEW_MODE
 import com.example.ngiu.functions.switchToAccountAttributePage
 import com.example.ngiu.ui.account.model.AccountTypeUIModel
 import kotlinx.android.synthetic.main.cardview_account_add_account_item.view.*
@@ -45,7 +45,7 @@ class AddAccountAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             // switch to new account attribute page
             switchToAccountAttributePage( holder.itemView,
                 holder.absoluteAdapterPosition.toLong() + 1L,
-                0,0.0, ACCOUNT_ADD_MODE )
+                0,0.0, NEW_MODE )
 
         }
     }

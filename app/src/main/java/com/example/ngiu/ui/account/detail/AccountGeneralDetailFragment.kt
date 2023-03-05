@@ -60,35 +60,20 @@ class AccountGeneralDetailFragment : Fragment() {
         //}.start()
 
 
-        initAdapter()
+
 
 
         return binding.root
-    }
-
-    private fun initAdapter() {
-        Thread {
-            this.activity?.runOnUiThread {
-
-                recyclerview_account_general_detail.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
-                accountGeneralDetailAdapter = this.context?.let {
-                    AccountGeneralDetailAdapter(object: AccountGeneralDetailAdapter.OnClickListener {
-                        // catch the item click event from adapter
-                        override fun onItemClick(transID: Long) {
-                            // switch to record fragment (Edit mode)
-                            navigateToRecordFragment(transID)
-                        }
-                    })
-                }
-                recyclerview_account_general_detail.adapter = accountGeneralDetailAdapter
-            }
-        }.start()
     }
 
 
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+        initAdapter(view, this)
+
 
         // set up toolbar icon and click event
         // choose items to show
@@ -106,7 +91,11 @@ class AccountGeneralDetailFragment : Fragment() {
             when (it.itemId) {
                 R.id.action_add -> {
                     // navigate to add record screen
-                    navigateToRecordFragment(0, accountGeneralDetailViewModel.accountID, TRANSACTION_TYPE_EXPENSE)
+                    //navigateToRecordFragment(0, accountGeneralDetailViewModel.accountID, TRANSACTION_TYPE_EXPENSE)
+                    switchToRecordFragment(view, this, 0,
+                        accountGeneralDetailViewModel.accountID,
+                        TRANSACTION_TYPE_EXPENSE
+                    )
                     true
                 }
                 R.id.action_edit -> {
@@ -153,6 +142,30 @@ class AccountGeneralDetailFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+
+    private fun initAdapter(view:View, fragment: Fragment) {
+        Thread {
+            this.activity?.runOnUiThread {
+
+                recyclerview_account_general_detail.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
+                accountGeneralDetailAdapter = this.context?.let {
+                    AccountGeneralDetailAdapter(object: AccountGeneralDetailAdapter.OnClickListener {
+                        // catch the item click event from adapter
+                        override fun onItemClick(transID: Long) {
+                            // switch to record fragment (Edit mode)
+                            //navigateToRecordFragment(transID)
+                            switchToRecordFragment(view, fragment, transID,
+                                accountGeneralDetailViewModel.accountID,
+                                TRANSACTION_TYPE_EXPENSE
+                            )
+                        }
+                    })
+                }
+                recyclerview_account_general_detail.adapter = accountGeneralDetailAdapter
+            }
+        }.start()
     }
 
 
