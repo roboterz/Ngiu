@@ -96,6 +96,7 @@ class AccountCreditDetailAdapter()
 
 
             holder.itemLayout.setOnClickListener {
+                // todo 反射按键事件
                 val bundle = Bundle().apply {
                     putLong("Transaction_ID", Transaction_ID)
                 }
