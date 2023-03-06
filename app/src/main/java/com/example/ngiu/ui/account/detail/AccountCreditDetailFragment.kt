@@ -153,7 +153,7 @@ class AccountCreditDetailFragment : Fragment() {
         _binding = null
     }
 
-    private fun navigateToRecordFragment(trans_ID: Long = 0, account_ID: Long = 0, transType_ID: Long = 0){
+    private fun navigateToRecordFragment(trans_ID: Long = 0, account_ID: Long = 0, transType_ID: Long = TRANSACTION_TYPE_EXPENSE){
         val bundle = Bundle().apply {
             putLong(KEY_RECORD_TRANSACTION_ID, trans_ID)
             putLong(KEY_RECORD_ACCOUNT_ID, account_ID)
