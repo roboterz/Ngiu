@@ -55,10 +55,8 @@ class RecordViewModel : ViewModel() {
     fun setTransactionTypeTextViewColor(transType: Long){
         //*** set transaction type textview color and pointer
         //*** base on the TransactionType const Value(need amend function if changed)
-        for (i in textViewTransactionTypeColor){
+        for (i in 0..3){
             textViewTransactionTypeColor[i] = R.color.app_title_text_inactive
-        }
-        for (i in transactionTypePointerVisible){
             transactionTypePointerVisible[i] = View.INVISIBLE
         }
         textViewTransactionTypeColor[transType.toInt()-1] = R.color.app_title_text
