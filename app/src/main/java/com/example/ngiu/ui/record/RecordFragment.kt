@@ -78,7 +78,7 @@ class RecordFragment : Fragment() {
                 receivedTransID = bundle.getLong(KEY_RECORD_TRANSACTION_ID)
                 receivedAccountID = bundle.getLong(KEY_RECORD_ACCOUNT_ID)
                 receivedTransTypeID = bundle.getLong(KEY_RECORD_TRANSACTION_TYPE_ID)
-
+                Toast.makeText(context, receivedTransID.toString(), Toast.LENGTH_LONG)
             }
 
             // get string from category manage
@@ -107,6 +107,7 @@ class RecordFragment : Fragment() {
         recordViewModel.loadDataToRam(requireContext())
         if (receivedTransTypeID > 0) {
             recordViewModel.transDetail.TransactionType_ID = receivedTransTypeID
+            recordViewModel.setTransactionTypeTextViewColor(receivedTransTypeID)
         }
         // todo category未选中（Transfer and Debit & Credit），账号不固定，
         // 初始化Cate
