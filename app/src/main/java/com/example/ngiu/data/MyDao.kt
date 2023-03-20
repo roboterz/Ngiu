@@ -16,6 +16,9 @@ interface AccountDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addAccount(account: Account)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun addAccounts(account: List<Account>)
+
     @Delete
     fun deleteAccount(account: Account)
 
@@ -126,6 +129,9 @@ interface AccountDao {
 interface AccountTypeDao{
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addAccountType(accountType: AccountType)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun addAccountTypes(accountType: List<AccountType>)
 
     @Delete
     fun deleteAccountType(accountType: AccountType)

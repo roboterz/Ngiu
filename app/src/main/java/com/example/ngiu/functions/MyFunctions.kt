@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.navigation.findNavController
 import com.example.ngiu.R
+import com.example.ngiu.data.AppDatabase
 import com.example.ngiu.data.entities.Trans
 import com.example.ngiu.ui.activity.ActivityListAdapter
 import com.example.ngiu.ui.reimburse.fragment_reimburse
@@ -22,6 +23,7 @@ import com.google.android.gms.dynamic.SupportFragmentWrapper
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.fragment_record.*
 import kotlinx.android.synthetic.main.popup_title.view.*
+import java.io.File
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -359,3 +361,4 @@ fun switchToRecordFragment(
     // switch to record fragment
     view.findNavController().navigate(R.id.navigation_record)
 }
+

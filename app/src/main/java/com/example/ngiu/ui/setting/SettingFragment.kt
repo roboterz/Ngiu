@@ -93,8 +93,20 @@ class SettingFragment : Fragment() {
             findNavController().navigate(R.id.navigation_mpp_manage)
         }
 
+        // Export Data to CSV
+        binding.tvSettingExport.setOnClickListener{
+            // todo 反馈
+            CSVFile().exportToCSV(requireContext())
+        }
+
+        // Import data from CSV
+        binding.tvSettingImport.setOnClickListener{
+            //CSVFile().importFromCSV(requireContext())
+        }
+
         binding.tvSettingNgiu.setOnClickListener {
             // todo
+
 
         }
 

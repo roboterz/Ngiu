@@ -57,11 +57,14 @@
     <string name="setting_language">Language</string>
     <string name="setting_reimburse">Reimbursement include in Statistics</string>
     <string name="setting_sort">Sort Alphabetically</string>
+    <string name="setting_export">Export</string>
+    <string name="setting_import">Import</string>
     <string name="setting_about_app">About Ngiu</string>
 
     <string name="setting_section_categories">Categories</string>
     <string name="setting_section_advanced">Advanced</string>
     <string name="setting_section_about">About</string>
+    <string name="setting_section_data">Data</string>
 
     <string name="record_section_expense">Expense</string>
     <string name="record_section_income">Income</string>
