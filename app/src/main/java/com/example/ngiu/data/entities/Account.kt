@@ -17,6 +17,12 @@ import java.time.LocalDateTime
         childColumns = ["Currency_ID"],
         onDelete = ForeignKey.SET_DEFAULT,
         onUpdate = ForeignKey.CASCADE,
+    ),ForeignKey(
+        entity = Icon::class,
+        parentColumns = ["Icon_ID"],
+        childColumns = ["Icon_ID"],
+        onDelete = ForeignKey.SET_DEFAULT,
+        onUpdate = ForeignKey.CASCADE,
     )], indices = [Index(value = ["Account_ID"], unique = true)]
 )
 
@@ -74,8 +80,9 @@ data class Account(
     @ColumnInfo(defaultValue = "1.0")
     var Account_BaseReward: Double = 1.0,
 
-    @ColumnInfo(defaultValue = "0")
-    var Account_Icon: Int = 0,
+    @ColumnInfo(defaultValue = "1")
+    var Icon_ID: Long = 1L,
+
     @ColumnInfo(defaultValue = "0")
     var Account_OrderNo: Int = 0,
     @ColumnInfo(defaultValue = "false")

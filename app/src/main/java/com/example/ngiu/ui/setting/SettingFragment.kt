@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
@@ -95,8 +96,16 @@ class SettingFragment : Fragment() {
 
         // Export Data to CSV
         binding.tvSettingExport.setOnClickListener{
-            // todo 反馈
-            CSVFile().exportToCSV(requireContext())
+
+            val i = CSVFile().exportToCSV(requireContext())
+
+            if (i ==0 ){
+                // completed
+                Toast.makeText(context, getText(R.string.msg_completed), Toast.LENGTH_LONG).show()
+            }else{
+                // error
+                Toast.makeText(context, getText(R.string.msg_error), Toast.LENGTH_LONG).show()
+            }
         }
 
         // Import data from CSV

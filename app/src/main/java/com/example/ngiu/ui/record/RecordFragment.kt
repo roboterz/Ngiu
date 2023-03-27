@@ -53,7 +53,7 @@ class RecordFragment : Fragment() {
     private var vpAdapter: RecordCategoryAdapter? = null
     private var receivedTransID: Long = 0
     private var receivedAccountID: Long = 0
-    private var receivedTransTypeID: Long = TRANSACTION_TYPE_EXPENSE
+    private var receivedTransTypeID: Long = 0
     private var receivedString: String = ""
 
     // This property is only valid between onCreateView and
@@ -76,13 +76,13 @@ class RecordFragment : Fragment() {
                 receivedTransID = bundle.getLong(KEY_RECORD_TRANSACTION_ID)
                 receivedAccountID = bundle.getLong(KEY_RECORD_ACCOUNT_ID)
                 receivedTransTypeID = bundle.getLong(KEY_RECORD_TRANSACTION_TYPE_ID)
-                Toast.makeText(context, receivedTransID.toString(), Toast.LENGTH_LONG)
             }
 
             // get string from category manage
             setFragmentResultListener(KEY_RECORD_CATEGORY) { _, bundle ->
                 receivedString = bundle.getString(KEY_RECORD_CATEGORY_NAME).toString()
                 recordViewModel.transDetail.Category_Name = receivedString
+                //Toast.makeText(context,"".toString(),Toast.LENGTH_LONG).show()
             }
 
 
@@ -104,8 +104,7 @@ class RecordFragment : Fragment() {
         // load Data to Ram
         recordViewModel.loadDataToRam(requireContext())
         if (receivedTransTypeID > 0) {
-            recordViewModel.transDetail.TransactionType_ID = receivedTransTypeID
-            recordViewModel.setTransactionTypeTextViewColor(receivedTransTypeID)
+            recordViewModel.setTransactionType(receivedTransTypeID)
         }
         // todo category未选中（Transfer and Debit & Credit），账号不固定，
         // 初始化Cate
@@ -200,22 +199,26 @@ class RecordFragment : Fragment() {
 
         // touch Expense textView, switch to Expense page
         tvSectionExpense.setOnClickListener {
-            setStatus(recordViewModel.setTransactionType(TRANSACTION_TYPE_EXPENSE))
+            recordViewModel.setTransactionType(TRANSACTION_TYPE_EXPENSE)
+            setStatus(TRANSACTION_TYPE_EXPENSE)
             loadCommonCategory(TRANSACTION_TYPE_EXPENSE)
         }
         // touch Income textView, switch to Income page
         tvSectionIncome.setOnClickListener {
-            setStatus(recordViewModel.setTransactionType(TRANSACTION_TYPE_INCOME))
+            recordViewModel.setTransactionType(TRANSACTION_TYPE_INCOME)
+            setStatus(TRANSACTION_TYPE_INCOME)
             loadCommonCategory(TRANSACTION_TYPE_INCOME)
         }
         // touch Transfer textView, switch to Transfer page
         tvSectionTransfer.setOnClickListener {
-            setStatus(recordViewModel.setTransactionType(TRANSACTION_TYPE_TRANSFER))
+            recordViewModel.setTransactionType(TRANSACTION_TYPE_TRANSFER)
+            setStatus(TRANSACTION_TYPE_TRANSFER)
             loadCommonCategory(TRANSACTION_TYPE_TRANSFER)
         }
         // touch DebitCredit textView, switch to DebitCredit page
         tvSectionDebitCredit.setOnClickListener {
-            setStatus(recordViewModel.setTransactionType(TRANSACTION_TYPE_DEBIT))
+            recordViewModel.setTransactionType(TRANSACTION_TYPE_DEBIT)
+            setStatus(TRANSACTION_TYPE_DEBIT)
             loadCommonCategory(TRANSACTION_TYPE_DEBIT)
         }
 
@@ -599,7 +602,7 @@ class RecordFragment : Fragment() {
                 //todo bug: account name was changed after click category.
 
                 //bug: open category manager then go back will lock on debit transition type.(fixed)
-                setStatus(recordViewModel.setTransactionType(TRANSACTION_TYPE_DEBIT))
+                setStatus(TRANSACTION_TYPE_DEBIT)
                 //loadCommonCategory(TRANSACTION_TYPE_DEBIT)
                 receivedTransTypeID=0
             }
@@ -646,7 +649,8 @@ class RecordFragment : Fragment() {
         tv_record_reimburse.text = recordViewModel.getReimbursable(requireContext(), recordViewModel.transDetail.Transaction_ReimburseStatus)
         //todo period,
 
-        setStatus( recordViewModel.currentTransactionType )
+
+        setStatus(recordViewModel.transDetail.TransactionType_ID)
         loadCommonCategory(recordViewModel.transDetail.TransactionType_ID)
 
     }
@@ -778,22 +782,11 @@ class RecordFragment : Fragment() {
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    private fun setStatus(ctt: CurrentTransactionType){
-        tvSectionExpense.setTextColor(ContextCompat.getColor(requireContext(),ctt.expense))
-        tvSectionExpensePointer.visibility = ctt.expensePointer
-        tvSectionIncome.setTextColor(ContextCompat.getColor(requireContext(),ctt.income))
-        tvSectionIncomePointer.visibility = ctt.incomePointer
-        tvSectionTransfer.setTextColor(ContextCompat.getColor(requireContext(),ctt.transfer))
-        tvSectionTransferPointer.visibility = ctt.transferPointer
-        tvSectionDebitCredit.setTextColor(ContextCompat.getColor(requireContext(),ctt.debitCredit))
-        tvSectionDebitCreditPointer.visibility = ctt.debitCreditPointer
-        tv_record_amount.setTextColor(
-            when (recordViewModel.transDetail.TransactionType_ID){
-                TRANSACTION_TYPE_EXPENSE -> ContextCompat.getColor( requireContext(), R.color.app_expense_amount)
-                TRANSACTION_TYPE_INCOME -> ContextCompat.getColor( requireContext(), R.color.app_income_amount)
-                else -> ContextCompat.getColor( requireContext(), R.color.app_amount)
-            }
-        )
+    private fun setStatus(transType: Long){
+
+        // color
+        setTextViewColor()
+
         /*
         for (i in recordViewModel.subCategory.indices){
             if (recordViewModel.subCategory[i].TransactionType_ID.toInt() == ctt.currentTyID){
@@ -804,10 +797,10 @@ class RecordFragment : Fragment() {
 
          */
         // Subcategory
-        tv_record_category.text = recordViewModel.getSubCategoryName()
+        tv_record_category.text = recordViewModel.transDetail.Category_Name
 
 
-
+        //
         when (recordViewModel.transDetail.TransactionType_ID) {
             TRANSACTION_TYPE_EXPENSE, TRANSACTION_TYPE_INCOME -> {
                 iv_record_swap.visibility = View.INVISIBLE
@@ -848,6 +841,28 @@ class RecordFragment : Fragment() {
 
 
 
+
+    }
+
+    private fun setTextViewColor(){
+        // set transaction type textview color
+        tvSectionExpense.setTextColor(ContextCompat.getColor(requireContext(), recordViewModel.textViewTransactionTypeColor[0]))
+        tvSectionExpensePointer.visibility = recordViewModel.transactionTypePointerVisible[0]
+        tvSectionIncome.setTextColor(ContextCompat.getColor(requireContext(), recordViewModel.textViewTransactionTypeColor[1]))
+        tvSectionIncomePointer.visibility = recordViewModel.transactionTypePointerVisible[1]
+        tvSectionTransfer.setTextColor(ContextCompat.getColor(requireContext(), recordViewModel.textViewTransactionTypeColor[2]))
+        tvSectionTransferPointer.visibility = recordViewModel.transactionTypePointerVisible[2]
+        tvSectionDebitCredit.setTextColor(ContextCompat.getColor(requireContext(), recordViewModel.textViewTransactionTypeColor[3]))
+        tvSectionDebitCreditPointer.visibility = recordViewModel.transactionTypePointerVisible[3]
+
+        // set amount color
+        tv_record_amount.setTextColor(
+            when (recordViewModel.transDetail.TransactionType_ID){
+                TRANSACTION_TYPE_EXPENSE -> ContextCompat.getColor( requireContext(), R.color.app_expense_amount)
+                TRANSACTION_TYPE_INCOME -> ContextCompat.getColor( requireContext(), R.color.app_income_amount)
+                else -> ContextCompat.getColor( requireContext(), R.color.app_amount)
+            }
+        )
 
     }
 

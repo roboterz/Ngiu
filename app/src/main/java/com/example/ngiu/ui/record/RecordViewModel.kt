@@ -24,8 +24,6 @@ class RecordViewModel : ViewModel() {
 
      */
 
-    var currentTransactionType: CurrentTransactionType = CurrentTransactionType()
-
     // temp save changed data
     var transDetail = TransactionDetail(TransactionType_ID = TRANSACTION_TYPE_EXPENSE)
 
@@ -47,12 +45,17 @@ class RecordViewModel : ViewModel() {
     var tempSaveDebitOutAccountName: String = ""
     var tempSaveDebitInAccountName: String = ""
 
+
+    // ********** NEW Variable **********
     // Transaction Type color and pointer
     var textViewTransactionTypeColor: Array<Int> = Array(4) {R.color.app_title_text_inactive}
     var transactionTypePointerVisible: Array<Int> = Array(4) {View.INVISIBLE}
 
 
-    fun setTransactionTypeTextViewColor(transType: Long){
+
+    // ************ New Function ***********
+
+    private fun setTransactionTypeTextViewColor(transType: Long){
         //*** set transaction type textview color and pointer
         //*** base on the TransactionType const Value(need amend function if changed)
         for (i in 0..3){
@@ -64,11 +67,13 @@ class RecordViewModel : ViewModel() {
     }
 
 
-    fun setTransactionType(tyID: Long): CurrentTransactionType {
-        currentTransactionType = currentTransactionType.setID(tyID)
+    fun setTransactionType(tyID: Long) {
         transDetail.TransactionType_ID = tyID
-        return currentTransactionType
+        setTransactionTypeTextViewColor(tyID)
     }
+
+    // ************ New Function ***********
+
 
 
     //
@@ -315,42 +320,3 @@ class RecordViewModel : ViewModel() {
 }
 
 
-
-class CurrentTransactionType {
-    var expense: Int = R.color.app_title_text_inactive
-    var expensePointer: Int = View.INVISIBLE
-    var income: Int = R.color.app_title_text_inactive
-    var incomePointer: Int = View.INVISIBLE
-    var transfer: Int = R.color.app_title_text_inactive
-    var transferPointer: Int = View.INVISIBLE
-    var debitCredit: Int = R.color.app_title_text_inactive
-    var debitCreditPointer: Int = View.INVISIBLE
-
-    fun setID(tyID: Long): CurrentTransactionType {
-        val cTT = CurrentTransactionType()
-
-        when (tyID) {
-            TRANSACTION_TYPE_EXPENSE -> {
-                cTT.expense = R.color.app_title_text
-                cTT.expensePointer = View.VISIBLE
-            }
-            TRANSACTION_TYPE_INCOME -> {
-                cTT.income = R.color.app_title_text
-                cTT.incomePointer = View.VISIBLE
-            }
-            TRANSACTION_TYPE_TRANSFER -> {
-                cTT.transfer = R.color.app_title_text
-                cTT.transferPointer = View.VISIBLE
-            }
-            TRANSACTION_TYPE_DEBIT -> {
-                cTT.debitCredit = R.color.app_title_text
-                cTT.debitCreditPointer = View.VISIBLE
-            }
-        }
-
-        return cTT
-    }
-
-
-
-}

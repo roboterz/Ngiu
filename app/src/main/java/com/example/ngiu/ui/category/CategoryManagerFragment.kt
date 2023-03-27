@@ -189,7 +189,7 @@ class CategoryManagerFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        categoryManagerViewModel = ViewModelProvider(this).get(CategoryManagerViewModel::class.java)
+        categoryManagerViewModel = ViewModelProvider(this)[CategoryManagerViewModel::class.java]
         _binding = FragmentCategoryManageBinding.inflate(inflater, container, false)
 
 
