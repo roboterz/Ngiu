@@ -13,6 +13,7 @@ data class TransactionDetail(
     var Account_Name: String = "",
     var AccountRecipient_Name: String = "",
     var Transaction_Amount: Double = 0.00,
+    var Transaction_Amount2: Double = 0.00,
     @TypeConverters(DateTypeConverter::class)
     var Transaction_Date: LocalDateTime = LocalDateTime.now(),
     var Person_Name: String = "",

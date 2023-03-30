@@ -526,7 +526,7 @@ interface TransDao {
     @Transaction
     @Query("""
         SELECT Transaction_ID, Trans.TransactionType_ID, Category_Name, Account.Account_Name, AccountRecipient.Account_Name as AccountRecipient_Name, 
-                Transaction_Amount, Transaction_Date, Person_Name, Merchant_Name, Transaction_Memo, Project_Name, 
+                Transaction_Amount, Transaction_Amount2, Transaction_Date, Person_Name, Merchant_Name, Transaction_Memo, Project_Name, 
                 Transaction_ReimburseStatus, Period_ID  
         FROM Trans, TransactionType, Category, Account, Account as AccountRecipient, Person, Merchant, Project
         WHERE Trans.TransactionType_ID = TransactionType.TransactionType_ID 
@@ -543,7 +543,7 @@ interface TransDao {
     @Transaction
     @Query("""
         SELECT Transaction_ID, Trans.TransactionType_ID, Category_Name, Account.Account_Name, AccountRecipient.Account_Name as AccountRecipient_Name, 
-                Transaction_Amount, Transaction_Date, Person_Name, Merchant_Name, Transaction_Memo, Project_Name, 
+                Transaction_Amount, Transaction_Amount2, Transaction_Date, Person_Name, Merchant_Name, Transaction_Memo, Project_Name, 
                 Transaction_ReimburseStatus, Period_ID  
         FROM Trans, TransactionType, Category, Account, Account as AccountRecipient, Person, Merchant, Project
         WHERE Trans.TransactionType_ID = TransactionType.TransactionType_ID 
@@ -634,7 +634,7 @@ interface TransDao {
     @Query("""
         SELECT Trans.Transaction_ID, Trans.TransactionType_ID, Trans.Category_ID, Category.Category_Name, 
                 Account.Account_ID, Account.Account_Name, AccountRecipient.Account_ID as AccountRecipient_ID, AccountRecipient.Account_Name as AccountRecipient_Name,
-                Transaction_Amount, Transaction_Date, Transaction_Memo
+                Transaction_Amount, Transaction_Amount2, Transaction_Date, Transaction_Memo
         FROM Trans, Category, Account, Account as AccountRecipient
         WHERE (Trans.Account_ID = :acctID OR Trans.AccountRecipient_ID = :acctID)
             AND Trans.Category_ID = Category.Category_ID

@@ -67,6 +67,8 @@ data class Trans(
     var AccountRecipient_ID: Long = 1L,
     @ColumnInfo(defaultValue = "0.00")
     var Transaction_Amount: Double = 0.00,
+    @ColumnInfo(defaultValue = "0.00")
+    var Transaction_Amount2: Double = 0.00,
     @TypeConverters(DateTypeConverter::class)
     var Transaction_Date: LocalDateTime = LocalDateTime.now(),
     @ColumnInfo(defaultValue = "1")

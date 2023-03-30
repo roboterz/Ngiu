@@ -68,8 +68,10 @@ class RecordViewModel : ViewModel() {
 
 
     fun setTransactionType(tyID: Long) {
-        transDetail.TransactionType_ID = tyID
-        setTransactionTypeTextViewColor(tyID)
+        if (tyID > 0) {
+            transDetail.TransactionType_ID = tyID
+            setTransactionTypeTextViewColor(tyID)
+        }
     }
 
     // ************ New Function ***********

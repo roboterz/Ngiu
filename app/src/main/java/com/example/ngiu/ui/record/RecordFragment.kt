@@ -76,6 +76,15 @@ class RecordFragment : Fragment() {
                 receivedTransID = bundle.getLong(KEY_RECORD_TRANSACTION_ID)
                 receivedAccountID = bundle.getLong(KEY_RECORD_ACCOUNT_ID)
                 receivedTransTypeID = bundle.getLong(KEY_RECORD_TRANSACTION_TYPE_ID)
+
+                if (receivedTransID > 0L ) {
+                    recordViewModel.loadTransactionDetail(requireContext(), receivedTransID)
+                }
+
+                if (receivedTransTypeID > 0L){
+                    setStatus(receivedTransTypeID)
+                }
+                //Toast.makeText(context, receivedTransID.toString(),Toast.LENGTH_LONG).show()
             }
 
             // get string from category manage
@@ -156,7 +165,9 @@ class RecordFragment : Fragment() {
             // show delete button
             tv_record_left_button.text = getText(R.string.menu_delete)
 
-            recordViewModel.loadTransactionDetail(view.context, receivedTransID)
+            //recordViewModel.loadTransactionDetail(view.context, receivedTransID)
+
+            //Toast.makeText(context, receivedTransID.toString(),Toast.LENGTH_LONG).show()
         }
 
 
@@ -587,7 +598,7 @@ class RecordFragment : Fragment() {
         }else{
             // new record
 //            if (receivedTransTypeID > 0) {
-//                recordViewModel.setTransactionType(receivedTransTypeID)
+                recordViewModel.setTransactionType(receivedTransTypeID)
 //            }
 
             // todo when add a record from account detail frame
@@ -675,6 +686,7 @@ class RecordFragment : Fragment() {
                 Category_ID = recordViewModel.getCategoryID(tv_record_category.text.toString()),
                 Account_ID = recordViewModel.getAccountID(tv_record_account_pay.text.toString()),
                 Transaction_Amount = tv_record_amount.text.toString().toDouble(),
+                Transaction_Amount2 = 0.00,
                 Transaction_Date = recordViewModel.transDetail.Transaction_Date,
                 Transaction_Memo = tv_record_memo.text.toString(),
                 Merchant_ID = recordViewModel.merchant[recordViewModel.merchant.indexOfFirst { it.Merchant_Name == tv_record_merchant.text.toString() }].Merchant_ID,
