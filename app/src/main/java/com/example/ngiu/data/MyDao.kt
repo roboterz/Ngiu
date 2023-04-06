@@ -37,6 +37,14 @@ interface AccountDao {
     fun getAccountCountType(typeID: Long): Int
 
     @Transaction
+    @Query("SELECT * FROM Account WHERE AccountType_ID <> :typeID")
+    fun getAccountExceptType(typeID: Long): List<Account>
+
+    @Transaction
+    @Query("SELECT * FROM Account WHERE AccountType_ID = :typeID")
+    fun getAccountByType(typeID: Long): List<Account>
+
+    @Transaction
     @Query("SELECT * FROM Account ORDER BY AccountType_ID, Account_Name")
     fun getAllAccount(): List<Account>
 
