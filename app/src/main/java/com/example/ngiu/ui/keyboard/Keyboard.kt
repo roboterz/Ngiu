@@ -10,11 +10,6 @@ import androidx.core.view.forEach
 import com.example.ngiu.R
 
 
-const val NO_DOT = 0
-const val NO_DECIMAL = 1
-const val ONE_DECIMAL = 2
-
-
 @SuppressLint("ClickableViewAccessibility")
 class Keyboard(view: View){
     //private val key0: TextView = view.findViewById(R.id.tv_price_0)
@@ -25,28 +20,16 @@ class Keyboard(view: View){
     private val keyClear: TextView = view.findViewById(R.id.tv_price_clear)
     private val keyboardPanel: ConstraintLayout = view.findViewById(R.id.layout_Keyboard)
     private val keys: ConstraintLayout = view.findViewById(R.id.price_input_keys)
-    private var dot: Int = 3  // the places of Decimal point
 
 
 
 
     @SuppressLint("SetTextI18n")
     fun initKeys(echoView: TextView) {
-        if (echoView.text.isEmpty()) echoView.text = "0.00"
-        dot = echoView.text.length - echoView.text.lastIndexOf('.')
-        if (dot >0) {
-            if (echoView.text.last() == '0') {
-                echoView.text = echoView.text.dropLast(1)
-                dot--
-            }
-            if (echoView.text.last() == '0') {
-                echoView.text = echoView.text.dropLast(1)
-                dot--
-            }
-            if (echoView.text.last() == '.') {
-                echoView.text = echoView.text.dropLast(1)
-                dot--
-            }
+        if (echoView.text.isEmpty()) {
+            echoView.text = "0.00"
+        }else{
+            echoView.text = "%.2f".format(echoView.text.toString().toDouble())
         }
 
 
@@ -64,12 +47,14 @@ class Keyboard(view: View){
             when (it.tag){
                 "1","2","3","4","5","6","7","8","9","0" -> {
                     it.setOnClickListener{ _ ->
-                        if (echoView.text.toString() == "0"){
-                            echoView.text = it.tag.toString()
-                        }else {
-                            if (dot < 3) {
-                                echoView.append(it.tag.toString())
-                                if (dot > 0) dot++
+                        if (echoView.text.length < 13) {
+                            if (echoView.text.toString().toDouble() == 0.0) {
+                                echoView.text = "%.2f".format(it.tag.toString().toDouble() / 100.0)
+                            } else {
+                                echoView.text = "%.2f".format(
+                                    echoView.text.toString().toDouble() * 10.0
+                                            + it.tag.toString().toDouble() / 100.0
+                                )
                             }
                         }
                     }
@@ -79,35 +64,24 @@ class Keyboard(view: View){
 
         // decimal point
         keyDot.setOnClickListener {
-            if (dot == 0){
-                echoView.append(keyDot.text)
-                dot++
-            }
+            // todo need change
         }
+        //
         keyCalc.setOnClickListener {
-
+            // todo
             //binding.priceInput.visibility = View.GONE
         }
+        // clear
         keyClear.setOnClickListener {
-            echoView.text = "0"
-            dot = 0
+            echoView.text = "0.00"
         }
+        // back
         keyBack.setOnClickListener {
-            if (echoView.length() > 1){
-                echoView.text = echoView.text.dropLast(1)
-                if (dot > 0) dot--
-            }else{
-                echoView.text = "0"
-            }
+            echoView.text = deleteLastDigit(echoView.text.toString())
         }
-
+        // enter
         keyEnter.setOnClickListener {
-            when (dot){
-                NO_DOT -> echoView.text = echoView.text.toString() + ".00"
-                NO_DECIMAL -> echoView.text = echoView.text.toString() + "00"
-                ONE_DECIMAL -> echoView.text = echoView.text.toString() + "0"
-                //else -> echoView.text = echoView.text
-            }
+            echoView.text = "%.2f".format(echoView.text.toString().toDouble())
             hide()
         }
          
@@ -122,6 +96,17 @@ class Keyboard(view: View){
     }
 
 
+    private fun deleteLastDigit(str: String): String {
+        var newStr = (str.toDouble() * 100).toLong().toString()
 
+        if (newStr.length > 1) {
+            newStr = newStr.substring(0, newStr.length - 1)
+
+            return "%.2f".format(newStr.toDouble() / 100.0)
+        }else{
+            return "0.00"
+        }
+
+    }
 
 }

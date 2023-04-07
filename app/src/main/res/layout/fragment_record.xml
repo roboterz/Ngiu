@@ -226,7 +226,7 @@
                 android:id="@+id/tv_record_amount"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:maxLength="10"
+                android:maxLength="13"
                 android:text="@string/amount_zero"
                 android:textAlignment="textEnd"
                 android:textColor="@color/app_expense_amount"
