@@ -27,7 +27,7 @@ const val MERCHANT_NO_LOCATION = 1L
 const val CURRENCY_USD = 1L
 
 // CATEGORY
-const val CATEGORY_LIMIT = 12
+const val CATEGORY_LIMIT = 49
 
 const val CATEGORY_MAIN_EXPENSE = 1L
 const val CATEGORY_MAIN_INCOME = 2L

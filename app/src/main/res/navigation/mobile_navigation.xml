@@ -122,6 +122,9 @@
         android:label="fragment_account_p_r_detail"
         tools:layout="@layout/fragment_account_p_r_detail" />
 
-
+    <fragment
+        android:id="@+id/navigation_report"
+        android:name="com.example.ngiu.ui.report.ReportFragment"
+        tools:layout="@layout/fragment_report" />
 
 </navigation>

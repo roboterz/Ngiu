@@ -53,7 +53,7 @@ class RecordViewModel : ViewModel() {
 
 
 
-    // ************ New Function ***********
+    /************ New Function ***********/
 
     private fun setTransactionTypeTextViewColor(transType: Long){
         //*** set transaction type textview color and pointer
@@ -74,12 +74,15 @@ class RecordViewModel : ViewModel() {
         }
     }
 
-    // ************ New Function ***********
+    /************ New Function ***********/
 
 
 
     //
     fun loadDataToRam(context: Context) {
+
+        /** load data  **/
+
         val database = AppDatabase.getDatabase(context)
         category = database.category().getAllCategory()
         account = database.account().getAllAccount()
@@ -107,15 +110,14 @@ class RecordViewModel : ViewModel() {
 
 
 
-        // todo init account
+        // init account
         tempSaveOutAccountName = getAccountNameByCount(context, TRANSACTION_TYPE_EXPENSE)
         tempSaveInAccountName = getSecondAccountName(context, tempSaveOutAccountName)
         tempSaveDebitAccountName = getAccountNameByCount(context,TRANSACTION_TYPE_DEBIT)
 
-
-
-
     }
+
+
 
     private fun getSecondAccountName(context: Context, acctName: String): String {
         val acctList = AppDatabase.getDatabase(context).account().getAccountExceptType(ACCOUNT_TYPE_RECEIVABLE)
@@ -162,7 +164,7 @@ class RecordViewModel : ViewModel() {
 
             return if (transCount > 0) {
                 val transAcctList = AppDatabase.getDatabase(context).trans()
-                    .getCountOfAccountsByTransactionType(transType)
+                    .getCountOfRecipientAccountsByTransactionType(transType)
 
                 if (transAcctList.isEmpty()){
                     acctList[0].Account_Name
@@ -179,7 +181,7 @@ class RecordViewModel : ViewModel() {
 
     fun loadTransactionDetail(context: Context, rID: Long) {
         // load transaction data
-        transDetail = AppDatabase.getDatabase(context).trans().getOneTransaction(rID)
+        transDetail = AppDatabase.getDatabase(context).trans().getOneTransactionDetail(rID)
         // category
         categoryName[transDetail.TransactionType_ID.toInt()-1] = transDetail.Category_Name
         // account
@@ -215,6 +217,9 @@ class RecordViewModel : ViewModel() {
 
     fun getSubCategoryName(): String{
         return categoryName[transDetail.TransactionType_ID.toInt() -1]
+    }
+    fun getAccountNameByID(acctID: Long): String{
+        return account[account.indexOfFirst { it.Account_ID == acctID }].Account_Name
     }
     fun setSubCategoryName(transType: Long, cateName: String =""){
         if (cateName.isNotEmpty()){
@@ -306,18 +311,6 @@ class RecordViewModel : ViewModel() {
         }
     }
 
-    /*
-    // get P/R account name list
-    fun getPRAccountList(): List<String>{
-        val tList: MutableList<String> = ArrayList<String>()
-        for (at in account){
-            if (at.AccountType_ID == 9L)
-                tList.add(at.Account_Name)
-        }
-        return tList
-    }
-
-     */
 
     fun getCategoryID(string: String): Long{
         val idx = category.indexOfFirst { it.Category_Name == string }
@@ -375,69 +368,6 @@ class RecordViewModel : ViewModel() {
     }
 
 
-
-
-    // return account name when open the record fragment with different transaction type.
-    fun getPayOutAccountName(context: Context, category: Long = 0L , transType: Long = 0L, accountID: Long = 0L): String{
-        // todo bug: open category manager and go back, RP default account was changed.
-
-
-        if (accountID > 0 ){
-            return AppDatabase.getDatabase(context).account().getRecordByID(accountID).Account_Name
-        }
-
-        val transCount = AppDatabase.getDatabase(context).trans().getTransCount()
-
-        val accountCount: Int = when (transType){
-            TRANSACTION_TYPE_DEBIT -> {
-                AppDatabase.getDatabase(context).account().getAccountCountType(
-                    TRANSACTION_TYPE_DEBIT)
-            }
-            else ->{
-                AppDatabase.getDatabase(context).account().getAccountCountExcept(
-                    TRANSACTION_TYPE_DEBIT)
-            }
-        }
-        //val accountCount = AppDatabase.getDatabase(context).account().getAccountCountExcept(
-        //    if (transType == TRANSACTION_TYPE_TRANSFER) 0L else ACCOUNT_TYPE_RECEIVABLE
-        //    )
-
-        //val account = AppDatabase.getDatabase(context).account().getAllAccount()
-
-        if (accountCount == 0) {
-            return context.getString(R.string.msg_no_account)
-
-        }else{
-            return if (transCount > 0) {
-                var acctNameList = AppDatabase.getDatabase(context).trans()
-                    .getCountOfAccountsByTransactionTypeAndCategory(transType, category)
-
-                if (acctNameList.isEmpty()) {
-                    acctNameList = AppDatabase.getDatabase(context).trans()
-                        .getCountOfAccountsByTransactionType(transType)
-                }
-
-                if (acctNameList.isEmpty()){
-                    transDetail.Account_Name
-                }else {
-                    acctNameList[0].Account_Name
-                }
-            }else{
-                transDetail.Account_Name
-            }
-        }
-        /*        fun findMostCommonValues(values: List<Any>): List<Any> {
-            // Group the values by their count
-            val groups = values.groupingBy { it }.eachCount()
-
-            // Sort the map by count in descending order
-            val sortedGroups = groups.toList().sortedByDescending { (_, count) -> count }
-
-            // Extract the elements from the sorted map
-            return sortedGroups.map { (element, _) -> element }
-        }*/
-
-    }
 
     // return account name list when open the record fragment with different transaction type.
     fun getAccountList(): List<String>?{

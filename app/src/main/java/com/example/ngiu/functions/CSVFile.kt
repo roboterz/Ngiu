@@ -68,7 +68,7 @@ class CSVFile {
             csvFile = File(context.getExternalFilesDir(null), "template.csv")
             writeCsvFile(csvFile, template)
             // Trans
-            val trans = AppDatabase.getDatabase(context).trans().getAllTrans()
+            val trans = AppDatabase.getDatabase(context).trans().getAllTransactions()
             csvFile = File(context.getExternalFilesDir(null), "transaction.csv")
             writeCsvFile(csvFile, trans)
             // Transaction Type

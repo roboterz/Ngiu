@@ -49,7 +49,9 @@ class RecordFragment : Fragment() {
         (activity as MainActivity).setNavBottomBarVisibility(View.GONE)
 
 
-        //*** CHECK IF ANY DATA WAS PASSED FROM OTHER FRAGMENTS
+        /**
+            CHECK IF ANY DATA WAS PASSED FROM OTHER FRAGMENTS
+        */
 
             // receive data from other fragment
 /*            receivedTransID = arguments?.getLong(KEY_RECORD_TRANSACTION_ID)!!
@@ -88,8 +90,6 @@ class RecordFragment : Fragment() {
 
 
 
-
-        // todo category未选中（Transfer and Debit & Credit），账号不固定，
         // 初始化Cate
 
         // Common Category
@@ -133,7 +133,7 @@ class RecordFragment : Fragment() {
 
 
 
-        // -------------------------- TOOLBAR -------------------------------------
+        /**-------------------------- TOOLBAR -------------------------------------**/
         // choose items to show
         toolbar_record.menu.findItem(R.id.action_done).isVisible = true
 
@@ -167,7 +167,7 @@ class RecordFragment : Fragment() {
                 else -> true
             }
         }
-        // ---------------------------- TOOLBAR ---------------------------------------
+        /**---------------------------- TOOLBAR ---------------------------------------*/
 
 
         // touch Expense textView, switch to Expense page
@@ -188,7 +188,7 @@ class RecordFragment : Fragment() {
         }
 
 
-        // --------------- TOUCH EVENTS ---------------------------------------------------------
+        /**--------------- TOUCH EVENTS ----------------------------------------------------*/
         // Save Button
         tv_record_right_button.setOnClickListener {
             if (saveRecord() == 0) {
@@ -205,7 +205,16 @@ class RecordFragment : Fragment() {
                 deleteRecord(activity, recordViewModel.transDetail.Transaction_ID)
             }else{
                 // save and next
-                if (saveRecord() == 0) tv_record_amount.text = "0.00"
+                if (saveRecord() == 0) {
+                    // reset amount
+                    tv_record_amount.text = "0.00"
+                    // reset time
+                    tv_record_time.text = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"))
+                    // reset time and save into transaction detail
+                    recordViewModel.transDetail.Transaction_Date =
+                        getInternationalDateFromAmericanDate(tv_record_date.text.toString() + " " + tv_record_time.text.toString())
+
+                }
             }
         }
 
@@ -417,7 +426,7 @@ class RecordFragment : Fragment() {
         tv_record_memo.doAfterTextChanged {
             recordViewModel.transDetail.Transaction_Memo = tv_record_memo.text.toString()
         }
-        // --------------- TOUCH EVENTS -----------------------------------------------------------------------------
+        /**--------------- TOUCH EVENTS ------------------------------------------------------------------------*/
     }
 
 
@@ -444,11 +453,10 @@ class RecordFragment : Fragment() {
 
 
 
-    //------------------------------------------ Private Functions --------------------------------------------------
-    //------------------------------------------  Private Functions --------------------------------------------------
+    /**------------------------------------------  Private Functions -----------------------------------------------**/
 
     private fun prepareUIData(transType: Long, transID: Long, acctID: Long){
-        //*** prepare the data ****
+        /**** prepare the data *****/
 
         // load Data to Ram
         recordViewModel.loadDataToRam(requireContext())
@@ -469,7 +477,7 @@ class RecordFragment : Fragment() {
             // set category
             setCategory(transType)
 
-            // todo Account
+            // Set Account
             setAccount(transType, transID, acctID)
 
             // person
@@ -486,7 +494,7 @@ class RecordFragment : Fragment() {
         }
 
 
-        //*** show data ****
+        /*** show data ****/
 
         // show data
         showDataOnUI(transType)
@@ -511,20 +519,22 @@ class RecordFragment : Fragment() {
     }
 
     private fun setAccount(transType: Long, transID: Long = 0L, acctID: Long=0L) {
-        // todo set account
         // !! set category before set account !!
-
-        recordViewModel.setAccountName(transType)
-
+        if (acctID > 0){
+            val acctName = recordViewModel.getAccountNameByID(acctID)
+            recordViewModel.setAccountName(transType, acctName)
+        }else {
+            recordViewModel.setAccountName(transType)
+        }
     }
+
 
     private fun setCategory(transType: Long, cateName: String="") {
         recordViewModel.setSubCategoryName(transType, cateName)
     }
 
     private fun showDataOnUI(transType: Long){
-        //*** show data on UI
-        // todo show data
+        /*** show data on UI  **/
 
         // show transaction type color
         showTextViewColor(transType)

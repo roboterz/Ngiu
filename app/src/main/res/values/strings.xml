@@ -9,6 +9,7 @@
     <string name="nav_bottom_calendar">Calendar</string>
     <string name="nav_bottom_rewards">Rewards</string>
     <string name="nav_bottom_setting">Setting</string>
+    <string name="nav_bottom_report">Report</string>
 
     <string name="nav_title_setting">Settings</string>
     <string name="nav_title_account_list">Accounts</string>

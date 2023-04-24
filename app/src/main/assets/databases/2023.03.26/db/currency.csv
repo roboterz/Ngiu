@@ -1,0 +1,163 @@
+Currency_CreateTime,Currency_ExchangeRate,Currency_ID,Currency_IsDelete,Currency_Name,Currency_OrderNo,Currency_ShortName,Currency_UploadStatus,Currency_UploadTime
+1982-11-09T13:32:18,1.0,USD,false,United States Dollar,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,XCD,false,East Caribbean Dollar,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,XAF,false,Communauté Financière Africaine (BEAC) CFA Franc BEAC,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,WST,false,Samoa Tala,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,VUV,false,Vanuatu Vatu,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,VND,false,Viet Nam Dong,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,UYU,false,Uruguay Peso,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,UGX,false,Uganda Shilling,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,TZS,false,Tanzania Shilling,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,TWD,false,Taiwan New Dollar,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,TVD,false,Tuvalu Dollar,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,TTD,false,Trinidad and Tobago Dollar,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,TRY,false,Turkey Lira,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,TOP,false,Tonga Paanga,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,TND,false,Tunisia Dinar,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,TMT,false,Turkmenistan Manat,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,TJS,false,Tajikistan Somoni,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,THB,false,Thailand Baht,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,SZL,false,eSwatini Lilangeni,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,SYP,false,Syria Pound,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,SVC,false,El Salvador Colon,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,STN,false,São Tomé and Príncipe Dobra,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,SRD,false,Suriname Dollar,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,SPL,false,Seborga Luigino,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,SOS,false,Somalia Shilling,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,SLL,false,Sierra Leone Leone,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,SHP,false,Saint Helena Pound,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.343028,SGD,false,Singapore Dollar,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,SEK,false,Sweden Krona,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,SDG,false,Sudan Pound,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,SCR,false,Seychelles Rupee,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,SBD,false,Solomon Islands Dollar,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,SAR,false,Saudi Arabia Riyal,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,RWF,false,Rwanda Franc,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,RUB,false,Russia Ruble,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,RSD,false,Serbia Dinar,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,RON,false,Romania Leu,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,QAR,false,Qatar Riyal,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,PYG,false,Paraguay Guarani,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,PLN,false,Poland Zloty,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,PKR,false,Pakistan Rupee,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,PHP,false,Philippines Peso,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,PGK,false,Papua New Guinea Kina,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,PEN,false,Peru Sol,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,PAB,false,Panama Balboa,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,OMR,false,Oman Rial,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,NZD,false,New Zealand Dollar,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,NPR,false,Nepal Rupee,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,NOK,false,Norway Krone,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,NIO,false,Nicaragua Cordoba,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,NGN,false,Nigeria Naira,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,NAD,false,Namibia Dollar,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,MZN,false,Mozambique Metical,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,4.150127,MYR,false,Malaysia Ringgit,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,MXN,false,Mexico Peso,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,MWK,false,Malawi Kwacha,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,MVR,false,Maldives (Maldive Islands) Rufiyaa,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,MUR,false,Mauritius Rupee,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,MRU,false,Mauritania Ouguiya,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,MOP,false,Macau Pataca,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,MNT,false,Mongolia Tughrik,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,MMK,false,Myanmar (Burma) Kyat,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,MKD,false,Macedonia Denar,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,MGA,false,Madagascar Ariary,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,MDL,false,Moldova Leu,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,MAD,false,Morocco Dirham,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,LYD,false,Libya Dinar,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,LSL,false,Lesotho Loti,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,LRD,false,Liberia Dollar,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,LKR,false,Sri Lanka Rupee,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,LBP,false,Lebanon Pound,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,LAK,false,Laos Kip,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,KZT,false,Kazakhstan Tenge,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,KYD,false,Cayman Islands Dollar,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,KWD,false,Kuwait Dinar,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,KRW,false,Korea (South) Won,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,KPW,false,Korea (North) Won,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,KMF,false,Comorian Franc,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,KGS,false,Kyrgyzstan Som,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,KES,false,Kenya Shilling,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,110.067,JPY,false,Japan Yen,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,JOD,false,Jordan Dinar,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,JMD,false,Jamaica Dollar,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,ISK,false,Iceland Krona,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,IQD,false,Iraq Dinar,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,73.608662,INR,false,India Rupee,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,ILS,false,Israel Shekel,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,IDR,false,Indonesia Rupiah,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,HUF,false,Hungary Forint,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,HTG,false,Haiti Gourde,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,HRK,false,Croatia Kuna,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,HNL,false,Honduras Lempira,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,7.778821,HKD,false,Hong Kong Dollar,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,GYD,false,Guyana Dollar,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,GTQ,false,Guatemala Quetzal,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,GNF,false,Guinea Franc,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,GMD,false,Gambia Dalasi,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,GIP,false,Gibraltar Pound,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,GHS,false,Ghana Cedi,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,GEL,false,Georgia Lari,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,0.722257,GBP,false,United Kingdom Pound,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,FKP,false,Falkland Islands (Malvinas) Pound,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,FJD,false,Fiji Dollar,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,0.846369,EUR,false,Euro Member Countries,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,ETB,false,Ethiopia Birr,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,EGP,false,Egypt Pound,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,DZD,false,Algeria Dinar,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,DOP,false,Dominican Republic Peso,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,DKK,false,Denmark Krone,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,DJF,false,Djibouti Franc,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,CZK,false,Czech Republic Koruna,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,CUP,false,Cuba Peso,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,CRC,false,Costa Rica Colon,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,COP,false,Colombia Peso,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,6.447487,CNY,false,China Yuan Renminbi,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,CLP,false,Chile Peso,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,0.92174,CHF,false,Switzerland Franc,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.265122,CAD,false,Canada Dollar,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,BZD,false,Belize Dollar,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,BWP,false,Botswana Pula,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,BRL,false,Brazil Real,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,BOB,false,Bolivia Bolíviano,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,BND,false,Brunei Darussalam Dollar,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,0.376,BHD,false,Bahrain Dinar,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,BGN,false,Bulgaria Lev,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,BDT,false,Bangladesh Taka,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.362132,AUD,false,Australia Dollar,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,98.179972,ARS,false,Argentina Peso,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,AOA,false,Angola Kwanza,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,AMD,false,Armenia Dram,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,ALL,false,Albania Lek,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,AFN,false,Afghanistan Afghani,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,AED,false,United Arab Emirates Dirham,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,UZS,false,Uzbekistan Som,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,AWG,false,Aruba Guilder,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,AZN,false,Azerbaijan Manat,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,BSD,false,Bahamas Dollar,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,BYN,false,Belarus Ruble,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,BBD,false,Barbados Dollar,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,CVE,false,Cape Verde Escudo,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,BIF,false,Burundi Franc,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,BAM,false,Bosnia and Herzegovina Convertible Mark,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,BTN,false,Bhutan Ngultrum,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,BMD,false,Bermuda Dollar,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,VEF,false,Venezuela Bolívar,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,KHR,false,Cambodia Riel,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,UAH,false,Ukraine Hryvnia,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,ANG,false,Netherlands Antilles Guilder,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,CDF,false,Congo/Kinshasa Franc,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,CUC,false,Cuba Convertible Peso,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,ERN,false,Eritrea Nakfa,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,GGP,false,Guernsey Pound,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,IMP,false,Isle of Man Pound,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,IRR,false,Iran Rial,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,JEP,false,Jersey Pound,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,XDR,false,International Monetary Fund (IMF) Special Drawing Rights,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,XOF,false,Communauté Financière Africaine (BCEAO) Franc,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,XPF,false,Comptoirs Français du Pacifique (CFP) Franc,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,YER,false,Yemen Rial,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,ZAR,false,South Africa Rand,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,ZMW,false,Zambia Kwacha,0,,false,1982-11-09T13:32:18
+1982-11-09T13:32:18,1.0,ZWD,false,Zimbabwe Dollar,0,,false,1982-11-09T13:32:18

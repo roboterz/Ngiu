@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.report.ReportFragment">
+
+
+    <com.example.ngiu.functions.chart.CircleChartView
+        android:id="@+id/cc_view"
+        android:layout_width="1000dp"
+        android:layout_height="1000dp"
+        android:layout_centerHorizontal="true"
+        tools:ignore="MissingClass,MissingConstraints" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview_report"
+        android:layout_width="409dp"
+        android:layout_height="469dp"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="260dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

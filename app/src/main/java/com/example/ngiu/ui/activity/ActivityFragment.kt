@@ -89,7 +89,7 @@ class ActivityFragment : Fragment() {
                 }
                 R.id.action_chart -> {
                     // switch to chart fragment
-
+                    navigateToReportFragment()
                     true
                 }
                 R.id.action_settings -> {
@@ -147,7 +147,7 @@ class ActivityFragment : Fragment() {
 
 
 
-    // init Adapter
+    /** init Adapter **/
     private fun initAdapter(view: View, fragment: Fragment) {
         
         Thread {
@@ -180,5 +180,9 @@ class ActivityFragment : Fragment() {
 
     private fun navigateToSettingFragment() {
         findNavController().navigate(R.id.navigation_setting)
+    }
+
+    private fun navigateToReportFragment(){
+        findNavController().navigate(R.id.navigation_report)
     }
 }

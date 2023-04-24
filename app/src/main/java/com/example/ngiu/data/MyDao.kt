@@ -531,6 +531,11 @@ interface TransDao {
     @Query("SELECT * FROM Trans WHERE Account_ID = :rID OR AccountRecipient_ID = :rID")
     fun getRecordsByAccountAndAccountRecipientID(rID:Long): List<Trans>
 
+
+    @Transaction
+    @Query("SELECT * FROM Trans")
+    fun getAllTransactions(): List<Trans>
+
     @Transaction
     @Query("""
         SELECT Transaction_ID, Trans.TransactionType_ID, Category_Name, Account.Account_Name, AccountRecipient.Account_Name as AccountRecipient_Name, 
@@ -546,7 +551,7 @@ interface TransDao {
                 AND Trans.Project_ID = Project.Project_ID
                 AND Transaction_ID = :rID
         """)
-    fun getOneTransaction(rID: Long): TransactionDetail
+    fun getOneTransactionDetail(rID: Long): TransactionDetail
 
     @Transaction
     @Query("""
@@ -563,7 +568,7 @@ interface TransDao {
                 AND Trans.Project_ID = Project.Project_ID
         ORDER BY Transaction_Date DESC
         """)
-    fun getAllTrans(): List<TransactionDetail>
+    fun getAllTransDetail(): List<TransactionDetail>
 
     @Transaction
     @Query("""
@@ -704,7 +709,7 @@ interface TransDao {
 
     @Transaction
     @Query("""
-        SELECT Account_Name, COUNT(Trans.Account_ID) as Account_Count
+        SELECT Account.Account_Name, COUNT(Trans.Account_ID) as Account_Count, Category_ID
         FROM Trans, Account
         WHERE Trans.TransactionType_ID = :tID AND Category_ID = :cID
             AND Trans.Account_ID = Account.Account_ID
@@ -715,7 +720,7 @@ interface TransDao {
 
     @Transaction
     @Query("""
-        SELECT Account_Name, COUNT(Trans.Account_ID) as Account_Count
+        SELECT Account.Account_Name, COUNT(Trans.Account_ID) as Account_Count, Category_ID
         FROM Trans, Account
         WHERE Trans.TransactionType_ID = :tID
             AND Trans.Account_ID = Account.Account_ID
@@ -726,7 +731,7 @@ interface TransDao {
 
     @Transaction
     @Query("""
-        SELECT Account_Name, COUNT(AccountRecipient_ID) as Account_Count
+        SELECT Account.Account_Name, COUNT(Trans.Account_ID) as Account_Count, Category_ID
         FROM Trans, Account
         WHERE TransactionType_ID = :tID AND Category_ID = :cID
             AND Trans.AccountRecipient_ID = Account.Account_ID
@@ -737,7 +742,7 @@ interface TransDao {
 
     @Transaction
     @Query("""
-        SELECT Account_Name, COUNT(AccountRecipient_ID) as Account_Count
+        SELECT Account.Account_Name, COUNT(Trans.Account_ID) as Account_Count, Category_ID
         FROM Trans, Account
         WHERE TransactionType_ID = :tID 
             AND Trans.AccountRecipient_ID = Account.Account_ID
