@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -55,11 +54,11 @@ class AccountDetailFragment : Fragment() {
     }
 
     private fun fetchDataFromBundle() {
-        itemId = arguments?.getLong("accountId")!!
-        accountName = arguments?.getString("accountName")!!
-        //balance = arguments?.getDouble("balance")!!
+        itemId = arguments?.getLong(KEY_ACCOUNT_ID)!!
+        accountName = arguments?.getString(KEY_ACCOUNT_NAME)!!
+        //balance = arguments?.getDouble(KEY_ACCOUNT_BALANCE)!!
             balance = accountDetailViewModel.calculateBalance(requireContext(), itemId)
-        accountType = arguments?.getLong("accountType")!!
+        accountType = arguments?.getLong(KEY_ACCOUNT_TYPE)!!
     }
 
     @SuppressLint("SetTextI18n")
@@ -85,7 +84,7 @@ class AccountDetailFragment : Fragment() {
         toolbar_account_normal_details.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
-        binding.toolbarAccountNormalDetails.title = "Account Details"
+        binding.toolbarAccountNormalDetails.title = getString(R.string.nav_title_account_detail)
         toolbar_account_normal_details.menu.findItem(R.id.action_edit).isVisible = true
         toolbar_account_normal_details.menu.findItem(R.id.action_add).isVisible = true
 
@@ -97,90 +96,20 @@ class AccountDetailFragment : Fragment() {
                     // hide nav bottom bar
                     (activity as MainActivity).setNavBottomBarVisibility(View.GONE)
                     // navigate to add record screen
-                    view.findNavController().navigate(R.id.navigation_record)
+                    //view.findNavController().navigate(R.id.navigation_record)
+                    switchToRecordFragment(view, this)
                     true
                 }
                 R.id.action_edit -> {
                     (activity as MainActivity).setNavBottomBarVisibility(View.GONE)
-                    // navigate to add record screen
+                    // navigate to edit account attribute
+                    switchToAccountAttributePage(view, accountType, itemId, balance,
+                                                EDIT_MODE)
 
-
-
-                    when (accountType) {
-                        ACCOUNT_TYPE_CASH -> {
-                            val bundle = Bundle().apply {
-                                putString("page", "edit_cash")
-                                putLong("id", itemId)
-                                putDouble("balance", balance)
-                            }
-
-
-                            view.findNavController().navigate(R.id.addCashFragment, bundle)
-                        }
-                        ACCOUNT_TYPE_DEBIT -> {
-                            val bundle = Bundle().apply {
-                                putString("page", "edit_debit")
-                                putLong("id", itemId)
-                                putDouble("balance", balance)
-                            }
-                            view.findNavController().navigate(R.id.addDebitFragment, bundle)
-                        }
-                        ACCOUNT_TYPE_INVESTMENT-> {
-                            val bundle = Bundle().apply {
-                                putString("page", "edit_investment")
-                                putLong("id", itemId)
-                                putDouble("balance", balance)
-                            }
-                            view.findNavController().navigate(R.id.addWebAccountFragment, bundle)
-                        }
-                        ACCOUNT_TYPE_WEB-> {
-                            val bundle = Bundle().apply {
-                                putString("page", "edit_web")
-                                putLong("id", itemId)
-                                putDouble("balance", balance)
-                            }
-                            view.findNavController().navigate(R.id.addWebAccountFragment, bundle)
-                        }
-                        ACCOUNT_TYPE_STORED -> {
-                            val bundle = Bundle().apply {
-                                putString("page", "edit_valueCard")
-                                putLong("id", itemId)
-                                putDouble("balance", balance)
-                            }
-                            view.findNavController().navigate(R.id.addPermanentAssetFragment, bundle)
-                        }
-
-                        ACCOUNT_TYPE_VIRTUAL-> {
-                            val bundle = Bundle().apply {
-                                putString("page", "edit_virtual")
-                                putLong("id", itemId)
-                                putDouble("balance", balance)
-                            }
-                            view.findNavController().navigate(R.id.addWebAccountFragment, bundle)
-                        }
-
-                        ACCOUNT_TYPE_ASSETS -> {
-                            val bundle = Bundle().apply {
-                                putString("page", "edit_perm")
-                                putLong("id", itemId)
-                                putDouble("balance", balance)
-                            }
-                            view.findNavController().navigate(R.id.addPermanentAssetFragment, bundle)
-                        }
-
-
-                        ACCOUNT_TYPE_RECEIVABLE -> {
-                            val bundle = Bundle().apply {
-                                putString("page", "edit_payable")
-                                putLong("id", itemId)
-                            }
-                            view.findNavController().navigate(R.id.addCashFragment, bundle)
-                        }
-                    }
                     true
                 }
 
-                else -> super.onOptionsItemSelected(it)
+                else -> true
             }
         }
 

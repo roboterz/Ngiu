@@ -22,6 +22,12 @@ import java.time.LocalDateTime
         childColumns = ["Merchant_ID"],
         onDelete = ForeignKey.SET_DEFAULT,
         onUpdate = ForeignKey.CASCADE,
+    ),ForeignKey(
+        entity = Icon::class,
+        parentColumns = ["Icon_ID"],
+        childColumns = ["Icon_ID"],
+        onDelete = ForeignKey.SET_DEFAULT,
+        onUpdate = ForeignKey.CASCADE,
     )], indices = [Index(value = ["Reward_ID"], unique = true)])
 data class Reward(
     @PrimaryKey(autoGenerate = true)
@@ -40,6 +46,9 @@ data class Reward(
     var Reward_StartDate: LocalDateTime = LocalDateTime.now(),
     @TypeConverters(DateTypeConverter::class)
     var Reward_EndDate: LocalDateTime = LocalDateTime.now(),
+
+    @ColumnInfo(defaultValue = "1")
+    var Icon_ID: Long = 1L,
 
     @ColumnInfo(defaultValue = "false")
     var Reward_IsDelete: Boolean = false,

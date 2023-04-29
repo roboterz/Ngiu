@@ -84,7 +84,7 @@ class CalendarFragment : Fragment() {
                     showReminderDialog(view.context)
                     true
                 }
-                else -> super.onOptionsItemSelected(it)
+                else -> true
             }
         }
 
@@ -270,8 +270,8 @@ class CalendarFragment : Fragment() {
                     Event_ID = event_ID,
                     Event_Date = getInternationalDateFromAmericanDate(
                         dialog.reminder_date.text.toString() + " " +
-                                dialog.reminder_date.text.toString()),
-                    Event_Memo = dialog.reminder_date.text.toString()
+                                dialog.reminder_time.text.toString()),
+                    Event_Memo = dialog.reminder_memo.text.toString()
                 )
                 // save
                 calendarViewModel.saveEventRecord(context, event)

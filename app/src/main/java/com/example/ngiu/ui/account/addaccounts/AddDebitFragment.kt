@@ -14,8 +14,7 @@ import com.example.ngiu.R
 import com.example.ngiu.data.entities.Account
 import com.example.ngiu.data.entities.Currency
 import com.example.ngiu.databinding.FragmentAccountAddDebitBinding
-import com.example.ngiu.functions.ACCOUNT_TYPE_DEBIT
-import com.example.ngiu.functions.addDecimalLimiter
+import com.example.ngiu.functions.*
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.fragment_account_add_debit.*
 import kotlinx.android.synthetic.main.fragment_account_add_web_account.*
@@ -28,7 +27,7 @@ class AddDebitFragment : Fragment() {
 
     private lateinit var addCashViewModel: AddCashViewModel
     var currency = "USD"
-    lateinit var page: String
+    var page: Long = 0L
     var accountTypeID: Long = ACCOUNT_TYPE_DEBIT
     var id: Long = 0L
 
@@ -36,7 +35,7 @@ class AddDebitFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        addCashViewModel = ViewModelProvider(this).get(AddCashViewModel::class.java)
+        addCashViewModel = ViewModelProvider(this)[AddCashViewModel::class.java]
         _binding = FragmentAccountAddDebitBinding.inflate(inflater, container, false)
 
         getBundleData()
@@ -59,14 +58,14 @@ class AddDebitFragment : Fragment() {
 
     private fun displayPage() {
         when (page) {
-            "add_debit" -> {
+            KEY_VALUE_ACCOUNT_ADD_DEBIT -> {
                 binding.toolbarAddDebitAccount.title = "Add Debit"
             }
-            "edit_debit" -> {
+            KEY_VALUE_ACCOUNT_EDIT_DEBIT -> {
                 binding.toolbarAddDebitAccount.title = "Edit Debit"
                 binding.toolbarAddDebitAccount.menu.findItem(R.id.action_delete).isVisible = true
                 accountTypeID = ACCOUNT_TYPE_DEBIT
-                id = arguments?.getLong("id")!!
+                id = arguments?.getLong(KEY_ACCOUNT_ID)!!
 
                 fetchAccountDetails(id)
             }
@@ -75,7 +74,7 @@ class AddDebitFragment : Fragment() {
     }
 
     private fun getBundleData() {
-        page = arguments?.getString("page")!!
+        page = arguments?.getLong(KEY_ACCOUNT_PAGE)!!
 
     }
 
@@ -91,11 +90,11 @@ class AddDebitFragment : Fragment() {
     private fun initListeners() {
         binding.btnSaveDebit.setOnClickListener {
             when (page) {
-                "add_debit" -> {
+                KEY_VALUE_ACCOUNT_ADD_DEBIT -> {
                     submitForm()
                 }
-                "edit_debit" -> {
-                    id = arguments?.getLong("id")!!
+                KEY_VALUE_ACCOUNT_EDIT_DEBIT -> {
+                    id = arguments?.getLong(KEY_ACCOUNT_ID)!!
                     updateAccount(id)
                 }
 
@@ -150,7 +149,7 @@ class AddDebitFragment : Fragment() {
                 }
 
 
-                else -> super.onOptionsItemSelected(it)
+                else -> true
             }
         }
     }

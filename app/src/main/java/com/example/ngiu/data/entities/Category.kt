@@ -10,6 +10,12 @@ import java.time.LocalDateTime
         childColumns = ["TransactionType_ID"],
         onDelete = ForeignKey.RESTRICT,
         onUpdate = ForeignKey.CASCADE
+    ),ForeignKey(
+        entity = Icon::class,
+        parentColumns = ["Icon_ID"],
+        childColumns = ["Icon_ID"],
+        onDelete = ForeignKey.SET_DEFAULT,
+        onUpdate = ForeignKey.CASCADE,
     )], indices = [Index(value = ["Category_ID"], unique = true)]
 )
 
@@ -29,8 +35,8 @@ data class Category(
     var Category_OrderNo: Int = 0,
     @ColumnInfo(defaultValue = "false")
     var Category_IsDefault: Boolean = false,
-    @ColumnInfo(defaultValue = "0")
-    var Category_Icon: Int = 0,
+    @ColumnInfo(defaultValue = "1")
+    var Icon_ID: Long = 1L,
 
     @ColumnInfo(defaultValue = "false")
     var Category_IsDelete: Boolean = false,

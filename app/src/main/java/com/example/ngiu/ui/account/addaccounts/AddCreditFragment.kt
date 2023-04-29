@@ -15,11 +15,9 @@ import com.example.ngiu.R
 import com.example.ngiu.data.entities.Account
 import com.example.ngiu.data.entities.Currency
 import com.example.ngiu.databinding.FragmentAccountAddCreditBinding
-import com.example.ngiu.functions.ACCOUNT_TYPE_CREDIT
-import com.example.ngiu.functions.addDecimalLimiter
+import com.example.ngiu.functions.*
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.popup_title.view.*
-import com.example.ngiu.functions.getDayOfMonthSuffix
 import kotlinx.android.synthetic.main.fragment_account_add_credit.*
 
 class AddCreditFragment : Fragment() {
@@ -28,11 +26,11 @@ class AddCreditFragment : Fragment() {
 
     private lateinit var addCashViewModel: AddCashViewModel
     var currency = "USD"
-    var statementDay = "1"
-    var paymentDay = "26"
+    private var statementDay = "1"
+    private var paymentDay = "26"
     private val accountTypeID = ACCOUNT_TYPE_CREDIT
     var id: Long = 0L
-    lateinit var page: String
+    var page: Long = 0L
 
 
 
@@ -41,7 +39,7 @@ class AddCreditFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        addCashViewModel = ViewModelProvider(this).get(AddCashViewModel::class.java)
+        addCashViewModel = ViewModelProvider(this)[AddCashViewModel::class.java]
         _binding = FragmentAccountAddCreditBinding.inflate(inflater, container, false)
 
         getBundleData()
@@ -64,30 +62,26 @@ class AddCreditFragment : Fragment() {
         (activity as MainActivity).setNavBottomBarVisibility(View.GONE)
     }
 
-    override fun onResume() {
-        super.onResume()
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
 
     private fun getBundleData() {
-        page = arguments?.getString("page")!!
+        page = arguments?.getLong(KEY_ACCOUNT_PAGE)!!
 
     }
 
     private fun displayPage() {
         when (page) {
-            "add_credit" -> {
+            KEY_VALUE_ACCOUNT_ADD_CREDIT -> {
                 binding.toolbarAddCreditAccount.title = "Add Credit Card"
 
             }
-            "edit_credit" -> {
+            KEY_VALUE_ACCOUNT_EDIT_CREDIT -> {
                 binding.toolbarAddCreditAccount.title = "Edit Credit Card"
                 binding.toolbarAddCreditAccount.menu.findItem(R.id.action_delete).isVisible = true
-                id = arguments?.getLong("id")!!
+                id = arguments?.getLong(KEY_ACCOUNT_ID)!!
                 fetchAccountDetails(id)
             }
 
@@ -105,9 +99,10 @@ class AddCreditFragment : Fragment() {
         binding.tetCreditLimit.setText("%.2f".format(account.Account_CreditLimit))
         /*"Statement Day: $statementDay$suffix"*/
         val stateSuffix = getDayOfMonthSuffix(account.Account_StatementDay)
-        binding.tvCreditStateDay.setText("Statement Day: ${account.Account_StatementDay}$stateSuffix")
+        binding.tvCreditStateDay.text = getString(R.string.option_account_statement_date)
+                                .plus("${account.Account_StatementDay}$stateSuffix")
         val paySuffix = getDayOfMonthSuffix(account.Account_PaymentDay)
-        binding.tvCreditPaymentDay.setText("Payment Day: ${account.Account_PaymentDay}$paySuffix")
+        binding.tvCreditPaymentDay.text = "Payment Day: ${account.Account_PaymentDay}$paySuffix"
         binding.creditCurrentArrearsLayout.suffixText = account.Currency_ID
         binding.creditLimitLayout.suffixText = account.Currency_ID
         binding.scCreditCountNetAssets.isChecked = account.Account_CountInNetAssets
@@ -146,14 +141,15 @@ class AddCreditFragment : Fragment() {
 
     }
 
+    @SuppressLint("InflateParams", "SetTextI18n")
     private fun initListeners() {
         binding.btnSaveCash.setOnClickListener {
             when (page) {
-                "add_credit" -> {
+                KEY_VALUE_ACCOUNT_ADD_CREDIT -> {
                     submitForm()
                 }
-                "edit_credit" -> {
-                    id = arguments?.getLong("id")!!
+                KEY_VALUE_ACCOUNT_EDIT_CREDIT -> {
+                    id = arguments?.getLong(KEY_ACCOUNT_ID)!!
                     updateAccount(id)
                 }
             }
@@ -170,12 +166,12 @@ class AddCreditFragment : Fragment() {
                 }
 
 
-                else -> super.onOptionsItemSelected(it)
+                else -> true
             }
         }
 
         binding.tvCreditStateDay.setOnClickListener {
-            val ls = listOf<String>(
+            val ls = listOf(
                 "1",
                 "2",
                 "3",
@@ -224,7 +220,8 @@ class AddCreditFragment : Fragment() {
             builder.setItems(array) { _, which ->
                 statementDay = array[which]
                 val suffix = getDayOfMonthSuffix(statementDay.toInt())
-                binding.tvCreditStateDay.text = "Statement Day: $statementDay$suffix"
+                binding.tvCreditStateDay.text =
+                    getString(R.string.option_account_statement_date) + statementDay + suffix
             }
 
             // Create a new AlertDialog using builder object
@@ -233,7 +230,7 @@ class AddCreditFragment : Fragment() {
         }
 
         binding.tvCreditPaymentDay.setOnClickListener {
-            val ls = listOf<String>(
+            val ls = listOf(
                 "1",
                 "2",
                 "3",
@@ -304,7 +301,7 @@ class AddCreditFragment : Fragment() {
             val cs: Array<CharSequence> =
                 arrayList.toArray(arrayOfNulls<CharSequence>(arrayList.size))
 
-            //   val array = arrayof()
+            //   val array = array()
             // Initialize a new instance of alert dialog builder object
             val builder = AlertDialog.Builder(requireContext())
 
@@ -317,9 +314,9 @@ class AddCreditFragment : Fragment() {
 
             // Set items form alert dialog
             builder.setItems(cs) { _, which ->
-                currency = arrayList.get(which)
-                binding.creditLimitLayout.setSuffixText(currency)
-                binding.creditCurrentArrearsLayout.setSuffixText(currency)
+                currency = arrayList[which]
+                binding.creditLimitLayout.suffixText = currency
+                binding.creditCurrentArrearsLayout.suffixText = currency
             }
 
             // Create a new AlertDialog using builder object
@@ -352,7 +349,7 @@ class AddCreditFragment : Fragment() {
 
             // Set items form alert dialog
             builder.setItems(cs) { _, which ->
-                currency = arrayList.get(which)
+                currency = arrayList[which]
                 binding.creditCurrentArrearsLayout.suffixText = currency
                 binding.creditLimitLayout.suffixText = currency
 

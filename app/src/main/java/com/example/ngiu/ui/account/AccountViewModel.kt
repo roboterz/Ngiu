@@ -15,9 +15,9 @@ class AccountViewModel : ViewModel() {
 
 
     // adding because if liability is negative number would add if, subtraction
-    fun getNetAssets(context:Context): Double {
+    fun getNetAssets(): Double {
         val liability = getTotalLiability()
-        val totalAssets = getTotalAssets(context)
+        val totalAssets = getTotalAssets()
 
         return totalAssets + liability
     }
@@ -40,7 +40,7 @@ class AccountViewModel : ViewModel() {
     // get the Account_Balance where count in net assets is true/1
     // getTransactionSums(1) = Expense
     // getTransactionSums(2) = Income
-    fun getTotalAssets(context: Context): Double {
+    fun getTotalAssets(): Double {
         /*
         val appDatabase = AppDatabase.getDatabase(context)
 
@@ -67,10 +67,10 @@ class AccountViewModel : ViewModel() {
         val allAccounts = appDatabase.account().getAllAccountASC()
         val sections = ArrayList<AccountSectionUiModel>()
         // group the AccountType_ID; setting key,value
-        // key:value = accounttype_id : list of all accounts with same accounttype_id
+        // key:value = AccountType_ID : list of all accounts with same AccountType_ID
         allAccounts.groupBy { it.AccountType_ID }
             .forEach { item->
-                // search the list of account type table to match with accounttype_id
+                // search the list of account type table to match with AccountType_ID
                 val accountType = allTypes.find { it.AccountType_ID ==  item.key}
 
                 // Individual accounts calculation
@@ -87,12 +87,12 @@ class AccountViewModel : ViewModel() {
                             it.Account_Balance = calculateAmount(it.Account_Balance,tran)
                         }
                 }
-                // store the total sum of each account base off accounttype_id
+                // store the total sum of each account base off AccountType_ID
                 val totalSum = item.value.sumOf { it.Account_Balance }
 
                 // store the data to the Model
                 val sectionModel = accountType?.let {
-                    AccountSectionUiModel( it.AccountType_ID, accountType?.AccountType_Name.orEmpty(), "$"+"%.2f".format(totalSum),
+                    AccountSectionUiModel( it.AccountType_ID, accountType.AccountType_Name, "$"+"%.2f".format(totalSum),
                         it.AccountType_Expanded, item.value)
                 }
                 if (sectionModel != null) {

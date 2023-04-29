@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
@@ -17,9 +18,7 @@ import androidx.navigation.ui.NavigationUI.navigateUp
 import com.example.ngiu.MainActivity
 import com.example.ngiu.R
 import com.example.ngiu.databinding.FragmentSettingBinding
-import com.example.ngiu.functions.MPP_MERCHANT
-import com.example.ngiu.functions.MPP_PERSON
-import com.example.ngiu.functions.MPP_PROJECT
+import com.example.ngiu.functions.*
 import kotlinx.android.synthetic.main.fragment_record.*
 import kotlinx.android.synthetic.main.fragment_setting.*
 
@@ -61,19 +60,14 @@ class SettingFragment : Fragment() {
 
         // Expense
         binding.tvSettingExpense.setOnClickListener {
-            setFragmentResult("category_manage_mode", bundleOf("edit_mode" to true))
-            setFragmentResult("category_manage_type", bundleOf("transaction_type" to 1L))
-            // switch to category manage fragment
-            findNavController().navigate(R.id.navigation_category_manage)
+            switchToCategoryManager(view, this, EDIT_MODE, TRANSACTION_TYPE_EXPENSE)
+            //switchToCategoryManager(view,, EDIT_MODE, TRANSACTION_TYPE_EXPENSE)
         }
 
         // Income
         binding.tvSettingIncome.setOnClickListener {
-
-            setFragmentResult("category_manage_mode", bundleOf("edit_mode" to true))
-            setFragmentResult("category_manage_type", bundleOf("transaction_type" to 2L))
-            // switch to category manage fragment
-            findNavController().navigate(R.id.navigation_category_manage)
+            switchToCategoryManager(view, this, EDIT_MODE, TRANSACTION_TYPE_INCOME)
+            //switchToCategoryManager(view,, EDIT_MODE, TRANSACTION_TYPE_INCOME)
         }
 
         // Merchant
@@ -100,8 +94,28 @@ class SettingFragment : Fragment() {
             findNavController().navigate(R.id.navigation_mpp_manage)
         }
 
+        // Export Data to CSV
+        binding.tvSettingExport.setOnClickListener{
+
+            val i = CSVFile().exportToCSV(requireContext())
+
+            if (i ==0 ){
+                // completed
+                Toast.makeText(context, getText(R.string.msg_completed), Toast.LENGTH_LONG).show()
+            }else{
+                // error
+                Toast.makeText(context, getText(R.string.msg_error), Toast.LENGTH_LONG).show()
+            }
+        }
+
+        // Import data from CSV
+        binding.tvSettingImport.setOnClickListener{
+            //CSVFile().importFromCSV(requireContext())
+        }
+
         binding.tvSettingNgiu.setOnClickListener {
             // todo
+
 
         }
 
@@ -121,4 +135,20 @@ class SettingFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
+
+
+    //********************* Private Function ******************************
+/*    private fun openCategoryManager(transactionID: Long) {
+
+        // Put Data Before switch
+        setFragmentResult(
+            KEY_CATEGORY_MANAGER, bundleOf(
+            KEY_CATEGORY_MANAGER_MODE to EDIT_MODE,
+            KEY_CATEGORY_MANAGER_TRANSACTION_TYPE to transactionID))
+
+        // switch to category manage fragment
+        findNavController().navigate(R.id.navigation_category_manage)
+    }*/
+
+    //********************* Private Function ******************************
 }

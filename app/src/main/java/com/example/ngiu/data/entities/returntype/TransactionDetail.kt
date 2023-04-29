@@ -9,10 +9,14 @@ import java.util.*
 data class TransactionDetail(
     var Transaction_ID: Long = 0L,
     var TransactionType_ID: Long = 0L,
+    var Category_ID: Long = 0L,
     var Category_Name: String = "",
+    var Account_ID: Long = 0L,
     var Account_Name: String = "",
+    var AccountRecipient_ID: Long = 0L,
     var AccountRecipient_Name: String = "",
     var Transaction_Amount: Double = 0.00,
+    var Transaction_Amount2: Double = 0.00,
     @TypeConverters(DateTypeConverter::class)
     var Transaction_Date: LocalDateTime = LocalDateTime.now(),
     var Person_Name: String = "",

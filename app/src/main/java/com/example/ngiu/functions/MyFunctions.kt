@@ -2,28 +2,28 @@ package com.example.ngiu.functions
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
-import android.content.ContentResolver
 import android.content.Context
-import android.content.res.Resources
-import android.provider.Settings.Global.getString
+import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
-import android.view.LayoutInflater
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ComplexColorCompat.inflate
-import androidx.core.content.res.TypedArrayUtils.getText
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
 import androidx.navigation.findNavController
 import com.example.ngiu.R
 import com.example.ngiu.data.AppDatabase
 import com.example.ngiu.data.entities.Trans
+import com.example.ngiu.ui.activity.ActivityListAdapter
+import com.example.ngiu.ui.reimburse.fragment_reimburse
+import com.google.android.gms.dynamic.SupportFragmentWrapper
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.fragment_record.*
 import kotlinx.android.synthetic.main.popup_title.view.*
+import java.io.File
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -32,16 +32,6 @@ import kotlin.math.abs
 
 
 class MyFunctions {
-
-    @SuppressLint("RestrictedApi")
-    fun switchToFragment(view: View, resID: Int, withBackStack: Boolean){
-        // pop out fragment from back stack
-        if (!withBackStack) view.findNavController().popBackStack()
-        // switch to fragment
-        view.findNavController().navigate(resID)
-    }
-
-
 
 }
 
@@ -178,14 +168,15 @@ fun TextInputEditText.decimalLimiter(string: String, MAX_DECIMAL: Int): String {
 
 
 fun getDayOfMonthSuffix(n: Int): String {
-    if (n in 11..13) {
-        return "th"
-    }
-    when (n % 10) {
-        1 -> return "st"
-        2 -> return "nd"
-        3 -> return "rd"
-        else -> return "th"
+    return if (n in 11..13) {
+        "th"
+    }else {
+        when (n % 10) {
+            1 -> "st"
+            2 -> "nd"
+            3 -> "rd"
+            else -> "th"
+        }
     }
 }
 
@@ -281,4 +272,81 @@ fun getInternationalDateFromAmericanDate(string: String): LocalDateTime {
 }
 
 
+
+fun switchToAccountAttributePage(view: View, acctTypeID: Long,
+                                 keyValue_acctID: Long, keyValue_acctBalance: Double,
+                                 mode: Int){
+    //*** switch to Account Attribute page (create a new account | edit a account)
+
+        // Pass Data
+        // Add Mode | Edit Mode
+        val bundle = Bundle().apply {
+            // KEY_VALUE_ACCOUNT_ADD_CASH = Account_TYPE_CASH (Add Mode, by analogy)
+            // KEY_VALUE_ACCOUNT_ADD_CASH - Account_TYPE_CASH = 20 (Edit Mode,by analogy)
+            putLong(KEY_ACCOUNT_PAGE, acctTypeID +
+                    if (mode == NEW_MODE) 0 else 20)
+            putLong(KEY_ACCOUNT_ID, keyValue_acctID)
+            putDouble(KEY_ACCOUNT_BALANCE, keyValue_acctBalance)
+        }
+
+        when (acctTypeID) {
+            ACCOUNT_TYPE_CASH -> {
+                view.findNavController().navigate(R.id.addCashFragment, bundle)
+            }
+            ACCOUNT_TYPE_CREDIT -> {
+                view.findNavController().navigate(R.id.addCreditFragment, bundle)
+            }
+            ACCOUNT_TYPE_DEBIT -> {
+                view.findNavController().navigate(R.id.addDebitFragment, bundle)
+            }
+            ACCOUNT_TYPE_INVESTMENT-> {
+                view.findNavController().navigate(R.id.addWebAccountFragment, bundle)
+            }
+            ACCOUNT_TYPE_WEB-> {
+                view.findNavController().navigate(R.id.addWebAccountFragment, bundle)
+            }
+            ACCOUNT_TYPE_STORED -> {
+                view.findNavController().navigate(R.id.addFixedAssetsFragment, bundle)
+            }
+            ACCOUNT_TYPE_VIRTUAL-> {
+                view.findNavController().navigate(R.id.addWebAccountFragment, bundle)
+            }
+            ACCOUNT_TYPE_ASSETS -> {
+                view.findNavController().navigate(R.id.addFixedAssetsFragment, bundle)
+            }
+            ACCOUNT_TYPE_RECEIVABLE -> {
+                view.findNavController().navigate(R.id.addCashFragment, bundle)
+            }
+        }
+
+}
+
+fun switchToCategoryManager(view: View, fragment: Fragment, mode: Int, transTypeID: Long) {
+
+    // Put Data Before switch
+    fragment.setFragmentResult(KEY_CATEGORY_MANAGER, bundleOf(
+        KEY_CATEGORY_MANAGER_MODE to mode,
+        KEY_CATEGORY_MANAGER_TRANSACTION_TYPE to transTypeID
+    ))
+
+    // switch to category manage fragment
+    view.findNavController().navigate(R.id.navigation_category_manage)
+}
+
+fun switchToRecordFragment(
+    view: View, fragment: Fragment, transID: Long = 0,
+    acctID: Long = 0, transTypeID: Long = TRANSACTION_TYPE_EXPENSE){
+/*    val bundle = Bundle().apply {
+        putLong(KEY_RECORD_TRANSACTION_ID, transID)
+    }*/
+
+    // put data before switch
+    fragment.setFragmentResult(KEY_RECORD, bundleOf(
+        KEY_RECORD_TRANSACTION_ID to transID,
+        KEY_RECORD_ACCOUNT_ID to acctID,
+        KEY_RECORD_TRANSACTION_TYPE_ID to transTypeID
+    ))
+    // switch to record fragment
+    view.findNavController().navigate(R.id.navigation_record)
+}
 

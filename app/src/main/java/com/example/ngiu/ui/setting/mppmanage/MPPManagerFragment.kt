@@ -131,7 +131,7 @@ class MPPManagerFragment: Fragment() {
                     true
                 }
 
-                else -> super.onOptionsItemSelected(it)
+                else -> true
             }
         }
 

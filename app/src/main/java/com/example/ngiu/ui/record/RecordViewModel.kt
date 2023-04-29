@@ -24,13 +24,11 @@ class RecordViewModel : ViewModel() {
 
      */
 
-    var currentTransactionType: CurrentTransactionType = CurrentTransactionType()
-
     // temp save changed data
     var transDetail = TransactionDetail(TransactionType_ID = TRANSACTION_TYPE_EXPENSE)
 
-    private var categoryName = ArrayList<String>()
-    var tempSavedAccountName = ArrayList<String>()
+    private var categoryIDs = ArrayList<Long>()
+    //var tempSavedAccountName = ArrayList<String>()
 
     var expenseCommonCategory: List<Category> = ArrayList()
     var incomeCommonCategory: List<Category> = ArrayList()
@@ -44,20 +42,47 @@ class RecordViewModel : ViewModel() {
 
     var tempSaveOutAccountName: String = ""
     var tempSaveInAccountName: String = ""
-    var tempSaveDebitOutAccountName: String = ""
-    var tempSaveDebitInAccountName: String = ""
+    var tempSaveDebitAccountName: String = ""
 
 
 
-    fun setTransactionType(tyID: Long): CurrentTransactionType {
-        currentTransactionType = currentTransactionType.setID(tyID)
-        transDetail.TransactionType_ID = tyID
-        return currentTransactionType
+    // ********** NEW Variable **********
+    // Transaction Type color and pointer
+    var textViewTransactionTypeColor: Array<Int> = Array(4) {R.color.app_title_text_inactive}
+    var transactionTypePointerVisible: Array<Int> = Array(4) {View.INVISIBLE}
+
+
+
+    /************ New Function ***********/
+
+    private fun setTransactionTypeTextViewColor(transType: Long){
+        //*** set transaction type textview color and pointer
+        //*** base on the TransactionType const Value(need amend function if changed)
+        for (i in 0..3){
+            textViewTransactionTypeColor[i] = R.color.app_title_text_inactive
+            transactionTypePointerVisible[i] = View.INVISIBLE
+        }
+        textViewTransactionTypeColor[transType.toInt()-1] = R.color.app_title_text
+        transactionTypePointerVisible[transType.toInt()-1] = View.VISIBLE
     }
+
+
+    fun setTransactionType(tyID: Long) {
+        if (tyID > 0) {
+            transDetail.TransactionType_ID = tyID
+            setTransactionTypeTextViewColor(tyID)
+        }
+    }
+
+    /************ New Function ***********/
+
 
 
     //
     fun loadDataToRam(context: Context) {
+
+        /** load data  **/
+
         val database = AppDatabase.getDatabase(context)
         category = database.category().getAllCategory()
         account = database.account().getAllAccount()
@@ -78,64 +103,199 @@ class RecordViewModel : ViewModel() {
         val debitCreditCategory = database.category().getCategoryByTransactionType(TRANSACTION_TYPE_DEBIT)
 
 
-        categoryName.add(if (expenseCategory.size > 1) expenseCategory[1].Category_Name else expenseCategory[0].Category_Name)
-        categoryName.add(if (incomeCategory.size > 1) incomeCategory[1].Category_Name else incomeCategory[0].Category_Name)
-        categoryName.add(transferCategory[0].Category_Name)
-        categoryName.add(debitCreditCategory[0].Category_Name)
+        categoryIDs.add(if (expenseCommonCategory.size > 1) expenseCommonCategory[0].Category_ID else expenseCategory[0].Category_ID)
+        categoryIDs.add(if (incomeCommonCategory.size > 1) incomeCommonCategory[0].Category_ID else incomeCategory[0].Category_ID)
+        categoryIDs.add(transferCommonCategory[0].Category_ID)
+        categoryIDs.add(debitCreditCommonCategory[0].Category_ID)
 
 
-        tempSavedAccountName.add(if (account.isNotEmpty()) account[0].Account_Name else context.getString(R.string.msg_no_account))
-        tempSavedAccountName.add(if (account.size > 1) account[1].Account_Name else context.getString(R.string.msg_no_account))
-        tempSavedAccountName.add(context.getString(R.string.msg_no_account))
-        for (at in account){
-            if (at.AccountType_ID == ACCOUNT_TYPE_RECEIVABLE) tempSavedAccountName[2] = at.Account_Name
+
+        // init account
+        tempSaveOutAccountName = getAccountNameByCount(context, TRANSACTION_TYPE_EXPENSE)
+        tempSaveInAccountName = getSecondAccountName(context, tempSaveOutAccountName)
+        tempSaveDebitAccountName = getAccountNameByCount(context,TRANSACTION_TYPE_DEBIT)
+
+    }
+
+
+
+    private fun getSecondAccountName(context: Context, acctName: String): String {
+        val acctList = AppDatabase.getDatabase(context).account().getAccountExceptType(ACCOUNT_TYPE_RECEIVABLE)
+        return if (acctList.size > 2) {
+            if (acctList[1].Account_Name == acctName){
+                acctList[0].Account_Name
+            }else {
+                acctList[1].Account_Name
+            }
+        }else{
+            context.getString(R.string.msg_no_account)
         }
-        tempSavedAccountName.add(if (account.isNotEmpty()) account[0].Account_Name else context.getString(R.string.msg_no_account))
+    }
 
-//        if (account.isEmpty()){
-//            tempSaveOutAccountName = context.getString(R.string.msg_no_account)
-//            tempSaveInAccountName = context.getString(R.string.msg_no_account)
-//            tempSaveDebitOutAccountName = context.getString(R.string.msg_no_account)
-//            tempSaveDebitInAccountName = context.getString(R.string.msg_no_account)
-//        }else if (account.size == 1){
-//            tempSaveOutAccountName = getPayOutAccountName(context, CATEGORY_MAIN_EXPENSE, TRANSACTION_TYPE_EXPENSE)
-//            tempSaveInAccountName = context.getString(R.string.msg_no_account)
-//            tempSaveDebitOutAccountName = tempSaveOutAccountName
-//            tempSaveDebitInAccountName = context.getString(R.string.msg_no_account)
-//        }else{
-//            tempSaveOutAccountName = getPayOutAccountName(context, CATEGORY_MAIN_EXPENSE, TRANSACTION_TYPE_EXPENSE)
-//            //tempSaveInAccountName = context.getString(R.string.msg_no_account)
-//            //tempSaveDebitOutAccountName = tempSaveOutAccountName
-//            //tempSaveDebitInAccountName = context.getString(R.string.msg_no_account)
-//        }
+    private fun getAccountNameByCount(context: Context, transType: Long): String{
+
+        val transCount = AppDatabase.getDatabase(context).trans().getTransCount()
+
+        val accountCount: Int = when (transType){
+            TRANSACTION_TYPE_DEBIT -> {
+                AppDatabase.getDatabase(context).account().getAccountCountType(
+                    ACCOUNT_TYPE_RECEIVABLE)
+            }
+            else ->{
+                AppDatabase.getDatabase(context).account().getAccountCountExcept(
+                    ACCOUNT_TYPE_RECEIVABLE)
+            }
+        }
+
+        if (accountCount == 0) {
+            return context.getString(R.string.msg_no_account)
+
+        }else{
+            val acctList: List<Account> = when (transType){
+                TRANSACTION_TYPE_DEBIT -> {
+                    AppDatabase.getDatabase(context).account().getAccountByType(
+                        ACCOUNT_TYPE_RECEIVABLE)
+                }
+                else ->{
+                    AppDatabase.getDatabase(context).account().getAccountExceptType(
+                        ACCOUNT_TYPE_RECEIVABLE)
+                }
+            }
+
+            return if (transCount > 0) {
+                val transAcctList = AppDatabase.getDatabase(context).trans()
+                    .getCountOfRecipientAccountsByTransactionType(transType)
+
+                if (transAcctList.isEmpty()){
+                    acctList[0].Account_Name
+                }else {
+                    transAcctList[0].Account_Name
+                }
+            }else{
+                acctList[0].Account_Name
+            }
+        }
 
     }
 
 
     fun loadTransactionDetail(context: Context, rID: Long) {
-        transDetail = AppDatabase.getDatabase(context).trans().getOneTransaction(rID)
-    }
-
-    fun getSubCategoryName(): String{
-        return categoryName[transDetail.TransactionType_ID.toInt() -1]
-    }
-    fun  setSubCategoryName(string: String){
-        categoryName[transDetail.TransactionType_ID.toInt() -1] = string
-    }
-
-    fun getAccountName(payAccount: Boolean): String{
-        return if (transDetail.TransactionType_ID == TRANSACTION_TYPE_DEBIT){
-                    tempSavedAccountName[if (payAccount) 3 else 2 ]
-                }else{
-                    tempSavedAccountName[if (payAccount) 1 else 0 ]
+        // load transaction data
+        transDetail = AppDatabase.getDatabase(context).trans().getOneTransactionDetail(rID)
+        // category
+        categoryIDs[transDetail.TransactionType_ID.toInt()-1] = transDetail.Category_ID
+        // account
+        when (transDetail.TransactionType_ID){
+            TRANSACTION_TYPE_EXPENSE, TRANSACTION_TYPE_INCOME ->{
+                tempSaveOutAccountName = transDetail.Account_Name
+                tempSaveInAccountName = getSecondAccountName(context, tempSaveOutAccountName)
+                transDetail.AccountRecipient_Name = tempSaveInAccountName
+            }
+            TRANSACTION_TYPE_TRANSFER ->{
+                tempSaveOutAccountName = transDetail.Account_Name
+                tempSaveInAccountName = transDetail.AccountRecipient_Name
+            }
+            TRANSACTION_TYPE_DEBIT ->{
+                when (getCategoryID(transDetail.Category_Name)) {
+                    CATEGORY_SUB_BORROW, CATEGORY_SUB_RECEIVE_PAYMENT -> {
+                        tempSaveDebitAccountName = transDetail.Account_Name
+                        tempSaveOutAccountName = transDetail.AccountRecipient_Name
+                        tempSaveInAccountName = getSecondAccountName(context, tempSaveOutAccountName)
+                    }
+                    CATEGORY_SUB_LEND, CATEGORY_SUB_PAYMENT -> {
+                        tempSaveOutAccountName = transDetail.Account_Name
+                        tempSaveDebitAccountName = transDetail.AccountRecipient_Name
+                        tempSaveInAccountName = getSecondAccountName(context, tempSaveOutAccountName)
+                    }
                 }
-    }
-    fun setAccountName(payAccount: Boolean, string: String){
-        if (transDetail.TransactionType_ID == TRANSACTION_TYPE_DEBIT){
-            tempSavedAccountName[if (payAccount) 2 else 3 ] = string
-        }else{
-            tempSavedAccountName[if (payAccount) 0 else 1 ] = string
+            }
         }
+
+        // color
+        setTransactionTypeTextViewColor(transDetail.TransactionType_ID)
+    }
+
+    private fun getSubCategoryName(cateID: Long): String{
+        val idx = category.indexOfFirst { it.Category_ID == cateID }
+        return if (idx >= 0) category[idx].Category_Name
+        else ""
+    }
+
+    fun getAccountNameByID(acctID: Long): String{
+        return account[account.indexOfFirst { it.Account_ID == acctID }].Account_Name
+    }
+    fun setSubCategory(transType: Long, cateID: Long =0L){
+        if (cateID > 0L){
+            categoryIDs[transType.toInt()-1] = cateID
+        }
+        transDetail.Category_ID = categoryIDs[transType.toInt()-1]
+        transDetail.Category_Name =  getSubCategoryName(transDetail.Category_ID)
+    }
+
+
+
+    fun setAccountName(transType: Long, acctName: String ="", blnOut: Boolean = true){
+        when(transType){
+            TRANSACTION_TYPE_EXPENSE, TRANSACTION_TYPE_INCOME -> {
+                if (acctName.isNotEmpty()) {
+                    tempSaveOutAccountName = acctName
+                }
+            }
+
+            TRANSACTION_TYPE_TRANSFER ->{
+                if (acctName.isNotEmpty()) {
+                    if (blnOut) {
+                        tempSaveOutAccountName = acctName
+                    }else{
+                        tempSaveInAccountName = acctName
+                    }
+                }
+            }
+
+            TRANSACTION_TYPE_DEBIT -> {
+                if (acctName.isNotEmpty()) {
+
+                    when (getCategoryID(transDetail.Category_Name)) {
+                        CATEGORY_SUB_BORROW, CATEGORY_SUB_RECEIVE_PAYMENT -> {
+                            if (blnOut) {
+                                tempSaveDebitAccountName = acctName
+                            }else{
+                                tempSaveOutAccountName = acctName
+                            }
+                        }
+                        CATEGORY_SUB_LEND, CATEGORY_SUB_PAYMENT -> {
+                            if (blnOut) {
+                                tempSaveOutAccountName = acctName
+                            }else{
+                                tempSaveDebitAccountName = acctName
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+
+        // set account name
+        when(transType){
+            TRANSACTION_TYPE_EXPENSE, TRANSACTION_TYPE_INCOME, TRANSACTION_TYPE_TRANSFER -> {
+                transDetail.Account_Name = tempSaveOutAccountName
+                transDetail.AccountRecipient_Name = tempSaveInAccountName
+            }
+            TRANSACTION_TYPE_DEBIT ->{
+                when (getCategoryID(transDetail.Category_Name)) {
+                    CATEGORY_SUB_BORROW, CATEGORY_SUB_RECEIVE_PAYMENT -> {
+                        transDetail.Account_Name = tempSaveDebitAccountName
+                        transDetail.AccountRecipient_Name = tempSaveOutAccountName
+                    }
+                    CATEGORY_SUB_LEND, CATEGORY_SUB_PAYMENT -> {
+                        transDetail.Account_Name = tempSaveOutAccountName
+                        transDetail.AccountRecipient_Name = tempSaveDebitAccountName
+                    }
+                }
+            }
+        }
+
     }
 
     // get reimburse status
@@ -157,18 +317,6 @@ class RecordViewModel : ViewModel() {
         }
     }
 
-    /*
-    // get P/R account name list
-    fun getPRAccountList(): List<String>{
-        val tList: MutableList<String> = ArrayList<String>()
-        for (at in account){
-            if (at.AccountType_ID == 9L)
-                tList.add(at.Account_Name)
-        }
-        return tList
-    }
-
-     */
 
     fun getCategoryID(string: String): Long{
         val idx = category.indexOfFirst { it.Category_Name == string }
@@ -190,7 +338,7 @@ class RecordViewModel : ViewModel() {
             // Normal Account
             if (at.AccountType_ID != ACCOUNT_TYPE_RECEIVABLE) {
                 if ((transDetail.TransactionType_ID != TRANSACTION_TYPE_TRANSFER) || (at.Account_Name != exceptName)) {
-                    when (getCategoryID(transDetail.Category_Name)) {
+                    when (transDetail.Category_ID) {
                         // borrow in | received
                         CATEGORY_SUB_BORROW, CATEGORY_SUB_RECEIVE_PAYMENT -> if (!payAccount) nameList.add(at.Account_Name)
                         // lend out | repayment
@@ -201,7 +349,7 @@ class RecordViewModel : ViewModel() {
                 }
                 // Payable|Receivable Account
             } else if (transDetail.TransactionType_ID == TRANSACTION_TYPE_DEBIT) {
-                when (getCategoryID(transDetail.Category_Name)) {
+                when (transDetail.Category_ID) {
                     // borrow in | received
                     CATEGORY_SUB_BORROW, CATEGORY_SUB_RECEIVE_PAYMENT -> if (payAccount) nameList.add(at.Account_Name)
                     // lend out | repayment
@@ -227,68 +375,6 @@ class RecordViewModel : ViewModel() {
 
 
 
-    // return account name when open the record fragment with different transaction type.
-    fun getPayOutAccountName(context: Context, category: Long = 0L , transType: Long = 0L, accountID: Long = 0L): String{
-        // todo bug: open category manager and go back, RP default account was changed.
-
-
-        if (accountID > 0 ){
-            return AppDatabase.getDatabase(context).account().getRecordByID(accountID).Account_Name
-        }
-
-        val transCount = AppDatabase.getDatabase(context).trans().getTransCount()
-
-        val accountCount: Int = when (transType){
-            TRANSACTION_TYPE_DEBIT -> {
-                AppDatabase.getDatabase(context).account().getAccountCountType(
-                    TRANSACTION_TYPE_DEBIT)
-            }
-            else ->{
-                AppDatabase.getDatabase(context).account().getAccountCountExcept(
-                    TRANSACTION_TYPE_DEBIT)
-            }
-        }
-        //val accountCount = AppDatabase.getDatabase(context).account().getAccountCountExcept(
-        //    if (transType == TRANSACTION_TYPE_TRANSFER) 0L else ACCOUNT_TYPE_RECEIVABLE
-        //    )
-
-        //val account = AppDatabase.getDatabase(context).account().getAllAccount()
-
-        if (accountCount == 0) {
-            return context.getString(R.string.msg_no_account)
-
-        }else{
-            return if (transCount > 0) {
-                var acctNameList = AppDatabase.getDatabase(context).trans()
-                    .getCountOfAccountsByTransactionTypeAndCategory(transType, category)
-
-                if (acctNameList.isEmpty()) {
-                    acctNameList = AppDatabase.getDatabase(context).trans()
-                        .getCountOfAccountsByTransactionType(transType)
-                }
-
-                if (acctNameList.isEmpty()){
-                    transDetail.Account_Name
-                }else {
-                    acctNameList[0].Account_Name
-                }
-            }else{
-                transDetail.Account_Name
-            }
-        }
-        /*        fun findMostCommonValues(values: List<Any>): List<Any> {
-            // Group the values by their count
-            val groups = values.groupingBy { it }.eachCount()
-
-            // Sort the map by count in descending order
-            val sortedGroups = groups.toList().sortedByDescending { (_, count) -> count }
-
-            // Extract the elements from the sorted map
-            return sortedGroups.map { (element, _) -> element }
-        }*/
-
-    }
-
     // return account name list when open the record fragment with different transaction type.
     fun getAccountList(): List<String>?{
         val acctList: List<String>? = null
@@ -300,42 +386,3 @@ class RecordViewModel : ViewModel() {
 }
 
 
-
-class CurrentTransactionType {
-    var expense: Int = R.color.app_title_text_inactive
-    var expensePointer: Int = View.INVISIBLE
-    var income: Int = R.color.app_title_text_inactive
-    var incomePointer: Int = View.INVISIBLE
-    var transfer: Int = R.color.app_title_text_inactive
-    var transferPointer: Int = View.INVISIBLE
-    var debitCredit: Int = R.color.app_title_text_inactive
-    var debitCreditPointer: Int = View.INVISIBLE
-
-    fun setID(tyID: Long): CurrentTransactionType {
-        val cTT = CurrentTransactionType()
-
-        when (tyID) {
-            TRANSACTION_TYPE_EXPENSE -> {
-                cTT.expense = R.color.app_title_text
-                cTT.expensePointer = View.VISIBLE
-            }
-            TRANSACTION_TYPE_INCOME -> {
-                cTT.income = R.color.app_title_text
-                cTT.incomePointer = View.VISIBLE
-            }
-            TRANSACTION_TYPE_TRANSFER -> {
-                cTT.transfer = R.color.app_title_text
-                cTT.transferPointer = View.VISIBLE
-            }
-            TRANSACTION_TYPE_DEBIT -> {
-                cTT.debitCredit = R.color.app_title_text
-                cTT.debitCreditPointer = View.VISIBLE
-            }
-        }
-
-        return cTT
-    }
-
-
-
-}

@@ -283,6 +283,63 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
+                android:id="@+id/tv_setting_data"
+                android:text="@string/setting_section_data"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="5dp"
+                android:textColor="@color/app_icon_light"
+                android:background="@color/app_list_background"/>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/app_section_background">
+
+                <TextView
+                    android:id="@+id/tv_setting_export"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:paddingVertical="10dp"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="5dp"
+                    android:textSize="16sp"
+                    android:text="@string/setting_export"
+                    android:textColor="@color/app_amount"
+                    app:drawableRightCompat="@drawable/ic_baseline_keyboard_arrow_right_24"
+                    app:drawableTint="@color/app_icon_light"
+                    tools:ignore="MissingConstraints"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_editor_absoluteY="0dp" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/app_section_background">
+
+                <TextView
+                    android:id="@+id/tv_setting_import"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:paddingVertical="10dp"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="5dp"
+                    android:text="@string/setting_import"
+                    android:textSize="16sp"
+                    android:textColor="@color/app_amount"
+                    app:drawableRightCompat="@drawable/ic_baseline_keyboard_arrow_right_24"
+                    app:drawableTint="@color/app_icon_light"
+                    tools:ignore="MissingConstraints" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
                 android:id="@+id/tv_setting_about"
                 android:text="@string/setting_section_about"
                 android:layout_width="match_parent"

@@ -46,7 +46,7 @@ class ActivityViewModel : ViewModel() {
         monthExpense = AppDatabase.getDatabase(context).trans().getMonthExpense(fromDate, toDate)
         // budget
         monthIncome = AppDatabase.getDatabase(context).trans().getMonthIncome(fromDate, toDate)
-        transactionDetail = AppDatabase.getDatabase(context).trans().getAllTrans()
+        transactionDetail = AppDatabase.getDatabase(context).trans().getAllTransDetail()
     }
 
 

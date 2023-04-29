@@ -9,6 +9,7 @@
     <string name="nav_bottom_calendar">Calendar</string>
     <string name="nav_bottom_rewards">Rewards</string>
     <string name="nav_bottom_setting">Setting</string>
+    <string name="nav_bottom_report">Report</string>
 
     <string name="nav_title_setting">Settings</string>
     <string name="nav_title_account_list">Accounts</string>
@@ -44,7 +45,7 @@
     <string name="nav_title_add_credit_card">Add Credit Card</string>
     <string name="nav_title_add_debit_card">Add Debit Card/Checking/Saving</string>
     <string name="nav_title_add_web_account">Add Web Account</string>
-    <string name="nav_title_add_permanent_assets">Add Permanent Assets</string>
+    <string name="nav_title_add_fixed_assets">Add Fixed Assets</string>
     <string name="nav_title_add_virtual_account">Add Virtual Account</string>
 
 
@@ -57,11 +58,14 @@
     <string name="setting_language">Language</string>
     <string name="setting_reimburse">Reimbursement include in Statistics</string>
     <string name="setting_sort">Sort Alphabetically</string>
+    <string name="setting_export">Export</string>
+    <string name="setting_import">Import</string>
     <string name="setting_about_app">About Ngiu</string>
 
     <string name="setting_section_categories">Categories</string>
     <string name="setting_section_advanced">Advanced</string>
     <string name="setting_section_about">About</string>
+    <string name="setting_section_data">Data</string>
 
     <string name="record_section_expense">Expense</string>
     <string name="record_section_income">Income</string>
@@ -146,7 +150,19 @@
     <string name="option_title_consumption_counted">Consumption in Statement Day is Counted in the Current Period</string>
     <string name="option_title_statistical_mode">Statistical Mode:</string>
 
-    <string name="option_category_common">Common</string>
+    <string name="category_common">Common</string>
+    <string name="category_expense">Expense</string>
+    <string name="category_income">Income</string>
+    <string name="category_transfer">Transfer</string>
+    <string name="category_debit_credit">Debit &amp; Credit</string>
+    <string name="category_account_transfer">Account Transfer</string>
+    <string name="category_credit_card_payment">Credit Card Payment</string>
+    <string name="category_deposit">Deposit</string>
+    <string name="category_withdraw">Withdraw</string>
+    <string name="category_borrow">Borrow</string>
+    <string name="category_lend">Lend</string>
+    <string name="category_payment">Payment</string>
+    <string name="category_receive_payment">Receive payment</string>
 
     <string name="item_no_reminder">No Reminder</string>
     <string name="item_reminder_of_the_day">Reminder of the Day</string>
@@ -199,6 +215,10 @@
     <string name="msg_name_add_error">This name cannot be add cause some unknown reason.</string>
     <string name="msg_name_edit_error">This name cannot be edit cause some unknown reason.</string>
     <string name="msg_no_account">No Account</string>
+
+    <string name="msg_completed">Completed.</string>
+    <string name="msg_error">Error.</string>
+
 
     <string name="event_credit_card_payment">Credit Card Payment</string>
     <string name="event_reminder">Reminder</string>

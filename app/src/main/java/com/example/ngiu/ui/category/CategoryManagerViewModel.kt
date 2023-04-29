@@ -18,37 +18,46 @@ class CategoryManagerViewModel: ViewModel() {
     var currentTransactionType: Long = 0L
 
 
-    fun loadMainCategory(context: Context ,transactionType: Long){
+    fun loadMainCategory(context: Context, mode: Int, transactionType: Long = TRANSACTION_TYPE_EXPENSE){
 
         //commonCategory = AppDatabase.getDatabase(context).category().getCommonCategoryByTransactionType(categoryType)
 
         // Get Category which ParentID = 0L
-        mainCategory = AppDatabase.getDatabase(context).category().getCategoryByTransactionTypeAndParentID(transactionType,0L)
-
-
-        if (transactionType == TRANSACTION_TYPE_EXPENSE){
-            // add Common section
-            mainCategory[0].Category_ID = 0L
-            mainCategory[0].Category_Name = context.getString(R.string.option_category_common)
-            // add "+Add" item
-            mainCategory.add(Category(0L,transactionType,0L, context.getString(R.string.menu_add_cate)))
+        if (mode == EDIT_MODE){
+            mainCategory = AppDatabase.getDatabase(context).category().getCategoryByTransactionTypeAndParentIDWithLimit(transactionType,0L, CATEGORY_LIMIT)
         }else{
-            // add Common section
-            mainCategory.add(0, Category(0L, transactionType, 0L, context.getString(R.string.option_category_common)))
+            mainCategory = AppDatabase.getDatabase(context).category().getCategoryByTransactionTypeAndParentIDWithLimit(transactionType, 0L, CATEGORY_LIMIT-3)
+        }
+
+        // add Common section
+        mainCategory.add(0, Category(0L, transactionType, 0L, context.getString(R.string.category_common)))
+
+        when (transactionType){
+            TRANSACTION_TYPE_EXPENSE -> {
+                // add "+Add" item
+                mainCategory.add(Category(0L,transactionType,0L, context.getString(R.string.menu_add_cate)))
+            }
+            TRANSACTION_TYPE_INCOME -> {
+                // add Common section
+                mainCategory.add(Category(CATEGORY_MAIN_INCOME, transactionType, 0L, context.getString(R.string.category_income)))
+            }
         }
 
 
     }
 
-    fun getSubCategory(context: Context ,mainCategoryID: Long): MutableList<Category>{
+    fun getSubCategory(context: Context ,mainCategoryID: Long, mode: Int, limit: Long = CATEGORY_LIMIT): MutableList<Category>{
 
         subCategory = if (mainCategoryID == 0L){
                         // common category
                         AppDatabase.getDatabase(context).category().getCommonCategoryByTransactionType(mainCategory[0].TransactionType_ID)
                     } else {
-                        AppDatabase.getDatabase(context).category().getCategoryByParentID(mainCategoryID)
+                        if (mode == EDIT_MODE){
+                            AppDatabase.getDatabase(context).category().getCategoryByParentIDWithLimit(mainCategoryID, limit)
+                        }else {
+                            AppDatabase.getDatabase(context).category().getCategoryByParentID(mainCategoryID)
+                        }
                     }
-
 
         // add "+Add" item
         if (mainCategoryID > 0L) {

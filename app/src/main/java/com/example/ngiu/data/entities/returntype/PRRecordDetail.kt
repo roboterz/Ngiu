@@ -16,6 +16,7 @@ data class PRRecordDetail(
     var AccountRecipient_ID: Long = 0,
     var AccountRecipient_Name: String = "",
     var Transaction_Amount: Double = 0.0,
+    var Transaction_Amount2: Double = 0.0,
     @TypeConverters(DateTypeConverter::class)
     var Transaction_Date: DateTimeFormatter? = null,
     var Person_Name: String = "",

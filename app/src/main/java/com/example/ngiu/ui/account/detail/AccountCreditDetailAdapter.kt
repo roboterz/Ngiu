@@ -8,6 +8,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
+import androidx.fragment.app.findFragment
+import androidx.fragment.app.setFragmentResult
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
@@ -16,13 +19,19 @@ import com.example.ngiu.functions.*
 import kotlinx.android.synthetic.main.cardview_account_credit_detail_item.view.*
 import java.time.format.DateTimeFormatter
 
-class AccountCreditDetailAdapter()
+class AccountCreditDetailAdapter(
+    private val onClickListener: OnClickListener
+)
     : RecyclerView.Adapter<AccountCreditDetailAdapter.ViewHolder>() {
 
     private var listDetail: List<RecordDetail> = ArrayList()
     private var currentAccountID: Long = 0L
     private val itemDateFormatter = DateTimeFormatter.ofPattern("MM/dd")
 
+    // interface for passing the onClick event to fragment.
+    interface OnClickListener {
+        fun onItemClick(transID: Long)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         // inflate the custom view from xml layout file
@@ -96,11 +105,15 @@ class AccountCreditDetailAdapter()
 
 
             holder.itemLayout.setOnClickListener {
-                val bundle = Bundle().apply {
-                    putLong("Transaction_ID", Transaction_ID)
-                }
-                // switch to record fragment
-                holder.itemView.findNavController().navigate(R.id.navigation_record, bundle)
+                // todo 反射按键事件
+
+                onClickListener.onItemClick(Transaction_ID)
+
+//                val bundle = Bundle().apply {
+//                    putLong("Transaction_ID", Transaction_ID)
+//                }
+//                // switch to record fragment
+//                holder.itemView.findNavController().navigate(R.id.navigation_record, bundle)
             }
         }
     }

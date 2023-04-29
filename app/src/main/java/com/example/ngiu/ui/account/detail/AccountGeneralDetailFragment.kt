@@ -6,10 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
-import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -49,9 +46,9 @@ class AccountGeneralDetailFragment : Fragment() {
         _binding = FragmentAccountGeneralDetailBinding.inflate(inflater, container, false)
 
         // received from other fragment
-        accountGeneralDetailViewModel.accountID = arguments?.getLong("accountId")!!
-        accountGeneralDetailViewModel.accountName = arguments?.getString("accountName")!!
-        accountGeneralDetailViewModel.accountTypeID = arguments?.getLong("accountType")!!
+        accountGeneralDetailViewModel.accountID = arguments?.getLong(KEY_ACCOUNT_ID)!!
+        accountGeneralDetailViewModel.accountName = arguments?.getString(KEY_ACCOUNT_NAME)!!
+        accountGeneralDetailViewModel.accountTypeID = arguments?.getLong(KEY_ACCOUNT_TYPE)!!
 
 
         // load data to ram
@@ -60,29 +57,10 @@ class AccountGeneralDetailFragment : Fragment() {
         //}.start()
 
 
-        initAdapter()
+
 
 
         return binding.root
-    }
-
-    private fun initAdapter() {
-        Thread {
-            this.activity?.runOnUiThread {
-
-                recyclerview_account_general_detail.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
-                accountGeneralDetailAdapter = this.context?.let {
-                    AccountGeneralDetailAdapter(object: AccountGeneralDetailAdapter.OnClickListener {
-                        // catch the item click event from adapter
-                        override fun onItemClick(transID: Long) {
-                            // switch to record fragment (Edit mode)
-                            navigateToRecordFragment(transID)
-                        }
-                    })
-                }
-                recyclerview_account_general_detail.adapter = accountGeneralDetailAdapter
-            }
-        }.start()
     }
 
 
@@ -90,12 +68,16 @@ class AccountGeneralDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+        initAdapter(view, this)
+
+
         // set up toolbar icon and click event
         // choose items to show
 
         toolbar_account_general_detail.setNavigationOnClickListener {
             //findNavController().popBackStack()
-            requireActivity().onBackPressed()
+            requireActivity().onBackPressedDispatcher.onBackPressed()
         }
 
         toolbar_account_general_detail.menu.findItem(R.id.action_edit).isVisible = true
@@ -106,89 +88,27 @@ class AccountGeneralDetailFragment : Fragment() {
             when (it.itemId) {
                 R.id.action_add -> {
                     // navigate to add record screen
-                    navigateToRecordFragment(0, accountGeneralDetailViewModel.accountID, TRANSACTION_TYPE_EXPENSE)
+                    //navigateToRecordFragment(0, accountGeneralDetailViewModel.accountID, TRANSACTION_TYPE_EXPENSE)
+                    switchToRecordFragment(view, this, 0,
+                        accountGeneralDetailViewModel.accountID,
+                        TRANSACTION_TYPE_EXPENSE
+                    )
                     true
                 }
                 R.id.action_edit -> {
                     //(activity as MainActivity).setNavBottomBarVisibility(View.GONE)
-                    // navigate to edit account
-                    // swtich to edit account
 
-                    when (accountGeneralDetailViewModel.accountTypeID) {
-                        ACCOUNT_TYPE_CASH -> {
-                            val bundle = Bundle().apply {
-                                putString("page", "edit_cash")
-                                putLong("id", accountGeneralDetailViewModel.accountID)
-                                putDouble("balance", accountGeneralDetailViewModel.accountBalance)
-                            }
+                    // switch to edit account attribute page
+                    switchToAccountAttributePage(view,
+                        accountGeneralDetailViewModel.accountTypeID,
+                        accountGeneralDetailViewModel.accountID,
+                        accountGeneralDetailViewModel.accountBalance,
+                        EDIT_MODE)
 
-
-                            view.findNavController().navigate(R.id.addCashFragment, bundle)
-                        }
-                        ACCOUNT_TYPE_DEBIT -> {
-                            val bundle = Bundle().apply {
-                                putString("page", "edit_debit")
-                                putLong("id", accountGeneralDetailViewModel.accountID)
-                                putDouble("balance", accountGeneralDetailViewModel.accountBalance)
-                            }
-                            view.findNavController().navigate(R.id.addDebitFragment, bundle)
-                        }
-                        ACCOUNT_TYPE_INVESTMENT-> {
-                            val bundle = Bundle().apply {
-                                putString("page", "edit_investment")
-                                putLong("id", accountGeneralDetailViewModel.accountID)
-                                putDouble("balance", accountGeneralDetailViewModel.accountBalance)
-                            }
-                            view.findNavController().navigate(R.id.addWebAccountFragment, bundle)
-                        }
-                        ACCOUNT_TYPE_WEB-> {
-                            val bundle = Bundle().apply {
-                                putString("page", "edit_web")
-                                putLong("id", accountGeneralDetailViewModel.accountID)
-                                putDouble("balance", accountGeneralDetailViewModel.accountBalance)
-                            }
-                            view.findNavController().navigate(R.id.addWebAccountFragment, bundle)
-                        }
-                        ACCOUNT_TYPE_STORED -> {
-                            val bundle = Bundle().apply {
-                                putString("page", "edit_valueCard")
-                                putLong("id", accountGeneralDetailViewModel.accountID)
-                                putDouble("balance", accountGeneralDetailViewModel.accountBalance)
-                            }
-                            view.findNavController().navigate(R.id.addPermanentAssetFragment, bundle)
-                        }
-
-                        ACCOUNT_TYPE_VIRTUAL-> {
-                            val bundle = Bundle().apply {
-                                putString("page", "edit_virtual")
-                                putLong("id", accountGeneralDetailViewModel.accountID)
-                                putDouble("balance", accountGeneralDetailViewModel.accountBalance)
-                            }
-                            view.findNavController().navigate(R.id.addWebAccountFragment, bundle)
-                        }
-
-                        ACCOUNT_TYPE_ASSETS -> {
-                            val bundle = Bundle().apply {
-                                putString("page", "edit_perm")
-                                putLong("id", accountGeneralDetailViewModel.accountID)
-                                putDouble("balance", accountGeneralDetailViewModel.accountBalance)
-                            }
-                            view.findNavController().navigate(R.id.addPermanentAssetFragment, bundle)
-                        }
-
-
-                        ACCOUNT_TYPE_RECEIVABLE -> {
-                            val bundle = Bundle().apply {
-                                putString("page", "edit_payable")
-                                putLong("id", accountGeneralDetailViewModel.accountID)
-                            }
-                            view.findNavController().navigate(R.id.addCashFragment, bundle)
-                        }
-                    }
                     true
                 }
 
-                else -> super.onOptionsItemSelected(it)
+                else -> true
             }
         }
 
@@ -222,15 +142,38 @@ class AccountGeneralDetailFragment : Fragment() {
     }
 
 
-    private fun navigateToRecordFragment(trans_ID: Long = 0, account_ID: Long = 0, transType_ID: Long = 0){
+    private fun initAdapter(view:View, fragment: Fragment) {
+        Thread {
+            this.activity?.runOnUiThread {
+
+                recyclerview_account_general_detail.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
+                accountGeneralDetailAdapter = this.context?.let {
+                    AccountGeneralDetailAdapter(object: AccountGeneralDetailAdapter.OnClickListener {
+                        // catch the item click event from adapter
+                        override fun onItemClick(transID: Long) {
+                            // switch to record fragment (Edit mode)
+                            //navigateToRecordFragment(transID)
+                            switchToRecordFragment(view, fragment, transID,
+                                accountGeneralDetailViewModel.accountID,
+                                TRANSACTION_TYPE_EXPENSE
+                            )
+                        }
+                    })
+                }
+                recyclerview_account_general_detail.adapter = accountGeneralDetailAdapter
+            }
+        }.start()
+    }
+
+
+/*    private fun navigateToRecordFragment(trans_ID: Long = 0, account_ID: Long = 0, transType_ID: Long = 0){
         val bundle = Bundle().apply {
-            putLong("Transaction_ID", trans_ID)
-            putLong("Account_ID", account_ID)
-            putLong("TransactionType_ID", transType_ID)
+            putLong(KEY_RECORD_TRANSACTION_ID, trans_ID)
+            putLong(KEY_RECORD_ACCOUNT_ID, account_ID)
+            putLong(KEY_RECORD_TRANSACTION_TYPE_ID, transType_ID)
         }
-        // todo open record fragment with specified account or specified transaction type
         // switch to record fragment
         findNavController().navigate(R.id.navigation_record, bundle)
-    }
+    }*/
 }
 

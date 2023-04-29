@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CompoundButton
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.ngiu.MainActivity
@@ -19,11 +18,8 @@ import com.example.ngiu.functions.addDecimalLimiter
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.fragment_account_add_cash.*
 import kotlinx.android.synthetic.main.popup_title.view.*
-import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
-import com.example.ngiu.data.AppDatabase
-import com.example.ngiu.data.entities.Trans
 import com.example.ngiu.functions.*
 import kotlinx.android.synthetic.main.fragment_account_add_web_account.*
 
@@ -34,15 +30,15 @@ class AddCashFragment : Fragment() {
     private lateinit var addCashViewModel: AddCashViewModel
 
     var currency = "USD"
-    lateinit var page: String
+    var page: Long = 0L
     var accountTypeID : Long = 0L
-    var accountID : Long= 0L
+    private var accountID : Long= 0L
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        addCashViewModel = ViewModelProvider(this).get(AddCashViewModel::class.java)
+        addCashViewModel = ViewModelProvider(this)[AddCashViewModel::class.java]
         _binding = FragmentAccountAddCashBinding.inflate(inflater, container, false)
 
         getBundleData()
@@ -54,29 +50,29 @@ class AddCashFragment : Fragment() {
 
     private fun displayPage() {
         when (page) {
-            "add_cash" -> {
+            KEY_VALUE_ACCOUNT_ADD_CASH -> {
                 binding.toolbarAddCashAccount.title = "Add Cash"
                 accountTypeID = ACCOUNT_TYPE_CASH
             }
-            "edit_cash" -> {
+            KEY_VALUE_ACCOUNT_EDIT_CASH -> {
                 binding.toolbarAddCashAccount.title = "Edit Cash"
                 binding.toolbarAddCashAccount.menu.findItem(R.id.action_delete).isVisible = true
                 accountTypeID = ACCOUNT_TYPE_CREDIT
 
-                accountID = arguments?.getLong("id")!!
+                accountID = arguments?.getLong(KEY_ACCOUNT_ID)!!
              /*   binding.cashBalanceTextLayout.isEnabled = false
                 binding.btnCashAddOtherCurrency.isEnabled = false*/
                 fetchAccountDetails(accountID)
             }
-            "add_payable" -> {
+            KEY_VALUE_ACCOUNT_ADD_PAYABLE -> {
                 binding.toolbarAddCashAccount.title = "Add Receivable/Payable"
                 accountTypeID = ACCOUNT_TYPE_RECEIVABLE
             }
-            "edit_payable" -> {
+            KEY_VALUE_ACCOUNT_EDIT_PAYABLE -> {
                 binding.toolbarAddCashAccount.title = "Edit Receivable/Payable"
                 binding.toolbarAddCashAccount.menu.findItem(R.id.action_delete).isVisible = true
                 accountTypeID = ACCOUNT_TYPE_RECEIVABLE
-                accountID = arguments?.getLong("id")!!
+                accountID = arguments?.getLong(KEY_ACCOUNT_ID)!!
 
                 fetchAccountDetails(accountID)
             }
@@ -94,7 +90,7 @@ class AddCashFragment : Fragment() {
     }
 
     private fun getBundleData() {
-        page = arguments?.getString("page")!!
+        page = arguments?.getLong(KEY_ACCOUNT_PAGE)!!
 
     }
 
@@ -111,38 +107,33 @@ class AddCashFragment : Fragment() {
 
     }
 
-    override fun onResume() {
-        super.onResume()
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
 
+    @SuppressLint("InflateParams")
     private fun initListeners() {
         binding.btnSaveCash.setOnClickListener {
             when (page) {
-                "add_cash" -> {
+                KEY_VALUE_ACCOUNT_ADD_CASH -> {
                     submitForm()
                 }
-                "edit_cash" -> {
+                KEY_VALUE_ACCOUNT_EDIT_CASH -> {
 
-                    var tempID : Long= 0L
-                    tempID = arguments?.getLong("id")!!
+                    val tempID = arguments?.getLong(KEY_ACCOUNT_ID)!!
 
                     updateAccount(tempID)
                 }
-                "add_payable" -> {
+                KEY_VALUE_ACCOUNT_ADD_PAYABLE -> {
                     binding.toolbarAddCashAccount.title = "Add Receivable/Payable"
                     accountTypeID = ACCOUNT_TYPE_RECEIVABLE
                     submitForm()
 
                 }
-                "edit_payable" -> {
+                KEY_VALUE_ACCOUNT_EDIT_PAYABLE -> {
                     binding.toolbarAddCashAccount.title = "Edit Receivable/Payable"
-                    var tempID : Long= 0L
-                    tempID = arguments?.getLong("id")!!
+                    val tempID = arguments?.getLong(KEY_ACCOUNT_ID)!!
                     updateAccount(tempID)
                 }
             }
@@ -164,7 +155,7 @@ class AddCashFragment : Fragment() {
             val cs: Array<CharSequence> =
                 arrayList.toArray(arrayOfNulls<CharSequence>(arrayList.size))
 
-            //   val array = arrayof()
+            //   val array = array()
             // Initialize a new instance of alert dialog builder object
             val builder = AlertDialog.Builder(requireContext())
 
@@ -206,7 +197,7 @@ class AddCashFragment : Fragment() {
                 }
 
 
-                else -> super.onOptionsItemSelected(it)
+                else -> true
             }
         }
 

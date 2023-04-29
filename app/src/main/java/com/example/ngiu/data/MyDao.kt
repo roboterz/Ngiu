@@ -9,12 +9,16 @@ import com.example.ngiu.data.entities.Currency
 import com.example.ngiu.data.entities.returntype.AccountCount
 import com.example.ngiu.data.entities.returntype.RecordDetail
 import com.example.ngiu.data.entities.returntype.TransactionDetail
+import com.example.ngiu.functions.CATEGORY_LIMIT
 
 // Account
 @Dao
 interface AccountDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addAccount(account: Account)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun addAccounts(account: List<Account>)
 
     @Delete
     fun deleteAccount(account: Account)
@@ -34,6 +38,14 @@ interface AccountDao {
     fun getAccountCountType(typeID: Long): Int
 
     @Transaction
+    @Query("SELECT * FROM Account WHERE AccountType_ID <> :typeID")
+    fun getAccountExceptType(typeID: Long): List<Account>
+
+    @Transaction
+    @Query("SELECT * FROM Account WHERE AccountType_ID = :typeID")
+    fun getAccountByType(typeID: Long): List<Account>
+
+    @Transaction
     @Query("SELECT * FROM Account ORDER BY AccountType_ID, Account_Name")
     fun getAllAccount(): List<Account>
 
@@ -43,8 +55,8 @@ interface AccountDao {
 
     // get a record BY ID
     @Transaction
-    @Query("SELECT * FROM Account WHERE Account_ID = :rID")
-    fun getRecordByID(rID:Long): Account
+    @Query("SELECT * FROM Account WHERE Account_ID = :acctID")
+    fun getRecordByID(acctID:Long): Account
 
     @Update
     fun updateAccount(account: Account)
@@ -61,39 +73,39 @@ interface AccountDao {
     @Query("""
       SELECT SUM(Transaction_Amount) FROM Trans trans
     INNER JOIN Account acct ON trans.Account_ID = acct.Account_ID
-    WHERE trans.TransactionType_ID = 2 AND trans.Account_ID = :rID 
+    WHERE trans.TransactionType_ID = 2 AND trans.Account_ID = :acctID 
     """)
-   fun getInflowA(rID:Long): Double
+   fun getInflowA(acctID:Long): Double
 
 
     @Transaction
     @Query("""
         SELECT SUM(Transaction_Amount) FROM Trans trans
         INNER JOIN Account acct ON trans.AccountRecipient_ID = acct.Account_ID
-        WHERE trans.TransactionType_ID in (3,4) AND trans.AccountRecipient_ID = :rID
+        WHERE trans.TransactionType_ID in (3,4) AND trans.AccountRecipient_ID = :acctID
       """)
-    fun getInflowB(rID:Long): Double
+    fun getInflowB(acctID:Long): Double
 
     @Transaction
     @Query("""
          SELECT SUM(Transaction_Amount) FROM Trans trans
         INNER JOIN Account acct ON trans.Account_ID = acct.Account_ID
-        WHERE trans.TransactionType_ID = 1 AND trans.Account_ID = :rID
+        WHERE trans.TransactionType_ID = 1 AND trans.Account_ID = :acctID
 
       """)
-    fun getOutflowA(rID:Long): Double
+    fun getOutflowA(acctID:Long): Double
 
     @Transaction
     @Query("""
       SELECT SUM(Transaction_Amount) FROM Trans trans
         INNER JOIN Account acct on trans.Account_ID = acct.Account_ID
-        WHERE trans.TransactionType_ID IN (3,4) AND trans.Account_ID = :rID
+        WHERE trans.TransactionType_ID IN (3,4) AND trans.Account_ID = :acctID
       """)
-    fun getOutflowB(rID:Long): Double
+    fun getOutflowB(acctID:Long): Double
 
     @Transaction
-    @Query("SELECT * FROM Account WHERE AccountType_ID = :tID Order By Account_PaymentDay ASC")
-    fun getRecordByType(tID:Long): MutableList<Account>
+    @Query("SELECT * FROM Account WHERE AccountType_ID = :acctTypeID Order By Account_PaymentDay ASC")
+    fun getRecordByType(acctTypeID:Long): MutableList<Account>
 
 
 
@@ -127,6 +139,9 @@ interface AccountTypeDao{
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addAccountType(accountType: AccountType)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun addAccountTypes(accountType: List<AccountType>)
+
     @Delete
     fun deleteAccountType(accountType: AccountType)
 
@@ -135,16 +150,16 @@ interface AccountTypeDao{
 
     // get a record BY ID
     @Transaction
-    @Query("SELECT * FROM AccountType WHERE AccountType_ID = :rID")
-    fun getRecordByID(rID:Long): AccountType
+    @Query("SELECT * FROM AccountType WHERE AccountType_ID = :acctTypeID")
+    fun getRecordByID(acctTypeID:Long): AccountType
 
     @Transaction
     @Query("SELECT * FROM AccountType")
     fun getAllAccountType(): List<AccountType>
 
     @Transaction
-    @Query("Update AccountType SET AccountType_Expanded = :value WHERE AccountType_ID = :rID")
-    fun updateExpandedValueByID(rID:Long, value: Boolean)
+    @Query("Update AccountType SET AccountType_Expanded = :value WHERE AccountType_ID = :acctTypeID")
+    fun updateExpandedValueByID(acctTypeID:Long, value: Boolean)
 }
 
 // Budget
@@ -155,8 +170,8 @@ interface BudgetDao {
 
     // get a record BY ID
     @Transaction
-    @Query("SELECT * FROM Budget WHERE Budget_ID = :rID")
-    fun getRecordByID(rID:Long): Budget
+    @Query("SELECT * FROM Budget WHERE Budget_ID = :budgetID")
+    fun getRecordByID(budgetID:Long): Budget
 
     @Transaction
     @Query("SELECT * FROM Budget")
@@ -171,8 +186,8 @@ interface CategoryDao {
 
     // get a record BY ID
     @Transaction
-    @Query("SELECT * FROM Category WHERE Category_ID = :rID")
-    fun getRecordByID(rID:Long): Category
+    @Query("SELECT * FROM Category WHERE Category_ID = :cateID")
+    fun getRecordByID(cateID:Long): Category
 
     @Transaction
     @Query("SELECT * FROM Category")
@@ -186,46 +201,67 @@ interface CategoryDao {
     fun deleteCategory(category: Category)
 
     @Transaction
-    @Query("DELETE FROM Category WHERE Category_ParentID = :parentID")
-    fun deleteCategoryByParentID(parentID: Long)
+    @Query("DELETE FROM Category WHERE Category_ParentID = :cateParentID ")
+    fun deleteCategoryByParentID(cateParentID: Long)
 
     // get a record BY ID
     @Transaction
-    @Query("SELECT * FROM Category WHERE Category_ID = :rID")
-    fun getCategoryByID(rID:Long): Category
+    @Query("SELECT * FROM Category WHERE Category_ID = :cateID")
+    fun getCategoryByID(cateID:Long): Category
 
 
 
     @Transaction
     @Query("""
         SELECT * FROM Category
-        WHERE Category.TransactionType_ID = :tID
+        WHERE Category.TransactionType_ID = :transTypeID
             AND Category_Common= 1
     """)
-    fun getCommonCategoryByTransactionType(tID: Long): MutableList<Category>
+    fun getCommonCategoryByTransactionType(transTypeID: Long): MutableList<Category>
 
     @Transaction
     @Query("""
         SELECT * FROM Category
-        WHERE Category.TransactionType_ID = :tID
+        WHERE Category.TransactionType_ID = :transTypeID
+        ORDER BY Category_OrderNo
     """)
-    fun getCategoryByTransactionType(tID: Long): MutableList<Category>
+    fun getCategoryByTransactionType(transTypeID: Long): MutableList<Category>
 
     @Transaction
     @Query("""
         SELECT * FROM Category
-        WHERE Category.TransactionType_ID = :tID
-            AND Category_ParentID = :pID
+        WHERE Category.TransactionType_ID = :transTypeID
+            AND Category_ParentID = :cateParentID
+        ORDER BY Category_OrderNo
     """)
-    fun getCategoryByTransactionTypeAndParentID(tID: Long, pID: Long): MutableList<Category>
+    fun getCategoryByTransactionTypeAndParentID(transTypeID: Long, cateParentID: Long): MutableList<Category>
 
     @Transaction
     @Query("""
         SELECT * FROM Category
-        WHERE Category_ParentID = :rID
+        WHERE Category.TransactionType_ID = :transTypeID
+            AND Category_ParentID = :cateParentID
+            AND Category_ID >= :limit
+        ORDER BY Category_OrderNo
+    """)
+    fun getCategoryByTransactionTypeAndParentIDWithLimit(transTypeID: Long, cateParentID: Long, limit: Long): MutableList<Category>
+
+    @Transaction
+    @Query("""
+        SELECT * FROM Category
+        WHERE Category_ParentID = :cateParentID
         ORDER BY Category_Name
     """)
-    fun getCategoryByParentID(rID: Long): MutableList<Category>
+    fun getCategoryByParentID(cateParentID: Long): MutableList<Category>
+
+    @Transaction
+    @Query("""
+        SELECT * FROM Category
+        WHERE Category_ParentID = :cateParentID
+            AND Category_ID >= :limit
+        ORDER BY Category_Name
+    """)
+    fun getCategoryByParentIDWithLimit(cateParentID: Long, limit: Long): MutableList<Category>
 
 
 }
@@ -240,8 +276,8 @@ interface CurrencyDao {
 
     // get a record BY ID
     @Transaction
-    @Query("SELECT * FROM Currency WHERE Currency_ID = :rID")
-    fun getRecordByID(rID:Long): Currency
+    @Query("SELECT * FROM Currency WHERE Currency_ID = :currencyID")
+    fun getRecordByID(currencyID:Long): Currency
 
     @Transaction
     @Query("SELECT * FROM Currency")
@@ -262,8 +298,8 @@ interface PersonDao {
 
     // get a record BY ID
     @Transaction
-    @Query("SELECT * FROM Person WHERE Person_ID = :rID")
-    fun getRecordByID(rID:Long): Person
+    @Query("SELECT * FROM Person WHERE Person_ID = :personID")
+    fun getRecordByID(personID:Long): Person
 
     @Transaction
     @Query("SELECT * FROM Person")
@@ -289,8 +325,8 @@ interface EventDao{
     fun getAllEvent(): List<Event>
 
     @Transaction
-    @Query("Select * From Event WHERE Event_ID = :rID")
-    fun getRecordByID(rID:Long): Event
+    @Query("Select * From Event WHERE Event_ID = :eventID")
+    fun getRecordByID(eventID:Long): Event
 }
 
 
@@ -323,8 +359,8 @@ interface MerchantDao {
 
     // get a record BY ID
     @Transaction
-    @Query("SELECT * FROM Merchant WHERE Merchant_ID = :rID")
-    fun getRecordByID(rID:Long): Merchant
+    @Query("SELECT * FROM Merchant WHERE Merchant_ID = :merchantID")
+    fun getRecordByID(merchantID:Long): Merchant
 
     @Transaction
     @Query("SELECT * FROM Merchant")
@@ -366,8 +402,8 @@ interface ProjectDao {
 
     // get a record BY ID
     @Transaction
-    @Query("SELECT * FROM Project WHERE Project_ID = :rID")
-    fun getRecordByID(rID:Long): Project
+    @Query("SELECT * FROM Project WHERE Project_ID = :projectID")
+    fun getRecordByID(projectID:Long): Project
 
     @Transaction
     @Query("SELECT * FROM Project")
@@ -482,8 +518,8 @@ interface RewardDao{
     fun deleteReward(reward: Reward)
 
     @Transaction
-    @Query("SELECT * FROM Reward WHERE Reward_ID = :rID")
-    fun getRecordByID(rID:Long): Reward
+    @Query("SELECT * FROM Reward WHERE Reward_ID = :rewardID")
+    fun getRecordByID(rewardID:Long): Reward
 
     @Transaction
     @Query("SELECT * FROM Reward")
@@ -506,21 +542,27 @@ interface TransDao {
 
     // get a record BY ID
     @Transaction
-    @Query("SELECT * FROM Trans WHERE Transaction_ID = :rID")
-    fun getRecordByID(rID:Long):Trans
+    @Query("SELECT * FROM Trans WHERE Transaction_ID = :transID")
+    fun getRecordByID(transID:Long):Trans
 
     @Transaction
-    @Query("SELECT * FROM Trans WHERE Account_ID = :rID")
-    fun getRecordsByAcctID(rID:Long): List<Trans>
+    @Query("SELECT * FROM Trans WHERE Account_ID = :acctID")
+    fun getRecordsByAcctID(acctID:Long): List<Trans>
 
     @Transaction
-    @Query("SELECT * FROM Trans WHERE Account_ID = :rID OR AccountRecipient_ID = :rID")
-    fun getRecordsByAccountAndAccountRecipientID(rID:Long): List<Trans>
+    @Query("SELECT * FROM Trans WHERE Account_ID = :acctID OR AccountRecipient_ID = :acctID")
+    fun getRecordsByAccountAndAccountRecipientID(acctID:Long): List<Trans>
+
+
+    @Transaction
+    @Query("SELECT * FROM Trans")
+    fun getAllTransactions(): List<Trans>
 
     @Transaction
     @Query("""
-        SELECT Transaction_ID, Trans.TransactionType_ID, Category_Name, Account.Account_Name, AccountRecipient.Account_Name as AccountRecipient_Name, 
-                Transaction_Amount, Transaction_Date, Person_Name, Merchant_Name, Transaction_Memo, Project_Name, 
+        SELECT Transaction_ID, Trans.TransactionType_ID, Trans.Category_ID, Category_Name, Account.Account_ID, Account.Account_Name, 
+                AccountRecipient.Account_ID as AccountRecipient_ID, AccountRecipient.Account_Name as AccountRecipient_Name, 
+                Transaction_Amount, Transaction_Amount2, Transaction_Date, Person_Name, Merchant_Name, Transaction_Memo, Project_Name, 
                 Transaction_ReimburseStatus, Period_ID  
         FROM Trans, TransactionType, Category, Account, Account as AccountRecipient, Person, Merchant, Project
         WHERE Trans.TransactionType_ID = TransactionType.TransactionType_ID 
@@ -530,14 +572,15 @@ interface TransDao {
                 AND Trans.Person_ID = Person.Person_ID
                 AND Trans.Merchant_ID = Merchant.Merchant_ID
                 AND Trans.Project_ID = Project.Project_ID
-                AND Transaction_ID = :rID
+                AND Transaction_ID = :transID
         """)
-    fun getOneTransaction(rID: Long): TransactionDetail
+    fun getOneTransactionDetail(transID: Long): TransactionDetail
 
     @Transaction
     @Query("""
-        SELECT Transaction_ID, Trans.TransactionType_ID, Category_Name, Account.Account_Name, AccountRecipient.Account_Name as AccountRecipient_Name, 
-                Transaction_Amount, Transaction_Date, Person_Name, Merchant_Name, Transaction_Memo, Project_Name, 
+        SELECT Transaction_ID, Trans.TransactionType_ID, Trans.Category_ID, Category_Name, Account.Account_ID, Account.Account_Name, 
+                AccountRecipient.Account_ID as AccountRecipient_ID, AccountRecipient.Account_Name as AccountRecipient_Name, 
+                Transaction_Amount, Transaction_Amount2, Transaction_Date, Person_Name, Merchant_Name, Transaction_Memo, Project_Name, 
                 Transaction_ReimburseStatus, Period_ID  
         FROM Trans, TransactionType, Category, Account, Account as AccountRecipient, Person, Merchant, Project
         WHERE Trans.TransactionType_ID = TransactionType.TransactionType_ID 
@@ -549,7 +592,7 @@ interface TransDao {
                 AND Trans.Project_ID = Project.Project_ID
         ORDER BY Transaction_Date DESC
         """)
-    fun getAllTrans(): List<TransactionDetail>
+    fun getAllTransDetail(): List<TransactionDetail>
 
     @Transaction
     @Query("""
@@ -572,12 +615,12 @@ interface TransDao {
     //@Query("SELECT *, :date AS passed_date, coalesce(date(date),'ouch') AS cnv_date, coalesce(date(:date),'ouch') AS cnv_passed_date FROM user WHERE date(date / 1000,'unixepoch') = date(:date / 1000,'unixepoch');")
 
     @Transaction
-    @Query("SELECT SUM(Transaction_Amount) FROM Trans WHERE Account_ID = :rID")
-    fun getTotalSumA(rID: Long): Double
+    @Query("SELECT SUM(Transaction_Amount) FROM Trans WHERE Account_ID = :acctID")
+    fun getTotalSumA(acctID: Long): Double
 
     @Transaction
-    @Query("SELECT SUM(Transaction_Amount)  FROM Trans WHERE AccountRecipient_ID = :rID AND TransactionType_ID IN (3,4)")
-    fun getTotalSumB(rID: Long): Double
+    @Query("SELECT SUM(Transaction_Amount)  FROM Trans WHERE AccountRecipient_ID = :acctID AND TransactionType_ID IN (3,4)")
+    fun getTotalSumB(acctID: Long): Double
 
     // 0 for false, 1 for true: so countnetassets if true
     @Transaction
@@ -586,8 +629,8 @@ interface TransDao {
 
 
     @Transaction
-    @Query("SELECT SUM(Transaction_Amount) FROM Trans WHERE TransactionType_ID = :rID")
-    fun getSumOfAmountByTransactionType(rID: Long): Double
+    @Query("SELECT SUM(Transaction_Amount) FROM Trans WHERE TransactionType_ID = :transTypeID")
+    fun getSumOfAmountByTransactionType(transTypeID: Long): Double
 
     @Transaction
     @Query("""
@@ -626,9 +669,9 @@ interface TransDao {
 
     @Transaction
     @Query("""
-        SELECT Trans.Transaction_ID, Trans.TransactionType_ID, Trans.Category_ID, Category.Category_Name, 
+        SELECT Trans.Transaction_ID, Trans.TransactionType_ID, Trans.Category_ID, Category.Category_ID, Category.Category_Name, 
                 Account.Account_ID, Account.Account_Name, AccountRecipient.Account_ID as AccountRecipient_ID, AccountRecipient.Account_Name as AccountRecipient_Name,
-                Transaction_Amount, Transaction_Date, Transaction_Memo
+                Transaction_Amount, Transaction_Amount2, Transaction_Date, Transaction_Memo
         FROM Trans, Category, Account, Account as AccountRecipient
         WHERE (Trans.Account_ID = :acctID OR Trans.AccountRecipient_ID = :acctID)
             AND Trans.Category_ID = Category.Category_ID
@@ -642,37 +685,37 @@ interface TransDao {
     @Query("""
         SELECT SUM(Transaction_Amount) 
         FROM Trans 
-        WHERE Account_ID = :rID 
+        WHERE Account_ID = :acctID 
             AND TransactionType_ID = 2
         """)
-    fun getTotalAmountOfIncomeByAccount(rID:Long): Double
+    fun getTotalAmountOfIncomeByAccount(acctID:Long): Double
 
     @Transaction
     @Query("""
         SELECT SUM(Transaction_Amount) 
         FROM Trans 
-        WHERE Account_ID = :rID 
+        WHERE Account_ID = :acctID 
             AND TransactionType_ID = 1
         """)
-    fun getTotalAmountOfExpenseByAccount(rID:Long):Double
+    fun getTotalAmountOfExpenseByAccount(acctID:Long):Double
 
     @Transaction
     @Query("""
         SELECT SUM(Transaction_Amount) 
         FROM Trans 
-        WHERE Account_ID = :rID 
+        WHERE Account_ID = :acctID 
             AND TransactionType_ID > 2
         """)
-    fun getTotalAmountOfTransferOutByAccount(rID:Long): Double
+    fun getTotalAmountOfTransferOutByAccount(acctID:Long): Double
 
     @Transaction
     @Query("""
         SELECT SUM(Transaction_Amount) 
         FROM Trans 
-        WHERE AccountRecipient_ID = :rID 
+        WHERE AccountRecipient_ID = :acctID 
             AND TransactionType_ID > 2
         """)
-    fun getTotalAmountOfTransferInByAccount(rID:Long): Double
+    fun getTotalAmountOfTransferInByAccount(acctID:Long): Double
 
     @Transaction
     @Query("""
@@ -690,47 +733,47 @@ interface TransDao {
 
     @Transaction
     @Query("""
-        SELECT Account_Name, COUNT(Trans.Account_ID) as Account_Count
+        SELECT Account.Account_Name, COUNT(Trans.Account_ID) as Account_Count, Category_ID
         FROM Trans, Account
-        WHERE Trans.TransactionType_ID = :tID AND Category_ID = :cID
+        WHERE Trans.TransactionType_ID = :transTypeID AND Category_ID = :cateID
             AND Trans.Account_ID = Account.Account_ID
         GROUP BY Trans.Account_ID
         ORDER BY Account_Count DESC
         """)
-    fun getCountOfAccountsByTransactionTypeAndCategory(tID: Long, cID: Long): List<AccountCount>
+    fun getCountOfAccountsByTransactionTypeAndCategory(transTypeID: Long, cateID: Long): List<AccountCount>
 
     @Transaction
     @Query("""
-        SELECT Account_Name, COUNT(Trans.Account_ID) as Account_Count
+        SELECT Account.Account_Name, COUNT(Trans.Account_ID) as Account_Count, Category_ID
         FROM Trans, Account
-        WHERE Trans.TransactionType_ID = :tID
+        WHERE Trans.TransactionType_ID = :transTypeID
             AND Trans.Account_ID = Account.Account_ID
         GROUP BY Trans.Account_ID
         ORDER BY Account_Count DESC
         """)
-    fun getCountOfAccountsByTransactionType(tID: Long): List<AccountCount>
+    fun getCountOfAccountsByTransactionType(transTypeID: Long): List<AccountCount>
 
     @Transaction
     @Query("""
-        SELECT Account_Name, COUNT(AccountRecipient_ID) as Account_Count
+        SELECT Account.Account_Name, COUNT(Trans.Account_ID) as Account_Count, Category_ID
         FROM Trans, Account
-        WHERE TransactionType_ID = :tID AND Category_ID = :cID
+        WHERE TransactionType_ID = :transTypeID AND Category_ID = :cateID
             AND Trans.AccountRecipient_ID = Account.Account_ID
         GROUP BY Trans.AccountRecipient_ID
         ORDER BY Account_Count DESC
         """)
-    fun getCountOfRecipientAccountsByTransactionTypeAndCategory(tID: Long, cID: Long): List<AccountCount>
+    fun getCountOfRecipientAccountsByTransactionTypeAndCategory(transTypeID: Long, cateID: Long): List<AccountCount>
 
     @Transaction
     @Query("""
-        SELECT Account_Name, COUNT(AccountRecipient_ID) as Account_Count
+        SELECT Account.Account_Name, COUNT(Trans.Account_ID) as Account_Count, Category_ID
         FROM Trans, Account
-        WHERE TransactionType_ID = :tID 
+        WHERE TransactionType_ID = :transTypeID 
             AND Trans.AccountRecipient_ID = Account.Account_ID
         GROUP BY Trans.AccountRecipient_ID
         ORDER BY Account_Count DESC
         """)
-    fun getCountOfRecipientAccountsByTransactionType(tID: Long): List<AccountCount>
+    fun getCountOfRecipientAccountsByTransactionType(transTypeID: Long): List<AccountCount>
 }
 
 // Transaction Type
@@ -744,8 +787,8 @@ interface TransTypeDao {
 
     //get a record BY ID
     @Transaction
-    @Query("SELECT * FROM TransactionType WHERE TransactionType_ID = :rID")
-    fun getRecordByID(rID:Long):TransactionType
+    @Query("SELECT * FROM TransactionType WHERE TransactionType_ID = :transTypeID")
+    fun getRecordByID(transTypeID:Long):TransactionType
 
     @Transaction
     @Query("SELECT * FROM TransactionType")
@@ -768,8 +811,8 @@ interface TemplateDao{
 
     //get a record BY ID
     @Transaction
-    @Query("SELECT * FROM Template WHERE Template_ID = :rID")
-    fun getRecordByID(rID:Long):Template
+    @Query("SELECT * FROM Template WHERE Template_ID = :templateID")
+    fun getRecordByID(templateID:Long):Template
 
     @Transaction
     @Query("SELECT * FROM Template")

@@ -112,13 +112,13 @@ class CalendarAdapter(
                     // credit card
                     EVENT_CREDIT_PAYMENT -> {
                         val bundle = Bundle().apply {
-                            putLong("accountId", id)
-                            putString("accountName", account_out_name)
-                            putDouble("balance", amount)
-                            putDouble("creditLimit", 5000.00)
-                            putInt("paymentDate", 23)
-                            putInt("statementDate", 23)
-                            putLong("accountType", ACCOUNT_TYPE_CREDIT)
+                            putLong(KEY_ACCOUNT_ID, id)
+                            putString(KEY_ACCOUNT_NAME, account_out_name)
+                            putDouble(KEY_ACCOUNT_BALANCE, amount)
+                            putDouble(KEY_ACCOUNT_LIMIT, 5000.00)
+                            putInt(KEY_ACCOUNT_PAYMENT_DAY, 23)
+                            putInt(KEY_ACCOUNT_STATEMENT_DATE, 23)
+                            putLong(KEY_ACCOUNT_TYPE, ACCOUNT_TYPE_CREDIT)
                         }
 
                         holder.itemView.findNavController()

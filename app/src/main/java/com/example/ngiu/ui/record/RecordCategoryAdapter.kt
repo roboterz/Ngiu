@@ -26,7 +26,8 @@ class RecordCategoryAdapter(
 
     // interface for passing the onClick event to fragment.
     interface OnClickListener {
-        fun onItemClick(categoryName: String)
+        //fun onItemClick(categoryName: String)
+        fun onItemClick(categoryID: Long)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PagerViewHolder {
@@ -98,28 +99,28 @@ class RecordCategoryAdapter(
 
         //
         holder.tvCate1.setOnClickListener {
-            setHighlightCategory(holder, position,1)
+            setHighlightCategory(holder, position,0)
         }
         holder.tvCate2.setOnClickListener {
-            setHighlightCategory(holder, position,2)
+            setHighlightCategory(holder, position,1)
         }
         holder.tvCate3.setOnClickListener {
-            setHighlightCategory(holder, position,3)
+            setHighlightCategory(holder, position,2)
         }
         holder.tvCate4.setOnClickListener {
-            setHighlightCategory(holder, position,4)
+            setHighlightCategory(holder, position,3)
         }
         holder.tvCate5.setOnClickListener {
-            setHighlightCategory(holder, position,5)
+            setHighlightCategory(holder, position,4)
         }
         holder.tvCate6.setOnClickListener {
-            setHighlightCategory(holder, position,6)
+            setHighlightCategory(holder, position,5)
         }
         holder.tvCate7.setOnClickListener {
-            setHighlightCategory(holder, position,7)
+            setHighlightCategory(holder, position,6)
         }
         holder.tvCate8.setOnClickListener {
-            setHighlightCategory(holder, position,8)
+            setHighlightCategory(holder, position,7)
         }
 
         // touch feedback
@@ -164,48 +165,49 @@ class RecordCategoryAdapter(
 
 
         // set touched button with highlight
-        when (setPointer){
-            1-> {
-                //holder.tvCate1.setTextColor(holder.onFocusColor)
-                //holder.tvCate1.setBackgroundResource(R.drawable.textview_border_active)
-                if (change) onClickListener.onItemClick(holder.tvCate1.text.toString())
-            }
-            2-> {
-                //holder.tvCate2.setTextColor(holder.onFocusColor)
-                //holder.tvCate2.setBackgroundResource(R.drawable.textview_border_active)
-                if (change) onClickListener.onItemClick(holder.tvCate2.text.toString())
-            }
-            3-> {
-                //holder.tvCate3.setTextColor(holder.onFocusColor)
-                //holder.tvCate3.setBackgroundResource(R.drawable.textview_border_active)
-                if (change) onClickListener.onItemClick(holder.tvCate3.text.toString())
-            }
-            4-> {
-                //holder.tvCate4.setTextColor(holder.onFocusColor)
-                //holder.tvCate4.setBackgroundResource(R.drawable.textview_border_active)
-                if (change) onClickListener.onItemClick(holder.tvCate4.text.toString())
-            }
-            5-> {
-                //holder.tvCate5.setTextColor(holder.onFocusColor)
-                //holder.tvCate5.setBackgroundResource(R.drawable.textview_border_active)
-                if (change) onClickListener.onItemClick(holder.tvCate5.text.toString())
-            }
-            6-> {
-                //holder.tvCate6.setTextColor(holder.onFocusColor)
-                //holder.tvCate6.setBackgroundResource(R.drawable.textview_border_active)
-                if (change) onClickListener.onItemClick(holder.tvCate6.text.toString())
-            }
-            7-> {
-                //holder.tvCate7.setTextColor(holder.onFocusColor)
-                //holder.tvCate7.setBackgroundResource(R.drawable.textview_border_active)
-                if (change) onClickListener.onItemClick(holder.tvCate7.text.toString())
-            }
-            8-> {
-                //holder.tvCate8.setTextColor(holder.onFocusColor)
-                //holder.tvCate8.setBackgroundResource(R.drawable.textview_border_active)
-                if (change) onClickListener.onItemClick(holder.tvCate8.text.toString())
-            }
-        }
+        if (change) onClickListener.onItemClick(mList[pageNumber * 8 + setPointer].Category_ID)
+//        when (setPointer){
+//            1-> {
+//                //holder.tvCate1.setTextColor(holder.onFocusColor)
+//                //holder.tvCate1.setBackgroundResource(R.drawable.textview_border_active)
+//                if (change) onClickListener.onItemClick(holder.tvCate2.text.toString())
+//            }
+//            2-> {
+//                //holder.tvCate2.setTextColor(holder.onFocusColor)
+//                //holder.tvCate2.setBackgroundResource(R.drawable.textview_border_active)
+//                if (change) onClickListener.onItemClick(holder.tvCate2.text.toString())
+//            }
+//            3-> {
+//                //holder.tvCate3.setTextColor(holder.onFocusColor)
+//                //holder.tvCate3.setBackgroundResource(R.drawable.textview_border_active)
+//                if (change) onClickListener.onItemClick(holder.tvCate3.text.toString())
+//            }
+//            4-> {
+//                //holder.tvCate4.setTextColor(holder.onFocusColor)
+//                //holder.tvCate4.setBackgroundResource(R.drawable.textview_border_active)
+//                if (change) onClickListener.onItemClick(holder.tvCate4.text.toString())
+//            }
+//            5-> {
+//                //holder.tvCate5.setTextColor(holder.onFocusColor)
+//                //holder.tvCate5.setBackgroundResource(R.drawable.textview_border_active)
+//                if (change) onClickListener.onItemClick(holder.tvCate5.text.toString())
+//            }
+//            6-> {
+//                //holder.tvCate6.setTextColor(holder.onFocusColor)
+//                //holder.tvCate6.setBackgroundResource(R.drawable.textview_border_active)
+//                if (change) onClickListener.onItemClick(holder.tvCate6.text.toString())
+//            }
+//            7-> {
+//                //holder.tvCate7.setTextColor(holder.onFocusColor)
+//                //holder.tvCate7.setBackgroundResource(R.drawable.textview_border_active)
+//                if (change) onClickListener.onItemClick(holder.tvCate7.text.toString())
+//            }
+//            8-> {
+//                //holder.tvCate8.setTextColor(holder.onFocusColor)
+//                //holder.tvCate8.setBackgroundResource(R.drawable.textview_border_active)
+//                if (change) onClickListener.onItemClick(holder.tvCate8.text.toString())
+//            }
+//        }
         // set current pointer
         currentOnFocus = setPointer
         currentPage = pageNumber

@@ -13,21 +13,21 @@ import com.example.ngiu.MainActivity
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.Account
 import com.example.ngiu.data.entities.Currency
-import com.example.ngiu.databinding.FragmentAccountAddPermanentAssetBinding
+import com.example.ngiu.databinding.FragmentAccountAddFixedAssetsBinding
 import com.example.ngiu.functions.*
 import com.example.ngiu.functions.addDecimalLimiter
 import com.google.android.material.textfield.TextInputEditText
-import kotlinx.android.synthetic.main.fragment_account_add_permanent_asset.*
+import kotlinx.android.synthetic.main.fragment_account_add_fixed_assets.*
 import kotlinx.android.synthetic.main.popup_title.view.*
 
 
-class AddPermanentAssetFragment : Fragment() {
+class AddFixedAssetsFragment : Fragment() {
 
-    private var _binding: FragmentAccountAddPermanentAssetBinding? = null
+    private var _binding: FragmentAccountAddFixedAssetsBinding? = null
     private val binding get() = _binding!!
     private lateinit var addCashViewModel: AddCashViewModel
     var currency = "USD"
-    lateinit var page: String
+    var page: Long = 0L
     var accountTypeID : Long = 0L
     var id: Long = 0L
 
@@ -36,7 +36,7 @@ class AddPermanentAssetFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         addCashViewModel = ViewModelProvider(this).get(AddCashViewModel::class.java)
-        _binding = FragmentAccountAddPermanentAssetBinding.inflate(inflater, container, false)
+        _binding = FragmentAccountAddFixedAssetsBinding.inflate(inflater, container, false)
         getBundleData()
         displayPage()
 
@@ -46,9 +46,9 @@ class AddPermanentAssetFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initListeners()
-        getView()?.findViewById<TextInputEditText?>(R.id.tetPermaAssetsValue)?.addDecimalLimiter()
+        getView()?.findViewById<TextInputEditText?>(R.id.tetFixedAssetsValue)?.addDecimalLimiter()
 
-        toolbarAddPermanentAssets.setNavigationOnClickListener {
+        toolbarAddFixedAssets.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
 
@@ -57,26 +57,26 @@ class AddPermanentAssetFragment : Fragment() {
 
     private fun displayPage() {
         when (page) {
-            "add_valueCard" -> {
-                binding.toolbarAddPermanentAssets.title = "Add Store Value Card"
+            KEY_VALUE_ACCOUNT_ADD_STORED -> {
+                binding.toolbarAddFixedAssets.title = "Add Store Value Card"
                 accountTypeID = ACCOUNT_TYPE_STORED
             }
-            "edit_valueCard" -> {
-                binding.toolbarAddPermanentAssets.title = "Add Store Value Card"
-                binding.toolbarAddPermanentAssets.menu.findItem(R.id.action_delete).isVisible = true
+            KEY_VALUE_ACCOUNT_EDIT_STORED -> {
+                binding.toolbarAddFixedAssets.title = "Add Store Value Card"
+                binding.toolbarAddFixedAssets.menu.findItem(R.id.action_delete).isVisible = true
                 accountTypeID = ACCOUNT_TYPE_STORED
-                id = arguments?.getLong("id")!!
+                id = arguments?.getLong(KEY_ACCOUNT_ID)!!
                 fetchAccountDetails(id)
             }
-            "add_perm" -> {
-                binding.toolbarAddPermanentAssets.title = "Add Permanent Account"
+            KEY_VALUE_ACCOUNT_ADD_ASSETS -> {
+                binding.toolbarAddFixedAssets.title = "Add Fixed Account"
                 accountTypeID = ACCOUNT_TYPE_ASSETS
             }
-            "edit_perm" -> {
-                binding.toolbarAddPermanentAssets.title = "Edit Permanent Account"
-                binding.toolbarAddPermanentAssets.menu.findItem(R.id.action_delete).isVisible = true
+            KEY_VALUE_ACCOUNT_EDIT_ASSETS -> {
+                binding.toolbarAddFixedAssets.title = "Edit Fixed Account"
+                binding.toolbarAddFixedAssets.menu.findItem(R.id.action_delete).isVisible = true
                 accountTypeID = ACCOUNT_TYPE_ASSETS
-                id = arguments?.getLong("id")!!
+                id = arguments?.getLong(KEY_ACCOUNT_ID)!!
                 fetchAccountDetails(id)
             }
 
@@ -86,17 +86,17 @@ class AddPermanentAssetFragment : Fragment() {
     }
 
     private fun getBundleData() {
-        page = arguments?.getString("page")!!
+        page = arguments?.getLong(KEY_ACCOUNT_PAGE)!!
 
     }
 
 
     private fun fetchAccountDetails(id: Long) {
         val account = addCashViewModel.getAccountByID(requireContext(), id)
-        binding.tetPermaAssetsAccountName.setText(account.Account_Name)
-        binding.tetPermaAssetsValue.setText(account.Account_Balance.toString())
-        binding.tetPermaAssetsMemo.setText(account.Account_Memo)
-        binding.scPermaAssetsCountNetAssets.isChecked = account.Account_CountInNetAssets
+        binding.tetFixedAssetsAccountName.setText(account.Account_Name)
+        binding.tetFixedAssetsValue.setText(account.Account_Balance.toString())
+        binding.tetFixedAssetsMemo.setText(account.Account_Memo)
+        binding.scFixedAssetsCountNetAssets.isChecked = account.Account_CountInNetAssets
 
 
 
@@ -104,28 +104,28 @@ class AddPermanentAssetFragment : Fragment() {
 
 
     private fun initListeners() {
-        binding.btnSavePermaAssets.setOnClickListener {
+        binding.btnSaveFixedAssets.setOnClickListener {
             when (page) {
-                "add_valueCard" -> {
+                KEY_VALUE_ACCOUNT_ADD_STORED -> {
                     submitForm()
                 }
-                "edit_valueCard" -> {
-                    id = arguments?.getLong("id")!!
+                KEY_VALUE_ACCOUNT_EDIT_STORED -> {
+                    id = arguments?.getLong(KEY_ACCOUNT_ID)!!
                     updateAccount(id)
                 }
-                "add_perm" -> {
+                KEY_VALUE_ACCOUNT_ADD_ASSETS -> {
                     submitForm()
                 }
-                "edit_perm" -> {
+                KEY_VALUE_ACCOUNT_EDIT_ASSETS -> {
 
-                    id = arguments?.getLong("id")!!
+                    id = arguments?.getLong(KEY_ACCOUNT_ID)!!
                     updateAccount(id)
                 }
 
             }
         }
 
-        binding.toolbarAddPermanentAssets.setOnMenuItemClickListener{
+        binding.toolbarAddFixedAssets.setOnMenuItemClickListener{
             when (it.itemId) {
                 R.id.action_delete -> {
                     // navigate to add record screen
@@ -136,11 +136,11 @@ class AddPermanentAssetFragment : Fragment() {
                 }
 
 
-                else -> super.onOptionsItemSelected(it)
+                else -> true
             }
         }
 
-        binding.btnPermaAssetsAddOtherCurrency.setOnClickListener {
+        binding.btnFixedAssetsAddOtherCurrency.setOnClickListener {
 
             val array : List<Currency> = addCashViewModel.getCurrency(requireActivity())
 
@@ -166,7 +166,7 @@ class AddPermanentAssetFragment : Fragment() {
             // Set items form alert dialog
             builder.setItems(cs) { _, which ->
                 currency = arrayList.get(which)
-                binding.permaAssetsBalanceTextLayout.suffixText = currency
+                binding.fixedAssetsBalanceTextLayout.suffixText = currency
 
             }
 
@@ -180,15 +180,15 @@ class AddPermanentAssetFragment : Fragment() {
 
         val account = Account(
             Account_ID = id,
-            Account_Name = binding.tetPermaAssetsAccountName.text.toString(),
-            Account_Balance = binding.tetPermaAssetsValue.text.toString().toDouble(),
-            Account_CountInNetAssets = binding.scPermaAssetsCountNetAssets.isChecked,
-            Account_Memo = binding.tetPermaAssetsMemo.text.toString(),
+            Account_Name = binding.tetFixedAssetsAccountName.text.toString(),
+            Account_Balance = binding.tetFixedAssetsValue.text.toString().toDouble(),
+            Account_CountInNetAssets = binding.scFixedAssetsCountNetAssets.isChecked,
+            Account_Memo = binding.tetFixedAssetsMemo.text.toString(),
             AccountType_ID = accountTypeID,
             Currency_ID = currency
         )
         addCashViewModel.getAllAccount(requireContext()).forEach { item ->
-            if (item.Account_Name.equals(binding.tetPermaAssetsAccountName.text.toString(), ignoreCase = true)  && (account.Account_ID != item.Account_ID)) {
+            if (item.Account_Name.equals(binding.tetFixedAssetsAccountName.text.toString(), ignoreCase = true)  && (account.Account_ID != item.Account_ID)) {
                 Toast.makeText(requireContext(), "Account Name already exist", Toast.LENGTH_LONG).show()
                 return
             }
@@ -200,11 +200,11 @@ class AddPermanentAssetFragment : Fragment() {
     }
 
     private fun insertData() {
-        val accountName = binding.tetPermaAssetsAccountName.text.toString()
-        val countInNetAsset: Boolean = binding.scPermaAssetsCountNetAssets.isChecked
-        val memo = binding.tetPermaAssetsMemo.text.toString()
+        val accountName = binding.tetFixedAssetsAccountName.text.toString()
+        val countInNetAsset: Boolean = binding.scFixedAssetsCountNetAssets.isChecked
+        val memo = binding.tetFixedAssetsMemo.text.toString()
         val accountTypeID = accountTypeID
-        var value = binding.tetPermaAssetsValue.text.toString()
+        var value = binding.tetFixedAssetsValue.text.toString()
 
         if (value.isEmpty()) {
             value = "0.0"
@@ -220,10 +220,10 @@ class AddPermanentAssetFragment : Fragment() {
     }
 
     private fun submitForm() {
-        binding.permaAssetsAccountNameTextLayout.helperText = validAccountName()
+        binding.fixedAssetsAccountNameTextLayout.helperText = validAccountName()
 
 
-        val validAccountName = binding.permaAssetsAccountNameTextLayout.helperText == null
+        val validAccountName = binding.fixedAssetsAccountNameTextLayout.helperText == null
 
 
         if (validAccountName  ) {
@@ -237,8 +237,8 @@ class AddPermanentAssetFragment : Fragment() {
 
     private fun invalidForm() {
         var message = ""
-        if(binding.permaAssetsAccountNameTextLayout.helperText != null) {
-            message += "\nAccountName: " + binding.permaAssetsAccountNameTextLayout.helperText
+        if(binding.fixedAssetsAccountNameTextLayout.helperText != null) {
+            message += "\nAccountName: " + binding.fixedAssetsAccountNameTextLayout.helperText
         }
 
         AlertDialog.Builder(context)
@@ -252,7 +252,7 @@ class AddPermanentAssetFragment : Fragment() {
 
 
     private fun validAccountName(): String? {
-        val accountNameText = binding.tetPermaAssetsAccountName.text.toString()
+        val accountNameText = binding.tetFixedAssetsAccountName.text.toString()
         if(accountNameText.length < 3) {
             return "Minimum of 3 Characters required."
         }

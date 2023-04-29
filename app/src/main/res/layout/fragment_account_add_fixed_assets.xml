@@ -9,7 +9,7 @@
 
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarAddPermanentAssets"
+        android:id="@+id/toolbarAddFixedAssets"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:background="?attr/colorPrimary"
@@ -19,23 +19,23 @@
         app:menu="@menu/title_menu"
         app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
         app:titleTextAppearance="@style/Toolbar.TitleText"
-        app:title="@string/nav_title_add_permanent_assets" />
+        app:title="@string/nav_title_add_fixed_assets" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/toolbarAddPermanentAssets"
-        app:layout_constraintBottom_toTopOf="@+id/btnSavePermaAssets">
+        app:layout_constraintTop_toBottomOf="@id/toolbarAddFixedAssets"
+        app:layout_constraintBottom_toTopOf="@+id/btnSaveFixedAssets">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/addPermaAssetsLayout"
+            android:id="@+id/addFixedAssetsLayout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbarAddPermanentAssets">
+            app:layout_constraintTop_toBottomOf="@id/toolbarAddFixedAssets">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/permaAssetsAccountNameTextLayout"
+                android:id="@+id/fixedAssetsAccountNameTextLayout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -46,12 +46,12 @@
                 app:helperText="Required*"
                 app:helperTextTextColor="@color/app_expense_amount"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/permaAssetsBalanceTextLayout"
+                app:layout_constraintBottom_toTopOf="@+id/fixedAssetsBalanceTextLayout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tetPermaAssetsAccountName"
+                    android:id="@+id/tetFixedAssetsAccountName"
                     android:layout_width="match_parent"
                     android:background="@color/app_section_background"
                     android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/permaAssetsBalanceTextLayout"
+                android:id="@+id/fixedAssetsBalanceTextLayout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -75,13 +75,13 @@
                 app:suffixText="@string/account_balance_suffix"
                 app:suffixTextColor="@color/app_text"
                 app:helperTextTextColor="@color/app_expense_amount"
-                app:layout_constraintTop_toBottomOf="@+id/permaAssetsAccountNameTextLayout"
-                app:layout_constraintBottom_toTopOf="@+id/btnPermaAssetsAddOtherCurrency"
+                app:layout_constraintTop_toBottomOf="@+id/fixedAssetsAccountNameTextLayout"
+                app:layout_constraintBottom_toTopOf="@+id/btnFixedAssetsAddOtherCurrency"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tetPermaAssetsValue"
+                    android:id="@+id/tetFixedAssetsValue"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="20dp"
@@ -95,7 +95,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnPermaAssetsAddOtherCurrency"
+                android:id="@+id/btnFixedAssetsAddOtherCurrency"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -108,7 +108,7 @@
                 app:icon="@drawable/ic_baseline_add_circle_24"
                 app:iconGravity="textStart"
                 app:iconTint="@color/app_add_button_grey"
-                app:layout_constraintTop_toBottomOf="@+id/permaAssetsBalanceTextLayout"
+                app:layout_constraintTop_toBottomOf="@+id/fixedAssetsBalanceTextLayout"
                 app:layout_constraintBottom_toTopOf="@+id/addCashCountNetAssetsLayout"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
@@ -121,21 +121,21 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:background="@color/app_section_background"
-                app:layout_constraintTop_toBottomOf="@+id/btnPermaAssetsAddOtherCurrency"
-                app:layout_constraintBottom_toTopOf="@+id/permaAssetsMemoLayout"
+                app:layout_constraintTop_toBottomOf="@+id/btnFixedAssetsAddOtherCurrency"
+                app:layout_constraintBottom_toTopOf="@+id/fixedAssetsMemoLayout"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
 
 
                 <TextView
-                    android:id="@+id/tvPermaAssetsCountNetAssets"
+                    android:id="@+id/tvFixedAssetsCountNetAssets"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="20dp"
                     android:paddingVertical="15dp"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/scPermaAssetsCountNetAssets"
+                    app:layout_constraintEnd_toStartOf="@+id/scFixedAssetsCountNetAssets"
                     android:text="@string/option_title_count_in_net_assets"
                     android:textColor="@color/app_option_text"
                     android:textSize="15sp"
@@ -144,7 +144,7 @@
 
 
                 <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/scPermaAssetsCountNetAssets"
+                    android:id="@+id/scFixedAssetsCountNetAssets"
                     android:enabled="true"
                     android:checked="true"
                     android:layout_width="wrap_content"
@@ -152,7 +152,7 @@
                     android:paddingEnd="10dp"
                     android:background="@color/app_section_background"
                     android:foregroundTint="@color/app_title_background"
-                    app:layout_constraintStart_toEndOf="@+id/tvPermaAssetsCountNetAssets"
+                    app:layout_constraintStart_toEndOf="@+id/tvFixedAssetsCountNetAssets"
                     app:layout_constraintEnd_toEndOf="parent"
                     tools:ignore="RtlSymmetry" />
 
@@ -160,7 +160,7 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/permaAssetsMemoLayout"
+                android:id="@+id/fixedAssetsMemoLayout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -173,7 +173,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/addCashCountNetAssetsLayout">
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tetPermaAssetsMemo"
+                    android:id="@+id/tetFixedAssetsMemo"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:inputType="text"
@@ -191,7 +191,7 @@
 
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnSavePermaAssets"
+        android:id="@+id/btnSaveFixedAssets"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
