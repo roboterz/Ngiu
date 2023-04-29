@@ -68,8 +68,8 @@ class RecordFragment : Fragment() {
 
             // get string from category manage
             setFragmentResultListener(KEY_RECORD_CATEGORY) { _, bundle ->
-                val receivedString = bundle.getString(KEY_RECORD_CATEGORY_NAME).toString()
-                recordViewModel.setSubCategoryName(recordViewModel.transDetail.TransactionType_ID, receivedString)
+                val receivedCateID = bundle.getLong(KEY_RECORD_CATEGORY_ID)
+                setCategory(recordViewModel.transDetail.TransactionType_ID, receivedCateID)
                 //Toast.makeText(context,"".toString(),Toast.LENGTH_LONG).show()
             }
 
@@ -92,7 +92,7 @@ class RecordFragment : Fragment() {
 
         // 初始化Cate
 
-        // Common Category
+        /******* Common Category  *******/
 
         Thread {
             activity?.runOnUiThread {
@@ -102,14 +102,14 @@ class RecordFragment : Fragment() {
                         RecordCategoryAdapter(object : RecordCategoryAdapter.OnClickListener {
 
                             // catch the item click event from adapter
-                            override fun onItemClick(categoryName: String) {
+                            override fun onItemClick(categoryID: Long) {
                                 // *** do something after clicked
                                 // set category
-                                recordViewModel.setSubCategoryName(recordViewModel.transDetail.TransactionType_ID, categoryName)
+                                setCategory(recordViewModel.transDetail.TransactionType_ID, categoryID)
                                 // set account name
                                 recordViewModel.setAccountName(recordViewModel.transDetail.TransactionType_ID)
                                 // show data
-                                showDataOnUI(recordViewModel.transDetail.TransactionType_ID)
+                                setTextViewData()
                             }
                         })
                     }
@@ -529,8 +529,8 @@ class RecordFragment : Fragment() {
     }
 
 
-    private fun setCategory(transType: Long, cateName: String="") {
-        recordViewModel.setSubCategoryName(transType, cateName)
+    private fun setCategory(transType: Long, cateID: Long = 0L) {
+        recordViewModel.setSubCategory(transType, cateID)
     }
 
     private fun showDataOnUI(transType: Long){
@@ -545,6 +545,12 @@ class RecordFragment : Fragment() {
         setViewsVisible(transType)
 
         // budget
+
+        // set textview data
+        setTextViewData()
+    }
+
+    private fun setTextViewData(){
         // amount
         tv_record_amount.text = "%.2f".format(recordViewModel.transDetail.Transaction_Amount)
 
@@ -569,7 +575,6 @@ class RecordFragment : Fragment() {
         tv_record_reimburse.text = recordViewModel.getReimbursable(requireContext(), recordViewModel.transDetail.Transaction_ReimburseStatus)
         //todo period,
     }
-
 
     private fun selectTransactionType(transType: Long){
         // set transaction type
@@ -636,7 +641,7 @@ class RecordFragment : Fragment() {
             val trans = Trans(
                 Transaction_ID = recordViewModel.transDetail.Transaction_ID,
                 TransactionType_ID = recordViewModel.transDetail.TransactionType_ID,
-                Category_ID = recordViewModel.getCategoryID(tv_record_category.text.toString()),
+                Category_ID = recordViewModel.transDetail.Category_ID,
                 Account_ID = recordViewModel.getAccountID(tv_record_account_pay.text.toString()),
                 Transaction_Amount = tv_record_amount.text.toString().toDouble(),
                 Transaction_Amount2 = 0.00,
@@ -648,9 +653,11 @@ class RecordFragment : Fragment() {
                 Transaction_ReimburseStatus = recordViewModel.transDetail.Transaction_ReimburseStatus
             )
 
+            // AccountRecipient ID
             trans.AccountRecipient_ID = if (recordViewModel.transDetail.TransactionType_ID < TRANSACTION_TYPE_TRANSFER) trans.Account_ID
-                                        else recordViewModel.getAccountID(tv_record_account_receive.text.toString())
+                                        else recordViewModel.transDetail.AccountRecipient_ID
 
+            // check Account ID
             if (trans.Account_ID < 1L || trans.AccountRecipient_ID < 1L) {
                 Toast.makeText(
                     context,
@@ -818,7 +825,7 @@ class RecordFragment : Fragment() {
 
     }
 
-    private fun openCategoryManager(transactionID: Long) {
+/*    private fun openCategoryManager(transactionID: Long) {
         // hide nav bottom bar
         //(activity as MainActivity).setNavBottomBarVisibility(View.GONE)
 
@@ -829,7 +836,7 @@ class RecordFragment : Fragment() {
 
         // switch to category manage fragment
         findNavController().navigate(R.id.navigation_category_manage)
-    }
+    }*/
 
 
     @SuppressLint("CutPasteId")

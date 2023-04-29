@@ -12,16 +12,25 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
+import com.example.ngiu.functions.TRANSACTION_TYPE_DEBIT
+import com.example.ngiu.functions.switchToRecordFragment
 import com.example.ngiu.ui.account.model.AccountCreditDetailGroupModel
 import kotlinx.android.synthetic.main.cardview_account_credit_detail_group.view.*
 import java.time.format.DateTimeFormatter
 
 
-class AccountCreditDetailGroupAdapter : RecyclerView.Adapter<AccountCreditDetailGroupAdapter.CreditDetailGroupViewHolder>() {
+class AccountCreditDetailGroupAdapter(
+    private val onClickListener: OnClickListener
+) : RecyclerView.Adapter<AccountCreditDetailGroupAdapter.CreditDetailGroupViewHolder>() {
     private val statementList = ArrayList<AccountCreditDetailGroupModel>()
 
     private val itemDateFormatter = DateTimeFormatter.ofPattern("MM/dd")
     private var currentAccountID = 0L
+
+    // interface for passing the onClick event to fragment.
+    interface OnClickListener {
+        fun onItemClick(transID: Long)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CreditDetailGroupViewHolder{
         val view = LayoutInflater.from(parent.context)
@@ -60,7 +69,15 @@ class AccountCreditDetailGroupAdapter : RecyclerView.Adapter<AccountCreditDetail
 
 
             // adapter
-            val creditDetailAdapter = AccountCreditDetailAdapter()
+            //val creditDetailAdapter = AccountCreditDetailAdapter()
+            val creditDetailAdapter = AccountCreditDetailAdapter(object: AccountCreditDetailAdapter.OnClickListener {
+                    // catch the item click event from adapter
+                    override fun onItemClick(transID: Long) {
+                        // switch to record fragment (Edit mode)
+                        onClickListener.onItemClick(transID)
+                    }
+                })
+
             holder.rvDetail.layoutManager = LinearLayoutManager(holder.itemView.context, RecyclerView.VERTICAL,false)
             creditDetailAdapter.setList(CDList)
             creditDetailAdapter.setAccountID(currentAccountID)

@@ -150,7 +150,19 @@
     <string name="option_title_consumption_counted">Consumption in Statement Day is Counted in the Current Period</string>
     <string name="option_title_statistical_mode">Statistical Mode:</string>
 
-    <string name="option_category_common">Common</string>
+    <string name="category_common">Common</string>
+    <string name="category_expense">Expense</string>
+    <string name="category_income">Income</string>
+    <string name="category_transfer">Transfer</string>
+    <string name="category_debit_credit">Debit &amp; Credit</string>
+    <string name="category_account_transfer">Account Transfer</string>
+    <string name="category_credit_card_payment">Credit Card Payment</string>
+    <string name="category_deposit">Deposit</string>
+    <string name="category_withdraw">Withdraw</string>
+    <string name="category_borrow">Borrow</string>
+    <string name="category_lend">Lend</string>
+    <string name="category_payment">Payment</string>
+    <string name="category_receive_payment">Receive payment</string>
 
     <string name="item_no_reminder">No Reminder</string>
     <string name="item_reminder_of_the_day">Reminder of the Day</string>

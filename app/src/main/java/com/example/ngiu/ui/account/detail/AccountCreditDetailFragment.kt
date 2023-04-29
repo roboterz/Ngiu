@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -30,7 +29,7 @@ class AccountCreditDetailFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-    private var accountCDGAdapter = AccountCreditDetailGroupAdapter()
+    private var accountCDGAdapter: AccountCreditDetailGroupAdapter? = null
 
     private var accountID: Long = 0
 
@@ -58,17 +57,6 @@ class AccountCreditDetailFragment : Fragment() {
 
         accountCreditDetailViewModel.loadDataToRam(requireContext(), accountID)
 
-        // initial adapter
-        Thread {
-            activity?.runOnUiThread {
-                // pass the value to fragment from adapter when item clicked
-                accountCDGAdapter = AccountCreditDetailGroupAdapter()
-
-                recyclerview_account_credit_detail.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
-
-                recyclerview_account_credit_detail.adapter = accountCDGAdapter
-            }
-        }.start()
 
 
         return binding.root
@@ -79,6 +67,11 @@ class AccountCreditDetailFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // initial adapter
+        initAdapter(view, this)
+
+
 
         tv_account_credit_detail_available_credit_limit_value.text = "$" + "%.2f".format(accountCreditDetailViewModel.availableCreditLimit)
         tv_account_credit_detail_current_arrears_value.text =  "$" + "%.2f".format(accountCreditDetailViewModel.currentArrears)
@@ -133,14 +126,16 @@ class AccountCreditDetailFragment : Fragment() {
 
     }
 
+
+
     override fun onResume() {
         super.onResume()
 
         Thread {
             activity?.runOnUiThread {
                 //vpAdapter?.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
-                accountCDGAdapter.setAccountID(accountCreditDetailViewModel.accountRecord.Account_ID)
-                accountCDGAdapter.setStatementList(accountCreditDetailViewModel.listGroup)
+                accountCDGAdapter?.setAccountID(accountCreditDetailViewModel.accountRecord.Account_ID)
+                accountCDGAdapter?.setStatementList(accountCreditDetailViewModel.listGroup)
                 //recyclerView_activity.adapter = vpAdapter
             }
         }.start()
@@ -153,15 +148,36 @@ class AccountCreditDetailFragment : Fragment() {
         _binding = null
     }
 
-    private fun navigateToRecordFragment(trans_ID: Long = 0, account_ID: Long = 0, transType_ID: Long = TRANSACTION_TYPE_EXPENSE){
+
+    private fun initAdapter(view: View, fragment: Fragment) {
+
+        Thread {
+            activity?.runOnUiThread {
+                // pass the value to fragment from adapter when item clicked
+                accountCDGAdapter = AccountCreditDetailGroupAdapter(object: AccountCreditDetailGroupAdapter.OnClickListener {
+                    // catch the item click event from adapter
+                    override fun onItemClick(transID: Long) {
+                        // switch to record fragment (Edit mode)
+                        switchToRecordFragment(view, fragment, transID)
+                    }
+                })
+
+                recyclerview_account_credit_detail.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
+
+                recyclerview_account_credit_detail.adapter = accountCDGAdapter
+            }
+        }.start()
+    }
+
+/*    private fun navigateToRecordFragment(trans_ID: Long = 0, account_ID: Long = 0, transType_ID: Long = TRANSACTION_TYPE_EXPENSE){
         val bundle = Bundle().apply {
             putLong(KEY_RECORD_TRANSACTION_ID, trans_ID)
             putLong(KEY_RECORD_ACCOUNT_ID, account_ID)
             putLong(KEY_RECORD_TRANSACTION_TYPE_ID, transType_ID)
         }
-        // todo open record fragment with specified account or specified transaction type
+
         // switch to record fragment
         findNavController().navigate(R.id.navigation_record, bundle)
-    }
+    }*/
 
 }

@@ -6,10 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
-import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -169,15 +166,14 @@ class AccountGeneralDetailFragment : Fragment() {
     }
 
 
-    private fun navigateToRecordFragment(trans_ID: Long = 0, account_ID: Long = 0, transType_ID: Long = 0){
+/*    private fun navigateToRecordFragment(trans_ID: Long = 0, account_ID: Long = 0, transType_ID: Long = 0){
         val bundle = Bundle().apply {
             putLong(KEY_RECORD_TRANSACTION_ID, trans_ID)
             putLong(KEY_RECORD_ACCOUNT_ID, account_ID)
             putLong(KEY_RECORD_TRANSACTION_TYPE_ID, transType_ID)
         }
-        // todo open record fragment with specified account or specified transaction type
         // switch to record fragment
         findNavController().navigate(R.id.navigation_record, bundle)
-    }
+    }*/
 }
 

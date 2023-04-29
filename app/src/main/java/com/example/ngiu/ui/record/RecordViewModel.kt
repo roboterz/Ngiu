@@ -27,7 +27,7 @@ class RecordViewModel : ViewModel() {
     // temp save changed data
     var transDetail = TransactionDetail(TransactionType_ID = TRANSACTION_TYPE_EXPENSE)
 
-    private var categoryName = ArrayList<String>()
+    private var categoryIDs = ArrayList<Long>()
     //var tempSavedAccountName = ArrayList<String>()
 
     var expenseCommonCategory: List<Category> = ArrayList()
@@ -103,10 +103,10 @@ class RecordViewModel : ViewModel() {
         val debitCreditCategory = database.category().getCategoryByTransactionType(TRANSACTION_TYPE_DEBIT)
 
 
-        categoryName.add(if (expenseCommonCategory.size > 1) expenseCommonCategory[0].Category_Name else expenseCategory[0].Category_Name)
-        categoryName.add(if (incomeCommonCategory.size > 1) incomeCommonCategory[0].Category_Name else incomeCategory[0].Category_Name)
-        categoryName.add(transferCommonCategory[0].Category_Name)
-        categoryName.add(debitCreditCommonCategory[0].Category_Name)
+        categoryIDs.add(if (expenseCommonCategory.size > 1) expenseCommonCategory[0].Category_ID else expenseCategory[0].Category_ID)
+        categoryIDs.add(if (incomeCommonCategory.size > 1) incomeCommonCategory[0].Category_ID else incomeCategory[0].Category_ID)
+        categoryIDs.add(transferCommonCategory[0].Category_ID)
+        categoryIDs.add(debitCreditCommonCategory[0].Category_ID)
 
 
 
@@ -183,7 +183,7 @@ class RecordViewModel : ViewModel() {
         // load transaction data
         transDetail = AppDatabase.getDatabase(context).trans().getOneTransactionDetail(rID)
         // category
-        categoryName[transDetail.TransactionType_ID.toInt()-1] = transDetail.Category_Name
+        categoryIDs[transDetail.TransactionType_ID.toInt()-1] = transDetail.Category_ID
         // account
         when (transDetail.TransactionType_ID){
             TRANSACTION_TYPE_EXPENSE, TRANSACTION_TYPE_INCOME ->{
@@ -215,18 +215,24 @@ class RecordViewModel : ViewModel() {
         setTransactionTypeTextViewColor(transDetail.TransactionType_ID)
     }
 
-    fun getSubCategoryName(): String{
-        return categoryName[transDetail.TransactionType_ID.toInt() -1]
+    private fun getSubCategoryName(cateID: Long): String{
+        val idx = category.indexOfFirst { it.Category_ID == cateID }
+        return if (idx >= 0) category[idx].Category_Name
+        else ""
     }
+
     fun getAccountNameByID(acctID: Long): String{
         return account[account.indexOfFirst { it.Account_ID == acctID }].Account_Name
     }
-    fun setSubCategoryName(transType: Long, cateName: String =""){
-        if (cateName.isNotEmpty()){
-            categoryName[transType.toInt()-1] = cateName
+    fun setSubCategory(transType: Long, cateID: Long =0L){
+        if (cateID > 0L){
+            categoryIDs[transType.toInt()-1] = cateID
         }
-        transDetail.Category_Name = categoryName[transType.toInt()-1]
+        transDetail.Category_ID = categoryIDs[transType.toInt()-1]
+        transDetail.Category_Name =  getSubCategoryName(transDetail.Category_ID)
     }
+
+
 
     fun setAccountName(transType: Long, acctName: String ="", blnOut: Boolean = true){
         when(transType){
@@ -332,7 +338,7 @@ class RecordViewModel : ViewModel() {
             // Normal Account
             if (at.AccountType_ID != ACCOUNT_TYPE_RECEIVABLE) {
                 if ((transDetail.TransactionType_ID != TRANSACTION_TYPE_TRANSFER) || (at.Account_Name != exceptName)) {
-                    when (getCategoryID(transDetail.Category_Name)) {
+                    when (transDetail.Category_ID) {
                         // borrow in | received
                         CATEGORY_SUB_BORROW, CATEGORY_SUB_RECEIVE_PAYMENT -> if (!payAccount) nameList.add(at.Account_Name)
                         // lend out | repayment
@@ -343,7 +349,7 @@ class RecordViewModel : ViewModel() {
                 }
                 // Payable|Receivable Account
             } else if (transDetail.TransactionType_ID == TRANSACTION_TYPE_DEBIT) {
-                when (getCategoryID(transDetail.Category_Name)) {
+                when (transDetail.Category_ID) {
                     // borrow in | received
                     CATEGORY_SUB_BORROW, CATEGORY_SUB_RECEIVE_PAYMENT -> if (payAccount) nameList.add(at.Account_Name)
                     // lend out | repayment

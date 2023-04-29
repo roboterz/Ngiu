@@ -87,7 +87,7 @@ class CategoryManagerFragment: Fragment() {
                 // set transaction type
                 categoryManagerViewModel.currentTransactionType = transactionTypeID
                 // load data
-                categoryManagerViewModel.loadMainCategory(requireContext(), transactionTypeID)
+                categoryManagerViewModel.loadMainCategory(requireContext(),cateMode, transactionTypeID)
             }
             //Toast.makeText(context, cateMode.toString(), Toast.LENGTH_SHORT).show()
         }
@@ -146,7 +146,7 @@ class CategoryManagerFragment: Fragment() {
                                     // pass the string back to record fragment
                                     setFragmentResult(
                                         KEY_RECORD_CATEGORY,
-                                        bundleOf(KEY_RECORD_CATEGORY_NAME to subCategoryName)
+                                        bundleOf(KEY_RECORD_CATEGORY_ID to rID)
                                     )
                                     // exit
                                     requireActivity().onBackPressedDispatcher.onBackPressed()
@@ -256,7 +256,7 @@ class CategoryManagerFragment: Fragment() {
         // Sub Category Adapter
         Thread {
             this.activity?.runOnUiThread {
-                subCategoryAdapter?.setList(categoryManagerViewModel.getSubCategory(requireContext(),categoryManagerViewModel.currentActiveMainCategory))
+                subCategoryAdapter?.setList(categoryManagerViewModel.getSubCategory(requireContext(),categoryManagerViewModel.currentActiveMainCategory,cateMode))
             }
         }.start()
 
@@ -292,7 +292,7 @@ class CategoryManagerFragment: Fragment() {
             //mainCategoryAdapter?.setList(categoryManagerViewModel.mainCategory)
             recyclerview_category_main.adapter = mainCategoryAdapter
             // show sub category
-            subCategoryAdapter?.setList(categoryManagerViewModel.getSubCategory(requireContext(),rID))
+            subCategoryAdapter?.setList(categoryManagerViewModel.getSubCategory(requireContext(),rID,cateMode))
 
             categoryManagerViewModel.currentActiveMainCategory = rID
 
@@ -450,13 +450,14 @@ class CategoryManagerFragment: Fragment() {
         subCategoryAdapter?.setList(
             categoryManagerViewModel.getSubCategory(
                 requireContext(),
-                categoryManagerViewModel.currentActiveMainCategory
+                categoryManagerViewModel.currentActiveMainCategory,
+                cateMode
             )
         )
     }
     // refresh MainCategory
     private fun refreshMainCategory(){
-        categoryManagerViewModel.loadMainCategory(requireContext(), categoryManagerViewModel.currentTransactionType)
+        categoryManagerViewModel.loadMainCategory(requireContext(),cateMode, categoryManagerViewModel.currentTransactionType)
         mainCategoryAdapter?.setList(
             categoryManagerViewModel.mainCategory
         )

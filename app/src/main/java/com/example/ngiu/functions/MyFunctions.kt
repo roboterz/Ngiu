@@ -321,24 +321,12 @@ fun switchToAccountAttributePage(view: View, acctTypeID: Long,
 
 }
 
-fun switchToCategoryManager(view: View, fragment: Fragment, mode: Int, transactionID: Long) {
-
-    // Put Data Before switch
-//    activity.supportFragmentManager.setFragmentResult(KEY_CATEGORY_MANAGER, bundleOf(
-//        KEY_CATEGORY_MANAGER_MODE to mode)
-//    )
-/*    val bundle = Bundle().apply {
-        putInt(KEY_CATEGORY_MANAGER_MODE, mode)
-        putLong(KEY_CATEGORY_MANAGER_TRANSACTION_TYPE, transactionID)
-    }
-
-    // switch to category manage fragment
-    view.findNavController().navigate(R.id.navigation_category_manage, bundle)*/
+fun switchToCategoryManager(view: View, fragment: Fragment, mode: Int, transTypeID: Long) {
 
     // Put Data Before switch
     fragment.setFragmentResult(KEY_CATEGORY_MANAGER, bundleOf(
         KEY_CATEGORY_MANAGER_MODE to mode,
-        KEY_CATEGORY_MANAGER_TRANSACTION_TYPE to transactionID
+        KEY_CATEGORY_MANAGER_TRANSACTION_TYPE to transTypeID
     ))
 
     // switch to category manage fragment

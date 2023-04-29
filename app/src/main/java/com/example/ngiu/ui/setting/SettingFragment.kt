@@ -60,13 +60,13 @@ class SettingFragment : Fragment() {
 
         // Expense
         binding.tvSettingExpense.setOnClickListener {
-            openCategoryManager(TRANSACTION_TYPE_EXPENSE)
+            switchToCategoryManager(view, this, EDIT_MODE, TRANSACTION_TYPE_EXPENSE)
             //switchToCategoryManager(view,, EDIT_MODE, TRANSACTION_TYPE_EXPENSE)
         }
 
         // Income
         binding.tvSettingIncome.setOnClickListener {
-            openCategoryManager(TRANSACTION_TYPE_INCOME)
+            switchToCategoryManager(view, this, EDIT_MODE, TRANSACTION_TYPE_INCOME)
             //switchToCategoryManager(view,, EDIT_MODE, TRANSACTION_TYPE_INCOME)
         }
 
@@ -138,7 +138,7 @@ class SettingFragment : Fragment() {
 
 
     //********************* Private Function ******************************
-    private fun openCategoryManager(transactionID: Long) {
+/*    private fun openCategoryManager(transactionID: Long) {
 
         // Put Data Before switch
         setFragmentResult(
@@ -148,7 +148,7 @@ class SettingFragment : Fragment() {
 
         // switch to category manage fragment
         findNavController().navigate(R.id.navigation_category_manage)
-    }
+    }*/
 
     //********************* Private Function ******************************
 }

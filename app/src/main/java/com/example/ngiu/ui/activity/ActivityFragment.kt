@@ -170,13 +170,13 @@ class ActivityFragment : Fragment() {
     }
 
 
-    private fun navigateToRecordFragment(transID: Long = 0){
+/*    private fun navigateToRecordFragment(transID: Long = 0){
         val bundle = Bundle().apply {
             putLong(KEY_RECORD_TRANSACTION_ID, transID)
         }
         // switch to record fragment
         findNavController().navigate(R.id.navigation_record, bundle)
-    }
+    }*/
 
     private fun navigateToSettingFragment() {
         findNavController().navigate(R.id.navigation_setting)
