@@ -6,7 +6,8 @@
         android:id="@+id/card_view_account_credit_detail_group_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/app_section_background">
+        android:layout_marginBottom="10dp"
+        android:background="@color/app_list_group_header">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,7 +17,7 @@
             android:paddingStart="15dp"
             android:paddingEnd="0dp"
             android:paddingVertical="8dp"
-            android:background="?android:attr/selectableItemBackground"
+            android:background="@color/app_section_background"
             tools:ignore="MissingConstraints">
 
             <ImageView
@@ -99,20 +100,21 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerview_account_credit_detail_item"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="visible"
-            app:layout_constraintTop_toBottomOf="@+id/layout_account_credit_detail_group_item"
-            app:layout_constraintBottom_toTopOf="@+id/tv_account_credit_detail_group_bottom_line"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview_account_credit_detail_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/tv_account_credit_detail_group_bottom_line"
+        app:layout_constraintTop_toBottomOf="@+id/layout_account_credit_detail_group_item"
+        tools:layout_editor_absoluteX="0dp" />
 
-        <TextView
+    <TextView
             android:id="@+id/tv_account_credit_detail_group_bottom_line"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:visibility="gone"
-            android:background="@color/app_list_background"
+            android:background="@color/app_list_group_header"
             app:layout_constraintTop_toBottomOf="@id/recyclerview_account_credit_detail_item"
             />
 

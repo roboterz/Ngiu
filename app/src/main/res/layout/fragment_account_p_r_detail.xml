@@ -22,7 +22,7 @@
         android:id="@+id/layout_account_pr_info"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:paddingBottom="10dp"
+        android:paddingBottom="1dp"
         android:background="@color/app_list_background"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_account_p_r_detail">
 
@@ -31,9 +31,9 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@color/app_section_background"
+            android:background="@color/app_title_background"
             android:paddingStart="25dp"
-            android:paddingTop="25dp"
+            android:paddingTop="20dp"
             app:layout_constraintWidth_percent="0.5"
             tools:ignore="MissingConstraints,RtlSymmetry">
 
@@ -44,7 +44,7 @@
                 android:singleLine="true"
                 android:layout_marginEnd="10dp"
                 android:text="@string/option_account_owe_you"
-                android:textColor="@color/app_option_text"
+                android:textColor="@color/app_title_text"
                 android:textStyle="normal"
                 android:textSize="18sp"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -53,21 +53,18 @@
                 android:id="@+id/tv_account_pr_balance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="4dp"
                 android:singleLine="true"
-                android:layout_marginEnd="10dp"
                 android:text="@string/amount_zero_with_dollar_sign"
-                android:textColor="@color/app_income_amount"
+                android:textColor="@color/app_title_text"
                 android:textSize="18sp"
-                android:textStyle="normal"
-                app:layout_constraintTop_toBottomOf="@+id/tv_account_pr_owe" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_account_pr_owe"
+                />
 
             <TextView
-                android:layout_width="1dp"
-                android:layout_height="0dp"
-                android:background="@color/app_list_background"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="@color/app_list_group_header"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -76,8 +73,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:paddingVertical="8dp"
-            android:background="@color/app_section_background"
+            android:paddingVertical="5dp"
+            android:background="@color/app_title_background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintWidth_percent="0.5"
@@ -91,7 +88,7 @@
                 android:paddingVertical="2dp"
                 android:gravity="end"
                 android:text="@string/option_title_lend"
-                android:textColor="@color/app_sub_line_text"
+                android:textColor="@color/app_title_text"
                 android:textSize="14sp"
                 app:layout_constraintWidth_percent="0.4"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -106,7 +103,7 @@
                 android:paddingVertical="2dp"
                 android:text="@string/amount_zero_with_dollar_sign"
                 android:gravity="start"
-                android:textColor="@color/app_expense_amount"
+                android:textColor="@color/app_expense_amount2"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintWidth_percent="0.6"
@@ -121,7 +118,7 @@
                 android:paddingVertical="2dp"
                 android:gravity="end"
                 android:text="@string/option_title_receive"
-                android:textColor="@color/app_sub_line_text"
+                android:textColor="@color/app_title_text"
                 android:textSize="14sp"
                 app:layout_constraintWidth_percent="0.4"
                 app:layout_constraintTop_toBottomOf="@+id/tv_account_pr_lend" />
@@ -135,7 +132,7 @@
                 android:paddingVertical="2dp"
                 android:singleLine="true"
                 android:text="@string/amount_zero_with_dollar_sign"
-                android:textColor="@color/app_income_amount"
+                android:textColor="@color/app_income_amount2"
                 android:textSize="14sp"
                 android:gravity="start"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -151,7 +148,7 @@
                 android:paddingVertical="2dp"
                 android:gravity="end"
                 android:text="@string/option_title_borrow"
-                android:textColor="@color/app_sub_line_text"
+                android:textColor="@color/app_title_text"
                 android:textSize="14sp"
                 app:layout_constraintWidth_percent="0.4"
                 app:layout_constraintTop_toBottomOf="@+id/tv_account_pr_receive" />
@@ -165,7 +162,7 @@
                 android:paddingVertical="2dp"
                 android:singleLine="true"
                 android:text="@string/amount_zero_with_dollar_sign"
-                android:textColor="@color/app_income_amount"
+                android:textColor="@color/app_income_amount2"
                 android:textSize="14sp"
                 android:gravity="start"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -181,7 +178,7 @@
                 android:paddingVertical="2dp"
                 android:gravity="end"
                 android:text="@string/option_title_pay"
-                android:textColor="@color/app_sub_line_text"
+                android:textColor="@color/app_title_text"
                 android:textSize="14sp"
                 app:layout_constraintWidth_percent="0.4"
                 app:layout_constraintTop_toBottomOf="@+id/tv_account_pr_borrow" />
@@ -196,7 +193,7 @@
                 android:singleLine="true"
                 android:text="@string/amount_zero_with_dollar_sign"
                 android:gravity="start"
-                android:textColor="@color/app_expense_amount"
+                android:textColor="@color/app_expense_amount2"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintWidth_percent="0.6"

@@ -23,7 +23,7 @@
         android:id="@+id/layout_account_credit_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/app_list_background"
+        android:background="@color/app_list_group_header"
         android:paddingStart="5dp"
         android:paddingVertical="5dp"
         android:paddingEnd="5dp"
@@ -142,7 +142,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/app_section_background"
+        android:background="@color/app_list_group_header"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layout_account_credit_info">
 

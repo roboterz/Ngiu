@@ -20,9 +20,9 @@
             android:id="@+id/layout_account_pr_card_view_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/app_list_background"
-            android:paddingTop="1dp"
-            android:paddingBottom="2dp"
+            android:background="@color/app_list_group_header"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
             tools:ignore="MissingConstraints">
 
             <TextView
@@ -32,7 +32,7 @@
                 android:singleLine="true"
                 android:paddingHorizontal="20dp"
                 android:paddingVertical="4dp"
-                android:background="@color/app_section_background"
+                android:background="@color/app_list_group_header"
                 android:textColor="@color/app_option_text"
                 android:textSize="12sp"
                 android:text="06/2021"

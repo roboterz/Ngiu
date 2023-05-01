@@ -6,10 +6,12 @@
     <color name="app_title_background_active">#128CB2</color>
     <color name="app_expense_amount">#EC4B03</color>
     <color name="app_income_amount">#29C010</color>
+    <color name="app_expense_amount2">#F5B7B1</color>
+    <color name="app_income_amount2">#B3F783</color>
     <color name="app_amount">#FF000000</color>
     <color name="app_label_text">#868686</color>
     <color name="app_list_background">#EEEEEE</color>
-    <color name="app_list_group_header">#F9F9F9</color>
+    <color name="app_list_group_header">#F5F5F5</color>
     <color name="app_sub_line_text">#999999</color>
     <color name="app_text">#444444</color>
     <color name="app_button_text">#EC3B03</color>
