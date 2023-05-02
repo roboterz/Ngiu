@@ -95,6 +95,10 @@ class Keyboard(view: View){
         keyboardPanel.visibility = View.GONE
     }
 
+    fun state(): Int{
+        return keyboardPanel.visibility
+    }
+
 
     private fun deleteLastDigit(str: String): String {
         var newStr = (str.toDouble() * 100).toLong().toString()

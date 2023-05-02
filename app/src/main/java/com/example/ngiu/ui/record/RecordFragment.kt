@@ -2,13 +2,16 @@ package com.example.ngiu.ui.record
 
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import android.view.*
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.os.bundleOf
 import androidx.core.view.forEach
 import androidx.core.widget.doAfterTextChanged
@@ -218,7 +221,7 @@ class RecordFragment : Fragment() {
             }
         }
 
-        // date
+        /** date  **/
         tv_record_date.setOnClickListener {
             // date picker
             val date = LocalDate.parse(tv_record_date.text.toString(), DateTimeFormatter.ofPattern("MM/dd/yyyy"))
@@ -237,7 +240,7 @@ class RecordFragment : Fragment() {
 
         }
 
-        // time
+        /** time  **/
         tv_record_time.setOnClickListener {
             // time picker
             val time = LocalTime.parse(tv_record_time.text.toString(), DateTimeFormatter.ofPattern("HH:mm:ss"))
@@ -253,7 +256,7 @@ class RecordFragment : Fragment() {
             }
         }
 
-        // reimburse
+        /** reimburse  **/
         tv_record_reimburse.setOnClickListener {
             // change text
             tv_record_reimburse.text = recordViewModel.setReimbursable(it.context)
@@ -261,7 +264,7 @@ class RecordFragment : Fragment() {
             setReimburseIcon(recordViewModel.transDetail.Transaction_ReimburseStatus)
         }
 
-        // person
+        /** person  **/
         tv_record_person.setOnClickListener {
             val tList: MutableList<String> = ArrayList()
             for (person in recordViewModel.person){
@@ -278,7 +281,7 @@ class RecordFragment : Fragment() {
             recordViewModel.transDetail.Person_Name = tv_record_person.text.toString()
         }
 
-        // Merchant
+        /** Merchant **/
         tv_record_merchant.setOnClickListener {
             val tList: MutableList<String> = ArrayList()
             for (merchant in recordViewModel.merchant){
@@ -296,7 +299,7 @@ class RecordFragment : Fragment() {
         }
 
 
-        // Project
+        /** Project **/
         tv_record_project.setOnClickListener {
             val tList: MutableList<String> = ArrayList()
             for (project in recordViewModel.project){
@@ -314,7 +317,7 @@ class RecordFragment : Fragment() {
         }
 
 
-        //*** touch feedback ***
+        /*** touch feedback ***/
         // other info -- under Memo section
         layout_record_other_info.forEach {
             if (it.tag == "other_info"){
@@ -329,7 +332,7 @@ class RecordFragment : Fragment() {
         }
 
 
-        // all category
+        /** all category  **/
         tv_record_all_category.setOnClickListener{
             when (recordViewModel.transDetail.TransactionType_ID){
                 TRANSACTION_TYPE_EXPENSE, TRANSACTION_TYPE_INCOME ->
@@ -339,7 +342,7 @@ class RecordFragment : Fragment() {
         }
 
 
-        // category
+        /** category name **/
         tv_record_category.setOnClickListener {
             when (recordViewModel.transDetail.TransactionType_ID){
                 TRANSACTION_TYPE_EXPENSE, TRANSACTION_TYPE_INCOME ->
@@ -352,24 +355,25 @@ class RecordFragment : Fragment() {
 //        }
 
 
-        // amount
+        /** Amount **/
         tv_record_amount.setOnClickListener {
-            Keyboard(view).initKeys(tv_record_amount)
-            Keyboard(view).show()
+            tv_record_memo.clearFocus()
+            tv_record_memo.hideSoftKeyboard()
+            callKeyboard(view)
         }
         tv_record_amount.doAfterTextChanged{
             recordViewModel.transDetail.Transaction_Amount = tv_record_amount.text.toString().toDouble()
         }
 
 
-        // swap
+        /** swap **/
         iv_record_swap.setOnClickListener {
             tv_record_account_receive.text = tv_record_account_pay.text.apply { tv_record_account_pay.text = tv_record_account_receive.text }
             recordViewModel.tempSaveOutAccountName = recordViewModel.tempSaveInAccountName.apply { recordViewModel.tempSaveInAccountName = recordViewModel.tempSaveOutAccountName }
         }
 
 
-        // account pay
+        /** account pay **/
         tv_record_account_pay.setOnClickListener {
 
             //showAccountListDialog(view.context, 0L)
@@ -396,7 +400,7 @@ class RecordFragment : Fragment() {
         }
 
 
-        // account receive
+        /** account receive **/
         tv_record_account_receive.setOnClickListener {
 
             if (tv_record_account_receive.text.toString() != getString(R.string.msg_no_account)) {
@@ -422,7 +426,10 @@ class RecordFragment : Fragment() {
         }
 
 
-        // memo
+        /** memo **/
+        tv_record_memo.setOnFocusChangeListener { v, hasFocus ->
+            if (hasFocus) Keyboard(view).hide()
+        }
         tv_record_memo.doAfterTextChanged {
             recordViewModel.transDetail.Transaction_Memo = tv_record_memo.text.toString()
         }
@@ -494,10 +501,11 @@ class RecordFragment : Fragment() {
         }
 
 
-        /*** show data ****/
-
-        // show data
+        /*** show data ***/
         showDataOnUI(transType)
+
+        /** show Keyboard **/
+        if (transID == 0L) callKeyboard(requireView())
     }
 
     private fun setProject() {
@@ -838,6 +846,12 @@ class RecordFragment : Fragment() {
         findNavController().navigate(R.id.navigation_category_manage)
     }*/
 
+    private fun callKeyboard(view: View){
+        if (Keyboard(view).state() != View.VISIBLE) {
+            Keyboard(view).initKeys(tv_record_amount)
+            Keyboard(view).show()
+        }
+    }
 
     @SuppressLint("CutPasteId")
     private fun showAccountListDialog(context: Context, event_ID: Long = 0L){
@@ -869,7 +883,6 @@ class RecordFragment : Fragment() {
 
 
     }
-
 
 
 }

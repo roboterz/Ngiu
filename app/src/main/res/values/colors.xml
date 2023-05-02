@@ -6,7 +6,7 @@
     <color name="app_title_background_active">#128CB2</color>
     <color name="app_expense_amount">#EC4B03</color>
     <color name="app_income_amount">#29C010</color>
-    <color name="app_expense_amount2">#F5B7B1</color>
+    <color name="app_expense_amount2">#EC7063</color>
     <color name="app_income_amount2">#B3F783</color>
     <color name="app_amount">#FF000000</color>
     <color name="app_label_text">#868686</color>
