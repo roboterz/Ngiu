@@ -140,6 +140,7 @@ class RecordFragment : Fragment() {
         // choose items to show
         toolbar_record.menu.findItem(R.id.action_done).isVisible = true
 
+
         // click the navigation Icon in the left side of toolbar
         toolbar_record.setNavigationOnClickListener{
             // call back button event to switch to previous fragment
@@ -270,7 +271,7 @@ class RecordFragment : Fragment() {
             for (person in recordViewModel.person){
                 tList.add(person.Person_Name)
             }
-            popupWindow(requireContext(),getText(R.string.setting_merchant).toString(),  tList.toTypedArray(),
+            popupWindow(requireContext(),getString(R.string.setting_merchant),  tList.toTypedArray(),
                 object : SelectItem {
                     override fun clicked(idx: Int) {
                         tv_record_person.text = tList[idx]
@@ -287,7 +288,7 @@ class RecordFragment : Fragment() {
             for (merchant in recordViewModel.merchant){
                 tList.add(merchant.Merchant_Name)
             }
-            popupWindow(requireContext(),getText(R.string.setting_merchant).toString(),  tList.toTypedArray(),
+            popupWindow(requireContext(),getString(R.string.setting_merchant),  tList.toTypedArray(),
                 object : SelectItem {
                     override fun clicked(idx: Int) {
                         tv_record_merchant.text = tList[idx]
@@ -305,7 +306,7 @@ class RecordFragment : Fragment() {
             for (project in recordViewModel.project){
                 tList.add(project.Project_Name)
             }
-            popupWindow(requireContext(),getText(R.string.setting_merchant).toString(),  tList.toTypedArray(),
+            popupWindow(requireContext(),getString(R.string.setting_merchant),  tList.toTypedArray(),
                 object : SelectItem {
                     override fun clicked(idx: Int) {
                         tv_record_project.text = tList[idx]
@@ -381,7 +382,7 @@ class RecordFragment : Fragment() {
             if (tv_record_account_pay.text.toString() != getString(R.string.msg_no_account)) {
                 // load account name as list and show it in a popup window
                 val nameList: Array<String> = recordViewModel.getListOfAccountName(tv_record_account_receive.text.toString(),true)
-                popupWindow(requireContext(),getText(R.string.setting_merchant).toString(),  nameList,
+                popupWindow(requireContext(),getString(R.string.setting_merchant),  nameList,
                     object : SelectItem {
                         override fun clicked(idx: Int) {
                             tv_record_account_pay.text = nameList[idx]
@@ -406,7 +407,7 @@ class RecordFragment : Fragment() {
             if (tv_record_account_receive.text.toString() != getString(R.string.msg_no_account)) {
                 // load account name as list and show it in a popup window
                 val nameList: Array<String> = recordViewModel.getListOfAccountName(tv_record_account_pay.text.toString(),false)
-                popupWindow(requireContext(),getText(R.string.setting_merchant).toString(),  nameList,
+                popupWindow(requireContext(),getString(R.string.setting_merchant),  nameList,
                     object : SelectItem {
                         override fun clicked(idx: Int) {
                             tv_record_account_receive.text = nameList[idx]
@@ -475,7 +476,7 @@ class RecordFragment : Fragment() {
             // show delete menu
             toolbar_record.menu.findItem(R.id.action_delete).isVisible = true
             // show delete button
-            tv_record_left_button.text = getText(R.string.menu_delete)
+            tv_record_left_button.text = getString(R.string.menu_delete)
 
         }else{
             // set transaction type
@@ -639,10 +640,10 @@ class RecordFragment : Fragment() {
         if (tv_record_amount.text.toString().toDouble() == 0.0) {
             Toast.makeText(
                 context,
-                getText(R.string.msg_cannot_save_with_zero_amount),
+                getString(R.string.msg_cannot_save_with_zero_amount),
                 Toast.LENGTH_SHORT
             ).show()
-            //Snack.make(requireView(), getText(R.string.msg_cannot_save_with_zero_amount), Snack.LENGTH_SHORT).show()
+            //Snack.make(requireView(), getString(R.string.msg_cannot_save_with_zero_amount), Snack.LENGTH_SHORT).show()
             return 1
         }else {
 
@@ -662,14 +663,17 @@ class RecordFragment : Fragment() {
             )
 
             // AccountRecipient ID
-            trans.AccountRecipient_ID = if (recordViewModel.transDetail.TransactionType_ID < TRANSACTION_TYPE_TRANSFER) trans.Account_ID
-                                        else recordViewModel.transDetail.AccountRecipient_ID
+            trans.AccountRecipient_ID = if (recordViewModel.transDetail.TransactionType_ID < TRANSACTION_TYPE_TRANSFER){
+                                            trans.Account_ID
+                                        }else{
+                                            recordViewModel.getAccountID(tv_record_account_receive.text.toString())
+                                        } //recordViewModel.transDetail.AccountRecipient_ID
 
             // check Account ID
             if (trans.Account_ID < 1L || trans.AccountRecipient_ID < 1L) {
                 Toast.makeText(
                     context,
-                    getText(R.string.msg_cannot_save_with_no_account),
+                    getString(R.string.msg_cannot_save_with_no_account),
                     Toast.LENGTH_SHORT
                 ).show()
                 return 1
@@ -683,7 +687,7 @@ class RecordFragment : Fragment() {
                 recordViewModel.addTransaction(requireContext(),trans)
             }
 
-            Toast.makeText(context,getText(R.string.msg_saved),Toast.LENGTH_SHORT).show()
+            Toast.makeText(context,getString(R.string.msg_saved),Toast.LENGTH_SHORT).show()
             return 0
         }
     }
@@ -694,9 +698,9 @@ class RecordFragment : Fragment() {
 
         val dialogBuilder = AlertDialog.Builder(activity)
 
-        dialogBuilder.setMessage(getText(R.string.msg_content_transaction_delete))
+        dialogBuilder.setMessage(getString(R.string.msg_content_transaction_delete))
             .setCancelable(true)
-            .setPositiveButton(getText(R.string.msg_button_confirm)) { _, _ ->
+            .setPositiveButton(getString(R.string.msg_button_confirm)) { _, _ ->
 
                 // delete record
                 val trans = Trans(Transaction_ID = transactionID)
@@ -706,7 +710,7 @@ class RecordFragment : Fragment() {
                 NavHostFragment.findNavController(this).navigateUp()
 
             }
-            .setNegativeButton(getText(R.string.msg_button_cancel)) { dialog, _ ->
+            .setNegativeButton(getString(R.string.msg_button_cancel)) { dialog, _ ->
                 // cancel
                 dialog.cancel()
             }
@@ -714,7 +718,7 @@ class RecordFragment : Fragment() {
         // set Title Style
         val titleView = layoutInflater.inflate(R.layout.popup_title,null)
         // set Title Text
-        titleView.tv_popup_title_text.text = getText(R.string.msg_Title_prompt)
+        titleView.tv_popup_title_text.text = getString(R.string.msg_Title_prompt)
 
         val alert = dialogBuilder.create()
         //alert.setIcon(R.drawable.ic_baseline_delete_forever_24)

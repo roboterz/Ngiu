@@ -347,7 +347,7 @@ class RecordViewModel : ViewModel() {
                         else -> nameList.add(at.Account_Name)
                     }
                 }
-                // Payable|Receivable Account
+            // Payable|Receivable Account
             } else if (transDetail.TransactionType_ID == TRANSACTION_TYPE_DEBIT) {
                 when (transDetail.Category_ID) {
                     // borrow in | received

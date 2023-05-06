@@ -10,8 +10,10 @@ import com.example.ngiu.data.entities.returntype.AccountCount
 import com.example.ngiu.data.entities.returntype.RecordDetail
 import com.example.ngiu.data.entities.returntype.TransactionDetail
 import com.example.ngiu.functions.CATEGORY_LIMIT
+import com.example.ngiu.functions.chart.CategoryAmount
+import java.util.*
 
-// Account
+/** Account **/
 @Dao
 interface AccountDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -133,7 +135,7 @@ interface AccountDao {
 
 }
 
-// Account Type
+/** Account Type **/
 @Dao
 interface AccountTypeDao{
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -162,7 +164,7 @@ interface AccountTypeDao{
     fun updateExpandedValueByID(acctTypeID:Long, value: Boolean)
 }
 
-// Budget
+/** Budget **/
 @Dao
 interface BudgetDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -178,7 +180,7 @@ interface BudgetDao {
     fun getAllBudget(): List<Budget>
 }
 
-// Category
+/** Category **/
 @Dao
 interface CategoryDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -268,7 +270,7 @@ interface CategoryDao {
 
 
 
-// Currency
+/** Currency **/
 @Dao
 interface CurrencyDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -284,7 +286,7 @@ interface CurrencyDao {
     fun getAllCurrency(): List<Currency>
 }
 
-// Person
+/** Person **/
 @Dao
 interface PersonDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -308,7 +310,7 @@ interface PersonDao {
 }
 
 
-//Event
+/** Event **/
 @Dao
 interface EventDao{
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -330,7 +332,7 @@ interface EventDao{
 }
 
 
-//ICON
+/** ICON **/
 @Dao
 interface IconDao{
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -345,7 +347,7 @@ interface IconDao{
 }
 
 
-// Merchant
+/** Merchant **/
 @Dao
 interface MerchantDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -367,7 +369,7 @@ interface MerchantDao {
     fun getAllMerchant(): List<Merchant>
 }
 
-// Period
+/** Period **/
 @Dao
 interface PeriodDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -388,7 +390,7 @@ interface PeriodDao {
     fun getAllPeriodTrans(): List<Period>
 }
 
-// Project
+/** Project **/
 @Dao
 interface ProjectDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -505,7 +507,7 @@ interface ProjectDao {
 //
 //}
 
-// Reward
+/** Reward **/
 @Dao
 interface RewardDao{
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -528,7 +530,7 @@ interface RewardDao{
 
 }
 
-// Transaction
+/** Transaction **/
 @Dao
 interface TransDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -774,9 +776,29 @@ interface TransDao {
         ORDER BY Account_Count DESC
         """)
     fun getCountOfRecipientAccountsByTransactionType(transTypeID: Long): List<AccountCount>
+
+
+    @Transaction
+    @Query("""
+        SELECT Trans.Category_ID, 
+                Category.Category_Name, 
+                SUM(Trans.Transaction_Amount) as Amount, 
+                Category.Category_ParentID, 
+                Trans.TransactionType_ID
+        FROM Trans, Category
+        WHERE Trans.Category_ID = Category.Category_ID
+            AND Trans.TransactionType_ID = :transTypeID
+            AND Trans.Transaction_Date >= :startDate
+            AND Trans.Transaction_Date < :endDate
+            AND Trans.Transaction_ReimburseStatus = 0
+        GROUP BY Trans.Category_ID
+        ORDER BY Amount DESC
+        """)
+    fun getCategoryAmountByTransactionType(transTypeID: Long, startDate: String, endDate: String): MutableList<CategoryAmount>
 }
 
-// Transaction Type
+
+/** Transaction Type **/
 @Dao
 interface TransTypeDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -797,7 +819,7 @@ interface TransTypeDao {
 
 }
 
-// Template
+/** Template **/
 @Dao
 interface TemplateDao{
     @Insert(onConflict = OnConflictStrategy.REPLACE)

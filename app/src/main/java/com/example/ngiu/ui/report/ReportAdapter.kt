@@ -9,10 +9,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
-import android.widget.ImageView
-import android.widget.Switch
-import android.widget.TextView
+import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.TypedArrayUtils.getText
@@ -38,11 +35,12 @@ class ReportAdapter(
     : RecyclerView.Adapter<ReportAdapter.ViewHolder>() {
 
     //
-    private var categoryAmountList: MutableList<CategoryAmount> = ArrayList()
+    var categoryAmountList: MutableList<CategoryAmount> = ArrayList()
+    var totalAmount: Double = 100.0
 
     // interface for passing the onClick event to fragment.
     interface OnClickListener {
-        fun onItemClick(ID: Long, type: Int)
+        fun onItemClick(ID: Long)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -64,17 +62,24 @@ class ReportAdapter(
 
         categoryAmountList[position].apply {
 
-
+            holder.tvCateName.text = Category_Name
+            holder.tvCateAmount.text = "%.2f".format(Amount)
+            //holder.pBar.max = 100
+            holder.pBar.progress = (Amount / totalAmount * 100).toInt()
 
                 //
                 //onClickListener.onItemClick(account_id, type)
+            holder.tvCateName.setOnClickListener{
+                onClickListener.onItemClick(0L)
+            }
 
         }
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setList(list: MutableList<CategoryAmount>){
+    fun setList(list: MutableList<CategoryAmount>, Amount:Double){
         categoryAmountList = list
+        totalAmount = Amount
         notifyDataSetChanged()
     }
 
@@ -86,7 +91,10 @@ class ReportAdapter(
 
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val tvCateName: TextView = itemView.tv_report_name
+        val tvCateName: TextView = itemView.cv_report_name
+        val tvCateAmount: TextView = itemView.cv_report_amount
+        val pBar: ProgressBar = itemView.cv_report_bar
+
 
         //color
         val circleColor = ContextCompat.getColor(itemView.context, R.color.app_sub_line_text)

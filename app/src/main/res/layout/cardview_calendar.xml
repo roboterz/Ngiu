@@ -130,14 +130,14 @@
             android:id="@+id/cv_calendar_hint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:drawableTint="@color/app_icon_light"
             android:text=""
             android:textSize="24sp"
             app:drawableEndCompat="@drawable/ic_baseline_keyboard_arrow_right_24"
-            android:drawableTint="@color/app_icon_light"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            />
+            app:layout_constraintVertical_bias="0.484" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,8 +1,10 @@
 package com.example.ngiu.functions.chart
 
+import android.R.attr
 import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.*
+import android.text.*
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
@@ -256,16 +258,16 @@ class CircleChartView : View {
             val bottom = fontMetrics?.bottom//为基线到字体下边框的距离,即上图中的bottom
             val baseLineY =
                 (mRectFInside.centerY() - top!! / 2 - bottom!! / 2).toInt()//基线中间点的y轴计算公式
-            mPiePaint.textSize = 28f
-            mPiePaint.color = Color.parseColor("#999999")
+            mPiePaint.textSize = 36f
+            mPiePaint.color = Color.parseColor("#868686")
             canvas.drawText(
                 totalText,
                 mRectFInside.centerX(),
-                (baseLineY - 20).toFloat(),
+                (baseLineY - 40).toFloat(),
                 mPiePaint
             )
 
-            mPiePaint.textSize = 28f
+            mPiePaint.textSize = 56f
             mPiePaint.color = Color.parseColor("#555555")
             mPiePaint.typeface = Typeface.create(Typeface.SANS_SERIF, Typeface.BOLD)
             canvas.drawText(
@@ -298,14 +300,27 @@ class CircleChartView : View {
                     canvas.drawCircle(
                         outTextX,
                         outTextY,
-                        DensityUtils.dp2px(context, 22.5f).toFloat(),
+                        DensityUtils.dp2px(context, 23.5f).toFloat(),
                         mPiePaint
                     )
                     //绘制提示内容
-                    mPiePaint.textSize = 23f
-                    mPiePaint.color = Color.BLACK
+                    mPiePaint.textSize = 28f
+                    mPiePaint.color = Color.parseColor("#868686")
                     mPiePaint.typeface = Typeface.create(Typeface.SANS_SERIF, Typeface.BOLD)
-                    canvas.drawText(mPieDataList[i].type, outTextX, outTextY + 5, mPiePaint)
+                    if (mPieDataList[i].type.contains("\n")) {
+                        //多行文本绘制，如果有换行符
+                        val texts = mPieDataList[i].type.split("\n")
+                        var y = outTextY + 0
+                        for (txt in texts){
+                            canvas.drawText(txt, outTextX, y, mPiePaint)
+                            y += mPiePaint.textSize
+                        }
+                    } else {
+                        //单行文本绘制
+                        canvas.drawText(mPieDataList[i].type, outTextX, outTextY + 5, mPiePaint)
+                    }
+
+
                 }
             }
         } else {
@@ -397,9 +412,10 @@ class CircleChartView : View {
      */
     fun setPieDataList(pieDataList: List<PieData>) {
         this.mPieDataList = pieDataList
-        if (mPieSweep == null) {
-            mPieSweep = FloatArray(mPieDataList!!.size)
-        }
+//        if (mPieSweep == null) {
+//            mPieSweep = FloatArray(mPieDataList!!.size)
+//        }
+        mPieSweep = FloatArray(mPieDataList!!.size)
         for (i in pieDataList.indices) {
             mPieSweep!![i] = getProportion(i) * 360
         }
@@ -481,4 +497,6 @@ class CircleChartView : View {
         }
         return mWhich
     }
+
+
 }
