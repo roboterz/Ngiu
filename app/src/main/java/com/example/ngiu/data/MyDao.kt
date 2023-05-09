@@ -785,12 +785,14 @@ interface TransDao {
                 SUM(Trans.Transaction_Amount) as Amount, 
                 Category.Category_ParentID, 
                 Trans.TransactionType_ID
-        FROM Trans, Category
+        FROM Trans, Category, Account
         WHERE Trans.Category_ID = Category.Category_ID
             AND Trans.TransactionType_ID = :transTypeID
             AND Trans.Transaction_Date >= :startDate
             AND Trans.Transaction_Date < :endDate
             AND Trans.Transaction_ReimburseStatus = 0
+            AND Trans.Account_ID = Account.Account_ID
+            AND Account.Account_CountInNetAssets = 1
         GROUP BY Trans.Category_ID
         ORDER BY Amount DESC
         """)
