@@ -1,6 +1,7 @@
 package com.example.ngiu.data.entities.returntype
 
 import java.time.LocalDate
+import java.time.LocalDateTime
 
 data class CalendarDetail(
     var title: String = "",
@@ -14,7 +15,7 @@ data class CalendarDetail(
     //type:3 Event
     var category: String ="",
     var amount: Double =0.0,
-    var date: LocalDate = LocalDate.now(),
+    var date: LocalDateTime = LocalDateTime.now(),
     var mode: Int = 0,
     var memo: String = ""
 )

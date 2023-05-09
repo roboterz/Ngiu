@@ -40,7 +40,7 @@ class CalendarAdapter(
 
     // interface for passing the onClick event to fragment.
     interface OnClickListener {
-        fun onItemClick(ID: Long, type: Int)
+        fun onItemClick(cDetail: CalendarDetail)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -84,7 +84,7 @@ class CalendarAdapter(
                     //account name
                     holder.content.text = "$account_out_name $account_last_four_number"
 
-                    // todo dot color
+                    // dot color
                     holder.dot.setColorFilter(holder.expenseColor)
                     holder.amount.setTextColor(holder.expenseColor)
                 }
@@ -92,8 +92,8 @@ class CalendarAdapter(
                 EVENT_PERIODIC_BILL -> {
                     holder.amount.visibility = View.VISIBLE
                 }
-                //Note
-                EVENT_NOTE -> {
+                //Note, Periodic Note
+                EVENT_NOTE, EVENT_PERIODIC_NOTE -> {
                     //color
                     holder.dot.setColorFilter(holder.eventColor)
 
@@ -126,7 +126,7 @@ class CalendarAdapter(
                     }
 
                     // Note
-                    EVENT_NOTE -> onClickListener.onItemClick(id, type)
+                    EVENT_NOTE, EVENT_PERIODIC_NOTE -> onClickListener.onItemClick(this)
                 }
 
                 //

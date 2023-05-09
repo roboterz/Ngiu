@@ -51,6 +51,12 @@ const val REIMBURSED = 2
 const val EVENT_CREDIT_PAYMENT = 1
 const val EVENT_PERIODIC_BILL = 2
 const val EVENT_NOTE = 3
+const val EVENT_PERIODIC_NOTE = 4
+
+const val EVENT_MODE_EVERY_DAY = 0
+const val EVENT_MODE_EVERY_WEEK = 1
+const val EVENT_MODE_EVERY_MONTH = 2
+const val EVENT_MODE_EVERY_YEAR = 3
 
 // CATEGORY EDIT
 const val ADD_MAIN_CATEGORY = 0

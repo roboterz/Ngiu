@@ -97,6 +97,11 @@
     <string name="option_all">All ></string>
     <string name="option_non_reimbursable">Non-Reimbursable</string>
     <string name="option_reimbursable">Reimbursable</string>
+    <string name="option_every_Day">Every Day</string>
+    <string name="option_every_week">Every Week</string>
+    <string name="option_every_month">Every Month</string>
+    <string name="option_every_year">Every Year</string>
+
     <string name="option_merchant">Merchant</string>
     <string name="option_project">Project</string>
     <string name="option_me">Me</string>
@@ -152,6 +157,8 @@
     <string name="option_title_reminder">Reminder:</string>
     <string name="option_title_consumption_counted">Consumption in Statement Day is Counted in the Current Period</string>
     <string name="option_title_statistical_mode">Statistical Mode:</string>
+    <string name="option_title_end_date">End Date:</string>
+    <string name="option_title_intervals">Intervals:</string>
 
     <string name="category_common">Common</string>
     <string name="category_expense">Expense</string>
@@ -279,6 +286,25 @@
         <item>Reimbursable</item>
         <item>Reimbursed</item>
     </string-array>
+
+    <string-array name="data_period_array">
+        <item>Every Day</item>
+        <item>Every Week</item>
+        <item>Every Month</item>
+        <item>Every Year</item>
+    </string-array>
+
+    <string-array name="data_weeks_name">
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
+    </string-array>
+
+
 
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>

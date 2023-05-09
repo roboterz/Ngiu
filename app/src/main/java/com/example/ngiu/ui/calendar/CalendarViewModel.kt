@@ -70,9 +70,9 @@ class CalendarViewModel : ViewModel() {
                 this.account_last_four_number = acctList[i].Account_CardNumber
                 if (today <= acctList[i].Account_PaymentDay) {
                     this.date =
-                        LocalDate.now().plusDays((acctList[i].Account_PaymentDay - today).toLong())
+                        LocalDateTime.now().plusDays((acctList[i].Account_PaymentDay - today).toLong())
                 } else {
-                    this.date = LocalDate.now().minusDays((today - acctList[i].Account_PaymentDay).toLong())
+                    this.date = LocalDateTime.now().minusDays((today - acctList[i].Account_PaymentDay).toLong())
                         .plusMonths(1)
 
                 }
@@ -88,7 +88,7 @@ class CalendarViewModel : ViewModel() {
                 this.id = eventList[i].Event_ID
                 this.title = eventTitle
                 this.type = EVENT_NOTE
-                this.date = eventList[i].Event_Date.toLocalDate()
+                this.date = eventList[i].Event_Date
                 this.memo = eventList[i].Event_Memo
             }
             calendarDetail.add(cd)
@@ -99,6 +99,7 @@ class CalendarViewModel : ViewModel() {
         calendarDetail.sortBy { it.date }
 
     }
+
 
 
 }
