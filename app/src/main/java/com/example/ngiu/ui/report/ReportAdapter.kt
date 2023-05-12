@@ -5,6 +5,7 @@ import com.example.ngiu.data.entities.Account
 import android.annotation.SuppressLint
 import android.graphics.Paint
 import android.graphics.PorterDuff
+import android.icu.text.NumberFormat
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -40,7 +41,7 @@ class ReportAdapter(
 
     // interface for passing the onClick event to fragment.
     interface OnClickListener {
-        fun onItemClick(ID: Long)
+        fun onItemClick(categoryID: Long)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -64,13 +65,29 @@ class ReportAdapter(
 
             holder.tvCateName.text = Category_Name
             holder.tvCateAmount.text = "%.2f".format(Amount)
+
+            // Progress Bar
+            when (TransactionType_ID){
+                TRANSACTION_TYPE_EXPENSE -> {
+                    holder.pBar.progressDrawable.setTint(holder.expenseColor)
+                }
+                TRANSACTION_TYPE_INCOME -> {
+                    holder.pBar.progressDrawable.setTint(holder.incomeColor)
+                }
+                else ->{}
+            }
+
             //holder.pBar.max = 100
             holder.pBar.progress = (Amount / totalAmount * 100).toInt()
 
-                //
-                //onClickListener.onItemClick(account_id, type)
-            holder.tvCateName.setOnClickListener{
-                onClickListener.onItemClick(0L)
+            // count
+            holder.tvCateCount.text = ""
+
+            // percentage
+            holder.tvCatePercentage.text = NumberFormat.getPercentInstance().format(Amount / totalAmount)
+
+            holder.lyReport.setOnClickListener{
+                onClickListener.onItemClick(Category_ID)
             }
 
         }
@@ -94,14 +111,14 @@ class ReportAdapter(
         val tvCateName: TextView = itemView.cv_report_name
         val tvCateAmount: TextView = itemView.cv_report_amount
         val pBar: ProgressBar = itemView.cv_report_bar
+        val tvCateCount: TextView = itemView.cv_report_count
+        val tvCatePercentage: TextView = itemView.cv_report_percentage
+        val lyReport: ConstraintLayout = itemView.card_view_report
 
 
         //color
-        val circleColor = ContextCompat.getColor(itemView.context, R.color.app_sub_line_text)
         val expenseColor = ContextCompat.getColor(itemView.context, R.color.app_expense_amount)
         val incomeColor = ContextCompat.getColor(itemView.context, R.color.app_income_amount)
-        val amountColor = ContextCompat.getColor(itemView.context, R.color.app_amount)
-        val eventColor = ContextCompat.getColor(itemView.context, R.color.app_title_background)
 
     }
 

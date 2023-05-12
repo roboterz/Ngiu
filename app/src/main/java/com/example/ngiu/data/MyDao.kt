@@ -566,9 +566,8 @@ interface TransDao {
                 AccountRecipient.Account_ID as AccountRecipient_ID, AccountRecipient.Account_Name as AccountRecipient_Name, 
                 Transaction_Amount, Transaction_Amount2, Transaction_Date, Person_Name, Merchant_Name, Transaction_Memo, Project_Name, 
                 Transaction_ReimburseStatus, Period_ID  
-        FROM Trans, TransactionType, Category, Account, Account as AccountRecipient, Person, Merchant, Project
-        WHERE Trans.TransactionType_ID = TransactionType.TransactionType_ID 
-                AND Trans.Category_ID = Category.Category_ID
+        FROM Trans, Category, Account, Account as AccountRecipient, Person, Merchant, Project
+        WHERE Trans.Category_ID = Category.Category_ID
                 And Trans.Account_ID = Account.Account_ID
                 AND Trans.AccountRecipient_ID = AccountRecipient.Account_ID
                 AND Trans.Person_ID = Person.Person_ID
@@ -584,9 +583,8 @@ interface TransDao {
                 AccountRecipient.Account_ID as AccountRecipient_ID, AccountRecipient.Account_Name as AccountRecipient_Name, 
                 Transaction_Amount, Transaction_Amount2, Transaction_Date, Person_Name, Merchant_Name, Transaction_Memo, Project_Name, 
                 Transaction_ReimburseStatus, Period_ID  
-        FROM Trans, TransactionType, Category, Account, Account as AccountRecipient, Person, Merchant, Project
-        WHERE Trans.TransactionType_ID = TransactionType.TransactionType_ID 
-                AND Trans.Category_ID = Category.Category_ID
+        FROM Trans, Category, Account, Account as AccountRecipient, Person, Merchant, Project
+        WHERE Trans.Category_ID = Category.Category_ID
                 And Trans.Account_ID = Account.Account_ID
                 AND Trans.AccountRecipient_ID = AccountRecipient.Account_ID
                 AND Trans.Person_ID = Person.Person_ID
@@ -682,6 +680,26 @@ interface TransDao {
         ORDER BY Transaction_Date DESC
         """)
     fun getTransRecordDetailByAccount(acctID:Long): List<RecordDetail>
+
+    @Transaction
+    @Query("""
+        SELECT Transaction_ID, Trans.TransactionType_ID, Trans.Category_ID, Category_Name, Account.Account_ID, Account.Account_Name, 
+                AccountRecipient.Account_ID as AccountRecipient_ID, AccountRecipient.Account_Name as AccountRecipient_Name, 
+                Transaction_Amount, Transaction_Amount2, Transaction_Date, Person_Name, Merchant_Name, Transaction_Memo, Project_Name, 
+                Transaction_ReimburseStatus, Period_ID  
+        FROM Trans, Category, Account, Account as AccountRecipient, Person, Merchant, Project
+        WHERE Trans.Category_ID = :cateID
+            AND Trans.Transaction_Date >= :startDate
+            AND Trans.Transaction_Date < :endDate
+            AND Trans.Category_ID = Category.Category_ID
+            And Trans.Account_ID = Account.Account_ID
+            AND Trans.AccountRecipient_ID = AccountRecipient.Account_ID
+            AND Trans.Person_ID = Person.Person_ID
+            AND Trans.Merchant_ID = Merchant.Merchant_ID
+            AND Trans.Project_ID = Project.Project_ID
+        ORDER BY Transaction_Date DESC
+        """)
+    fun getTransRecordDetailByCategory(cateID: Long, startDate: String, endDate: String): List<TransactionDetail>
 
     @Transaction
     @Query("""

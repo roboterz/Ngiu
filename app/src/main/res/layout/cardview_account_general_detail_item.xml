@@ -70,7 +70,6 @@
                 android:singleLine="true"
                 android:textColor="@color/app_expense_amount"
                 android:textSize="18sp"
-                android:text="$-100.00"
                 app:layout_constraintStart_toEndOf="@+id/tv_account_general_item_text"
                 app:layout_constraintTop_toTopOf="parent"/>
 
@@ -78,6 +77,7 @@
                 android:id="@+id/tv_account_general_item_time"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:paddingEnd="10dp"
                 android:singleLine="true"
                 android:textColor="@color/app_label_text"
                 android:textSize="12sp"
@@ -89,7 +89,6 @@
                 android:id="@+id/tv_account_general_item_info"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
                 android:singleLine="true"
                 android:textColor="@color/app_label_text"
                 android:textSize="12sp"
@@ -98,17 +97,69 @@
                 app:layout_constraintStart_toEndOf="@+id/tv_account_general_item_time" />
 
             <TextView
+                android:id="@+id/tv_account_general_item_account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:textColor="@color/app_label_text"
+                android:textSize="12sp"
+                android:visibility="gone"
+                app:layout_constraintStart_toEndOf="@id/tv_account_general_item_info"
+                app:layout_constraintTop_toTopOf="@id/tv_account_general_item_info"
+                tools:text="Wallet" />
+
+
+            <TextView
+                android:id="@+id/tv_account_general_item_dot_before_merchant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:textColor="@color/app_label_text"
+                android:textSize="12sp"
+                android:visibility="gone"
+                android:text=" • "
+                app:layout_constraintStart_toEndOf="@id/tv_account_general_item_account"
+                app:layout_constraintTop_toTopOf="@id/tv_account_general_item_account"
+                 />
+
+            <TextView
+                android:id="@+id/tv_account_general_item_merchant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:textColor="@color/app_label_text"
+                android:textSize="12sp"
+                android:visibility="gone"
+                app:layout_constraintStart_toEndOf="@id/tv_account_general_item_dot_before_merchant"
+                app:layout_constraintTop_toTopOf="@id/tv_account_general_item_dot_before_merchant"
+                tools:text="@string/option_merchant" />
+
+            <TextView
+                android:id="@+id/tv_account_general_item_dot_before_memo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:textColor="@color/app_label_text"
+                android:textSize="12sp"
+                android:visibility="gone"
+                android:text=" • "
+                app:layout_constraintStart_toEndOf="@id/tv_account_general_item_merchant"
+                app:layout_constraintTop_toTopOf="@id/tv_account_general_item_merchant"
+                 />
+
+
+            <TextView
                 android:id="@+id/tv_account_general_item_memo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
                 android:singleLine="true"
                 android:textColor="@color/app_label_text"
                 android:textSize="12sp"
                 android:text="memo"
-                app:layout_constraintTop_toBottomOf="@+id/tv_account_general_item_text"
+                android:visibility="invisible"
+                app:layout_constraintTop_toTopOf="@+id/tv_account_general_item_dot_before_memo"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tv_account_general_item_info" />
+                app:layout_constraintStart_toEndOf="@+id/tv_account_general_item_dot_before_memo" />
 
             <TextView
                 android:id="@+id/tv_account_general_item_balance"

@@ -12,9 +12,10 @@ class ReportViewModel: ViewModel(){
     private var categorydata: MutableList<CategoryAmount> = ArrayList()
     private var totalAmount: Double = 0.00
     private var transType: Long = TRANSACTION_TYPE_INCOME
-    private var currentMonth: String = ""
+    private var currentMonthStart: String = ""
+    private var currentMonthEnd: String = ""
 
-    fun loadData(context: Context, transType: Long, startDate: String, endDate: String){
+    fun loadData(context: Context, startDate: String, endDate: String){
 
         categorydata.clear()
         categorydata = AppDatabase.getDatabase(context).trans().
@@ -30,7 +31,12 @@ class ReportViewModel: ViewModel(){
         }
 
         // current month (yyyy-MM-dd)
-        currentMonth = startDate
+        currentMonthStart = startDate
+        currentMonthEnd = endDate
+    }
+
+    fun setTransactionType(transTypeID: Long){
+        transType = transTypeID
     }
 
     fun getCategoryAmount(): MutableList<CategoryAmount>{
@@ -45,7 +51,10 @@ class ReportViewModel: ViewModel(){
         return transType
     }
 
-    fun getCurrentMonth(): String{
-        return currentMonth
+    fun getCurrentMonthStart(): String{
+        return currentMonthStart
+    }
+    fun getCurrentMonthEnd(): String{
+        return currentMonthEnd
     }
 }

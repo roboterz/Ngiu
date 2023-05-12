@@ -1,20 +1,41 @@
 package com.example.ngiu.ui.report
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.MainActivity
 import com.example.ngiu.R
 import com.example.ngiu.databinding.FragmentReportBinding
+import com.example.ngiu.functions.KEY_CATEGORY_MANAGER
+import com.example.ngiu.functions.KEY_CATEGORY_MANAGER_MODE
+import com.example.ngiu.functions.KEY_CATEGORY_MANAGER_TRANSACTION_TYPE
+import com.example.ngiu.functions.KEY_RECORD_CATEGORY
+import com.example.ngiu.functions.KEY_RECORD_CATEGORY_ID
+import com.example.ngiu.functions.KEY_RECORD_END
+import com.example.ngiu.functions.KEY_RECORD_START
+import com.example.ngiu.functions.KEY_REPORT
+import com.example.ngiu.functions.KEY_REPORT_DETAIL
+import com.example.ngiu.functions.KEY_REPORT_DETAIL_CATEGORY_ID
+import com.example.ngiu.functions.KEY_REPORT_DETAIL_END
+import com.example.ngiu.functions.KEY_REPORT_DETAIL_START
+import com.example.ngiu.functions.KEY_REPORT_END
+import com.example.ngiu.functions.KEY_REPORT_START
+import com.example.ngiu.functions.KEY_REPORT_TYPE
 import com.example.ngiu.functions.TRANSACTION_TYPE_EXPENSE
 import com.example.ngiu.functions.TRANSACTION_TYPE_INCOME
 import com.example.ngiu.functions.chart.CategoryAmount
@@ -45,11 +66,22 @@ class ReportFragment : Fragment() {
     private val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-01")
     private val dateMonthFormatter = DateTimeFormatter.ofPattern("yyyy-MM")
 
+    private var startDate: String =""
+    private var endDate: String =""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         (activity as MainActivity).setNavBottomBarVisibility(View.GONE)
+
+        /** receive data from other fragment **/
+        setFragmentResultListener(KEY_REPORT) { _, bundle ->
+            startDate = bundle.getString(KEY_REPORT_START).toString()
+            endDate = bundle.getString(KEY_REPORT_END).toString()
+
+            val transType = bundle.getLong(KEY_REPORT_TYPE)
+            setReportType(transType)
+        }
     }
 
 
@@ -63,28 +95,14 @@ class ReportFragment : Fragment() {
 
         _binding = FragmentReportBinding.inflate(inflater, container, false)
 
-        /** Report Adapter **/
-        Thread {
-            this.activity?.runOnUiThread {
 
-                recyclerview_report.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
-                reportAdapter = this.context?.let {
-                    ReportAdapter(object: ReportAdapter.OnClickListener {
-                        // catch the item click event from adapter
-                        override fun onItemClick(ID: Long) {
-                            // Open/switch to account detail
-                            // todo report item click
-                        }
-                    })
-                }
-
-                recyclerview_report.adapter = reportAdapter
-            }
-        }.start()
 
 
         /** Load Data **/
-        reportViewModel.loadData(requireContext(), TRANSACTION_TYPE_INCOME, LocalDate.now().format(dateFormatter).toString(), LocalDate.now().plusMonths(1).format(dateFormatter).toString() )
+        if (startDate == "") {
+            startDate = LocalDate.now().format(dateFormatter).toString()
+            endDate = LocalDate.now().plusMonths(1).format(dateFormatter).toString()
+        }
 
 
         return binding.root
@@ -94,8 +112,30 @@ class ReportFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+        /** Report Adapter **/
+        Thread {
+            this.activity?.runOnUiThread {
+
+                recyclerview_report.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
+                reportAdapter = this.context?.let {
+                    ReportAdapter(object: ReportAdapter.OnClickListener {
+                        // catch the item click event from adapter
+                        override fun onItemClick(categoryID: Long) {
+
+                            // switch to report detail fragment
+                            switchToReportDetailFragment(view, categoryID, reportViewModel.getCurrentMonthStart(), reportViewModel.getCurrentMonthEnd())
+                        }
+                    })
+                }
+
+                recyclerview_report.adapter = reportAdapter
+            }
+        }.start()
+
+
         // toolbar title
-        toolbar_report.setTitle(R.string.nav_title_report_income)
+        toolbar_report.setTitle(R.string.nav_title_report)
         // show add button
 
         // toolbar menu item clicked
@@ -108,70 +148,28 @@ class ReportFragment : Fragment() {
         }
 
 
-        tv_report_term.text = reportViewModel.getCurrentMonth().dropLast(3)
+        tv_report_income.setOnClickListener{
+            setReportType(TRANSACTION_TYPE_INCOME)
+            showData(view.context, reportViewModel.getCurrentMonthStart(), reportViewModel.getCurrentMonthEnd())
+        }
+        tv_report_expense.setOnClickListener {
+            setReportType(TRANSACTION_TYPE_EXPENSE)
+            showData(view.context, reportViewModel.getCurrentMonthStart(), reportViewModel.getCurrentMonthEnd())
+        }
+
+
+        tv_report_term.text = reportViewModel.getCurrentMonthStart().dropLast(3)
 
         /** Previous Month **/
         tv_report_left.setOnClickListener{
-
-            // load data from database
-            reportViewModel.loadData(requireContext(), reportViewModel.getTransactionType(), getPreviousMonth(reportViewModel.getCurrentMonth(), 1), reportViewModel.getCurrentMonth() )
-
-            // show term
-            tv_report_term.text = reportViewModel.getCurrentMonth().dropLast(3)
-
-
-            // load data to Adapter
-            loadAdapterData()
-
-            // draw chart
-            drawPieChart(
-                "Income",
-                reportViewModel.getTotalAmount(),
-                reportViewModel.getTransactionType(),
-                reportViewModel.getCategoryAmount()
-            )
+            showData(view.context, getPreviousMonth(reportViewModel.getCurrentMonthStart(), 1), reportViewModel.getCurrentMonthStart())
         }
 
 
         /** Next Month **/
         tv_report_right.setOnClickListener{
-
-            // load data from database
-            reportViewModel.loadData(requireContext(), reportViewModel.getTransactionType(),  getNextMonth(reportViewModel.getCurrentMonth(), 1), getNextMonth(reportViewModel.getCurrentMonth(), 2))
-
-            // show term
-            tv_report_term.text = reportViewModel.getCurrentMonth().dropLast(3)
-
-            // load data to Adapter
-            loadAdapterData()
-
-            // draw chart
-            drawPieChart(
-                getChartTypeText(reportViewModel.getTransactionType()),
-                reportViewModel.getTotalAmount(),
-                reportViewModel.getTransactionType(),
-                reportViewModel.getCategoryAmount()
-            )
-
+            showData(view.context, getNextMonth(reportViewModel.getCurrentMonthStart(), 1), getNextMonth(reportViewModel.getCurrentMonthStart(), 2) )
         }
-
-
-
-
-
-
-
-        /************ Pie Chart  ***********/
-        //cateAmountList.add(CategoryAmount(0,"Breakfast", 800.00))
-        drawPieChart(
-            "Income",
-            reportViewModel.getTotalAmount(),
-            reportViewModel.getTransactionType(),
-            reportViewModel.getCategoryAmount()
-        )
-
-
-
 
     }
 
@@ -181,8 +179,8 @@ class ReportFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        /** load Adapter Data **/
-        loadAdapterData()
+        showData(requireContext(), startDate, endDate)
+
     }
 
 
@@ -197,18 +195,47 @@ class ReportFragment : Fragment() {
  *  ************* Private Functions *****************
 */
 
+    private fun showData(context: Context, start: String, end: String ){
+
+        /** load data to ram **/
+        reportViewModel.loadData(context, start, end)
+
+        // show term
+        tv_report_term.text = reportViewModel.getCurrentMonthStart().dropLast(3)
+
+
+        /** load Adapter Data **/
+        loadAdapterData()
+
+        /************ Pie Chart  ***********/
+        // draw chart
+        drawPieChart(
+            getChartTypeText(reportViewModel.getTransactionType()),
+            reportViewModel.getTotalAmount(),
+            reportViewModel.getTransactionType(),
+            reportViewModel.getCategoryAmount()
+        )
+    }
+
+    private fun setReportType(transType: Long){
+        when (transType){
+            TRANSACTION_TYPE_INCOME -> {
+                tv_report_income.setTextColor(ContextCompat.getColor(requireContext(), R.color.app_title_text))
+                tv_report_expense.setTextColor(ContextCompat.getColor(requireContext(), R.color.app_title_text_inactive))
+            }
+            TRANSACTION_TYPE_EXPENSE -> {
+                tv_report_income.setTextColor(ContextCompat.getColor(requireContext(), R.color.app_title_text_inactive))
+                tv_report_expense.setTextColor(ContextCompat.getColor(requireContext(), R.color.app_title_text))
+            }
+        }
+        reportViewModel.setTransactionType(transType)
+    }
 
     private fun getChartTypeText(transactionType: Long): String {
-        when (transactionType){
-            TRANSACTION_TYPE_EXPENSE -> {
-                return getString(R.string.category_expense)
-            }
-            TRANSACTION_TYPE_INCOME -> {
-                return getString(R.string.category_income)
-            }
-            else -> {
-                return ""
-            }
+        return when (transactionType){
+            TRANSACTION_TYPE_EXPENSE -> getString(R.string.category_expense)
+            TRANSACTION_TYPE_INCOME -> getString(R.string.category_income)
+            else -> ""
         }
     }
 
@@ -311,5 +338,19 @@ class ReportFragment : Fragment() {
         }
     }
 
+    fun switchToReportDetailFragment(view: View, cateID: Long, startDate: String, endDate: String) {
+
+        // Put Data Before switch
+        setFragmentResult(
+            KEY_REPORT_DETAIL, bundleOf(
+                KEY_REPORT_DETAIL_CATEGORY_ID to cateID,
+                KEY_REPORT_DETAIL_START to startDate,
+                KEY_REPORT_DETAIL_END to endDate
+            )
+        )
+
+        // switch to category manage fragment
+        view.findNavController().navigate(R.id.navigation_report_detail)
+    }
 }
 

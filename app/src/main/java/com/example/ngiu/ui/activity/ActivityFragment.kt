@@ -10,7 +10,6 @@ import androidx.navigation.fragment.findNavController
 import com.example.ngiu.MainActivity
 import com.example.ngiu.R
 import com.example.ngiu.databinding.FragmentActivityBinding
-import com.example.ngiu.functions.KEY_RECORD_TRANSACTION_ID
 import com.example.ngiu.functions.switchToRecordFragment
 import kotlinx.android.synthetic.main.fragment_activity.*
 

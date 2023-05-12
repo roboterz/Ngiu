@@ -19,12 +19,63 @@
         app:titleCentered="true"
         tools:ignore="MissingConstraints"/>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ly_report_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0.01dp"
+        android:background="@color/app_title_background"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_report"
+        >
+
+        <TextView
+            android:id="@+id/tv_report_income"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:paddingVertical="5dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:singleLine="true"
+            android:textColor="@color/app_title_text"
+            android:gravity="center"
+            android:text="@string/option_income"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_percent="0.499"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@color/app_list_group_header"
+            app:layout_constraintStart_toEndOf="@+id/tv_report_income"
+            app:layout_constraintEnd_toStartOf="@+id/tv_report_expense"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/tv_report_expense"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:paddingVertical="5dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:singleLine="true"
+            android:textColor="@color/app_title_text_inactive"
+            android:gravity="center"
+            android:text="@string/option_expense"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintWidth_percent="0.499"
+            />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ly_report_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_report"
+        app:layout_constraintTop_toBottomOf="@id/ly_report_type"
         >
 
         <TextView

@@ -22,7 +22,9 @@ import com.example.ngiu.data.entities.returntype.CalendarDetail
 import com.example.ngiu.functions.*
 import kotlinx.android.synthetic.main.cardview_calendar.view.*
 import kotlinx.android.synthetic.main.cardview_transaction.view.*
+import org.w3c.dom.Text
 import java.time.DayOfWeek
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -69,6 +71,10 @@ class CalendarAdapter(
                 if (date == calendarDetail[position - 1].date){
                     holder.monthDay.text = ""
                 }
+            }
+
+            if (date.year > LocalDate.now().year){
+                holder.tvYear.text = date.year.toString()
             }
 
             //title
@@ -151,12 +157,14 @@ class CalendarAdapter(
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val monthDay: TextView = itemView.cv_calendar_tv_month_day
+        val tvYear: TextView = itemView.cv_calendar_tv_year
         val content: TextView = itemView.cv_calendar_tv_content
         val amount: TextView = itemView.cv_calendar_tv_amount
         val aItem: ConstraintLayout = itemView.layout_calendar_item
         //val cbox: CheckBox = itemView.cv_calendar_checkBox
         val dot: ImageView = itemView.cv_calendar_img_circle
         val eventTitle: TextView = itemView.cv_calendar_tv_event
+
 
 
         //icon

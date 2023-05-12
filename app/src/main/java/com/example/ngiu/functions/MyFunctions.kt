@@ -1,6 +1,5 @@
 package com.example.ngiu.functions
 
-import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
@@ -16,20 +15,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.navigation.findNavController
 import com.example.ngiu.R
-import com.example.ngiu.data.AppDatabase
 import com.example.ngiu.data.entities.Trans
-import com.example.ngiu.ui.activity.ActivityListAdapter
-import com.example.ngiu.ui.reimburse.fragment_reimburse
-import com.google.android.gms.dynamic.SupportFragmentWrapper
 import com.google.android.material.textfield.TextInputEditText
-import kotlinx.android.synthetic.main.fragment_record.*
 import kotlinx.android.synthetic.main.popup_title.view.*
-import java.io.File
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
-import kotlin.coroutines.coroutineContext
-import kotlin.math.abs
 
 
 class MyFunctions {
