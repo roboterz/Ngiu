@@ -572,7 +572,9 @@ class RecordFragment : Fragment() {
         tv_record_date.text = recordViewModel.transDetail.Transaction_Date.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"))
         tv_record_time.text = recordViewModel.transDetail.Transaction_Date.format(DateTimeFormatter.ofPattern("HH:mm:ss"))
         // memo
-        tv_record_memo.setText(recordViewModel.transDetail.Transaction_Memo)
+        if (recordViewModel.transDetail.Transaction_Memo.isNotEmpty()){
+            tv_record_memo.setText(recordViewModel.transDetail.Transaction_Memo)
+        }
         // person
         tv_record_person.text = recordViewModel.transDetail.Person_Name
         // merchant
