@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/app_select_item"
     tools:context=".ui.report.ReportFragment">
 
     <androidx.appcompat.widget.Toolbar
@@ -75,6 +76,7 @@
         android:id="@+id/ly_report_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/app_section_background"
         app:layout_constraintTop_toBottomOf="@id/ly_report_type"
         >
 
@@ -124,6 +126,7 @@
         android:id="@+id/ly_report_chart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/app_section_background"
         app:layout_constraintTop_toBottomOf="@id/ly_report_date"
         >
 
