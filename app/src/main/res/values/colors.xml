@@ -31,26 +31,26 @@
     <color name="keyboard_frame">#888888</color>
 
 
-    <color name="chart_expense_color_0">#128CB2</color>
-    <color name="chart_expense_color_1">#4CB9DB</color>
-    <color name="chart_expense_color_2">#82EEFD</color>
-    <color name="chart_expense_color_3">#52B2BF</color>
-    <color name="chart_expense_color_4">#0492C2</color>
-    <color name="chart_expense_color_5">#0077B6</color>
-    <color name="chart_expense_color_6">#63C5DA</color>
-    <color name="chart_expense_color_7">#1E90FF</color>
-    <color name="chart_expense_color_8">#2C70A0</color>
-    <color name="chart_expense_color_9">#0084D8</color>
+    <color name="chart_expense_color_0">#B22222</color>
+    <color name="chart_expense_color_1">#EC3B03</color>
+    <color name="chart_expense_color_2">#FC7676</color>
+    <color name="chart_expense_color_3">#FFCBCB</color>
+    <color name="chart_expense_color_4">#FA8072</color>
+    <color name="chart_expense_color_5">#FFCBCB</color>
+    <color name="chart_expense_color_6">#FA8072</color>
+    <color name="chart_expense_color_7">#FFCBCB</color>
+    <color name="chart_expense_color_8">#FC7676</color>
+    <color name="chart_expense_color_9">#EC3B03</color>
 
-    <color name="chart_income_color_0">#128CB2</color>
-    <color name="chart_income_color_1">#4CB9DB</color>
-    <color name="chart_income_color_2">#82EEFD</color>
-    <color name="chart_income_color_3">#52B2BF</color>
-    <color name="chart_income_color_4">#0492C2</color>
-    <color name="chart_income_color_5">#0077B6</color>
-    <color name="chart_income_color_6">#63C5DA</color>
-    <color name="chart_income_color_7">#1E90FF</color>
-    <color name="chart_income_color_8">#2C70A0</color>
-    <color name="chart_income_color_9">#0084D8</color>
+    <color name="chart_income_color_0">#387C44</color>
+    <color name="chart_income_color_1">#6AA121</color>
+    <color name="chart_income_color_2">#B2C248</color>
+    <color name="chart_income_color_3">#6CBB3C</color>
+    <color name="chart_income_color_4">#41A317</color>
+    <color name="chart_income_color_5">#728C00</color>
+    <color name="chart_income_color_6">#4AA02C</color>
+    <color name="chart_income_color_7">#99C68E</color>
+    <color name="chart_income_color_8">#3EA055</color>
+    <color name="chart_income_color_9">#85BB65</color>
 
 </resources>

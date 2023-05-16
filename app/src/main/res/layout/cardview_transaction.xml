@@ -169,7 +169,8 @@
             android:textColor="@color/app_label_text"
             android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@id/tvTrans_period"
-            app:layout_constraintTop_toTopOf="@id/tvTrans_period"
+            app:layout_constraintTop_toTopOf="@id/tvTrans_time"
+            app:layout_constraintBottom_toBottomOf="@+id/tvTrans_time"
             tools:text="Fee" />
 
         <TextView

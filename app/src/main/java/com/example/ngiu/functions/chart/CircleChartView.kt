@@ -31,7 +31,7 @@ class CircleChartView : View {
     private val mRadiusInsideCover = DensityUtils.dp2px(context, 55f).toFloat()
 
     //圆和view边框距离
-    private val TOFRAME = DensityUtils.dp2px(context, 40f).toFloat()
+    private val toFrame = DensityUtils.dp2px(context, 40f).toFloat()
 
     //构成饼状图的数据集合
     private var mPieDataList: List<PieData> = ArrayList()
@@ -40,7 +40,7 @@ class CircleChartView : View {
     private var mPieSweep: FloatArray? = null
 
     //初始画弧所在的角度
-    private val START_DEGREE = -90
+    private val startDegree = -90
     private var animPro: Float = 0.toFloat()
     private var isStartAnim = true
 
@@ -98,20 +98,20 @@ class CircleChartView : View {
      * 初始化绘制弧形所在矩形的四点坐标
      */
     private fun initRectFCover() {
-        mRectFCover.left = TOFRAME - 1
-        mRectFCover.top = TOFRAME - 1
-        mRectFCover.right = 2 * mRadiusOne + TOFRAME + 1f
-        mRectFCover.bottom = 2 * mRadiusOne + TOFRAME + 1f
+        mRectFCover.left = toFrame - 1
+        mRectFCover.top = toFrame - 1
+        mRectFCover.right = 2 * mRadiusOne + toFrame + 1f
+        mRectFCover.bottom = 2 * mRadiusOne + toFrame + 1f
     }
 
     /**
      * 初始化绘制弧形所在矩形的四点坐标
      */
     private fun initRectF() {
-        mRectFOne.left = TOFRAME
-        mRectFOne.top = TOFRAME
-        mRectFOne.right = 2 * mRadiusOne + TOFRAME
-        mRectFOne.bottom = 2 * mRadiusOne + TOFRAME
+        mRectFOne.left = toFrame
+        mRectFOne.top = toFrame
+        mRectFOne.right = 2 * mRadiusOne + toFrame
+        mRectFOne.bottom = 2 * mRadiusOne + toFrame
     }
 
 
@@ -119,22 +119,22 @@ class CircleChartView : View {
      * 选中圆
      */
     private fun initSelectRectF() {
-        mRectFSelect.left = TOFRAME - DensityUtils.dp2px(context, 5f)
-        mRectFSelect.top = TOFRAME - DensityUtils.dp2px(context, 5f)
-        mRectFSelect.right = 2 * mRadiusTwo + TOFRAME - DensityUtils.dp2px(context, 5f)
-        mRectFSelect.bottom = 2 * mRadiusTwo + TOFRAME - DensityUtils.dp2px(context, 5f)
+        mRectFSelect.left = toFrame - DensityUtils.dp2px(context, 5f)
+        mRectFSelect.top = toFrame - DensityUtils.dp2px(context, 5f)
+        mRectFSelect.right = 2 * mRadiusTwo + toFrame - DensityUtils.dp2px(context, 5f)
+        mRectFSelect.bottom = 2 * mRadiusTwo + toFrame - DensityUtils.dp2px(context, 5f)
     }
 
     /**
      * 内部圆
      */
     private fun initInsideSelectRectF() {
-        mRectFInside.left = TOFRAME + DensityUtils.dp2px(context, 33f)
-        mRectFInside.top = TOFRAME + DensityUtils.dp2px(context, 33f)
+        mRectFInside.left = toFrame + DensityUtils.dp2px(context, 33f)
+        mRectFInside.top = toFrame + DensityUtils.dp2px(context, 33f)
         mRectFInside.right =
-            2 * mRadiusInside + TOFRAME + DensityUtils.dp2px(context, 33f).toFloat()
+            2 * mRadiusInside + toFrame + DensityUtils.dp2px(context, 33f).toFloat()
         mRectFInside.bottom =
-            2 * mRadiusInside + TOFRAME + DensityUtils.dp2px(context, 33f).toFloat()
+            2 * mRadiusInside + toFrame + DensityUtils.dp2px(context, 33f).toFloat()
     }
 
     fun setTotalText(totalText: String) {
@@ -164,9 +164,9 @@ class CircleChartView : View {
         setLayerType(View.LAYER_TYPE_SOFTWARE, null)
         if (!mPieDataList.isEmpty()) {
             //起始是从-90°位置开始画
-            var pieStartOne = START_DEGREE.toFloat()
-            var pieStartTwo = START_DEGREE.toFloat()
-            var pieStartInside = START_DEGREE.toFloat()
+            var pieStartOne = startDegree.toFloat()
+            var pieStartTwo = startDegree.toFloat()
+            var pieStartInside = startDegree.toFloat()
             if (mPieSweep == null) {
                 mPieSweep = FloatArray(mPieDataList.size)
             }
@@ -191,8 +191,8 @@ class CircleChartView : View {
 
             mPiePaint.color = Color.parseColor("#ffffff")//白色
             canvas.drawCircle(
-                mRadiusOne + TOFRAME,
-                mRadiusOne + TOFRAME,
+                mRadiusOne + toFrame,
+                mRadiusOne + toFrame,
                 mRadiusOneCover,
                 mPiePaint
             )
@@ -216,8 +216,8 @@ class CircleChartView : View {
 
             mPiePaint.color = Color.parseColor("#ffffff")//白色
             canvas.drawCircle(
-                mRadiusOne + TOFRAME,
-                mRadiusOne + TOFRAME,
+                mRadiusOne + toFrame,
+                mRadiusOne + toFrame,
                 mRadiusTwoCover,
                 mPiePaint
             )
@@ -235,8 +235,8 @@ class CircleChartView : View {
 
             mPiePaint.color = Color.parseColor("#ffffff")//白色
             canvas.drawCircle(
-                mRadiusOne + TOFRAME,
-                mRadiusOne + TOFRAME,
+                mRadiusOne + toFrame,
+                mRadiusOne + toFrame,
                 mRadiusInsideCover,
                 mPiePaint
             )
@@ -332,7 +332,7 @@ class CircleChartView : View {
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        val length = (2 * (mRadiusOne + TOFRAME)).toInt()
+        val length = (2 * (mRadiusOne + toFrame)).toInt()
         setMeasuredDimension(length, length)
     }
 
@@ -345,42 +345,42 @@ class CircleChartView : View {
         if (a < 90) {
             //右上部
             outTextX =
-                mRadiusTwo + TOFRAME + (mRadiusTwo * Math.sin(java.lang.Double.parseDouble(((a / 360).toDouble() * 2.0 * Math.PI).toString()))).toFloat()
+                mRadiusTwo + toFrame + (mRadiusTwo * Math.sin(java.lang.Double.parseDouble(((a / 360).toDouble() * 2.0 * Math.PI).toString()))).toFloat()
             outTextY =
-                mRadiusTwo + TOFRAME - (mRadiusTwo * Math.cos(java.lang.Double.parseDouble(((a / 360).toDouble() * 2.0 * Math.PI).toString()))).toFloat() - 40f
+                mRadiusTwo + toFrame - (mRadiusTwo * Math.cos(java.lang.Double.parseDouble(((a / 360).toDouble() * 2.0 * Math.PI).toString()))).toFloat() - 40f
         } else if (a == 90f) {
             outTextX =
-                mRadiusTwo + TOFRAME + (mRadiusTwo * Math.sin(java.lang.Double.parseDouble(((a / 360).toDouble() * 2.0 * Math.PI).toString()))).toFloat() + 10f
+                mRadiusTwo + toFrame + (mRadiusTwo * Math.sin(java.lang.Double.parseDouble(((a / 360).toDouble() * 2.0 * Math.PI).toString()))).toFloat() + 10f
             outTextY =
-                mRadiusTwo + TOFRAME - (mRadiusTwo * Math.cos(java.lang.Double.parseDouble(((a / 360).toDouble() * 2.0 * Math.PI).toString()))).toFloat()
+                mRadiusTwo + toFrame - (mRadiusTwo * Math.cos(java.lang.Double.parseDouble(((a / 360).toDouble() * 2.0 * Math.PI).toString()))).toFloat()
         } else if (a < 180) {
             //右下
             outTextX =
-                mRadiusTwo + TOFRAME + (mRadiusTwo * Math.sin(java.lang.Double.parseDouble(((a / 360).toDouble() * 2.0 * Math.PI).toString()))).toFloat() + 10f
+                mRadiusTwo + toFrame + (mRadiusTwo * Math.sin(java.lang.Double.parseDouble(((a / 360).toDouble() * 2.0 * Math.PI).toString()))).toFloat() + 10f
             outTextY =
-                mRadiusTwo + TOFRAME - (mRadiusTwo * Math.cos(java.lang.Double.parseDouble(((a / 360).toDouble() * 2.0 * Math.PI).toString()))).toFloat() + 10
+                mRadiusTwo + toFrame - (mRadiusTwo * Math.cos(java.lang.Double.parseDouble(((a / 360).toDouble() * 2.0 * Math.PI).toString()))).toFloat() + 10
         } else if (a == 180f) {
             outTextX =
-                mRadiusTwo + TOFRAME + (mRadiusTwo * Math.sin(java.lang.Double.parseDouble(((a / 360).toDouble() * 2.0 * Math.PI).toString()))).toFloat() - 20
+                mRadiusTwo + toFrame + (mRadiusTwo * Math.sin(java.lang.Double.parseDouble(((a / 360).toDouble() * 2.0 * Math.PI).toString()))).toFloat() - 20
             outTextY =
-                mRadiusTwo + TOFRAME - (mRadiusTwo * Math.cos(java.lang.Double.parseDouble(((a / 360).toDouble() * 2.0 * Math.PI).toString()))).toFloat() + 10
+                mRadiusTwo + toFrame - (mRadiusTwo * Math.cos(java.lang.Double.parseDouble(((a / 360).toDouble() * 2.0 * Math.PI).toString()))).toFloat() + 10
         } else if (a < 270) {
             //左下
             outTextX =
-                mRadiusTwo + TOFRAME + (mRadiusTwo * Math.sin(java.lang.Double.parseDouble(((a / 360).toDouble() * 2.0 * Math.PI).toString()))).toFloat() - 30
+                mRadiusTwo + toFrame + (mRadiusTwo * Math.sin(java.lang.Double.parseDouble(((a / 360).toDouble() * 2.0 * Math.PI).toString()))).toFloat() - 30
             outTextY =
-                mRadiusTwo + TOFRAME - (mRadiusTwo * Math.cos(java.lang.Double.parseDouble(((a / 360).toDouble() * 2.0 * Math.PI).toString()))).toFloat() + 20
+                mRadiusTwo + toFrame - (mRadiusTwo * Math.cos(java.lang.Double.parseDouble(((a / 360).toDouble() * 2.0 * Math.PI).toString()))).toFloat() + 20
         } else if (a == 270f) {
             outTextX =
-                mRadiusTwo + TOFRAME + (mRadiusTwo * Math.sin(java.lang.Double.parseDouble(((a / 360).toDouble() * 2.0 * Math.PI).toString()))).toFloat() - 60
+                mRadiusTwo + toFrame + (mRadiusTwo * Math.sin(java.lang.Double.parseDouble(((a / 360).toDouble() * 2.0 * Math.PI).toString()))).toFloat() - 60
             outTextY =
-                mRadiusTwo + TOFRAME - (mRadiusTwo * Math.cos(java.lang.Double.parseDouble(((a / 360).toDouble() * 2.0 * Math.PI).toString()))).toFloat()
+                mRadiusTwo + toFrame - (mRadiusTwo * Math.cos(java.lang.Double.parseDouble(((a / 360).toDouble() * 2.0 * Math.PI).toString()))).toFloat()
         } else if (a < 360) {
             //左上
             outTextX =
-                mRadiusTwo + TOFRAME + (mRadiusTwo * Math.sin(java.lang.Double.parseDouble(((a / 360).toDouble() * 2.0 * Math.PI).toString()))).toFloat() - 40
+                mRadiusTwo + toFrame + (mRadiusTwo * Math.sin(java.lang.Double.parseDouble(((a / 360).toDouble() * 2.0 * Math.PI).toString()))).toFloat() - 40
             outTextY =
-                mRadiusTwo + TOFRAME - (mRadiusTwo * Math.cos(java.lang.Double.parseDouble(((a / 360).toDouble() * 2.0 * Math.PI).toString()))).toFloat() + 10
+                mRadiusTwo + toFrame - (mRadiusTwo * Math.cos(java.lang.Double.parseDouble(((a / 360).toDouble() * 2.0 * Math.PI).toString()))).toFloat() + 10
         }
     }
 
@@ -451,7 +451,7 @@ class CircleChartView : View {
         var mWhich = 1000//错误码
         var a = 0.0//与-90的夹角
         var sum = 0f//所占比例和
-        val newRadius = mRadiusOne + TOFRAME//用来参与计算的半径+间距
+        val newRadius = mRadiusOne + toFrame//用来参与计算的半径+间距
         //在圆内
         if (Math.pow((x - newRadius).toDouble(), 2.0) + Math.pow(
                 (y - newRadius).toDouble(),

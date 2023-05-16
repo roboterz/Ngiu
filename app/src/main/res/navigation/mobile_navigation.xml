@@ -132,4 +132,9 @@
         android:name="com.example.ngiu.ui.report.ReportDetailFragment"
         tools:layout="@layout/fragment_report_detail" />
 
+    <fragment
+        android:id="@+id/navigation_reimburse"
+        android:name="com.example.ngiu.ui.reimburse.ReimburseFragment"
+        tools:layout="@layout/fragment_reimburse" />
+
 </navigation>

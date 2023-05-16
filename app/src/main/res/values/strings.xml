@@ -13,6 +13,7 @@
 
     <string name="nav_title_setting">Settings</string>
     <string name="nav_title_report">Report</string>
+    <string name="nav_title_reimburse">Reimburses Management</string>
     <string name="nav_title_report_expenditure">Expenditure Report</string>
     <string name="nav_title_report_income">Income Report</string>
     <string name="nav_title_account_list">Accounts</string>
@@ -95,6 +96,7 @@
     <string name="option_budget_balance">Budget Balance:</string>
     <string name="option_common_category">Common Category</string>
     <string name="option_all">All ></string>
+    <string name="option_select_all">Select All</string>
     <string name="option_non_reimbursable">Non-Reimbursable</string>
     <string name="option_reimbursable">Reimbursable</string>
     <string name="option_every_Day">Every Day</string>
@@ -107,6 +109,7 @@
     <string name="option_me">Me</string>
     <string name="option_save">Save</string>
     <string name="option_save_next">Save &amp; Next</string>
+    <string name="option_claim">Claim</string>
     <string name="option_enter">Enter</string>
     <string name="option_transfer">Transfer</string>
     <string name="option_repayment">Repayment</string>
@@ -159,6 +162,8 @@
     <string name="option_title_statistical_mode">Statistical Mode:</string>
     <string name="option_title_end_date">End Date:</string>
     <string name="option_title_intervals">Intervals:</string>
+    <string name="option_title_total_amount">Total Amount:</string>
+    <string name="option_title_transfer_to">Transfer To:</string>
 
     <string name="category_common">Common</string>
     <string name="category_expense">Expense</string>
@@ -225,6 +230,10 @@
     <string name="msg_name_add_error">This name cannot be add cause some unknown reason.</string>
     <string name="msg_name_edit_error">This name cannot be edit cause some unknown reason.</string>
     <string name="msg_no_account">No Account</string>
+    <string name="msg_total">Total</string>
+    <string name="msg_transaction">transactions</string>
+    <string name="msg_claimed">Claimed</string>
+    <string name="msg_from">from</string>
 
     <string name="msg_completed">Completed.</string>
     <string name="msg_error">Error.</string>

@@ -14,7 +14,7 @@
             android:paddingTop="10dp"
             android:paddingBottom="15dp"
             android:textSize="20sp"
-            android:text="Reminder"
+            android:text="@string/option_reminder"
             android:gravity="center"
             android:background="@color/app_title_background"
             app:layout_constraintTop_toTopOf="parent"

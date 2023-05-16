@@ -93,8 +93,6 @@ class RecordFragment : Fragment() {
 
 
 
-        // 初始化Cate
-
         /******* Common Category  *******/
 
         Thread {
@@ -382,13 +380,10 @@ class RecordFragment : Fragment() {
             if (tv_record_account_pay.text.toString() != getString(R.string.msg_no_account)) {
                 // load account name as list and show it in a popup window
                 val nameList: Array<String> = recordViewModel.getListOfAccountName(tv_record_account_receive.text.toString(),true)
-                popupWindow(requireContext(),getString(R.string.setting_merchant),  nameList,
+                popupWindow(requireContext(),getString(R.string.nav_title_account_list),  nameList,
                     object : SelectItem {
                         override fun clicked(idx: Int) {
                             tv_record_account_pay.text = nameList[idx]
-                            recordViewModel.setAccountName(
-                                recordViewModel.transDetail.TransactionType_ID,
-                                tv_record_account_pay.text.toString())
                         }
                     })
             }else{
@@ -407,7 +402,7 @@ class RecordFragment : Fragment() {
             if (tv_record_account_receive.text.toString() != getString(R.string.msg_no_account)) {
                 // load account name as list and show it in a popup window
                 val nameList: Array<String> = recordViewModel.getListOfAccountName(tv_record_account_pay.text.toString(),false)
-                popupWindow(requireContext(),getString(R.string.setting_merchant),  nameList,
+                popupWindow(requireContext(),getString(R.string.nav_title_account_list),  nameList,
                     object : SelectItem {
                         override fun clicked(idx: Int) {
                             tv_record_account_receive.text = nameList[idx]

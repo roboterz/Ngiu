@@ -158,19 +158,27 @@
                 android:text="memo"
                 android:visibility="invisible"
                 app:layout_constraintTop_toTopOf="@+id/tv_account_general_item_dot_before_memo"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tv_account_general_item_check"
                 app:layout_constraintStart_toEndOf="@+id/tv_account_general_item_dot_before_memo" />
 
             <TextView
                 android:id="@+id/tv_account_general_item_balance"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
                 android:textColor="@color/app_option_text"
                 android:textSize="18sp"
                 app:layout_constraintTop_toTopOf="@+id/tv_account_general_item_text"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tv_account_general_item_check"
                 tools:text="$15.75" />
+
+
+            <CheckBox
+                android:id="@+id/tv_account_general_item_check"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

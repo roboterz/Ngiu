@@ -542,6 +542,7 @@ interface TransDao {
     @Delete
     fun deleteTransaction(trans: Trans)
 
+
     // get a record BY ID
     @Transaction
     @Query("SELECT * FROM Trans WHERE Transaction_ID = :transID")
@@ -564,7 +565,7 @@ interface TransDao {
     @Query("""
         SELECT Transaction_ID, Trans.TransactionType_ID, Trans.Category_ID, Category_Name, Account.Account_ID, Account.Account_Name, 
                 AccountRecipient.Account_ID as AccountRecipient_ID, AccountRecipient.Account_Name as AccountRecipient_Name, 
-                Transaction_Amount, Transaction_Amount2, Transaction_Date, Person_Name, Merchant_Name, Transaction_Memo, Project_Name, 
+                Transaction_Amount, Transaction_Amount2, Transaction_Date, Trans.Person_ID, Person_Name, Trans.Merchant_ID, Merchant_Name, Transaction_Memo, Trans.Project_ID, Project_Name, 
                 Transaction_ReimburseStatus, Period_ID  
         FROM Trans, Category, Account, Account as AccountRecipient, Person, Merchant, Project
         WHERE Trans.Category_ID = Category.Category_ID
@@ -581,7 +582,7 @@ interface TransDao {
     @Query("""
         SELECT Transaction_ID, Trans.TransactionType_ID, Trans.Category_ID, Category_Name, Account.Account_ID, Account.Account_Name, 
                 AccountRecipient.Account_ID as AccountRecipient_ID, AccountRecipient.Account_Name as AccountRecipient_Name, 
-                Transaction_Amount, Transaction_Amount2, Transaction_Date, Person_Name, Merchant_Name, Transaction_Memo, Project_Name, 
+                Transaction_Amount, Transaction_Amount2, Transaction_Date, Trans.Person_ID, Person_Name, Trans.Merchant_ID, Merchant_Name, Transaction_Memo, Trans.Project_ID, Project_Name,
                 Transaction_ReimburseStatus, Period_ID  
         FROM Trans, Category, Account, Account as AccountRecipient, Person, Merchant, Project
         WHERE Trans.Category_ID = Category.Category_ID
@@ -685,7 +686,7 @@ interface TransDao {
     @Query("""
         SELECT Transaction_ID, Trans.TransactionType_ID, Trans.Category_ID, Category_Name, Account.Account_ID, Account.Account_Name, 
                 AccountRecipient.Account_ID as AccountRecipient_ID, AccountRecipient.Account_Name as AccountRecipient_Name, 
-                Transaction_Amount, Transaction_Amount2, Transaction_Date, Person_Name, Merchant_Name, Transaction_Memo, Project_Name, 
+                Transaction_Amount, Transaction_Amount2, Transaction_Date, Trans.Person_ID, Person_Name, Trans.Merchant_ID, Merchant_Name, Transaction_Memo, Trans.Project_ID, Project_Name, 
                 Transaction_ReimburseStatus, Period_ID  
         FROM Trans, Category, Account, Account as AccountRecipient, Person, Merchant, Project
         WHERE Trans.Category_ID = :cateID
@@ -700,6 +701,24 @@ interface TransDao {
         ORDER BY Transaction_Date DESC
         """)
     fun getTransRecordDetailByCategory(cateID: Long, startDate: String, endDate: String): List<TransactionDetail>
+
+    @Transaction
+    @Query("""
+        SELECT Transaction_ID, Trans.TransactionType_ID, Trans.Category_ID, Category_Name, Account.Account_ID, Account.Account_Name, 
+                AccountRecipient.Account_ID as AccountRecipient_ID, AccountRecipient.Account_Name as AccountRecipient_Name, 
+                Transaction_Amount, Transaction_Amount2, Transaction_Date, Trans.Person_ID, Person_Name, Trans.Merchant_ID, Merchant_Name, Transaction_Memo, Trans.Project_ID, Project_Name,
+                Transaction_ReimburseStatus, Period_ID  
+        FROM Trans, Category, Account, Account as AccountRecipient, Person, Merchant, Project
+        WHERE Trans.Transaction_ReimburseStatus = :reimburseStatus
+            AND Trans.Category_ID = Category.Category_ID
+            And Trans.Account_ID = Account.Account_ID
+            AND Trans.AccountRecipient_ID = AccountRecipient.Account_ID
+            AND Trans.Person_ID = Person.Person_ID
+            AND Trans.Merchant_ID = Merchant.Merchant_ID
+            AND Trans.Project_ID = Project.Project_ID
+        ORDER BY Transaction_Date DESC
+        """)
+    fun getTransRecordDetailByReimburseStatus(reimburseStatus: Int): List<TransactionDetail>
 
     @Transaction
     @Query("""
@@ -808,13 +827,14 @@ interface TransDao {
             AND Trans.TransactionType_ID = :transTypeID
             AND Trans.Transaction_Date >= :startDate
             AND Trans.Transaction_Date < :endDate
+            AND Trans.Category_ID >= :cateIDLimit
             AND Trans.Transaction_ReimburseStatus = 0
             AND Trans.Account_ID = Account.Account_ID
             AND Account.Account_CountInNetAssets = 1
         GROUP BY Trans.Category_ID
         ORDER BY Amount DESC
         """)
-    fun getCategoryAmountByTransactionType(transTypeID: Long, startDate: String, endDate: String): MutableList<CategoryAmount>
+    fun getCategoryAmountByTransactionType(transTypeID: Long, startDate: String, endDate: String, cateIDLimit: Long = CATEGORY_LIMIT): MutableList<CategoryAmount>
 }
 
 

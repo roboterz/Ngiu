@@ -19,9 +19,12 @@ data class TransactionDetail(
     var Transaction_Amount2: Double = 0.00,
     @TypeConverters(DateTypeConverter::class)
     var Transaction_Date: LocalDateTime = LocalDateTime.now(),
+    var Person_ID: Long = 0L,
     var Person_Name: String = "",
+    var Merchant_ID: Long = 0L,
     var Merchant_Name: String = "",
     var Transaction_Memo: String = "",
+    var Project_ID: Long = 0L,
     var Project_Name: String = "",
     var Transaction_ReimburseStatus: Int = 0,
     var Period_ID: Long = 0L
