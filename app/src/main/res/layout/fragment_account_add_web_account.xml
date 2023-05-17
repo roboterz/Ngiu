@@ -81,11 +81,11 @@
                     android:id="@+id/tetWebUserID"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/app_section_background"
+                    android:maxLength="40"
                     android:paddingHorizontal="20dp"
                     android:paddingVertical="15dp"
-                    android:textColor="@color/app_option_text"
-                    android:background="@color/app_section_background"
-                    android:maxLength="40">
+                    android:textColor="@color/app_option_text">
 
                 </com.google.android.material.textfield.TextInputEditText>
             </com.google.android.material.textfield.TextInputLayout>
