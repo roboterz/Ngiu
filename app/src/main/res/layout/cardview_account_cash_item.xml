@@ -36,9 +36,11 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             android:textColor="@color/app_text"
             app:layout_constraintBottom_toBottomOf="@id/ivCashCardSymbol"
             app:layout_constraintStart_toEndOf="@+id/ivCashCardSymbol"
+            app:layout_constraintEnd_toStartOf="@+id/tvAccountCashBalance"
             app:layout_constraintTop_toTopOf="@id/ivCashCardSymbol"
             tools:text="Account Type" />
 

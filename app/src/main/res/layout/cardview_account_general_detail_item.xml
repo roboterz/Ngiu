@@ -144,6 +144,7 @@
                 android:visibility="gone"
                 android:text=" • "
                 app:layout_constraintStart_toEndOf="@id/tv_account_general_item_merchant"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/tv_account_general_item_merchant"
                  />
 

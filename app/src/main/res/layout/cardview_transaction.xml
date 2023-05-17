@@ -18,7 +18,7 @@
         android:paddingBottom="9dp"
         android:paddingStart="10dp"
         android:paddingTop="4dp"
-        android:paddingEnd="5dp"
+        android:paddingEnd="15dp"
         android:background="?android:attr/selectableItemBackground"
         android:clickable="true" >
 
@@ -113,7 +113,6 @@
             android:id="@+id/tvTrans_daily_expense_amount"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
             android:singleLine="true"
             android:textColor="@color/app_label_text"
             android:textSize="12sp"
@@ -134,44 +133,57 @@
             android:textStyle="normal"
             android:text="@string/msg_new_category"
             app:layout_constraintStart_toStartOf="@id/tvTrans_year"
+            app:layout_constraintEnd_toStartOf="@+id/tvTrans_amount"
             app:layout_constraintTop_toBottomOf="@id/tvTrans_year"
              />
 
-        <TextView
-            android:id="@+id/tvTrans_time"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_transaction_second_section"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:singleLine="true"
-            android:textColor="@color/app_label_text"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="@id/tvTrans_category"
             app:layout_constraintTop_toBottomOf="@id/tvTrans_category"
-            tools:text="13:15" />
+            app:layout_constraintStart_toStartOf="@+id/tvTrans_category"
+            app:layout_constraintEnd_toEndOf="parent"
+            >
 
-        <TextView
-            android:id="@+id/tvTrans_period"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:singleLine="true"
-            android:textColor="@color/app_label_text"
-            android:textSize="12sp"
-            app:layout_constraintStart_toEndOf="@id/tvTrans_time"
-            app:layout_constraintTop_toTopOf="@id/tvTrans_time"
-            tools:text="@string/option_Period" />
+            <TextView
+                android:id="@+id/tvTrans_time"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:singleLine="true"
+                android:textColor="@color/app_label_text"
+                android:textSize="12sp"
+                android:gravity="center_vertical"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="13:15" />
 
-        <TextView
-            android:id="@+id/tvTrans_memo"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:singleLine="true"
-            android:textColor="@color/app_label_text"
-            android:textSize="12sp"
-            app:layout_constraintStart_toEndOf="@id/tvTrans_period"
-            app:layout_constraintTop_toTopOf="@id/tvTrans_time"
-            app:layout_constraintBottom_toBottomOf="@+id/tvTrans_time"
-            tools:text="Fee" />
+            <TextView
+                android:id="@+id/tvTrans_period"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:paddingStart="10dp"
+                android:singleLine="true"
+                android:gravity="center_vertical"
+                android:textColor="@color/app_label_text"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@id/tvTrans_time"
+                tools:text="@string/option_Period" />
+
+            <TextView
+                android:id="@+id/tvTrans_memo"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:paddingStart="10dp"
+                android:singleLine="true"
+                android:gravity="center_vertical"
+                android:textColor="@color/app_label_text"
+                android:textSize="11sp"
+                app:layout_constraintStart_toEndOf="@id/tvTrans_period"
+                app:layout_constraintTop_toTopOf="@id/tvTrans_time"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/tvTrans_time"
+                tools:text="Fee" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/tvTrans_account_pay"
@@ -180,8 +192,8 @@
             android:singleLine="true"
             android:textColor="@color/app_label_text"
             android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="@id/tvTrans_time"
-            app:layout_constraintTop_toBottomOf="@id/tvTrans_time"
+            app:layout_constraintStart_toStartOf="@id/tvTrans_category"
+            app:layout_constraintTop_toBottomOf="@id/layout_transaction_second_section"
             tools:text="Wallet" />
 
         <TextView
@@ -207,7 +219,7 @@
             android:textColor="@color/app_label_text"
             android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@id/tvTrans_account_pay"
-            app:layout_constraintTop_toBottomOf="@id/tvTrans_time"
+            app:layout_constraintTop_toBottomOf="@id/layout_transaction_second_section"
             tools:text=" • " />
 
         <TextView
@@ -218,7 +230,7 @@
             android:textColor="@color/app_label_text"
             android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@id/tvTrans_dot_before_person"
-            app:layout_constraintTop_toBottomOf="@id/tvTrans_time"
+            app:layout_constraintTop_toBottomOf="@id/layout_transaction_second_section"
             tools:text="@string/option_person" />
 
         <TextView
@@ -229,7 +241,7 @@
             android:textColor="@color/app_label_text"
             android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@id/tvTrans_person"
-            app:layout_constraintTop_toBottomOf="@id/tvTrans_time"
+            app:layout_constraintTop_toBottomOf="@id/layout_transaction_second_section"
             tools:text=" • " />
 
         <TextView
@@ -240,7 +252,7 @@
             android:textColor="@color/app_label_text"
             android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@id/tvTrans_dot_before_merchant"
-            app:layout_constraintTop_toBottomOf="@id/tvTrans_time"
+            app:layout_constraintTop_toBottomOf="@id/layout_transaction_second_section"
             tools:text="@string/option_merchant" />
 
         <TextView
@@ -251,7 +263,7 @@
             android:textColor="@color/app_label_text"
             android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@id/tvTrans_merchant"
-            app:layout_constraintTop_toBottomOf="@id/tvTrans_time"
+            app:layout_constraintTop_toBottomOf="@id/layout_transaction_second_section"
             tools:text=" • " />
 
         <TextView
@@ -262,19 +274,19 @@
             android:textColor="@color/app_label_text"
             android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@id/tvTrans_dot_before_project"
-            app:layout_constraintTop_toBottomOf="@id/tvTrans_time"
+            app:layout_constraintTop_toBottomOf="@id/layout_transaction_second_section"
             tools:text="@string/option_project" />
 
         <TextView
             android:id="@+id/tvTrans_amount"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
+            android:paddingStart="10dp"
             android:singleLine="true"
             android:textColor="@color/app_text"
             android:textSize="18sp"
             android:textStyle="normal"
-            app:layout_constraintBottom_toTopOf="@+id/tvTrans_time"
+            app:layout_constraintTop_toTopOf="@+id/tvTrans_category"
             app:layout_constraintEnd_toEndOf="parent"
             tools:text="$15.75" />
 

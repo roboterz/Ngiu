@@ -52,8 +52,10 @@
                     android:singleLine="true"
                     android:textColor="@color/app_amount"
                     android:textSize="18sp"
+                    android:paddingEnd="10dp"
                     android:text="Lunch"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_account_credit_detail_item_amount"
                     app:layout_constraintTop_toTopOf="parent"/>
 
 
