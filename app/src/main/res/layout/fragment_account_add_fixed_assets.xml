@@ -197,9 +197,9 @@
         android:gravity="center"
         android:text="@string/option_save"
         android:textAllCaps="true"
-        android:textColor="@color/app_button_text"
-        android:textSize="11sp"
-        app:backgroundTint="@color/app_section_background"
+        android:textColor="@color/app_title_text"
+        android:textSize="16sp"
+        android:background="@color/app_title_background"
         app:layout_constraintBottom_toBottomOf="parent">
     </com.google.android.material.button.MaterialButton>
 
