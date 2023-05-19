@@ -261,9 +261,9 @@ fun toDayLeft(day: Int): String{
 
 fun changeColor(textView: TextView, amount: Double){
     val context = textView.context
-    val color  = if(amount<0) R.color.app_expense_amount else R.color.app_income_amount
+    val color  = if(amount < 0) R.color.app_expense_amount else R.color.app_income_amount
     textView.setTextColor(ContextCompat.getColor(context, color))
-    textView.text = "$"+"%.2f".format(amount)
+    textView.text = ""+"%.2f".format(amount)
 
 }
 

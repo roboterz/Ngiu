@@ -14,8 +14,10 @@ import com.example.ngiu.R
 import com.example.ngiu.databinding.FragmentAccountCreditDetailBinding
 import com.example.ngiu.functions.*
 import kotlinx.android.synthetic.main.fragment_account_credit_detail.*
+import java.text.DecimalFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import kotlin.math.roundToInt
 
 
 class AccountCreditDetailFragment : Fragment() {
@@ -72,8 +74,11 @@ class AccountCreditDetailFragment : Fragment() {
 
 
 
-        tv_account_credit_detail_available_credit_limit_value.text = "$" + "%.2f".format(accountCreditDetailViewModel.availableCreditLimit)
-        tv_account_credit_detail_current_arrears_value.text =  "$" + "%.2f".format(accountCreditDetailViewModel.currentArrears)
+        // Credit Limit
+        tv_account_credit_detail_available_credit_limit_value.text = "" + "%.2f".format(accountCreditDetailViewModel.availableCreditLimit )
+        // Current Arrears
+        tv_account_credit_detail_current_arrears_value.text =  "" + "%.2f".format((accountCreditDetailViewModel.currentArrears* 100).roundToInt().toDouble() / 100)
+
 
         if (accountCreditDetailViewModel.accountRecord.Account_PaymentDay > LocalDate.now().dayOfMonth){
             tv_account_credit_info_payment_day_value.text =

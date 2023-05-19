@@ -55,7 +55,7 @@ class AccountGeneralDetailAdapter(
                     // category
                     holder.recordText.text = Category_Name
                     // amount
-                    holder.recordAmount.text = "$-" + "%.2f".format(Transaction_Amount)
+                    holder.recordAmount.text = "-" + "%.2f".format(Transaction_Amount)
                     holder.recordAmount.setTextColor(holder.expenseColor)
                     // info
                     holder.recordInfo.visibility = View.GONE
@@ -64,7 +64,7 @@ class AccountGeneralDetailAdapter(
                     // category
                     holder.recordText.text = Category_Name
                     // amount
-                    holder.recordAmount.text = "$" + "%.2f".format(Transaction_Amount)
+                    holder.recordAmount.text = "" + "%.2f".format(Transaction_Amount)
                     holder.recordAmount.setTextColor(holder.incomeColor)
                     // info
                     holder.recordInfo.visibility = View.GONE
@@ -77,8 +77,10 @@ class AccountGeneralDetailAdapter(
                     if (TransactionType_ID == TRANSACTION_TYPE_TRANSFER){
                         if (Account_ID == currentAccountID){
                             holder.recordText.text = holder.itemView.context.getString(R.string.record_transfer_out)
+                            holder.recordAmount.text = "-" + "%.2f".format(Transaction_Amount)
                         }else{
                             holder.recordText.text = holder.itemView.context.getString(R.string.record_transfer_in)
+                            holder.recordAmount.text = "+" + "%.2f".format(Transaction_Amount)
                         }
                         // info
                         holder.recordInfo.text = "$Account_Name " + holder.itemView.context.getString(R.string.record_to) + " $AccountRecipient_Name"
@@ -88,23 +90,27 @@ class AccountGeneralDetailAdapter(
                             CATEGORY_SUB_BORROW -> {
                                 holder.recordText.text = holder.itemView.context.getString(R.string.record_borrow_in)
                                 holder.recordInfo.text = holder.itemView.context.getString(R.string.record_borrow_from) + " $Account_Name"
+                                holder.recordAmount.text = "+" + "%.2f".format(Transaction_Amount)
                             }
                             CATEGORY_SUB_LEND -> {
                                 holder.recordText.text = holder.itemView.context.getString(R.string.record_lend_out)
                                 holder.recordInfo.text = holder.itemView.context.getString(R.string.record_lend_to) + " $AccountRecipient_Name"
+                                holder.recordAmount.text = "-" + "%.2f".format(Transaction_Amount)
                             }
                             CATEGORY_SUB_PAYMENT -> {
                                 holder.recordText.text = holder.itemView.context.getString(R.string.record_repay)
                                 holder.recordInfo.text = holder.itemView.context.getString(R.string.record_paid_to) + " $AccountRecipient_Name"
+                                holder.recordAmount.text = "-" + "%.2f".format(Transaction_Amount)
                             }
                             CATEGORY_SUB_RECEIVE_PAYMENT -> {
                                 holder.recordText.text = holder.itemView.context.getString(R.string.record_receive)
                                 holder.recordInfo.text = holder.itemView.context.getString(R.string.record_received_from) + " $Account_Name"
+                                holder.recordAmount.text = "+" + "%.2f".format(Transaction_Amount)
                             }
                         }
                     }
                     // amount
-                    holder.recordAmount.text = "$" + "%.2f".format(Transaction_Amount)
+
                     holder.recordAmount.setTextColor(holder.amountColor)
 
                 }
@@ -119,7 +125,7 @@ class AccountGeneralDetailAdapter(
                 holder.groupLayout.visibility = View.VISIBLE
                 holder.groupDate.text = Transaction_Date.format(groupDateFormatter)
                 // balance
-                holder.recordBalance.text = "$" + "%.2f".format(totalAccountBalance)
+                holder.recordBalance.text = "" + "%.2f".format(totalAccountBalance)
 
             }else{
                 // date
@@ -143,7 +149,7 @@ class AccountGeneralDetailAdapter(
                     }
                 }
 
-                holder.recordBalance.text = "$" + "%.2f".format(totalAccountBalance)
+                holder.recordBalance.text = "" + "%.2f".format(totalAccountBalance)
 
             }
 

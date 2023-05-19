@@ -128,9 +128,9 @@ class AccountGeneralDetailFragment : Fragment() {
         }.start()
 
         // show the info at title
-        tv_account_general_balance.text = "$" + "%.2f".format(accountGeneralDetailViewModel.accountBalance)
-        tv_account_general_inflow_amount.text = "$" + "%.2f".format(accountGeneralDetailViewModel.inflowAmount)
-        tv_account_general_outflow_amount.text = "$" + "%.2f".format(accountGeneralDetailViewModel.outflowAmount)
+        tv_account_general_balance.text = "" + "%.2f".format(accountGeneralDetailViewModel.accountBalance)
+        tv_account_general_inflow_amount.text = "" + "%.2f".format(accountGeneralDetailViewModel.inflowAmount)
+        tv_account_general_outflow_amount.text = "" + "%.2f".format(accountGeneralDetailViewModel.outflowAmount)
         tv_account_general_name.text = accountGeneralDetailViewModel.accountName
 
     }

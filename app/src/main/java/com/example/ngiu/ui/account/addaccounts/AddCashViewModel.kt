@@ -22,7 +22,7 @@ class AddCashViewModel : ViewModel() {
 
     fun getAccountByID(context: Context, id: Long): Account {
         val appDatabase = AppDatabase.getDatabase(context)
-        return appDatabase.account().getRecordByID(id)
+        return appDatabase.account().getRecordByAccountID(id)
     }
 
     fun updateAccount(context: Context, account: Account){

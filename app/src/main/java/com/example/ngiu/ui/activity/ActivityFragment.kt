@@ -132,9 +132,9 @@ class ActivityFragment : Fragment() {
         }.start()
 
         // show the info at title
-        tvCurrentMonthExpenseBalance.text = "$" + "%.2f".format(activityViewModel.monthExpense)
-        tvCurrentMonthIncomeBalance.text = "$" + "%.2f".format(activityViewModel.monthIncome)
-        tvBudgetBalance.text = "$" + "%.2f".format(activityViewModel.budget)
+        tvCurrentMonthExpenseBalance.text = "" + "%.2f".format(activityViewModel.monthExpense)
+        tvCurrentMonthIncomeBalance.text = "" + "%.2f".format(activityViewModel.monthIncome)
+        tvBudgetBalance.text = "" + "%.2f".format(activityViewModel.budget)
 
     }
 

@@ -92,7 +92,7 @@ class AccountViewModel : ViewModel() {
 
                 // store the data to the Model
                 val sectionModel = accountType?.let {
-                    AccountSectionUiModel( it.AccountType_ID, accountType.AccountType_Name, "$"+"%.2f".format(totalSum),
+                    AccountSectionUiModel( it.AccountType_ID, accountType.AccountType_Name, ""+"%.2f".format(totalSum),
                         it.AccountType_Expanded, item.value)
                 }
                 if (sectionModel != null) {

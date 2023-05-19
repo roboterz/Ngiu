@@ -650,7 +650,7 @@ class RecordFragment : Fragment() {
                 Category_ID = recordViewModel.transDetail.Category_ID,
                 Account_ID = recordViewModel.getAccountID(tv_record_account_pay.text.toString()),
                 Transaction_Amount = tv_record_amount.text.toString().toDouble(),
-                Transaction_Amount2 = 0.00,
+                Transaction_Amount2 = if (recordViewModel.transDetail.TransactionType_ID > TRANSACTION_TYPE_EXPENSE) tv_record_amount.text.toString().toDouble() else 0.00 ,
                 Transaction_Date = recordViewModel.transDetail.Transaction_Date,
                 Transaction_Memo = tv_record_memo.text.toString(),
                 Merchant_ID = recordViewModel.merchant[recordViewModel.merchant.indexOfFirst { it.Merchant_Name == tv_record_merchant.text.toString() }].Merchant_ID,

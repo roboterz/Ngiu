@@ -118,18 +118,18 @@ class AccountPRDetailFragment : Fragment() {
         // show the info at title
         if (accountPRDetailViewModel.accountBalance < 0){
             tv_account_pr_owe.text = getString(R.string.option_account_owe_he)
-            tv_account_pr_balance.text = "$" + "%.2f".format(abs(accountPRDetailViewModel.accountBalance))
+            tv_account_pr_balance.text = "" + "%.2f".format(abs(accountPRDetailViewModel.accountBalance))
             tv_account_pr_balance.setTextColor(ContextCompat.getColor(requireContext(), R.color.app_expense_amount2))
         }else{
             tv_account_pr_owe.text = getString(R.string.option_account_owe_you)
-            tv_account_pr_balance.text = "$" + "%.2f".format(accountPRDetailViewModel.accountBalance)
+            tv_account_pr_balance.text = "" + "%.2f".format(accountPRDetailViewModel.accountBalance)
             tv_account_pr_balance.setTextColor(ContextCompat.getColor(requireContext(), R.color.app_income_amount2))
         }
 
-        tv_account_pr_lend_amount.text = "$" + "%.2f".format(accountPRDetailViewModel.lendAmount)
-        tv_account_pr_receive_amount.text = "$" + "%.2f".format(accountPRDetailViewModel.receiveAmount)
-        tv_account_pr_borrow_amount.text = "$" + "%.2f".format(accountPRDetailViewModel.borrowAmount)
-        tv_account_pr_pay_amount.text = "$" + "%.2f".format(accountPRDetailViewModel.payAmount)
+        tv_account_pr_lend_amount.text = "" + "%.2f".format(accountPRDetailViewModel.lendAmount)
+        tv_account_pr_receive_amount.text = "" + "%.2f".format(accountPRDetailViewModel.receiveAmount)
+        tv_account_pr_borrow_amount.text = "" + "%.2f".format(accountPRDetailViewModel.borrowAmount)
+        tv_account_pr_pay_amount.text = "" + "%.2f".format(accountPRDetailViewModel.payAmount)
 
     }
 

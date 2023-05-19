@@ -58,7 +58,7 @@ class ActivityListAdapter(
             holder.memo.text = Transaction_Memo
 
 
-            holder.amount.text ="$" + "%.2f".format(Transaction_Amount)
+            holder.amount.text ="" + "%.2f".format(Transaction_Amount)
 
             // TransactionType 1, 2
             if (TransactionType_ID in 1L..2L) {

@@ -46,14 +46,25 @@ class AccountPRDetailAdapter(
             // display the custom class
             listPRDetail[position].apply {
                 when (Category_ID){
-                    CATEGORY_SUB_BORROW -> { holder.recordText.text = holder.itemView.context.getString(R.string.record_borrow_from) + " $Account_Name"}
-                    CATEGORY_SUB_LEND -> { holder.recordText.text = holder.itemView.context.getString(R.string.record_lend_to) + " $AccountRecipient_Name"}
-                    CATEGORY_SUB_PAYMENT -> { holder.recordText.text = holder.itemView.context.getString(R.string.record_paid_to) + " $AccountRecipient_Name"}
-                    CATEGORY_SUB_RECEIVE_PAYMENT -> { holder.recordText.text = holder.itemView.context.getString(R.string.record_received_from) + " $Account_Name"}
+                    CATEGORY_SUB_BORROW -> {
+                        holder.recordText.text = holder.itemView.context.getString(R.string.record_borrow_from) + " $Account_Name"
+                        holder.recordAmount.text = "+" + "%.2f".format(Transaction_Amount)
+                    }
+                    CATEGORY_SUB_LEND -> {
+                        holder.recordText.text = holder.itemView.context.getString(R.string.record_lend_to) + " $AccountRecipient_Name"
+                        holder.recordAmount.text = "-" + "%.2f".format(Transaction_Amount)
+                    }
+                    CATEGORY_SUB_PAYMENT -> {
+                        holder.recordText.text = holder.itemView.context.getString(R.string.record_paid_to) + " $AccountRecipient_Name"
+                        holder.recordAmount.text = "-" + "%.2f".format(Transaction_Amount)
+                    }
+                    CATEGORY_SUB_RECEIVE_PAYMENT -> {
+                        holder.recordText.text = holder.itemView.context.getString(R.string.record_received_from) + " $Account_Name"
+                        holder.recordAmount.text = "+" + "%.2f".format(Transaction_Amount)
+                    }
                 }
 
                 holder.recordTime.text = Transaction_Date.format(recordTimeFormatter)
-                holder.recordAmount.text = "$" + "%.2f".format(Transaction_Amount)
                 holder.recordMemo.text = Transaction_Memo
 
                 if (position == 0){

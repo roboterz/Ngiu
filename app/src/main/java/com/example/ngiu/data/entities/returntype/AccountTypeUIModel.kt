@@ -39,6 +39,6 @@ data class AccountCreditDetailGroupModel(
     // false: statement Not Generated; true: amount due
     var StatementStatus: Boolean = false,
     var DueAmount: Double = 0.00,
-    var IsExpanded: Boolean = true,
+    var IsExpanded: Boolean = false,
     val CDList: MutableList<RecordDetail> = ArrayList()
 )

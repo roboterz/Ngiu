@@ -17,6 +17,7 @@ import com.example.ngiu.functions.switchToRecordFragment
 import com.example.ngiu.ui.account.model.AccountCreditDetailGroupModel
 import kotlinx.android.synthetic.main.cardview_account_credit_detail_group.view.*
 import java.time.format.DateTimeFormatter
+import kotlin.math.roundToInt
 
 
 class AccountCreditDetailGroupAdapter(
@@ -47,7 +48,7 @@ class AccountCreditDetailGroupAdapter(
 
             if  (StatementStatus) {
                 holder.tvStatus.text = holder.textAmountDue
-                holder.tvAmount.text = "$" + "%.2f".format(DueAmount)
+                holder.tvAmount.text = "" + "%.2f".format((DueAmount * 100).roundToInt().toDouble() / 100)
             }else{
                 holder.tvStatus.text = holder.textStatementNotGenerated
                 holder.tvAmount.text = ""

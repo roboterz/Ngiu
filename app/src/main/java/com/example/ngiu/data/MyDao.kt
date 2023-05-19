@@ -58,7 +58,7 @@ interface AccountDao {
     // get a record BY ID
     @Transaction
     @Query("SELECT * FROM Account WHERE Account_ID = :acctID")
-    fun getRecordByID(acctID:Long): Account
+    fun getRecordByAccountID(acctID:Long): Account
 
     @Update
     fun updateAccount(account: Account)

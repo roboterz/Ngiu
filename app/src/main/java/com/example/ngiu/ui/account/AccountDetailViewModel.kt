@@ -76,7 +76,7 @@ class AccountDetailViewModel : ViewModel() {
 
     fun calculateBalance(context: Context, itemId: Long): Double {
         val appDatabase = AppDatabase.getDatabase(context)
-        val account = appDatabase.account().getRecordByID(itemId)
+        val account = appDatabase.account().getRecordByAccountID(itemId)
         var accountBalance :Double =  account.Account_Balance
         appDatabase.trans().getRecordsByAcctID(itemId)
             .forEach { trans ->
