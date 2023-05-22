@@ -60,7 +60,7 @@ class AccountAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         } else if (holder is CreditViewHolder) {
             val viewHolder: CreditViewHolder = holder
             viewHolder.creditAccountName.text = item.Account_Name
-            viewHolder.currentCreditBalance.text = "%.2f".format((item.Account_Balance * 100).roundToInt().toDouble() / 100)
+            viewHolder.currentCreditBalance.text = get2DigitFormat(item.Account_Balance )
             if (item.Account_CardNumber.length > 4) {
                 viewHolder.cardNumber.text = item.Account_CardNumber.substring(
                     item.Account_CardNumber.length - 4,
@@ -71,7 +71,7 @@ class AccountAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 viewHolder.cardNumber.text = item.Account_CardNumber
                 viewHolder.cardNumber.visibility = View.VISIBLE
             }
-            changeColor(viewHolder.currentCreditBalance, (item.Account_Balance * 100).roundToInt().toDouble() / 100)
+            changeColor(viewHolder.currentCreditBalance, item.Account_Balance )
             // credit card
             if (item.AccountType_ID == ACCOUNT_TYPE_CREDIT) {
                 if (item.Account_Balance >= 0.0) {
