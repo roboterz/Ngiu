@@ -27,7 +27,9 @@ class AccountGeneralDetailViewModel : ViewModel() {
         val totalAmountOfTransferOut = AppDatabase.getDatabase(context).trans().getTotalAmountOfTransferOutByAccount(accountID)
         val totalAmountOfTransferIn = AppDatabase.getDatabase(context).trans().getTotalAmountOfTransferInByAccount(accountID)
 
-        accountBalance = initialBalance + totalAmountOfIncome + totalAmountOfTransferIn - totalAmountOfExpense - totalAmountOfTransferOut
+        //accountBalance = initialBalance + totalAmountOfIncome + totalAmountOfTransferIn - totalAmountOfExpense - totalAmountOfTransferOut
+
+        accountBalance = initialBalance + totalAmountOfExpense + totalAmountOfTransferOut - totalAmountOfIncome - totalAmountOfTransferIn
 
         inflowAmount = totalAmountOfIncome + totalAmountOfTransferIn
         outflowAmount = totalAmountOfExpense + totalAmountOfTransferOut
