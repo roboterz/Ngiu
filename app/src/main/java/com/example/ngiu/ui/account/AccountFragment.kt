@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.MainActivity
 import com.example.ngiu.R
 import com.example.ngiu.databinding.FragmentAccountBinding
+import com.example.ngiu.functions.get2DigitFormat
 import kotlinx.android.synthetic.main.fragment_account.toolbar_account
 import java.math.RoundingMode
 import java.text.DecimalFormat
@@ -38,7 +39,7 @@ class AccountFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         accountViewModel =
-            ViewModelProvider(this).get(AccountViewModel::class.java)
+            ViewModelProvider(this)[AccountViewModel::class.java]
 
         _binding = FragmentAccountBinding.inflate(inflater, container, false)
         rvAccount = binding.root.findViewById(R.id.rvAccount)
@@ -73,11 +74,11 @@ class AccountFragment : Fragment() {
         val totalAsset = accountViewModel.getTotalAssets()
         val totalLiability = accountViewModel.getTotalLiability()
 
-        binding.tvAccountTotalAssetsValue.text = ""+"%.2f".format(totalAsset)
-        binding.tvAccountNetAssetsValue.text = ""+"%.2f".format(netAssets)
+        binding.tvAccountTotalAssetsValue.text = get2DigitFormat(totalAsset)
+        binding.tvAccountNetAssetsValue.text = get2DigitFormat(netAssets)
 
         accountViewModel.accountSections.observe(viewLifecycleOwner){
-            binding.tvAccountTotalLiabilityValue.text = ""+"%.2f".format(totalLiability)
+            binding.tvAccountTotalLiabilityValue.text = get2DigitFormat(totalLiability)
             // if there is nothing to display go to the add account
             //if(it.isEmpty()){
                 //findNavController().navigate(R.id.navigation_add_account)
