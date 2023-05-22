@@ -125,7 +125,7 @@ class AccountGeneralDetailAdapter(
                 holder.groupLayout.visibility = View.VISIBLE
                 holder.groupDate.text = Transaction_Date.format(groupDateFormatter)
                 // balance
-                holder.recordBalance.text = "" + "%.2f".format(totalAccountBalance)
+                holder.recordBalance.text = get2DigitFormat(totalAccountBalance)
 
             }else{
                 // date
@@ -149,7 +149,7 @@ class AccountGeneralDetailAdapter(
                     }
                 }
 
-                holder.recordBalance.text = "" + "%.2f".format(totalAccountBalance)
+                holder.recordBalance.text = get2DigitFormat(totalAccountBalance)
 
             }
 
