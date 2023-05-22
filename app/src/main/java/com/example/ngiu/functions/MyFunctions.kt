@@ -21,6 +21,7 @@ import kotlinx.android.synthetic.main.popup_title.view.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
+import kotlin.math.roundToInt
 
 
 class MyFunctions {
@@ -260,10 +261,13 @@ fun toDayLeft(day: Int): String{
 
 
 fun changeColor(textView: TextView, amount: Double){
+    // fix bug for double type
+    val tempAmount = (amount * 100).roundToInt().toDouble() / 100
+
     val context = textView.context
-    val color  = if(amount < 0) R.color.app_expense_amount else R.color.app_income_amount
+    val color  = if(tempAmount < 0) R.color.app_expense_amount else R.color.app_income_amount
     textView.setTextColor(ContextCompat.getColor(context, color))
-    textView.text = ""+"%.2f".format(amount)
+    textView.text = ""+"%.2f".format(tempAmount)
 
 }
 
@@ -284,6 +288,10 @@ fun getInternationalDateFromAmericanDate(string: String): LocalDateTime {
     return LocalDateTime.parse(lDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
 }
 
+
+fun get2DigitFormat(double: Double): String{
+    return "%.2f".format((double * 100).roundToInt().toDouble() / 100)
+}
 
 
 fun switchToAccountAttributePage(view: View, acctTypeID: Long,
