@@ -75,9 +75,9 @@ class AccountCreditDetailFragment : Fragment() {
 
 
         // Credit Limit
-        tv_account_credit_detail_available_credit_limit_value.text = "" + "%.2f".format(accountCreditDetailViewModel.availableCreditLimit )
+        tv_account_credit_detail_available_credit_limit_value.text = get2DigitFormat( accountCreditDetailViewModel.availableCreditLimit )
         // Current Arrears
-        tv_account_credit_detail_current_arrears_value.text =  "" + "%.2f".format((accountCreditDetailViewModel.currentArrears* 100).roundToInt().toDouble() / 100)
+        tv_account_credit_detail_current_arrears_value.text =  get2DigitFormat( accountCreditDetailViewModel.currentArrears )
 
 
         if (accountCreditDetailViewModel.accountRecord.Account_PaymentDay > LocalDate.now().dayOfMonth){
