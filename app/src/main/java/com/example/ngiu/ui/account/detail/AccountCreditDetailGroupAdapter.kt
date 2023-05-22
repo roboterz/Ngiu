@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
 import com.example.ngiu.functions.TRANSACTION_TYPE_DEBIT
+import com.example.ngiu.functions.get2DigitFormat
 import com.example.ngiu.functions.switchToRecordFragment
 import com.example.ngiu.ui.account.model.AccountCreditDetailGroupModel
 import kotlinx.android.synthetic.main.cardview_account_credit_detail_group.view.*
@@ -48,7 +49,7 @@ class AccountCreditDetailGroupAdapter(
 
             if  (StatementStatus) {
                 holder.tvStatus.text = holder.textAmountDue
-                holder.tvAmount.text = "" + "%.2f".format((DueAmount * 100).roundToInt().toDouble() / 100)
+                holder.tvAmount.text = get2DigitFormat(DueAmount)
             }else{
                 holder.tvStatus.text = holder.textStatementNotGenerated
                 holder.tvAmount.text = ""
