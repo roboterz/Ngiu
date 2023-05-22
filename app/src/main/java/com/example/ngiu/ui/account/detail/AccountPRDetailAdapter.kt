@@ -48,7 +48,7 @@ class AccountPRDetailAdapter(
                 when (Category_ID){
                     CATEGORY_SUB_BORROW -> {
                         holder.recordText.text = holder.itemView.context.getString(R.string.record_borrow_from) + " $Account_Name"
-                        holder.recordAmount.text = "+" + "%.2f".format(Transaction_Amount)
+                        holder.recordAmount.text = "+" + "%.2f".format(Transaction_Amount )
                     }
                     CATEGORY_SUB_LEND -> {
                         holder.recordText.text = holder.itemView.context.getString(R.string.record_lend_to) + " $AccountRecipient_Name"
