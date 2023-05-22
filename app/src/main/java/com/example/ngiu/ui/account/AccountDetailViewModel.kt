@@ -18,14 +18,14 @@ class AccountDetailViewModel : ViewModel() {
         val appDatabase = AppDatabase.getDatabase(context)
         val inflowA = appDatabase.account().getInflowA(id)
         val inflowB = appDatabase.account().getInflowB(id)
-        return "%.2f".format(inflowA + inflowB)
+        return get2DigitFormat(inflowA + inflowB)
     }
 
     fun getOutflow(context: Context, id: Long): String {
         val appDatabase = AppDatabase.getDatabase(context)
         val outflowA = appDatabase.account().getOutflowA(id)
         val outflowB = appDatabase.account().getOutflowB(id)
-        return "%.2f".format(outflowA + outflowB)
+        return get2DigitFormat(outflowA + outflowB)
 
     }
 
@@ -48,7 +48,7 @@ class AccountDetailViewModel : ViewModel() {
                 val model = AccountTransRecordModel(
                     cate?.Category_Name.toString(),
                     "%.2f".format(item.Transaction_Amount),
-                    "%.2f".format(rBalance),
+                    get2DigitFormat(rBalance),
                     item.Transaction_Date.format(recordTimeFormatter),
                     item.TransactionType_ID,
                     item.AccountRecipient_ID,
