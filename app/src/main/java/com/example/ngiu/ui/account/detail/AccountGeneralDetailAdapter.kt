@@ -20,7 +20,7 @@ class AccountGeneralDetailAdapter(
     : RecyclerView.Adapter<AccountGeneralDetailAdapter.ViewHolder>() {
 
     private var listDetail: List<RecordDetail> = ArrayList()
-    private var totalAccountBalance: Double = 0.00
+    private var balanceList: List<Double> = ArrayList()
     private var currentAccountID: Long = 0L
     private val recordTimeFormatter = DateTimeFormatter.ofPattern("hh:mm")
     private val groupDateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy EEEE")
@@ -109,49 +109,37 @@ class AccountGeneralDetailAdapter(
                             }
                         }
                     }
-                    // amount
 
+                    // amount color
                     holder.recordAmount.setTextColor(holder.amountColor)
 
                 }
             }
 
-
+            // memo
             holder.recordMemo.text = Transaction_Memo
 
 
-            if (position == 0){
-                // date
+            // date
+            holder.groupDate.text = Transaction_Date.format(groupDateFormatter)
+
+
+            // group subject
+            if (position == 0) {
                 holder.groupLayout.visibility = View.VISIBLE
-                holder.groupDate.text = Transaction_Date.format(groupDateFormatter)
-                // balance
-                holder.recordBalance.text = get2DigitFormat(totalAccountBalance)
 
-            }else{
-                // date
-                holder.groupDate.text = Transaction_Date.format(groupDateFormatter)
-
+            } else {
                 if (holder.groupDate.text == listDetail[position-1].Transaction_Date.format(groupDateFormatter)) {
                     holder.groupLayout.visibility = View.GONE
                 }else{
                     holder.groupLayout.visibility = View.VISIBLE
                 }
-                // balance
-                when (listDetail[position - 1].TransactionType_ID){
-                    TRANSACTION_TYPE_EXPENSE -> totalAccountBalance += listDetail[position - 1].Transaction_Amount
-                    TRANSACTION_TYPE_INCOME -> totalAccountBalance -= listDetail[position - 1].Transaction_Amount
-                    TRANSACTION_TYPE_TRANSFER, TRANSACTION_TYPE_DEBIT -> {
-                        if (Account_ID == currentAccountID){
-                            totalAccountBalance += listDetail[position - 1].Transaction_Amount
-                        }else{
-                            totalAccountBalance -= listDetail[position - 1].Transaction_Amount
-                        }
-                    }
-                }
-
-                holder.recordBalance.text = get2DigitFormat(totalAccountBalance)
-
             }
+
+
+            // balance
+            holder.recordBalance.text = get2DigitFormat(balanceList[position])
+
 
             holder.itemLayout.setOnClickListener {
                 onClickListener.onItemClick(Transaction_ID)
@@ -161,16 +149,12 @@ class AccountGeneralDetailAdapter(
 
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setList(list: List<RecordDetail>){
+    fun setList(list: List<RecordDetail>, bList: List<Double>, acctID: Long){
         listDetail = list
+        balanceList = bList
+        currentAccountID = acctID
         notifyDataSetChanged()
     }
-
-    fun setTotalAccountBalance(acctID: Long, double: Double){
-        totalAccountBalance = double
-        currentAccountID = acctID
-    }
-
 
     override fun getItemCount(): Int {
         // the data set held by the adapter.

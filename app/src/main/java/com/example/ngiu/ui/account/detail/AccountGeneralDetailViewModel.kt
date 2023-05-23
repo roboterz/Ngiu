@@ -5,11 +5,16 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import com.example.ngiu.data.AppDatabase
 import com.example.ngiu.data.entities.returntype.RecordDetail
+import com.example.ngiu.functions.TRANSACTION_TYPE_DEBIT
+import com.example.ngiu.functions.TRANSACTION_TYPE_EXPENSE
+import com.example.ngiu.functions.TRANSACTION_TYPE_INCOME
+import com.example.ngiu.functions.TRANSACTION_TYPE_TRANSFER
 
 
 class AccountGeneralDetailViewModel : ViewModel() {
 
     var listDetail: List<RecordDetail> = ArrayList()
+    var listBalance: MutableList<Double> = ArrayList()
     var accountBalance: Double = 0.00
     var inflowAmount: Double = 0.00
     var outflowAmount: Double = 0.00
@@ -29,10 +34,36 @@ class AccountGeneralDetailViewModel : ViewModel() {
 
         //accountBalance = initialBalance + totalAmountOfIncome + totalAmountOfTransferIn - totalAmountOfExpense - totalAmountOfTransferOut
 
-        accountBalance = initialBalance + totalAmountOfExpense + totalAmountOfTransferOut - totalAmountOfIncome - totalAmountOfTransferIn
+        accountBalance = initialBalance - totalAmountOfExpense - totalAmountOfTransferOut + totalAmountOfIncome + totalAmountOfTransferIn
 
         inflowAmount = totalAmountOfIncome + totalAmountOfTransferIn
         outflowAmount = totalAmountOfExpense + totalAmountOfTransferOut
+
+
+        listBalance = Array(listDetail.size) { 0.00 }.toMutableList()
+
+        var totalBalance = initialBalance
+
+        for (i in listDetail.indices.reversed()){
+            when (listDetail[i].TransactionType_ID){
+                TRANSACTION_TYPE_EXPENSE -> {
+                    totalBalance -= listDetail[i].Transaction_Amount
+                }
+                TRANSACTION_TYPE_INCOME -> {
+                    totalBalance += listDetail[i].Transaction_Amount
+                }
+                TRANSACTION_TYPE_TRANSFER, TRANSACTION_TYPE_DEBIT -> {
+                    if (accountID == listDetail[i].Account_ID){
+                        totalBalance -= listDetail[i].Transaction_Amount
+                    } else {
+                        totalBalance += listDetail[i].Transaction_Amount
+                    }
+
+                }
+            }
+
+            listBalance[i] = totalBalance
+        }
 
     }
 }

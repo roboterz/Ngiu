@@ -122,8 +122,7 @@ class AccountGeneralDetailFragment : Fragment() {
         // load transaction list
         Thread {
             activity?.runOnUiThread {
-                accountGeneralDetailAdapter?.setTotalAccountBalance(accountGeneralDetailViewModel.accountID, accountGeneralDetailViewModel.accountBalance)
-                accountGeneralDetailAdapter?.setList(accountGeneralDetailViewModel.listDetail)
+                accountGeneralDetailAdapter?.setList(accountGeneralDetailViewModel.listDetail, accountGeneralDetailViewModel.listBalance, accountGeneralDetailViewModel.accountID)
             }
         }.start()
 
