@@ -176,7 +176,7 @@ class CalendarAdapter(
         val expenseColor = ContextCompat.getColor(itemView.context, R.color.app_expense_amount)
         val incomeColor = ContextCompat.getColor(itemView.context, R.color.app_income_amount)
         val amountColor = ContextCompat.getColor(itemView.context, R.color.app_amount)
-        val eventColor = ContextCompat.getColor(itemView.context, R.color.app_title_background)
+        val eventColor = ContextCompat.getColor(itemView.context, R.color.app_event)
 
     }
 

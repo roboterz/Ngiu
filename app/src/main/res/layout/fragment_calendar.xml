@@ -136,7 +136,7 @@
                 android:id="@+id/cv_calendar_first_item_div_date"
                 android:layout_width="0.5dp"
                 android:layout_height="0dp"
-                android:layout_marginStart="4.3dp"
+                android:layout_marginStart="4.2dp"
                 android:background="@color/app_icon_light"
                 android:layout_marginTop="2dp"
                 app:layout_constraintStart_toStartOf="@id/cv_calendar_first_item_img_circle"
