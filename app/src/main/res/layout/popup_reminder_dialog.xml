@@ -183,7 +183,7 @@
             android:gravity="start|top"
             android:inputType="textMultiLine"
             android:textColor="@color/app_option_text"
-            android:background="@color/app_title_text"
+            android:background="@color/app_section_background"
             app:layout_constraintTop_toBottomOf="@+id/ly_reminder_period"
             app:layout_constraintBottom_toTopOf="@+id/button_left"
             tools:ignore="MissingConstraints" />

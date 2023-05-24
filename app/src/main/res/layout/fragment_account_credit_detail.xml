@@ -23,21 +23,20 @@
         android:id="@+id/layout_account_credit_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/app_list_group_header"
-        android:paddingStart="5dp"
-        android:paddingVertical="5dp"
-        android:paddingEnd="5dp"
+        android:background="@color/app_title_background"
+        android:paddingStart="20dp"
+        android:paddingBottom="15dp"
+        android:paddingEnd="20dp"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_account_credit_card_details">
 
         <TextView
             android:id="@+id/tv_account_credit_info_statement_day"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
             android:singleLine="true"
             android:text="@string/option_account_statement_date"
             android:textAlignment="textStart"
-            android:textColor="@color/app_sub_line_text"
+            android:textColor="@color/app_title_text_inactive"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -48,7 +47,7 @@
             android:layout_marginStart="5dp"
             android:text="27th"
             android:textAlignment="textStart"
-            android:textColor="@color/app_sub_line_text"
+            android:textColor="@color/app_title_text_inactive"
             app:layout_constraintStart_toEndOf="@id/tv_account_credit_info_statement_day"
             app:layout_constraintTop_toTopOf="@id/tv_account_credit_info_statement_day" />
 
@@ -60,7 +59,7 @@
             android:singleLine="true"
             android:text="@string/option_account_payment_date"
             android:textAlignment="textEnd"
-            android:textColor="@color/app_sub_line_text"
+            android:textColor="@color/app_title_text_inactive"
             app:layout_constraintEnd_toStartOf="@id/tv_account_credit_info_payment_day_value"
             app:layout_constraintTop_toTopOf="@+id/tv_account_credit_info_statement_day" />
 
@@ -68,11 +67,10 @@
             android:id="@+id/tv_account_credit_info_payment_day_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
             android:text="10/22"
             android:textAlignment="textStart"
             app:layout_constraintEnd_toEndOf="parent"
-            android:textColor="@color/app_sub_line_text"
+            android:textColor="@color/app_title_text_inactive"
             app:layout_constraintTop_toTopOf="@+id/tv_account_credit_info_statement_day"
             app:layout_constraintWidth_percent="0.1" />
 
@@ -80,9 +78,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:background="@color/app_title_background"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
+            android:background="@color/app_title_background_active"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_account_credit_info_statement_day">

@@ -13,7 +13,7 @@
         android:id="@+id/layout_main_category_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/app_main_list">
+        android:background="@color/app_list_background">
 
         <TextView
             android:id="@+id/tv_main_category_name"

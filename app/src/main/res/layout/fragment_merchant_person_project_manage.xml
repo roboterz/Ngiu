@@ -29,6 +29,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="@color/app_list_group_header"
         app:layout_constraintTop_toBottomOf="@+id/layout_mpp_toolbar"
         tools:layout_editor_absoluteX="0dp">
 
@@ -36,10 +37,11 @@
             android:id="@+id/recyclerview_mpp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_constrainedHeight="true" >
+            app:layout_constrainedHeight="true"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp">
 
         </androidx.recyclerview.widget.RecyclerView>
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

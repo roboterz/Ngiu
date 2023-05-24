@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/app_list_background"
+    android:background="@color/app_list_group_header"
     android:orientation="vertical"
     tools:context=".ui.setting.SettingFragment">
 
@@ -24,7 +24,7 @@
 
 
     <ScrollView
-        android:background="@color/app_list_background"
+        android:background="@color/app_list_group_header"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="56dp"
@@ -44,7 +44,6 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/app_icon_light"
                 android:textSize="15sp"
-                android:background="@color/app_list_background"
                 android:paddingStart="15dp"
                 android:paddingEnd="5dp"
                 android:paddingVertical="5dp"/>
@@ -167,15 +166,14 @@
 
             <TextView
                 android:id="@+id/tv_setting_advanced"
-                android:text="@string/setting_section_advanced"
-                android:paddingStart="15dp"
-                android:paddingEnd="5dp"
-                android:paddingVertical="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
+                android:paddingVertical="5dp"
+                android:paddingStart="15dp"
+                android:paddingEnd="5dp"
+                android:text="@string/setting_section_advanced"
                 android:textColor="@color/app_icon_light"
-                android:background="@color/app_list_background"/>
+                android:textSize="15sp" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -289,8 +287,7 @@
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="15dp"
                 android:paddingVertical="5dp"
-                android:textColor="@color/app_icon_light"
-                android:background="@color/app_list_background"/>
+                android:textColor="@color/app_icon_light"/>
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -346,8 +343,7 @@
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="15dp"
                 android:paddingVertical="5dp"
-                android:textColor="@color/app_icon_light"
-                android:background="@color/app_list_background"/>
+                android:textColor="@color/app_icon_light"/>
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
