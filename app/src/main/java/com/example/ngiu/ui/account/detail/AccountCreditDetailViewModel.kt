@@ -165,6 +165,7 @@ class AccountCreditDetailViewModel : ViewModel() {
 
         //
         listGroup.reverse()
+        listGroup[0].IsExpanded=true
 
     }
 
