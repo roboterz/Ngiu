@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/app_list_background"
+    android:background="@color/app_list_group_header"
     tools:context=".ui.record.RecordFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
