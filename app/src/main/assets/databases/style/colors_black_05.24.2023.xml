@@ -6,8 +6,8 @@
     <color name="app_title_background_active">#88222222</color>
     <color name="app_expense_amount">#EC4B03</color>
     <color name="app_income_amount">#29C010</color>
-    <color name="app_expense_amount2">#EC7063</color>
-    <color name="app_income_amount2">#B3F783</color>
+    <color name="app_expense_amount2">#EC4B03</color>
+    <color name="app_income_amount2">#29C010</color>
     <color name="app_amount">#BBFFFFFF</color>
     <color name="app_label_text">#868686</color>
     <color name="app_list_background">#868686</color>
@@ -27,9 +27,9 @@
     <color name="app_event">#4CB9DB</color>
     <color name="app_icon_light">#AAAAAA</color>
     <color name="app_main_list">#E5E5E5</color>
-    <color name="keyboard_background">#C4C4C4</color>
-    <color name="keyboard_font">#555555</color>
-    <color name="keyboard_frame">#888888</color>
+    <color name="keyboard_background">#222222</color>
+    <color name="keyboard_font">#FFFFFF</color>
+    <color name="keyboard_frame">#BBBBBB</color>
 
 
     <color name="chart_expense_color_0">#B22222</color>
