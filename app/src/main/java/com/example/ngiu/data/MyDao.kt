@@ -607,6 +607,20 @@ interface TransDao {
     @Transaction
     @Query("""
         SELECT SUM(Transaction_Amount)
+        FROM Trans, Account
+        WHERE Trans.Account_ID = Account.Account_ID
+            AND TransactionType_ID = :transTypeID
+            AND Transaction_Date Between :fromDate AND :toDate
+            AND Transaction_ReimburseStatus = :reimburseStatus
+            AND Account.Account_CountInNetAssets = :countInNetAssets
+            AND Category_ID >= :cateIDLimit
+        """)
+    fun getSumOfDaysByTransactionType(transTypeID: Long, fromDate: String, toDate: String, reimburseStatus: Int = 0, countInNetAssets: Boolean = true, cateIDLimit: Long = CATEGORY_LIMIT): Double
+
+
+    @Transaction
+    @Query("""
+        SELECT SUM(Transaction_Amount)
         FROM Trans
         WHERE TransactionType_ID = 2
             AND Transaction_Date Between :fromDate AND :toDate
