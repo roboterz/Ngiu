@@ -8,6 +8,8 @@ import androidx.lifecycle.ViewModel
 import com.example.ngiu.data.AppDatabase
 import com.example.ngiu.data.entities.Trans
 import com.example.ngiu.data.entities.returntype.TransactionDetail
+import com.example.ngiu.functions.TRANSACTION_TYPE_EXPENSE
+import com.example.ngiu.functions.TRANSACTION_TYPE_INCOME
 import java.text.DateFormat
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -43,10 +45,13 @@ class ActivityViewModel : ViewModel() {
         val fromDate = lDate.format(formatter)
         val toDate = lDate.plusMonths(1).format(formatter)
 
-        monthExpense = AppDatabase.getDatabase(context).trans().getMonthExpense(fromDate, toDate)
-        // budget
-        monthIncome = AppDatabase.getDatabase(context).trans().getMonthIncome(fromDate, toDate)
+        monthExpense = AppDatabase.getDatabase(context).trans().getSumOfDaysByTransactionType(
+            TRANSACTION_TYPE_EXPENSE, fromDate, toDate)
+        monthIncome = AppDatabase.getDatabase(context).trans().getSumOfDaysByTransactionType(
+            TRANSACTION_TYPE_INCOME, fromDate, toDate)
         transactionDetail = AppDatabase.getDatabase(context).trans().getAllTransDetail()
+
+        // todo Budget
     }
 
 
