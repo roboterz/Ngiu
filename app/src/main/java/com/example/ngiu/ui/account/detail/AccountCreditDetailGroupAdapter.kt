@@ -32,6 +32,7 @@ class AccountCreditDetailGroupAdapter(
     // interface for passing the onClick event to fragment.
     interface OnClickListener {
         fun onItemClick(transID: Long)
+        //fun onTitleClick(idx: Int, expanded: Boolean)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CreditDetailGroupViewHolder{
@@ -98,6 +99,7 @@ class AccountCreditDetailGroupAdapter(
                     holder.ivExpanded.setImageDrawable(holder.iconExpand)
                     IsExpanded = true
                 }
+                //onClickListener.onTitleClick(position, IsExpanded)
             }
 
         }

@@ -157,7 +157,12 @@ class AccountCreditDetailViewModel : ViewModel() {
                 accountCDGM.TermStartDate = startDate
                 accountCDGM.CDList.reverse()
                 accountCDGM.DueAmount = sumAmount + if (listGroup.isNotEmpty()) listGroup.last().DueAmount else 0.00
-                accountCDGM.StatementStatus = false
+
+                //
+                if (endDate > LocalDateTime.now()){
+                    accountCDGM.StatementStatus = false
+                }
+
                 listGroup.add(accountCDGM.copy())
             }
 

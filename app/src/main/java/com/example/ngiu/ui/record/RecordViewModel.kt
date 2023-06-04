@@ -178,6 +178,22 @@ class RecordViewModel : ViewModel() {
 
     }
 
+    fun reloadCategory(context: Context, transType: Long){
+        when (transType){
+            TRANSACTION_TYPE_EXPENSE -> {
+               expenseCommonCategory = AppDatabase.getDatabase(context).category().getCommonCategoryByTransactionType(TRANSACTION_TYPE_EXPENSE)
+            }
+            TRANSACTION_TYPE_INCOME -> {
+                incomeCommonCategory = AppDatabase.getDatabase(context).category().getCommonCategoryByTransactionType(TRANSACTION_TYPE_INCOME)
+            }
+            TRANSACTION_TYPE_TRANSFER -> {
+                transferCommonCategory = AppDatabase.getDatabase(context).category().getCommonCategoryByTransactionType(TRANSACTION_TYPE_TRANSFER)
+            }
+            TRANSACTION_TYPE_DEBIT -> {
+                debitCreditCommonCategory = AppDatabase.getDatabase(context).category().getCommonCategoryByTransactionType(TRANSACTION_TYPE_DEBIT)
+            }
+        }
+    }
 
     fun loadTransactionDetail(context: Context, rID: Long) {
         // load transaction data

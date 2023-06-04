@@ -72,8 +72,12 @@ class RecordFragment : Fragment() {
             // get string from category manage
             setFragmentResultListener(KEY_RECORD_CATEGORY) { _, bundle ->
                 val receivedCateID = bundle.getLong(KEY_RECORD_CATEGORY_ID)
+
+                recordViewModel.reloadCategory(requireContext(), recordViewModel.transDetail.TransactionType_ID)
+
                 setCategory(recordViewModel.transDetail.TransactionType_ID, receivedCateID)
                 //Toast.makeText(context,"".toString(),Toast.LENGTH_LONG).show()
+                //loadCommonCategory(recordViewModel.transDetail.TransactionType_ID)
             }
 
 
@@ -208,14 +212,8 @@ class RecordFragment : Fragment() {
             }else{
                 // save and next
                 if (saveRecord() == 0) {
-                    // reset amount
-                    tv_record_amount.text = "0.00"
-                    // reset time
-                    tv_record_time.text = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"))
-                    // reset time and save into transaction detail
-                    recordViewModel.transDetail.Transaction_Date =
-                        getInternationalDateFromAmericanDate(tv_record_date.text.toString() + " " + tv_record_time.text.toString())
-
+                    // reset TextViews
+                    resetTextViews()
                 }
             }
         }
@@ -533,9 +531,11 @@ class RecordFragment : Fragment() {
     }
 
 
+
     private fun setCategory(transType: Long, cateID: Long = 0L) {
         recordViewModel.setSubCategory(transType, cateID)
     }
+
 
     private fun showDataOnUI(transType: Long){
         /*** show data on UI  **/
@@ -595,6 +595,7 @@ class RecordFragment : Fragment() {
 
 
 
+    /** Create New Account **/
     private fun createNewAccount(view: View, categoryName: String, payable: Boolean) {
 
         when (recordViewModel.getCategoryID(categoryName)) {
@@ -630,7 +631,7 @@ class RecordFragment : Fragment() {
     }
 
 
-    // save record
+    /** save record **/
     private fun saveRecord() : Int{
 
         // If amount is 0, do not save
@@ -689,7 +690,7 @@ class RecordFragment : Fragment() {
         }
     }
 
-    // delete record
+    /** delete record **/
     @SuppressLint("InflateParams")
     private fun deleteRecord(activity: FragmentActivity?, transactionID: Long) {
 
@@ -724,7 +725,23 @@ class RecordFragment : Fragment() {
     }
 
 
-    //
+    /** reset Textview **/
+    private fun resetTextViews() {
+        // reset amount
+        tv_record_amount.text = "0.00"
+        // reset time
+        tv_record_time.text = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"))
+        // reset time and save into transaction detail
+        recordViewModel.transDetail.Transaction_Date =
+            getInternationalDateFromAmericanDate(tv_record_date.text.toString() + " " + tv_record_time.text.toString())
+        // reset Momo
+        tv_record_memo.text.clear()
+
+        // Amount TextView get focus
+        tv_record_amount.callOnClick()
+    }
+
+    /** Load Common Category **/
     private fun loadCommonCategory(tyID: Long) {
         Thread {
             activity?.runOnUiThread {

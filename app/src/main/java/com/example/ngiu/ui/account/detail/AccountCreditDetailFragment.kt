@@ -164,6 +164,10 @@ class AccountCreditDetailFragment : Fragment() {
                         // switch to record fragment (Edit mode)
                         switchToRecordFragment(view, fragment, transID)
                     }
+
+/*                    override fun onTitleClick(idx: Int, expanded: Boolean) {
+                        accountCreditDetailViewModel.listGroup[idx].IsExpanded=expanded
+                    }*/
                 })
 
                 recyclerview_account_credit_detail.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)

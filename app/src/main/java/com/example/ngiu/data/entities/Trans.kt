@@ -79,6 +79,10 @@ data class Trans(
     var Transaction_Memo: String = "",
     @ColumnInfo(defaultValue = "1")
     var Project_ID: Long = 1L,
+    // Reimburse Status:
+    // 0: non-reimburse
+    // 1: reimbursable
+    // 2: reimbursed
     @ColumnInfo(defaultValue = "0")
     var Transaction_ReimburseStatus: Int = 0,
     @ColumnInfo(defaultValue = "0")

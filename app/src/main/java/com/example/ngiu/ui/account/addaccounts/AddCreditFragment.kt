@@ -136,7 +136,7 @@ class AddCreditFragment : Fragment() {
         }
 
         addCashViewModel.updateAccount(requireContext(), account)
-        findNavController().navigate(R.id.navigation_account)
+        findNavController().popBackStack()
         Toast.makeText(requireContext(), "Update Successful", Toast.LENGTH_LONG).show()
 
     }
@@ -410,7 +410,7 @@ class AddCreditFragment : Fragment() {
 
         if (validAccountName) {
             insertData()
-            findNavController().navigate(R.id.navigation_account)
+            findNavController().popBackStack()
 
         } else
             invalidForm()

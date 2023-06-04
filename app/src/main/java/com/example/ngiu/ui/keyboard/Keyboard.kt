@@ -63,13 +63,18 @@ class Keyboard(view: View){
             }
         }
 
-        // decimal point
+        // decimal point -> 00
         keyDot.setOnClickListener {
-            // todo need change
+            // add 00
+            if (echoView.text.length < TEXTVIEW_MAX_NUMBER - 1 ){
+                if (echoView.text.toString().toDouble() != 0.0) {
+                    echoView.text = "%.2f".format( echoView.text.toString().toDouble() * 100.0 )
+                }
+            }
         }
-        //
+        // calculator
         keyCalc.setOnClickListener {
-            // todo
+            // todo calculator
             //binding.priceInput.visibility = View.GONE
         }
         // clear

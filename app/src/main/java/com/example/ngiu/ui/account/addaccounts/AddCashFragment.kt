@@ -222,7 +222,7 @@ class AddCashFragment : Fragment() {
         }
 
         addCashViewModel.updateAccount(requireContext(),account)
-        findNavController().navigate(R.id.navigation_account)
+        findNavController().popBackStack()
         Toast.makeText(requireContext(), "Update Successful",Toast.LENGTH_LONG).show()
 
     }
@@ -272,7 +272,7 @@ class AddCashFragment : Fragment() {
 
         if (validAccountName) {
             insertData()
-            findNavController().navigate(R.id.navigation_account)
+            findNavController().popBackStack()
         } else
             invalidForm()
     }
