@@ -8,7 +8,7 @@
     <color name="app_income_amount">#29C010</color>
     <color name="app_expense_amount2">#EC4B03</color>
     <color name="app_income_amount2">#29C010</color>
-    <color name="app_amount">#BBFFFFFF</color>
+    <color name="app_amount">#FFFFFF</color>
     <color name="app_label_text">#868686</color>
     <color name="app_list_background">#868686</color>
     <color name="app_list_group_header">#585858</color>

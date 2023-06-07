@@ -736,9 +736,12 @@ class RecordFragment : Fragment() {
             getInternationalDateFromAmericanDate(tv_record_date.text.toString() + " " + tv_record_time.text.toString())
         // reset Momo
         tv_record_memo.text.clear()
+        // reset Reimburse
+        setReimburseIcon(NON_REIMBURSABLE)
 
         // Amount TextView get focus
         tv_record_amount.callOnClick()
+
     }
 
     /** Load Common Category **/

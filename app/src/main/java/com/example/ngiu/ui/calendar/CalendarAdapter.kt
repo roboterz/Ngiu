@@ -68,7 +68,8 @@ class CalendarAdapter(
 
             //hide the date if same day as above
             if (position>0) {
-                if (date == calendarDetail[position - 1].date){
+                if (date.format(DateTimeFormatter.ofPattern("MM/dd")) ==
+                    calendarDetail[position - 1].date.format(DateTimeFormatter.ofPattern("MM/dd"))){
                     holder.monthDay.text = ""
                 }
             }
