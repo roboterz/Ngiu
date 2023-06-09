@@ -7,6 +7,7 @@ import com.example.ngiu.data.AppDatabase
 import com.example.ngiu.functions.*
 import com.example.ngiu.functions.calculateAmount
 import com.example.ngiu.ui.account.model.AccountSectionUiModel
+import kotlin.math.roundToInt
 
 
 class AccountViewModel : ViewModel() {
@@ -41,13 +42,6 @@ class AccountViewModel : ViewModel() {
     // getTransactionSums(1) = Expense
     // getTransactionSums(2) = Income
     fun getTotalAssets(): Double {
-        /*
-        val appDatabase = AppDatabase.getDatabase(context)
-
-        return appDatabase.trans().getSumOfAccountBalance() + appDatabase.trans()
-            .getSumOfAmountByTransactionType(2) - appDatabase.trans().getSumOfAmountByTransactionType(1) + appDatabase.trans()
-            .getSumOfAmountForPayableReceivable()
-         */
 
         var sum = 0.0
         accountSections.value?.forEach { it ->
@@ -66,6 +60,8 @@ class AccountViewModel : ViewModel() {
         val allTypes = appDatabase.accountType().getAllAccountType()
         val allAccounts = appDatabase.account().getAllAccountASC()
         val sections = ArrayList<AccountSectionUiModel>()
+
+
         // group the AccountType_ID; setting key,value
         // key:value = AccountType_ID : list of all accounts with same AccountType_ID
         allAccounts.groupBy { it.AccountType_ID }
@@ -73,20 +69,13 @@ class AccountViewModel : ViewModel() {
                 // search the list of account type table to match with AccountType_ID
                 val accountType = allTypes.find { it.AccountType_ID ==  item.key}
 
-                // Individual accounts calculation
-                // get all the transaction base off account_ID and aggregate the new balance
-                item.value.forEach {
-                    // gets the sum of AccountRecipient_ID == Account_ID
-                    val sum2 = appDatabase.trans().getTotalSumB(it.Account_ID)
-                    it.Account_Balance += sum2
 
-                    // get the list transaction base off Account_ID
-                    appDatabase.trans().getRecordsByAcctID(it.Account_ID)
-                        .forEach{ tran->
-                            // for each transaction calculate the new amount and set it to account_balance
-                            it.Account_Balance = calculateAmount(it.Account_Balance,tran)
-                        }
+                // Individual accounts calculation
+                item.value.forEach {
+                    // get Account Balance
+                    it.Account_Balance = getBalance(context, it.Account_ID, it.Account_Balance)
                 }
+
                 // store the total sum of each account base off AccountType_ID
                 val totalSum = item.value.sumOf { it.Account_Balance }
 
@@ -107,5 +96,17 @@ class AccountViewModel : ViewModel() {
         AppDatabase.getDatabase(context).accountType().updateExpandedValueByID(accountType_ID, isExpanded)
     }
 
+    private fun getBalance(context: Context, accountID: Long, balance: Double): Double{
+        val totalAmountOfIncome = AppDatabase.getDatabase(context).trans().getTotalAmountOfIncomeByAccount(accountID)
+        val totalAmountOfExpense = AppDatabase.getDatabase(context).trans().getTotalAmountOfExpenseByAccount(accountID)
+        val totalAmountOfTransferOut = AppDatabase.getDatabase(context).trans().getTotalAmountOfTransferOutByAccount(accountID)
+        val totalAmountOfTransferIn = AppDatabase.getDatabase(context).trans().getTotalAmountOfTransferInByAccount(accountID)
+
+        // Arrears
+        val arrears = ( balance - totalAmountOfExpense - totalAmountOfTransferOut + totalAmountOfIncome + totalAmountOfTransferIn )
+
+        //return get2DigitFormat(arrears).toDouble()
+        return (arrears * 100).roundToInt().toDouble() / 100
+    }
 
 }

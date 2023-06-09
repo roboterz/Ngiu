@@ -1,12 +1,10 @@
 package com.example.ngiu.data
 
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.ngiu.data.entities.*
 import androidx.room.Transaction
 import com.example.ngiu.data.entities.Currency
-import com.example.ngiu.data.entities.returntype.AccountBalance
 import com.example.ngiu.data.entities.returntype.AccountCount
 import com.example.ngiu.data.entities.returntype.RecordDetail
 import com.example.ngiu.data.entities.returntype.TransactionDetail
