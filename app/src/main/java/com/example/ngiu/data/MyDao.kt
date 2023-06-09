@@ -6,6 +6,7 @@ import androidx.room.*
 import com.example.ngiu.data.entities.*
 import androidx.room.Transaction
 import com.example.ngiu.data.entities.Currency
+import com.example.ngiu.data.entities.returntype.AccountBalance
 import com.example.ngiu.data.entities.returntype.AccountCount
 import com.example.ngiu.data.entities.returntype.RecordDetail
 import com.example.ngiu.data.entities.returntype.TransactionDetail
@@ -627,36 +628,22 @@ interface TransDao {
         """)
     fun getMonthIncome(fromDate: String, toDate: String): Double
 
-    //@Query("SELECT *, :date AS passed_date, coalesce(date(date),'ouch') AS cnv_date, coalesce(date(:date),'ouch') AS cnv_passed_date FROM user WHERE date(date / 1000,'unixepoch') = date(:date / 1000,'unixepoch');")
-
-    @Transaction
-    @Query("SELECT SUM(Transaction_Amount) FROM Trans WHERE Account_ID = :acctID")
-    fun getTotalSumA(acctID: Long): Double
-
-    @Transaction
-    @Query("SELECT SUM(Transaction_Amount)  FROM Trans WHERE AccountRecipient_ID = :acctID AND TransactionType_ID IN (3,4)")
-    fun getTotalSumB(acctID: Long): Double
-
-    // 0 for false, 1 for true: so countnetassets if true
-    @Transaction
-    @Query("SELECT SUM(Account_Balance)  FROM Account WHERE Account_CountInNetAssets = 1 ")
-    fun getSumOfAccountBalance(): Double
 
 
-    @Transaction
-    @Query("SELECT SUM(Transaction_Amount) FROM Trans WHERE TransactionType_ID = :transTypeID")
-    fun getSumOfAmountByTransactionType(transTypeID: Long): Double
+//    @Transaction
+//    @Query("SELECT SUM(Transaction_Amount) FROM Trans WHERE TransactionType_ID = :transTypeID")
+//    fun getSumOfAmountByTransactionType(transTypeID: Long): Double
 
-    @Transaction
-    @Query("""
-            SELECT SUM(Transaction_Amount) FROM Trans trans 
-            INNER JOIN ACCOUNT acct ON trans.AccountRecipient_ID = acct.Account_ID 
-            WHERE trans.TransactionType_ID = 4 AND acct.AccountType_ID != 9 -  
-            (SELECT SUM(trans.Transaction_Amount) FROM Trans trans  
-            INNER JOIN Account acct  ON trans.Account_ID = acct.Account_ID 
-            WHERE trans.TransactionType_ID = 4 AND acct.AccountType_ID != 9)
-            """)
-    fun getSumOfAmountForPayableReceivable(): Double
+//    @Transaction
+//    @Query("""
+//            SELECT SUM(Transaction_Amount) FROM Trans trans
+//            INNER JOIN ACCOUNT acct ON trans.AccountRecipient_ID = acct.Account_ID
+//            WHERE trans.TransactionType_ID = 4 AND acct.AccountType_ID != 9 -
+//            (SELECT SUM(trans.Transaction_Amount) FROM Trans trans
+//            INNER JOIN Account acct  ON trans.Account_ID = acct.Account_ID
+//            WHERE trans.TransactionType_ID = 4 AND acct.AccountType_ID != 9)
+//            """)
+//    fun getSumOfAmountForPayableReceivable(): Double
 
     /*
     @Transaction
@@ -675,12 +662,12 @@ interface TransDao {
      */
 
 
-    @Transaction
-    @Query("""
-        SELECT * FROM Trans trans
-        WHERE trans.Account_ID = :rID OR trans.AccountRecipient_ID = :rID
-        """)
-    fun getTransRecordAccount(rID:Long): List<Trans>
+//    @Transaction
+//    @Query("""
+//        SELECT * FROM Trans trans
+//        WHERE trans.Account_ID = :rID OR trans.AccountRecipient_ID = :rID
+//        """)
+//    fun getTransRecordAccount(rID:Long): List<Trans>
 
     @Transaction
     @Query("""
@@ -743,6 +730,7 @@ interface TransDao {
         """)
     fun getTotalAmountOfIncomeByAccount(acctID:Long): Double
 
+
     @Transaction
     @Query("""
         SELECT SUM(Transaction_Amount) 
@@ -751,6 +739,7 @@ interface TransDao {
             AND TransactionType_ID = 1
         """)
     fun getTotalAmountOfExpenseByAccount(acctID:Long):Double
+
 
     @Transaction
     @Query("""
@@ -761,6 +750,7 @@ interface TransDao {
         """)
     fun getTotalAmountOfTransferOutByAccount(acctID:Long): Double
 
+
     @Transaction
     @Query("""
         SELECT SUM(Transaction_Amount) 
@@ -769,6 +759,7 @@ interface TransDao {
             AND TransactionType_ID > 2
         """)
     fun getTotalAmountOfTransferInByAccount(acctID:Long): Double
+
 
     @Transaction
     @Query("""
