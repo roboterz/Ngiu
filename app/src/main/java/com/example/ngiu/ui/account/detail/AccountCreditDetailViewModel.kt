@@ -36,7 +36,7 @@ class AccountCreditDetailViewModel : ViewModel() {
         val totalAmountOfTransferIn = AppDatabase.getDatabase(context).trans().getTotalAmountOfTransferInByAccount(accountID)
 
         // Arrears
-        currentArrears = (accountRecord.Account_Balance + totalAmountOfExpense + totalAmountOfTransferOut - totalAmountOfIncome - totalAmountOfTransferIn)
+        currentArrears = ( totalAmountOfExpense + totalAmountOfTransferOut - totalAmountOfIncome - totalAmountOfTransferIn - accountRecord.Account_Balance )
 
         // Available Credit Limit
         availableCreditLimit = accountRecord.Account_CreditLimit - currentArrears

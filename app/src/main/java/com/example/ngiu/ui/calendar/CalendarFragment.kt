@@ -31,6 +31,7 @@ import com.example.ngiu.functions.EVENT_MODE_EVERY_YEAR
 import com.example.ngiu.functions.NON_REIMBURSABLE
 import com.example.ngiu.functions.REIMBURSABLE
 import com.example.ngiu.functions.REIMBURSED
+import com.example.ngiu.functions.get2DigitFormat
 import com.example.ngiu.functions.getInternationalDateFromAmericanDate
 import kotlinx.android.synthetic.main.fragment_calendar.*
 import kotlinx.android.synthetic.main.fragment_record.*
@@ -97,7 +98,11 @@ class CalendarFragment : Fragment() {
             }
         }
 
+        // pending payment
+        tv_calendar_pending_payment_amount.text = get2DigitFormat(calendarViewModel.pendingPayment)
 
+        // pending receivable
+        tv_calendar_pending_receivable_amount.text = get2DigitFormat(calendarViewModel.pendingIncome)
 
     }
 

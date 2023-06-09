@@ -290,7 +290,7 @@ fun getInternationalDateFromAmericanDate(string: String): LocalDateTime {
 
 
 fun get2DigitFormat(double: Double): String{
-    return "%.2f".format((double * 100).roundToInt().toDouble() / 100)
+    return "$%.2f".format((double * 100).roundToInt().toDouble() / 100)
 }
 
 
