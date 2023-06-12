@@ -425,7 +425,7 @@ class RecordFragment : Fragment() {
             if (hasFocus) Keyboard(view).hide()
         }
         tv_record_memo.doAfterTextChanged {
-            recordViewModel.transDetail.Transaction_Memo = tv_record_memo.text.toString()
+            recordViewModel.transDetail.Transaction_Memo = tv_record_memo.text.toString().trim()
         }
         /**--------------- TOUCH EVENTS ------------------------------------------------------------------------*/
     }
@@ -645,6 +645,13 @@ class RecordFragment : Fragment() {
             return 1
         }else {
 
+            //-- set the values base on transaction type --//
+            // reimburse
+            if (recordViewModel.transDetail.TransactionType_ID > TRANSACTION_TYPE_INCOME){
+                recordViewModel.transDetail.Transaction_ReimburseStatus = 0
+            }
+
+
             val trans = Trans(
                 Transaction_ID = recordViewModel.transDetail.Transaction_ID,
                 TransactionType_ID = recordViewModel.transDetail.TransactionType_ID,
@@ -653,7 +660,7 @@ class RecordFragment : Fragment() {
                 Transaction_Amount = tv_record_amount.text.toString().toDouble(),
                 Transaction_Amount2 = if (recordViewModel.transDetail.TransactionType_ID > TRANSACTION_TYPE_EXPENSE) tv_record_amount.text.toString().toDouble() else 0.00 ,
                 Transaction_Date = recordViewModel.transDetail.Transaction_Date,
-                Transaction_Memo = tv_record_memo.text.toString(),
+                Transaction_Memo = tv_record_memo.text.toString().trim(),
                 Merchant_ID = recordViewModel.merchant[recordViewModel.merchant.indexOfFirst { it.Merchant_Name == tv_record_merchant.text.toString() }].Merchant_ID,
                 Person_ID = recordViewModel.person[recordViewModel.person.indexOfFirst { it.Person_Name == tv_record_person.text.toString() }].Person_ID,
                 Project_ID = 1L, //recordViewModel.transDetail.Period_ID,
@@ -737,6 +744,7 @@ class RecordFragment : Fragment() {
         // reset Momo
         tv_record_memo.text.clear()
         // reset Reimburse
+        recordViewModel.transDetail.Transaction_ReimburseStatus = NON_REIMBURSABLE
         setReimburseIcon(NON_REIMBURSABLE)
 
         // Amount TextView get focus

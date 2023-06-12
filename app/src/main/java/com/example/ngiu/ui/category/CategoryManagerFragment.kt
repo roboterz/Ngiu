@@ -345,7 +345,7 @@ class CategoryManagerFragment: Fragment() {
                     //add main category
                     ADD_MAIN_CATEGORY -> {
                         val mainCate = Category()
-                        mainCate.Category_Name = editText.text.toString()
+                        mainCate.Category_Name = editText.text.toString().trim()
                         mainCate.TransactionType_ID =
                             categoryManagerViewModel.mainCategory[0].TransactionType_ID
                         categoryManagerViewModel.addCategory(requireContext(), mainCate)
@@ -358,7 +358,7 @@ class CategoryManagerFragment: Fragment() {
                                 categoryManagerViewModel.mainCategory.indexOfFirst { it.Category_ID == rID }]
                         mainCate.TransactionType_ID =
                             categoryManagerViewModel.mainCategory[0].TransactionType_ID
-                        mainCate.Category_Name = editText.text.toString()
+                        mainCate.Category_Name = editText.text.toString().trim()
                         categoryManagerViewModel.updateCategory(requireContext(), mainCate)
                         // refresh
                         refreshMainCategory()
@@ -367,7 +367,7 @@ class CategoryManagerFragment: Fragment() {
                     ADD_SUB_CATEGORY -> {
                         val subCate = Category()
                         //subCate.Category_ID = categoryManagerViewModel.currentActiveMainCategory
-                        subCate.Category_Name = editText.text.toString()
+                        subCate.Category_Name = editText.text.toString().trim()
                         subCate.Category_ParentID = categoryManagerViewModel.currentActiveMainCategory
                         subCate.TransactionType_ID = categoryManagerViewModel.currentTransactionType
                         categoryManagerViewModel.addCategory(requireContext(), subCate)
@@ -378,7 +378,7 @@ class CategoryManagerFragment: Fragment() {
                     EDIT_SUB_CATEGORY -> {
                         val subCate = categoryManagerViewModel.subCategory[
                                 categoryManagerViewModel.subCategory.indexOfFirst { it.Category_ID == rID }]
-                        subCate.Category_Name = editText.text.toString()
+                        subCate.Category_Name = editText.text.toString().trim()
                         categoryManagerViewModel.updateCategory(requireContext(), subCate)
                         // refresh
                         refreshSubCategory()

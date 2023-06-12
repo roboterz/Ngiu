@@ -117,6 +117,11 @@ class AccountGeneralDetailAdapter(
             }
 
             // memo
+            if (Transaction_Memo.isNotEmpty()) {
+                if (holder.recordInfo.text.isNotEmpty()){
+                    holder.dotBeforeMemo.visibility = View.VISIBLE
+                }
+            }
             holder.recordMemo.text = Transaction_Memo
 
 
@@ -167,6 +172,7 @@ class AccountGeneralDetailAdapter(
         val groupDate: TextView = itemView.tv_account_general_item_group_date
         val recordText: TextView = itemView.tv_account_general_item_text
         val recordTime: TextView = itemView.tv_account_general_item_time
+        val dotBeforeMemo: TextView = itemView.tv_account_general_item_dot_before_memo
         val recordMemo: TextView = itemView.tv_account_general_item_memo
         val recordInfo: TextView = itemView.tv_account_general_item_info
         val recordAmount: TextView = itemView.tv_account_general_item_amount
