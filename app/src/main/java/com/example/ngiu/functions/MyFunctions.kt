@@ -354,6 +354,22 @@ fun switchToCategoryManager(view: View, fragment: Fragment, mode: Int, transType
     view.findNavController().navigate(R.id.navigation_category_manage)
 }
 
+
+fun switchToAccountListFragment(view: View, fragment: Fragment, mode: Int, transTypeID: Long, cateID: Long, exceptAcctID: Long) {
+
+    // Put Data Before switch
+    fragment.setFragmentResult(KEY_ACCOUNT_LIST, bundleOf(
+        KEY_ACCOUNT_LIST_MODE to mode,
+        KEY_ACCOUNT_LIST_TRANSACTION_TYPE_ID to transTypeID,
+        KEY_ACCOUNT_LIST_CATEGORY_ID to cateID,
+        KEY_ACCOUNT_LIST_EXCEPT_ID to exceptAcctID
+    ))
+
+    // switch to category manage fragment
+    view.findNavController().navigate(R.id.navigation_account_list)
+}
+
+
 fun switchToRecordFragment(
     view: View, fragment: Fragment, transID: Long = 0,
     acctID: Long = 0, transTypeID: Long = TRANSACTION_TYPE_EXPENSE){

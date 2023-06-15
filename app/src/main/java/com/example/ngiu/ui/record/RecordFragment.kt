@@ -17,6 +17,7 @@ import androidx.core.view.forEach
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.*
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.example.ngiu.MainActivity
@@ -79,6 +80,22 @@ class RecordFragment : Fragment() {
                 //Toast.makeText(context,"".toString(),Toast.LENGTH_LONG).show()
                 //loadCommonCategory(recordViewModel.transDetail.TransactionType_ID)
             }
+
+        // get Account from Account List
+        setFragmentResultListener(KEY_RECORD_ACCOUNT_LIST) { _, bundle ->
+            var receivedPayAcctName= ""
+            var receivedReceiveAcctName = ""
+            receivedPayAcctName = bundle.getString(KEY_RECORD_PAY_ACCOUNT_NAME).toString()
+            receivedReceiveAcctName = bundle.getString(KEY_RECORD_RECEIVE_ACCOUNT_NAME).toString()
+
+            if (receivedPayAcctName.isNotEmpty()) {
+                recordViewModel.setAccountName( recordViewModel.transDetail.TransactionType_ID, receivedPayAcctName, true)
+            }
+            if (receivedReceiveAcctName.isNotEmpty()) {
+                recordViewModel.setAccountName( recordViewModel.transDetail.TransactionType_ID, receivedReceiveAcctName, false)
+            }
+
+        }
 
 
     }
@@ -178,7 +195,7 @@ class RecordFragment : Fragment() {
 
         // touch Expense textView, switch to Expense page
         tvSectionExpense.setOnClickListener {
-            selectTransactionType(TRANSACTION_TYPE_EXPENSE)
+            selectTransactionType( TRANSACTION_TYPE_EXPENSE)
         }
         // touch Income textView, switch to Income page
         tvSectionIncome.setOnClickListener {
@@ -365,59 +382,62 @@ class RecordFragment : Fragment() {
 
         /** swap **/
         iv_record_swap.setOnClickListener {
-            tv_record_account_receive.text = tv_record_account_pay.text.apply { tv_record_account_pay.text = tv_record_account_receive.text }
-            recordViewModel.tempSaveOutAccountName = recordViewModel.tempSaveInAccountName.apply { recordViewModel.tempSaveInAccountName = recordViewModel.tempSaveOutAccountName }
+            if (tv_record_account_pay.text.toString() != getString(R.string.msg_no_account) && tv_record_account_receive.text.toString() != getString(R.string.msg_no_account)) {
+                // <=>
+                tv_record_account_receive.text = tv_record_account_pay.text.apply {
+                    tv_record_account_pay.text = tv_record_account_receive.text
+                }
+                // <=>
+                recordViewModel.tempSaveOutAccountName = recordViewModel.tempSaveInAccountName.apply {
+                    recordViewModel.tempSaveInAccountName = recordViewModel.tempSaveOutAccountName
+                }
+            }
         }
 
 
         /** account pay **/
         tv_record_account_pay.setOnClickListener {
 
-            //showAccountListDialog(view.context, 0L)
-
             if (tv_record_account_pay.text.toString() != getString(R.string.msg_no_account)) {
-                // load account name as list and show it in a popup window
-                val nameList: Array<String> = recordViewModel.getListOfAccountName(tv_record_account_receive.text.toString(),true)
-                popupWindow(requireContext(),getString(R.string.nav_title_account_list),  nameList,
-                    object : SelectItem {
-                        override fun clicked(idx: Int) {
-                            tv_record_account_pay.text = nameList[idx]
-                        }
-                    })
+                // open account list
+                switchToAccountListFragment(view, this,
+                    KEY_ACCOUNT_LIST_MODE_PAY,
+                    recordViewModel.transDetail.TransactionType_ID,
+                    recordViewModel.transDetail.Category_ID,
+                    recordViewModel.getAccountID(tv_record_account_receive.text.toString())
+                )
             }else{
                 // create new account if no account
                 createNewAccount(view, recordViewModel.transDetail.Category_Name, true)
             }
         }
-        tv_record_account_pay.doAfterTextChanged{
-            recordViewModel.transDetail.Account_Name = tv_record_account_pay.text.toString()
-        }
+//        tv_record_account_pay.doAfterTextChanged{
+//            recordViewModel.transDetail.Account_Name = tv_record_account_pay.text.toString()
+//            recordViewModel.transDetail.Account_ID = recordViewModel.getAccountID(tv_record_account_pay.text.toString())
+//        }
 
 
         /** account receive **/
         tv_record_account_receive.setOnClickListener {
 
             if (tv_record_account_receive.text.toString() != getString(R.string.msg_no_account)) {
-                // load account name as list and show it in a popup window
-                val nameList: Array<String> = recordViewModel.getListOfAccountName(tv_record_account_pay.text.toString(),false)
-                popupWindow(requireContext(),getString(R.string.nav_title_account_list),  nameList,
-                    object : SelectItem {
-                        override fun clicked(idx: Int) {
-                            tv_record_account_receive.text = nameList[idx]
-                            recordViewModel.setAccountName(
-                                recordViewModel.transDetail.TransactionType_ID,
-                                tv_record_account_receive.text.toString(), false)
-                        }
-                    })
+                // open account list
+                switchToAccountListFragment(view, this,
+                    KEY_ACCOUNT_LIST_MODE_RECEIVE,
+                    recordViewModel.transDetail.TransactionType_ID,
+                    recordViewModel.transDetail.Category_ID,
+                    recordViewModel.getAccountID(tv_record_account_pay.text.toString())
+                )
             }else{
                 // create new account if no account
                 createNewAccount(view, recordViewModel.transDetail.Category_Name, false)
             }
 
         }
-        tv_record_account_receive.doAfterTextChanged{
-            recordViewModel.transDetail.AccountRecipient_Name = tv_record_account_receive.text.toString()
-        }
+//        tv_record_account_receive.doAfterTextChanged{
+//            recordViewModel.transDetail.AccountRecipient_Name = tv_record_account_receive.text.toString()
+//            recordViewModel.transDetail.AccountRecipient_ID = recordViewModel.getAccountID(tv_record_account_receive.text.toString())
+//        }
 
 
         /** memo **/
@@ -436,6 +456,11 @@ class RecordFragment : Fragment() {
     // called when the fragment is visible and actively running.
     override fun onResume() {
         super.onResume()
+
+        //recordViewModel.loadDataToRam(requireContext())
+
+        // Set Account
+        setAccount(recordViewModel.transDetail.TransactionType_ID, recordViewModel.transDetail.Transaction_ID, )
 
         // load data to UI textview
         showDataOnUI(recordViewModel.transDetail.TransactionType_ID)

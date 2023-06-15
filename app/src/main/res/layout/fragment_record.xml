@@ -430,7 +430,7 @@
                 android:id="@+id/tv_record_reimburse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
+                android:layout_marginTop = "10dp"
                 android:background="@drawable/textview_additional_border"
                 android:gravity="center"
                 android:paddingStart="5dp"
@@ -441,16 +441,16 @@
                 android:tag="other_info"
                 android:text="@string/option_non_reimbursable"
                 android:textColor="@color/app_label_text"
-                app:layout_constraintStart_toEndOf="@+id/tv_record_time"
-                app:layout_constraintTop_toTopOf="@id/tv_record_time"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_record_date"
                 app:drawableStartCompat="@drawable/ic_baseline_check_box_outline_blank_24"
                 app:drawableTint="@color/app_label_text" />
 
             <TextView
                 android:id="@+id/tv_record_person"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="20dp"
                 android:maxWidth="120dp"
                 android:background="@drawable/textview_additional_border"
                 android:gravity="center"
@@ -462,15 +462,16 @@
                 android:text="@string/option_me"
                 android:tag="other_info"
                 android:textColor="@color/app_label_text"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_record_date" />
+                app:layout_constraintStart_toEndOf="@+id/tv_record_time"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_record_time"
+                app:layout_constraintTop_toTopOf="@id/tv_record_time" />
 
             <TextView
                 android:id="@+id/tv_record_merchant"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
                 android:maxWidth="120dp"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="20dp"
                 android:background="@drawable/textview_additional_border"
                 android:gravity="center"
                 android:paddingStart="5dp"
@@ -482,13 +483,14 @@
                 android:tag="other_info"
                 android:visibility="visible"
                 android:textColor="@color/app_label_text"
-                app:layout_constraintStart_toEndOf="@id/tv_record_person"
-                app:layout_constraintTop_toTopOf="@id/tv_record_person" />
+                app:layout_constraintStart_toEndOf="@id/tv_record_reimburse"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_record_reimburse"
+                app:layout_constraintTop_toTopOf="@id/tv_record_reimburse" />
 
             <TextView
                 android:id="@+id/tv_record_project"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
                 android:maxWidth="120dp"
                 android:layout_marginStart="8dp"
                 android:singleLine="true"
@@ -503,7 +505,8 @@
                 android:text="@string/option_project"
                 android:textColor="@color/app_label_text"
                 app:layout_constraintStart_toEndOf="@id/tv_record_merchant"
-                app:layout_constraintTop_toTopOf="@id/tv_record_person"/>
+                app:layout_constraintBottom_toBottomOf="@+id/tv_record_merchant"
+                app:layout_constraintTop_toTopOf="@id/tv_record_merchant"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

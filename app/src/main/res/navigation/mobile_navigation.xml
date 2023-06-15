@@ -137,4 +137,9 @@
         android:name="com.example.ngiu.ui.reimburse.ReimburseFragment"
         tools:layout="@layout/fragment_reimburse" />
 
+    <fragment
+        android:id="@+id/navigation_account_list"
+        android:name="com.example.ngiu.ui.account.list.AccountListFragment"
+        tools:layout="@layout/fragment_account_list" />
+
 </navigation>
