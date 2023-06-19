@@ -823,6 +823,7 @@ interface TransDao {
         SELECT Trans.Category_ID, 
                 Category.Category_Name, 
                 SUM(Trans.Transaction_Amount) as Amount, 
+                COUNT(Trans.Category_ID) as Count,
                 Category.Category_ParentID, 
                 Trans.TransactionType_ID
         FROM Trans, Category, Account

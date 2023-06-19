@@ -179,6 +179,8 @@
     <string name="category_payment">Payment</string>
     <string name="category_receive_payment">Receive payment</string>
 
+    <string name="report_records">Records</string>
+
     <string name="item_no_reminder">No Reminder</string>
     <string name="item_reminder_of_the_day">Reminder of the Day</string>
     <string name="item_3_days_in_advance_and_the_day">3 Days in Advance + on the Day</string>

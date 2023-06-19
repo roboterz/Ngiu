@@ -81,7 +81,7 @@ class ReportAdapter(
             holder.pBar.progress = (Amount / totalAmount * 100).toInt()
 
             // count
-            holder.tvCateCount.text = ""
+            holder.tvCateCount.text = "$Count " + holder.itemView.context.getString(R.string.report_records)
 
             // percentage
             holder.tvCatePercentage.text = NumberFormat.getPercentInstance().format(Amount / totalAmount)
