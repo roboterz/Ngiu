@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_section_background"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <TextView
+            android:id="@+id/title_claim"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/app_title_text"
+            android:paddingTop="10dp"
+            android:paddingBottom="15dp"
+            android:textSize="24sp"
+            android:text="@string/option_claim"
+            android:gravity="center"
+            android:background="@color/app_title_background"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ly_claim_info"
+            android:layout_width="match_parent"
+            android:layout_height="280dp"
+            android:background="@color/app_list_group_header"
+            app:layout_constraintTop_toBottomOf="@+id/title_claim"
+            >
+
+                <TextView
+                    android:id="@+id/tv_claim_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:textSize="12sp"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="5dp"
+                    android:singleLine="true"
+                    android:textColor="@color/app_sub_line_text"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/ly_claim_amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="10dp"
+                    android:background="@color/app_section_background"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_claim_info"
+                    >
+
+                        <TextView
+                            android:id="@+id/tv_claim_amount_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="start"
+                            android:singleLine="true"
+                            android:textSize="18sp"
+                            android:text="@string/option_title_total_amount"
+                            android:textColor="@color/app_label_text"
+                            app:layout_constraintStart_toStartOf="parent"
+                            tools:ignore="MissingConstraints" />
+
+                        <TextView
+                            android:id="@+id/tv_claim_amount"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:paddingHorizontal="10dp"
+                            android:gravity="end"
+                            android:textSize="18sp"
+                            android:singleLine="true"
+                            android:text="0.00"
+                            android:textColor="@color/app_income_amount"
+                            app:layout_constraintStart_toEndOf="@+id/tv_claim_amount_label"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            tools:ignore="MissingConstraints" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/ly_claim_account"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="1dp"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="10dp"
+                    android:background="@color/app_section_background"
+                    app:layout_constraintTop_toBottomOf="@+id/ly_claim_amount"
+                    >
+
+                        <TextView
+                            android:id="@+id/tv_claim_account_label"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:paddingEnd="10dp"
+                            android:gravity="start"
+                            android:singleLine="true"
+                            android:textSize="18sp"
+                            android:text="@string/option_title_transfer_to"
+                            android:textColor="@color/app_label_text"
+                            app:layout_constraintStart_toStartOf="parent"
+                            tools:ignore="MissingConstraints" />
+
+                        <TextView
+                            android:id="@+id/tv_claim_account"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:gravity="end"
+                            android:textSize="18sp"
+                            android:singleLine="true"
+                            android:text="@string/nav_bottom_account"
+                            android:textColor="@color/app_option_text"
+                            app:layout_constraintStart_toEndOf="@+id/tv_claim_account_label"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:drawableTint="@color/app_sub_line_text"
+                            app:drawableRightCompat="@drawable/ic_baseline_keyboard_arrow_right_24"
+                            tools:ignore="MissingConstraints" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+        <TextView
+            android:id="@+id/button_left"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/app_title_text"
+            android:textSize="20sp"
+            android:padding="10dp"
+            android:gravity="center"
+            android:clickable="true"
+            android:background="@color/app_title_background"
+            app:layout_constraintWidth_percent="0.499"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="@string/msg_button_cancel" />
+
+        <TextView
+            android:id="@+id/button_right"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/app_title_text"
+            android:textSize="20sp"
+            android:padding="10dp"
+            app:layout_constraintWidth_percent="0.499"
+            android:gravity="center"
+            android:clickable="true"
+            android:background="@color/app_title_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="@string/msg_button_confirm" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

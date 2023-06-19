@@ -120,7 +120,7 @@ class SettingFragment : Fragment() {
         }
 
 
-        // click the navigation Icon in the left side of toolbar
+        /** click the navigation Icon in the left side of toolbar **/
         toolbar_setting.setNavigationOnClickListener {
             // call back button event to switch to previous fragment
 

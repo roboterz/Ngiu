@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/app_list_background"
     tools:context=".ui.account.AccountFragment">
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_account"
         android:layout_width="match_parent"
@@ -102,7 +103,8 @@
         android:id="@+id/rvAccount"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="56dp"
+        android:background="@color/app_list_group_header"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

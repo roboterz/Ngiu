@@ -58,7 +58,7 @@ class AccountCreditDetailAdapter(
                     // category
                     holder.recordText.text = Category_Name
                     // amount
-                    holder.recordAmount.text = "$" + "%.2f".format(Transaction_Amount)
+                    holder.recordAmount.text = "" + "%.2f".format(Transaction_Amount)
                     holder.recordAmount.setTextColor(holder.expenseColor)
 
                 }
@@ -66,7 +66,7 @@ class AccountCreditDetailAdapter(
                     // category
                     holder.recordText.text = Category_Name
                     // amount
-                    holder.recordAmount.text = "$" + "%.2f".format(Transaction_Amount)
+                    holder.recordAmount.text = "" + "%.2f".format(Transaction_Amount)
                     holder.recordAmount.setTextColor(holder.incomeColor)
                 }
                 TRANSACTION_TYPE_TRANSFER,TRANSACTION_TYPE_DEBIT ->{
@@ -74,28 +74,40 @@ class AccountCreditDetailAdapter(
                     if (TransactionType_ID == TRANSACTION_TYPE_TRANSFER){
                         if (Account_ID == currentAccountID){
                             holder.recordText.text = holder.itemView.context.getString(R.string.record_transfer_to) + " $AccountRecipient_Name"
+                            // amount
+                            holder.recordAmount.text = "-" + "%.2f".format(Transaction_Amount)
                         }else{
                             holder.recordText.text = holder.itemView.context.getString(R.string.record_transfer_from) + " $Account_Name"
+                            // amount
+                            holder.recordAmount.text = "+" + "%.2f".format(Transaction_Amount)
                         }
                     }
                     if (TransactionType_ID == TRANSACTION_TYPE_DEBIT){
                         when (Category_ID){
                             CATEGORY_SUB_BORROW -> {
                                 holder.recordText.text = holder.itemView.context.getString(R.string.record_borrow_from) + " $Account_Name"
+                                // amount
+                                holder.recordAmount.text = "+" + "%.2f".format(Transaction_Amount)
                             }
                             CATEGORY_SUB_LEND -> {
                                 holder.recordText.text = holder.itemView.context.getString(R.string.record_lend_to) + " $AccountRecipient_Name"
+                                // amount
+                                holder.recordAmount.text = "-" + "%.2f".format(Transaction_Amount)
                             }
                             CATEGORY_SUB_PAYMENT -> {
                                 holder.recordText.text = holder.itemView.context.getString(R.string.record_paid_to) + " $AccountRecipient_Name"
+                                // amount
+                                holder.recordAmount.text = "-" + "%.2f".format(Transaction_Amount)
                             }
                             CATEGORY_SUB_RECEIVE_PAYMENT -> {
                                 holder.recordText.text = holder.itemView.context.getString(R.string.record_received_from) + " $Account_Name"
+                                // amount
+                                holder.recordAmount.text = "+" + "%.2f".format(Transaction_Amount)
                             }
                         }
                     }
-                    // amount
-                    holder.recordAmount.text = "$" + "%.2f".format(Transaction_Amount)
+
+                    // Amount color
                     holder.recordAmount.setTextColor(holder.amountColor)
 
                 }

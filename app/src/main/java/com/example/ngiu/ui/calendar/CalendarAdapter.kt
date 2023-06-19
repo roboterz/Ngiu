@@ -22,7 +22,9 @@ import com.example.ngiu.data.entities.returntype.CalendarDetail
 import com.example.ngiu.functions.*
 import kotlinx.android.synthetic.main.cardview_calendar.view.*
 import kotlinx.android.synthetic.main.cardview_transaction.view.*
+import org.w3c.dom.Text
 import java.time.DayOfWeek
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -40,7 +42,7 @@ class CalendarAdapter(
 
     // interface for passing the onClick event to fragment.
     interface OnClickListener {
-        fun onItemClick(ID: Long, type: Int)
+        fun onItemClick(cDetail: CalendarDetail)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -66,9 +68,14 @@ class CalendarAdapter(
 
             //hide the date if same day as above
             if (position>0) {
-                if (date == calendarDetail[position - 1].date){
+                if (date.format(DateTimeFormatter.ofPattern("MM/dd")) ==
+                    calendarDetail[position - 1].date.format(DateTimeFormatter.ofPattern("MM/dd"))){
                     holder.monthDay.text = ""
                 }
+            }
+
+            if (date.year > LocalDate.now().year){
+                holder.tvYear.text = date.year.toString()
             }
 
             //title
@@ -84,7 +91,7 @@ class CalendarAdapter(
                     //account name
                     holder.content.text = "$account_out_name $account_last_four_number"
 
-                    // todo dot color
+                    // dot color
                     holder.dot.setColorFilter(holder.expenseColor)
                     holder.amount.setTextColor(holder.expenseColor)
                 }
@@ -92,8 +99,8 @@ class CalendarAdapter(
                 EVENT_PERIODIC_BILL -> {
                     holder.amount.visibility = View.VISIBLE
                 }
-                //Note
-                EVENT_NOTE -> {
+                //Note, Periodic Note
+                EVENT_NOTE, EVENT_PERIODIC_NOTE -> {
                     //color
                     holder.dot.setColorFilter(holder.eventColor)
 
@@ -113,20 +120,13 @@ class CalendarAdapter(
                     EVENT_CREDIT_PAYMENT -> {
                         val bundle = Bundle().apply {
                             putLong(KEY_ACCOUNT_ID, id)
-                            putString(KEY_ACCOUNT_NAME, account_out_name)
-                            putDouble(KEY_ACCOUNT_BALANCE, amount)
-                            putDouble(KEY_ACCOUNT_LIMIT, 5000.00)
-                            putInt(KEY_ACCOUNT_PAYMENT_DAY, 23)
-                            putInt(KEY_ACCOUNT_STATEMENT_DATE, 23)
-                            putLong(KEY_ACCOUNT_TYPE, ACCOUNT_TYPE_CREDIT)
                         }
 
-                        holder.itemView.findNavController()
-                            .navigate(R.id.accountCreditRecords, bundle)
+                        holder.itemView.findNavController().navigate(R.id.accountCreditRecords, bundle)
                     }
 
                     // Note
-                    EVENT_NOTE -> onClickListener.onItemClick(id, type)
+                    EVENT_NOTE, EVENT_PERIODIC_NOTE -> onClickListener.onItemClick(this)
                 }
 
                 //
@@ -151,12 +151,14 @@ class CalendarAdapter(
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val monthDay: TextView = itemView.cv_calendar_tv_month_day
+        val tvYear: TextView = itemView.cv_calendar_tv_year
         val content: TextView = itemView.cv_calendar_tv_content
         val amount: TextView = itemView.cv_calendar_tv_amount
         val aItem: ConstraintLayout = itemView.layout_calendar_item
         //val cbox: CheckBox = itemView.cv_calendar_checkBox
         val dot: ImageView = itemView.cv_calendar_img_circle
         val eventTitle: TextView = itemView.cv_calendar_tv_event
+
 
 
         //icon
@@ -168,7 +170,7 @@ class CalendarAdapter(
         val expenseColor = ContextCompat.getColor(itemView.context, R.color.app_expense_amount)
         val incomeColor = ContextCompat.getColor(itemView.context, R.color.app_income_amount)
         val amountColor = ContextCompat.getColor(itemView.context, R.color.app_amount)
-        val eventColor = ContextCompat.getColor(itemView.context, R.color.app_title_background)
+        val eventColor = ContextCompat.getColor(itemView.context, R.color.app_event)
 
     }
 

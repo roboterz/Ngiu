@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_list_background"
+    tools:context=".ui.account.list.AccountListFragment"
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -28,10 +29,9 @@
 
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/account_list_rv"
+            android:id="@+id/rv_account_list"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginBottom="60dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_view_account_credit_detail"
-    android:layout_marginTop="-1dp"
+    android:layout_marginTop="0dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -11,13 +11,13 @@
 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/app_list_background">
+        android:background="@color/app_list_group_header">
 
         <TextView
             android:id="@+id/tv_account_credit_detail_item_blank"
-            android:layout_width="20dp"
+            android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@color/app_section_background"
+            android:background="@color/app_list_group_header"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:ignore="MissingConstraints" />
@@ -25,8 +25,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginVertical="1dp"
-            android:layout_marginStart="1dp"
+            android:layout_marginTop="1dp"
             android:background="@color/app_section_background"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -39,7 +38,8 @@
                 android:layout_height="match_parent"
                 android:background="?android:attr/selectableItemBackground"
                 android:clickable="true"
-                android:paddingHorizontal="15dp"
+                android:paddingStart="55dp"
+                android:paddingEnd="15dp"
                 android:paddingVertical="10dp">
 
 
@@ -51,8 +51,10 @@
                     android:singleLine="true"
                     android:textColor="@color/app_amount"
                     android:textSize="18sp"
+                    android:paddingEnd="10dp"
                     android:text="Lunch"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_account_credit_detail_item_amount"
                     app:layout_constraintTop_toTopOf="parent"/>
 
 

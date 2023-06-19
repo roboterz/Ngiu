@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.MainActivity
@@ -15,8 +14,10 @@ import com.example.ngiu.R
 import com.example.ngiu.databinding.FragmentAccountCreditDetailBinding
 import com.example.ngiu.functions.*
 import kotlinx.android.synthetic.main.fragment_account_credit_detail.*
+import java.text.DecimalFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import kotlin.math.roundToInt
 
 
 class AccountCreditDetailFragment : Fragment() {
@@ -73,8 +74,11 @@ class AccountCreditDetailFragment : Fragment() {
 
 
 
-        tv_account_credit_detail_available_credit_limit_value.text = "$" + "%.2f".format(accountCreditDetailViewModel.availableCreditLimit)
-        tv_account_credit_detail_current_arrears_value.text =  "$" + "%.2f".format(accountCreditDetailViewModel.currentArrears)
+        // Credit Limit
+        tv_account_credit_detail_available_credit_limit_value.text = get2DigitFormat( accountCreditDetailViewModel.availableCreditLimit )
+        // Current Arrears
+        tv_account_credit_detail_current_arrears_value.text =  get2DigitFormat( accountCreditDetailViewModel.currentArrears )
+
 
         if (accountCreditDetailViewModel.accountRecord.Account_PaymentDay > LocalDate.now().dayOfMonth){
             tv_account_credit_info_payment_day_value.text =
@@ -160,6 +164,10 @@ class AccountCreditDetailFragment : Fragment() {
                         // switch to record fragment (Edit mode)
                         switchToRecordFragment(view, fragment, transID)
                     }
+
+/*                    override fun onTitleClick(idx: Int, expanded: Boolean) {
+                        accountCreditDetailViewModel.listGroup[idx].IsExpanded=expanded
+                    }*/
                 })
 
                 recyclerview_account_credit_detail.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)

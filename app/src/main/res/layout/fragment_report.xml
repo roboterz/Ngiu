@@ -4,22 +4,157 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/app_list_group_header"
     tools:context=".ui.report.ReportFragment">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_report"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
+        app:menu="@menu/title_menu"
+        app:title="@string/nav_title_report_income"
+        app:titleCentered="true"
+        tools:ignore="MissingConstraints"/>
 
-    <com.example.ngiu.functions.chart.CircleChartView
-        android:id="@+id/cc_view"
-        android:layout_width="1000dp"
-        android:layout_height="1000dp"
-        android:layout_centerHorizontal="true"
-        tools:ignore="MissingClass,MissingConstraints" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ly_report_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0.01dp"
+        android:background="@color/app_title_background"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_report"
+        >
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview_report"
-        android:layout_width="409dp"
-        android:layout_height="469dp"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="260dp" />
+        <TextView
+            android:id="@+id/tv_report_income"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:paddingVertical="5dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:singleLine="true"
+            android:textColor="@color/app_title_text"
+            android:gravity="center"
+            android:text="@string/option_income"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_percent="0.499"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@color/app_list_group_header"
+            app:layout_constraintStart_toEndOf="@+id/tv_report_income"
+            app:layout_constraintEnd_toStartOf="@+id/tv_report_expense"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/tv_report_expense"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:paddingVertical="5dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:singleLine="true"
+            android:textColor="@color/app_title_text_inactive"
+            android:gravity="center"
+            android:text="@string/option_expense"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintWidth_percent="0.499"
+            />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ly_report_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/app_section_background"
+        app:layout_constraintTop_toBottomOf="@id/ly_report_type"
+        >
+
+        <TextView
+            android:id="@+id/tv_report_left"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:drawableTint="@color/app_icon_light"
+            android:paddingStart="50dp"
+            android:textSize="24sp"
+            app:drawableStartCompat="@drawable/ic_baseline_keyboard_arrow_left_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_percent="0.3"
+            />
+
+        <TextView
+            android:id="@+id/tv_report_term"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text=""
+            android:gravity="center_horizontal"
+            android:textSize="18sp"
+            android:textColor="@color/app_option_text"
+            app:layout_constraintStart_toEndOf="@+id/tv_report_left"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintWidth_percent="0.4"
+            />
+
+        <TextView
+            android:id="@+id/tv_report_right"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:drawableTint="@color/app_icon_light"
+            android:paddingEnd="50dp"
+            android:textSize="24sp"
+            app:drawableEndCompat="@drawable/ic_baseline_keyboard_arrow_right_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintWidth_percent="0.3"
+            />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ly_report_chart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/app_section_background"
+        app:layout_constraintTop_toBottomOf="@id/ly_report_date"
+        >
+
+        <com.example.ngiu.functions.chart.CircleChartView
+            android:id="@+id/cc_report_chart"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:ignore="MissingClass,MissingConstraints" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ly_report_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/app_list_group_header"
+        app:layout_constraintTop_toBottomOf="@+id/ly_report_chart"
+        app:layout_constraintBottom_toBottomOf="parent"
+        >
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview_report"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:ignore="MissingConstraints" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

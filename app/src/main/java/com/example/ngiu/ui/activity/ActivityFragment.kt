@@ -10,7 +10,6 @@ import androidx.navigation.fragment.findNavController
 import com.example.ngiu.MainActivity
 import com.example.ngiu.R
 import com.example.ngiu.databinding.FragmentActivityBinding
-import com.example.ngiu.functions.KEY_RECORD_TRANSACTION_ID
 import com.example.ngiu.functions.switchToRecordFragment
 import kotlinx.android.synthetic.main.fragment_activity.*
 
@@ -33,7 +32,6 @@ class ActivityFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
 
-
     }
 
 
@@ -50,9 +48,8 @@ class ActivityFragment : Fragment() {
 
         // load data to ram
         //Thread {
-            activityViewModel.loadDataToRam(requireContext())
+        activityViewModel.loadDataToRam(requireContext())
         //}.start()
-
 
 
         return binding.root
@@ -74,7 +71,7 @@ class ActivityFragment : Fragment() {
         toolbar_activity.menu.findItem(R.id.action_settings).isVisible = true
 
         // menu item clicked
-        toolbar_activity.setOnMenuItemClickListener{
+        toolbar_activity.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.action_add -> {
                     // switch to record fragment
@@ -82,21 +79,25 @@ class ActivityFragment : Fragment() {
                     switchToRecordFragment(view, this)
                     true
                 }
+
                 R.id.action_reimburse -> {
                     // switch to reimburse fragment
-
+                    navigateToReimburseFragment()
                     true
                 }
+
                 R.id.action_chart -> {
                     // switch to chart fragment
                     navigateToReportFragment()
                     true
                 }
+
                 R.id.action_settings -> {
                     //switch to setting fragment
                     navigateToSettingFragment()
                     true
                 }
+
                 else -> true
             }
         }
@@ -112,8 +113,6 @@ class ActivityFragment : Fragment() {
         // call readPerson function on the bottom of this class
 
     }
-
-
 
 
     override fun onResume() {
@@ -133,10 +132,10 @@ class ActivityFragment : Fragment() {
         }.start()
 
         // show the info at title
-        tvCurrentMonthExpenseBalance.text = "$" + "%.2f".format(activityViewModel.monthExpense)
-        tvCurrentMonthIncomeBalance.text = "$" + "%.2f".format(activityViewModel.monthIncome)
-        tvBudgetBalance.text = "$" + "%.2f".format(activityViewModel.budget)
-        
+        tvCurrentMonthExpenseBalance.text = "" + "%.2f".format(activityViewModel.monthExpense)
+        tvCurrentMonthIncomeBalance.text = "" + "%.2f".format(activityViewModel.monthIncome)
+        tvBudgetBalance.text = "" + "%.2f".format(activityViewModel.budget)
+
     }
 
 
@@ -146,16 +145,16 @@ class ActivityFragment : Fragment() {
     }
 
 
-
     /** init Adapter **/
     private fun initAdapter(view: View, fragment: Fragment) {
-        
+
         Thread {
             this.activity?.runOnUiThread {
 
-                recyclerView_activity.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
+                recyclerView_activity.layoutManager =
+                    LinearLayoutManager(context, RecyclerView.VERTICAL, false)
                 vpAdapter = this.context?.let {
-                    ActivityListAdapter(object: ActivityListAdapter.OnClickListener {
+                    ActivityListAdapter(object : ActivityListAdapter.OnClickListener {
                         // catch the item click event from adapter
                         override fun onItemClick(transID: Long) {
                             // switch to record fragment (Edit mode)
@@ -170,7 +169,7 @@ class ActivityFragment : Fragment() {
     }
 
 
-/*    private fun navigateToRecordFragment(transID: Long = 0){
+    /*    private fun navigateToRecordFragment(transID: Long = 0){
         val bundle = Bundle().apply {
             putLong(KEY_RECORD_TRANSACTION_ID, transID)
         }
@@ -182,7 +181,12 @@ class ActivityFragment : Fragment() {
         findNavController().navigate(R.id.navigation_setting)
     }
 
-    private fun navigateToReportFragment(){
+    private fun navigateToReportFragment() {
         findNavController().navigate(R.id.navigation_report)
+    }
+
+    private fun navigateToReimburseFragment() {
+        findNavController().navigate(R.id.navigation_reimburse)
+
     }
 }

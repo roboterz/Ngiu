@@ -25,7 +25,12 @@ android {
             excludes += ['META-INF/atomicfu.kotlin_module']
         }
     }
-
+    dexOptions {
+        dexInProcess true
+        preDexLibraries true
+        javaMaxHeapSize "8g" // bigger will be good
+        incremental true
+    }
 
     buildTypes {
         release {
@@ -53,7 +58,7 @@ android {
 dependencies {
 
 
-    implementation "androidx.fragment:fragment-ktx:1.5.5"
+    implementation "androidx.fragment:fragment-ktx:1.5.7"
 
     implementation 'com.google.android.material:material:1.9.0-beta01'
 
@@ -77,9 +82,9 @@ dependencies {
     implementation "androidx.room:room-rxjava2:$rootProject.roomVersion"
     //noinspection GradleDependency
     implementation "androidx.room:room-ktx:$rootProject.roomVersion"
-    implementation 'com.google.firebase:firebase-database-ktx:20.1.0'
+    implementation 'com.google.firebase:firebase-database-ktx:20.2.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.databinding:databinding-runtime:7.4.2'
+    implementation 'androidx.databinding:databinding-runtime:8.0.1'
     kapt "androidx.room:room-compiler:$rootProject.roomVersion"
     //noinspection GradleDependency
     androidTestImplementation "androidx.room:room-testing:$rootProject.roomVersion"

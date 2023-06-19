@@ -19,6 +19,7 @@ import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.fragment_account_add_debit.*
 import kotlinx.android.synthetic.main.fragment_account_add_web_account.*
 import kotlinx.android.synthetic.main.popup_title.view.*
+import org.apache.commons.lang3.StringUtils.trim
 
 
 class AddDebitFragment : Fragment() {
@@ -158,10 +159,11 @@ class AddDebitFragment : Fragment() {
 
         val account = Account(
             Account_ID = id,
-            Account_Name = binding.tetDebitAccountName.text.toString(),
+            Account_Name = binding.tetDebitAccountName.text.toString().trim(),
+            Account_CardNumber = binding.tetDebitCardNumber.text.toString(),
             Account_Balance = binding.tetDebitBalance.text.toString().toDouble(),
             Account_CountInNetAssets = binding.scDebitCountNetAssets.isChecked,
-            Account_Memo = binding.tetDebitMemo.text.toString(),
+            Account_Memo = binding.tetDebitMemo.text.toString().trim(),
             AccountType_ID = accountTypeID,
             Currency_ID = currency
         )
@@ -173,7 +175,7 @@ class AddDebitFragment : Fragment() {
         }
 
         addCashViewModel.updateAccount(requireContext(), account)
-        findNavController().navigate(R.id.navigation_account)
+        findNavController().popBackStack()
         Toast.makeText(requireContext(), "Update Successful", Toast.LENGTH_LONG).show()
 
     }
@@ -215,7 +217,7 @@ class AddDebitFragment : Fragment() {
 
         if (validAccountName) {
             insertData()
-            findNavController().navigate(R.id.navigation_account)
+            findNavController().popBackStack()
         } else
             invalidForm()
     }

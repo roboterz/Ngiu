@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/app_list_background"
+    android:background="@color/app_list_group_header"
     tools:context=".ui.record.RecordFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,11 +17,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_record"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:menu="@menu/title_menu"
+            app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
+            app:titleTextAppearance="@style/Toolbar.TitleText"
+            tools:ignore="MissingConstraints" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintTop_toBottomOf="@id/toolbar_record">
+
 
             <TextView
                 android:id="@+id/tvSectionExpense"
@@ -142,17 +154,7 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar_record"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="?attr/colorPrimary"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme"
-            app:menu="@menu/title_menu"
-            app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
-            app:titleTextAppearance="@style/Toolbar.TitleText"
-            tools:ignore="MissingConstraints" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -176,12 +178,35 @@
             android:padding="20dp"
             tools:ignore="MissingConstraints">
 
+            <TextView
+                android:id="@+id/tv_record_budget"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text="@string/option_budget_balance"
+                android:textSize="12sp"
+                android:textColor="@color/app_sub_line_text"
+                app:layout_constraintStart_toStartOf="@id/tv_record_category"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_record_budget_balance"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:singleLine="true"
+                android:text="@string/amount_zero_with_dollar_sign"
+                android:textSize="12sp"
+                android:textColor="@color/app_sub_line_text"
+                app:layout_constraintStart_toEndOf="@id/tv_record_budget"
+                app:layout_constraintTop_toTopOf="@id/tv_record_budget" />
+
             <ImageView
                 android:id="@+id/imgTransactionIcon"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:src="@drawable/ic_baseline_fastfood_24"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="18dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:tint="@color/app_label_text"
@@ -194,46 +219,27 @@
                 android:layout_marginStart="8dp"
                 android:singleLine="true"
                 android:text=""
-                android:textColor="@color/app_amount"
+                android:textColor="@color/app_text"
                 android:textSize="22sp"
                 app:layout_constraintStart_toEndOf="@id/imgTransactionIcon"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintWidth_percent="0.42"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_record_budget"/>
 
-            <TextView
-                android:id="@+id/tv_record_budget"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:singleLine="true"
-                android:text="@string/option_budget_balance"
-                android:textColor="@color/app_sub_line_text"
-                app:layout_constraintStart_toStartOf="@id/tv_record_category"
-                app:layout_constraintTop_toBottomOf="@id/tv_record_category" />
 
-            <TextView
-                android:id="@+id/tv_record_budget_balance"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:singleLine="true"
-                android:text="@string/amount_zero_with_dollar_sign"
-                android:textColor="@color/app_sub_line_text"
-                app:layout_constraintStart_toEndOf="@id/tv_record_budget"
-                app:layout_constraintTop_toTopOf="@id/tv_record_budget" />
 
 
             <TextView
                 android:id="@+id/tv_record_amount"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:maxLength="13"
                 android:text="@string/amount_zero"
                 android:textAlignment="textEnd"
                 android:textColor="@color/app_expense_amount"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/imgTransactionIcon"
-                app:layout_constraintWidth_percent="0.45"/>
+                app:layout_constraintTop_toBottomOf="@+id/tv_record_category"
+                app:layout_constraintStart_toStartOf="@+id/tv_record_category"
+                />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -361,6 +367,7 @@
                 android:hint="@string/option_memo"
                 android:inputType="text"
                 android:textColor="@color/app_option_text"
+                android:textColorHint="@color/app_sub_line_text"
                 app:boxStrokeWidth="0dp"
                 tools:ignore="MissingConstraints"
                 android:importantForAutofill="no" />
@@ -375,6 +382,7 @@
             android:paddingEnd="15dp"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
+            android:background="@color/app_section_background"
             app:layout_constraintTop_toBottomOf="@id/layout_record_memo"
             tools:ignore="RtlSymmetry">
 
@@ -422,7 +430,7 @@
                 android:id="@+id/tv_record_reimburse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
+                android:layout_marginTop = "10dp"
                 android:background="@drawable/textview_additional_border"
                 android:gravity="center"
                 android:paddingStart="5dp"
@@ -433,16 +441,16 @@
                 android:tag="other_info"
                 android:text="@string/option_non_reimbursable"
                 android:textColor="@color/app_label_text"
-                app:layout_constraintStart_toEndOf="@+id/tv_record_time"
-                app:layout_constraintTop_toTopOf="@id/tv_record_time"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_record_date"
                 app:drawableStartCompat="@drawable/ic_baseline_check_box_outline_blank_24"
                 app:drawableTint="@color/app_label_text" />
 
             <TextView
                 android:id="@+id/tv_record_person"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="20dp"
                 android:maxWidth="120dp"
                 android:background="@drawable/textview_additional_border"
                 android:gravity="center"
@@ -454,15 +462,16 @@
                 android:text="@string/option_me"
                 android:tag="other_info"
                 android:textColor="@color/app_label_text"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_record_date" />
+                app:layout_constraintStart_toEndOf="@+id/tv_record_time"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_record_time"
+                app:layout_constraintTop_toTopOf="@id/tv_record_time" />
 
             <TextView
                 android:id="@+id/tv_record_merchant"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
                 android:maxWidth="120dp"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="20dp"
                 android:background="@drawable/textview_additional_border"
                 android:gravity="center"
                 android:paddingStart="5dp"
@@ -474,13 +483,14 @@
                 android:tag="other_info"
                 android:visibility="visible"
                 android:textColor="@color/app_label_text"
-                app:layout_constraintStart_toEndOf="@id/tv_record_person"
-                app:layout_constraintTop_toTopOf="@id/tv_record_person" />
+                app:layout_constraintStart_toEndOf="@id/tv_record_reimburse"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_record_reimburse"
+                app:layout_constraintTop_toTopOf="@id/tv_record_reimburse" />
 
             <TextView
                 android:id="@+id/tv_record_project"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
                 android:maxWidth="120dp"
                 android:layout_marginStart="8dp"
                 android:singleLine="true"
@@ -495,7 +505,8 @@
                 android:text="@string/option_project"
                 android:textColor="@color/app_label_text"
                 app:layout_constraintStart_toEndOf="@id/tv_record_merchant"
-                app:layout_constraintTop_toTopOf="@id/tv_record_person"/>
+                app:layout_constraintBottom_toBottomOf="@+id/tv_record_merchant"
+                app:layout_constraintTop_toTopOf="@id/tv_record_merchant"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -514,10 +525,11 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:text="@string/menu_save"
-            android:textSize="18sp"
-            android:textColor="@color/app_button_text"
+            android:textSize="20sp"
+            android:textColor="@color/app_title_text"
             android:gravity="center_vertical|center"
-            android:background="?android:attr/selectableItemBackground"
+            android:textStyle="bold"
+            android:background="@color/app_title_background"
             android:clickable="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintWidth_percent="0.499"/>
@@ -539,12 +551,12 @@
             android:id="@+id/tv_record_left_button"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="?android:attr/selectableItemBackground"
+            android:background="@color/app_title_background"
             android:clickable="true"
             android:gravity="center_vertical|center"
             android:text="@string/menu_save_next"
             android:textSize="18sp"
-            android:textColor="@color/app_option_text"
+            android:textColor="@color/app_title_text"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintWidth_percent="0.499"
             tools:layout_editor_absoluteY="0dp" />

@@ -1,0 +1,325 @@
+<resources>
+    <string name="app_name">Ngiu</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    <string name="nav_bottom_activity">Activity</string>
+    <string name="nav_bottom_account">Account</string>
+    <string name="nav_bottom_calendar">Calendar</string>
+    <string name="nav_bottom_rewards">Rewards</string>
+    <string name="nav_bottom_setting">Setting</string>
+    <string name="nav_bottom_report">Report</string>
+
+    <string name="nav_title_setting">Settings</string>
+    <string name="nav_title_report">Report</string>
+    <string name="nav_title_reimburse">Reimburses Management</string>
+    <string name="nav_title_report_expenditure">Expenditure Report</string>
+    <string name="nav_title_report_income">Income Report</string>
+    <string name="nav_title_account_list">Accounts</string>
+    <string name="nav_title_category_expense">Expense Categories</string>
+    <string name="nav_title_category_income">Income Categories</string>
+    <string name="nav_title_category_expense_main_add">Add Main Category of Expense</string>
+    <string name="nav_title_category_expense_main_edit">Edit Main Category of Expense</string>
+    <string name="nav_title_category_income_main_add">Add Main Category of Income</string>
+    <string name="nav_title_category_income_main_edit">Edit Main Category of Income</string>
+    <string name="nav_title_category_expense_sub_add">Add Sub Category of Expense</string>
+    <string name="nav_title_category_expense_sub_edit">Edit Sub Category of Expense</string>
+    <string name="nav_title_category_income_sub_add">Add Sub Category of Income</string>
+    <string name="nav_title_category_income_sub_edit">Edit Sub Category of Income</string>
+    <string name="nav_title_category_expense_manage">Category of Expense</string>
+    <string name="nav_title_category_income_manage">Category of Income</string>
+    <string name="nav_title_account_detail">Account Detail</string>
+    <string name="nav_title_debit_credit_detail">Debit and Credit Detail</string>
+    <string name="nav_title_payable_receivable_detail">Payable &amp; Receivable Detail</string>
+    <string name="nav_title_account_type">Choose the Type of Account</string>
+    <string name="nav_title_account_add">Add</string>
+    <string name="nav_title_account_edit">Edit Account</string>
+    <string name="nav_title_merchant_manage">Merchant</string>
+    <string name="nav_title_merchant_add">Add Merchant</string>
+    <string name="nav_title_merchant_edit">Edit Merchant</string>
+    <string name="nav_title_person_manage">Person</string>
+    <string name="nav_title_person_add">Add Person</string>
+    <string name="nav_title_person_edit">Edit Person</string>
+    <string name="nav_title_project_manage">Project</string>
+    <string name="nav_title_project_add">Add Project</string>
+    <string name="nav_title_project_edit">Edit Project</string>
+    <string name="nav_title_currency">Base Currency</string>
+    <string name="nav_title_add_cash">Add Cash</string>
+    <string name="nav_title_add_credit_card">Add Credit Card</string>
+    <string name="nav_title_add_debit_card">Add Debit Card/Checking/Saving</string>
+    <string name="nav_title_add_web_account">Add Web Account</string>
+    <string name="nav_title_add_fixed_assets">Add Fixed Assets</string>
+    <string name="nav_title_add_virtual_account">Add Virtual Account</string>
+
+
+    <string name="setting_Expense">Expense</string>
+    <string name="setting_income">Income</string>
+    <string name="setting_merchant">Merchant</string>
+    <string name="setting_person">Person</string>
+    <string name="setting_project">Project</string>
+    <string name="setting_base_currency">Base Currency</string>
+    <string name="setting_language">Language</string>
+    <string name="setting_reimburse">Reimbursement include in Statistics</string>
+    <string name="setting_sort">Sort Alphabetically</string>
+    <string name="setting_export">Export</string>
+    <string name="setting_import">Import</string>
+    <string name="setting_about_app">About Ngiu</string>
+
+    <string name="setting_section_categories">Categories</string>
+    <string name="setting_section_advanced">Advanced</string>
+    <string name="setting_section_about">About</string>
+    <string name="setting_section_data">Data</string>
+
+    <string name="record_section_expense">Expense</string>
+    <string name="record_section_income">Income</string>
+    <string name="record_section_transfer">Transfer</string>
+    <string name="record_section_debit_credit">Debit/Credit</string>
+    <string name="option_days_left">Days Left</string>
+    <string name="option_Interest">Interest</string>
+    <string name="option_current_month_expense">Current Month Expense</string>
+    <string name="option_current_month_income">Current Month Income</string>
+    <string name="option_budget">Budget</string>
+    <string name="option_Period">Period</string>
+    <string name="option_person">Myself</string>
+    <string name="option_income">Income</string>
+    <string name="option_expense">Expense</string>
+    <string name="option_balance">Balance</string>
+    <string name="option_net_assets">Net Assets</string>
+    <string name="option_total_assets">Total Assets</string>
+    <string name="option_total_liability">Total Liability</string>
+    <string name="option_History">History</string>
+    <string name="option_fund_reminder">Fund reminder for the past 30 days</string>
+    <string name="option_pending_payment">Pending Payment</string>
+    <string name="option_pending_receivable">Pending Receivable</string>
+    <string name="option_memo">Memo</string>
+    <string name="option_budget_balance">Budget Balance:</string>
+    <string name="option_common_category">Common Category</string>
+    <string name="option_all">All ></string>
+    <string name="option_select_all">Select All</string>
+    <string name="option_non_reimbursable">Non-Reimbursable</string>
+    <string name="option_reimbursable">Reimbursable</string>
+    <string name="option_every_Day">Every Day</string>
+    <string name="option_every_week">Every Week</string>
+    <string name="option_every_month">Every Month</string>
+    <string name="option_every_year">Every Year</string>
+
+    <string name="option_merchant">Merchant</string>
+    <string name="option_project">Project</string>
+    <string name="option_me">Me</string>
+    <string name="option_save">Save</string>
+    <string name="option_save_next">Save &amp; Next</string>
+    <string name="option_claim">Claim</string>
+    <string name="option_enter">Enter</string>
+    <string name="option_transfer">Transfer</string>
+    <string name="option_repayment">Repayment</string>
+    <string name="option_withdraw">Withdraw</string>
+    <string name="option_deposit">Deposit</string>
+    <string name="option_receive">Receive</string>
+    <string name="option_lend">Lend</string>
+    <string name="option_borrow">Borrow</string>
+    <string name="option_add">Add</string>
+    <string name="option_common">Common</string>
+    <string name="option_reminder">Reminder</string>
+    <string name="option_statement_day">Statement Day</string>
+    <string name="option_payment_day">Payment Day</string>
+    <string name="option_interval">Interval</string>
+
+    <string name="option_account_current_balance">Current Balance</string>
+    <string name="option_account_statement_date">Statement Date: </string>
+    <string name="option_account_payment_due_date">Payment Due Date</string>
+    <string name="option_account_payment_date">Payment Date: </string>
+    <string name="option_account_current_arrears">Current Arrears</string>
+    <string name="option_account_available_credit_limit">Available Credit Limit</string>
+    <string name="option_account_statement_not_generated">Statement Not Generated</string>
+    <string name="option_account_amount_due">Amount Due:</string>
+    <string name="option_account_inflow">Inflow</string>
+    <string name="option_account_outflow">Outflow</string>
+    <string name="option_account_to">to</string>
+    <string name="option_account_from">from</string>
+    <string name="option_account_owe_you">He/She owe you</string>
+    <string name="option_account_owe_he">You owe him/her</string>
+
+    <string name="option_title_lend">Lend:</string>
+    <string name="option_title_receive">Receive:</string>
+    <string name="option_title_borrow">Borrow:</string>
+    <string name="option_title_pay">Pay:</string>
+    <string name="option_title_account_name">Account Name</string>
+    <string name="option_title_balance">Balance</string>
+    <string name="option_title_add_currency">Add other Currency</string>
+    <string name="option_title_count_in_net_assets">Count in Net Assets</string>
+    <string name="option_title_advanced">Advanced</string>
+    <string name="option_title_statement_day">Statement Day: 1st</string>
+    <string name="option_title_card_number">Card Number</string>
+    <string name="option_title_payment_day">Payment Day:&#160; &#160;26th</string>
+    <string name="option_title_credit_limit">Credit Limit</string>
+    <string name="option_title_current_arrears">Current Arrears</string>
+    <string name="option_title_user_id">User ID</string>
+    <string name="option_title_value">Value</string>
+    <string name="option_title_interval">Interval:</string>
+    <string name="option_title_reminder">Reminder:</string>
+    <string name="option_title_consumption_counted">Consumption in Statement Day is Counted in the Current Period</string>
+    <string name="option_title_statistical_mode">Statistical Mode:</string>
+    <string name="option_title_end_date">End Date:</string>
+    <string name="option_title_intervals">Intervals:</string>
+    <string name="option_title_total_amount">Total Amount:</string>
+    <string name="option_title_transfer_to">Transfer To:</string>
+
+    <string name="category_common">Common</string>
+    <string name="category_expense">Expense</string>
+    <string name="category_income">Income</string>
+    <string name="category_transfer">Transfer</string>
+    <string name="category_debit_credit">Debit &amp; Credit</string>
+    <string name="category_account_transfer">Account Transfer</string>
+    <string name="category_credit_card_payment">Credit Card Payment</string>
+    <string name="category_deposit">Deposit</string>
+    <string name="category_withdraw">Withdraw</string>
+    <string name="category_borrow">Borrow</string>
+    <string name="category_lend">Lend</string>
+    <string name="category_payment">Payment</string>
+    <string name="category_receive_payment">Receive payment</string>
+
+    <string name="item_no_reminder">No Reminder</string>
+    <string name="item_reminder_of_the_day">Reminder of the Day</string>
+    <string name="item_3_days_in_advance_and_the_day">3 Days in Advance + on the Day</string>
+    <string name="item_7_days_in_advance_and_the_day">7 Days in Advance + on the Day</string>
+    <string name="item_fixed_day">Fixed Day</string>
+    <string name="item_days_after_statement_day">Days after the Statement Day</string>
+    <string name="item_manual_mode">Manual Mode</string>
+    <string name="item_billing_mode">Billing Mode</string>
+
+    <string name="menu_done">Done</string>
+    <string name="menu_setting">Setting</string>
+    <string name="menu_delete">Delete</string>
+    <string name="menu_remove">Remove</string>
+    <string name="menu_add">Add</string>
+    <string name="menu_back">Go Back</string>
+    <string name="menu_edit">Edit</string>
+    <string name="menu_save">Save</string>
+    <string name="menu_chart">Chart</string>
+    <string name="menu_save_next">Save &amp; Next</string>
+    <string name="menu_add_cate">+ Add</string>
+    <string name="menu_reimburse">Reimburse</string>
+    <string name="setting_page">Setting Page</string>
+
+    <string name="msg_button_confirm">Confirm</string>
+    <string name="msg_button_ok">OK</string>
+    <string name="msg_button_cancel">Cancel</string>
+    <string name="msg_button_delete">Delete</string>
+    <string name="msg_Title_prompt">Prompt</string>
+    <string name="msg_content_transaction_delete">Confirm to delete this transaction.</string>
+    <string name="msg_content_event_delete">Confirm to delete this event.</string>
+    <string name="msg_content_account_delete">Confirm to delete this account.</string>
+    <string name="msg_content_category_delete">Confirm to delete this category.</string>
+    <string name="msg_cannot_save_with_zero_amount">Cannot save with zero amount.</string>
+    <string name="msg_cannot_save_with_no_account">Cannot save with no account.</string>
+    <string name="msg_cannot_save_with_no_category">Cannot save with no category.</string>
+    <string name="msg_cannot_save_with_no_content">Cannot save with no content.</string>
+    <string name="msg_saved">Saved.</string>
+    <string name="msg_new_category">New Category</string>
+    <string name="msg_edit_category">Edit Category</string>
+    <string name="msg_category_delete_error">This category cannot be deleted because it is being referenced by other records.</string>
+    <string name="msg_new_merchant">New Category</string>
+    <string name="msg_edit_merchant">Edit Category</string>
+    <string name="msg_new_person">New Category</string>
+    <string name="msg_edit_person">Edit Category</string>
+    <string name="msg_new_name">New Name</string>
+    <string name="msg_edit_name">Edit Name</string>
+    <string name="msg_content_name_delete">Confirm to delete this name.</string>
+    <string name="msg_name_delete_error">This name cannot be deleted because it is being referenced by other records.</string>
+    <string name="msg_name_add_error">This name cannot be add cause some unknown reason.</string>
+    <string name="msg_name_edit_error">This name cannot be edit cause some unknown reason.</string>
+    <string name="msg_no_account">No Account</string>
+    <string name="msg_total">Total</string>
+    <string name="msg_transaction">transactions</string>
+    <string name="msg_claimed">Claimed</string>
+    <string name="msg_from">from</string>
+
+    <string name="msg_completed">Completed.</string>
+    <string name="msg_error">Error.</string>
+
+
+    <string name="event_credit_card_payment">Credit Card Payment</string>
+    <string name="event_reminder">Reminder</string>
+    <string name="event_periodic_Event">Periodic Event</string>
+
+    <string name="amount_zero_with_dollar_sign">$0.00</string>
+    <string name="amount_zero">0.00</string>
+
+    <string name="record_lend_out">Lend out</string>
+    <string name="record_lend_to">Lend to</string>
+    <string name="record_borrow_in">Borrow in</string>
+    <string name="record_borrow_from">Borrow from</string>
+    <string name="record_receive">Receive</string>
+    <string name="record_received_from">Received from</string>
+    <string name="record_repay">Repay</string>
+    <string name="record_paid_to">Paid to</string>
+    <string name="record_transfer_out">Transfer out</string>
+    <string name="record_transfer_in">Transfer in</string>
+    <string name="record_transfer_to">Transfer to</string>
+    <string name="record_transfer_from">Transfer from</string>
+    <string name="record_to">to</string>
+
+    <string name="keyboard_1">1</string>
+    <string name="keyboard_2">2</string>
+    <string name="keyboard_3">3</string>
+    <string name="keyboard_4">4</string>
+    <string name="keyboard_5">5</string>
+    <string name="keyboard_6">6</string>
+    <string name="keyboard_7">7</string>
+    <string name="keyboard_8">8</string>
+    <string name="keyboard_9">9</string>
+    <string name="keyboard_0">0</string>
+    <string name="keyboard_dot">.</string>
+    <string name="keyboard_c">C</string>
+    <string name="keyboard_enter">Enter</string>
+
+
+
+    <string name="account_name_value">Wallet</string>
+    <string name="balance">Wallet</string>
+    <string name="account_balance_suffix">USD</string>
+    <string name="payment_day">25th</string>
+    <string name="statement_day">1st</string>
+    <string name="Inflow">Inflow</string>
+    <string name="Outflow">Outflow</string>
+
+
+    <string name="shortcut_msg">New</string>
+    <string name="shortcut_long_label">Long</string>
+    <string name="shortcut_short_label">Short</string>
+
+
+    <string-array name="data_reimburse_array">
+        <item>Non-Reimbursable</item>
+        <item>Reimbursable</item>
+        <item>Reimbursed</item>
+    </string-array>
+
+    <string-array name="data_period_array">
+        <item>Every Day</item>
+        <item>Every Week</item>
+        <item>Every Month</item>
+        <item>Every Year</item>
+    </string-array>
+
+    <string-array name="data_weeks_name">
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
+    </string-array>
+
+
+
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+
+</resources>

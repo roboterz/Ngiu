@@ -20,7 +20,7 @@ class AccountGeneralDetailAdapter(
     : RecyclerView.Adapter<AccountGeneralDetailAdapter.ViewHolder>() {
 
     private var listDetail: List<RecordDetail> = ArrayList()
-    private var totalAccountBalance: Double = 0.00
+    private var balanceList: List<Double> = ArrayList()
     private var currentAccountID: Long = 0L
     private val recordTimeFormatter = DateTimeFormatter.ofPattern("hh:mm")
     private val groupDateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy EEEE")
@@ -55,7 +55,7 @@ class AccountGeneralDetailAdapter(
                     // category
                     holder.recordText.text = Category_Name
                     // amount
-                    holder.recordAmount.text = "$-" + "%.2f".format(Transaction_Amount)
+                    holder.recordAmount.text = "-" + "%.2f".format(Transaction_Amount)
                     holder.recordAmount.setTextColor(holder.expenseColor)
                     // info
                     holder.recordInfo.visibility = View.GONE
@@ -64,7 +64,7 @@ class AccountGeneralDetailAdapter(
                     // category
                     holder.recordText.text = Category_Name
                     // amount
-                    holder.recordAmount.text = "$" + "%.2f".format(Transaction_Amount)
+                    holder.recordAmount.text = "" + "%.2f".format(Transaction_Amount)
                     holder.recordAmount.setTextColor(holder.incomeColor)
                     // info
                     holder.recordInfo.visibility = View.GONE
@@ -77,8 +77,10 @@ class AccountGeneralDetailAdapter(
                     if (TransactionType_ID == TRANSACTION_TYPE_TRANSFER){
                         if (Account_ID == currentAccountID){
                             holder.recordText.text = holder.itemView.context.getString(R.string.record_transfer_out)
+                            holder.recordAmount.text = "-" + "%.2f".format(Transaction_Amount)
                         }else{
                             holder.recordText.text = holder.itemView.context.getString(R.string.record_transfer_in)
+                            holder.recordAmount.text = "+" + "%.2f".format(Transaction_Amount)
                         }
                         // info
                         holder.recordInfo.text = "$Account_Name " + holder.itemView.context.getString(R.string.record_to) + " $AccountRecipient_Name"
@@ -88,64 +90,61 @@ class AccountGeneralDetailAdapter(
                             CATEGORY_SUB_BORROW -> {
                                 holder.recordText.text = holder.itemView.context.getString(R.string.record_borrow_in)
                                 holder.recordInfo.text = holder.itemView.context.getString(R.string.record_borrow_from) + " $Account_Name"
+                                holder.recordAmount.text = "+" + "%.2f".format(Transaction_Amount)
                             }
                             CATEGORY_SUB_LEND -> {
                                 holder.recordText.text = holder.itemView.context.getString(R.string.record_lend_out)
                                 holder.recordInfo.text = holder.itemView.context.getString(R.string.record_lend_to) + " $AccountRecipient_Name"
+                                holder.recordAmount.text = "-" + "%.2f".format(Transaction_Amount)
                             }
                             CATEGORY_SUB_PAYMENT -> {
                                 holder.recordText.text = holder.itemView.context.getString(R.string.record_repay)
                                 holder.recordInfo.text = holder.itemView.context.getString(R.string.record_paid_to) + " $AccountRecipient_Name"
+                                holder.recordAmount.text = "-" + "%.2f".format(Transaction_Amount)
                             }
                             CATEGORY_SUB_RECEIVE_PAYMENT -> {
                                 holder.recordText.text = holder.itemView.context.getString(R.string.record_receive)
                                 holder.recordInfo.text = holder.itemView.context.getString(R.string.record_received_from) + " $Account_Name"
+                                holder.recordAmount.text = "+" + "%.2f".format(Transaction_Amount)
                             }
                         }
                     }
-                    // amount
-                    holder.recordAmount.text = "$" + "%.2f".format(Transaction_Amount)
+
+                    // amount color
                     holder.recordAmount.setTextColor(holder.amountColor)
 
                 }
             }
 
-
+            // memo
+            if (Transaction_Memo.isNotEmpty()) {
+                if (holder.recordInfo.text.isNotEmpty()){
+                    holder.dotBeforeMemo.visibility = View.VISIBLE
+                }
+            }
             holder.recordMemo.text = Transaction_Memo
 
 
-            if (position == 0){
-                // date
+            // date
+            holder.groupDate.text = Transaction_Date.format(groupDateFormatter)
+
+
+            // group subject
+            if (position == 0) {
                 holder.groupLayout.visibility = View.VISIBLE
-                holder.groupDate.text = Transaction_Date.format(groupDateFormatter)
-                // balance
-                holder.recordBalance.text = "$" + "%.2f".format(totalAccountBalance)
 
-            }else{
-                // date
-                holder.groupDate.text = Transaction_Date.format(groupDateFormatter)
-
+            } else {
                 if (holder.groupDate.text == listDetail[position-1].Transaction_Date.format(groupDateFormatter)) {
                     holder.groupLayout.visibility = View.GONE
                 }else{
                     holder.groupLayout.visibility = View.VISIBLE
                 }
-                // balance
-                when (listDetail[position - 1].TransactionType_ID){
-                    TRANSACTION_TYPE_EXPENSE -> totalAccountBalance += listDetail[position - 1].Transaction_Amount
-                    TRANSACTION_TYPE_INCOME -> totalAccountBalance -= listDetail[position - 1].Transaction_Amount
-                    TRANSACTION_TYPE_TRANSFER, TRANSACTION_TYPE_DEBIT -> {
-                        if (Account_ID == currentAccountID){
-                            totalAccountBalance += listDetail[position - 1].Transaction_Amount
-                        }else{
-                            totalAccountBalance -= listDetail[position - 1].Transaction_Amount
-                        }
-                    }
-                }
-
-                holder.recordBalance.text = "$" + "%.2f".format(totalAccountBalance)
-
             }
+
+
+            // balance
+            holder.recordBalance.text = get2DigitFormat(balanceList[position])
+
 
             holder.itemLayout.setOnClickListener {
                 onClickListener.onItemClick(Transaction_ID)
@@ -155,16 +154,12 @@ class AccountGeneralDetailAdapter(
 
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setList(list: List<RecordDetail>){
+    fun setList(list: List<RecordDetail>, bList: List<Double>, acctID: Long){
         listDetail = list
+        balanceList = bList
+        currentAccountID = acctID
         notifyDataSetChanged()
     }
-
-    fun setTotalAccountBalance(acctID: Long, double: Double){
-        totalAccountBalance = double
-        currentAccountID = acctID
-    }
-
 
     override fun getItemCount(): Int {
         // the data set held by the adapter.
@@ -177,6 +172,7 @@ class AccountGeneralDetailAdapter(
         val groupDate: TextView = itemView.tv_account_general_item_group_date
         val recordText: TextView = itemView.tv_account_general_item_text
         val recordTime: TextView = itemView.tv_account_general_item_time
+        val dotBeforeMemo: TextView = itemView.tv_account_general_item_dot_before_memo
         val recordMemo: TextView = itemView.tv_account_general_item_memo
         val recordInfo: TextView = itemView.tv_account_general_item_info
         val recordAmount: TextView = itemView.tv_account_general_item_amount

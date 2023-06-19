@@ -33,14 +33,27 @@
 
         <TextView
             android:id="@+id/tvCashAccountName"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginStart="8dp"
+            android:paddingHorizontal="8dp"
             android:textColor="@color/app_text"
             app:layout_constraintBottom_toBottomOf="@id/ivCashCardSymbol"
             app:layout_constraintStart_toEndOf="@+id/ivCashCardSymbol"
             app:layout_constraintTop_toTopOf="@id/ivCashCardSymbol"
             tools:text="Account Type" />
+
+        <TextView
+            android:id="@+id/tvCashCardNumber"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:minWidth="35dp"
+            android:textColor="@color/app_sub_line_text"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/tvCashAccountName"
+            app:layout_constraintStart_toEndOf="@+id/tvCashAccountName"
+            app:layout_constraintEnd_toStartOf="@+id/tvAccountCashBalance"
+            app:layout_constraintTop_toTopOf="@id/tvCashAccountName"
+            tools:text="2569" />
 
         <TextView
             android:id="@+id/tvLend"

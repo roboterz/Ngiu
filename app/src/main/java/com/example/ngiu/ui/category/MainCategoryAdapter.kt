@@ -124,7 +124,7 @@ class MainCategoryAdapter(
 
 
         val activeItem = ContextCompat.getColor(itemView.context, R.color.app_expense_amount)
-        val addButtonTextColor = ContextCompat.getColor(itemView.context, R.color.app_sub_line_text)
+        val addButtonTextColor = ContextCompat.getColor(itemView.context, R.color.app_sub_line_text2)
         val itemTextColor = ContextCompat.getColor(itemView.context, R.color.app_text)
         val iconDelete = ContextCompat.getDrawable(itemView.context, R.drawable.ic_baseline_delete_forever_24)
 

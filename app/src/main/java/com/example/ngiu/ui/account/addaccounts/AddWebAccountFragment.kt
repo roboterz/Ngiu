@@ -161,6 +161,7 @@ class AddWebAccountFragment : Fragment() {
                     // navigate to add record screen
                     addCashViewModel.deleteAccount(requireContext(),id)
                     findNavController().navigate(R.id.navigation_account)
+                    Toast.makeText(requireContext(), "Successfully Deleted Your Account", Toast.LENGTH_LONG).show()
                     true
                 }
 
@@ -225,7 +226,7 @@ class AddWebAccountFragment : Fragment() {
         }
 
         addCashViewModel.updateAccount(requireContext(),account)
-        findNavController().navigate(R.id.navigation_account)
+        findNavController().popBackStack()
         Toast.makeText(requireContext(), "Update Successful", Toast.LENGTH_LONG).show()
 
     }
@@ -261,7 +262,7 @@ class AddWebAccountFragment : Fragment() {
 
         if (validAccountName && validBalance ) {
             insertData()
-            findNavController().navigate(R.id.navigation_account)
+            findNavController().popBackStack()
 
         }
         else

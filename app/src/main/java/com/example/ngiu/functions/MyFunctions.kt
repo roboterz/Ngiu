@@ -1,12 +1,12 @@
 package com.example.ngiu.functions
 
-import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -15,26 +15,40 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.navigation.findNavController
 import com.example.ngiu.R
-import com.example.ngiu.data.AppDatabase
 import com.example.ngiu.data.entities.Trans
-import com.example.ngiu.ui.activity.ActivityListAdapter
-import com.example.ngiu.ui.reimburse.fragment_reimburse
-import com.google.android.gms.dynamic.SupportFragmentWrapper
 import com.google.android.material.textfield.TextInputEditText
-import kotlinx.android.synthetic.main.fragment_record.*
 import kotlinx.android.synthetic.main.popup_title.view.*
-import java.io.File
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
-import kotlin.coroutines.coroutineContext
-import kotlin.math.abs
+import kotlin.math.roundToInt
 
 
 class MyFunctions {
 
 }
 
+
+
+
+/**--- Hide the Soft Keyboard ---**/
+fun View.hideSoftKeyboard() {
+    val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.hideSoftInputFromWindow(windowToken, 0)
+}
+
+//    fun Fragment.hideKeyboard() {
+//        view?.let { activity?.hideKeyboard(it) }
+//    }
+//
+//    fun Activity.hideKeyboard() {
+//        hideKeyboard(currentFocus ?: View(this))
+//    }
+//
+//    fun Context.hideKeyboard(view: View) {
+//        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+//        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+//    }
 
 
 
@@ -247,10 +261,13 @@ fun toDayLeft(day: Int): String{
 
 
 fun changeColor(textView: TextView, amount: Double){
+    // fix bug for double type
+    val tempAmount = (amount * 100).roundToInt().toDouble() / 100
+
     val context = textView.context
-    val color  = if(amount<0) R.color.app_expense_amount else R.color.app_income_amount
+    val color  = if(tempAmount < 0) R.color.app_expense_amount else R.color.app_income_amount
     textView.setTextColor(ContextCompat.getColor(context, color))
-    textView.text = "$"+"%.2f".format(amount)
+    textView.text = ""+"%.2f".format(tempAmount)
 
 }
 
@@ -271,6 +288,10 @@ fun getInternationalDateFromAmericanDate(string: String): LocalDateTime {
     return LocalDateTime.parse(lDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
 }
 
+
+fun get2DigitFormat(double: Double): String{
+    return "$%.2f".format((double * 100).roundToInt().toDouble() / 100)
+}
 
 
 fun switchToAccountAttributePage(view: View, acctTypeID: Long,
@@ -332,6 +353,22 @@ fun switchToCategoryManager(view: View, fragment: Fragment, mode: Int, transType
     // switch to category manage fragment
     view.findNavController().navigate(R.id.navigation_category_manage)
 }
+
+
+fun switchToAccountListFragment(view: View, fragment: Fragment, mode: Int, transTypeID: Long, cateID: Long, exceptAcctID: Long) {
+
+    // Put Data Before switch
+    fragment.setFragmentResult(KEY_ACCOUNT_LIST, bundleOf(
+        KEY_ACCOUNT_LIST_MODE to mode,
+        KEY_ACCOUNT_LIST_TRANSACTION_TYPE_ID to transTypeID,
+        KEY_ACCOUNT_LIST_CATEGORY_ID to cateID,
+        KEY_ACCOUNT_LIST_EXCEPT_ID to exceptAcctID
+    ))
+
+    // switch to category manage fragment
+    view.findNavController().navigate(R.id.navigation_account_list)
+}
+
 
 fun switchToRecordFragment(
     view: View, fragment: Fragment, transID: Long = 0,

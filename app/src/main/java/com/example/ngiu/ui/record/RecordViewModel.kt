@@ -99,8 +99,8 @@ class RecordViewModel : ViewModel() {
 
         val expenseCategory = database.category().getCategoryByTransactionType(TRANSACTION_TYPE_EXPENSE)
         val incomeCategory = database.category().getCategoryByTransactionType(TRANSACTION_TYPE_INCOME)
-        val transferCategory = database.category().getCategoryByTransactionType(TRANSACTION_TYPE_TRANSFER)
-        val debitCreditCategory = database.category().getCategoryByTransactionType(TRANSACTION_TYPE_DEBIT)
+        //val transferCategory = database.category().getCategoryByTransactionType(TRANSACTION_TYPE_TRANSFER)
+        //val debitCreditCategory = database.category().getCategoryByTransactionType(TRANSACTION_TYPE_DEBIT)
 
 
         categoryIDs.add(if (expenseCommonCategory.size > 1) expenseCommonCategory[0].Category_ID else expenseCategory[0].Category_ID)
@@ -121,15 +121,15 @@ class RecordViewModel : ViewModel() {
 
     private fun getSecondAccountName(context: Context, acctName: String): String {
         val acctList = AppDatabase.getDatabase(context).account().getAccountExceptType(ACCOUNT_TYPE_RECEIVABLE)
-        return if (acctList.size > 2) {
-            if (acctList[1].Account_Name == acctName){
-                acctList[0].Account_Name
-            }else {
-                acctList[1].Account_Name
-            }
-        }else{
-            context.getString(R.string.msg_no_account)
-        }
+        return if (acctList.lastIndex >= 1) {
+                    if (acctList[0].Account_Name == acctName){
+                        acctList[1].Account_Name
+                    }else {
+                        acctList[0].Account_Name
+                    }
+                }else{
+                    context.getString(R.string.msg_no_account)
+                }
     }
 
     private fun getAccountNameByCount(context: Context, transType: Long): String{
@@ -178,6 +178,22 @@ class RecordViewModel : ViewModel() {
 
     }
 
+    fun reloadCategory(context: Context, transType: Long){
+        when (transType){
+            TRANSACTION_TYPE_EXPENSE -> {
+               expenseCommonCategory = AppDatabase.getDatabase(context).category().getCommonCategoryByTransactionType(TRANSACTION_TYPE_EXPENSE)
+            }
+            TRANSACTION_TYPE_INCOME -> {
+                incomeCommonCategory = AppDatabase.getDatabase(context).category().getCommonCategoryByTransactionType(TRANSACTION_TYPE_INCOME)
+            }
+            TRANSACTION_TYPE_TRANSFER -> {
+                transferCommonCategory = AppDatabase.getDatabase(context).category().getCommonCategoryByTransactionType(TRANSACTION_TYPE_TRANSFER)
+            }
+            TRANSACTION_TYPE_DEBIT -> {
+                debitCreditCommonCategory = AppDatabase.getDatabase(context).category().getCommonCategoryByTransactionType(TRANSACTION_TYPE_DEBIT)
+            }
+        }
+    }
 
     fun loadTransactionDetail(context: Context, rID: Long) {
         // load transaction data
@@ -296,6 +312,9 @@ class RecordViewModel : ViewModel() {
             }
         }
 
+        // set account ID
+        transDetail.Account_ID = getAccountID(transDetail.Account_Name)
+        transDetail.AccountRecipient_ID = getAccountID(transDetail.AccountRecipient_Name)
     }
 
     // get reimburse status
@@ -347,7 +366,7 @@ class RecordViewModel : ViewModel() {
                         else -> nameList.add(at.Account_Name)
                     }
                 }
-                // Payable|Receivable Account
+            // Payable|Receivable Account
             } else if (transDetail.TransactionType_ID == TRANSACTION_TYPE_DEBIT) {
                 when (transDetail.Category_ID) {
                     // borrow in | received

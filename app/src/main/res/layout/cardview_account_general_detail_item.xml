@@ -20,9 +20,9 @@
             android:id="@+id/layout_account_general_card_view_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="1dp"
-            android:paddingBottom="2dp"
-            android:background="@color/app_list_background"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+            android:background="@color/app_list_group_header"
             tools:ignore="MissingConstraints">
 
             <TextView
@@ -32,7 +32,7 @@
                 android:singleLine="true"
                 android:paddingHorizontal="20dp"
                 android:paddingVertical="4dp"
-                android:background="@color/app_section_background"
+                android:background="@color/app_list_group_header"
                 android:textColor="@color/app_option_text"
                 android:textSize="12sp"
                 android:text="12/06/2021 Saturday"
@@ -70,7 +70,6 @@
                 android:singleLine="true"
                 android:textColor="@color/app_expense_amount"
                 android:textSize="18sp"
-                android:text="$-100.00"
                 app:layout_constraintStart_toEndOf="@+id/tv_account_general_item_text"
                 app:layout_constraintTop_toTopOf="parent"/>
 
@@ -78,6 +77,7 @@
                 android:id="@+id/tv_account_general_item_time"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:paddingEnd="10dp"
                 android:singleLine="true"
                 android:textColor="@color/app_label_text"
                 android:textSize="12sp"
@@ -89,7 +89,6 @@
                 android:id="@+id/tv_account_general_item_info"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
                 android:singleLine="true"
                 android:textColor="@color/app_label_text"
                 android:textSize="12sp"
@@ -98,28 +97,88 @@
                 app:layout_constraintStart_toEndOf="@+id/tv_account_general_item_time" />
 
             <TextView
+                android:id="@+id/tv_account_general_item_account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:textColor="@color/app_label_text"
+                android:textSize="12sp"
+                android:visibility="gone"
+                app:layout_constraintStart_toEndOf="@id/tv_account_general_item_info"
+                app:layout_constraintTop_toTopOf="@id/tv_account_general_item_info"
+                tools:text="Wallet" />
+
+
+            <TextView
+                android:id="@+id/tv_account_general_item_dot_before_merchant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:textColor="@color/app_label_text"
+                android:textSize="12sp"
+                android:visibility="gone"
+                android:text=" • "
+                app:layout_constraintStart_toEndOf="@id/tv_account_general_item_account"
+                app:layout_constraintTop_toTopOf="@id/tv_account_general_item_account"
+                 />
+
+            <TextView
+                android:id="@+id/tv_account_general_item_merchant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:textColor="@color/app_label_text"
+                android:textSize="12sp"
+                android:visibility="gone"
+                app:layout_constraintStart_toEndOf="@id/tv_account_general_item_dot_before_merchant"
+                app:layout_constraintTop_toTopOf="@id/tv_account_general_item_dot_before_merchant"
+                tools:text="@string/option_merchant" />
+
+            <TextView
+                android:id="@+id/tv_account_general_item_dot_before_memo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:textColor="@color/app_label_text"
+                android:textSize="12sp"
+                android:visibility="gone"
+                android:text=" • "
+                app:layout_constraintStart_toEndOf="@id/tv_account_general_item_merchant"
+                app:layout_constraintTop_toTopOf="@id/tv_account_general_item_merchant"
+                 />
+
+
+            <TextView
                 android:id="@+id/tv_account_general_item_memo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
                 android:singleLine="true"
                 android:textColor="@color/app_label_text"
                 android:textSize="12sp"
                 android:text="memo"
-                app:layout_constraintTop_toBottomOf="@+id/tv_account_general_item_text"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tv_account_general_item_info" />
+                android:visibility="visible"
+                app:layout_constraintTop_toTopOf="@+id/tv_account_general_item_dot_before_memo"
+                app:layout_constraintEnd_toStartOf="@+id/tv_account_general_item_check"
+                app:layout_constraintStart_toEndOf="@+id/tv_account_general_item_dot_before_memo" />
 
             <TextView
                 android:id="@+id/tv_account_general_item_balance"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
                 android:textColor="@color/app_option_text"
                 android:textSize="18sp"
                 app:layout_constraintTop_toTopOf="@+id/tv_account_general_item_text"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tv_account_general_item_check"
                 tools:text="$15.75" />
+
+
+            <CheckBox
+                android:id="@+id/tv_account_general_item_check"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

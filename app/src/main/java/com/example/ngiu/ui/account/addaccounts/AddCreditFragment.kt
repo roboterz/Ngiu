@@ -98,9 +98,11 @@ class AddCreditFragment : Fragment() {
         binding.tetCreditMemo.setText(account.Account_Memo)
         binding.tetCreditLimit.setText("%.2f".format(account.Account_CreditLimit))
         /*"Statement Day: $statementDay$suffix"*/
+        statementDay = account.Account_StatementDay.toString()
         val stateSuffix = getDayOfMonthSuffix(account.Account_StatementDay)
         binding.tvCreditStateDay.text = getString(R.string.option_account_statement_date)
                                 .plus("${account.Account_StatementDay}$stateSuffix")
+        paymentDay = account.Account_PaymentDay.toString()
         val paySuffix = getDayOfMonthSuffix(account.Account_PaymentDay)
         binding.tvCreditPaymentDay.text = "Payment Day: ${account.Account_PaymentDay}$paySuffix"
         binding.creditCurrentArrearsLayout.suffixText = account.Currency_ID
@@ -136,7 +138,7 @@ class AddCreditFragment : Fragment() {
         }
 
         addCashViewModel.updateAccount(requireContext(), account)
-        findNavController().navigate(R.id.navigation_account)
+        findNavController().popBackStack()
         Toast.makeText(requireContext(), "Update Successful", Toast.LENGTH_LONG).show()
 
     }
@@ -158,8 +160,10 @@ class AddCreditFragment : Fragment() {
         binding.toolbarAddCreditAccount.setOnMenuItemClickListener{
             when (it.itemId) {
                 R.id.action_delete -> {
+                    // todo confirm before delete account
                     // navigate to add record screen
                     addCashViewModel.deleteAccount(requireContext(),id)
+                    // todo make sure the account only can be deleted with zero record
                     findNavController().navigate(R.id.navigation_account)
                     Toast.makeText(requireContext(), "Successfully Deleted Your Account", Toast.LENGTH_LONG).show()
                     true
@@ -410,7 +414,7 @@ class AddCreditFragment : Fragment() {
 
         if (validAccountName) {
             insertData()
-            findNavController().navigate(R.id.navigation_account)
+            findNavController().popBackStack()
 
         } else
             invalidForm()

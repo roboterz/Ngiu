@@ -24,11 +24,13 @@ import com.example.ngiu.functions.*
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import kotlin.math.roundToInt
 
 class CalendarViewModel : ViewModel() {
 
     var calendarDetail: MutableList<CalendarDetail> = ArrayList()
-
+    var pendingPayment = 0.00
+    var pendingIncome = 0.00
 
     // return event record
     fun getEventRecord(context: Context, event_ID: Long): Event {
@@ -56,6 +58,9 @@ class CalendarViewModel : ViewModel() {
         val eventList = AppDatabase.getDatabase(context).event().getAllEvent()
 
         calendarDetail.clear()
+        pendingPayment = 0.00
+        pendingIncome = 0.00
+
 
         var eventTitle: String = context.getString(R.string.event_credit_card_payment)
 
@@ -63,21 +68,34 @@ class CalendarViewModel : ViewModel() {
         for (i in acctList.indices) {
             val cd = CalendarDetail()
             cd.apply {
+                //
                 this.id = acctList[i].Account_ID
+                //
                 this.account_out_name = acctList[i].Account_Name
+                //
                 this.type = EVENT_CREDIT_PAYMENT
+                //
                 this.title = eventTitle
+                //
                 this.account_last_four_number = acctList[i].Account_CardNumber
+                // date
                 if (today <= acctList[i].Account_PaymentDay) {
                     this.date =
-                        LocalDate.now().plusDays((acctList[i].Account_PaymentDay - today).toLong())
+                        LocalDateTime.now().plusDays((acctList[i].Account_PaymentDay - today).toLong())
                 } else {
-                    this.date = LocalDate.now().minusDays((today - acctList[i].Account_PaymentDay).toLong())
+                    this.date = LocalDateTime.now().minusDays((today - acctList[i].Account_PaymentDay).toLong())
                         .plusMonths(1)
 
                 }
+                // amount
+                this.amount = getArrears(context, acctList[i].Account_ID, acctList[i].Account_Balance)
             }
-            calendarDetail.add(cd)
+
+            if (cd.amount < 0.0) {
+                calendarDetail.add(cd)
+            }
+
+            pendingPayment -= cd.amount
         }
 
         eventTitle = context.getString(R.string.event_reminder)
@@ -88,7 +106,7 @@ class CalendarViewModel : ViewModel() {
                 this.id = eventList[i].Event_ID
                 this.title = eventTitle
                 this.type = EVENT_NOTE
-                this.date = eventList[i].Event_Date.toLocalDate()
+                this.date = eventList[i].Event_Date
                 this.memo = eventList[i].Event_Memo
             }
             calendarDetail.add(cd)
@@ -98,6 +116,19 @@ class CalendarViewModel : ViewModel() {
         // sort by date
         calendarDetail.sortBy { it.date }
 
+    }
+
+    private fun getArrears(context: Context, accountID: Long, balance: Double): Double{
+        val totalAmountOfIncome = AppDatabase.getDatabase(context).trans().getTotalAmountOfIncomeByAccount(accountID)
+        val totalAmountOfExpense = AppDatabase.getDatabase(context).trans().getTotalAmountOfExpenseByAccount(accountID)
+        val totalAmountOfTransferOut = AppDatabase.getDatabase(context).trans().getTotalAmountOfTransferOutByAccount(accountID)
+        val totalAmountOfTransferIn = AppDatabase.getDatabase(context).trans().getTotalAmountOfTransferInByAccount(accountID)
+
+        // Arrears
+        val arrears = ( balance - totalAmountOfExpense - totalAmountOfTransferOut + totalAmountOfIncome + totalAmountOfTransferIn )
+
+        //return get2DigitFormat(arrears).toDouble()
+        return (arrears * 100).roundToInt().toDouble() / 100
     }
 
 

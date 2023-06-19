@@ -2,6 +2,7 @@ package com.example.ngiu.ui.category
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.content.Context
 import android.database.sqlite.SQLiteException
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,11 +10,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.MainActivity
@@ -23,6 +28,7 @@ import com.example.ngiu.databinding.FragmentCategoryManageBinding
 import com.example.ngiu.functions.*
 import kotlinx.android.synthetic.main.fragment_category_manage.*
 import kotlinx.android.synthetic.main.popup_title.view.*
+import java.net.IDN
 
 class CategoryManagerFragment: Fragment() {
     private lateinit var categoryManagerViewModel: CategoryManagerViewModel
@@ -144,12 +150,7 @@ class CategoryManagerFragment: Fragment() {
                                     // select mode
                                 } else {
                                     // pass the string back to record fragment
-                                    setFragmentResult(
-                                        KEY_RECORD_CATEGORY,
-                                        bundleOf(KEY_RECORD_CATEGORY_ID to rID)
-                                    )
-                                    // exit
-                                    requireActivity().onBackPressedDispatcher.onBackPressed()
+                                    backToRecordFragment(rID)
                                 }
                             }
                         }
@@ -212,8 +213,15 @@ class CategoryManagerFragment: Fragment() {
         // click the navigation Icon in the left side of toolbar
         toolbar_category.setNavigationOnClickListener {
 
-            // call back button event to switch to previous fragment
-            requireActivity().onBackPressedDispatcher.onBackPressed()
+            if (cateMode == EDIT_MODE) {
+                // edit mode
+                requireActivity().onBackPressedDispatcher.onBackPressed()
+
+                // select mode
+            } else {
+                // pass the string back to record fragment
+                backToRecordFragment(0L)
+            }
         }
 
         // menu item clicked
@@ -283,7 +291,10 @@ class CategoryManagerFragment: Fragment() {
 
 
 
+
+
     //------------------------------------------Private Function------------------------------------
+
 
     private fun showSubCategoryItems(rID: Long) {
 
@@ -334,7 +345,7 @@ class CategoryManagerFragment: Fragment() {
                     //add main category
                     ADD_MAIN_CATEGORY -> {
                         val mainCate = Category()
-                        mainCate.Category_Name = editText.text.toString()
+                        mainCate.Category_Name = editText.text.toString().trim()
                         mainCate.TransactionType_ID =
                             categoryManagerViewModel.mainCategory[0].TransactionType_ID
                         categoryManagerViewModel.addCategory(requireContext(), mainCate)
@@ -347,7 +358,7 @@ class CategoryManagerFragment: Fragment() {
                                 categoryManagerViewModel.mainCategory.indexOfFirst { it.Category_ID == rID }]
                         mainCate.TransactionType_ID =
                             categoryManagerViewModel.mainCategory[0].TransactionType_ID
-                        mainCate.Category_Name = editText.text.toString()
+                        mainCate.Category_Name = editText.text.toString().trim()
                         categoryManagerViewModel.updateCategory(requireContext(), mainCate)
                         // refresh
                         refreshMainCategory()
@@ -356,7 +367,7 @@ class CategoryManagerFragment: Fragment() {
                     ADD_SUB_CATEGORY -> {
                         val subCate = Category()
                         //subCate.Category_ID = categoryManagerViewModel.currentActiveMainCategory
-                        subCate.Category_Name = editText.text.toString()
+                        subCate.Category_Name = editText.text.toString().trim()
                         subCate.Category_ParentID = categoryManagerViewModel.currentActiveMainCategory
                         subCate.TransactionType_ID = categoryManagerViewModel.currentTransactionType
                         categoryManagerViewModel.addCategory(requireContext(), subCate)
@@ -367,7 +378,7 @@ class CategoryManagerFragment: Fragment() {
                     EDIT_SUB_CATEGORY -> {
                         val subCate = categoryManagerViewModel.subCategory[
                                 categoryManagerViewModel.subCategory.indexOfFirst { it.Category_ID == rID }]
-                        subCate.Category_Name = editText.text.toString()
+                        subCate.Category_Name = editText.text.toString().trim()
                         categoryManagerViewModel.updateCategory(requireContext(), subCate)
                         // refresh
                         refreshSubCategory()
@@ -462,5 +473,14 @@ class CategoryManagerFragment: Fragment() {
             categoryManagerViewModel.mainCategory
         )
         //recyclerview_category_main.adapter = mainCategoryAdapter
+    }
+
+    private fun backToRecordFragment(cateID: Long){
+        // pass the string back to record fragment
+        setFragmentResult(
+            KEY_RECORD_CATEGORY,
+            bundleOf(KEY_RECORD_CATEGORY_ID to cateID)
+        )
+        requireActivity().onBackPressedDispatcher.onBackPressed()
     }
 }

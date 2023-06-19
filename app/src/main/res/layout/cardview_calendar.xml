@@ -35,6 +35,19 @@
             tools:text="11-13" />
 
         <TextView
+            android:id="@+id/cv_calendar_tv_year"
+            android:layout_width="43dp"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:paddingStart="5dp"
+            android:textColor="@color/app_sub_line_text2"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/cv_calendar_tv_month_day"
+            app:layout_constraintTop_toBottomOf="@+id/cv_calendar_tv_month_day"
+             />
+
+        <TextView
             android:id="@+id/cv_calendar_tv_event"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -130,14 +143,14 @@
             android:id="@+id/cv_calendar_hint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:drawableTint="@color/app_icon_light"
             android:text=""
             android:textSize="24sp"
             app:drawableEndCompat="@drawable/ic_baseline_keyboard_arrow_right_24"
-            android:drawableTint="@color/app_icon_light"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            />
+            app:layout_constraintVertical_bias="0.484" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

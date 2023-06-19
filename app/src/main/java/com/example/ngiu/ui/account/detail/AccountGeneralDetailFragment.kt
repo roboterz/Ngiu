@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.MainActivity
@@ -123,15 +122,14 @@ class AccountGeneralDetailFragment : Fragment() {
         // load transaction list
         Thread {
             activity?.runOnUiThread {
-                accountGeneralDetailAdapter?.setTotalAccountBalance(accountGeneralDetailViewModel.accountID, accountGeneralDetailViewModel.accountBalance)
-                accountGeneralDetailAdapter?.setList(accountGeneralDetailViewModel.listDetail)
+                accountGeneralDetailAdapter?.setList(accountGeneralDetailViewModel.listDetail, accountGeneralDetailViewModel.listBalance, accountGeneralDetailViewModel.accountID)
             }
         }.start()
 
         // show the info at title
-        tv_account_general_balance.text = "$" + "%.2f".format(accountGeneralDetailViewModel.accountBalance)
-        tv_account_general_inflow_amount.text = "$" + "%.2f".format(accountGeneralDetailViewModel.inflowAmount)
-        tv_account_general_outflow_amount.text = "$" + "%.2f".format(accountGeneralDetailViewModel.outflowAmount)
+        tv_account_general_balance.text = get2DigitFormat(accountGeneralDetailViewModel.accountBalance)
+        tv_account_general_inflow_amount.text = get2DigitFormat(accountGeneralDetailViewModel.inflowAmount)
+        tv_account_general_outflow_amount.text = get2DigitFormat(accountGeneralDetailViewModel.outflowAmount)
         tv_account_general_name.text = accountGeneralDetailViewModel.accountName
 
     }

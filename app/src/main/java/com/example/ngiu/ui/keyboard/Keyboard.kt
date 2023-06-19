@@ -10,6 +10,9 @@ import androidx.core.view.forEach
 import com.example.ngiu.R
 
 
+
+const val TEXTVIEW_MAX_NUMBER: Int = 16
+
 @SuppressLint("ClickableViewAccessibility")
 class Keyboard(view: View){
     //private val key0: TextView = view.findViewById(R.id.tv_price_0)
@@ -20,8 +23,6 @@ class Keyboard(view: View){
     private val keyClear: TextView = view.findViewById(R.id.tv_price_clear)
     private val keyboardPanel: ConstraintLayout = view.findViewById(R.id.layout_Keyboard)
     private val keys: ConstraintLayout = view.findViewById(R.id.price_input_keys)
-
-
 
 
     @SuppressLint("SetTextI18n")
@@ -47,7 +48,7 @@ class Keyboard(view: View){
             when (it.tag){
                 "1","2","3","4","5","6","7","8","9","0" -> {
                     it.setOnClickListener{ _ ->
-                        if (echoView.text.length < 13) {
+                        if (echoView.text.length < TEXTVIEW_MAX_NUMBER) {
                             if (echoView.text.toString().toDouble() == 0.0) {
                                 echoView.text = "%.2f".format(it.tag.toString().toDouble() / 100.0)
                             } else {
@@ -62,13 +63,18 @@ class Keyboard(view: View){
             }
         }
 
-        // decimal point
+        // decimal point -> 00
         keyDot.setOnClickListener {
-            // todo need change
+            // add 00
+            if (echoView.text.length < TEXTVIEW_MAX_NUMBER - 1 ){
+                if (echoView.text.toString().toDouble() != 0.0) {
+                    echoView.text = "%.2f".format( echoView.text.toString().toDouble() * 100.0 )
+                }
+            }
         }
-        //
+        // calculator
         keyCalc.setOnClickListener {
-            // todo
+            // todo calculator
             //binding.priceInput.visibility = View.GONE
         }
         // clear
@@ -93,6 +99,10 @@ class Keyboard(view: View){
 
     fun hide(){
         keyboardPanel.visibility = View.GONE
+    }
+
+    fun state(): Int{
+        return keyboardPanel.visibility
     }
 
 
