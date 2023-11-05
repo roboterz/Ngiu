@@ -397,6 +397,7 @@ class AddCreditFragment : Fragment() {
             Account_Memo = memo,
             AccountType_ID = accountTypeID,
             Currency_ID = currency,
+            Account_BaseReward = 1.0,
             Account_StatementDay = statementDay.toInt(),
             Account_PaymentDay = paymentDay.toInt()
         )

@@ -7,7 +7,7 @@
     android:background="@color/app_list_group_header"
     tools:context=".ui.report.ReportFragment">
 
-    <androidx.appcompat.widget.Toolbar
+    <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar_report"
         android:layout_width="match_parent"
         android:layout_height="45dp"

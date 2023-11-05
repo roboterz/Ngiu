@@ -33,11 +33,11 @@ data class Reward(
     @PrimaryKey(autoGenerate = true)
     var Reward_ID: Long = 0L,
     @ColumnInfo(defaultValue = "0")
-    var Account_ID: Long = 0L,
+    var Account_ID: Long = 1L,
     @ColumnInfo(defaultValue = "0")
-    var Category_ID: Long = 0L,
+    var Category_ID: Long = 1L,
     @ColumnInfo(defaultValue = "0")
-    var Merchant_ID: Long = 0L,
+    var Merchant_ID: Long = 1L,
     @ColumnInfo(defaultValue = "0")
     var Reward_Mode: Int = 0,
     @ColumnInfo(defaultValue = "1.0")
