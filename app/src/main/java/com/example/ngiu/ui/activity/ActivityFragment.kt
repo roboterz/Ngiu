@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.view.*
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.ngiu.MainActivity
 import com.example.ngiu.R
@@ -50,7 +51,6 @@ class ActivityFragment : Fragment() {
         //Thread {
         activityViewModel.loadDataToRam(requireContext())
         //}.start()
-
 
         return binding.root
     }
@@ -121,15 +121,10 @@ class ActivityFragment : Fragment() {
         // Show bottom bar
         (activity as MainActivity).setNavBottomBarVisibility(View.VISIBLE)
 
-        // load transaction list
-        Thread {
-            activity?.runOnUiThread {
-                //vpAdapter?.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
-
-                vpAdapter?.setList(activityViewModel.transactionDetail)
-                //recyclerView_activity.adapter = vpAdapter
-            }
-        }.start()
+        /*// load transaction list
+        activityViewModel.getTransDetail().observe(this, Observer { it ->
+            vpAdapter?.setList(it)
+        })*/
 
         // show the info at title
         tvCurrentMonthExpenseBalance.text = "" + "%.2f".format(activityViewModel.monthExpense)
@@ -148,24 +143,24 @@ class ActivityFragment : Fragment() {
     /** init Adapter **/
     private fun initAdapter(view: View, fragment: Fragment) {
 
-        Thread {
-            this.activity?.runOnUiThread {
-
-                recyclerView_activity.layoutManager =
-                    LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-                vpAdapter = this.context?.let {
-                    ActivityListAdapter(object : ActivityListAdapter.OnClickListener {
-                        // catch the item click event from adapter
-                        override fun onItemClick(transID: Long) {
-                            // switch to record fragment (Edit mode)
-                            //navigateToRecordFragment(transID)
-                            switchToRecordFragment(view, fragment, transID)
-                        }
-                    })
+        recyclerView_activity.layoutManager =
+            LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        vpAdapter = this.context?.let {
+            ActivityListAdapter(object : ActivityListAdapter.OnClickListener {
+                // catch the item click event from adapter
+                override fun onItemClick(transID: Long) {
+                    // switch to record fragment (Edit mode)
+                    //navigateToRecordFragment(transID)
+                    switchToRecordFragment(view, fragment, transID)
                 }
-                recyclerView_activity.adapter = vpAdapter
-            }
-        }.start()
+            })
+        }
+        recyclerView_activity.adapter = vpAdapter
+
+        // load transaction list with LiveData
+        activityViewModel.getTransDetail().observe(viewLifecycleOwner, Observer { it ->
+            vpAdapter?.setList(it)
+        })
     }
 
 

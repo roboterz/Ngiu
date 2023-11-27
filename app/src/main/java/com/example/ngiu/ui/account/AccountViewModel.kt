@@ -1,6 +1,8 @@
 package com.example.ngiu.ui.account
 
+import android.app.Application
 import android.content.Context
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.ngiu.data.AppDatabase
@@ -10,7 +12,7 @@ import com.example.ngiu.ui.account.model.AccountSectionUiModel
 import kotlin.math.roundToInt
 
 
-class AccountViewModel : ViewModel() {
+class AccountViewModel(application: Application) : AndroidViewModel(application) {
 
     val accountSections = MutableLiveData<List<AccountSectionUiModel>>()
 

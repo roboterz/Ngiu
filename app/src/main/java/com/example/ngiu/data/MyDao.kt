@@ -1,6 +1,8 @@
 package com.example.ngiu.data
 
 
+import androidx.lifecycle.LiveData
+import androidx.paging.PagingSource
 import androidx.room.*
 import com.example.ngiu.data.entities.*
 import androidx.room.Transaction
@@ -623,7 +625,25 @@ interface TransDao {
                 AND Trans.Project_ID = Project.Project_ID
         ORDER BY Transaction_Date DESC
         """)
-    fun getAllTransDetail(): List<TransactionDetail>
+    fun getAllTransDetail(): LiveData<List<TransactionDetail>>
+
+    @Transaction
+    @Query("""
+        SELECT Transaction_ID, Trans.TransactionType_ID, Trans.Category_ID, Category_Name, Account.Account_ID, Account.Account_Name, 
+                AccountRecipient.Account_ID as AccountRecipient_ID, AccountRecipient.Account_Name as AccountRecipient_Name, 
+                Transaction_Amount, Transaction_Amount2, Transaction_Date, Trans.Person_ID, Person_Name, Trans.Merchant_ID, Merchant_Name, Transaction_Memo, Trans.Project_ID, Project_Name,
+                Transaction_ReimburseStatus, Period_ID  
+        FROM Trans, Category, Account, Account as AccountRecipient, Person, Merchant, Project
+        WHERE Trans.Category_ID = Category.Category_ID
+                And Trans.Account_ID = Account.Account_ID
+                AND Trans.AccountRecipient_ID = AccountRecipient.Account_ID
+                AND Trans.Person_ID = Person.Person_ID
+                AND Trans.Merchant_ID = Merchant.Merchant_ID
+                AND Trans.Project_ID = Project.Project_ID
+        ORDER BY Transaction_Date DESC
+        """)
+    fun getAllTransDetailPage(): PagingSource<Int, TransactionDetail>
+
 
     @Transaction
     @Query("""

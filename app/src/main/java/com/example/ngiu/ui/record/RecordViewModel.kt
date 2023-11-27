@@ -3,15 +3,12 @@ package com.example.ngiu.ui.record
 
 import android.content.Context
 import android.view.View
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import com.example.ngiu.R
 import com.example.ngiu.data.AppDatabase
 import com.example.ngiu.data.entities.*
-import com.example.ngiu.data.entities.returntype.AccountCount
 import com.example.ngiu.data.entities.returntype.TransactionDetail
 import com.example.ngiu.functions.*
-import kotlin.collections.groupingBy
 import kotlin.collections.ArrayList
 
 class RecordViewModel : ViewModel() {
