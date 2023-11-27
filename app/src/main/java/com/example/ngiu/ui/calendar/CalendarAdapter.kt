@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.Switch
@@ -20,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.returntype.CalendarDetail
 import com.example.ngiu.functions.*
+import com.example.ngiu.ui.report.ReportDetailAdapter
 import kotlinx.android.synthetic.main.cardview_calendar.view.*
 import kotlinx.android.synthetic.main.cardview_transaction.view.*
 import org.w3c.dom.Text
@@ -182,5 +184,12 @@ class CalendarAdapter(
 
     override fun getItemViewType(position: Int): Int {
         return position
+    }
+
+    override fun onViewAttachedToWindow(holder: ViewHolder) {
+        super.onViewAttachedToWindow(holder)
+
+        holder.itemView.clearAnimation()
+        holder.itemView.startAnimation(AnimationUtils.loadAnimation(holder.itemView.context, R.anim.scale_in_scroll))
     }
 }

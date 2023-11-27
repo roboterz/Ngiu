@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -79,6 +80,7 @@ class AccountListAdapter(
         accounts.addAll(data)
         notifyDataSetChanged()
     }
+
 
     // view-holder
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

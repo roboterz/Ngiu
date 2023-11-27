@@ -130,9 +130,10 @@
                 android:textColor="@color/app_label_text"
                 android:textSize="12sp"
                 android:visibility="gone"
+                android:text="@string/option_merchant"
                 app:layout_constraintStart_toEndOf="@id/tv_account_general_item_dot_before_merchant"
                 app:layout_constraintTop_toTopOf="@id/tv_account_general_item_dot_before_merchant"
-                tools:text="@string/option_merchant" />
+                 />
 
             <TextView
                 android:id="@+id/tv_account_general_item_dot_before_memo"
@@ -156,7 +157,7 @@
                 android:textColor="@color/app_label_text"
                 android:textSize="12sp"
                 android:text="memo"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:layout_constraintTop_toTopOf="@+id/tv_account_general_item_dot_before_memo"
                 app:layout_constraintEnd_toStartOf="@+id/tv_account_general_item_check"
                 app:layout_constraintStart_toEndOf="@+id/tv_account_general_item_dot_before_memo" />

@@ -5,12 +5,14 @@ import android.provider.Settings.Global.getString
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.returntype.TransactionDetail
+import com.example.ngiu.functions.MERCHANT_NO_LOCATION
 import com.example.ngiu.functions.TRANSACTION_TYPE_DEBIT
 import com.example.ngiu.functions.TRANSACTION_TYPE_EXPENSE
 import com.example.ngiu.functions.TRANSACTION_TYPE_INCOME
@@ -71,7 +73,7 @@ class ActivityListAdapter(
                     // third line
                     holder.thirdLine.text = Account_Name
                     if (Person_ID > 0L) holder.thirdLine.text = holder.thirdLine.text.toString() + " • $Person_Name"
-                    if (Merchant_ID > 1L) holder.thirdLine.text = holder.thirdLine.text.toString() + " • $Merchant_Name"
+                    if (Merchant_ID > MERCHANT_NO_LOCATION) holder.thirdLine.text = holder.thirdLine.text.toString() + " • $Merchant_Name"
                     if (Project_ID > 0L) holder.thirdLine.text = holder.thirdLine.text.toString() + " • $Project_Name"
                 }
                 TRANSACTION_TYPE_TRANSFER, TRANSACTION_TYPE_DEBIT ->{
@@ -140,5 +142,12 @@ class ActivityListAdapter(
 
     override fun getItemViewType(position: Int): Int {
         return position
+    }
+
+    override fun onViewAttachedToWindow(holder: ViewHolder) {
+        super.onViewAttachedToWindow(holder)
+
+        holder.itemView.clearAnimation()
+        holder.itemView.startAnimation(AnimationUtils.loadAnimation(holder.itemView.context, R.anim.scale_in_scroll))
     }
 }
