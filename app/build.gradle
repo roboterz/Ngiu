@@ -60,7 +60,7 @@ dependencies {
 
     implementation "androidx.fragment:fragment-ktx:1.6.2"
 
-    implementation 'com.google.android.material:material:1.12.0-alpha01'
+    implementation 'com.google.android.material:material:1.12.0-alpha02'
 
     implementation 'io.reactivex.rxjava2:rxjava:2.2.19'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
@@ -84,7 +84,7 @@ dependencies {
     implementation "androidx.room:room-ktx:$rootProject.roomVersion"
     implementation 'com.google.firebase:firebase-database-ktx:20.3.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.databinding:databinding-runtime:8.1.4'
+    implementation 'androidx.databinding:databinding-runtime:8.2.0'
     kapt "androidx.room:room-compiler:$rootProject.roomVersion"
     //noinspection GradleDependency
     androidTestImplementation "androidx.room:room-testing:$rootProject.roomVersion"
