@@ -5,14 +5,17 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.returntype.TransactionDetail
+import com.example.ngiu.functions.MERCHANT_NO_LOCATION
 import com.example.ngiu.functions.TRANSACTION_TYPE_EXPENSE
 import com.example.ngiu.functions.TRANSACTION_TYPE_INCOME
+import com.example.ngiu.ui.account.detail.AccountGeneralDetailAdapter
 import kotlinx.android.synthetic.main.cardview_account_general_detail_item.view.layout_account_general_card_view_group
 import kotlinx.android.synthetic.main.cardview_account_general_detail_item.view.layout_account_general_card_view_item
 import kotlinx.android.synthetic.main.cardview_account_general_detail_item.view.tv_account_general_item_account
@@ -73,16 +76,22 @@ class ReportDetailAdapter(
             holder.recordAccount.visibility = View.VISIBLE
             holder.recordAccount.text = Account_Name
             // Merchant
-            if (Merchant_Name.isNotEmpty()) {
+            if (Merchant_ID > MERCHANT_NO_LOCATION ) {
                 holder.recordMerchantDot.visibility = View.VISIBLE
                 holder.recordMerchant.visibility = View.VISIBLE
                 holder.recordMerchant.text = Merchant_Name
+            } else {
+                holder.recordMerchantDot.visibility = View.GONE
+                holder.recordMerchant.visibility = View.GONE
             }
             // Memo
             if (Transaction_Memo.isNotEmpty()) {
                 holder.recordMemoDot.visibility = View.VISIBLE
                 holder.recordMemo.visibility = View.VISIBLE
                 holder.recordMemo.text = Transaction_Memo
+            } else {
+                holder.recordMemoDot.visibility = View.GONE
+                holder.recordMemo.visibility = View.GONE
             }
 
             // amount, color
@@ -172,5 +181,12 @@ class ReportDetailAdapter(
 
     override fun getItemViewType(position: Int): Int {
         return position
+    }
+
+    override fun onViewAttachedToWindow(holder: ViewHolder) {
+        super.onViewAttachedToWindow(holder)
+
+        holder.itemView.clearAnimation()
+        holder.itemView.startAnimation(AnimationUtils.loadAnimation(holder.itemView.context, R.anim.scale_in_scroll))
     }
 }

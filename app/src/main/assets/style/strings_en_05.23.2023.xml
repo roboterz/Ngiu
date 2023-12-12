@@ -13,7 +13,6 @@
 
     <string name="nav_title_setting">Settings</string>
     <string name="nav_title_report">Report</string>
-    <string name="nav_title_rewards">Rewards</string>
     <string name="nav_title_reimburse">Reimburses Management</string>
     <string name="nav_title_report_expenditure">Expenditure Report</string>
     <string name="nav_title_report_income">Income Report</string>
@@ -180,8 +179,6 @@
     <string name="category_payment">Payment</string>
     <string name="category_receive_payment">Receive payment</string>
 
-    <string name="report_records">Records</string>
-
     <string name="item_no_reminder">No Reminder</string>
     <string name="item_reminder_of_the_day">Reminder of the Day</string>
     <string name="item_3_days_in_advance_and_the_day">3 Days in Advance + on the Day</string>
@@ -273,7 +270,6 @@
     <string name="keyboard_8">8</string>
     <string name="keyboard_9">9</string>
     <string name="keyboard_0">0</string>
-    <string name="keyboard_00">00</string>
     <string name="keyboard_dot">.</string>
     <string name="keyboard_c">C</string>
     <string name="keyboard_enter">Enter</string>

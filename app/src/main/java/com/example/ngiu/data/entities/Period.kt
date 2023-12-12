@@ -80,6 +80,8 @@ data class Period (
     var Project_ID: Long = 1L,
     @ColumnInfo(defaultValue = "0")
     var Period_ReimburseStatus: Int = 0,
+
+
     @ColumnInfo(defaultValue = "")
     var Period_Memo: String = "",
 

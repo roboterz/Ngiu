@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -140,6 +141,13 @@ class AccountCreditDetailGroupAdapter(
         val textAmountDue = itemView.context.getString(R.string.option_account_amount_due)
         val iconExpand = ContextCompat.getDrawable(itemView.context, R.drawable.ic_baseline_arrow_drop_down_24)
         val iconCollapse = ContextCompat.getDrawable(itemView.context, R.drawable.ic_baseline_arrow_right_24)
+    }
+
+    override fun onViewAttachedToWindow(holder: CreditDetailGroupViewHolder) {
+        super.onViewAttachedToWindow(holder)
+
+        holder.itemView.clearAnimation()
+        holder.itemView.startAnimation(AnimationUtils.loadAnimation(holder.itemView.context, R.anim.scale_in_scroll))
     }
 
 }

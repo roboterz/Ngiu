@@ -26,6 +26,7 @@ const val PERSON_ME = 1L
 const val MERCHANT_NO_LOCATION = 1L
 const val CURRENCY_USD = 1L
 
+
 // CATEGORY
 const val CATEGORY_LIMIT = 50L
 

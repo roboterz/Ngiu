@@ -20,6 +20,8 @@ import com.example.ngiu.databinding.FragmentReimburseBinding
 import com.example.ngiu.functions.SelectItem
 import com.example.ngiu.functions.popupWindow
 import com.example.ngiu.functions.switchToRecordFragment
+import com.example.ngiu.ui.keyboard.Keyboard
+import kotlinx.android.synthetic.main.fragment_record.tv_record_amount
 import kotlinx.android.synthetic.main.fragment_reimburse.btn_reimburse_claim
 import kotlinx.android.synthetic.main.fragment_reimburse.cb_reimburse_select_all
 import kotlinx.android.synthetic.main.fragment_reimburse.recyclerview_reimburse
@@ -195,6 +197,12 @@ class ReimburseFragment : Fragment() {
 
         /** Set Amount **/
         dialog.tv_claim_amount.text =  "%.2f".format(sumOfReimbursed)
+//        dialog.tv_claim_amount.setOnClickListener {
+//            if (Keyboard(it).state() != View.VISIBLE) {
+//                Keyboard(it).initKeys(dialog.tv_claim_amount)
+//                Keyboard(it).show()
+//            }
+//        }
 
         /** Set Account Name **/
         dialog.tv_claim_account.text = reimburseViewModel.getFirstAccountName()

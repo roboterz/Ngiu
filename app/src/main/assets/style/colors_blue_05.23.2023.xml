@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="app_title_text">#FFFFFF</color>
+    <color name="app_title_text_inactive">#77FFFFFF</color>
+    <color name="app_title_background">#4CB9DB</color>
+    <color name="app_title_background_active">#128CB2</color>
+    <color name="app_expense_amount">#EC4B03</color>
+    <color name="app_income_amount">#29C010</color>
+    <color name="app_expense_amount2">#EC7063</color>
+    <color name="app_income_amount2">#B3F783</color>
+    <color name="app_amount">#FF000000</color>
+    <color name="app_label_text">#868686</color>
+    <color name="app_list_background">#EEEEEE</color>
+    <color name="app_list_group_header">#F5F5F5</color>
+    <color name="app_sub_line_text">#999999</color>
+    <color name="app_sub_line_text2">#BBBBBB</color>
+    <color name="app_text">#444444</color>
+    <color name="app_button_text">#EC3B03</color>
+    <color name="app_option_text">#555555</color>
+    <color name="app_section_background">#FFFFFF</color>
+    <color name="app_text_stroke">#C4C4C4</color>
+    <color name="app_add_button_grey">#4CB9DB</color>
+    <color name="app_button_background_press">#DDDDDD</color>
+    <color name="app_record_icon">#808080</color>
+    <color name="app_star">#FFA114</color>
+    <color name="app_select_item">#704CB9DB</color>
+    <color name="app_event">#4CB9DB</color>
+    <color name="app_icon_light">#AAAAAA</color>
+    <color name="app_main_list">#E5E5E5</color>
+    <color name="keyboard_background">#C4C4C4</color>
+    <color name="keyboard_font">#555555</color>
+    <color name="keyboard_frame">#888888</color>
+
+
+    <color name="chart_expense_color_0">#B22222</color>
+    <color name="chart_expense_color_1">#EC3B03</color>
+    <color name="chart_expense_color_2">#FC7676</color>
+    <color name="chart_expense_color_3">#FFCBCB</color>
+    <color name="chart_expense_color_4">#FC7676</color>
+    <color name="chart_expense_color_5">#FFCBCB</color>
+    <color name="chart_expense_color_6">#FC7676</color>
+    <color name="chart_expense_color_7">#FFCBCB</color>
+    <color name="chart_expense_color_8">#FC7676</color>
+    <color name="chart_expense_color_9">#EC3B03</color>
+
+    <color name="chart_income_color_0">#387C44</color>
+    <color name="chart_income_color_1">#6AA121</color>
+    <color name="chart_income_color_2">#B2C248</color>
+    <color name="chart_income_color_3">#6CBB3C</color>
+    <color name="chart_income_color_4">#41A317</color>
+    <color name="chart_income_color_5">#728C00</color>
+    <color name="chart_income_color_6">#4AA02C</color>
+    <color name="chart_income_color_7">#99C68E</color>
+    <color name="chart_income_color_8">#3EA055</color>
+    <color name="chart_income_color_9">#85BB65</color>
+
+</resources>

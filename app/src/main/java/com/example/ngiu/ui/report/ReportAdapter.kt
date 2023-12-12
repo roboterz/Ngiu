@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -20,6 +21,7 @@ import com.example.ngiu.R
 import com.example.ngiu.data.entities.returntype.CalendarDetail
 import com.example.ngiu.functions.*
 import com.example.ngiu.functions.chart.CategoryAmount
+import com.example.ngiu.ui.account.detail.AccountGeneralDetailAdapter
 import kotlinx.android.synthetic.main.cardview_calendar.view.*
 import kotlinx.android.synthetic.main.cardview_report_item.view.*
 import kotlinx.android.synthetic.main.cardview_transaction.view.*
@@ -130,5 +132,12 @@ class ReportAdapter(
 
     override fun getItemViewType(position: Int): Int {
         return position
+    }
+
+    override fun onViewAttachedToWindow(holder: ViewHolder) {
+        super.onViewAttachedToWindow(holder)
+
+        holder.itemView.clearAnimation()
+        holder.itemView.startAnimation(AnimationUtils.loadAnimation(holder.itemView.context, R.anim.scale_in_scroll))
     }
 }

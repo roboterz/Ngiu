@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -69,6 +70,8 @@ class AccountListSectionAdapter(
         accountItems.addAll(data)
         notifyDataSetChanged()
     }
+
+
 
     inner class AccountSectionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val accountHeaderType: TextView = itemView.tvAccountTypeTitle

@@ -1,12 +1,16 @@
 package com.example.ngiu.data
 
 
+import androidx.lifecycle.LiveData
+import androidx.paging.PagingSource
 import androidx.room.*
 import com.example.ngiu.data.entities.*
 import androidx.room.Transaction
 import com.example.ngiu.data.entities.Currency
 import com.example.ngiu.data.entities.returntype.AccountCount
+import com.example.ngiu.data.entities.returntype.AccountIcon
 import com.example.ngiu.data.entities.returntype.RecordDetail
+import com.example.ngiu.data.entities.returntype.RewardsDetail
 import com.example.ngiu.data.entities.returntype.TransactionDetail
 import com.example.ngiu.functions.CATEGORY_LIMIT
 import com.example.ngiu.functions.chart.CategoryAmount
@@ -110,7 +114,16 @@ interface AccountDao {
 
 
 
-
+    @Transaction
+    @Query("""
+        SELECT Account.Account_ID, Account.Account_Name, Icon.Icon_ID, Icon.Icon_Name, Icon.Icon_Path, Icon.Icon_Image
+        FROM Account, Icon
+        WHERE Account.Icon_ID = Icon.Icon_ID 
+            AND Account.AccountType_ID = 2
+            AND Account.Account_BaseReward <> 0
+        ORDER BY Account.Account_Name
+        """)
+    fun getAccountIcons(): List<AccountIcon>
 
 
 
@@ -343,6 +356,13 @@ interface IconDao{
     @Delete
     fun deleteIcon(icon: Icon)
 
+    @Transaction
+    @Query("Select * From Icon")
+    fun getAllIcon(): List<Icon>
+
+    @Transaction
+    @Query("Select * From Icon Where Icon_Name = 'Citi Custom Cash'")
+    fun getOneIcon(): Icon
 }
 
 
@@ -526,6 +546,19 @@ interface RewardDao{
     @Query("SELECT * FROM Reward")
     fun getAllReward(): List<Reward>
 
+    @Transaction
+    @Query("""
+        SELECT Reward_ID, Reward.Account_ID, Reward.Category_ID, Category.Category_Name, Reward.Merchant_ID, Merchant.Merchant_Name, 
+                Reward_Mode, Reward_Percentage, Reward_StartDate, Reward_EndDate, Reward.Icon_ID, Icon.Icon_Path, Icon.Icon_Image
+        FROM Reward, Category, Merchant, Icon
+        WHERE Reward.Category_ID = Category.Category_ID
+            AND Reward.Merchant_ID = Merchant.Merchant_ID
+            AND Reward.Icon_ID = Icon.Icon_ID
+            AND Reward.Account_ID = :acctID
+        ORDER BY Category.Category_Name, Merchant.Merchant_Name
+    """)
+    fun getRewardsDetailByAccountID(acctID: Long): List<RewardsDetail>
+
 
 }
 
@@ -592,7 +625,25 @@ interface TransDao {
                 AND Trans.Project_ID = Project.Project_ID
         ORDER BY Transaction_Date DESC
         """)
-    fun getAllTransDetail(): List<TransactionDetail>
+    fun getAllTransDetail(): LiveData<List<TransactionDetail>>
+
+    @Transaction
+    @Query("""
+        SELECT Transaction_ID, Trans.TransactionType_ID, Trans.Category_ID, Category_Name, Account.Account_ID, Account.Account_Name, 
+                AccountRecipient.Account_ID as AccountRecipient_ID, AccountRecipient.Account_Name as AccountRecipient_Name, 
+                Transaction_Amount, Transaction_Amount2, Transaction_Date, Trans.Person_ID, Person_Name, Trans.Merchant_ID, Merchant_Name, Transaction_Memo, Trans.Project_ID, Project_Name,
+                Transaction_ReimburseStatus, Period_ID  
+        FROM Trans, Category, Account, Account as AccountRecipient, Person, Merchant, Project
+        WHERE Trans.Category_ID = Category.Category_ID
+                And Trans.Account_ID = Account.Account_ID
+                AND Trans.AccountRecipient_ID = AccountRecipient.Account_ID
+                AND Trans.Person_ID = Person.Person_ID
+                AND Trans.Merchant_ID = Merchant.Merchant_ID
+                AND Trans.Project_ID = Project.Project_ID
+        ORDER BY Transaction_Date DESC
+        """)
+    fun getAllTransDetailPage(): PagingSource<Int, TransactionDetail>
+
 
     @Transaction
     @Query("""

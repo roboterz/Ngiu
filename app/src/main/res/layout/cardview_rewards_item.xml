@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_view_rewards"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/app_list_group_header"
+    android:layout_marginTop="0.5dp"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="30dp"
+        android:paddingVertical="5dp"
+        android:background="@color/app_section_background"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+            android:id="@+id/iv_rewards_item_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/tv_rewards_cate"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="10dp"
+            android:gravity="start"
+            android:singleLine="true"
+            android:textColor="@color/app_option_text"
+            android:textSize="16sp"
+            app:layout_constraintWidth_percent="0.65"
+            app:layout_constraintStart_toEndOf="@+id/iv_rewards_item_icon"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/tv_rewards_number"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="end"
+            android:singleLine="true"
+            android:text="@string/amount_zero"
+            android:textColor="@color/app_option_text"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_rewards_cate"
+            tools:ignore="MissingConstraints" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

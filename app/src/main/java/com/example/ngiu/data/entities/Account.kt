@@ -78,7 +78,7 @@ data class Account(
     var Account_StatisticalMode: Int = 0,
 
     @ColumnInfo(defaultValue = "1.0")
-    var Account_BaseReward: Double = 1.0,
+    var Account_BaseReward: Double = 0.0,
 
     @ColumnInfo(defaultValue = "1")
     var Icon_ID: Long = 1L,
