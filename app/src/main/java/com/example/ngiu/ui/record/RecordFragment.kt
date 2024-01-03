@@ -57,10 +57,6 @@ class RecordFragment : Fragment() {
             CHECK IF ANY DATA WAS PASSED FROM OTHER FRAGMENTS
         */
 
-            // receive data from other fragment
-/*            receivedTransID = arguments?.getLong(KEY_RECORD_TRANSACTION_ID)!!
-            receivedAccountID = arguments?.getLong(KEY_RECORD_ACCOUNT_ID)!!
-            receivedTransTypeID = arguments?.getLong(KEY_RECORD_TRANSACTION_TYPE_ID)!!*/
             setFragmentResultListener(KEY_RECORD){ _, bundle ->
                 val receivedTransID = bundle.getLong(KEY_RECORD_TRANSACTION_ID)
                 val receivedAccountID = bundle.getLong(KEY_RECORD_ACCOUNT_ID)
@@ -81,21 +77,21 @@ class RecordFragment : Fragment() {
                 //loadCommonCategory(recordViewModel.transDetail.TransactionType_ID)
             }
 
-        // get Account from Account List
-        setFragmentResultListener(KEY_RECORD_ACCOUNT_LIST) { _, bundle ->
-            var receivedPayAcctName= ""
-            var receivedReceiveAcctName = ""
-            receivedPayAcctName = bundle.getString(KEY_RECORD_PAY_ACCOUNT_NAME).toString()
-            receivedReceiveAcctName = bundle.getString(KEY_RECORD_RECEIVE_ACCOUNT_NAME).toString()
+            // get Account from Account List
+            setFragmentResultListener(KEY_RECORD_ACCOUNT_LIST) { _, bundle ->
+                var receivedPayAcctName= ""
+                var receivedReceiveAcctName = ""
+                receivedPayAcctName = bundle.getString(KEY_RECORD_PAY_ACCOUNT_NAME).toString()
+                receivedReceiveAcctName = bundle.getString(KEY_RECORD_RECEIVE_ACCOUNT_NAME).toString()
 
-            if (receivedPayAcctName.isNotEmpty()) {
-                recordViewModel.setAccountName( recordViewModel.transDetail.TransactionType_ID, receivedPayAcctName, true)
-            }
-            if (receivedReceiveAcctName.isNotEmpty()) {
-                recordViewModel.setAccountName( recordViewModel.transDetail.TransactionType_ID, receivedReceiveAcctName, false)
-            }
+                if (receivedPayAcctName.isNotEmpty()) {
+                    recordViewModel.setAccountName( recordViewModel.transDetail.TransactionType_ID, receivedPayAcctName, true)
+                }
+                if (receivedReceiveAcctName.isNotEmpty()) {
+                    recordViewModel.setAccountName( recordViewModel.transDetail.TransactionType_ID, receivedReceiveAcctName, false)
+                }
 
-        }
+            }
 
 
     }

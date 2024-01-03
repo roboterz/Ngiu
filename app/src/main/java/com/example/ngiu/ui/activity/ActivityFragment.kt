@@ -112,6 +112,12 @@ class ActivityFragment : Fragment() {
 
         // call readPerson function on the bottom of this class
 
+
+        // show the info at title
+        tvCurrentMonthExpenseBalance.text = "" + "%.2f".format(activityViewModel.monthExpense)
+        tvCurrentMonthIncomeBalance.text = "" + "%.2f".format(activityViewModel.monthIncome)
+        tvBudgetBalance.text = "" + "%.2f".format(activityViewModel.budget)
+
     }
 
 
@@ -126,10 +132,6 @@ class ActivityFragment : Fragment() {
             vpAdapter?.setList(it)
         })*/
 
-        // show the info at title
-        tvCurrentMonthExpenseBalance.text = "" + "%.2f".format(activityViewModel.monthExpense)
-        tvCurrentMonthIncomeBalance.text = "" + "%.2f".format(activityViewModel.monthIncome)
-        tvBudgetBalance.text = "" + "%.2f".format(activityViewModel.budget)
 
     }
 
