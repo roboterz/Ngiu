@@ -36,7 +36,7 @@
         android:title="@string/menu_chart"
         android:tooltipText="@string/menu_chart"
         android:visible="false"
-        app:showAsAction="ifRoom|withText"/>
+        app:showAsAction="always"/>
 
     <item
         android:id="@+id/action_reimburse"
@@ -44,7 +44,7 @@
         android:title="@string/menu_reimburse"
         android:tooltipText="@string/menu_reimburse"
         android:visible="false"
-        app:showAsAction="ifRoom|withText"/>
+        app:showAsAction="always"/>
 
     <item
         android:id="@+id/action_settings"
