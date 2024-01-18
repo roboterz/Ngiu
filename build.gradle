@@ -5,7 +5,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.1.4'
+        classpath 'com.android.tools.build:gradle:8.2.1'
         classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.10'
 
         // NOTE: Do not place your application dependencies here; they belong
@@ -22,7 +22,7 @@ ext {
     coroutines = '1.5.0'
     lifecycleVersion = '2.3.1'
     materialVersion = '1.4.0'
-    roomVersion = '2.3.0'
+    //roomVersion = '2.3.0'
     // navigation - was deleted when trying to use Room dependencies
     navigationfragment = '2.3.5'
     navigationUI = '2.3.5'
