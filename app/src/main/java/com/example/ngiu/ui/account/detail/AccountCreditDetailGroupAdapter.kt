@@ -17,7 +17,7 @@ import com.example.ngiu.functions.TRANSACTION_TYPE_DEBIT
 import com.example.ngiu.functions.get2DigitFormat
 import com.example.ngiu.functions.switchToRecordFragment
 import com.example.ngiu.ui.account.model.AccountCreditDetailGroupModel
-import kotlinx.android.synthetic.main.cardview_account_credit_detail_group.view.*
+//import kotlinx.android.synthetic.main.cardview_account_credit_detail_group.view.*
 import java.time.format.DateTimeFormatter
 import kotlin.math.roundToInt
 
@@ -127,15 +127,15 @@ class AccountCreditDetailGroupAdapter(
     }
 
     class CreditDetailGroupViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val tvTerm: TextView = itemView.tv_account_credit_detail_group_term
-        val tvMonth: TextView = itemView.tv_account_credit_detail_group_month
-        val tvYear: TextView = itemView.tv_account_credit_detail_group_year
-        val tvStatus: TextView = itemView.tv_account_credit_detail_group_text
-        val tvAmount: TextView = itemView.tv_account_credit_detail_group_amount
-        val rvDetail: RecyclerView = itemView.recyclerview_account_credit_detail_item
-        var ivExpanded: ImageView = itemView.iv_account_credit_detail_group_expand_collapse
-        val groupItem: ConstraintLayout = itemView.layout_account_credit_detail_group_item
-        val bottomLine: TextView = itemView.tv_account_credit_detail_group_bottom_line
+        val tvTerm: TextView = itemView.findViewById(R.id.tv_account_credit_detail_group_term)
+        val tvMonth: TextView = itemView.findViewById(R.id.tv_account_credit_detail_group_month)
+        val tvYear: TextView = itemView.findViewById(R.id.tv_account_credit_detail_group_year)
+        val tvStatus: TextView = itemView.findViewById(R.id.tv_account_credit_detail_group_text)
+        val tvAmount: TextView = itemView.findViewById(R.id.tv_account_credit_detail_group_amount)
+        val rvDetail: RecyclerView = itemView.findViewById(R.id.recyclerview_account_credit_detail_item)
+        var ivExpanded: ImageView = itemView.findViewById(R.id.iv_account_credit_detail_group_expand_collapse)
+        val groupItem: ConstraintLayout = itemView.findViewById(R.id.layout_account_credit_detail_group_item)
+        val bottomLine: TextView = itemView.findViewById(R.id.tv_account_credit_detail_group_bottom_line)
 
         val textStatementNotGenerated = itemView.context.getString(R.string.option_account_statement_not_generated)
         val textAmountDue = itemView.context.getString(R.string.option_account_amount_due)

@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.Category
 import com.example.ngiu.data.entities.returntype.MPPItem
-import kotlinx.android.synthetic.main.cardview_main_category.view.*
-import kotlinx.android.synthetic.main.cardview_mpp_item.view.*
+//import kotlinx.android.synthetic.main.cardview_main_category.view.*
+//import kotlinx.android.synthetic.main.cardview_mpp_item.view.*
 import kotlin.collections.ArrayList
 
 
@@ -104,7 +104,7 @@ class MPPAdapter(
 
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val name: TextView = itemView.tv_mpp_name
+        val name: TextView = itemView.findViewById(R.id.tv_mpp_name)
 
         val addButtonTextColor = ContextCompat.getColor(itemView.context, R.color.app_sub_line_text)
         val itemTextColor = ContextCompat.getColor(itemView.context, R.color.app_amount)

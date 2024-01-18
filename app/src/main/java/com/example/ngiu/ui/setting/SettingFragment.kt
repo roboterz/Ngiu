@@ -19,8 +19,8 @@ import com.example.ngiu.MainActivity
 import com.example.ngiu.R
 import com.example.ngiu.databinding.FragmentSettingBinding
 import com.example.ngiu.functions.*
-import kotlinx.android.synthetic.main.fragment_record.*
-import kotlinx.android.synthetic.main.fragment_setting.*
+//import kotlinx.android.synthetic.main.fragment_record.*
+//import kotlinx.android.synthetic.main.fragment_setting.*
 
 class SettingFragment : Fragment() {
 
@@ -121,7 +121,7 @@ class SettingFragment : Fragment() {
 
 
         /** click the navigation Icon in the left side of toolbar **/
-        toolbar_setting.setNavigationOnClickListener {
+        binding.toolbarSetting.setNavigationOnClickListener {
             // call back button event to switch to previous fragment
 
             //requireActivity().onBackPressed()

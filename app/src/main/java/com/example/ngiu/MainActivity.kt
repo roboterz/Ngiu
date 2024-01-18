@@ -25,7 +25,7 @@ import com.example.ngiu.ui.activity.ActivityFragment
 import com.example.ngiu.data.Record*/
 import com.example.ngiu.ui.record.RecordFragment
 import com.example.ngiu.ui.setting.SettingFragment
-import kotlinx.android.synthetic.main.activity_main.*
+//import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity: AppCompatActivity() {
@@ -72,7 +72,7 @@ class MainActivity: AppCompatActivity() {
 
 
     public fun setNavBottomBarVisibility(ID:Int){
-        nav_view.visibility = ID
+        binding.navView.visibility = ID
     }
 
 

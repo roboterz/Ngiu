@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.Category
 import com.example.ngiu.data.entities.returntype.TransactionDetail
-import kotlinx.android.synthetic.main.cardview_sub_category.view.*
+//import kotlinx.android.synthetic.main.cardview_sub_category.view.*
 import kotlin.collections.ArrayList
 
 
@@ -111,8 +111,8 @@ class SubCategoryAdapter(
 
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val subCategoryName: TextView = itemView.tv_sub_category_name
-        val star: ImageView = itemView.img_sub_category_star
+        val subCategoryName: TextView = itemView.findViewById(R.id.tv_sub_category_name)
+        val star: ImageView = itemView.findViewById(R.id.img_sub_category_star)
 
         val drawableStar = ContextCompat.getDrawable(itemView.context, R.drawable.ic_baseline_star_24)
         val drawableStarBorder = ContextCompat.getDrawable(itemView.context, R.drawable.ic_baseline_star_border_24)

@@ -13,7 +13,7 @@ import com.example.ngiu.R
 import com.example.ngiu.functions.NEW_MODE
 import com.example.ngiu.functions.switchToAccountAttributePage
 import com.example.ngiu.ui.account.model.AccountTypeUIModel
-import kotlinx.android.synthetic.main.cardview_account_add_account_item.view.*
+//import kotlinx.android.synthetic.main.cardview_account_add_account_item.view.*
 
 
 class AddAccountAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -62,8 +62,8 @@ class AddAccountAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     inner class AddAccountViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val acctTypeTitle: TextView = itemView.tv_account_type_title
-        val acctTypeSubTitle: TextView = itemView.tv_acct_type_subTitle
+        val acctTypeTitle: TextView = itemView.findViewById(R.id.tv_account_type_title)
+        val acctTypeSubTitle: TextView = itemView.findViewById(R.id.tv_acct_type_subTitle)
 
     }
 

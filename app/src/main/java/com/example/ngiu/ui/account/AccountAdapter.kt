@@ -16,8 +16,8 @@ import com.example.ngiu.functions.*
 import com.example.ngiu.functions.changeColor
 import com.example.ngiu.functions.toDayLeft
 import com.example.ngiu.functions.toStatementDate
-import kotlinx.android.synthetic.main.cardview_account_cash_item.view.*
-import kotlinx.android.synthetic.main.cardview_account_credit_card_item.view.*
+//import kotlinx.android.synthetic.main.cardview_account_cash_item.view.*
+//import kotlinx.android.synthetic.main.cardview_account_credit_card_item.view.*
 import kotlin.math.roundToInt
 
 
@@ -145,21 +145,21 @@ class AccountAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     // cash/everything view-holder
     inner class CashViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val accountTypeTitle: TextView = itemView.tvCashAccountName
-        val accountCashBalance: TextView = itemView.tvAccountCashBalance
+        val accountTypeTitle: TextView = itemView.findViewById(R.id.tvCashAccountName)
+        val accountCashBalance: TextView = itemView.findViewById(R.id.tvAccountCashBalance)
 
     }
 
     // credit view-holder
     inner class CreditViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val creditAccountName: TextView = itemView.tvCreditAccountName
-        val cardNumber: TextView = itemView.tvCardNumber
-        val currentCreditBalance: TextView = itemView.tvCreditAccountBalance
-        val numberOfDays: TextView = itemView.tvNumberOfDays
-        val date: TextView = itemView.tvStatementOrPaymentDate
-        val creditPaymentDay: TextView = itemView.tvCreditPaymentDay
-        val creditStatementDay: TextView = itemView.tvCreditStatementDay
-        val daysLeft: TextView = itemView.tvDaysLeft
+        val creditAccountName: TextView = itemView.findViewById(R.id.tvCreditAccountName)
+        val cardNumber: TextView = itemView.findViewById(R.id.tvCardNumber)
+        val currentCreditBalance: TextView = itemView.findViewById(R.id.tvCreditAccountBalance)
+        val numberOfDays: TextView = itemView.findViewById(R.id.tvNumberOfDays)
+        val date: TextView = itemView.findViewById(R.id.tvStatementOrPaymentDate)
+        val creditPaymentDay: TextView = itemView.findViewById(R.id.tvCreditPaymentDay)
+        val creditStatementDay: TextView = itemView.findViewById(R.id.tvCreditStatementDay)
+        val daysLeft: TextView = itemView.findViewById(R.id.tvDaysLeft)
 
     }
 

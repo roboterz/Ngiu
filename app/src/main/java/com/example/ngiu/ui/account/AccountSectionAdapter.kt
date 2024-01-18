@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
 import com.example.ngiu.ui.account.model.AccountSectionUiModel
 import com.example.ngiu.ui.activity.ActivityListAdapter
-import kotlinx.android.synthetic.main.cardview_account_section_item.view.*
+//import kotlinx.android.synthetic.main.cardview_account_section_item.view.*
 
 
 class AccountSectionAdapter(
@@ -67,11 +67,11 @@ class AccountSectionAdapter(
 
 
     inner class AccountSectionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val accountHeaderType: TextView = itemView.tvAccountTypeTitle
-        val accountHeaderBalance: TextView = itemView.tvAccountHeaderBalance
-        var expandRow: ImageView = itemView.ivExpandRow
-        var rvAccounts: RecyclerView = itemView.rvAccounts
-        var topHeader: View = itemView.cardview_account_section_item
+        val accountHeaderType: TextView = itemView.findViewById(R.id.tvAccountTypeTitle)
+        val accountHeaderBalance: TextView = itemView.findViewById(R.id.tvAccountHeaderBalance)
+        var expandRow: ImageView = itemView.findViewById(R.id.ivExpandRow)
+        var rvAccounts: RecyclerView = itemView.findViewById(R.id.rvAccounts)
+        var topHeader: View = itemView.findViewById(R.id.cardview_account_section_item)
 
         // function to fold child base off the header
         @SuppressLint("ResourceAsColor")

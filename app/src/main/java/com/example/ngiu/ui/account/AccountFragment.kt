@@ -15,7 +15,7 @@ import com.example.ngiu.MainActivity
 import com.example.ngiu.R
 import com.example.ngiu.databinding.FragmentAccountBinding
 import com.example.ngiu.functions.get2DigitFormat
-import kotlinx.android.synthetic.main.fragment_account.toolbar_account
+//import kotlinx.android.synthetic.main.fragment_account.toolbar_account
 import java.math.RoundingMode
 import java.text.DecimalFormat
 
@@ -89,10 +89,10 @@ class AccountFragment : Fragment() {
 
         // set up toolbar icon and click event
         // choose items to show
-        toolbar_account.menu.findItem(R.id.action_add).isVisible = true
+        binding.toolbarAccount.menu.findItem(R.id.action_add).isVisible = true
 
         // menu item clicked
-        toolbar_account.setOnMenuItemClickListener{
+        binding.toolbarAccount.setOnMenuItemClickListener{
             when (it.itemId) {
                 R.id.action_add -> {
                     // hide nav bottom bar

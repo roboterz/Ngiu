@@ -33,10 +33,10 @@ import com.example.ngiu.functions.KEY_RECORD_RECEIVE_ACCOUNT_ID
 import com.example.ngiu.functions.KEY_RECORD_RECEIVE_ACCOUNT_NAME
 import com.example.ngiu.ui.account.AccountSectionAdapter
 import com.example.ngiu.ui.account.AccountViewModel
-import kotlinx.android.synthetic.main.fragment_account.toolbar_account
-import kotlinx.android.synthetic.main.fragment_account_add_fixed_assets.fixedAssetsAccountNameTextLayout
-import kotlinx.android.synthetic.main.fragment_account_list.toolbar_account_list
-import kotlinx.android.synthetic.main.fragment_category_manage.toolbar_category
+//import kotlinx.android.synthetic.main.fragment_account.toolbar_account
+//import kotlinx.android.synthetic.main.fragment_account_add_fixed_assets.fixedAssetsAccountNameTextLayout
+//import kotlinx.android.synthetic.main.fragment_account_list.toolbar_account_list
+//import kotlinx.android.synthetic.main.fragment_category_manage.toolbar_category
 
 
 class AccountListFragment : Fragment(){
@@ -120,7 +120,7 @@ class AccountListFragment : Fragment(){
 
 
         // click the navigation Icon in the left side of toolbar
-        toolbar_account_list.setNavigationOnClickListener {
+        binding.toolbarAccountList.setNavigationOnClickListener {
 
             // pass the string back to record fragment
             backToRecordFragment()

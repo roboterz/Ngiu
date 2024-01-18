@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
 import com.example.ngiu.databinding.FragmentAccountAddAccountBinding
 import com.example.ngiu.databinding.FragmentAccountBinding
-import kotlinx.android.synthetic.main.fragment_account_add_account.*
+//import kotlinx.android.synthetic.main.fragment_account_add_account.*
 
 class AddAccountFragment : Fragment() {
 
@@ -49,9 +49,9 @@ class AddAccountFragment : Fragment() {
         }
 
 
-        toolbar_add_acct.menu.findItem(R.id.action_add).isVisible = true
+        binding.toolbarAddAcct.menu.findItem(R.id.action_add).isVisible = true
         // menu item clicked
-        toolbar_add_acct.setNavigationOnClickListener {
+        binding.toolbarAddAcct.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
     }

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,7 +14,7 @@ import com.example.ngiu.MainActivity
 import com.example.ngiu.R
 import com.example.ngiu.databinding.FragmentAccountCreditDetailBinding
 import com.example.ngiu.functions.*
-import kotlinx.android.synthetic.main.fragment_account_credit_detail.*
+//import kotlinx.android.synthetic.main.fragment_account_credit_detail.*
 import java.text.DecimalFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -75,35 +76,36 @@ class AccountCreditDetailFragment : Fragment() {
 
 
         // Credit Limit
-        tv_account_credit_detail_available_credit_limit_value.text = get2DigitFormat( accountCreditDetailViewModel.availableCreditLimit )
+        binding.tvAccountCreditDetailAvailableCreditLimitValue.text = get2DigitFormat( accountCreditDetailViewModel.availableCreditLimit )
+
         // Current Arrears
-        tv_account_credit_detail_current_arrears_value.text =  get2DigitFormat( accountCreditDetailViewModel.currentArrears )
+        binding.tvAccountCreditDetailCurrentArrearsValue.text =  get2DigitFormat( accountCreditDetailViewModel.currentArrears )
 
 
         if (accountCreditDetailViewModel.accountRecord.Account_PaymentDay > LocalDate.now().dayOfMonth){
-            tv_account_credit_info_payment_day_value.text =
+            binding.tvAccountCreditInfoPaymentDayValue.text =
                 LocalDate.now().plusDays(accountCreditDetailViewModel.accountRecord.Account_PaymentDay.toLong() - LocalDate.now().dayOfMonth).format(itemDateFormatter)
         }else{
-            tv_account_credit_info_payment_day_value.text =
+            view.findViewById<TextView>(R.id.tv_account_credit_info_payment_day_value).text =
                 LocalDate.of(LocalDate.now().year, LocalDate.now().month, accountCreditDetailViewModel.accountRecord.Account_PaymentDay)
                     .plusMonths(1).format(itemDateFormatter)
         }
 
-        tv_account_credit_info_statement_day_value.text = accountCreditDetailViewModel.accountRecord.Account_StatementDay.toString() + getDayOfMonthSuffix(accountCreditDetailViewModel.accountRecord.Account_StatementDay)
+        view.findViewById<TextView>(R.id.tv_account_credit_info_statement_day_value).text = accountCreditDetailViewModel.accountRecord.Account_StatementDay.toString() + getDayOfMonthSuffix(accountCreditDetailViewModel.accountRecord.Account_StatementDay)
 
 
         // set up toolbar icon and click event
         // choose items to show
-        toolbar_account_credit_card_details.setNavigationOnClickListener {
+        binding.toolbarAccountCreditCardDetails.setNavigationOnClickListener {
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
 
-        toolbar_account_credit_card_details.menu.findItem(R.id.action_edit).isVisible = true
-        toolbar_account_credit_card_details.menu.findItem(R.id.action_add).isVisible = true
-        toolbar_account_credit_card_details.title = accountCreditDetailViewModel.accountRecord.Account_Name //+ "(" + accountCreditDetailViewModel.accountRecord.Account_CardNumber + ")"
+        binding.toolbarAccountCreditCardDetails.menu.findItem(R.id.action_edit).isVisible = true
+        binding.toolbarAccountCreditCardDetails.menu.findItem(R.id.action_add).isVisible = true
+        binding.toolbarAccountCreditCardDetails.title = accountCreditDetailViewModel.accountRecord.Account_Name //+ "(" + accountCreditDetailViewModel.accountRecord.Account_CardNumber + ")"
 
         // menu item clicked
-        toolbar_account_credit_card_details.setOnMenuItemClickListener{
+        binding.toolbarAccountCreditCardDetails.setOnMenuItemClickListener{
             when (it.itemId) {
                 R.id.action_add -> {
                     // navigate to add record screen
@@ -170,9 +172,9 @@ class AccountCreditDetailFragment : Fragment() {
                     }*/
                 })
 
-                recyclerview_account_credit_detail.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
+                binding.recyclerviewAccountCreditDetail.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
 
-                recyclerview_account_credit_detail.adapter = accountCDGAdapter
+                binding.recyclerviewAccountCreditDetail.adapter = accountCDGAdapter
             }
         }.start()
     }

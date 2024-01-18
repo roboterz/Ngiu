@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,7 +15,7 @@ import com.example.ngiu.MainActivity
 import com.example.ngiu.R
 import com.example.ngiu.databinding.FragmentAccountPRDetailBinding
 import com.example.ngiu.functions.*
-import kotlinx.android.synthetic.main.fragment_account_p_r_detail.*
+//import kotlinx.android.synthetic.main.fragment_account_p_r_detail.*
 import kotlin.math.abs
 
 class AccountPRDetailFragment : Fragment() {
@@ -66,15 +67,15 @@ class AccountPRDetailFragment : Fragment() {
         // set up toolbar icon and click event
         // choose items to show
 
-        toolbar_account_p_r_detail.setNavigationOnClickListener {
+        binding.toolbarAccountPRDetail.setNavigationOnClickListener {
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
 
-        toolbar_account_p_r_detail.menu.findItem(R.id.action_edit).isVisible = true
-        toolbar_account_p_r_detail.menu.findItem(R.id.action_add).isVisible = true
+        binding.toolbarAccountPRDetail.menu.findItem(R.id.action_edit).isVisible = true
+        binding.toolbarAccountPRDetail.menu.findItem(R.id.action_add).isVisible = true
 
         // menu item clicked
-        toolbar_account_p_r_detail.setOnMenuItemClickListener{
+        binding.toolbarAccountPRDetail.setOnMenuItemClickListener{
             when (it.itemId) {
                 R.id.action_add -> {
                     // navigate to add record screen
@@ -117,19 +118,19 @@ class AccountPRDetailFragment : Fragment() {
 
         // show the info at title
         if (accountPRDetailViewModel.accountBalance < 0){
-            tv_account_pr_owe.text = getString(R.string.option_account_owe_he)
-            tv_account_pr_balance.text = get2DigitFormat(abs(accountPRDetailViewModel.accountBalance))
-            tv_account_pr_balance.setTextColor(ContextCompat.getColor(requireContext(), R.color.app_expense_amount2))
+            binding.tvAccountPrOwe.text = getString(R.string.option_account_owe_he)
+            binding.tvAccountPrBalance.text = get2DigitFormat(abs(accountPRDetailViewModel.accountBalance))
+            binding.tvAccountPrBalance.setTextColor(ContextCompat.getColor(requireContext(), R.color.app_expense_amount2))
         }else{
-            tv_account_pr_owe.text = getString(R.string.option_account_owe_you)
-            tv_account_pr_balance.text = get2DigitFormat(accountPRDetailViewModel.accountBalance)
-            tv_account_pr_balance.setTextColor(ContextCompat.getColor(requireContext(), R.color.app_income_amount2))
+            binding.tvAccountPrOwe.text = getString(R.string.option_account_owe_you)
+            binding.tvAccountPrBalance.text = get2DigitFormat(accountPRDetailViewModel.accountBalance)
+            binding.tvAccountPrBalance.setTextColor(ContextCompat.getColor(requireContext(), R.color.app_income_amount2))
         }
 
-        tv_account_pr_lend_amount.text = get2DigitFormat(accountPRDetailViewModel.lendAmount)
-        tv_account_pr_receive_amount.text = get2DigitFormat(accountPRDetailViewModel.receiveAmount)
-        tv_account_pr_borrow_amount.text = get2DigitFormat(accountPRDetailViewModel.borrowAmount)
-        tv_account_pr_pay_amount.text = get2DigitFormat(accountPRDetailViewModel.payAmount)
+        binding.tvAccountPrLendAmount.text = get2DigitFormat(accountPRDetailViewModel.lendAmount)
+        binding.tvAccountPrReceiveAmount.text = get2DigitFormat(accountPRDetailViewModel.receiveAmount)
+        binding.tvAccountPrBorrowAmount.text = get2DigitFormat(accountPRDetailViewModel.borrowAmount)
+        binding.tvAccountPrPayAmount.text = get2DigitFormat(accountPRDetailViewModel.payAmount)
 
     }
 
@@ -144,7 +145,7 @@ class AccountPRDetailFragment : Fragment() {
         Thread {
             this.activity?.runOnUiThread {
 
-                recyclerview_account_pr_detail.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
+                binding.recyclerviewAccountPrDetail.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
                 accountPRDetailAdapter = this.context?.let {
                     AccountPRDetailAdapter(object: AccountPRDetailAdapter.OnClickListener {
                         // catch the item click event from adapter
@@ -159,7 +160,7 @@ class AccountPRDetailFragment : Fragment() {
                         }
                     })
                 }
-                recyclerview_account_pr_detail.adapter = accountPRDetailAdapter
+                binding.recyclerviewAccountPrDetail.adapter = accountPRDetailAdapter
             }
         }.start()
     }

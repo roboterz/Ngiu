@@ -16,8 +16,8 @@ import com.example.ngiu.functions.*
 import com.example.ngiu.functions.changeColor
 import com.example.ngiu.functions.toDayLeft
 import com.example.ngiu.functions.toStatementDate
-import kotlinx.android.synthetic.main.cardview_account_cash_item.view.*
-import kotlinx.android.synthetic.main.cardview_account_credit_card_item.view.*
+//import kotlinx.android.synthetic.main.cardview_account_cash_item.view.*
+//import kotlinx.android.synthetic.main.cardview_account_credit_card_item.view.*
 import kotlin.math.roundToInt
 
 
@@ -84,9 +84,9 @@ class AccountListAdapter(
 
     // view-holder
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val accountName: TextView = itemView.tvCashAccountName
-        val cardNumber: TextView = itemView.tvCashCardNumber
-        val accountCashBalance: TextView = itemView.tvAccountCashBalance
+        val accountName: TextView = itemView.findViewById(R.id.tvCashAccountName)
+        val cardNumber: TextView = itemView.findViewById(R.id.tvCashCardNumber)
+        val accountCashBalance: TextView = itemView.findViewById(R.id.tvAccountCashBalance)
 
     }
 

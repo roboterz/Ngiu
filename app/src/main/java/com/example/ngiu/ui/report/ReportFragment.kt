@@ -42,9 +42,9 @@ import com.example.ngiu.functions.chart.CategoryAmount
 import com.example.ngiu.functions.chart.CircleChartView
 import com.example.ngiu.functions.chart.PieData
 import com.example.ngiu.ui.calendar.CalendarAdapter
-import kotlinx.android.synthetic.main.fragment_calendar.*
-import kotlinx.android.synthetic.main.fragment_report.*
-import kotlinx.android.synthetic.main.fragment_setting.*
+//import kotlinx.android.synthetic.main.fragment_calendar.*
+//import kotlinx.android.synthetic.main.fragment_report.*
+//import kotlinx.android.synthetic.main.fragment_setting.*
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -117,7 +117,7 @@ class ReportFragment : Fragment() {
         Thread {
             this.activity?.runOnUiThread {
 
-                recyclerview_report.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
+                binding.recyclerviewReport.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
                 reportAdapter = this.context?.let {
                     ReportAdapter(object: ReportAdapter.OnClickListener {
                         // catch the item click event from adapter
@@ -129,45 +129,45 @@ class ReportFragment : Fragment() {
                     })
                 }
 
-                recyclerview_report.adapter = reportAdapter
+                binding.recyclerviewReport.adapter = reportAdapter
             }
         }.start()
 
 
         // toolbar title
-        toolbar_report.setTitle(R.string.nav_title_report)
+        binding.toolbarReport.setTitle(R.string.nav_title_report)
         // show add button
 
         // toolbar menu item clicked
 
         /** click Go Back Icon in the left side of toolbar **/
-        toolbar_report.setNavigationOnClickListener {
+        binding.toolbarReport.setNavigationOnClickListener {
             // call back button event to switch to previous fragment
             //requireActivity().onBackPressed()
             NavHostFragment.findNavController(this).navigateUp()
         }
 
 
-        tv_report_income.setOnClickListener{
+        binding.tvReportIncome.setOnClickListener{
             setReportType(TRANSACTION_TYPE_INCOME)
             showData(view.context, reportViewModel.getCurrentMonthStart(), reportViewModel.getCurrentMonthEnd())
         }
-        tv_report_expense.setOnClickListener {
+        binding.tvReportExpense.setOnClickListener {
             setReportType(TRANSACTION_TYPE_EXPENSE)
             showData(view.context, reportViewModel.getCurrentMonthStart(), reportViewModel.getCurrentMonthEnd())
         }
 
 
-        tv_report_term.text = reportViewModel.getCurrentMonthStart().dropLast(3)
+        binding.tvReportTerm.text = reportViewModel.getCurrentMonthStart().dropLast(3)
 
         /** Previous Month **/
-        tv_report_left.setOnClickListener{
+        binding.tvReportLeft.setOnClickListener{
             showData(view.context, getPreviousMonth(reportViewModel.getCurrentMonthStart(), 1), reportViewModel.getCurrentMonthStart())
         }
 
 
         /** Next Month **/
-        tv_report_right.setOnClickListener{
+        binding.tvReportRight.setOnClickListener{
             showData(view.context, getNextMonth(reportViewModel.getCurrentMonthStart(), 1), getNextMonth(reportViewModel.getCurrentMonthStart(), 2) )
         }
 
@@ -201,7 +201,7 @@ class ReportFragment : Fragment() {
         reportViewModel.loadData(context, start, end)
 
         // show term
-        tv_report_term.text = reportViewModel.getCurrentMonthStart().dropLast(3)
+        binding.tvReportTerm.text = reportViewModel.getCurrentMonthStart().dropLast(3)
 
 
         /** load Adapter Data **/
@@ -220,12 +220,12 @@ class ReportFragment : Fragment() {
     private fun setReportType(transType: Long){
         when (transType){
             TRANSACTION_TYPE_INCOME -> {
-                tv_report_income.setTextColor(ContextCompat.getColor(requireContext(), R.color.app_title_text))
-                tv_report_expense.setTextColor(ContextCompat.getColor(requireContext(), R.color.app_title_text_inactive))
+                binding.tvReportIncome.setTextColor(ContextCompat.getColor(requireContext(), R.color.app_title_text))
+                binding.tvReportExpense.setTextColor(ContextCompat.getColor(requireContext(), R.color.app_title_text_inactive))
             }
             TRANSACTION_TYPE_EXPENSE -> {
-                tv_report_income.setTextColor(ContextCompat.getColor(requireContext(), R.color.app_title_text_inactive))
-                tv_report_expense.setTextColor(ContextCompat.getColor(requireContext(), R.color.app_title_text))
+                binding.tvReportIncome.setTextColor(ContextCompat.getColor(requireContext(), R.color.app_title_text_inactive))
+                binding.tvReportExpense.setTextColor(ContextCompat.getColor(requireContext(), R.color.app_title_text))
             }
         }
         reportViewModel.setTransactionType(transType)
@@ -288,12 +288,12 @@ class ReportFragment : Fragment() {
         }
 
 
-        cc_report_chart.setTotalText(typeText)
-        cc_report_chart.setTextMoney( "%.2f".format(totalAmount))
-        cc_report_chart.setPieDataList(list)
-        cc_report_chart.setOnSpecialTypeClickListener(object : CircleChartView.OnSpecialTypeClickListener {
+        binding.ccReportChart.setTotalText(typeText)
+        binding.ccReportChart.setTextMoney( "%.2f".format(totalAmount))
+        binding.ccReportChart.setPieDataList(list)
+        binding.ccReportChart.setOnSpecialTypeClickListener(object : CircleChartView.OnSpecialTypeClickListener {
             override fun onSpecialTypeClick(index: Int, type: String) {
-                cc_report_chart.invalidate()
+                binding.ccReportChart.invalidate()
             }
         })
 

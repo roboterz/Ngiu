@@ -12,7 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.Category
-import kotlinx.android.synthetic.main.cardview_main_category.view.*
+//import kotlinx.android.synthetic.main.cardview_main_category.view.*
 import kotlin.collections.ArrayList
 
 
@@ -118,9 +118,9 @@ class MainCategoryAdapter(
 
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val mainCategoryName: TextView = itemView.tv_main_category_name
-        val arrow: ImageView = itemView.img_main_category_arrow
-        val itemBackground: ConstraintLayout = itemView.layout_main_category_item
+        val mainCategoryName: TextView = itemView.findViewById(R.id.tv_main_category_name)
+        val arrow: ImageView = itemView.findViewById(R.id.img_main_category_arrow)
+        val itemBackground: ConstraintLayout = itemView.findViewById(R.id.layout_main_category_item)
 
 
         val activeItem = ContextCompat.getColor(itemView.context, R.color.app_expense_amount)

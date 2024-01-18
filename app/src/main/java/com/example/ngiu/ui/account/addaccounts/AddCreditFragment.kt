@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -17,8 +18,8 @@ import com.example.ngiu.data.entities.Currency
 import com.example.ngiu.databinding.FragmentAccountAddCreditBinding
 import com.example.ngiu.functions.*
 import com.google.android.material.textfield.TextInputEditText
-import kotlinx.android.synthetic.main.popup_title.view.*
-import kotlinx.android.synthetic.main.fragment_account_add_credit.*
+//import kotlinx.android.synthetic.main.popup_title.view.*
+//import kotlinx.android.synthetic.main.fragment_account_add_credit.*
 
 class AddCreditFragment : Fragment() {
     private var _binding: FragmentAccountAddCreditBinding? = null
@@ -56,7 +57,7 @@ class AddCreditFragment : Fragment() {
         initListeners()
         getView()?.findViewById<TextInputEditText?>(R.id.tetCreditLimit)?.addDecimalLimiter()
 
-        toolbarAddCreditAccount.setNavigationOnClickListener {
+        binding.toolbarAddCreditAccount.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
         (activity as MainActivity).setNavBottomBarVisibility(View.GONE)
@@ -216,7 +217,7 @@ class AddCreditFragment : Fragment() {
             // set Title Style
             val titleView = layoutInflater.inflate(R.layout.popup_title, null)
             // set Title Text
-            titleView.tv_popup_title_text.text = getText(R.string.option_statement_day)
+            titleView.findViewById<TextView>(R.id.tv_popup_title_text).text = getText(R.string.option_statement_day)
 
             builder.setCustomTitle(titleView)
 
@@ -275,7 +276,7 @@ class AddCreditFragment : Fragment() {
             // set Title Style
             val titleView = layoutInflater.inflate(R.layout.popup_title, null)
             // set Title Text
-            titleView.tv_popup_title_text.text = getText(R.string.option_statement_day)
+            titleView.findViewById<TextView>(R.id.tv_popup_title_text).text = getText(R.string.option_statement_day)
 
             builder.setCustomTitle(titleView)
 
@@ -312,7 +313,7 @@ class AddCreditFragment : Fragment() {
             // set Title Style
             val titleView = layoutInflater.inflate(R.layout.popup_title, null)
             // set Title Text
-            titleView.tv_popup_title_text.text = getText(R.string.option_title_add_currency)
+            titleView.findViewById<TextView>(R.id.tv_popup_title_text).text = getText(R.string.option_title_add_currency)
 
             builder.setCustomTitle(titleView)
 
@@ -347,7 +348,7 @@ class AddCreditFragment : Fragment() {
             // set Title Style
             val titleView = layoutInflater.inflate(R.layout.popup_title, null)
             // set Title Text
-            titleView.tv_popup_title_text.text = getText(R.string.option_title_add_currency)
+            titleView.findViewById<TextView>(R.id.tv_popup_title_text).text = getText(R.string.option_title_add_currency)
 
             builder.setCustomTitle(titleView)
 

@@ -17,7 +17,7 @@ import com.example.ngiu.functions.TRANSACTION_TYPE_DEBIT
 import com.example.ngiu.functions.TRANSACTION_TYPE_EXPENSE
 import com.example.ngiu.functions.TRANSACTION_TYPE_INCOME
 import com.example.ngiu.functions.TRANSACTION_TYPE_TRANSFER
-import kotlinx.android.synthetic.main.cardview_transaction.view.*
+//import kotlinx.android.synthetic.main.cardview_transaction.view.*
 import java.time.format.DateTimeFormatter
 import kotlin.collections.ArrayList
 
@@ -118,14 +118,14 @@ class ActivityListAdapter(
 
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val monthDay: TextView = itemView.tvTrans_month_day
+        val monthDay: TextView = itemView.findViewById(R.id.tvTrans_month_day)
         //val dailyInfo: TextView = itemView.tvTrans_daily_info
-        val yearWeek: TextView = itemView.tvTrans_year_week
-        val subCategory: TextView = itemView.tvTrans_category
-        val secondLine: TextView = itemView.tvTrans_second_line
-        val thirdLine: TextView = itemView.tvTrans_third_line
-        val amount: TextView = itemView.tvTrans_amount
-        val aItem: ConstraintLayout = itemView.layout_transaction_item
+        val yearWeek: TextView = itemView.findViewById(R.id.tvTrans_year_week)
+        val subCategory: TextView = itemView.findViewById(R.id.tvTrans_category)
+        val secondLine: TextView = itemView.findViewById(R.id.tvTrans_second_line)
+        val thirdLine: TextView = itemView.findViewById(R.id.tvTrans_third_line)
+        val amount: TextView = itemView.findViewById(R.id.tvTrans_amount)
+        val aItem: ConstraintLayout = itemView.findViewById(R.id.layout_transaction_item)
 
         val expenseColor = ContextCompat.getColor(itemView.context, R.color.app_expense_amount)
         val incomeColor = ContextCompat.getColor(itemView.context, R.color.app_income_amount)

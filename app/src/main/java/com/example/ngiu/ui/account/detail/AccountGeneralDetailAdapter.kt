@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.returntype.RecordDetail
 import com.example.ngiu.functions.*
-import kotlinx.android.synthetic.main.cardview_account_general_detail_item.view.*
+//import kotlinx.android.synthetic.main.cardview_account_general_detail_item.view.*
 import java.time.format.DateTimeFormatter
 
 class AccountGeneralDetailAdapter(
@@ -170,17 +170,17 @@ class AccountGeneralDetailAdapter(
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
-        val groupDate: TextView = itemView.tv_account_general_item_group_date
-        val recordText: TextView = itemView.tv_account_general_item_text
-        val recordTime: TextView = itemView.tv_account_general_item_time
-        val dotBeforeMemo: TextView = itemView.tv_account_general_item_dot_before_memo
-        val recordMemo: TextView = itemView.tv_account_general_item_memo
-        val recordInfo: TextView = itemView.tv_account_general_item_info
-        val recordAmount: TextView = itemView.tv_account_general_item_amount
-        val recordBalance: TextView = itemView.tv_account_general_item_balance
+        val groupDate: TextView = itemView.findViewById(R.id.tv_account_general_item_group_date)
+        val recordText: TextView = itemView.findViewById(R.id.tv_account_general_item_text)
+        val recordTime: TextView = itemView.findViewById(R.id.tv_account_general_item_time)
+        val dotBeforeMemo: TextView = itemView.findViewById(R.id.tv_account_general_item_dot_before_memo)
+        val recordMemo: TextView = itemView.findViewById(R.id.tv_account_general_item_memo)
+        val recordInfo: TextView = itemView.findViewById(R.id.tv_account_general_item_info)
+        val recordAmount: TextView = itemView.findViewById(R.id.tv_account_general_item_amount)
+        val recordBalance: TextView = itemView.findViewById(R.id.tv_account_general_item_balance)
 
-        val groupLayout: ConstraintLayout = itemView.layout_account_general_card_view_group
-        val itemLayout: ConstraintLayout = itemView.layout_account_general_card_view_item
+        val groupLayout: ConstraintLayout = itemView.findViewById(R.id.layout_account_general_card_view_group)
+        val itemLayout: ConstraintLayout = itemView.findViewById(R.id.layout_account_general_card_view_item)
 
         val expenseColor = ContextCompat.getColor(itemView.context, R.color.app_expense_amount)
         val incomeColor = ContextCompat.getColor(itemView.context, R.color.app_income_amount)

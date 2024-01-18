@@ -25,8 +25,8 @@ import com.example.ngiu.functions.KEY_REPORT_END
 import com.example.ngiu.functions.KEY_REPORT_START
 import com.example.ngiu.functions.KEY_REPORT_TYPE
 import com.example.ngiu.functions.switchToRecordFragment
-import kotlinx.android.synthetic.main.fragment_report_detail.recyclerview_report_detail
-import kotlinx.android.synthetic.main.fragment_report_detail.toolbar_report_detail
+//import kotlinx.android.synthetic.main.fragment_report_detail.recyclerview_report_detail
+//import kotlinx.android.synthetic.main.fragment_report_detail.toolbar_report_detail
 import java.time.format.DateTimeFormatter
 
 
@@ -101,7 +101,7 @@ class ReportDetailFragment : Fragment() {
         // toolbar menu item clicked
 
         /** click Go Back Icon in the left side of toolbar **/
-        toolbar_report_detail.setNavigationOnClickListener {
+        binding.toolbarReportDetail.setNavigationOnClickListener {
             // call back button event to switch to previous fragment
             //requireActivity().onBackPressed()
             switchToReportFragment(view, startDate, endDate)
@@ -147,12 +147,12 @@ class ReportDetailFragment : Fragment() {
         Thread {
             this.activity?.runOnUiThread {
                 reportDetailAdapter?.setList(list)
-                recyclerview_report_detail.adapter = reportDetailAdapter
+                binding.recyclerviewReportDetail.adapter = reportDetailAdapter
             }
         }.start()
 
         // toolbar title
-        toolbar_report_detail.title = reportDetailViewModel.getCategoryNameByID(requireContext(), categoryID)
+        binding.toolbarReportDetail.title = reportDetailViewModel.getCategoryNameByID(requireContext(), categoryID)
     }
 
 
@@ -174,7 +174,7 @@ class ReportDetailFragment : Fragment() {
         Thread {
             this.activity?.runOnUiThread {
 
-                recyclerview_report_detail.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
+                binding.recyclerviewReportDetail.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
                 reportDetailAdapter = this.context?.let {
                     ReportDetailAdapter(object: ReportDetailAdapter.OnClickListener {
                         // catch the item click event from adapter
@@ -186,7 +186,7 @@ class ReportDetailFragment : Fragment() {
                         }
                     })
                 }
-                recyclerview_report_detail.adapter = reportDetailAdapter
+                binding.recyclerviewReportDetail.adapter = reportDetailAdapter
             }
         }.start()
     }

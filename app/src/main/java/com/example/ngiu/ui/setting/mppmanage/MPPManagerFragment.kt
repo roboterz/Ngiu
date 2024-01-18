@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
@@ -23,8 +24,8 @@ import com.example.ngiu.data.entities.Person
 import com.example.ngiu.data.entities.Project
 import com.example.ngiu.databinding.FragmentMerchantPersonProjectManageBinding
 import com.example.ngiu.functions.*
-import kotlinx.android.synthetic.main.fragment_merchant_person_project_manage.*
-import kotlinx.android.synthetic.main.popup_title.view.*
+//import kotlinx.android.synthetic.main.fragment_merchant_person_project_manage.*
+//import kotlinx.android.synthetic.main.popup_title.view.*
 
 class MPPManagerFragment: Fragment() {
     private lateinit var mppManagerViewModel: MPPManagerViewModel
@@ -65,7 +66,7 @@ class MPPManagerFragment: Fragment() {
         Thread {
             this.activity?.runOnUiThread {
 
-                recyclerview_mpp.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
+                binding.recyclerviewMpp.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
 
                 mppAdapter = this.context?.let {
                     MPPAdapter(object: MPPAdapter.OnClickListener {
@@ -76,7 +77,7 @@ class MPPManagerFragment: Fragment() {
                         }
                     })
                 }
-                recyclerview_mpp.adapter = mppAdapter
+                binding.recyclerviewMpp.adapter = mppAdapter
             }
         }.start()
 
@@ -107,7 +108,7 @@ class MPPManagerFragment: Fragment() {
         //toolbar_category.menu.findItem(R.id.action_edit).isVisible = true
 
         // click the navigation Icon in the left side of toolbar
-        toolbar_mpp.setNavigationOnClickListener(View.OnClickListener {
+        binding.toolbarMpp.setNavigationOnClickListener(View.OnClickListener {
 
             // call back button event to switch to previous fragment
             //requireActivity().onBackPressed()
@@ -158,9 +159,9 @@ class MPPManagerFragment: Fragment() {
 
         // show title
         when (receiveTypeID){
-            MPP_MERCHANT -> toolbar_mpp.setTitle(R.string.nav_title_merchant_manage)
-            MPP_PERSON -> toolbar_mpp.setTitle(R.string.nav_title_person_manage)
-            MPP_PROJECT -> toolbar_mpp.setTitle(R.string.nav_title_project_manage)
+            MPP_MERCHANT -> binding.toolbarMpp.setTitle(R.string.nav_title_merchant_manage)
+            MPP_PERSON -> binding.toolbarMpp.setTitle(R.string.nav_title_person_manage)
+            MPP_PROJECT -> binding.toolbarMpp.setTitle(R.string.nav_title_project_manage)
         }
     }
 
@@ -188,11 +189,11 @@ class MPPManagerFragment: Fragment() {
         //editText.imeOptions = EditorInfo.IME_ACTION_DONE
 
         if (addNew) {
-            titleView.tv_popup_title_text.text = getString(R.string.msg_new_name)
+            titleView.findViewById<TextView>(R.id.tv_popup_title_text).text = getString(R.string.msg_new_name)
         }
         else {
             editText.setText(itemName)
-            titleView.tv_popup_title_text.text = getString(R.string.msg_edit_name)
+            titleView.findViewById<TextView>(R.id.tv_popup_title_text).text = getString(R.string.msg_edit_name)
         }
 
 
@@ -289,7 +290,7 @@ class MPPManagerFragment: Fragment() {
         // set Title Style
         val titleView = layoutInflater.inflate(R.layout.popup_title,null)
         // set Title Text
-        titleView.tv_popup_title_text.text = getText(R.string.msg_Title_prompt)
+        titleView.findViewById<TextView>(R.id.tv_popup_title_text).text = getText(R.string.msg_Title_prompt)
 
         val alert = dialogBuilder.create()
         //alert.setIcon(R.drawable.ic_baseline_delete_forever_24)

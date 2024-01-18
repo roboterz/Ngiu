@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
@@ -26,8 +27,8 @@ import com.example.ngiu.R
 import com.example.ngiu.data.entities.Category
 import com.example.ngiu.databinding.FragmentCategoryManageBinding
 import com.example.ngiu.functions.*
-import kotlinx.android.synthetic.main.fragment_category_manage.*
-import kotlinx.android.synthetic.main.popup_title.view.*
+//import kotlinx.android.synthetic.main.fragment_category_manage.*
+//import kotlinx.android.synthetic.main.popup_title.view.*
 import java.net.IDN
 
 class CategoryManagerFragment: Fragment() {
@@ -87,7 +88,7 @@ class CategoryManagerFragment: Fragment() {
 
             // show the Edit Icon
             if (cateMode == EDIT_MODE)
-                toolbar_category.menu.findItem(R.id.action_edit).isVisible = true
+                binding.toolbarCategory.menu.findItem(R.id.action_edit).isVisible = true
 
             if (transactionTypeID > 0 ) {
                 // set transaction type
@@ -105,7 +106,7 @@ class CategoryManagerFragment: Fragment() {
         Thread {
             this.activity?.runOnUiThread {
 
-                recyclerview_category_main.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
+                binding.recyclerviewCategoryMain.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
 
                 mainCategoryAdapter = this.context?.let {
                     MainCategoryAdapter(object: MainCategoryAdapter.OnClickListener {
@@ -125,7 +126,7 @@ class CategoryManagerFragment: Fragment() {
                         }
                     })
                 }
-                recyclerview_category_main.adapter = mainCategoryAdapter
+                binding.recyclerviewCategoryMain.adapter = mainCategoryAdapter
             }
         }.start()
 
@@ -133,7 +134,7 @@ class CategoryManagerFragment: Fragment() {
         Thread {
             this.activity?.runOnUiThread {
 
-                recyclerview_category_sub.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
+                binding.recyclerviewCategorySub.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
 
                 subCategoryAdapter = this.context?.let {
                     SubCategoryAdapter(object: SubCategoryAdapter.OnClickListener {
@@ -177,7 +178,7 @@ class CategoryManagerFragment: Fragment() {
                         }
                     })
                 }
-                recyclerview_category_sub.adapter = subCategoryAdapter
+                binding.recyclerviewCategorySub.adapter = subCategoryAdapter
             }
         }.start()
 
@@ -211,7 +212,7 @@ class CategoryManagerFragment: Fragment() {
         //toolbar_category.menu.findItem(R.id.action_edit).isVisible = true
 
         // click the navigation Icon in the left side of toolbar
-        toolbar_category.setNavigationOnClickListener {
+        binding.toolbarCategory.setNavigationOnClickListener {
 
             if (cateMode == EDIT_MODE) {
                 // edit mode
@@ -225,7 +226,7 @@ class CategoryManagerFragment: Fragment() {
         }
 
         // menu item clicked
-        toolbar_category.setOnMenuItemClickListener{
+        binding.toolbarCategory.setOnMenuItemClickListener{
             when (it.itemId) {
                 // done menu
                 R.id.action_edit -> {
@@ -272,10 +273,10 @@ class CategoryManagerFragment: Fragment() {
         // show title
         when (transactionTypeID){
             TRANSACTION_TYPE_EXPENSE -> {
-                toolbar_category.setTitle(if (cateMode == EDIT_MODE) R.string.nav_title_category_expense_manage else R.string.nav_title_category_expense)
+                binding.toolbarCategory.setTitle(if (cateMode == EDIT_MODE) R.string.nav_title_category_expense_manage else R.string.nav_title_category_expense)
             }
             TRANSACTION_TYPE_INCOME -> {
-                toolbar_category.setTitle(if (cateMode == EDIT_MODE) R.string.nav_title_category_income_manage else R.string.nav_title_category_income)
+                binding.toolbarCategory.setTitle(if (cateMode == EDIT_MODE) R.string.nav_title_category_income_manage else R.string.nav_title_category_income)
             }
         }
     }
@@ -301,7 +302,7 @@ class CategoryManagerFragment: Fragment() {
         if (categoryManagerViewModel.currentActiveMainCategory != rID){
             // main category item click
             //mainCategoryAdapter?.setList(categoryManagerViewModel.mainCategory)
-            recyclerview_category_main.adapter = mainCategoryAdapter
+            binding.recyclerviewCategoryMain.adapter = mainCategoryAdapter
             // show sub category
             subCategoryAdapter?.setList(categoryManagerViewModel.getSubCategory(requireContext(),rID,cateMode))
 
@@ -328,10 +329,10 @@ class CategoryManagerFragment: Fragment() {
         when (type) {
             EDIT_MAIN_CATEGORY, EDIT_SUB_CATEGORY -> {
                 editText.setText(string)
-                titleView.tv_popup_title_text.text = getString(R.string.msg_edit_category)
+                titleView.findViewById<TextView>(R.id.tv_popup_title_text).text = getString(R.string.msg_edit_category)
             }
             ADD_MAIN_CATEGORY, ADD_SUB_CATEGORY -> {
-                titleView.tv_popup_title_text.text = getString(R.string.msg_new_category)
+                titleView.findViewById<TextView>(R.id.tv_popup_title_text).text = getString(R.string.msg_new_category)
             }
         }
 
@@ -448,7 +449,7 @@ class CategoryManagerFragment: Fragment() {
         // set Title Style
         val titleView = layoutInflater.inflate(R.layout.popup_title,null)
         // set Title Text
-        titleView.tv_popup_title_text.text = getText(R.string.msg_Title_prompt)
+        titleView.findViewById<TextView>(R.id.tv_popup_title_text).text = getText(R.string.msg_Title_prompt)
 
         val alert = dialogBuilder.create()
         //alert.setIcon(R.drawable.ic_baseline_delete_forever_24)

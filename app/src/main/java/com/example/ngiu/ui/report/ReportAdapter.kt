@@ -22,9 +22,9 @@ import com.example.ngiu.data.entities.returntype.CalendarDetail
 import com.example.ngiu.functions.*
 import com.example.ngiu.functions.chart.CategoryAmount
 import com.example.ngiu.ui.account.detail.AccountGeneralDetailAdapter
-import kotlinx.android.synthetic.main.cardview_calendar.view.*
-import kotlinx.android.synthetic.main.cardview_report_item.view.*
-import kotlinx.android.synthetic.main.cardview_transaction.view.*
+//import kotlinx.android.synthetic.main.cardview_calendar.view.*
+//import kotlinx.android.synthetic.main.cardview_report_item.view.*
+//import kotlinx.android.synthetic.main.cardview_transaction.view.*
 import java.time.DayOfWeek
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -110,12 +110,12 @@ class ReportAdapter(
 
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val tvCateName: TextView = itemView.cv_report_name
-        val tvCateAmount: TextView = itemView.cv_report_amount
-        val pBar: ProgressBar = itemView.cv_report_bar
-        val tvCateCount: TextView = itemView.cv_report_count
-        val tvCatePercentage: TextView = itemView.cv_report_percentage
-        val lyReport: ConstraintLayout = itemView.card_view_report
+        val tvCateName: TextView = itemView.findViewById(R.id.cv_report_name)
+        val tvCateAmount: TextView = itemView.findViewById(R.id.cv_report_amount)
+        val pBar: ProgressBar = itemView.findViewById(R.id.cv_report_bar)
+        val tvCateCount: TextView = itemView.findViewById(R.id.cv_report_count)
+        val tvCatePercentage: TextView = itemView.findViewById(R.id.cv_report_percentage)
+        val lyReport: ConstraintLayout = itemView.findViewById(R.id.card_view_report)
 
 
         //color

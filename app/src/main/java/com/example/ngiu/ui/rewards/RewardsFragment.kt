@@ -13,9 +13,9 @@ import com.example.ngiu.R
 import com.example.ngiu.data.entities.returntype.AccountIcon
 import com.example.ngiu.databinding.FragmentRewardsBinding
 import com.example.ngiu.ui.report.ReportAdapter
-import kotlinx.android.synthetic.main.fragment_activity.*
-import kotlinx.android.synthetic.main.fragment_report.recyclerview_report
-import kotlinx.android.synthetic.main.fragment_rewards.*
+//import kotlinx.android.synthetic.main.fragment_activity.*
+//import kotlinx.android.synthetic.main.fragment_report.recyclerview_report
+//import kotlinx.android.synthetic.main.fragment_rewards.*
 
 class RewardsFragment : Fragment() {
 
@@ -52,10 +52,10 @@ class RewardsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        toolbar_rewards.menu.findItem(R.id.action_add).isVisible = true
+        binding.toolbarRewards.menu.findItem(R.id.action_add).isVisible = true
 
         // menu item clicked
-        toolbar_rewards.setOnMenuItemClickListener{
+        binding.toolbarRewards.setOnMenuItemClickListener{
             when (it.itemId) {
                 R.id.action_add -> {
                     // switch to record fragment
@@ -112,10 +112,10 @@ class RewardsFragment : Fragment() {
 
 
                 // load viewpager2 adapter
-                vp_rewards_cards.offscreenPageLimit = 3
+                binding.vpRewardsCards.offscreenPageLimit = 3
 
                 // set cards style
-                vp_rewards_cards.setPageTransformer { page, position ->
+                binding.vpRewardsCards.setPageTransformer { page, position ->
                     //
                     val minScale = 0.85f
                     val defaultCenter = 0.5f
@@ -156,7 +156,7 @@ class RewardsFragment : Fragment() {
                     }
                 }
 
-                vp_rewards_cards.adapter = cardAdapter
+                binding.vpRewardsCards.adapter = cardAdapter
             }
         }.start()
 
@@ -168,7 +168,7 @@ class RewardsFragment : Fragment() {
         Thread {
             this.activity?.runOnUiThread {
 
-                recyclerView_rewards.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
+                binding.recyclerViewRewards.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
                 rewardsAdapter = this.context?.let {
                     RewardsAdapter(object: RewardsAdapter.OnClickListener {
                         // catch the item click event from adapter
@@ -179,7 +179,7 @@ class RewardsFragment : Fragment() {
                     })
                 }
 
-                recyclerView_rewards.adapter = rewardsAdapter
+                binding.recyclerViewRewards.adapter = rewardsAdapter
             }
         }.start()
     }

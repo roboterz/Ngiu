@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
+import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
@@ -21,16 +23,16 @@ import com.example.ngiu.functions.SelectItem
 import com.example.ngiu.functions.popupWindow
 import com.example.ngiu.functions.switchToRecordFragment
 import com.example.ngiu.ui.keyboard.Keyboard
-import kotlinx.android.synthetic.main.fragment_record.tv_record_amount
-import kotlinx.android.synthetic.main.fragment_reimburse.btn_reimburse_claim
-import kotlinx.android.synthetic.main.fragment_reimburse.cb_reimburse_select_all
-import kotlinx.android.synthetic.main.fragment_reimburse.recyclerview_reimburse
-import kotlinx.android.synthetic.main.fragment_reimburse.toolbar_reimburse
-import kotlinx.android.synthetic.main.popup_claim_dialog.tv_claim_account
-import kotlinx.android.synthetic.main.popup_claim_dialog.tv_claim_amount
-import kotlinx.android.synthetic.main.popup_claim_dialog.tv_claim_info
-import kotlinx.android.synthetic.main.popup_reminder_dialog.button_left
-import kotlinx.android.synthetic.main.popup_reminder_dialog.button_right
+//import kotlinx.android.synthetic.main.fragment_record.tv_record_amount
+//import kotlinx.android.synthetic.main.fragment_reimburse.btn_reimburse_claim
+//import kotlinx.android.synthetic.main.fragment_reimburse.cb_reimburse_select_all
+//import kotlinx.android.synthetic.main.fragment_reimburse.recyclerview_reimburse
+//import kotlinx.android.synthetic.main.fragment_reimburse.toolbar_reimburse
+//import kotlinx.android.synthetic.main.popup_claim_dialog.tv_claim_account
+//import kotlinx.android.synthetic.main.popup_claim_dialog.tv_claim_amount
+//import kotlinx.android.synthetic.main.popup_claim_dialog.tv_claim_info
+//import kotlinx.android.synthetic.main.popup_reminder_dialog.button_left
+//import kotlinx.android.synthetic.main.popup_reminder_dialog.button_right
 import java.time.format.DateTimeFormatter
 
 
@@ -96,7 +98,7 @@ class ReimburseFragment : Fragment() {
         // toolbar menu item clicked
 
         /** click Go Back Icon in the left side of toolbar **/
-        toolbar_reimburse.setNavigationOnClickListener {
+        binding.toolbarReimburse.setNavigationOnClickListener {
             // call back button event to switch to previous fragment
             //requireActivity().onBackPressed()
 
@@ -104,13 +106,13 @@ class ReimburseFragment : Fragment() {
         }
 
         /** Select All  **/
-        cb_reimburse_select_all.setOnCheckedChangeListener { buttonView, isChecked ->
+        binding.cbReimburseSelectAll.setOnCheckedChangeListener { buttonView, isChecked ->
             reimburseViewModel.setAllReimburseStatus(isChecked)
             refreshAdapter()
         }
 
         /** Claim **/
-        btn_reimburse_claim.setOnClickListener {
+        binding.btnReimburseClaim.setOnClickListener {
             val num = reimburseViewModel.getCountOfReimbursed()
 
             if (num >0) {
@@ -149,7 +151,7 @@ class ReimburseFragment : Fragment() {
         Thread {
             this.activity?.runOnUiThread {
 
-                recyclerview_reimburse.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
+                binding.recyclerviewReimburse.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
                 reimburseAdapter = this.context?.let {
                     ReimburseAdapter(object: ReimburseAdapter.OnClickListener {
                         // catch the item click event from adapter
@@ -166,7 +168,7 @@ class ReimburseFragment : Fragment() {
                         }
                     })
                 }
-                recyclerview_reimburse.adapter = reimburseAdapter
+                binding.recyclerviewReimburse.adapter = reimburseAdapter
             }
         }.start()
     }
@@ -176,7 +178,7 @@ class ReimburseFragment : Fragment() {
         Thread {
             this.activity?.runOnUiThread {
                 reimburseAdapter?.setList(reimburseViewModel.getListDetail())
-                recyclerview_reimburse.adapter = reimburseAdapter
+                binding.recyclerviewReimburse.adapter = reimburseAdapter
             }
         }.start()
     }
@@ -193,10 +195,10 @@ class ReimburseFragment : Fragment() {
             .customView(R.layout.popup_claim_dialog, noVerticalPadding = true)
 
         /** Set info **/
-        dialog.tv_claim_info.text =getString(R.string.msg_total) + " " + count.toString() + " " + getString(R.string.msg_transaction) + "."
+        dialog.findViewById<TextView>(R.id.tv_claim_info).text =getString(R.string.msg_total) + " " + count.toString() + " " + getString(R.string.msg_transaction) + "."
 
         /** Set Amount **/
-        dialog.tv_claim_amount.text =  "%.2f".format(sumOfReimbursed)
+        dialog.findViewById<TextView>(R.id.tv_claim_amount).text =  "%.2f".format(sumOfReimbursed)
 //        dialog.tv_claim_amount.setOnClickListener {
 //            if (Keyboard(it).state() != View.VISIBLE) {
 //                Keyboard(it).initKeys(dialog.tv_claim_amount)
@@ -205,16 +207,16 @@ class ReimburseFragment : Fragment() {
 //        }
 
         /** Set Account Name **/
-        dialog.tv_claim_account.text = reimburseViewModel.getFirstAccountName()
+        dialog.findViewById<TextView>(R.id.tv_claim_account).text = reimburseViewModel.getFirstAccountName()
 
 
         /** Select Account **/
-        dialog.tv_claim_account.setOnClickListener {
+        dialog.findViewById<TextView>(R.id.tv_claim_account).setOnClickListener {
             val nameList: Array<String> = reimburseViewModel.getListOfAccountName()
             popupWindow(requireContext(),getString(R.string.nav_title_account_list),  nameList,
                 object : SelectItem {
                     override fun clicked(idx: Int) {
-                        dialog.tv_claim_account.text = nameList[idx]
+                        dialog.findViewById<TextView>(R.id.tv_claim_account).text = nameList[idx]
                         reimburseViewModel.setAccountIdx(idx)
                     }
                 })
@@ -222,7 +224,7 @@ class ReimburseFragment : Fragment() {
 
 
         /** Cancel Button click **/
-        dialog.button_left.setOnClickListener(){
+        dialog.findViewById<TextView>(R.id.button_left).setOnClickListener(){
 
             // cancel button
             dialog.dismiss()
@@ -230,9 +232,9 @@ class ReimburseFragment : Fragment() {
 
 
         /** Confirm Button click **/
-        dialog.button_right.setOnClickListener(){
+        dialog.findViewById<TextView>(R.id.button_right).setOnClickListener(){
             // save
-            reimburseViewModel.saveListDetail(requireContext(), sumOfReimbursed, dialog.tv_claim_amount.text.toString().toDouble(), count)
+            reimburseViewModel.saveListDetail(requireContext(), sumOfReimbursed, dialog.findViewById<TextView>(R.id.tv_claim_amount).text.toString().toDouble(), count)
 
             Toast.makeText(
                 context,
@@ -244,7 +246,7 @@ class ReimburseFragment : Fragment() {
             dialog.dismiss()
 
             //refresh
-            cb_reimburse_select_all.isChecked = false
+            binding.cbReimburseSelectAll.isChecked = false
             reimburseViewModel.loadDataToRam(requireContext())
             refreshAdapter()
 

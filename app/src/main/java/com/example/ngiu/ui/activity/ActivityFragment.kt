@@ -1,18 +1,20 @@
 package com.example.ngiu.ui.activity
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.view.*
+import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.ngiu.MainActivity
 import com.example.ngiu.R
 import com.example.ngiu.databinding.FragmentActivityBinding
 import com.example.ngiu.functions.switchToRecordFragment
-import kotlinx.android.synthetic.main.fragment_activity.*
+//import kotlinx.android.synthetic.main.fragment_activity.*
 
 
 class ActivityFragment : Fragment() {
@@ -56,6 +58,7 @@ class ActivityFragment : Fragment() {
     }
 
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -66,12 +69,12 @@ class ActivityFragment : Fragment() {
         // set up toolbar icon and click event
         // choose items to show
         //toolbar_activity.menu.findItem(R.id.action_add).isVisible = true
-        toolbar_activity.menu.findItem(R.id.action_reimburse).isVisible = true
-        toolbar_activity.menu.findItem(R.id.action_chart).isVisible = true
-        toolbar_activity.menu.findItem(R.id.action_settings).isVisible = true
+        binding.toolbarActivity.menu.findItem(R.id.action_reimburse).isVisible = true
+        binding.toolbarActivity.menu.findItem(R.id.action_chart).isVisible = true
+        binding.toolbarActivity.menu.findItem(R.id.action_settings).isVisible = true
 
         // menu item clicked
-        toolbar_activity.setOnMenuItemClickListener {
+        binding.toolbarActivity.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.action_add -> {
                     // switch to record fragment
@@ -114,9 +117,9 @@ class ActivityFragment : Fragment() {
 
 
         // show the info at title
-        tvCurrentMonthExpenseBalance.text = "" + "%.2f".format(activityViewModel.monthExpense)
-        tvCurrentMonthIncomeBalance.text = "" + "%.2f".format(activityViewModel.monthIncome)
-        tvBudgetBalance.text = "" + "%.2f".format(activityViewModel.budget)
+        binding.tvCurrentMonthExpenseBalance.text = "" + "%.2f".format(activityViewModel.monthExpense)
+        binding.tvCurrentMonthIncomeBalance.text = "" + "%.2f".format(activityViewModel.monthIncome)
+        binding.tvBudgetBalance.text = "" + "%.2f".format(activityViewModel.budget)
 
     }
 
@@ -143,9 +146,10 @@ class ActivityFragment : Fragment() {
 
 
     /** init Adapter **/
+    @SuppressLint("CutPasteId")
     private fun initAdapter(view: View, fragment: Fragment) {
 
-        recyclerView_activity.layoutManager =
+        binding.recyclerViewActivity.layoutManager =
             LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         vpAdapter = this.context?.let {
             ActivityListAdapter(object : ActivityListAdapter.OnClickListener {
@@ -157,7 +161,7 @@ class ActivityFragment : Fragment() {
                 }
             })
         }
-        recyclerView_activity.adapter = vpAdapter
+        binding.recyclerViewActivity.adapter = vpAdapter
 
         // load transaction list with LiveData
         activityViewModel.getTransDetail().observe(viewLifecycleOwner, Observer { it ->

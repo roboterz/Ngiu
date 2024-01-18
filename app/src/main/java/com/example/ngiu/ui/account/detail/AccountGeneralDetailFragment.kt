@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,7 +14,7 @@ import com.example.ngiu.MainActivity
 import com.example.ngiu.R
 import com.example.ngiu.databinding.FragmentAccountGeneralDetailBinding
 import com.example.ngiu.functions.*
-import kotlinx.android.synthetic.main.fragment_account_general_detail.*
+//import kotlinx.android.synthetic.main.fragment_account_general_detail.*
 
 class AccountGeneralDetailFragment : Fragment() {
 
@@ -74,16 +75,16 @@ class AccountGeneralDetailFragment : Fragment() {
         // set up toolbar icon and click event
         // choose items to show
 
-        toolbar_account_general_detail.setNavigationOnClickListener {
+        binding.toolbarAccountGeneralDetail.setNavigationOnClickListener {
             //findNavController().popBackStack()
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
 
-        toolbar_account_general_detail.menu.findItem(R.id.action_edit).isVisible = true
-        toolbar_account_general_detail.menu.findItem(R.id.action_add).isVisible = true
+        binding.toolbarAccountGeneralDetail.menu.findItem(R.id.action_edit).isVisible = true
+        binding.toolbarAccountGeneralDetail.menu.findItem(R.id.action_add).isVisible = true
 
         // menu item clicked
-        toolbar_account_general_detail.setOnMenuItemClickListener{
+        binding.toolbarAccountGeneralDetail.setOnMenuItemClickListener{
             when (it.itemId) {
                 R.id.action_add -> {
                     // navigate to add record screen
@@ -127,10 +128,10 @@ class AccountGeneralDetailFragment : Fragment() {
         }.start()
 
         // show the info at title
-        tv_account_general_balance.text = get2DigitFormat(accountGeneralDetailViewModel.accountBalance)
-        tv_account_general_inflow_amount.text = get2DigitFormat(accountGeneralDetailViewModel.inflowAmount)
-        tv_account_general_outflow_amount.text = get2DigitFormat(accountGeneralDetailViewModel.outflowAmount)
-        tv_account_general_name.text = accountGeneralDetailViewModel.accountName
+        binding.tvAccountGeneralBalance.text = get2DigitFormat(accountGeneralDetailViewModel.accountBalance)
+        binding.tvAccountGeneralInflowAmount.text = get2DigitFormat(accountGeneralDetailViewModel.inflowAmount)
+        binding.tvAccountGeneralOutflowAmount.text = get2DigitFormat(accountGeneralDetailViewModel.outflowAmount)
+        binding.tvAccountGeneralName.text = accountGeneralDetailViewModel.accountName
 
     }
 
@@ -140,11 +141,12 @@ class AccountGeneralDetailFragment : Fragment() {
     }
 
 
+    @SuppressLint("CutPasteId")
     private fun initAdapter(view:View, fragment: Fragment) {
         Thread {
             this.activity?.runOnUiThread {
 
-                recyclerview_account_general_detail.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
+                binding.recyclerviewAccountGeneralDetail.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
                 accountGeneralDetailAdapter = this.context?.let {
                     AccountGeneralDetailAdapter(object: AccountGeneralDetailAdapter.OnClickListener {
                         // catch the item click event from adapter
@@ -158,7 +160,7 @@ class AccountGeneralDetailFragment : Fragment() {
                         }
                     })
                 }
-                recyclerview_account_general_detail.adapter = accountGeneralDetailAdapter
+                binding.recyclerviewAccountGeneralDetail.adapter = accountGeneralDetailAdapter
             }
         }.start()
     }

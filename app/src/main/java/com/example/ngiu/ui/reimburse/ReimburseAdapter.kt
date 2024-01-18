@@ -17,22 +17,22 @@ import com.example.ngiu.functions.REIMBURSABLE
 import com.example.ngiu.functions.REIMBURSED
 import com.example.ngiu.functions.TRANSACTION_TYPE_EXPENSE
 import com.example.ngiu.functions.TRANSACTION_TYPE_INCOME
-import kotlinx.android.synthetic.main.cardview_account_general_detail_item.view.layout_account_general_card_view_group
-import kotlinx.android.synthetic.main.cardview_account_general_detail_item.view.layout_account_general_card_view_item
-import kotlinx.android.synthetic.main.cardview_account_general_detail_item.view.tv_account_general_item_account
-import kotlinx.android.synthetic.main.cardview_account_general_detail_item.view.tv_account_general_item_amount
-import kotlinx.android.synthetic.main.cardview_account_general_detail_item.view.tv_account_general_item_balance
-import kotlinx.android.synthetic.main.cardview_account_general_detail_item.view.tv_account_general_item_check
-import kotlinx.android.synthetic.main.cardview_account_general_detail_item.view.tv_account_general_item_dot_before_memo
-import kotlinx.android.synthetic.main.cardview_account_general_detail_item.view.tv_account_general_item_dot_before_merchant
-import kotlinx.android.synthetic.main.cardview_account_general_detail_item.view.tv_account_general_item_group_date
-import kotlinx.android.synthetic.main.cardview_account_general_detail_item.view.tv_account_general_item_info
-import kotlinx.android.synthetic.main.cardview_account_general_detail_item.view.tv_account_general_item_memo
-import kotlinx.android.synthetic.main.cardview_account_general_detail_item.view.tv_account_general_item_merchant
-import kotlinx.android.synthetic.main.cardview_account_general_detail_item.view.tv_account_general_item_text
-import kotlinx.android.synthetic.main.cardview_account_general_detail_item.view.tv_account_general_item_time
-import kotlinx.android.synthetic.main.cardview_main_category.view.*
-import kotlinx.android.synthetic.main.cardview_mpp_item.view.*
+//import kotlinx.android.synthetic.main.cardview_account_general_detail_item.view.layout_account_general_card_view_group
+//import kotlinx.android.synthetic.main.cardview_account_general_detail_item.view.layout_account_general_card_view_item
+//import kotlinx.android.synthetic.main.cardview_account_general_detail_item.view.tv_account_general_item_account
+//import kotlinx.android.synthetic.main.cardview_account_general_detail_item.view.tv_account_general_item_amount
+//import kotlinx.android.synthetic.main.cardview_account_general_detail_item.view.tv_account_general_item_balance
+//import kotlinx.android.synthetic.main.cardview_account_general_detail_item.view.tv_account_general_item_check
+//import kotlinx.android.synthetic.main.cardview_account_general_detail_item.view.tv_account_general_item_dot_before_memo
+//import kotlinx.android.synthetic.main.cardview_account_general_detail_item.view.tv_account_general_item_dot_before_merchant
+//import kotlinx.android.synthetic.main.cardview_account_general_detail_item.view.tv_account_general_item_group_date
+//import kotlinx.android.synthetic.main.cardview_account_general_detail_item.view.tv_account_general_item_info
+//import kotlinx.android.synthetic.main.cardview_account_general_detail_item.view.tv_account_general_item_memo
+//import kotlinx.android.synthetic.main.cardview_account_general_detail_item.view.tv_account_general_item_merchant
+//import kotlinx.android.synthetic.main.cardview_account_general_detail_item.view.tv_account_general_item_text
+//import kotlinx.android.synthetic.main.cardview_account_general_detail_item.view.tv_account_general_item_time
+//import kotlinx.android.synthetic.main.cardview_main_category.view.*
+//import kotlinx.android.synthetic.main.cardview_mpp_item.view.*
 import java.time.format.DateTimeFormatter
 import kotlin.collections.ArrayList
 import kotlin.reflect.jvm.internal.impl.util.Check
@@ -160,21 +160,21 @@ class ReimburseAdapter(
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
-        val groupDate: TextView = itemView.tv_account_general_item_group_date
-        val recordText: TextView = itemView.tv_account_general_item_text
-        val recordTime: TextView = itemView.tv_account_general_item_time
-        val recordMemo: TextView = itemView.tv_account_general_item_memo
-        val recordInfo: TextView = itemView.tv_account_general_item_info
-        val recordAmount: TextView = itemView.tv_account_general_item_amount
-        val recordBalance: TextView = itemView.tv_account_general_item_balance
-        val recordAccount: TextView = itemView.tv_account_general_item_account
-        val recordMerchant: TextView = itemView.tv_account_general_item_merchant
-        val recordMemoDot: TextView = itemView.tv_account_general_item_dot_before_memo
-        val recordMerchantDot: TextView = itemView.tv_account_general_item_dot_before_merchant
-        val recordCheckBox: CheckBox = itemView.tv_account_general_item_check
+        val groupDate: TextView = itemView.findViewById(R.id.tv_account_general_item_group_date)
+        val recordText: TextView = itemView.findViewById(R.id.tv_account_general_item_text)
+        val recordTime: TextView = itemView.findViewById(R.id.tv_account_general_item_time)
+        val recordMemo: TextView = itemView.findViewById(R.id.tv_account_general_item_memo)
+        val recordInfo: TextView = itemView.findViewById(R.id.tv_account_general_item_info)
+        val recordAmount: TextView = itemView.findViewById(R.id.tv_account_general_item_amount)
+        val recordBalance: TextView = itemView.findViewById(R.id.tv_account_general_item_balance)
+        val recordAccount: TextView = itemView.findViewById(R.id.tv_account_general_item_account)
+        val recordMerchant: TextView = itemView.findViewById(R.id.tv_account_general_item_merchant)
+        val recordMemoDot: TextView = itemView.findViewById(R.id.tv_account_general_item_dot_before_memo)
+        val recordMerchantDot: TextView = itemView.findViewById(R.id.tv_account_general_item_dot_before_merchant)
+        val recordCheckBox: CheckBox = itemView.findViewById(R.id.tv_account_general_item_check)
 
-        val groupLayout: ConstraintLayout = itemView.layout_account_general_card_view_group
-        val itemLayout: ConstraintLayout = itemView.layout_account_general_card_view_item
+        val groupLayout: ConstraintLayout = itemView.findViewById(R.id.layout_account_general_card_view_group)
+        val itemLayout: ConstraintLayout = itemView.findViewById(R.id.layout_account_general_card_view_item)
 
         val expenseColor = ContextCompat.getColor(itemView.context, R.color.app_expense_amount)
         val incomeColor = ContextCompat.getColor(itemView.context, R.color.app_income_amount)

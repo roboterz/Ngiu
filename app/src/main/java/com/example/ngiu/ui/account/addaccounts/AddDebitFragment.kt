@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -16,9 +17,9 @@ import com.example.ngiu.data.entities.Currency
 import com.example.ngiu.databinding.FragmentAccountAddDebitBinding
 import com.example.ngiu.functions.*
 import com.google.android.material.textfield.TextInputEditText
-import kotlinx.android.synthetic.main.fragment_account_add_debit.*
-import kotlinx.android.synthetic.main.fragment_account_add_web_account.*
-import kotlinx.android.synthetic.main.popup_title.view.*
+//import kotlinx.android.synthetic.main.fragment_account_add_debit.*
+//import kotlinx.android.synthetic.main.fragment_account_add_web_account.*
+//import kotlinx.android.synthetic.main.popup_title.view.*
 import org.apache.commons.lang3.StringUtils.trim
 
 
@@ -50,7 +51,7 @@ class AddDebitFragment : Fragment() {
         initListeners()
         getView()?.findViewById<TextInputEditText?>(R.id.tetDebitBalance)?.addDecimalLimiter()
 
-        toolbarAddDebitAccount.setNavigationOnClickListener {
+        binding.toolbarAddDebitAccount.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
 
@@ -122,7 +123,7 @@ class AddDebitFragment : Fragment() {
                 // set Title Style
                 val titleView = layoutInflater.inflate(R.layout.popup_title, null)
                 // set Title Text
-                titleView.tv_popup_title_text.text = getText(R.string.option_title_add_currency)
+                titleView.findViewById<TextView>(R.id.tv_popup_title_text).text = getText(R.string.option_title_add_currency)
 
                 builder.setCustomTitle(titleView)
 

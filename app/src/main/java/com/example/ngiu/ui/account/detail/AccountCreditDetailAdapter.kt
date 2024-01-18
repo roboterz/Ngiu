@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.returntype.RecordDetail
 import com.example.ngiu.functions.*
-import kotlinx.android.synthetic.main.cardview_account_credit_detail_item.view.*
+//import kotlinx.android.synthetic.main.cardview_account_credit_detail_item.view.*
 import java.time.format.DateTimeFormatter
 
 class AccountCreditDetailAdapter(
@@ -151,12 +151,12 @@ class AccountCreditDetailAdapter(
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
-        val recordText: TextView = itemView.tv_account_credit_detail_item_category
-        val recordDate: TextView = itemView.tv_account_credit_detail_item_date
-        val recordMemo: TextView = itemView.tv_account_credit_detail_item_memo
-        val recordAmount: TextView = itemView.tv_account_credit_detail_item_amount
+        val recordText: TextView = itemView.findViewById(R.id.tv_account_credit_detail_item_category)
+        val recordDate: TextView = itemView.findViewById(R.id.tv_account_credit_detail_item_date)
+        val recordMemo: TextView = itemView.findViewById(R.id.tv_account_credit_detail_item_memo)
+        val recordAmount: TextView = itemView.findViewById(R.id.tv_account_credit_detail_item_amount)
 
-        val itemLayout: ConstraintLayout = itemView.layout_account_credit_detail_card_view_item
+        val itemLayout: ConstraintLayout = itemView.findViewById(R.id.layout_account_credit_detail_card_view_item)
 
         val expenseColor = ContextCompat.getColor(itemView.context, R.color.app_expense_amount)
         val incomeColor = ContextCompat.getColor(itemView.context, R.color.app_income_amount)

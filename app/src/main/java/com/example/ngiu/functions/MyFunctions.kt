@@ -17,7 +17,7 @@ import androidx.navigation.findNavController
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.Trans
 import com.google.android.material.textfield.TextInputEditText
-import kotlinx.android.synthetic.main.popup_title.view.*
+//import kotlinx.android.synthetic.main.popup_title.view.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -210,7 +210,7 @@ fun popupWindow(context: Context, titleText: String, arrayItem: Array<String>, s
     // set Title Style
     val titleView = View.inflate(context, R.layout.popup_title, null)
     // set Title Text
-    titleView.tv_popup_title_text.text = titleText
+    titleView.findViewById<TextView>(R.id.tv_popup_title_text).text = titleText
 
     builder.setCustomTitle(titleView)
 

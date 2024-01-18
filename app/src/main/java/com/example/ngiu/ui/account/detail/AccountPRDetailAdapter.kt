@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
 import com.example.ngiu.functions.*
 import com.example.ngiu.data.entities.returntype.RecordDetail
-import kotlinx.android.synthetic.main.cardview_account_p_r_detail_item.view.*
+// kotlinx.android.synthetic.main.cardview_account_p_r_detail_item.view.*
 import java.time.format.DateTimeFormatter
 
 class AccountPRDetailAdapter(
@@ -102,14 +102,14 @@ class AccountPRDetailAdapter(
 
         class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
-            val groupDate: TextView = itemView.tv_account_pr_item_group_time
-            val recordText: TextView = itemView.tv_account_pr_item_text
-            val recordTime: TextView = itemView.tv_account_pr_item_time
-            val recordMemo: TextView = itemView.tv_account_pr_item_memo
-            val recordAmount: TextView = itemView.tv_account_pr_item_amount
+            val groupDate: TextView = itemView.findViewById(R.id.tv_account_pr_item_group_time)
+            val recordText: TextView = itemView.findViewById(R.id.tv_account_pr_item_text)
+            val recordTime: TextView = itemView.findViewById(R.id.tv_account_pr_item_time)
+            val recordMemo: TextView = itemView.findViewById(R.id.tv_account_pr_item_memo)
+            val recordAmount: TextView = itemView.findViewById(R.id.tv_account_pr_item_amount)
 
-            val groupLayout: ConstraintLayout = itemView.layout_account_pr_card_view_group
-            val itemLayout: ConstraintLayout = itemView.layout_account_pr_card_view_item
+            val groupLayout: ConstraintLayout = itemView.findViewById(R.id.layout_account_pr_card_view_group)
+            val itemLayout: ConstraintLayout = itemView.findViewById(R.id.layout_account_pr_card_view_item)
         }
 
 

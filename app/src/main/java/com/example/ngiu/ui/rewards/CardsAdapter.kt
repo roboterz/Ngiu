@@ -11,9 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ngiu.R
 import com.example.ngiu.data.entities.returntype.AccountIcon
-import kotlinx.android.synthetic.main.cardview_rewards_card.view.iv_rewards_card_item_image
-import kotlinx.android.synthetic.main.cardview_rewards_card.view.tv_rewards_card_item_name
-import kotlinx.android.synthetic.main.fragment_rewards.recyclerView_rewards
+//import kotlinx.android.synthetic.main.cardview_rewards_card.view.iv_rewards_card_item_image
+//import kotlinx.android.synthetic.main.cardview_rewards_card.view.tv_rewards_card_item_name
+//import kotlinx.android.synthetic.main.fragment_rewards.recyclerView_rewards
 
 class CardsAdapter(private val onClickListener: OnClickListener )
     : RecyclerView.Adapter<CardsAdapter.PagerViewHolder>( ) {
@@ -68,8 +68,8 @@ class CardsAdapter(private val onClickListener: OnClickListener )
 
         //	ViewHolder base from RecycleView.ViewHolder
         class PagerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-            var imgCard: ImageView = itemView.iv_rewards_card_item_image
-            var tvName: TextView = itemView.tv_rewards_card_item_name
+            var imgCard: ImageView = itemView.findViewById(R.id.iv_rewards_card_item_image)
+            var tvName: TextView = itemView.findViewById(R.id.tv_rewards_card_item_name)
 
         }
 

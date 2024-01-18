@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.ngiu.MainActivity
@@ -16,12 +17,12 @@ import com.example.ngiu.data.entities.Currency
 import com.example.ngiu.databinding.FragmentAccountAddCashBinding
 import com.example.ngiu.functions.addDecimalLimiter
 import com.google.android.material.textfield.TextInputEditText
-import kotlinx.android.synthetic.main.fragment_account_add_cash.*
-import kotlinx.android.synthetic.main.popup_title.view.*
+//import kotlinx.android.synthetic.main.fragment_account_add_cash.*
+//import kotlinx.android.synthetic.main.popup_title.view.*
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import com.example.ngiu.functions.*
-import kotlinx.android.synthetic.main.fragment_account_add_web_account.*
+//import kotlinx.android.synthetic.main.fragment_account_add_web_account.*
 
 
 class AddCashFragment : Fragment() {
@@ -99,7 +100,7 @@ class AddCashFragment : Fragment() {
         initListeners()
         getView()?.findViewById<TextInputEditText?>(R.id.tetCashBalance)?.addDecimalLimiter()
 
-        toolbarAddCashAccount.setNavigationOnClickListener {
+        binding.toolbarAddCashAccount.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
 
@@ -162,7 +163,7 @@ class AddCashFragment : Fragment() {
             // set Title Style
             val titleView = layoutInflater.inflate(R.layout.popup_title, null)
             // set Title Text
-            titleView.tv_popup_title_text.text = getText(R.string.option_title_add_currency)
+            titleView.findViewById<TextView>(R.id.tv_popup_title_text).text = getText(R.string.option_title_add_currency)
 
             builder.setCustomTitle(titleView)
 
@@ -329,7 +330,7 @@ class AddCashFragment : Fragment() {
         // set Title Style
         val titleView = layoutInflater.inflate(R.layout.popup_title,null)
         // set Title Text
-        titleView.tv_popup_title_text.text = getText(R.string.msg_Title_prompt)
+        titleView.findViewById<TextView>(R.id.tv_popup_title_text).text = getText(R.string.msg_Title_prompt)
 
         val alert = dialogBuilder.create()
         //alert.setIcon(R.drawable.ic_baseline_delete_forever_24)

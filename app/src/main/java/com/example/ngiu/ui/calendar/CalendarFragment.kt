@@ -33,10 +33,10 @@ import com.example.ngiu.functions.REIMBURSABLE
 import com.example.ngiu.functions.REIMBURSED
 import com.example.ngiu.functions.get2DigitFormat
 import com.example.ngiu.functions.getInternationalDateFromAmericanDate
-import kotlinx.android.synthetic.main.fragment_calendar.*
-import kotlinx.android.synthetic.main.fragment_record.*
-import kotlinx.android.synthetic.main.popup_reminder_dialog.*
-import kotlinx.android.synthetic.main.popup_title.view.*
+//import kotlinx.android.synthetic.main.fragment_calendar.*
+//import kotlinx.android.synthetic.main.fragment_record.*
+//import kotlinx.android.synthetic.main.popup_reminder_dialog.*
+//import kotlinx.android.synthetic.main.popup_title.view.*
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -82,11 +82,11 @@ class CalendarFragment : Fragment() {
 
         // toolbar
         // show add button
-        toolbar_calendar.menu.findItem(R.id.action_add).isVisible = true
+        binding.toolbarCalendar.menu.findItem(R.id.action_add).isVisible = true
 
 
         // toolbar menu item clicked
-        toolbar_calendar.setOnMenuItemClickListener{
+        binding.toolbarCalendar.setOnMenuItemClickListener{
             when (it.itemId) {
                 R.id.action_add -> {
                     // switch to Event fragment
@@ -99,10 +99,10 @@ class CalendarFragment : Fragment() {
         }
 
         // pending payment
-        tv_calendar_pending_payment_amount.text = get2DigitFormat(calendarViewModel.pendingPayment)
+        binding.tvCalendarPendingPaymentAmount.text = get2DigitFormat(calendarViewModel.pendingPayment)
 
         // pending receivable
-        tv_calendar_pending_receivable_amount.text = get2DigitFormat(calendarViewModel.pendingIncome)
+        binding.tvCalendarPendingReceivableAmount.text = get2DigitFormat(calendarViewModel.pendingIncome)
 
     }
 
@@ -138,7 +138,7 @@ class CalendarFragment : Fragment() {
         Thread {
             this.activity?.runOnUiThread {
 
-                recyclerView_calendar.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
+                binding.recyclerViewCalendar.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
                 cAdapter = this.context?.let {
                     CalendarAdapter(object: CalendarAdapter.OnClickListener {
                         // catch the item click event from adapter
@@ -158,7 +158,7 @@ class CalendarFragment : Fragment() {
                     })
                 }
 
-                recyclerView_calendar.adapter = cAdapter
+                binding.recyclerViewCalendar.adapter = cAdapter
             }
         }.start()
     }
@@ -169,7 +169,7 @@ class CalendarFragment : Fragment() {
 
         calendarViewModel.loadDataToRam(requireContext())
         cAdapter?.setList(calendarViewModel.calendarDetail)
-        recyclerView_calendar.adapter = cAdapter
+        binding.recyclerViewCalendar.adapter = cAdapter
     }
 
 
@@ -191,12 +191,12 @@ class CalendarFragment : Fragment() {
         if (cDetail.id == 0L){
             /** Add Mode **/
             // left button
-            dialog.button_left.text = getText(R.string.msg_button_cancel)
+            dialog.findViewById<TextView>(R.id.button_left).text = getText(R.string.msg_button_cancel)
             // date
-            dialog.reminder_date.text = LocalDate.now().format(
+            dialog.findViewById<TextView>(R.id.reminder_date).text = LocalDate.now().format(
                 DateTimeFormatter.ofPattern("MM/dd/yyyy"))
             // time
-            dialog.reminder_time.text = LocalTime.now().format(
+            dialog.findViewById<TextView>(R.id.reminder_time).text = LocalTime.now().format(
                 DateTimeFormatter.ofPattern("HH:mm:ss"))
             // period
             // period intervals
@@ -205,24 +205,24 @@ class CalendarFragment : Fragment() {
         } else {
             /** Edit Mode **/
             // left button
-            dialog.button_left.text = getText(R.string.msg_button_delete)
+            dialog.findViewById<TextView>(R.id.button_left).text = getText(R.string.msg_button_delete)
             // load event from database
             //val event = calendarViewModel.getEventRecord(context, cDetail.id)
             // memo
-            dialog.reminder_memo.setText(cDetail.memo )
+            dialog.findViewById<TextView>(R.id.reminder_memo).setText(cDetail.memo )
             // date
-            dialog.reminder_date.text =cDetail.date.format(
+            dialog.findViewById<TextView>(R.id.reminder_date).text =cDetail.date.format(
                 DateTimeFormatter.ofPattern("MM/dd/yyyy")
             )
             // time
-            dialog.reminder_time.text = cDetail.date.format(
+            dialog.findViewById<TextView>(R.id.reminder_time).text = cDetail.date.format(
                 DateTimeFormatter.ofPattern("HH:mm:ss")
             )
             // period
             blnPeriod = cDetail.type == 4
-            setPeriodOptionIcon(dialog.reminder_period, blnPeriod)
+            setPeriodOptionIcon(dialog.findViewById<TextView>(R.id.reminder_period), blnPeriod)
             // period layout
-            setPeriodLayout(dialog.ly_reminder_period, blnPeriod)
+            setPeriodLayout(dialog.findViewById<TextView>(R.id.ly_reminder_period), blnPeriod)
             // period intervals
             getPeriodIntervalsOption(context, periodMode)
             // todo period intervals day
@@ -230,11 +230,11 @@ class CalendarFragment : Fragment() {
         }
 
         /** set text for save button **/
-        dialog.button_right.text = getText(R.string.menu_save)
+        dialog.findViewById<TextView>(R.id.button_right).text = getText(R.string.menu_save)
 
 
         /** Delete or Cancel Button click **/
-        dialog.button_left.setOnClickListener(){
+        dialog.findViewById<TextView>(R.id.button_left).setOnClickListener(){
             if (cDetail.id == 0L){
 
                 // cancel button
@@ -264,7 +264,7 @@ class CalendarFragment : Fragment() {
                 // set Title Style
                 val titleView = layoutInflater.inflate(R.layout.popup_title,null)
                 // set Title Text
-                titleView.tv_popup_title_text.text = getText(R.string.msg_Title_prompt)
+                titleView.findViewById<TextView>(R.id.tv_popup_title_text).text = getText(R.string.msg_Title_prompt)
 
                 val alert = dialogBuilder.create()
                 alert.setCustomTitle(titleView)
@@ -274,9 +274,9 @@ class CalendarFragment : Fragment() {
         }
 
         /** save button click **/
-        dialog.button_right.setOnClickListener(){
+        dialog.findViewById<TextView>(R.id.button_right).setOnClickListener(){
             // save
-            if (dialog.reminder_memo.text.toString().trim() ==""){
+            if (dialog.findViewById<TextView>(R.id.reminder_memo).text.toString().trim() ==""){
 
                 // popup prompt window "Cannot save with no content"
                 // --------------------------------------------------------------------------
@@ -290,7 +290,7 @@ class CalendarFragment : Fragment() {
                 // set Title Style
                 val titleView = layoutInflater.inflate(R.layout.popup_title,null)
                 // set Title Text
-                titleView.tv_popup_title_text.text = getText(R.string.msg_Title_prompt)
+                titleView.findViewById<TextView>(R.id.tv_popup_title_text).text = getText(R.string.msg_Title_prompt)
 
                 val alert = dialogBuilder.create()
                 //alert.setIcon(R.drawable.ic_baseline_delete_forever_24)
@@ -303,9 +303,9 @@ class CalendarFragment : Fragment() {
                 val event = Event(
                     Event_ID = cDetail.id,
                     Event_Date = getInternationalDateFromAmericanDate(
-                        dialog.reminder_date.text.toString() + " " +
-                                dialog.reminder_time.text.toString()),
-                    Event_Memo = dialog.reminder_memo.text.toString()
+                        dialog.findViewById<TextView>(R.id.reminder_date).text.toString() + " " +
+                                dialog.findViewById<TextView>(R.id.reminder_time).text.toString()),
+                    Event_Memo = dialog.findViewById<TextView>(R.id.reminder_memo).text.toString()
                 )
                 // save
                 calendarViewModel.saveEventRecord(context, event)
@@ -317,9 +317,9 @@ class CalendarFragment : Fragment() {
         }
 
         /** date picker click **/
-        dialog.reminder_date.setOnClickListener(){
+        dialog.findViewById<TextView>(R.id.reminder_date).setOnClickListener(){
 
-            val date = LocalDate.parse(dialog.reminder_date.text.toString(), DateTimeFormatter.ofPattern("MM/dd/yyyy"))
+            val date = LocalDate.parse(dialog.findViewById<TextView>(R.id.reminder_date).text.toString(), DateTimeFormatter.ofPattern("MM/dd/yyyy"))
 
             DateTimePicker(
                 date.year,
@@ -327,24 +327,24 @@ class CalendarFragment : Fragment() {
                 date.dayOfMonth
             ).pickDate(context) { _, year, month, day ->
                 // save date to textView
-                dialog.reminder_date.text = LocalDate.of(year, month + 1, day)
+                dialog.findViewById<TextView>(R.id.reminder_date).text = LocalDate.of(year, month + 1, day)
                     .format(DateTimeFormatter.ofPattern("MM/dd/yyyy"))
             }
         }
 
         /** Period **/
-        dialog.reminder_period.setOnClickListener{
+        dialog.findViewById<TextView>(R.id.reminder_period).setOnClickListener{
             blnPeriod = !blnPeriod
             // period icon
-            setPeriodOptionIcon(dialog.reminder_period, blnPeriod)
+            setPeriodOptionIcon(dialog.findViewById<TextView>(R.id.reminder_period), blnPeriod)
             // period layout
-            setPeriodLayout(dialog.ly_reminder_period, blnPeriod)
+            setPeriodLayout(dialog.findViewById<TextView>(R.id.ly_reminder_period), blnPeriod)
             // end date text
-            setPeriodLayout(dialog.reminder_text_end, blnPeriod)
+            setPeriodLayout(dialog.findViewById<TextView>(R.id.reminder_text_end), blnPeriod)
         }
 
         /** Period Mode **/
-        dialog.reminder_period_mode.setOnClickListener {
+        dialog.findViewById<TextView>(R.id.reminder_period_mode).setOnClickListener {
             when(periodMode){
                 EVENT_MODE_EVERY_DAY, EVENT_MODE_EVERY_WEEK, EVENT_MODE_EVERY_MONTH -> {
                     periodMode++
@@ -353,7 +353,7 @@ class CalendarFragment : Fragment() {
                     periodMode = 0
                 }
             }
-            dialog.reminder_period_mode.text = getPeriodIntervalsOption(requireContext(), periodMode)
+            dialog.findViewById<TextView>(R.id.reminder_period_mode).text = getPeriodIntervalsOption(requireContext(), periodMode)
         }
 
         dialog.show()

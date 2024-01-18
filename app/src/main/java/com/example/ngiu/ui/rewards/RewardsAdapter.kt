@@ -21,12 +21,12 @@ import com.example.ngiu.data.entities.returntype.CalendarDetail
 import com.example.ngiu.data.entities.returntype.RewardsDetail
 import com.example.ngiu.functions.*
 import com.example.ngiu.functions.chart.CategoryAmount
-import kotlinx.android.synthetic.main.cardview_calendar.view.*
-import kotlinx.android.synthetic.main.cardview_report_item.view.*
-import kotlinx.android.synthetic.main.cardview_rewards_item.view.iv_rewards_item_icon
-import kotlinx.android.synthetic.main.cardview_rewards_item.view.tv_rewards_cate
-import kotlinx.android.synthetic.main.cardview_rewards_item.view.tv_rewards_number
-import kotlinx.android.synthetic.main.cardview_transaction.view.*
+//import kotlinx.android.synthetic.main.cardview_calendar.view.*
+//import kotlinx.android.synthetic.main.cardview_report_item.view.*
+//import kotlinx.android.synthetic.main.cardview_rewards_item.view.iv_rewards_item_icon
+//import kotlinx.android.synthetic.main.cardview_rewards_item.view.tv_rewards_cate
+//import kotlinx.android.synthetic.main.cardview_rewards_item.view.tv_rewards_number
+//import kotlinx.android.synthetic.main.cardview_transaction.view.*
 import java.time.DayOfWeek
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -95,9 +95,9 @@ class RewardsAdapter(
 
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val ivIcon: ImageView = itemView.iv_rewards_item_icon
-        val tvCateName: TextView = itemView.tv_rewards_cate
-        val tvCateAmount: TextView = itemView.tv_rewards_number
+        val ivIcon: ImageView = itemView.findViewById(R.id.iv_rewards_item_icon)
+        val tvCateName: TextView = itemView.findViewById(R.id.tv_rewards_cate)
+        val tvCateAmount: TextView = itemView.findViewById(R.id.tv_rewards_number)
 
     }
 
