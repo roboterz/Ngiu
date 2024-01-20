@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.account.detail.AccountPRDetailFragment">
+    tools:context="com.aerolite.ngiu.ui.account.detail.AccountPRDetailFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_account_p_r_detail"

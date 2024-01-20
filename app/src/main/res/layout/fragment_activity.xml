@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_list_background"
-    tools:context=".ui.activity.ActivityFragment">
+    tools:context="com.aerolite.ngiu.ui.activity.ActivityFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_activity"

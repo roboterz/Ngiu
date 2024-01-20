@@ -12,11 +12,11 @@ android {
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.example.ngiu"
+        applicationId "com.aerolite.ngiu"
         minSdk 28
         targetSdk 34
         versionCode 4
-        versionName "1.210"
+        versionName "1.300"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -51,7 +51,7 @@ android {
     noArg {
         annotation("androidx.room.Entity")
     }
-    namespace 'com.example.ngiu'
+    namespace 'com.aerolite.ngiu'
 }
 
 //$rootProject values are stored in build.gradle ext{}
