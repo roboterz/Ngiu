@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_list_group_header"
-    tools:context=".ui.record.RecordFragment">
+    tools:context="com.aerolite.ngiu.ui.record.RecordFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/record_top_layout"

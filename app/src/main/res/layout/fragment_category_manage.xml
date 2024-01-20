@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_list_background"
-    tools:context=".ui.category.CategoryManagerFragment">
+    tools:context="com.aerolite.ngiu.ui.category.CategoryManagerFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_category_toolbar"
@@ -47,7 +47,6 @@
                  android:id="@+id/recyclerview_category_main"
                  android:layout_width="match_parent"
                  android:layout_height="match_parent"
-                 app:layout_constrainedHeight="true"
                  tools:ignore="MissingConstraints" />
 
          </androidx.constraintlayout.widget.ConstraintLayout>
@@ -63,7 +62,6 @@
                  android:id="@+id/recyclerview_category_sub"
                  android:layout_width="match_parent"
                  android:layout_height="match_parent"
-                 app:layout_constrainedHeight="true"
                  tools:ignore="MissingConstraints" />
 
 

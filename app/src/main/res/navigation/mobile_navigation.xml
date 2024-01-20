@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_activity"
-        android:name="com.example.ngiu.ui.activity.ActivityFragment"
+        android:name="com.aerolite.ngiu.ui.activity.ActivityFragment"
         android:label="@string/nav_bottom_activity"
         tools:layout="@layout/fragment_activity" />
 
     <fragment
         android:id="@+id/navigation_account"
-        android:name="com.example.ngiu.ui.account.AccountFragment"
+        android:name="com.aerolite.ngiu.ui.account.AccountFragment"
         android:label="@string/nav_bottom_account"
         tools:layout="@layout/fragment_account" />
 
     <fragment
         android:id="@+id/navigation_add_account"
-        android:name="com.example.ngiu.ui.account.addaccounts.AddAccountFragment"
+        android:name="com.aerolite.ngiu.ui.account.addaccounts.AddAccountFragment"
         android:label="@string/nav_bottom_account"
         tools:layout="@layout/fragment_account_add_account" >
         <action
@@ -48,98 +48,98 @@
 
     <fragment
         android:id="@+id/navigation_calender"
-        android:name="com.example.ngiu.ui.calendar.CalendarFragment"
+        android:name="com.aerolite.ngiu.ui.calendar.CalendarFragment"
         android:label="@string/nav_bottom_calendar"
         tools:layout="@layout/fragment_calendar" />
 
     <fragment
         android:id="@+id/navigation_rewards"
-        android:name="com.example.ngiu.ui.rewards.RewardsFragment"
+        android:name="com.aerolite.ngiu.ui.rewards.RewardsFragment"
         android:label="@string/nav_bottom_rewards"
         tools:layout="@layout/fragment_rewards" />
 
     <fragment
         android:id="@+id/navigation_setting"
-        android:name="com.example.ngiu.ui.setting.SettingFragment"
+        android:name="com.aerolite.ngiu.ui.setting.SettingFragment"
         android:label="@string/nav_bottom_setting"
         tools:layout="@layout/fragment_setting" />
 
     <fragment
         android:id="@+id/navigation_record"
-        android:name="com.example.ngiu.ui.record.RecordFragment"
+        android:name="com.aerolite.ngiu.ui.record.RecordFragment"
         tools:layout="@layout/fragment_record" />
 
     <fragment
         android:id="@+id/navigation_category_manage"
-        android:name="com.example.ngiu.ui.category.CategoryManagerFragment"
+        android:name="com.aerolite.ngiu.ui.category.CategoryManagerFragment"
         tools:layout="@layout/fragment_category_manage" />
 
     <fragment
         android:id="@+id/add_cash"
-        android:name="com.example.ngiu.ui.record.RecordFragment"
+        android:name="com.aerolite.ngiu.ui.record.RecordFragment"
         tools:layout="@layout/fragment_record" />
     <fragment
         android:id="@+id/addCashFragment"
-        android:name="com.example.ngiu.ui.account.addaccounts.AddCashFragment"
+        android:name="com.aerolite.ngiu.ui.account.addaccounts.AddCashFragment"
         android:label="AddCashFragment" />
     <fragment
         android:id="@+id/addCreditFragment"
-        android:name="com.example.ngiu.ui.account.addaccounts.AddCreditFragment"
+        android:name="com.aerolite.ngiu.ui.account.addaccounts.AddCreditFragment"
         android:label="AddCreditFragment" />
     <fragment
         android:id="@+id/addDebitFragment"
-        android:name="com.example.ngiu.ui.account.addaccounts.AddDebitFragment"
+        android:name="com.aerolite.ngiu.ui.account.addaccounts.AddDebitFragment"
         android:label="AddDebitFragment" />
     <fragment
         android:id="@+id/addFixedAssetsFragment"
-        android:name="com.example.ngiu.ui.account.addaccounts.AddFixedAssetsFragment"
+        android:name="com.aerolite.ngiu.ui.account.addaccounts.AddFixedAssetsFragment"
         android:label="AddPermanentAssetFragment" />
     <fragment
         android:id="@+id/addVirtualAccountFragment"
-        android:name="com.example.ngiu.ui.account.addaccounts.AddWebAccountFragment"
+        android:name="com.aerolite.ngiu.ui.account.addaccounts.AddWebAccountFragment"
         android:label="AddVirtualAccountFragment" />
     <fragment
         android:id="@+id/addWebAccountFragment"
-        android:name="com.example.ngiu.ui.account.addaccounts.AddWebAccountFragment"
+        android:name="com.aerolite.ngiu.ui.account.addaccounts.AddWebAccountFragment"
         android:label="AddWebAccountFragment" />
     <fragment
         android:id="@+id/navigation_mpp_manage"
-        android:name="com.example.ngiu.ui.setting.mppmanage.MPPManagerFragment"
+        android:name="com.aerolite.ngiu.ui.setting.mppmanage.MPPManagerFragment"
         tools:layout="@layout/fragment_merchant_person_project_manage" />
     <fragment
         android:id="@+id/accountCreditRecords"
-        android:name="com.example.ngiu.ui.account.detail.AccountCreditDetailFragment"
+        android:name="com.aerolite.ngiu.ui.account.detail.AccountCreditDetailFragment"
         android:label="fragment_account_credit_detail"
         tools:layout="@layout/fragment_account_credit_detail" />
     <fragment
         android:id="@+id/accountRecords"
-        android:name="com.example.ngiu.ui.account.detail.AccountGeneralDetailFragment"
+        android:name="com.aerolite.ngiu.ui.account.detail.AccountGeneralDetailFragment"
         android:label="fragment_account_general_detail"
         tools:layout="@layout/fragment_account_general_detail" />
     <fragment
         android:id="@+id/accountRecordsPR"
-        android:name="com.example.ngiu.ui.account.detail.AccountPRDetailFragment"
+        android:name="com.aerolite.ngiu.ui.account.detail.AccountPRDetailFragment"
         android:label="fragment_account_p_r_detail"
         tools:layout="@layout/fragment_account_p_r_detail" />
 
     <fragment
         android:id="@+id/navigation_report"
-        android:name="com.example.ngiu.ui.report.ReportFragment"
+        android:name="com.aerolite.ngiu.ui.report.ReportFragment"
         tools:layout="@layout/fragment_report" />
 
     <fragment
         android:id="@+id/navigation_report_detail"
-        android:name="com.example.ngiu.ui.report.ReportDetailFragment"
+        android:name="com.aerolite.ngiu.ui.report.ReportDetailFragment"
         tools:layout="@layout/fragment_report_detail" />
 
     <fragment
         android:id="@+id/navigation_reimburse"
-        android:name="com.example.ngiu.ui.reimburse.ReimburseFragment"
+        android:name="com.aerolite.ngiu.ui.reimburse.ReimburseFragment"
         tools:layout="@layout/fragment_reimburse" />
 
     <fragment
         android:id="@+id/navigation_account_list"
-        android:name="com.example.ngiu.ui.account.list.AccountListFragment"
+        android:name="com.aerolite.ngiu.ui.account.list.AccountListFragment"
         tools:layout="@layout/fragment_account_list" />
 
 </navigation>
