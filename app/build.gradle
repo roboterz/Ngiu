@@ -3,9 +3,9 @@ plugins {
     id 'kotlin-android'
     //id 'kotlin-android-extensions'
     // add below plugin
-    id 'kotlin-kapt'
+    //id 'kotlin-kapt'
     id "org.jetbrains.kotlin.plugin.noarg" version "1.3.31"
-
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -15,8 +15,8 @@ android {
         applicationId "com.example.ngiu"
         minSdk 28
         targetSdk 34
-        versionCode 2
-        versionName "1.103"
+        versionCode 4
+        versionName "1.210"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -82,7 +82,8 @@ dependencies {
     implementation "androidx.room:room-rxjava2:2.6.1"
     //noinspection GradleDependency
     implementation "androidx.room:room-ktx:2.6.1"
-    kapt "androidx.room:room-compiler:2.6.1"
+    //kapt "androidx.room:room-compiler:2.6.1"
+    ksp "androidx.room:room-compiler:2.6.1"
     //noinspection GradleDependency
     androidTestImplementation "androidx.room:room-testing:2.6.1"
     implementation("androidx.room:room-paging:2.6.1")
