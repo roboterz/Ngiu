@@ -168,6 +168,7 @@
         android:clickable="true"
         android:foregroundTintMode="add"
         android:src="@drawable/ic_baseline_add_24"
+        android:visibility="gone"
         app:fabCustomSize="40dp"
         app:maxImageSize="20dp"
         app:borderWidth="0dp"

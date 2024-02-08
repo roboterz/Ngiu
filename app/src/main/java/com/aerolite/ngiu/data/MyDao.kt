@@ -24,6 +24,7 @@ import com.aerolite.ngiu.data.entities.returntype.AccountCount
 import com.aerolite.ngiu.data.entities.returntype.AccountIcon
 import com.aerolite.ngiu.data.entities.returntype.RecordDetail
 import com.aerolite.ngiu.data.entities.returntype.RewardsDetail
+import com.aerolite.ngiu.data.entities.returntype.TemplateDetail
 import com.aerolite.ngiu.data.entities.returntype.TransactionDetail
 import com.aerolite.ngiu.functions.CATEGORY_LIMIT
 import com.aerolite.ngiu.functions.chart.CategoryAmount
@@ -946,6 +947,39 @@ interface TemplateDao{
     @Transaction
     @Query("SELECT * FROM Template")
     fun getAllTemplate(): List<Template>
+
+    @Transaction
+    @Query("""
+        SELECT Template_ID, Template.TransactionType_ID, Template.Category_ID, Category_Name, Account.Account_ID, Account.Account_Name, 
+                AccountRecipient.Account_ID as AccountRecipient_ID, AccountRecipient.Account_Name as AccountRecipient_Name, 
+                Template.Transaction_Amount, Template.Person_ID, Person_Name, Template.Merchant_ID, Merchant_Name, Transaction_Memo, Template.Project_ID, Project_Name,
+                Transaction_ReimburseStatus  
+        FROM Template, Category, Account, Account as AccountRecipient, Person, Merchant, Project
+        WHERE Template.Category_ID = Category.Category_ID
+                And Template.Account_ID = Account.Account_ID
+                AND Template.AccountRecipient_ID = AccountRecipient.Account_ID
+                AND Template.Person_ID = Person.Person_ID
+                AND Template.Merchant_ID = Merchant.Merchant_ID
+                AND Template.Project_ID = Project.Project_ID
+        """)
+    fun getAllTemplateDetail(): List<TemplateDetail>
+
+    @Transaction
+    @Query("""
+        SELECT Template_ID, Template.TransactionType_ID, Template.Category_ID, Category_Name, Account.Account_ID, Account.Account_Name, 
+                AccountRecipient.Account_ID as AccountRecipient_ID, AccountRecipient.Account_Name as AccountRecipient_Name, 
+                Template.Transaction_Amount, Template.Person_ID, Person_Name, Template.Merchant_ID, Merchant_Name, Transaction_Memo, Template.Project_ID, Project_Name,
+                Transaction_ReimburseStatus  
+        FROM Template, Category, Account, Account as AccountRecipient, Person, Merchant, Project
+        WHERE Template.Category_ID = Category.Category_ID
+                And Template.Account_ID = Account.Account_ID
+                AND Template.AccountRecipient_ID = AccountRecipient.Account_ID
+                AND Template.Person_ID = Person.Person_ID
+                AND Template.Merchant_ID = Merchant.Merchant_ID
+                AND Template.Project_ID = Project.Project_ID
+                AND Template_ID = :templateID
+        """)
+    fun getOneTemplateDetailByID(templateID: Long): TemplateDetail
 
 }
 

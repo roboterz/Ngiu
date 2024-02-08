@@ -18,6 +18,8 @@
     <string name="nav_title_report_expenditure">Expenditure Report</string>
     <string name="nav_title_report_income">Income Report</string>
     <string name="nav_title_account_list">Accounts</string>
+    <string name="nav_title_template_list">Template</string>
+    <string name="nav_title_choose_template">Choose Template</string>
     <string name="nav_title_category_expense">Expense Categories</string>
     <string name="nav_title_category_income">Income Categories</string>
     <string name="nav_title_category_expense_main_add">Add Main Category of Expense</string>
@@ -204,6 +206,7 @@
     <string name="menu_save_next">Save &amp; Next</string>
     <string name="menu_add_cate">+ Add</string>
     <string name="menu_reimburse">Reimburse</string>
+    <string name="menu_template">Template</string>
     <string name="setting_page">Setting Page</string>
 
     <string name="msg_button_confirm">Confirm</string>
@@ -211,10 +214,12 @@
     <string name="msg_button_cancel">Cancel</string>
     <string name="msg_button_delete">Delete</string>
     <string name="msg_Title_prompt">Prompt</string>
-    <string name="msg_content_transaction_delete">Confirm to delete this transaction.</string>
-    <string name="msg_content_event_delete">Confirm to delete this event.</string>
-    <string name="msg_content_account_delete">Confirm to delete this account.</string>
-    <string name="msg_content_category_delete">Confirm to delete this category.</string>
+    <string name="msg_content_transaction_delete">Delete this transaction?</string>
+    <string name="msg_content_template_delete">Delete this template?</string>
+    <string name="msg_content_event_delete">Delete this event?</string>
+    <string name="msg_content_account_delete">Delete this account?</string>
+    <string name="msg_content_category_delete">Delete this category?</string>
+    <string name="msg_content_save_as_template">Save as template?</string>
     <string name="msg_cannot_save_with_zero_amount">Cannot save with zero amount.</string>
     <string name="msg_cannot_save_with_no_account">Cannot save with no account.</string>
     <string name="msg_cannot_save_with_no_category">Cannot save with no category.</string>

@@ -71,6 +71,7 @@ class ActivityFragment : Fragment() {
         binding.toolbarActivity.menu.findItem(R.id.action_reimburse).isVisible = true
         binding.toolbarActivity.menu.findItem(R.id.action_chart).isVisible = true
         binding.toolbarActivity.menu.findItem(R.id.action_settings).isVisible = true
+        binding.toolbarActivity.menu.findItem(R.id.action_template).isVisible = true
 
         // menu item clicked
         binding.toolbarActivity.setOnMenuItemClickListener {
@@ -97,6 +98,12 @@ class ActivityFragment : Fragment() {
                 R.id.action_settings -> {
                     //switch to setting fragment
                     navigateToSettingFragment()
+                    true
+                }
+
+                R.id.action_template -> {
+                    // switch to template fragment
+                    navigateToTemplateFragment()
                     true
                 }
 
@@ -187,6 +194,11 @@ class ActivityFragment : Fragment() {
 
     private fun navigateToReimburseFragment() {
         findNavController().navigate(R.id.navigation_reimburse)
+
+    }
+
+    private fun navigateToTemplateFragment() {
+        findNavController().navigate(R.id.navigation_template_list)
 
     }
 }

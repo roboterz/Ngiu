@@ -5,18 +5,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
+
+
     <item
         android:id="@+id/action_delete"
         android:icon="@drawable/ic_baseline_delete_24"
         android:title="@string/menu_delete"
         android:visible="false"
-        app:showAsAction="ifRoom|withText"/>
+        app:showAsAction="always"/>
     <item
         android:id="@+id/action_remove"
         android:icon="@drawable/ic_baseline_delete_forever_24"
         android:title="@string/menu_remove"
         android:visible="false"
-        app:showAsAction="ifRoom|withText"/>
+        app:showAsAction="always"/>
 
     <item
         android:id="@+id/action_add"
@@ -30,6 +32,16 @@
         android:title="@string/menu_edit"
         android:visible="false"
         app:showAsAction="ifRoom|withText"/>
+
+    <item
+        android:id="@+id/action_done"
+        android:icon="@drawable/ic_baseline_done_24"
+        android:title="@string/menu_done"
+        android:visible="false"
+        app:showAsAction="always"/>
+
+
+
     <item
         android:id="@+id/action_chart"
         android:icon="@drawable/baseline_pie_chart_24"
@@ -47,18 +59,21 @@
         app:showAsAction="always"/>
 
     <item
+        android:id="@+id/action_template"
+        android:icon="@drawable/baseline_template_board_24"
+        android:title="@string/menu_template"
+        android:tooltipText="@string/menu_template"
+        android:visible="false"
+        app:showAsAction="always"/>
+
+    <item
         android:id="@+id/action_settings"
         android:icon="@drawable/ic_baseline_settings_24"
         android:title="@string/menu_setting"
         android:tooltipText="@string/menu_setting"
         android:visible="false"
         app:showAsAction="ifRoom"/>
-    <item
-        android:id="@+id/action_done"
-        android:icon="@drawable/ic_baseline_done_24"
-        android:title="@string/menu_done"
-        android:visible="false"
-        app:showAsAction="ifRoom|withText"/>
+
 
 
 

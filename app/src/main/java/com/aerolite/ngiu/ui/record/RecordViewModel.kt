@@ -1,8 +1,10 @@
 package com.aerolite.ngiu.ui.record
 
 
+import android.app.Application
 import android.content.Context
 import android.view.View
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import com.aerolite.ngiu.data.entities.Merchant
 import com.aerolite.ngiu.data.entities.Project
@@ -23,10 +25,11 @@ import com.aerolite.ngiu.data.AppDatabase
 import com.aerolite.ngiu.data.entities.Account
 import com.aerolite.ngiu.data.entities.Category
 import com.aerolite.ngiu.data.entities.Person
+import com.aerolite.ngiu.data.entities.Template
 import com.aerolite.ngiu.data.entities.returntype.TransactionDetail
 import kotlin.collections.ArrayList
 
-class RecordViewModel : ViewModel() {
+class RecordViewModel(application: Application) : AndroidViewModel(application) {
 
     /*
     private val _text = MutableLiveData<String>().apply {
@@ -35,6 +38,8 @@ class RecordViewModel : ViewModel() {
     val text: LiveData<String> = _text
 
      */
+
+    private val MyDatabase = AppDatabase.getDatabase(application)
 
     // temp save changed data
     var transDetail = TransactionDetail(TransactionType_ID = TRANSACTION_TYPE_EXPENSE)
@@ -51,6 +56,8 @@ class RecordViewModel : ViewModel() {
     var merchant: List<Merchant> = ArrayList()
     var account: List<Account> = ArrayList()
     var project: List<Project> = ArrayList()
+    
+    var TempLateID = 0L 
 
     var tempSaveOutAccountName: String = ""
     var tempSaveInAccountName: String = ""
@@ -233,9 +240,14 @@ class RecordViewModel : ViewModel() {
         }
     }
 
-    fun loadTransactionDetail(context: Context, rID: Long) {
+    fun loadTransactionDetail(context: Context, rID: Long, templateID: Long ) {
         // load transaction data
-        transDetail = AppDatabase.getDatabase(context).trans().getOneTransactionDetail(rID)
+        if (templateID > 0L){
+            setTransactionDetailFromTemplate(templateID)
+        }else{
+            transDetail = AppDatabase.getDatabase(context).trans().getOneTransactionDetail(rID)
+        }
+
         // category
         categoryIDs[transDetail.TransactionType_ID.toInt()-1] = transDetail.Category_ID
         // account
@@ -418,6 +430,35 @@ class RecordViewModel : ViewModel() {
 
     }
 
+    fun setTransactionDetailFromTemplate(templateID: Long) {
+        val template = MyDatabase.template().getOneTemplateDetailByID(templateID)
+
+        TempLateID = templateID
+
+        transDetail.Transaction_ID = 0L
+        transDetail.TransactionType_ID = template.TransactionType_ID
+        transDetail.Account_ID = template.Account_ID
+        transDetail.Account_Name = template.Account_Name
+        transDetail.AccountRecipient_ID = template.AccountRecipient_ID
+        transDetail.AccountRecipient_Name = template.AccountRecipient_Name
+        transDetail.Category_ID = template.Category_ID
+        transDetail.Category_Name = template.Category_Name
+        transDetail.Transaction_Amount = template.Transaction_Amount
+        transDetail.Transaction_Amount2 = 0.00
+        transDetail.Merchant_ID = template.Merchant_ID
+        transDetail.Merchant_Name = template.Merchant_Name
+        transDetail.Person_ID = template.TransactionType_ID
+        transDetail.Person_Name = template.Person_Name
+        transDetail.Project_ID = template.Project_ID
+        transDetail.Project_Name = template.Project_Name
+        transDetail.Period_ID = 0L
+        transDetail.Transaction_Memo = template.Transaction_Memo
+        transDetail.Transaction_ReimburseStatus = template.Transaction_ReimburseStatus
+        //transDetail.Transaction_Date =
+
+    }
+
+
     fun updateTransaction(context: Context ,trans: Trans){
         AppDatabase.getDatabase(context).trans().updateTransaction(trans)
     }
@@ -430,14 +471,12 @@ class RecordViewModel : ViewModel() {
         AppDatabase.getDatabase(context).trans().deleteTransaction(trans)
     }
 
+    fun saveTemplate(context: Context, template: Template){
+        AppDatabase.getDatabase(context).template().addTemplate(template)
+    }
 
-
-    // return account name list when open the record fragment with different transaction type.
-    fun getAccountList(): List<String>?{
-        val acctList: List<String>? = null
-        // todo
-
-        return acctList
+    fun deleteTemplate(context: Context, template: Template){
+        AppDatabase.getDatabase(context).template().deleteTemplate(template)
     }
 
 }

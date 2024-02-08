@@ -142,4 +142,9 @@
         android:name="com.aerolite.ngiu.ui.account.list.AccountListFragment"
         tools:layout="@layout/fragment_account_list" />
 
+    <fragment
+        android:id="@+id/navigation_template_list"
+        android:name="com.aerolite.ngiu.ui.record.TemplateListFragment"
+        tools:layout="@layout/fragment_template_list" />
+
 </navigation>

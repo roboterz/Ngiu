@@ -14,6 +14,7 @@ import androidx.core.view.forEach
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.*
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.aerolite.ngiu.functions.SelectItem
@@ -25,7 +26,9 @@ import com.aerolite.ngiu.functions.switchToAccountListFragment
 import com.aerolite.ngiu.functions.switchToCategoryManager
 import com.aerolite.ngiu.MainActivity
 import com.aerolite.ngiu.R
+import com.aerolite.ngiu.data.entities.Template
 import com.aerolite.ngiu.data.entities.Trans
+import com.aerolite.ngiu.data.entities.returntype.TemplateDetail
 import com.aerolite.ngiu.functions.ACCOUNT_TYPE_RECEIVABLE
 import com.aerolite.ngiu.functions.CATEGORY_SUB_BORROW
 import com.aerolite.ngiu.functions.CATEGORY_SUB_LEND
@@ -92,7 +95,7 @@ class RecordFragment : Fragment() {
                 val receivedAccountID = bundle.getLong(KEY_RECORD_ACCOUNT_ID)
                 val receivedTransTypeID = bundle.getLong(KEY_RECORD_TRANSACTION_TYPE_ID)
 
-                prepareUIData(receivedTransTypeID, receivedTransID, receivedAccountID)
+                prepareUIData(receivedTransTypeID, receivedTransID, receivedAccountID, 0L)
                 //Toast.makeText(context, receivedTransID.toString(),Toast.LENGTH_LONG).show()
             }
 
@@ -109,10 +112,8 @@ class RecordFragment : Fragment() {
 
             // get Account from Account List
             setFragmentResultListener(KEY_RECORD_ACCOUNT_LIST) { _, bundle ->
-                var receivedPayAcctName= ""
-                var receivedReceiveAcctName = ""
-                receivedPayAcctName = bundle.getString(KEY_RECORD_PAY_ACCOUNT_NAME).toString()
-                receivedReceiveAcctName = bundle.getString(KEY_RECORD_RECEIVE_ACCOUNT_NAME).toString()
+                val receivedPayAcctName = bundle.getString(KEY_RECORD_PAY_ACCOUNT_NAME).toString()
+                val receivedReceiveAcctName = bundle.getString(KEY_RECORD_RECEIVE_ACCOUNT_NAME).toString()
 
                 if (receivedPayAcctName.isNotEmpty()) {
                     recordViewModel.setAccountName( recordViewModel.transDetail.TransactionType_ID, receivedPayAcctName, true)
@@ -123,6 +124,20 @@ class RecordFragment : Fragment() {
 
             }
 
+            // get transactionDetail from Template List
+            setFragmentResultListener(KEY_TEMPLATE) { _, bundle ->
+                val templateID = bundle.getLong(KEY_TEMPLATE_ID)
+
+                if (templateID > 0L){
+//                    recordViewModel.loadDataToRam(requireContext())
+//                    recordViewModel.setTransactionDetailFromTemplate(templateID)
+//                    recordViewModel.loadTransactionDetail(requireContext(), 0L, true)
+//
+//                    showDataOnUI(recordViewModel.transDetail.TransactionType_ID)
+
+                    prepareUIData(0L, 0L, 0L, templateID)
+                }
+            }
 
     }
 
@@ -186,6 +201,8 @@ class RecordFragment : Fragment() {
         binding.toolbarRecord.menu.findItem(R.id.action_done).isVisible = true
 
 
+
+
         // click the navigation Icon in the left side of toolbar
         binding.toolbarRecord.setNavigationOnClickListener{
             // call back button event to switch to previous fragment
@@ -209,9 +226,16 @@ class RecordFragment : Fragment() {
                 // delete menu
                 R.id.action_delete -> {
                     // delete record
-                    deleteRecord(activity, recordViewModel.transDetail.Transaction_ID)
+                    deleteRecord(activity, recordViewModel.transDetail.Transaction_ID, recordViewModel.TempLateID)
                     true
                 }
+
+                // template
+//                R.id.action_template -> {
+//                    // template list
+//                    view.findNavController().navigate(R.id.navigation_template_list)
+//                    true
+//                }
 
                 else -> true
             }
@@ -237,8 +261,8 @@ class RecordFragment : Fragment() {
         }
 
 
-        /**--------------- TOUCH EVENTS ----------------------------------------------------*/
-        // Save Button
+        /**--------------- BUTTON TOUCH EVENTS ----------------------------------------------------*/
+        // click Save Button: save record
         binding.tvRecordRightButton.setOnClickListener {
             if (saveRecord() == 0) {
                 // exit
@@ -246,12 +270,18 @@ class RecordFragment : Fragment() {
                 NavHostFragment.findNavController(this).navigateUp()
             }
         }
+        // Long click save button: save as template
+        binding.tvRecordRightButton.setOnLongClickListener {
+            popUpMsgSaveAsTemplate(activity)
+
+            true
+        }
 
         // Save and Next Button | Delete Button
         binding.tvRecordLeftButton.setOnClickListener {
-            if (recordViewModel.transDetail.Transaction_ID > 0){
+            if (recordViewModel.transDetail.Transaction_ID > 0 || recordViewModel.TempLateID > 0){
                 // delete
-                deleteRecord(activity, recordViewModel.transDetail.Transaction_ID)
+                deleteRecord(activity, recordViewModel.transDetail.Transaction_ID, recordViewModel.TempLateID)
             }else{
                 // save and next
                 if (saveRecord() == 0) {
@@ -483,6 +513,11 @@ class RecordFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
+        /** template menu (put it here to make sure received Transaction ID from setFragmentResultListener() ) **/
+//        if (recordViewModel.transDetail.Transaction_ID == 0L) {
+//            binding.toolbarRecord.menu.findItem(R.id.action_template).isVisible = true
+//        }
+
         //recordViewModel.loadDataToRam(requireContext())
 
         // Set Account
@@ -507,15 +542,15 @@ class RecordFragment : Fragment() {
 
     /**------------------------------------------  Private Functions -----------------------------------------------**/
 
-    private fun prepareUIData(transType: Long, transID: Long, acctID: Long){
+    private fun prepareUIData(transType: Long, transID: Long, acctID: Long, templateID: Long){
         /**** prepare the data *****/
 
         // load Data to Ram
         recordViewModel.loadDataToRam(requireContext())
 
         // load specified transaction detail
-        if (transID > 0L ) {
-            recordViewModel.loadTransactionDetail(requireContext(), transID)
+        if (transID > 0L || templateID > 0L ) {
+            recordViewModel.loadTransactionDetail(requireContext(), transID, templateID)
 
             // show delete menu
             binding.toolbarRecord.menu.findItem(R.id.action_delete).isVisible = true
@@ -523,6 +558,9 @@ class RecordFragment : Fragment() {
             binding.tvRecordLeftButton.text = getString(R.string.menu_delete)
 
         }else{
+            // show template menu
+            //binding.toolbarRecord.menu.findItem(R.id.action_template).isVisible = true
+
             // set transaction type
             recordViewModel.setTransactionType(transType)
 
@@ -550,7 +588,7 @@ class RecordFragment : Fragment() {
         showDataOnUI(transType)
 
         /** show Keyboard **/
-        if (transID == 0L) callKeyboard(requireView())
+        if (transID == 0L && templateID == 0L) callKeyboard(requireView())
     }
 
     private fun setProject() {
@@ -750,19 +788,118 @@ class RecordFragment : Fragment() {
         }
     }
 
-    /** delete record **/
-    @SuppressLint("InflateParams")
-    private fun deleteRecord(activity: FragmentActivity?, transactionID: Long) {
+
+    /**  Save As Template **/
+    private fun saveAsTemplate() : Int{
+
+        //-- set the values base on transaction type --//
+        // reimburse
+        if (recordViewModel.transDetail.TransactionType_ID > TRANSACTION_TYPE_INCOME){
+            recordViewModel.transDetail.Transaction_ReimburseStatus = 0
+        }
+
+
+        val template = Template(
+            Template_ID = recordViewModel.TempLateID,
+            TransactionType_ID = recordViewModel.transDetail.TransactionType_ID,
+            Category_ID = recordViewModel.transDetail.Category_ID,
+            Account_ID = recordViewModel.getAccountID(binding.tvRecordAccountPay.text.toString()),
+            Transaction_Amount = binding.tvRecordAmount.text.toString().toDouble(),
+            Transaction_Memo = binding.tvRecordMemo.text.toString().trim(),
+            Merchant_ID = recordViewModel.merchant[recordViewModel.merchant.indexOfFirst { it.Merchant_Name == binding.tvRecordMerchant.text.toString() }].Merchant_ID,
+            Person_ID = recordViewModel.person[recordViewModel.person.indexOfFirst { it.Person_Name == binding.tvRecordPerson.text.toString() }].Person_ID,
+            Project_ID = 1L, //recordViewModel.transDetail.Period_ID,
+            Transaction_ReimburseStatus = recordViewModel.transDetail.Transaction_ReimburseStatus
+        )
+
+        // AccountRecipient ID
+        template.AccountRecipient_ID = if (recordViewModel.transDetail.TransactionType_ID < TRANSACTION_TYPE_TRANSFER){
+                                            template.Account_ID
+                                        }else{
+                                            recordViewModel.getAccountID(binding.tvRecordAccountReceive.text.toString())
+                                        } //recordViewModel.transDetail.AccountRecipient_ID
+
+        // check Account ID
+        if (template.Account_ID < 1L || template.AccountRecipient_ID < 1L) {
+            Toast.makeText(
+                context,
+                getString(R.string.msg_cannot_save_with_no_account),
+                Toast.LENGTH_SHORT
+            ).show()
+            return 1
+        }
+
+
+        // save todo need to rewrite, save as template
+//        if (recordViewModel.transDetail.Transaction_ID > 0) {
+//            recordViewModel.updateTransaction(requireContext(), template)
+//        } else {
+            recordViewModel.saveTemplate(requireContext(),template)
+//        }
+
+        Toast.makeText(context,getString(R.string.msg_saved),Toast.LENGTH_SHORT).show()
+        return 0
+    }
+
+
+    /** Pop Up Confirm Msg to save as template  **/
+    private fun popUpMsgSaveAsTemplate(activity: FragmentActivity?) {
 
         val dialogBuilder = AlertDialog.Builder(activity)
 
-        dialogBuilder.setMessage(getString(R.string.msg_content_transaction_delete))
+        dialogBuilder.setMessage(getString(R.string.msg_content_save_as_template))
             .setCancelable(true)
             .setPositiveButton(getString(R.string.msg_button_confirm)) { _, _ ->
 
-                // delete record
-                val trans = Trans(Transaction_ID = transactionID)
-                recordViewModel.deleteTrans(requireContext(),trans)
+                // save as template
+                if (saveAsTemplate() == 0) {
+                    // exit
+                    NavHostFragment.findNavController(this).navigateUp()
+                }
+            }
+            .setNegativeButton(getString(R.string.msg_button_cancel)) { dialog, _ ->
+                // cancel
+                dialog.cancel()
+            }
+
+        // set Title Style
+        val titleView = layoutInflater.inflate(R.layout.popup_title,null)
+        // set Title Text
+        titleView.findViewById<TextView>(R.id.tv_popup_title_text).text = getString(R.string.msg_Title_prompt)
+
+        val alert = dialogBuilder.create()
+        //alert.setIcon(R.drawable.ic_baseline_delete_forever_24)
+        alert.setCustomTitle(titleView)
+        alert.show()
+
+    }
+
+
+    /** Delete record or template **/
+    private fun deleteRecord(activity: FragmentActivity?, transactionID: Long, templateID: Long) {
+
+        val dialogBuilder = AlertDialog.Builder(activity)
+
+        var strMSG = ""
+        if (transactionID > 0L) { strMSG = getString(R.string.msg_content_transaction_delete) }
+        if (templateID > 0L) { strMSG = getString(R.string.msg_content_template_delete) }
+
+        dialogBuilder.setMessage(strMSG)
+            .setCancelable(true)
+            .setPositiveButton(getString(R.string.msg_button_confirm)) { _, _ ->
+
+                if (transactionID > 0L) {
+                    // delete record
+                    val trans = Trans(Transaction_ID = transactionID)
+                    recordViewModel.deleteTrans(requireContext(), trans)
+                }
+
+                if (templateID > 0L ){
+                    // delete template
+                    val template = Template(Template_ID = templateID)
+                    recordViewModel.deleteTemplate(requireContext(), template)
+                }
+
                 // exit
                 //requireActivity().onBackPressed()
                 NavHostFragment.findNavController(this).navigateUp()
@@ -783,6 +920,7 @@ class RecordFragment : Fragment() {
         alert.setCustomTitle(titleView)
         alert.show()
     }
+
 
 
     /** reset Textview **/
@@ -936,36 +1074,7 @@ class RecordFragment : Fragment() {
         }
     }
 
-    @SuppressLint("CutPasteId")
-    private fun showAccountListDialog(context: Context, event_ID: Long = 0L){
 
-//        val dialog = MaterialDialog(context)
-//            .noAutoDismiss()
-//            .customView(R.layout.fragment_account_list, noVerticalPadding = true)
-//
-//        //val displayMetrics = DisplayMetrics()
-//
-//        dialog.account_list_layout.minHeight = Resources.getSystem().displayMetrics.heightPixels
-//        dialog.account_list_layout.minWidth = Resources.getSystem().displayMetrics.widthPixels
-//
-//        //dialog.window?.setLayout(Resources.getSystem().displayMetrics.widthPixels,Resources.getSystem().displayMetrics.heightPixels)
-//
-//        dialog.show()
-
-        val dialog = Dialog(context,android.R.style.Theme_DeviceDefault_NoActionBar)
-
-        dialog.setContentView(R.layout.fragment_account_list)
-
-        dialog.findViewById<MaterialToolbar>(R.id.toolbar_account_list).setNavigationOnClickListener{
-            dialog.dismiss()
-        }
-
-
-        dialog.show()
-
-
-
-    }
 
 
 }
