@@ -3,8 +3,6 @@ package com.aerolite.ngiu.ui.record
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
-import android.app.Dialog
-import android.content.Context
 import android.os.Bundle
 import android.view.*
 import android.widget.TextView
@@ -28,7 +26,6 @@ import com.aerolite.ngiu.MainActivity
 import com.aerolite.ngiu.R
 import com.aerolite.ngiu.data.entities.Template
 import com.aerolite.ngiu.data.entities.Trans
-import com.aerolite.ngiu.data.entities.returntype.TemplateDetail
 import com.aerolite.ngiu.functions.ACCOUNT_TYPE_RECEIVABLE
 import com.aerolite.ngiu.functions.CATEGORY_SUB_BORROW
 import com.aerolite.ngiu.functions.CATEGORY_SUB_LEND
@@ -57,12 +54,8 @@ import com.aerolite.ngiu.functions.TRANSACTION_TYPE_INCOME
 import com.aerolite.ngiu.functions.TRANSACTION_TYPE_TRANSFER
 import com.aerolite.ngiu.databinding.FragmentRecordBinding
 import com.aerolite.ngiu.functions.*
-//import kotlinx.android.synthetic.main.fragment_record.*
 import kotlin.collections.ArrayList
 import com.aerolite.ngiu.ui.keyboard.Keyboard
-import com.google.android.material.appbar.MaterialToolbar
-//import kotlinx.android.synthetic.main.fragment_account_list.*
-//import kotlinx.android.synthetic.main.popup_title.view.*
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
