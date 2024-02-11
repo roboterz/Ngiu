@@ -962,7 +962,7 @@ interface TemplateDao{
                 AND Template.Merchant_ID = Merchant.Merchant_ID
                 AND Template.Project_ID = Project.Project_ID
         """)
-    fun getAllTemplateDetail(): List<TemplateDetail>
+    fun getAllTemplateDetail(): LiveData<List<TemplateDetail>>
 
     @Transaction
     @Query("""
