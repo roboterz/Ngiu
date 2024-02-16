@@ -15,12 +15,14 @@
     <color name="app_sub_line_text">#999999</color>
     <color name="app_sub_line_text2">#BBBBBB</color>
     <color name="app_text">#FFFFFF</color>
-    <color name="app_button_text">#EC3B03</color>
+    <color name="app_button_text_highlight">#FFFFFF</color>
+    <color name="app_button_text">#AAAAAA</color>
     <color name="app_option_text">#BBFFFFFF</color>
     <color name="app_section_background">#2E2E2E</color>
     <color name="app_text_stroke">#C4C4C4</color>
     <color name="app_add_button_grey">#808080</color>
     <color name="app_button_background_press">#DDDDDD</color>
+    <color name="app_button_background">#222222</color>
     <color name="app_record_icon">#808080</color>
     <color name="app_star">#FFA114</color>
     <color name="app_select_item">#704CB9DB</color>

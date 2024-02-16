@@ -21,6 +21,7 @@ import com.aerolite.ngiu.R
 import com.aerolite.ngiu.data.entities.Account
 import com.aerolite.ngiu.data.entities.Currency
 import com.aerolite.ngiu.databinding.FragmentAccountAddDebitBinding
+import com.aerolite.ngiu.functions.invalidForm
 import com.google.android.material.textfield.TextInputEditText
 //import kotlinx.android.synthetic.main.fragment_account_add_debit.*
 //import kotlinx.android.synthetic.main.fragment_account_add_web_account.*
@@ -224,24 +225,9 @@ class AddDebitFragment : Fragment() {
             insertData()
             findNavController().popBackStack()
         } else
-            invalidForm()
+            invalidForm(requireContext(), binding.debitAccountNameTextLayout)
     }
 
-    private fun invalidForm() {
-        var message = ""
-        if (binding.debitAccountNameTextLayout.helperText != null) {
-            message += "\nAccountName: " + binding.debitAccountNameTextLayout.helperText
-        }
-
-
-        AlertDialog.Builder(context)
-            .setTitle("Invalid Form")
-            .setMessage(message)
-            .setPositiveButton("Okay") { _, _ ->
-                // do nothing
-            }
-            .show()
-    }
 
 
     private fun validAccountName(): String? {

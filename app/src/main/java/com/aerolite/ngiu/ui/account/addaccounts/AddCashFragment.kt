@@ -20,6 +20,7 @@ import com.google.android.material.textfield.TextInputEditText
 //import kotlinx.android.synthetic.main.fragment_account_add_cash.*
 //import kotlinx.android.synthetic.main.popup_title.view.*
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import com.aerolite.ngiu.functions.ACCOUNT_TYPE_CASH
 import com.aerolite.ngiu.functions.ACCOUNT_TYPE_CREDIT
@@ -284,23 +285,10 @@ class AddCashFragment : Fragment() {
             insertData()
             findNavController().popBackStack()
         } else
-            invalidForm()
+            invalidForm(requireContext(), binding.cashAccountNameTextLayout)
     }
 
-    private fun invalidForm() {
-        var message = ""
-        if (binding.cashAccountNameTextLayout.helperText != null) {
-            message += "\nAccountName: " + binding.cashAccountNameTextLayout.helperText
-        }
 
-        AlertDialog.Builder(context)
-            .setTitle("Invalid Form")
-            .setMessage(message)
-            .setPositiveButton("Okay") { _, _ ->
-                // do nothing
-            }
-            .show()
-    }
 
 
     private fun validAccountName(): String? {
@@ -314,6 +302,11 @@ class AddCashFragment : Fragment() {
     // delete record
     @SuppressLint("InflateParams")
     private fun deleteAccount(activity: FragmentActivity?, accountID: Long) {
+
+        // set Title Style
+        val titleView = layoutInflater.inflate(R.layout.popup_title,null)
+        // set Title Text
+        titleView.findViewById<TextView>(R.id.tv_popup_title_text).text = getText(R.string.msg_Title_prompt)
 
         val dialogBuilder = AlertDialog.Builder(activity)
 
@@ -336,10 +329,6 @@ class AddCashFragment : Fragment() {
                 dialog.cancel()
             }
 
-        // set Title Style
-        val titleView = layoutInflater.inflate(R.layout.popup_title,null)
-        // set Title Text
-        titleView.findViewById<TextView>(R.id.tv_popup_title_text).text = getText(R.string.msg_Title_prompt)
 
         val alert = dialogBuilder.create()
         //alert.setIcon(R.drawable.ic_baseline_delete_forever_24)

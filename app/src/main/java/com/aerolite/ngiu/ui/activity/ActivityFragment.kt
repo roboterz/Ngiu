@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.aerolite.ngiu.MainActivity
 import com.aerolite.ngiu.R
 import com.aerolite.ngiu.databinding.FragmentActivityBinding
+import com.aerolite.ngiu.functions.popupMsgWindow
 import com.aerolite.ngiu.functions.switchToRecordFragment
 //import kotlinx.android.synthetic.main.fragment_activity.*
 

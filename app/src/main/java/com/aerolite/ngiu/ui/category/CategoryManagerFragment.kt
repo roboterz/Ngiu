@@ -2,6 +2,7 @@ package com.aerolite.ngiu.ui.category
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.content.Context
 import android.database.sqlite.SQLiteException
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
@@ -121,7 +123,7 @@ class CategoryManagerFragment: Fragment() {
                         // catch the item click event from adapter
                         override fun onItemClick(rID: Long, addNew: Boolean) {
                             if (addNew) {
-                                manageCategory(ADD_MAIN_CATEGORY)
+                                manageCategory(requireContext(), ADD_MAIN_CATEGORY)
                             }else {
                                 showSubCategoryItems(rID)
                             }
@@ -130,7 +132,7 @@ class CategoryManagerFragment: Fragment() {
                         override fun onItemLongClick(rID: Long, mainCategoryName: String, nextRowID: Long) {
                             // edit/delete
                             if (cateMode == EDIT_MODE)
-                                manageCategory(EDIT_MAIN_CATEGORY,rID,mainCategoryName, nextRowID)
+                                manageCategory(requireContext(), EDIT_MAIN_CATEGORY,rID,mainCategoryName, nextRowID)
                         }
                     })
                 }
@@ -149,12 +151,12 @@ class CategoryManagerFragment: Fragment() {
                         // catch the item click event from adapter
                         override fun onItemClick(rID: Long, subCategoryName: String, addNew: Boolean) {
                             if (addNew){
-                                manageCategory(ADD_SUB_CATEGORY)
+                                manageCategory(requireContext(), ADD_SUB_CATEGORY)
                             }else {
                                 // edit mode
                                 if (cateMode == EDIT_MODE) {
                                     // edit sub category
-                                    manageCategory(EDIT_SUB_CATEGORY, rID, subCategoryName)
+                                    manageCategory(requireContext(), EDIT_SUB_CATEGORY, rID, subCategoryName)
 
                                     // select mode
                                 } else {
@@ -168,7 +170,7 @@ class CategoryManagerFragment: Fragment() {
                         override fun onItemLongClick(rID: Long) {
                             if (cateMode == EDIT_MODE) {
                                 // delete sub category
-                                deleteCategory(1, rID)
+                                deleteCategory(requireContext(),1, rID)
                             }
                         }
 
@@ -326,12 +328,13 @@ class CategoryManagerFragment: Fragment() {
     // 2: add sub category
     // 3: edit sub category
     // todo name must be unique
-    private fun manageCategory(type: Int, rID: Long = 0L, string: String = "", nextRowID: Long = 0) {
-        val alert = AlertDialog.Builder(context)
+    private fun manageCategory(context: Context, type: Int, rID: Long = 0L, string: String = "", nextRowID: Long = 0) {
+
         val editText = EditText(activity)
         val titleView = View.inflate(context, R.layout.popup_title, null)
 
         editText.isSingleLine = true
+        editText.setPadding(50, 50, 50, 30)
         //editText.imeOptions = EditorInfo.IME_ACTION_DONE
 
         when (type) {
@@ -344,70 +347,76 @@ class CategoryManagerFragment: Fragment() {
             }
         }
 
+        val alert = AlertDialog.Builder(context)
+                .setView(editText)
+                .setCustomTitle(titleView)
+                .setPositiveButton(R.string.msg_button_confirm
+                ) { _, _ -> //What ever you want to do with the value
 
-        alert.setView(editText)
-            .setCustomTitle(titleView)
-            .setPositiveButton(R.string.msg_button_confirm
-            ) { _, _ -> //What ever you want to do with the value
+                    when (type) {
+                        //add main category
+                        ADD_MAIN_CATEGORY -> {
+                            val mainCate = Category()
+                            mainCate.Category_Name = editText.text.toString().trim()
+                            mainCate.TransactionType_ID =
+                                categoryManagerViewModel.mainCategory[0].TransactionType_ID
+                            categoryManagerViewModel.addCategory(requireContext(), mainCate)
+                            // refresh
+                            refreshMainCategory()
+                        }
+                        //edit main category
+                        EDIT_MAIN_CATEGORY -> {
+                            val mainCate = categoryManagerViewModel.mainCategory[
+                                    categoryManagerViewModel.mainCategory.indexOfFirst { it.Category_ID == rID }]
+                            mainCate.TransactionType_ID =
+                                categoryManagerViewModel.mainCategory[0].TransactionType_ID
+                            mainCate.Category_Name = editText.text.toString().trim()
+                            categoryManagerViewModel.updateCategory(requireContext(), mainCate)
+                            // refresh
+                            refreshMainCategory()
+                        }
+                        //add sub category
+                        ADD_SUB_CATEGORY -> {
+                            val subCate = Category()
+                            //subCate.Category_ID = categoryManagerViewModel.currentActiveMainCategory
+                            subCate.Category_Name = editText.text.toString().trim()
+                            subCate.Category_ParentID = categoryManagerViewModel.currentActiveMainCategory
+                            subCate.TransactionType_ID = categoryManagerViewModel.currentTransactionType
+                            categoryManagerViewModel.addCategory(requireContext(), subCate)
+                            // refresh
+                            refreshSubCategory()
+                        }
+                        //edit sub category
+                        EDIT_SUB_CATEGORY -> {
+                            val subCate = categoryManagerViewModel.subCategory[
+                                    categoryManagerViewModel.subCategory.indexOfFirst { it.Category_ID == rID }]
+                            subCate.Category_Name = editText.text.toString().trim()
+                            categoryManagerViewModel.updateCategory(requireContext(), subCate)
+                            // refresh
+                            refreshSubCategory()
+                        }
+                    }
 
-                when (type) {
-                    //add main category
-                    ADD_MAIN_CATEGORY -> {
-                        val mainCate = Category()
-                        mainCate.Category_Name = editText.text.toString().trim()
-                        mainCate.TransactionType_ID =
-                            categoryManagerViewModel.mainCategory[0].TransactionType_ID
-                        categoryManagerViewModel.addCategory(requireContext(), mainCate)
-                        // refresh
-                        refreshMainCategory()
-                    }
-                    //edit main category
-                    EDIT_MAIN_CATEGORY -> {
-                        val mainCate = categoryManagerViewModel.mainCategory[
-                                categoryManagerViewModel.mainCategory.indexOfFirst { it.Category_ID == rID }]
-                        mainCate.TransactionType_ID =
-                            categoryManagerViewModel.mainCategory[0].TransactionType_ID
-                        mainCate.Category_Name = editText.text.toString().trim()
-                        categoryManagerViewModel.updateCategory(requireContext(), mainCate)
-                        // refresh
-                        refreshMainCategory()
-                    }
-                    //add sub category
-                    ADD_SUB_CATEGORY -> {
-                        val subCate = Category()
-                        //subCate.Category_ID = categoryManagerViewModel.currentActiveMainCategory
-                        subCate.Category_Name = editText.text.toString().trim()
-                        subCate.Category_ParentID = categoryManagerViewModel.currentActiveMainCategory
-                        subCate.TransactionType_ID = categoryManagerViewModel.currentTransactionType
-                        categoryManagerViewModel.addCategory(requireContext(), subCate)
-                        // refresh
-                        refreshSubCategory()
-                    }
-                    //edit sub category
-                    EDIT_SUB_CATEGORY -> {
-                        val subCate = categoryManagerViewModel.subCategory[
-                                categoryManagerViewModel.subCategory.indexOfFirst { it.Category_ID == rID }]
-                        subCate.Category_Name = editText.text.toString().trim()
-                        categoryManagerViewModel.updateCategory(requireContext(), subCate)
-                        // refresh
-                        refreshSubCategory()
-                    }
                 }
-
-            }
-            .setNegativeButton(R.string.msg_button_cancel
-            ) { dialog, _ ->
-                dialog.cancel()
-            }
+                .setNegativeButton(R.string.msg_button_cancel
+                ) { dialog, _ ->
+                    dialog.cancel()
+                }
 
         // main category edit mode with delete button
             if (type == EDIT_MAIN_CATEGORY) {
                 alert.setNeutralButton(R.string.msg_button_delete) { _, _ ->
-                    deleteCategory(MAIN_CATEGORY, rID, nextRowID)
+                    deleteCategory(requireContext(), MAIN_CATEGORY, rID, nextRowID)
                 }
             }
 
-            alert.show()
+        val dialog = alert.create()
+        dialog.show()
+
+        // button text color
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(context, R.color.app_button_text_highlight))
+        dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(context, R.color.app_button_text))
+        dialog.getButton(AlertDialog.BUTTON_NEUTRAL).setTextColor(ContextCompat.getColor(context, R.color.app_button_text))
     }
 
 
@@ -415,54 +424,60 @@ class CategoryManagerFragment: Fragment() {
     // 0: mainCategory
     // 1: subCategory
     @SuppressLint("InflateParams")
-    private fun deleteCategory(type: Int, rID: Long, nextRowID: Long = 0) {
-
-        val dialogBuilder = AlertDialog.Builder(activity)
-
-        dialogBuilder.setMessage(getText(R.string.msg_content_category_delete))
-            .setCancelable(true)
-            .setPositiveButton(getText(R.string.msg_button_confirm)) { _, _ ->
-                // delete record
-                try {
-                    categoryManagerViewModel.deleteCategory(requireContext(), Category(rID))
-
-                    when (type){
-                        MAIN_CATEGORY -> {
-                            mainCategoryAdapter?.setArrowAfterDelete()
-                            // refresh
-                            refreshMainCategory()
-                            // show subcategory
-                            if (rID != nextRowID) showSubCategoryItems(nextRowID)
-                        }
-                        SUB_CATEGORY -> {
-                            refreshSubCategory()
-                        }
-                    }
-
-                } catch (e: SQLiteException) {
-                    Toast.makeText(
-                        context,
-                        getString(R.string.msg_category_delete_error),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-
-
-            }
-            .setNegativeButton(getText(R.string.msg_button_cancel)) { dialog, _ ->
-                // cancel
-                dialog.cancel()
-            }
+    private fun deleteCategory(context: Context, type: Int, rID: Long, nextRowID: Long = 0) {
 
         // set Title Style
         val titleView = layoutInflater.inflate(R.layout.popup_title,null)
         // set Title Text
         titleView.findViewById<TextView>(R.id.tv_popup_title_text).text = getText(R.string.msg_Title_prompt)
 
-        val alert = dialogBuilder.create()
-        //alert.setIcon(R.drawable.ic_baseline_delete_forever_24)
-        alert.setCustomTitle(titleView)
-        alert.show()
+        // set dialog
+        val dialog = AlertDialog.Builder(activity)
+                    .setMessage(getText(R.string.msg_content_category_delete))
+                    .setCancelable(true)
+                    .setPositiveButton(getText(R.string.msg_button_confirm)) { _, _ ->
+                        // delete record
+                        try {
+                            categoryManagerViewModel.deleteCategory(requireContext(), Category(rID))
+
+                            when (type){
+                                MAIN_CATEGORY -> {
+                                    mainCategoryAdapter?.setArrowAfterDelete()
+                                    // refresh
+                                    refreshMainCategory()
+                                    // show subcategory
+                                    if (rID != nextRowID) showSubCategoryItems(nextRowID)
+                                }
+                                SUB_CATEGORY -> {
+                                    refreshSubCategory()
+                                }
+                            }
+
+                        } catch (e: SQLiteException) {
+                            Toast.makeText(
+                                context,
+                                getString(R.string.msg_category_delete_error),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+
+
+                    }
+                    .setNegativeButton(getText(R.string.msg_button_cancel)) { dialog, _ ->
+                        // cancel
+                        dialog.cancel()
+                    }
+                .create()
+
+
+        // title view
+        dialog.setCustomTitle(titleView)
+        // show dialog
+        dialog.show()
+
+        // button text color
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(context, R.color.app_button_text_highlight))
+        dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(context, R.color.app_button_text))
     }
 
     // refresh subCategory

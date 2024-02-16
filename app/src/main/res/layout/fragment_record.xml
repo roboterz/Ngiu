@@ -517,7 +517,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/app_section_background"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toTopOf="@+id/layout_record_keyboard">
 
 
         <TextView
@@ -539,12 +539,12 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/menu_save_next"
-            android:background="@color/app_list_background"
+            android:background="@color/app_section_background"
             android:gravity="center_vertical|center"
             app:layout_constraintStart_toEndOf="@+id/tv_record_left_button"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHeight_percent="0.6"
+            app:layout_constraintHeight_percent="0.95"
             app:layout_constraintWidth_percent="0.002"/>
 
         <TextView
@@ -564,6 +564,13 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <include layout="@layout/keyboard" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_record_keyboard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        >
 
+        <include layout="@layout/keyboard" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

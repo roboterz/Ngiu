@@ -426,27 +426,9 @@ class AddCreditFragment : Fragment() {
             findNavController().popBackStack()
 
         } else
-            invalidForm()
+            invalidForm(requireContext(), binding.creditAccountNameTextLayout)
     }
 
-    private fun invalidForm() {
-        var message = ""
-        if (binding.creditAccountNameTextLayout.helperText != null) {
-            message += "\nAccountName: " + binding.creditAccountNameTextLayout.helperText
-        }
-        if (binding.creditCardNumberTextLayout.helperText != null) {
-            message += "\n\nCredit Card: " + binding.creditCardNumberTextLayout.helperText
-        }
-
-
-        AlertDialog.Builder(context)
-            .setTitle("Invalid Form")
-            .setMessage(message)
-            .setPositiveButton("Okay") { _, _ ->
-                // do nothing
-            }
-            .show()
-    }
 
 
     private fun validAccountName(): String? {

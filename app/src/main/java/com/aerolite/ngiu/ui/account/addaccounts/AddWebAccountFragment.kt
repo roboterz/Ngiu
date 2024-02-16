@@ -271,34 +271,34 @@ class AddWebAccountFragment : Fragment() {
 
 
         val validAccountName = binding.webAccountNameTextLayout.helperText == null
-        val validBalance = binding.webBalanceTextLayout.helperText == null
+        //val validBalance = binding.webBalanceTextLayout.helperText == null
 
-        if (validAccountName && validBalance ) {
+        if (validAccountName ) {
             insertData()
             findNavController().popBackStack()
 
         }
         else
-            invalidForm()
+            invalidForm(requireContext(), binding.webAccountNameTextLayout)
     }
 
-    private fun invalidForm() {
-        var message = ""
-        if(binding.webAccountNameTextLayout.helperText != null) {
-            message += "\nAccountName: " + binding.webAccountNameTextLayout.helperText
-        }
-        if(binding.webBalanceTextLayout.helperText != null) {
-            message += "\n\nBalance: " + binding.webBalanceTextLayout.helperText
-        }
-
-        AlertDialog.Builder(context)
-            .setTitle("Invalid Form")
-            .setMessage(message)
-            .setPositiveButton("Okay"){ _,_ ->
-                // do nothing
-            }
-            .show()
-    }
+//    private fun invalidForm() {
+//        var message = ""
+//        if(binding.webAccountNameTextLayout.helperText != null) {
+//            message += "\nAccountName: " + binding.webAccountNameTextLayout.helperText
+//        }
+//        if(binding.webBalanceTextLayout.helperText != null) {
+//            message += "\n\nBalance: " + binding.webBalanceTextLayout.helperText
+//        }
+//
+//        AlertDialog.Builder(context)
+//            .setTitle("Invalid Form")
+//            .setMessage(message)
+//            .setPositiveButton("Okay"){ _,_ ->
+//                // do nothing
+//            }
+//            .show()
+//    }
 
 
     private fun validAccountName(): String? {
