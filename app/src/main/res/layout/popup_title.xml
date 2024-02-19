@@ -3,16 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/app_section_background"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center_vertical"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/popup_title_top"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:layout_alignParentTop="true"
-        android:background="@color/app_title_background"
+        android:background="@color/app_popup_title_background"
         android:gravity="center_vertical|center_horizontal"
         android:orientation="vertical"
         tools:ignore="MissingConstraints">
@@ -23,7 +23,19 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:textColor="@color/app_title_text"
-            android:textSize="18sp" />
+            android:textSize="19sp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/popup_title_under_top"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/popup_title_top"
+        tools:ignore="MissingConstraints">
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

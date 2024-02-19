@@ -3,6 +3,7 @@
     <color name="app_title_text">#FFFFFF</color>
     <color name="app_title_text_inactive">#77FFFFFF</color>
     <color name="app_title_background">#FF000000</color>
+    <color name="app_popup_title_background">#88222222</color>
     <color name="app_title_background_active">#88222222</color>
     <color name="app_expense_amount">#EC4B03</color>
     <color name="app_income_amount">#29C010</color>
