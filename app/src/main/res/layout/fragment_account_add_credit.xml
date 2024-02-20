@@ -31,9 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/app_list_background"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/creditAccountNameTextLayout"
@@ -41,13 +39,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/option_title_account_name"
+                android:background="@color/app_section_background"
+                app:hintTextColor="@color/app_option_text"
                 app:counterEnabled="true"
                 app:counterMaxLength="50"
                 app:endIconMode="clear_text"
                 app:helperText="Required*"
-                app:helperTextTextColor="@color/app_expense_amount"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:helperTextTextColor="@color/app_notice_text_color"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -55,7 +53,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="20dp"
-                    android:paddingVertical="15dp"
+                    android:paddingVertical="10dp"
                     android:background="@color/app_section_background"
                     android:textColor="@color/app_option_text"
                     android:maxLength="50">
@@ -67,16 +65,16 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/creditCardNumberTextLayout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="-4dp"
+                android:layout_marginTop="1dp"
                 android:hint="@string/option_title_card_number"
+                android:background="@color/app_section_background"
+                app:hintTextColor="@color/app_option_text"
                 app:counterEnabled="true"
                 app:counterMaxLength="16"
                 app:endIconMode="clear_text"
-                app:helperTextTextColor="@color/app_expense_amount"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:helperTextTextColor="@color/app_notice_text_color"
                 app:layout_constraintTop_toBottomOf="@+id/creditAccountNameTextLayout">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -84,7 +82,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="20dp"
-                    android:paddingVertical="15dp"
+                    android:paddingVertical="10dp"
                     android:background="@color/app_section_background"
                     android:textColor="@color/app_option_text"
                     android:digits="0123456789"
@@ -97,11 +95,10 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/addCreditStatementDayLayout"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:background="@color/app_section_background"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/creditCardNumberTextLayout">
 
 
@@ -115,7 +112,6 @@
                     android:text="@string/option_title_statement_day"
                     android:textColor="@color/app_option_text"
                     android:textSize="15sp"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:drawableEndCompat="@drawable/ic_baseline_keyboard_arrow_right_24"
                     app:drawableTint="@color/app_icon_light" />
@@ -125,12 +121,10 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/addCreditPaymentDayLayout"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
                 android:background="@color/app_section_background"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/addCreditStatementDayLayout">
 
 
@@ -145,7 +139,6 @@
                     android:textColor="@color/app_option_text"
                     android:textSize="15sp"
                     app:drawableEndCompat="@drawable/ic_baseline_keyboard_arrow_right_24"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:drawableTint="@color/app_icon_light" />
 
@@ -156,15 +149,15 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/creditLimitLayout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="-4dp"
+                android:layout_marginTop="1dp"
                 android:hint="@string/option_title_credit_limit"
+                android:background="@color/app_section_background"
+                app:hintTextColor="@color/app_option_text"
                 app:endIconMode="clear_text"
                 app:suffixText="@string/account_balance_suffix"
                 app:suffixTextColor="@color/app_text"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/addCreditPaymentDayLayout">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -183,7 +176,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnCreditAddOtherCurrency"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/option_title_add_currency"
@@ -195,8 +188,6 @@
                 app:icon="@drawable/ic_baseline_add_circle_24"
                 app:iconGravity="textStart"
                 app:iconTint="@color/app_add_button_grey"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/creditLimitLayout">
 
             </com.google.android.material.button.MaterialButton>
@@ -204,15 +195,15 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/creditCurrentArrearsLayout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="-4dp"
+                android:layout_marginTop="1dp"
                 android:hint="@string/option_title_current_arrears"
+                android:background="@color/app_section_background"
+                app:hintTextColor="@color/app_option_text"
                 app:endIconMode="clear_text"
                 app:suffixText="@string/account_balance_suffix"
                 app:suffixTextColor="@color/app_text"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btnCreditAddOtherCurrency">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -232,7 +223,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnCreditAddOtherArrears"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/option_title_add_currency"
@@ -244,20 +235,16 @@
                 app:icon="@drawable/ic_baseline_add_circle_24"
                 app:iconGravity="textStart"
                 app:iconTint="@color/app_add_button_grey"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/creditCurrentArrearsLayout">
 
             </com.google.android.material.button.MaterialButton>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/addCreditCountNetAssetsLayout"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:background="@color/app_section_background"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btnCreditAddOtherArrears">
 
                 <TextView
@@ -295,13 +282,11 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/addCreditAdvanced"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="1dp"
                 android:textColor="@color/app_option_text"
                 android:background="@color/app_section_background"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/addCreditCountNetAssetsLayout">
 
                 <TextView
@@ -325,15 +310,15 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/creditMemoLayout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:hint="@string/option_memo"
+                android:background="@color/app_section_background"
+                app:hintTextColor="@color/app_option_text"
                 app:counterEnabled="true"
                 app:counterMaxLength="100"
                 app:endIconMode="clear_text"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/addCreditAdvanced">
 
                 <com.google.android.material.textfield.TextInputEditText

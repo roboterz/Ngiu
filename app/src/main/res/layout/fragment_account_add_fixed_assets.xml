@@ -37,18 +37,18 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/fixedAssetsAccountNameTextLayout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/option_title_account_name"
+                android:background="@color/app_section_background"
+                app:hintTextColor="@color/app_option_text"
                 app:counterEnabled="true"
                 app:counterMaxLength="50"
                 app:endIconMode="clear_text"
                 app:helperText="Required*"
-                app:helperTextTextColor="@color/app_expense_amount"
+                app:helperTextTextColor="@color/app_notice_text_color"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/fixedAssetsBalanceTextLayout"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+                app:layout_constraintBottom_toTopOf="@+id/fixedAssetsBalanceTextLayout">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tetFixedAssetsAccountName"
@@ -57,7 +57,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/app_option_text"
                     android:paddingHorizontal="20dp"
-                    android:paddingVertical="15dp"
+                    android:paddingVertical="10dp"
                     android:maxLength="50">
 
                 </com.google.android.material.textfield.TextInputEditText>
@@ -67,25 +67,25 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/fixedAssetsBalanceTextLayout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="-4dp"
+                android:layout_marginTop="1dp"
                 android:hint="@string/option_title_value"
+                android:background="@color/app_section_background"
+                app:hintTextColor="@color/app_option_text"
                 app:endIconMode="clear_text"
                 app:suffixText="@string/account_balance_suffix"
                 app:suffixTextColor="@color/app_text"
-                app:helperTextTextColor="@color/app_expense_amount"
+                app:helperTextTextColor="@color/app_notice_text_color"
                 app:layout_constraintTop_toBottomOf="@+id/fixedAssetsAccountNameTextLayout"
-                app:layout_constraintBottom_toTopOf="@+id/btnFixedAssetsAddOtherCurrency"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+                app:layout_constraintBottom_toTopOf="@+id/btnFixedAssetsAddOtherCurrency">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tetFixedAssetsValue"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="20dp"
-                    android:paddingVertical="15dp"
+                    android:paddingVertical="10dp"
                     android:textColor="@color/app_option_text"
                     android:background="@color/app_section_background"
                     android:digits="0123456789."
@@ -96,7 +96,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnFixedAssetsAddOtherCurrency"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/option_title_add_currency"
@@ -109,9 +109,7 @@
                 app:iconGravity="textStart"
                 app:iconTint="@color/app_add_button_grey"
                 app:layout_constraintTop_toBottomOf="@+id/fixedAssetsBalanceTextLayout"
-                app:layout_constraintBottom_toTopOf="@+id/addCashCountNetAssetsLayout"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintBottom_toTopOf="@+id/addCashCountNetAssetsLayout">
 
             </com.google.android.material.button.MaterialButton>
 
@@ -119,12 +117,10 @@
                 android:id="@+id/addCashCountNetAssetsLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="10dp"
                 android:background="@color/app_section_background"
                 app:layout_constraintTop_toBottomOf="@+id/btnFixedAssetsAddOtherCurrency"
-                app:layout_constraintBottom_toTopOf="@+id/fixedAssetsMemoLayout"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintBottom_toTopOf="@+id/fixedAssetsMemoLayout">
 
 
                 <TextView
@@ -166,11 +162,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:hint="@string/option_memo"
+                android:background="@color/app_section_background"
+                app:hintTextColor="@color/app_option_text"
                 app:counterEnabled="true"
                 app:counterMaxLength="100"
                 app:endIconMode="clear_text"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/addCashCountNetAssetsLayout">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tetFixedAssetsMemo"

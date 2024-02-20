@@ -33,6 +33,7 @@
     <color name="keyboard_background">#222222</color>
     <color name="keyboard_font">#FFFFFF</color>
     <color name="keyboard_frame">#BBBBBB</color>
+    <color name="app_notice_text_color">#EC4B03</color>
 
 
     <color name="chart_expense_color_0">#B22222</color>
