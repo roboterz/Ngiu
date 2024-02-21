@@ -57,10 +57,10 @@
                     android:background="@color/app_section_background"
                     android:textColor="@color/app_option_text"
                     android:maxLength="50">
-
                 </com.google.android.material.textfield.TextInputEditText>
 
             </com.google.android.material.textfield.TextInputLayout>
+
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/creditCardNumberTextLayout"
@@ -92,6 +92,7 @@
 
                 </com.google.android.material.textfield.TextInputEditText>
             </com.google.android.material.textfield.TextInputLayout>
+
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/addCreditStatementDayLayout"
