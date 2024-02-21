@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_add_general"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintTop_toTopOf="parent"
+        app:menu="@menu/title_menu"
+        app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
+        app:titleTextAppearance="@style/Toolbar.TitleText"
+        app:title="@string/nav_title_add_credit_card" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_add_general"
+        app:layout_constraintBottom_toTopOf="@+id/btn_add_general_save">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ly_add_general"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/app_list_background"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/ly_add_general_account_name"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/option_title_account_name"
+                android:background="@color/app_section_background"
+                app:hintTextColor="@color/app_option_text"
+                app:counterEnabled="true"
+                app:counterMaxLength="50"
+                app:endIconMode="clear_text"
+                app:helperText="Required*"
+                app:helperTextTextColor="@color/app_notice_text_color"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ti_add_general_account_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="10dp"
+                    android:background="@color/app_section_background"
+                    android:textColor="@color/app_option_text"
+                    android:maxLength="50">
+                </com.google.android.material.textfield.TextInputEditText>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/ly_add_general_card_number_user_id"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:hint="@string/option_title_card_number"
+                android:background="@color/app_section_background"
+                app:hintTextColor="@color/app_option_text"
+                app:counterEnabled="true"
+                app:counterMaxLength="16"
+                app:endIconMode="clear_text"
+                app:helperTextTextColor="@color/app_notice_text_color"
+                app:layout_constraintTop_toBottomOf="@+id/ly_add_general_account_name">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ti_add_general_card_number_user_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="10dp"
+                    android:background="@color/app_section_background"
+                    android:textColor="@color/app_option_text"
+                    android:digits="0123456789"
+                    android:inputType="numberDecimal"
+                    android:maxLength="16"
+                    tool:ignore="RtlSymmetry">
+
+                </com.google.android.material.textfield.TextInputEditText>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/ly_add_general_balance"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:hint="@string/option_title_balance"
+                android:background="@color/app_section_background"
+                app:hintTextColor="@color/app_option_text"
+                app:endIconMode="clear_text"
+                app:suffixText="@string/account_balance_suffix"
+                app:suffixTextColor="@color/app_text"
+                app:helperTextTextColor="@color/app_notice_text_color"
+                app:layout_constraintTop_toBottomOf="@+id/ly_add_general_card_number_user_id">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ti_add_general_balance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="10dp"
+                    android:singleLine="true"
+                    android:textColor="@color/app_text"
+                    android:background="@color/app_section_background"
+                    android:digits="0123456789."
+                    android:inputType="numberDecimal">
+                </com.google.android.material.textfield.TextInputEditText>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/ly_add_general_statement_day"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/app_section_background"
+                app:layout_constraintTop_toBottomOf="@+id/ly_add_general_balance">
+
+
+                <TextView
+                    android:id="@+id/tv_add_general_statement_day"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="10dp"
+                    android:paddingVertical="10dp"
+                    android:text="@string/option_title_statement_day"
+                    android:textColor="@color/app_option_text"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:drawableEndCompat="@drawable/ic_baseline_keyboard_arrow_right_24"
+                    app:drawableTint="@color/app_icon_light" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/ly_add_general_payment_day"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:background="@color/app_section_background"
+                app:layout_constraintTop_toBottomOf="@+id/ly_add_general_statement_day">
+
+
+                <TextView
+                    android:id="@+id/tv_add_general_payment_day"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="10dp"
+                    android:paddingVertical="10dp"
+                    android:text="@string/option_title_payment_day"
+                    android:textColor="@color/app_option_text"
+                    app:drawableEndCompat="@drawable/ic_baseline_keyboard_arrow_right_24"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:drawableTint="@color/app_icon_light" />
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/ly_add_general_credit_limit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:hint="@string/option_title_credit_limit"
+                android:background="@color/app_section_background"
+                app:hintTextColor="@color/app_option_text"
+                app:endIconMode="clear_text"
+                app:suffixText="@string/account_balance_suffix"
+                app:suffixTextColor="@color/app_text"
+                app:layout_constraintTop_toBottomOf="@+id/ly_add_general_payment_day">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ti_add_general_credit_limit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="10dp"
+                    android:textColor="@color/app_option_text"
+                    android:background="@color/app_section_background"
+                    android:digits=".0123456789"
+                    android:inputType="numberDecimal">
+
+                </com.google.android.material.textfield.TextInputEditText>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_add_general_other_currency"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/option_title_add_currency"
+                android:textSize="11sp"
+                android:textAllCaps="true"
+                android:textColor="@color/app_option_text"
+                android:visibility="gone"
+                app:backgroundTint="@color/app_section_background"
+                app:icon="@drawable/ic_baseline_add_circle_24"
+                app:iconGravity="textStart"
+                app:iconTint="@color/app_add_button_grey"
+                app:layout_constraintTop_toBottomOf="@+id/ly_add_general_credit_limit">
+
+            </com.google.android.material.button.MaterialButton>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/ly_add_general_count_in_net_assets"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/app_section_background"
+                app:layout_constraintTop_toBottomOf="@+id/btn_add_general_other_currency">
+
+                <TextView
+                    android:id="@+id/tv_add_general_count_in_net_assets"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="20dp"
+                    android:text="@string/option_title_count_in_net_assets"
+                    android:textColor="@color/app_option_text"
+                    android:background="@color/app_section_background"
+                    android:textSize="15sp"
+                    android:paddingVertical="15dp"
+                    app:layout_constraintEnd_toStartOf="@+id/sc_add_general_count_in_net_assets"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tool:ignore="RtlSymmetry" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/sc_add_general_count_in_net_assets"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="10dp"
+                    android:background="@color/app_section_background"
+                    android:checked="true"
+                    android:enabled="true"
+                    android:foregroundTint="@color/app_title_background"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/tv_add_general_count_in_net_assets"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tool:ignore="RtlSymmetry" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/ly_add_general_credit_advance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:visibility="gone"
+                android:textColor="@color/app_option_text"
+                android:background="@color/app_section_background"
+                app:layout_constraintTop_toBottomOf="@+id/ly_add_general_count_in_net_assets">
+
+                <TextView
+                    android:id="@+id/tv_add_general_credit_advance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="10dp"
+                    android:paddingVertical="15dp"
+                    android:text="@string/option_title_advanced"
+                    android:textColor="@color/app_option_text"
+                    android:textSize="15sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:drawableEndCompat="@drawable/ic_baseline_keyboard_arrow_right_24"
+                    app:drawableTint="@color/app_icon_light" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/ly_add_general_memo"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="@string/option_memo"
+                android:background="@color/app_section_background"
+                app:hintTextColor="@color/app_option_text"
+                app:counterEnabled="true"
+                app:counterMaxLength="100"
+                app:endIconMode="clear_text"
+                app:layout_constraintTop_toBottomOf="@+id/ly_add_general_credit_advance">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ti_add_general_memo"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:paddingHorizontal="20dp"
+                    android:inputType="text"
+                    android:textColor="@color/app_option_text"
+                    android:background="@color/app_section_background"
+                    android:maxLength="100"
+                    android:lines="5"
+                    android:maxLines="15">
+                </com.google.android.material.textfield.TextInputEditText>
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </ScrollView>
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_add_general_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/option_save"
+        android:textAllCaps="true"
+        android:textColor="@color/app_title_text"
+        android:textSize="16sp"
+        android:background="@color/app_title_background"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+    </com.google.android.material.button.MaterialButton>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
