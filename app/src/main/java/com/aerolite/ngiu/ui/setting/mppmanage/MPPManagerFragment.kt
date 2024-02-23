@@ -1,6 +1,7 @@
 package com.aerolite.ngiu.ui.setting.mppmanage
 
 import android.app.AlertDialog
+import android.content.Context
 import android.content.DialogInterface
 import android.database.sqlite.SQLiteException
 import android.os.Bundle
@@ -10,6 +11,8 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
+import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.ViewModelProvider
@@ -76,7 +79,7 @@ class MPPManagerFragment: Fragment() {
                         // catch the item click event from adapter
                         override fun onItemClick(rID: Long, itemName: String, addNew: Boolean) {
                             //
-                            openMSGWindow(rID, itemName,addNew)
+                            openMSGWindow(requireContext(), rID, itemName,addNew)
                         }
                     })
                 }
@@ -183,12 +186,13 @@ class MPPManagerFragment: Fragment() {
 
 
     // add/edit item------------------
-    private fun openMSGWindow( rID: Long = 0L, itemName: String = "", addNew: Boolean = false) {
-        val alert = AlertDialog.Builder(context)
+    private fun openMSGWindow(context: Context, rID: Long = 0L, itemName: String = "", addNew: Boolean = false) {
+
         val editText = EditText(activity)
         val titleView = View.inflate(context, R.layout.popup_title, null)
 
         editText.isSingleLine = true
+        editText.setPadding(50, 50, 50, 30)
         //editText.imeOptions = EditorInfo.IME_ACTION_DONE
 
         if (addNew) {
@@ -200,7 +204,8 @@ class MPPManagerFragment: Fragment() {
         }
 
 
-        alert.setView(editText)
+        val alert = AlertDialog.Builder(context)
+            .setView(editText)
             .setCustomTitle(titleView)
             .setPositiveButton(R.string.msg_button_confirm,
                 DialogInterface.OnClickListener { dialog, whichButton -> //What ever you want to do with the value
@@ -219,11 +224,18 @@ class MPPManagerFragment: Fragment() {
             // Delete
             if (!addNew) {
                 alert.setNeutralButton(R.string.msg_button_delete,DialogInterface.OnClickListener{ dialog, whichButton ->
-                    deleteItem(rID)
+
+                    deleteItem(context, rID)
                 })
             }
 
-            alert.show()
+        val dialog = alert.create()
+        dialog.show()
+
+        // button text color
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(context, R.color.app_button_text_highlight))
+        dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(context, R.color.app_button_text))
+        dialog.getButton(AlertDialog.BUTTON_NEUTRAL).setTextColor(ContextCompat.getColor(context, R.color.app_button_text))
     }
 
     // edit
@@ -264,41 +276,46 @@ class MPPManagerFragment: Fragment() {
     // 0: Merchant
     // 1: Person
     // 2: Project
-    private fun deleteItem(rID: Long) {
-
-        val dialogBuilder = AlertDialog.Builder(activity)
-
-        dialogBuilder.setMessage(getText(R.string.msg_content_name_delete))
-            .setCancelable(true)
-            .setPositiveButton(getText(R.string.msg_button_confirm),DialogInterface.OnClickListener{ _,_->
-                // delete
-                try {
-                    when (mppManagerViewModel.typeID) {
-                        MPP_MERCHANT -> AppDatabase.getDatabase(requireContext()).merchant().deleteMerchant( Merchant(rID, "") )
-                        MPP_PERSON -> AppDatabase.getDatabase(requireContext()).person().deletePerson( Person(rID,"") )
-                        MPP_PROJECT -> AppDatabase.getDatabase(requireContext()).project().deleteProject( Project(rID, "") )
-                    }
-                    refreshList()
-
-                } catch (e: SQLiteException) {
-                    Toast.makeText(context, getString(R.string.msg_name_delete_error), Toast.LENGTH_SHORT).show()
-                }
-
-            })
-            .setNegativeButton(getText(R.string.msg_button_cancel),DialogInterface.OnClickListener{ dialog, _ ->
-                // cancel
-                dialog.cancel()
-            })
+    private fun deleteItem(context: Context, rID: Long) {
 
         // set Title Style
         val titleView = layoutInflater.inflate(R.layout.popup_title,null)
         // set Title Text
         titleView.findViewById<TextView>(R.id.tv_popup_title_text).text = getText(R.string.msg_Title_prompt)
 
-        val alert = dialogBuilder.create()
-        //alert.setIcon(R.drawable.ic_baseline_delete_forever_24)
-        alert.setCustomTitle(titleView)
-        alert.show()
+        val dialogBuilder = AlertDialog.Builder(activity)
+                        .setMessage(getText(R.string.msg_content_name_delete))
+                        .setCancelable(true)
+                        .setPositiveButton(getText(R.string.msg_button_confirm),DialogInterface.OnClickListener{ _,_->
+                            // delete
+                            try {
+                                when (mppManagerViewModel.typeID) {
+                                    MPP_MERCHANT -> AppDatabase.getDatabase(requireContext()).merchant().deleteMerchant( Merchant(rID, "") )
+                                    MPP_PERSON -> AppDatabase.getDatabase(requireContext()).person().deletePerson( Person(rID,"") )
+                                    MPP_PROJECT -> AppDatabase.getDatabase(requireContext()).project().deleteProject( Project(rID, "") )
+                                }
+                                refreshList()
+
+                            } catch (e: SQLiteException) {
+                                Toast.makeText(context, getString(R.string.msg_name_delete_error), Toast.LENGTH_SHORT).show()
+                            }
+
+                        })
+                        .setNegativeButton(getText(R.string.msg_button_cancel),DialogInterface.OnClickListener{ dialog, _ ->
+                            // cancel
+                            dialog.cancel()
+                        })
+                        .create()
+
+
+        // title view
+        dialogBuilder.setCustomTitle(titleView)
+        // show dialog
+        dialogBuilder.show()
+
+        // button text color
+        dialogBuilder.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(context, R.color.app_button_text_highlight))
+        dialogBuilder.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(context, R.color.app_button_text))
     }
 
 

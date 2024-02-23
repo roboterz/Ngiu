@@ -74,10 +74,18 @@
         android:name="com.aerolite.ngiu.ui.category.CategoryManagerFragment"
         tools:layout="@layout/fragment_category_manage" />
 
+
     <fragment
         android:id="@+id/add_cash"
         android:name="com.aerolite.ngiu.ui.record.RecordFragment"
         tools:layout="@layout/fragment_record" />
+
+    <fragment
+        android:id="@+id/add_new_fragment"
+        android:name="com.aerolite.ngiu.ui.account.addaccounts.AddNewAccountFragment"
+        android:label="AddGeneralFragment" />
+
+
     <fragment
         android:id="@+id/addCashFragment"
         android:name="com.aerolite.ngiu.ui.account.addaccounts.AddCashFragment"

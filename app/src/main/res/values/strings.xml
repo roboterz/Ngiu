@@ -214,6 +214,7 @@
     <string name="msg_button_cancel">Cancel</string>
     <string name="msg_button_delete">Delete</string>
     <string name="msg_Title_prompt">Prompt</string>
+    <string name="msg_Title_invalid_form">Invalid Form</string>
     <string name="msg_content_transaction_delete">Delete this transaction?</string>
     <string name="msg_content_template_delete">Delete this template?</string>
     <string name="msg_content_event_delete">Delete this event?</string>
@@ -243,6 +244,8 @@
     <string name="msg_transaction">transactions</string>
     <string name="msg_claimed">Claimed</string>
     <string name="msg_from">from</string>
+    <string name="msg_account_name">Account Name</string>
+    <string name="msg_balance">Balance</string>
 
     <string name="msg_completed">Completed.</string>
     <string name="msg_error">Error.</string>

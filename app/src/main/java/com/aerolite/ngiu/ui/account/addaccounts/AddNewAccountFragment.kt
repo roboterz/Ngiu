@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.aerolite.ngiu.functions.ACCOUNT_TYPE_CREDIT
@@ -28,7 +29,7 @@ import com.google.android.material.textfield.TextInputEditText
 //import kotlinx.android.synthetic.main.popup_title.view.*
 //import kotlinx.android.synthetic.main.fragment_account_add_credit.*
 
-class AddCreditFragment : Fragment() {
+class AddNewAccountFragment : Fragment() {
     private var _binding: FragmentAccountAddCreditBinding? = null
     private val binding get() = _binding!!
 
@@ -74,6 +75,10 @@ class AddCreditFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
+
+
+    /********************************* Private Function **************************************/
+    /****************************************************************************************/
 
     private fun getBundleData() {
         page = arguments?.getLong(KEY_ACCOUNT_PAGE)!!

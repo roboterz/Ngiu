@@ -15,6 +15,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -63,37 +64,18 @@ class TemplateListFragment: Fragment() {
         (activity as MainActivity).setNavBottomBarVisibility(View.GONE)
 
 
-        // receive data from other fragment
-        setFragmentResultListener("mpp_type") { _, bundle ->
+//        // receive data from other fragment
+//        setFragmentResultListener("mpp_type") { _, bundle ->
+//
+//            receiveTypeID = bundle.getInt("type_ID")
+//
+//            //templateListViewModel.typeID = receiveTypeID
+//            //templateListViewModel.loadData(requireContext(), receiveTypeID)
+//
+//        }
 
-            receiveTypeID = bundle.getInt("type_ID")
-
-            //templateListViewModel.typeID = receiveTypeID
-            //templateListViewModel.loadData(requireContext(), receiveTypeID)
-
-        }
 
 
-
-        // Template list Adapter
-        Thread {
-            this.activity?.runOnUiThread {
-
-                binding.recyclerviewTemplate.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
-
-                templateListAdapter = this.context?.let {
-                    TemplateListAdapter(object: TemplateListAdapter.OnClickListener {
-                        // catch the item click event from adapter
-                        override fun onItemClick(rID: Long) {
-                            //
-                            // todo switch to record fragment
-                            navigateToRecordFragment(rID)
-                        }
-                    })
-                }
-                binding.recyclerviewTemplate.adapter = templateListAdapter
-            }
-        }.start()
 
 
     }
@@ -156,6 +138,30 @@ class TemplateListFragment: Fragment() {
         //---------------------------tool bar--------------------------------
 
 
+        // Template list Adapter
+//        Thread {
+//            this.activity?.runOnUiThread {
+
+        binding.recyclerviewTemplate.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
+
+        templateListAdapter = this.context?.let {
+            TemplateListAdapter(object: TemplateListAdapter.OnClickListener {
+                // catch the item click event from adapter
+                override fun onItemClick(rID: Long) {
+                    //
+                    // todo switch to record fragment
+                    navigateToRecordFragment(rID)
+                }
+            })
+        }
+        binding.recyclerviewTemplate.adapter = templateListAdapter
+//            }
+//        }.start()
+
+        templateListViewModel.getAllRecords().observe(viewLifecycleOwner, Observer { it ->
+            templateListAdapter?.setList(it)
+        })
+
 
     }
 
@@ -165,11 +171,12 @@ class TemplateListFragment: Fragment() {
         super.onResume()
 
         // Main Category Adapter
-        Thread {
-            this.activity?.runOnUiThread {
-                templateListAdapter?.setList(templateListViewModel.getAllRecords())
-            }
-        }.start()
+//        Thread {
+//            this.activity?.runOnUiThread {
+//                templateListAdapter?.setList(templateListViewModel.getAllRecords())
+//            }
+//        }.start()
+
 
 
 
@@ -324,7 +331,7 @@ class TemplateListFragment: Fragment() {
             KEY_TEMPLATE,
             bundleOf(KEY_TEMPLATE_ID to templateID)
         )
-        findNavController().popBackStack()
+        //findNavController().popBackStack()
         findNavController().navigate(R.id.navigation_record)
     }
 }

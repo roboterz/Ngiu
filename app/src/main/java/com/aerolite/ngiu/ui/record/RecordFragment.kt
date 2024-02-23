@@ -3,12 +3,15 @@ package com.aerolite.ngiu.ui.record
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
-import android.app.Dialog
 import android.content.Context
+import android.content.DialogInterface.BUTTON_POSITIVE
 import android.os.Bundle
 import android.view.*
 import android.widget.TextView
 import android.widget.Toast
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.integerResource
 import androidx.core.content.ContextCompat
 import androidx.core.view.forEach
 import androidx.core.widget.doAfterTextChanged
@@ -28,7 +31,6 @@ import com.aerolite.ngiu.MainActivity
 import com.aerolite.ngiu.R
 import com.aerolite.ngiu.data.entities.Template
 import com.aerolite.ngiu.data.entities.Trans
-import com.aerolite.ngiu.data.entities.returntype.TemplateDetail
 import com.aerolite.ngiu.functions.ACCOUNT_TYPE_RECEIVABLE
 import com.aerolite.ngiu.functions.CATEGORY_SUB_BORROW
 import com.aerolite.ngiu.functions.CATEGORY_SUB_LEND
@@ -57,12 +59,8 @@ import com.aerolite.ngiu.functions.TRANSACTION_TYPE_INCOME
 import com.aerolite.ngiu.functions.TRANSACTION_TYPE_TRANSFER
 import com.aerolite.ngiu.databinding.FragmentRecordBinding
 import com.aerolite.ngiu.functions.*
-//import kotlinx.android.synthetic.main.fragment_record.*
 import kotlin.collections.ArrayList
 import com.aerolite.ngiu.ui.keyboard.Keyboard
-import com.google.android.material.appbar.MaterialToolbar
-//import kotlinx.android.synthetic.main.fragment_account_list.*
-//import kotlinx.android.synthetic.main.popup_title.view.*
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
@@ -226,7 +224,7 @@ class RecordFragment : Fragment() {
                 // delete menu
                 R.id.action_delete -> {
                     // delete record
-                    deleteRecord(activity, recordViewModel.transDetail.Transaction_ID, recordViewModel.TempLateID)
+                    deleteRecord(requireContext(), recordViewModel.transDetail.Transaction_ID, recordViewModel.TempLateID)
                     true
                 }
 
@@ -272,7 +270,7 @@ class RecordFragment : Fragment() {
         }
         // Long click save button: save as template
         binding.tvRecordRightButton.setOnLongClickListener {
-            popUpMsgSaveAsTemplate(activity)
+            popUpMsgSaveAsTemplate(requireContext())
 
             true
         }
@@ -281,7 +279,7 @@ class RecordFragment : Fragment() {
         binding.tvRecordLeftButton.setOnClickListener {
             if (recordViewModel.transDetail.Transaction_ID > 0 || recordViewModel.TempLateID > 0){
                 // delete
-                deleteRecord(activity, recordViewModel.transDetail.Transaction_ID, recordViewModel.TempLateID)
+                deleteRecord(requireContext(), recordViewModel.transDetail.Transaction_ID, recordViewModel.TempLateID)
             }else{
                 // save and next
                 if (saveRecord() == 0) {
@@ -843,82 +841,97 @@ class RecordFragment : Fragment() {
 
 
     /** Pop Up Confirm Msg to save as template  **/
-    private fun popUpMsgSaveAsTemplate(activity: FragmentActivity?) {
-
-        val dialogBuilder = AlertDialog.Builder(activity)
-
-        dialogBuilder.setMessage(getString(R.string.msg_content_save_as_template))
-            .setCancelable(true)
-            .setPositiveButton(getString(R.string.msg_button_confirm)) { _, _ ->
-
-                // save as template
-                if (saveAsTemplate() == 0) {
-                    // exit
-                    NavHostFragment.findNavController(this).navigateUp()
-                }
-            }
-            .setNegativeButton(getString(R.string.msg_button_cancel)) { dialog, _ ->
-                // cancel
-                dialog.cancel()
-            }
+    private fun popUpMsgSaveAsTemplate(context: Context) {
 
         // set Title Style
         val titleView = layoutInflater.inflate(R.layout.popup_title,null)
         // set Title Text
         titleView.findViewById<TextView>(R.id.tv_popup_title_text).text = getString(R.string.msg_Title_prompt)
 
-        val alert = dialogBuilder.create()
-        //alert.setIcon(R.drawable.ic_baseline_delete_forever_24)
-        alert.setCustomTitle(titleView)
-        alert.show()
+        // Set Dialog
+        val dialog = AlertDialog.Builder(activity)
+                        .setMessage(getString(R.string.msg_content_save_as_template))
+                        .setCancelable(true)
+                        // Right Button
+                        .setPositiveButton(getString(R.string.msg_button_confirm)) { _, _ ->
+
+                            // save as template
+                            if (saveAsTemplate() == 0) {
+                                // exit
+                                NavHostFragment.findNavController(this).navigateUp()
+                            }
+                        }
+                        // Left Button
+                        .setNegativeButton(getString(R.string.msg_button_cancel)) { dialog, _ ->
+                            // cancel
+                            dialog.cancel()
+                        }
+                        .create()
+
+        // title view
+        dialog.setCustomTitle(titleView)
+        // show dialog
+        dialog.show()
+
+        // button text color
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(context, R.color.app_button_text_highlight))
+        dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(context, R.color.app_button_text))
 
     }
 
 
     /** Delete record or template **/
-    private fun deleteRecord(activity: FragmentActivity?, transactionID: Long, templateID: Long) {
-
-        val dialogBuilder = AlertDialog.Builder(activity)
-
-        var strMSG = ""
-        if (transactionID > 0L) { strMSG = getString(R.string.msg_content_transaction_delete) }
-        if (templateID > 0L) { strMSG = getString(R.string.msg_content_template_delete) }
-
-        dialogBuilder.setMessage(strMSG)
-            .setCancelable(true)
-            .setPositiveButton(getString(R.string.msg_button_confirm)) { _, _ ->
-
-                if (transactionID > 0L) {
-                    // delete record
-                    val trans = Trans(Transaction_ID = transactionID)
-                    recordViewModel.deleteTrans(requireContext(), trans)
-                }
-
-                if (templateID > 0L ){
-                    // delete template
-                    val template = Template(Template_ID = templateID)
-                    recordViewModel.deleteTemplate(requireContext(), template)
-                }
-
-                // exit
-                //requireActivity().onBackPressed()
-                NavHostFragment.findNavController(this).navigateUp()
-
-            }
-            .setNegativeButton(getString(R.string.msg_button_cancel)) { dialog, _ ->
-                // cancel
-                dialog.cancel()
-            }
+    private fun deleteRecord(context: Context, transactionID: Long, templateID: Long) {
 
         // set Title Style
         val titleView = layoutInflater.inflate(R.layout.popup_title,null)
         // set Title Text
         titleView.findViewById<TextView>(R.id.tv_popup_title_text).text = getString(R.string.msg_Title_prompt)
 
-        val alert = dialogBuilder.create()
-        //alert.setIcon(R.drawable.ic_baseline_delete_forever_24)
-        alert.setCustomTitle(titleView)
-        alert.show()
+        // Set Message Content
+        var strMSG = ""
+        if (transactionID > 0L) { strMSG = getString(R.string.msg_content_transaction_delete) }
+        if (templateID > 0L) { strMSG = getString(R.string.msg_content_template_delete) }
+
+        // Set Dialog
+        val dialog = AlertDialog.Builder(activity)
+                        .setMessage(strMSG)
+                        .setCancelable(true)
+                        // Right Button
+                        .setPositiveButton(getString(R.string.msg_button_confirm)) { _, _ ->
+
+                            if (transactionID > 0L) {
+                                // delete record
+                                val trans = Trans(Transaction_ID = transactionID)
+                                recordViewModel.deleteTrans(requireContext(), trans)
+                            }
+
+                            if (templateID > 0L ){
+                                // delete template
+                                val template = Template(Template_ID = templateID)
+                                recordViewModel.deleteTemplate(requireContext(), template)
+                            }
+
+                            // exit
+                            //requireActivity().onBackPressed()
+                            NavHostFragment.findNavController(this).navigateUp()
+
+                        }
+                        // Left Button
+                        .setNegativeButton(getString(R.string.msg_button_cancel)) { dialog, _ ->
+                            // cancel
+                            dialog.cancel()
+                        }
+                        .create()
+
+        // Set View
+        dialog.setCustomTitle(titleView)
+        // Show Dialog
+        dialog.show()
+
+        // button text color
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(context, R.color.app_button_text_highlight))
+        dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(context, R.color.app_button_text))
     }
 
 

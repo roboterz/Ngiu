@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.view.View.inflate
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.TextView
@@ -17,6 +18,7 @@ import androidx.navigation.findNavController
 import com.aerolite.ngiu.R
 import com.aerolite.ngiu.data.entities.Trans
 import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 //import kotlinx.android.synthetic.main.popup_title.view.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -226,6 +228,36 @@ fun popupWindow(context: Context, titleText: String, arrayItem: Array<String>, s
 
 }
 
+fun popupMsgWindow(context: Context, titleText: String, msgText: String): Int{
+
+    // Initialize a new instance of alert dialog builder object
+    val builder = AlertDialog.Builder(context)
+
+    // set Title Style
+    val titleView = View.inflate(context, R.layout.popup_msg_dialog, null)
+    // set Title Text
+    titleView.findViewById<TextView>(R.id.tv_popup_msg_title).text = titleText
+
+    //builder.setCustomTitle(titleView)
+    builder.setView(titleView)
+        .setMessage(msgText)
+        .setCancelable(true)
+        .setPositiveButton("Confirm") { _,_ ->
+            return@setPositiveButton
+        }
+        .setNegativeButton("Cancel") { _,_ ->
+            return@setNegativeButton
+        }
+
+    // Set items form alert dialog
+    builder.create().show()
+
+    // Create a new AlertDialog using builder object
+    // Finally, display the alert dialog
+    //builder.create().show()
+    return 0
+}
+
 
 fun toStatementDate(day: Int): String{
     val date = Date()
@@ -272,6 +304,34 @@ fun changeColor(textView: TextView, amount: Double){
 }
 
 
+fun invalidForm(context: Context, nameInputLayout: TextInputLayout) {
+
+    var message = ""
+    if (nameInputLayout.helperText != null) {
+        message += ContextCompat.getString(context, R.string.msg_account_name) + ": " + nameInputLayout.helperText
+    }
+//    else if (balanceInputLayout.helperText != null) {
+//        message += ContextCompat.getString(context, R.string.msg_account_name) + ": " + balanceInputLayout.helperText
+//    }
+
+    // set Title Style
+    val titleView = inflate(context, R.layout.popup_title,null)
+    // set Title Text
+    titleView.findViewById<TextView>(R.id.tv_popup_title_text).text = ContextCompat.getString(context, R.string.msg_Title_invalid_form)
+
+    val dialog =  AlertDialog.Builder(context)
+        .setCustomTitle(titleView)
+        .setMessage(message)
+        .setPositiveButton(ContextCompat.getString(context, R.string.msg_button_ok)) { _, _ ->
+            // do nothing
+        }
+        .create()
+
+    dialog.show()
+
+    // set button color
+    dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(context, R.color.app_button_text_highlight))
+}
 
 
  fun calculateAmount(balance: Double, tran: Trans): Double{
@@ -340,6 +400,24 @@ fun switchToAccountAttributePage(view: View, acctTypeID: Long,
                 view.findNavController().navigate(R.id.addCashFragment, bundle)
             }
         }
+
+}
+
+fun switchToAccountAttributePage2(view: View, acctTypeID: Long,
+                                 acctID: Long, acctBalance: Double,
+                                 mode: Int){
+    //*** switch to Account Attribute page (create a new account | edit a account)
+
+    // Pass Data
+    // Add Mode | Edit Mode
+    val bundle = Bundle().apply {
+        putLong(KEY_ACCOUNT_PAGE, acctTypeID )
+        putInt(KEY_ACCOUNT_MODE, mode)
+        putLong(KEY_ACCOUNT_ID, acctID)
+        putDouble(KEY_ACCOUNT_BALANCE, acctBalance)
+    }
+
+    view.findNavController().navigate(R.id.add_new_fragment, bundle)
 
 }
 

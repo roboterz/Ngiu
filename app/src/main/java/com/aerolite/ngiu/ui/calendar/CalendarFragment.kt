@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.aerolite.ngiu.databinding.FragmentCalendarBinding
@@ -234,32 +235,42 @@ class CalendarFragment : Fragment() {
             }else{
 
                 // delete button
-
                 // popup confirm window
                 // --------------------------------------------------------------------------
-                val dialogBuilder = AlertDialog.Builder(activity)
-                dialogBuilder.setMessage(getText(R.string.msg_content_event_delete))
-                    .setCancelable(true)
-                    .setPositiveButton(getText(R.string.msg_button_confirm)) { _, _ ->
-                        // confirm delete
-                        // exit
-                        dialog.dismiss()
-                        // delete
-                        deleteEvent(context, cDetail.id)
-                    }
-                    .setNegativeButton(getText(R.string.msg_button_cancel)) { popupWindow, _ ->
-                        // cancel
-                        popupWindow.cancel()
-                    }
 
                 // set Title Style
                 val titleView = layoutInflater.inflate(R.layout.popup_title,null)
                 // set Title Text
                 titleView.findViewById<TextView>(R.id.tv_popup_title_text).text = getText(R.string.msg_Title_prompt)
 
-                val alert = dialogBuilder.create()
-                alert.setCustomTitle(titleView)
-                alert.show()
+
+                val msgDialog = AlertDialog.Builder(activity)
+                            .setMessage(getText(R.string.msg_content_event_delete))
+                            .setCancelable(true)
+                            // Confirm Button
+                            .setPositiveButton(getText(R.string.msg_button_confirm)) { _, _ ->
+                                // confirm delete
+                                // exit
+                                dialog.dismiss()
+                                // delete
+                                deleteEvent(context, cDetail.id)
+                            }
+                            // Cancel Button
+                            .setNegativeButton(getText(R.string.msg_button_cancel)) { popupWindow, _ ->
+                                // cancel
+                                popupWindow.cancel()
+                            }
+                            .create()
+
+                // title view
+                msgDialog.setCustomTitle(titleView)
+                // show dialog
+                msgDialog.show()
+
+                // button text color
+                msgDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(context, R.color.app_button_text_highlight))
+                msgDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(context, R.color.app_button_text))
+
                 // --------------------------------------------------------------------------
             }
         }
@@ -271,23 +282,30 @@ class CalendarFragment : Fragment() {
 
                 // popup prompt window "Cannot save with no content"
                 // --------------------------------------------------------------------------
-                val dialogBuilder = AlertDialog.Builder(activity)
-                dialogBuilder.setMessage(getText(R.string.msg_cannot_save_with_no_content))
-                    .setCancelable(true)
-                    .setPositiveButton(getText(R.string.msg_button_ok)){ popupWindow,_ ->
-                        popupWindow.cancel()
-                    }
-
                 // set Title Style
                 val titleView = layoutInflater.inflate(R.layout.popup_title,null)
                 // set Title Text
                 titleView.findViewById<TextView>(R.id.tv_popup_title_text).text = getText(R.string.msg_Title_prompt)
 
-                val alert = dialogBuilder.create()
-                //alert.setIcon(R.drawable.ic_baseline_delete_forever_24)
-                alert.setCustomTitle(titleView)
-                alert.show()
+                val msgDialog = AlertDialog.Builder(activity)
+                            .setMessage(getText(R.string.msg_cannot_save_with_no_content))
+                            .setCancelable(true)
+                            .setPositiveButton(getText(R.string.msg_button_ok)){ popupWindow,_ ->
+                                popupWindow.cancel()
+                            }
+                            .create()
+
+                // title view
+                msgDialog.setCustomTitle(titleView)
+                // show dialog
+                msgDialog.show()
+
+                // button text color
+                msgDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(context, R.color.app_button_text_highlight))
+                msgDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(context, R.color.app_button_text))
                 // --------------------------------------------------------------------------
+
+
 
             } else{
                 // create event

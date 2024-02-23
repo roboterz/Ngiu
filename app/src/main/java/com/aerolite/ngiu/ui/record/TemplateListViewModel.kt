@@ -2,6 +2,7 @@ package com.aerolite.ngiu.ui.record
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.aerolite.ngiu.data.AppDatabase
 import com.aerolite.ngiu.data.entities.Template
@@ -14,7 +15,7 @@ class TemplateListViewModel(application: Application): AndroidViewModel(applicat
     private val myDatabase = AppDatabase.getDatabase(application).template()
 
 
-    fun getAllRecords(): List<TemplateDetail> {
+    fun getAllRecords(): LiveData<List<TemplateDetail>> {
 
         return myDatabase.getAllTemplateDetail()
     }

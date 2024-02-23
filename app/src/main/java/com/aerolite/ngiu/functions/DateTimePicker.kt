@@ -25,7 +25,7 @@ class DateTimePicker(
         //DatePickerDialog(context,3, DatePickerDialog.OnDateSetListener { _, year, month, day ->
         //}, startYear, startMonth, startDay).show()
 
-        DatePickerDialog(context,6, dialogOnTouchListener, startYear, startMonth, startDay).show()
+        DatePickerDialog(context,4, dialogOnTouchListener, startYear, startMonth, startDay).show()
     }
 
     fun pickTime(context: Context?, dialogOnTouchListener: OnTimeSetListener) {
@@ -33,7 +33,7 @@ class DateTimePicker(
         //TimePickerDialog(context, 3, TimePickerDialog.OnTimeSetListener { _, hour, minute ->
         // }, startHour, startMinute, false).show()
 
-        TimePickerDialog(context, 6, dialogOnTouchListener, startHour, startMinute, false).show()
+        TimePickerDialog(context, 4, dialogOnTouchListener, startHour, startMinute, false).show()
 
     }
 }

@@ -24,6 +24,7 @@ import com.aerolite.ngiu.data.entities.Account
 import com.aerolite.ngiu.data.entities.Currency
 import com.aerolite.ngiu.databinding.FragmentAccountAddFixedAssetsBinding
 import com.aerolite.ngiu.functions.addDecimalLimiter
+import com.aerolite.ngiu.functions.invalidForm
 import com.google.android.material.textfield.TextInputEditText
 //import kotlinx.android.synthetic.main.fragment_account_add_fixed_assets.*
 //import kotlinx.android.synthetic.main.popup_title.view.*
@@ -240,23 +241,9 @@ class AddFixedAssetsFragment : Fragment() {
 
         }
         else
-            invalidForm()
+            invalidForm(requireContext(), binding.fixedAssetsAccountNameTextLayout)
     }
 
-    private fun invalidForm() {
-        var message = ""
-        if(binding.fixedAssetsAccountNameTextLayout.helperText != null) {
-            message += "\nAccountName: " + binding.fixedAssetsAccountNameTextLayout.helperText
-        }
-
-        AlertDialog.Builder(context)
-            .setTitle("Invalid Form")
-            .setMessage(message)
-            .setPositiveButton("Okay"){ _,_ ->
-                // do nothing
-            }
-            .show()
-    }
 
 
     private fun validAccountName(): String? {
