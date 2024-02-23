@@ -403,6 +403,24 @@ fun switchToAccountAttributePage(view: View, acctTypeID: Long,
 
 }
 
+fun switchToAccountAttributePage2(view: View, acctTypeID: Long,
+                                 acctID: Long, acctBalance: Double,
+                                 mode: Int){
+    //*** switch to Account Attribute page (create a new account | edit a account)
+
+    // Pass Data
+    // Add Mode | Edit Mode
+    val bundle = Bundle().apply {
+        putLong(KEY_ACCOUNT_PAGE, acctTypeID )
+        putInt(KEY_ACCOUNT_MODE, mode)
+        putLong(KEY_ACCOUNT_ID, acctID)
+        putDouble(KEY_ACCOUNT_BALANCE, acctBalance)
+    }
+
+    view.findNavController().navigate(R.id.add_new_fragment, bundle)
+
+}
+
 fun switchToCategoryManager(view: View, fragment: Fragment, mode: Int, transTypeID: Long) {
 
     // Put Data Before switch
