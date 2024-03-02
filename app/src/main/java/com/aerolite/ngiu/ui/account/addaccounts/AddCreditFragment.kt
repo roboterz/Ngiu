@@ -183,40 +183,7 @@ class AddCreditFragment : Fragment() {
         }
 
         binding.tvCreditStateDay.setOnClickListener {
-            val ls = listOf(
-                "1",
-                "2",
-                "3",
-                "4",
-                "5",
-                "6",
-                "7",
-                "8",
-                "9",
-                "10",
-                "11",
-                "12",
-                "13",
-                "14",
-                "15",
-                "16",
-                "17",
-                "18",
-                "19",
-                "20",
-                "21",
-                "22",
-                "23",
-                "24",
-                "25",
-                "26",
-                "27",
-                "28",
-                "29",
-                "30",
-                "31"
-            )
-            val array = ls.toTypedArray()
+            val array = (1..31).map{ it.toString() }.toTypedArray()
 
             // Initialize a new instance of alert dialog builder object
             val builder = AlertDialog.Builder(requireContext())
@@ -242,40 +209,8 @@ class AddCreditFragment : Fragment() {
         }
 
         binding.tvCreditPaymentDay.setOnClickListener {
-            val ls = listOf(
-                "1",
-                "2",
-                "3",
-                "4",
-                "5",
-                "6",
-                "7",
-                "8",
-                "9",
-                "10",
-                "11",
-                "12",
-                "13",
-                "14",
-                "15",
-                "16",
-                "17",
-                "18",
-                "19",
-                "20",
-                "21",
-                "22",
-                "23",
-                "24",
-                "25",
-                "26",
-                "27",
-                "28",
-                "29",
-                "30",
-                "31"
-            )
-            val array = ls.toTypedArray()
+
+            val array = (1..31).map{ it.toString() }.toTypedArray()
 
             // Initialize a new instance of alert dialog builder object
             val builder = AlertDialog.Builder(requireContext())
