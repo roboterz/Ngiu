@@ -16,7 +16,7 @@ android {
         minSdk 28
         targetSdk 34
         versionCode 4
-        versionName "1.314"
+        versionName "1.315"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -90,7 +90,7 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-database-ktx:20.3.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.databinding:databinding-runtime:8.2.1'
+    implementation 'androidx.databinding:databinding-runtime:8.2.2'
 
     // Lifecycle components
     //noinspection GradleDependency
@@ -101,7 +101,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-common-java8:2.3.1"
 
     // Kotlin components
-    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3"
     //noinspection GradleDependency
     api "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0"
 
@@ -163,7 +163,7 @@ dependencies {
     implementation("androidx.paging:paging-guava:3.2.1")
 
     // optional - Jetpack Compose integration
-    implementation("androidx.paging:paging-compose:3.3.0-alpha02")
+    implementation("androidx.paging:paging-compose:3.3.0-alpha03")
 
 }
 
