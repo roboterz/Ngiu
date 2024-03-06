@@ -1,6 +1,13 @@
 package com.aerolite.ngiu.functions
 
 
+
+
+//
+const val USER_ID_MAX_LENGTH = 128
+const val CARD_NUMBER_MAX_LENGTH = 16
+const val ACCOUNT_NAME_MAX_LENGTH = 50
+
 // ACCOUNT TYPE
 const val ACCOUNT_TYPE_LIMIT = 9
 

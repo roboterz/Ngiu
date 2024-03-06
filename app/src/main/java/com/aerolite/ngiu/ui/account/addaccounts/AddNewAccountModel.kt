@@ -12,8 +12,8 @@ class AddNewAccountModel(application: Application) : AndroidViewModel(applicatio
 
     val appDatabase = AppDatabase.getDatabase(application)
 
-    fun insertCash(acct: Account) {
-        appDatabase.account().addAccount(acct)
+    fun insertAccount(acct: Account) {
+        appDatabase.account().insertAccount(acct)
 
     }
 

@@ -16,7 +16,7 @@ import com.aerolite.ngiu.functions.KEY_ACCOUNT_ID
 import com.aerolite.ngiu.functions.TRANSACTION_TYPE_EXPENSE
 import com.aerolite.ngiu.functions.get2DigitFormat
 import com.aerolite.ngiu.functions.getDayOfMonthSuffix
-import com.aerolite.ngiu.functions.switchToAccountAttributePage
+import com.aerolite.ngiu.functions.switchToAccountAttributePage2
 import com.aerolite.ngiu.functions.switchToRecordFragment
 import com.aerolite.ngiu.MainActivity
 import com.aerolite.ngiu.R
@@ -126,8 +126,8 @@ class AccountCreditDetailFragment : Fragment() {
                     //(activity as MainActivity).setNavBottomBarVisibility(View.GONE)
 
                     // Switch to Credit Account Attribute Page
-                    switchToAccountAttributePage(view, ACCOUNT_TYPE_CREDIT,
-                                                accountID, 0.0, EDIT_MODE
+                    switchToAccountAttributePage2(view, ACCOUNT_TYPE_CREDIT,
+                                                accountID, EDIT_MODE
                     )
 
                     true

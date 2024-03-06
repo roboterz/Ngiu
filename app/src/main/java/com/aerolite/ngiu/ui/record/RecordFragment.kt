@@ -24,7 +24,7 @@ import com.aerolite.ngiu.functions.SelectItem
 import com.aerolite.ngiu.functions.getInternationalDateFromAmericanDate
 import com.aerolite.ngiu.functions.hideSoftKeyboard
 import com.aerolite.ngiu.functions.popupWindow
-import com.aerolite.ngiu.functions.switchToAccountAttributePage
+import com.aerolite.ngiu.functions.switchToAccountAttributePage2
 import com.aerolite.ngiu.functions.switchToAccountListFragment
 import com.aerolite.ngiu.functions.switchToCategoryManager
 import com.aerolite.ngiu.MainActivity
@@ -690,8 +690,8 @@ class RecordFragment : Fragment() {
             CATEGORY_SUB_BORROW, CATEGORY_SUB_RECEIVE_PAYMENT -> {
                 if (payable){
                     // create P/R account
-                    switchToAccountAttributePage(view, ACCOUNT_TYPE_RECEIVABLE
-                                            ,0,0.0,
+                    switchToAccountAttributePage2(view, ACCOUNT_TYPE_RECEIVABLE
+                                            ,0,
                                             NEW_MODE
                     )
                 }else{
@@ -703,8 +703,8 @@ class RecordFragment : Fragment() {
             CATEGORY_SUB_LEND, CATEGORY_SUB_PAYMENT -> {
                 if (!payable) {
                     // create P/R account
-                    switchToAccountAttributePage(view, ACCOUNT_TYPE_RECEIVABLE
-                        ,0,0.0,
+                    switchToAccountAttributePage2(view, ACCOUNT_TYPE_RECEIVABLE
+                        ,0,
                         NEW_MODE
                     )
 

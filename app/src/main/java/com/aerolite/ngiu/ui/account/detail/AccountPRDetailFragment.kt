@@ -17,7 +17,7 @@ import com.aerolite.ngiu.functions.KEY_ACCOUNT_NAME
 import com.aerolite.ngiu.functions.KEY_ACCOUNT_TYPE
 import com.aerolite.ngiu.functions.TRANSACTION_TYPE_DEBIT
 import com.aerolite.ngiu.functions.get2DigitFormat
-import com.aerolite.ngiu.functions.switchToAccountAttributePage
+import com.aerolite.ngiu.functions.switchToAccountAttributePage2
 import com.aerolite.ngiu.functions.switchToRecordFragment
 import com.aerolite.ngiu.MainActivity
 import com.aerolite.ngiu.R
@@ -99,9 +99,8 @@ class AccountPRDetailFragment : Fragment() {
                     (activity as MainActivity).setNavBottomBarVisibility(View.GONE)
                     // navigate to edit account
 
-                    switchToAccountAttributePage(view, ACCOUNT_TYPE_RECEIVABLE,
-                        accountPRDetailViewModel.accountID, 0.0,
-                        EDIT_MODE
+                    switchToAccountAttributePage2(view, ACCOUNT_TYPE_RECEIVABLE,
+                        accountPRDetailViewModel.accountID, EDIT_MODE
                     )
 
                     true

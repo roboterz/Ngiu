@@ -9,8 +9,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.aerolite.ngiu.R
 import com.aerolite.ngiu.functions.NEW_MODE
-import com.aerolite.ngiu.functions.switchToAccountAttributePage
+import com.aerolite.ngiu.functions.switchToAccountAttributePage2
 import com.aerolite.ngiu.data.entities.returntype.AccountTypeUIModel
+
 //import kotlinx.android.synthetic.main.cardview_account_add_account_item.view.*
 
 
@@ -41,9 +42,9 @@ class AddAccountAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         holder.itemView.setOnClickListener {
 
             // switch to new account attribute page
-            switchToAccountAttributePage( holder.itemView,
+            switchToAccountAttributePage2( holder.itemView,
                 holder.absoluteAdapterPosition.toLong() + 1L,
-                0,0.0, NEW_MODE )
+                0, NEW_MODE )
 
         }
     }

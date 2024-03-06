@@ -68,11 +68,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
-                android:hint="@string/option_title_card_number"
+                android:hint="@string/option_title_user_id"
                 android:background="@color/app_section_background"
                 app:hintTextColor="@color/app_option_text"
                 app:counterEnabled="true"
-                app:counterMaxLength="16"
+                app:counterMaxLength="128"
                 app:endIconMode="clear_text"
                 app:helperTextTextColor="@color/app_notice_text_color"
                 app:layout_constraintTop_toBottomOf="@+id/ly_add_general_account_name">
@@ -85,9 +85,7 @@
                     android:paddingVertical="10dp"
                     android:background="@color/app_section_background"
                     android:textColor="@color/app_option_text"
-                    android:digits="0123456789"
-                    android:inputType="numberDecimal"
-                    android:maxLength="16"
+                    android:maxLength="128"
                     tool:ignore="RtlSymmetry">
 
                 </com.google.android.material.textfield.TextInputEditText>
@@ -127,6 +125,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:visibility="gone"
                 android:background="@color/app_section_background"
                 app:layout_constraintTop_toBottomOf="@+id/ly_add_general_balance">
 
@@ -152,6 +151,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
+                android:visibility="gone"
                 android:background="@color/app_section_background"
                 app:layout_constraintTop_toBottomOf="@+id/ly_add_general_statement_day">
 
@@ -175,10 +175,12 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/ly_add_general_credit_limit"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
                 android:hint="@string/option_title_credit_limit"
+                android:visibility="gone"
                 android:background="@color/app_section_background"
                 app:hintTextColor="@color/app_option_text"
                 app:endIconMode="clear_text"

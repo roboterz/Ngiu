@@ -59,7 +59,7 @@ data class Account(
     var Account_StatementDay: Int = 1,
 
     @ColumnInfo(defaultValue = "0.00")
-    var Account_CreditLimit: Double = 0.00,
+    var Account_CreditLimit: Double = 1000.00,
 
     @ColumnInfo(defaultValue = "true")
     var Account_FixedPaymentDay: Boolean = true,

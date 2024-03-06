@@ -15,7 +15,7 @@ import com.aerolite.ngiu.functions.KEY_ACCOUNT_NAME
 import com.aerolite.ngiu.functions.KEY_ACCOUNT_TYPE
 import com.aerolite.ngiu.functions.TRANSACTION_TYPE_EXPENSE
 import com.aerolite.ngiu.functions.get2DigitFormat
-import com.aerolite.ngiu.functions.switchToAccountAttributePage
+import com.aerolite.ngiu.functions.switchToAccountAttributePage2
 import com.aerolite.ngiu.functions.switchToRecordFragment
 import com.aerolite.ngiu.MainActivity
 import com.aerolite.ngiu.R
@@ -106,10 +106,9 @@ class AccountGeneralDetailFragment : Fragment() {
                     //(activity as MainActivity).setNavBottomBarVisibility(View.GONE)
 
                     // switch to edit account attribute page
-                    switchToAccountAttributePage(view,
+                    switchToAccountAttributePage2(view,
                         accountGeneralDetailViewModel.accountTypeID,
                         accountGeneralDetailViewModel.accountID,
-                        accountGeneralDetailViewModel.accountBalance,
                         EDIT_MODE
                     )
 

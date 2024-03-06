@@ -33,7 +33,7 @@ import com.aerolite.ngiu.functions.chart.CategoryAmount
 @Dao
 interface AccountDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addAccount(account: Account)
+    fun insertAccount(account: Account)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addAccounts(account: List<Account>)

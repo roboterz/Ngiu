@@ -48,12 +48,25 @@
     <string name="nav_title_project_add">Add Project</string>
     <string name="nav_title_project_edit">Edit Project</string>
     <string name="nav_title_currency">Base Currency</string>
-    <string name="nav_title_add_cash">Add Cash</string>
+    <string name="nav_title_add_cash">Add Cash Account</string>
     <string name="nav_title_add_credit_card">Add Credit Card</string>
     <string name="nav_title_add_debit_card">Add Debit Card/Checking/Saving</string>
+    <string name="nav_title_add_investment_account">Add Investment Account</string>
     <string name="nav_title_add_web_account">Add Web Account</string>
-    <string name="nav_title_add_fixed_assets">Add Fixed Assets</string>
+    <string name="nav_title_add_store_value_card">Add Store Value Card</string>
     <string name="nav_title_add_virtual_account">Add Virtual Account</string>
+    <string name="nav_title_add_fixed_assets">Add Fixed Assets</string>
+    <string name="nav_title_add_receivable_payable">Add Receivable/Payable</string>
+
+    <string name="nav_title_edit_cash">Edit Cash Account</string>
+    <string name="nav_title_edit_credit_card">Edit Credit Card</string>
+    <string name="nav_title_edit_debit_card">Edit Debit Card/Checking/Saving</string>
+    <string name="nav_title_edit_investment_account">Edit Investment Account</string>
+    <string name="nav_title_edit_web_account">Edit Web Account</string>
+    <string name="nav_title_edit_store_value_card">Edit Store Value Card</string>
+    <string name="nav_title_edit_virtual_account">Edit Virtual Account</string>
+    <string name="nav_title_edit_fixed_assets">Edit Fixed Assets</string>
+    <string name="nav_title_edit_receivable_payable">Edit Receivable/Payable</string>
 
 
     <string name="setting_Expense">Expense</string>
@@ -219,6 +232,7 @@
     <string name="msg_content_template_delete">Delete this template?</string>
     <string name="msg_content_event_delete">Delete this event?</string>
     <string name="msg_content_account_delete">Delete this account?</string>
+    <string name="msg_content_account_delete_success">Successfully Deleted Your Account.</string>
     <string name="msg_content_category_delete">Delete this category?</string>
     <string name="msg_content_save_as_template">Save as template?</string>
     <string name="msg_cannot_save_with_zero_amount">Cannot save with zero amount.</string>
