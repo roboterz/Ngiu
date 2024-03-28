@@ -25,6 +25,10 @@
         <item name="android:windowBackground">@android:color/white</item>
         <item name="android:windowIsFloating">false</item>
     </style>
+
+    <style name="myCustomMenuTextAppearance" parent="@android:style/TextAppearance.Widget.IconMenu.Item">
+        <item name="android:textColor">@android:color/black</item>
+    </style>
 </resources>
 
 

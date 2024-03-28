@@ -13,6 +13,7 @@
         <item name="android:statusBarColor" tools:targetApi="l">@color/app_title_background</item>
         <!-- Customize your theme here. -->
         <item name="toolbarNavigationButtonStyle">@style/toolbarNavigationButtonStyle</item>
+        <item name="android:itemTextAppearance">@style/myCustomMenuTextAppearance</item>
     </style>
 
     <style name="Theme.Ngiu.NoActionBar">

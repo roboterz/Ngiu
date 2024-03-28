@@ -78,6 +78,7 @@
     <string name="setting_language">Language</string>
     <string name="setting_reimburse">Reimbursement include in Statistics</string>
     <string name="setting_sort">Sort Alphabetically</string>
+    <string name="setting_animation">Animation</string>
     <string name="setting_export">Export</string>
     <string name="setting_import">Import</string>
     <string name="setting_about_app">About Ngiu</string>
